@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<stylesheet 
+    version="2.0"
+    xmlns:cf="http://ittl.gtri.org/wr24/2010-03-03-1533/curie-functions/1"
+    xmlns:ct="http://ittl.gtri.gatech.edu/wr24/2010-03-03-1701/curie-test/1/"
+    xmlns:f="http://ittl.gtri.org/wr24/2009-03-10-1439/xsl-functions"
+    xmlns:xslext="http://ittl.gtri.gatech.edu/wr24/2009-03-23-1736/xsl-extension"   
+    xmlns="http://www.w3.org/1999/XSL/Transform">
+
+  <import href="curie-functions.xsl"/>
+  <import href="xsl-functions.xsl"/>
+  <output method="text"></output>
+
+  <template match="ct:tests">
+    <text>Running tests:&#10;</text>
+    <apply-templates select="ct:test"/>
+  </template>
+
+  <template match="ct:safe-test">
+    <xslext:assert test="exists(@safe-curie)"/>
+    <xslext:assert test="exists(@result)"/>
+    <text>  safe-test </text>
+    <variable name="result" select="cf:resolve-safe-curie(@safe-curie, .)"/>
+    <choose>
+      <when test="$result = @result">
+        <text>  matched &quot;</text>
+        <value-of select="@safe-curie"/>
+        <text>&quot; -&gt; &quot;</text>
+        <value-of select="$result"/>
+        <text>&quot;&#10;</text>
+      </when>
+      <otherwise>
+        <text>  mismatched &quot;</text>
+        <value-of select="@safe-curie"/>
+        <text>&quot; -&gt; &quot;</text>
+        <value-of select="$result"/>
+        <text>&quot; should be &quot;</text>
+        <value-of select="@result"/>
+        <text>&quot;&#10;</text>
+      </otherwise>
+    </choose>
+  </template>
+
+  <template match="*">
+    <message terminate="yes">
+      <value-of select="f:get-message(., concat('unexpected element ', name()))"/>
+    </message>
+  </template>
+
+  <template match="text()"/>
+
+</stylesheet>
+<!-- 
+  Local Variables:
+  mode: sgml
+  indent-tabs-mode: nil
+  fill-column: 9999
+  End:
+-->
