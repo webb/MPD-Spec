@@ -11,6 +11,12 @@
     <sequence select="$attribute-qname = $qname"/>
   </function>
 
+  <!-- true if element has non-empty text and non-whitespace text content -->
+  <function name="f:element-has-text-content" as="xs:boolean">
+    <param name="element" as="element()"/>
+    <sequence select="exists($element/text())                        and string-length(normalize-space($element/text())) &gt; 0"/>
+  </function>
+
   <function name="f:get-item-description" as="xs:string">
     <param name="item" as="item()"/>
     <value-of>
@@ -62,6 +68,16 @@
     <sequence select="not($lhs) or $rhs"/>
   </function>
 
+  <function name="f:index-of-node" as="xs:integer*">
+    <param name="sequence" as="node()*"/>
+    <param name="srch" as="node()"/>
+    <for-each select="$sequence">
+      <if test=". is $srch">
+        <sequence select="position()"/>
+      </if>
+    </for-each>
+  </function>
+
   <function name="f:is-in" as="xs:boolean">
     <!-- true if item is in list -->
     <param name="item" as="item()"/>
@@ -75,6 +91,15 @@
     <param name="namespace" as="xs:anyURI"/>
     <param name="local-name" as="xs:string"/>
     <sequence select="QName($namespace, $local-name) = resolve-QName($qualified-name, $context)"/>
+  </function>
+
+  <function name="f:items-get-string" as="xs:string">
+    <param name="items" as="item()*"/>
+    <value-of>
+      <for-each select="$items">
+        <value-of select="string(.)"/>
+      </for-each>
+    </value-of>
   </function>
 
   <function name="f:join-strings">
@@ -113,9 +138,144 @@
     <sequence select="QName(                         namespace-uri-from-QName($qname),                         concat($string,                              local-name-from-QName($qname)))"/>
   </function>
 
+  <function name="f:qualified-name-get-prefix" as="xs:string">
+    <param name="qualified-name" as="xs:string"/>
+    <value-of select="substring-before($qualified-name, ':')"/>
+  </function>
+
+  <function name="f:regexp-all" as="xs:string">
+    <param name="string" as="xs:string"/>
+    <value-of select="concat('^', $string, '$')"/>
+  </function>
+
+  <function name="f:regexp-concat" as="xs:string">
+    <param name="strings" as="xs:string*"/>
+    <value-of>
+      <for-each select="$strings">
+        <value-of select="."/>
+      </for-each>
+    </value-of>
+  </function>
+
+  <function name="f:regexp-maybe" as="xs:string">
+    <param name="string" as="xs:string"/>
+    <value-of select="concat('(', $string, ')?')"/>
+  </function>
+
+  <function name="f:regexp-or" as="xs:string">
+    <param name="strings" as="xs:string*"/>
+    <value-of>
+      <text>(</text>
+      <for-each select="$strings">
+        <if test="position() &gt; 1">|</if>
+        <text>(</text>
+        <value-of select="."/>
+        <text>)</text>
+      </for-each>
+      <text>)</text>
+    </value-of>
+  </function>
+
+  <function name="f:regexp-star" as="xs:string">
+    <param name="string" as="xs:string"/>
+    <value-of select="concat('(', $string, ')*')"/>
+  </function>
+
+  <function name="f:sequence-get-first" as="item()">
+    <param name="sequence" as="item()*"/>
+    <sequence select="$sequence[1]"/>
+  </function>
+
+  <function name="f:sequence-get-joined" as="xs:string">
+    <param name="sequence" as="item()*"/>
+    <param name="join-string" as="xs:string"/>
+    <choose>
+      <when test="count($sequence) = 0">
+        <value-of/>
+      </when>
+      <when test="count($sequence) = 1">
+        <value-of select="string(f:sequence-get-first($sequence))"/>
+      </when>
+      <otherwise>
+        <value-of select="concat(string(f:sequence-get-first($sequence)),                                   $join-string,                                   f:sequence-get-joined(f:sequence-get-rest($sequence), $join-string))"/>
+      </otherwise>
+    </choose>
+  </function>
+
+  <function name="f:sequence-get-rest" as="item()*">
+    <param name="sequence" as="item()*"/>
+    <sequence select="subsequence($sequence, 2, count($sequence) - 1)"/>
+  </function>
+
+  <variable name="f:MATCH_Letter" as="xs:string" select="'[a-zA-Z]'"/>
+  <variable name="f:MATCH_NCNameChar" as="xs:string" select="f:regexp-or( ($f:MATCH_Letter, '[0-9\._-]') )"/>
+  <variable name="f:MATCH_NCName" as="xs:string" select="f:regexp-concat( (                                                            f:regexp-or( ($f:MATCH_Letter, '_') ),                                                            f:regexp-star($f:MATCH_NCNameChar)) )"/>
+  <variable name="f:MATCH_QName" as="xs:string" select="f:regexp-concat(                                                            ( f:regexp-maybe(                                                               f:regexp-concat(                                                                 ( $f:MATCH_NCName, ':' ))),                                                             $f:MATCH_NCName ))"/>  
+  <variable name="f:MATCH_QNameWithPrefix" as="xs:string" select="f:regexp-concat(                                                                      ( $f:MATCH_NCName,                                                                        ':',                                                                       $f:MATCH_NCName ))"/>  
+
+
+  <function name="f:string-enquote" as="xs:string">
+    <param name="string" as="xs:string"/>
+    <value-of>
+      <text>"</text>
+      <value-of select="$string"/>
+      <text>"</text>
+    </value-of>
+  </function>
+
+  <function name="f:string-is-empty" as="xs:boolean">
+    <param name="string" as="xs:string"/>
+    <value-of select="string-length(normalize-space($string)) = 0"/>
+  </function>
+
+  <function name="f:string-is-not-empty" as="xs:boolean">
+    <param name="string" as="xs:string"/>
+    <value-of select="not(f:string-is-empty($string))"/>
+  </function>
+
+  <function name="f:string-to-csv-field" as="xs:string">
+    <param name="string" as="xs:string"/>
+    <value-of>
+      <text>"</text>
+      <value-of select="replace($string,'&#34;', '&#34;&#34;')"/>
+      <text>"</text>
+    </value-of>
+  </function>
+
   <function name="f:string-to-node" as="node()">
     <param name="string" as="xs:string"/>
     <value-of select="$string"/>
+  </function>
+
+  <function name="f:strings-sort" as="xs:string*">
+    <param name="strings" as="xs:string*"/>
+    <perform-sort select="$strings">
+      <sort select="."/>
+    </perform-sort>
+  </function>
+
+  <!-- this is most useful on sorted lists, but can collapse sequences of repeats in unsorted lists -->
+  <function name="f:strings-uniq" as="xs:string*">
+    <param name="strings" as="xs:string*"/>
+    <choose>
+      <when test="count($strings) = 0"/>
+      <when test="count($strings) = 1">
+        <sequence select="$strings"/>
+      </when>
+      <otherwise>
+        <variable name="uniqed-rest" select="f:strings-uniq(f:sequence-get-rest($strings))"/>
+        <variable name="strings-first" select="f:sequence-get-first($strings)"/>
+        <variable name="rest-first" select="f:sequence-get-first($uniqed-rest)"/>
+        <choose>
+          <when test="$strings-first = $rest-first">
+            <sequence select="$uniqed-rest"/>
+          </when>
+          <otherwise>
+            <sequence select="$strings-first,$uniqed-rest"/>
+          </otherwise>
+        </choose>
+      </otherwise>
+    </choose>
   </function>
 
   <function name="private:get-safe-string" as="xs:string">

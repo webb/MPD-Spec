@@ -1,9 +1,12 @@
 
-ROOT_DIR := $(HOME)/r/datastrategy
-BIN_DIR := $(ROOT_DIR)/bin
+ifeq ($(IEAD_ROOT),)
+$(error variable IEAD_ROOT is unset)
+endif
+
+BIN_DIR := $(IEAD_ROOT)/C2Core/archive/trunk/bin
 SAXON := $(BIN_DIR)/saxon
 
-XSLEXT_XSL := $(ROOT_DIR)/lib/xsl-extension.xsl
+XSLEXT_XSL := $(IEAD_ROOT)/C2Core/archive/trunk/lib/xsl-extension.xsl
 
 default: curie-tests.report.txt
 
@@ -17,4 +20,12 @@ curie-tests.report.txt: curie-tests.xml curie-test.xsl curie-functions.xsl xsl-f
 	$(SAXON) -in $< -out $@ -xsl curie-test.xsl --readonly
 
 localize:
-	install -m 400 $(ROOT_DIR)/lib/xsl-functions.xsl xsl-functions.xsl
+	install -m 400 $(IEAD_ROOT)/C2Core/archive/trunk/lib/xsl-functions.xsl xsl-functions.xsl
+
+.PHONY: clean
+clean:
+	$(RM) curie-tests.report.txt
+
+.PHONY: test
+test: curie-tests.report.txt
+	open $<

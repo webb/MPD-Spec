@@ -13,30 +13,52 @@
 
   <template match="ct:tests">
     <text>Running tests:&#10;</text>
-    <apply-templates select="ct:test"/>
+    <apply-templates select="ct:safe-test"/>
   </template>
 
   <template match="ct:safe-test">
     <xslext:assert test="exists(@safe-curie)"/>
-    <xslext:assert test="exists(@result)"/>
-    <text>  safe-test </text>
+    <text>  safe-test: </text>
     <variable name="result" select="cf:resolve-safe-curie(@safe-curie, .)"/>
     <choose>
-      <when test="$result = @result">
-        <text>  matched &quot;</text>
+      <when test="exists(@result) and $result = @result">
+        <text>OK &quot;</text>
         <value-of select="@safe-curie"/>
-        <text>&quot; -&gt; &quot;</text>
+        <text>&quot; yielded &quot;</text>
         <value-of select="$result"/>
         <text>&quot;&#10;</text>
       </when>
-      <otherwise>
-        <text>  mismatched &quot;</text>
+      <when test="empty(@result) and empty($result)">
+        <text>OK &quot;</text>
         <value-of select="@safe-curie"/>
-        <text>&quot; -&gt; &quot;</text>
-        <value-of select="$result"/>
-        <text>&quot; should be &quot;</text>
-        <value-of select="@result"/>
-        <text>&quot;&#10;</text>
+        <text>&quot; yields empty as expected.&#10;</text>
+      </when>
+      <otherwise>
+        <text>BAD &quot;</text>
+        <value-of select="@safe-curie"/>
+        <text>&quot; yielded </text>
+        <choose>
+          <when test="empty($result)">
+            <text>empty</text>
+          </when>
+          <otherwise>
+            <text>&quot;</text>
+            <value-of select="$result"/>
+            <text>&quot; </text>
+          </otherwise>
+        </choose>
+        <text> expected </text>
+        <choose>
+          <when test="exists(@result)">
+            <text>&quot;</text>
+            <value-of select="@result"/>
+            <text>&quot;</text>
+          </when>
+          <otherwise>
+            <text>empty</text>
+          </otherwise>
+        </choose>
+        <text>&#10;</text>
       </otherwise>
     </choose>
   </template>

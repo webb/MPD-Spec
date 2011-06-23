@@ -7,31 +7,54 @@
   <template match="ct:tests">
     <text>Running tests:
 </text>
-    <apply-templates select="ct:test"/>
+    <apply-templates select="ct:safe-test"/>
   </template>
 
   <template match="ct:safe-test">
     <!--curie-test.xsl.xslext:20:--><xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:private="http://ittl.gtri.gatech.edu/wr24/2009-03-23-1736/xsl-extension/private" xmlns:xe="http://ittl.gtri.gatech.edu/wr24/2009-03-23-1736/xsl-extension" test="not(exists(@safe-curie))"><xsl:message/><xsl:value-of select="error()"/></xsl:if>
-    <!--curie-test.xsl.xslext:21:--><xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:private="http://ittl.gtri.gatech.edu/wr24/2009-03-23-1736/xsl-extension/private" xmlns:xe="http://ittl.gtri.gatech.edu/wr24/2009-03-23-1736/xsl-extension" test="not(exists(@result))"><xsl:message/><xsl:value-of select="error()"/></xsl:if>
-    <text>  safe-test </text>
+    <text>  safe-test: </text>
     <variable name="result" select="cf:resolve-safe-curie(@safe-curie, .)"/>
     <choose>
-      <when test="$result = @result">
-        <text>  matched "</text>
+      <when test="exists(@result) and $result = @result">
+        <text>OK "</text>
         <value-of select="@safe-curie"/>
-        <text>" -&gt; "</text>
+        <text>" yielded "</text>
         <value-of select="$result"/>
         <text>"
 </text>
       </when>
-      <otherwise>
-        <text>  mismatched "</text>
+      <when test="empty(@result) and empty($result)">
+        <text>OK "</text>
         <value-of select="@safe-curie"/>
-        <text>" -&gt; "</text>
-        <value-of select="$result"/>
-        <text>" should be "</text>
-        <value-of select="@result"/>
-        <text>"
+        <text>" yields empty as expected.
+</text>
+      </when>
+      <otherwise>
+        <text>BAD "</text>
+        <value-of select="@safe-curie"/>
+        <text>" yielded </text>
+        <choose>
+          <when test="empty($result)">
+            <text>empty</text>
+          </when>
+          <otherwise>
+            <text>"</text>
+            <value-of select="$result"/>
+            <text>" </text>
+          </otherwise>
+        </choose>
+        <text> expected </text>
+        <choose>
+          <when test="exists(@result)">
+            <text>"</text>
+            <value-of select="@result"/>
+            <text>"</text>
+          </when>
+          <otherwise>
+            <text>empty</text>
+          </otherwise>
+        </choose>
+        <text>
 </text>
       </otherwise>
     </choose>
