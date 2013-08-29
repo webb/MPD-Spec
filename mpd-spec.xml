@@ -605,6 +605,8 @@ Following the lead of XML Schema, to employ a CURIE, ensure that a unique prefix
 Given the following sample mpd-catalog requirement for an XML attribute that contains a long URI: 
 ca:externalURI="http://www.organizational-iepds.any-company-inc.com/niem-iepd/codes/1.1.5rev6/#code-list33"
 Within the Catalog element (among other namespaces) use xmlns to declare prefix ab (for example):
+</p>
+
 <figure>
 <title>namespaces</title>
 <pre><![CDATA[
@@ -616,6 +618,7 @@ With this declaration, and using a safe CURIE, the previous ca:externalURI attri
 ]]></pre>
 </figure>
 
+<p>
 Note that when using this technique it is very easy to inadvertently insert errors into URI references by dropping or adding characters.  When applying safe CURIEs, be careful to ensure that string breaks in URIs are correct (at all locations!) so that the original URI results when the prefix is replaced to recompose the URI. 
 
 4.2.3.2 MPD Artifact URIs Are Not NIEM Namespaces
@@ -745,7 +748,8 @@ At a minimum, the master document should contain several fundamental elements of
     
 [Rule 4-17] A NIEM IEPD or EIEM master document SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, senders/receivers, interactions, and references to other documentation.  
 
-<p>MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the master document.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the master document (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the master document:</p>
+MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the master document.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the master document (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the master document:</p>
+
 <ul>
 	<li><p>Use cases</p></li>
 	<li><p>Business processes</p></li>
@@ -761,9 +765,9 @@ At a minimum, the master document should contain several fundamental elements of
 	<li><p>Privacy considerations (for example, Personal Identifiable Information or PPI)</p></li>
 	<li><p>Types of implementation</p></li>
 	<li><p>If an IEPD employs multiple subsets (either from the same release or from different releases):</p></li>
-			<li><p>Where and how are these used?</p></li>
-			<li><p>What are the caveats regarding duplicative data components?</p></li>
-			<li><p>How are these coordinated in the implementation?</p></li>
+		<li><p>Where and how are these used?</p></li>
+		<li><p>What are the caveats regarding duplicative data components?</p></li>
+		<li><p>How are these coordinated in the implementation?</p></li>
 	<li><p>If an IEPD employs multiple exchange schemas and/or exchange schemas with multiple root elements:</p></li>
 		<li><p>What is the purpose of each (exchange and root) and when is it used?</p></li>			
 		<li><p>How are these coordinated during the runtime preparation and transmission of IEPs?</p></li>
@@ -775,7 +779,7 @@ At a minimum, the master document should contain several fundamental elements of
 <section id="Optional-MPD-Artifacts">
 	<title>Optional MPD Artifacts</title>
 <p>
-Aside from the required artifacts, MPD content is relatively flexible.  A variety of other optional documentation files may be incorporated into an MPD.  When applicable, these may include (but are not limited to) files that describe or explain: 
+	Aside from the required artifacts, MPD content is relatively flexible.  A variety of other optional documentation files may be incorporated into an MPD.  When applicable, these may include (but are not limited to) files that describe or explain:</p> 
 <ul>
 	<li><p>Implementation details (hardware, software, configuration, etc.)</p></li>
 	<li><p>Use of multiple root elements</p></li>
@@ -783,7 +787,7 @@ Aside from the required artifacts, MPD content is relatively flexible.  A variet
 	<li><p>How to use/reuse an MPD for various purposes (such as Web Services)</p></li>
 	<li><p>Rationales and/or business purposes</p></li>
 </ul>
-
+<p>
 In addition to documentation artifacts, a variety of other optional files can be added to an MPD to facilitate tool support and make reuse, adaptation, and/or implementation easier.  These are often files that are inputs to or outputs from software tools.  Examples include content diagrams, content models in tool-specific formats, and business rules (either formal or informal representations). 
 Another optional artifact that is encouraged, especially for IEPDs, is a conformance report or other evidence of quality.  In the future, as NIEM processes and tools mature, a conformance and quality reports and a corresponding certificate may become required artifacts.  For now, inclusion of a conformance report is at the discretion of the author or sponsor.  Though clearly, such reports can only increase confidence in MPDs that contain them. 
 
@@ -842,7 +846,7 @@ Checking this Appendix you will find that this example obeys the following two r
 
 [Rule 6-5] Within an MPD, the <code>name</code> and <code>version</code> substrings in the file name MUST match exactly the values for attributes <code>mpdName</code> and <code>mpdVersionID</code> within its <code>mpd-catalog.xml</code> artifact.
 
-[Rule 6-6] Within an MPD, the <code><class></code> substring in the file name MUST correctly correspond to the value for the attribute mpdClassCode within <code>mpd-catalog.xml</code>.  Correct correspondence is: 
+[Rule 6-6] Within an MPD, the <code>class</code> substring in the file name MUST correctly correspond to the value for the attribute mpdClassCode within <code>mpd-catalog.xml</code>.  Correct correspondence is: 
 	IF file name <code>class</code> =	THEN <code>mpd-catalog.xml</code> <code>mpdClassCode</code> =
 rel				release
 cu				core-update
