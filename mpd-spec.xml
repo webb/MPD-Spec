@@ -452,6 +452,9 @@ Given the following sample mpd-catalog requirement for an XML attribute that con
 ca:externalURI="http://www.organizational-iepds.any-company- 
                inc.com/niem-iepd/codes/1.1.5rev6/#code-list33"
 Within the Catalog element (among other namespaces) use xmlns to declare prefix ab (for example):
+<figure>
+<title>namespaces</title>
+<pre><![CDATA[
 	<ca:Catalog
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:ca="http://reference.niem.gov/niem/resource/mpd/
@@ -459,7 +462,15 @@ xmlns:ca="http://reference.niem.gov/niem/resource/mpd/
 xmlns:ab="http://www.organizational-iepds.any-company-
           inc.com/niem-iepd/codes/1.1.5rev6/" >
 With this declaration, and using a safe CURIE, the previous ca:externalURI attribute becomes:
-	ca:externalURI="[ab:#code-list33]"
+ca:externalURI="[ab:#code-list33]"
+]]></pre>
+</figure>
+
+
+
+
+
+
 Note that when using this technique it is very easy to inadvertently insert errors into URI references by dropping or adding characters.  When applying safe CURIEs, be careful to ensure that string breaks in URIs are correct (at all locations!) so that the original URI results when the prefix is replaced to recompose the URI. 
 4.2.3.2 MPD Artifact URIs Are Not NIEM Namespaces
 URI does not have the same meaning as namespace.  Do not rely on namespaces for artifact URIs.  Recall that the namespaces used in a schema subset derived from a NIEM release are identical to the namespaces of the release itself.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  The non-uniqueness of NIEM namespaces implies that they cannot be used as URIs for MPD artifacts.
@@ -616,289 +627,24 @@ As previously stated, the MPD Specification is intended to facilitate tool suppo
    class    ::= 'rel' | 'cu' | 'du' | 'iepd' | 'eiem' 
 All alpha characters SHOULD be lower case to reduce the risk of complications across various file systems.  See [Rule 4-3] for an explanation of the status options.
 (The regular expression notation used above is from XML 1.0 (Fifth Edition):
-http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation)  
-Obviously, the set of class values corresponds to release, core update, domain update, IEPD, and EIEM respectively.  A valid IEPD file name corresponding to the example in Appendix C: Sample MPD Catalog Instance would be:  Planning_Order-1.0.3rev2.iepd.zip
+http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation)
+Obviously, the set of class values corresponds to release, core update, domain update, IEPD, and EIEM respectively.  A valid IEPD file name corresponding to the example in Appendix C: Sample MPD Catalog Instance would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code>
 Checking this Appendix you will find that this example obeys the following two rules:
-[Rule 6-5][Rule 6-5]  Within an MPD, the <name> and <version> substrings in the file name MUST match exactly the values for attributes mpdName and mpdVersionID within its mpd-catalog.xml artifact.
+[Rule 6-5][Rule 6-5]  Within an MPD, the <code><name></code> and <code><version></code> substrings in the file name MUST match exactly the values for attributes <code>mpdName</code> and <code>mpdVersionID</code> within its <code>mpd-catalog.xml</code> artifact.
 
-[Rule 6-6]  Within an MPD, the <class> substring in the file name MUST correctly correspond to the value for the attribute mpdClassCode within mpd-catalog.xml.  Correct correspondence is: 
-IF file name <class> =	THEN mpd-catalog.xml mpdClassCode =
+		[Rule 6-6]  Within an MPD, the <code><class></code> substring in the file name MUST correctly correspond to the value for the attribute mpdClassCode within <code>mpd-catalog.xml</code>.  Correct correspondence is: 
+			IF file name <code><class></code> =	THEN <code>mpd-catalog.xml</code> mpdClassCode =
 rel				release
 cu				core-update
 du				domain-update
 iepd				iepd
-eiem				eiem 
-In HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.  
+eiem				eiem
+
+In HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.
 [Rule 6-7]  When represented on the Internet, an MPD archive SHOULD use the following MIME Type:  
   application/zip+<class>    where
      <class> is one member from the set {rel, cu, du, iepd, eiem}
-Use of the generic zip MIME type application/zip is allowed, but discouraged.  No other MIME types are allowed when representing MPD archives.
-6.2 Artifact Links to Other Resources
-The [NIEM-NDR] requires that each xsd:import in a NIEM schema contain a schemaLocation attribute with either an absolute or relative path reference that resolves to the correct imported schema.  However, this specification restricts an MPD import to a relative path reference that resolves to the correct schema within the MPD itself.  It is important to understand that the URI scheme previously discussed in Section 4.2.3 URI Scheme for MPD Artifacts should be used only to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  
-Regardless of references to external sources or internal MPD directory organization, each schema xsd:import must adhere to the following rule:
-[Rule 6-8]  Within an MPD archive, the value of each xsd:import schemaLocation attribute MUST be a relative path reference that resolves to the correct schema within the sub-tree.
-The implication of this rule is a guarantee that all schema artifacts necessary to define, validate, and use an MPD are physically present within that MPD without requiring modifications to xsd:import schemaLocation attributes within schemas.  In accordance with the [NIEM-NDR], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed.  When absolute references to Internet resources are required:
-[Rule 6-9]  Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST resolve (If applicable, documentation that describes how to resolve with security, account, and/or password issues MUST be included).
-Releases, core updates, and domain updates must adhere to packaging rules primarily to enable development tools to process them consistently and efficiently.  The NIEM PMO controls the format and documentation for these MPDs and publishes them at http://release.niem.gov/niem/.  However, many different organizations author IEPDs and EIEMs.  As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others.  Furthermore, EIEMs are the basis for families of IEPDs.  Therefore, it is important that both of these MPD classes are well documented for understanding and use.  
-[Rule 6-10]  A published IEPD MUST contain all documents necessary to understand it and allow it to be implemented correctly.  Within an MPD, the <class> substring in the file name MUST correctly correspond to the value for the attribute mpdClassCode within mpd-catalog.xml.  Correct correspondence is: 
-IF file name <class> =	THEN mpd-catalog.xml mpdClassCode =
-rel				release
-cu				core-update
-du				domain-update
-iepd				iepd
-eiem				eiem 
-
-[Rule 6-11]  A published IEPD MUST link (through its mpd-catalog) to any EIEM it is based on.  When represented on the Internet, an MPD archive SHOULD use the following MIME Type:  
-  application/zip+<class>    where
-     <class> is one member from the set {rel, cu, du, iepd, eiem}
-Use of the generic zip MIME type application/zip is allowed, but discouraged.� No other MIME types are allowed when representing MPD archives.
-The [NIEM-NDR] explains how NIEM employs a special type adaption mechanism to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant.  Other standards may use xsd:import without requiring schemaLocation attributes (instead, relying only on the namespace).  These standards may also use xsd:include which is disallowed by NIEM.  When standards external to NIEM are required within NIEM MPDs, the following rule applies:
-[Rule 6-12]  Within an MPD archive, if non-NIEM-conformant schemas from other standards are used and referenced within an MPD, then all xs:import, xs:include, and xs:redefine constructs used within those schemas MUST be modified as needed to have a value for the schemaLocation attribute that is a relative path reference that resolves to the correct schema within the sub-tree.
-For the case of non-NIEM-conformant schemas, this rule ensures that all schemas (or corresponding artifacts and namespaces) from other standards required for definition, validation, and use of the MPD are present within the archive.
-XML schemas are the heart of MPDs since they formally specify normative structure and semantics for data components.  However, in general, an MPD is a closed set of artifacts.  This means that all hyperlink references within artifacts should resolve to the appropriate artifact.  
-[Rule 6-13]  Within any artifact of an MPD archive, any direct reference to another resource (i.e., another artifact such as an image, schema, stylesheet, etc.) that is required to process or display an artifact SHOULD exist within the archive at the location specified by that reference.
-This means that MPD artifacts, including documentation artifacts, should be complete.  For example, if an HTML document contains a hyperlink reference (href) to a schema (xsd) or stylesheet (xsl) that is part of the MPD, then the schema file associated with that hyperlink should be present within the MPD; likewise for a sourced (src) image.  Authors should exercise good judgment with this rule.  For example, it does not require an MPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents.  The key operating words in this rule are:  "another resource is required to process or display an artifact SHOULD exist within the archive."
-6.3 Duplication of Artifacts
-Within an MPD, the replication of files or entire file sets should be avoided.  However, replication is allowed when a reasonable rationale exists.  In some cases, file replication may make it easier to use, validate, implement, or automatically process an MPD.  For example, multiple subsets may overlap with many identical schemas.  Yet, it may be easier or even necessary to allow this form of duplication to accommodate a validation tool, rather than removing duplicate schemas, and forcing the tool to use the mpd-catalog to identify required artifacts.  mpd-catalog-1.0.xsd is designed to track duplicate artifacts (File or FileSet), as well as, reference a single File artifact from multiple FileSet artifacts. 
-6.4 Non-normative Guidance for Directories
-Aside from the rules above, this specification does not impose additional constraints on an IEPD or EIEM author's freedom to organize directory structure.  This is why the mpd-catalog is required to list every artifact, along with its locally unique identifier, relative path name, nature, and purpose.  This enables a machine to find every artifact regardless of its location in an MPD archive and know exactly what it is.  The mpd-catalog artifact always takes precedence over the directory structure of an IEPD or EIEM. 
-Non-normative guidance for directory structuring may be useful to authors for a relatively simple IEPD or EIEM with a single subset, extension set, constraint set, and exchange schema set.  The following general guidance has been common practice for IEPD directories: 
-    Create a root directory for the IEPD from the name and version identifier of the IEPD.  For example "my-iepd-3.2.4rev2".
-    Per [Rule 4-1] and [Rule 4-12], mpd-catalog.xml and the change log (XML file format is not required for IEPD or EIEM change logs) must reside in the root directory.  
-    Maintain XML stylesheets used with the mpd-catalog and change log in the MPD root directory.
-    Maintain each subset organized as generated by the Schema Subset Generation Tool (SSGT).  The reason for maintaining the SSGT grouping is that the SSGT ensures that all xsd:import schemaLocation attributes contain relative path names that are correctly coordinated with the directory structure. 
-    If derived from a schema subset, maintain the constraint schema set grouped as the subset from which it was derived (for the same reason as above). 
-    Establish a subdirectory of the MPD root directory with the name "XMLschemas".   Within this subdirectory:
-o Maintain each subset in a subdirectory with a name that contains the substring "subset".  Maintain and correlate a wantlist with the subset it represents.  To do so, change a wantlist filename if appropriate. 
-o Maintain each constraint schema set (or all constraint schemas if appropriate) in a subdirectory with a name that contains the substring "constraint".
-o Maintain each extension schema set (or all extension schemas if appropriate) in a subdirectory with a name that contains the substring "extension".
-o Maintain each exchange schema in a subdirectory with a name that contains the substring "exchange".
-    Maintain all documentation in a subdirectory of the MPD root directory with a name that contains the substring "documentation".   Create additional documentation subdirectories inside this one as needed. 
-    Maintain all sample XML instances that validate to the schemas in a subdirectory of the MPD root directory with a name that contains the substring "XMLsamples".  This subdirectory can also contain any XML stylesheets (XSL) used with the sample instances. 
-    Maintain tool specific files (inputs and outputs) in a subdirectory of the MPD root directory with a name that contains the substring "library".  
-The guidance above results in an IEPD directory structure illustrated below in Figure 6-1.  Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD. 
-
-Figure 6-1.  IEPD sample directory structure.
-</p>
-</section>
-
-
-<section id="MPD-Catalog-Schema" isAppendix="true">
-	<title>MPD Catalog Schema</title>
-<p>
-mpd-catalog-3.0.xsd (version 3.0)
-URI:  http://reference.niem.gov/niem/resource/mpd/catalog/3.0/
-NOTE:  Download the latest text version of this file using its http URI above (also its target namespace).  Appendices are intended for browsing only; do not copy for testing or processing.</p> 
-<figure>
-<title>mpd-catalog-3.0.xsd</title>
-<pre><![CDATA[	
-<?xml version="1.0" encoding="UTF-8"?>
-<schema
-   targetNamespace="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
-   xmlns="http://www.w3.org/2001/XMLSchema"
-   xmlns:ca="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
-   version="3.0">
-    <annotation>
-	<documentation>
-	    Model Package Description (MPD) Catalog;
-	    This schema defines the mpd-catalog.xml artifact for
-	    Model Package Descriptions (MPD) in NIEM.  MPDs include:
-		NIEM releases, core updates, domain updates, 
-		NIEM Information Exchange Package Documentation (IEPD), 
-		and NIEM Enterprise Information Exchange Models (EIEM). 
-	    The purpose of this schema is to define/declare metadata for
-	    NIEM MPDs to search, discover, and process MPDs efficiently. 
-	</documentation>
-    </annotation>
-</schema>
-]]></pre>
-</figure>
-
-</section>
-
-
-
-<section id="Sample-MPD-Catalog-Instance" isAppendix="true">
-	<title>Sample MPD Catalog Instance</title>
-<p>
-mpd-catalog.xml (This example corresponds to this document, MPD Specification v3.0)
-URI: http://reference.niem.gov/niem/resource/mpd/catalog/3.0/example/
-Note:  Download the latest text version of this file using its http URI above.  
-Appendices are intended for browsing only; do not copy for testing or processing. 
-This is a simple mpd-catalog instance that exercises some of the options mpd-catalog-3.0.xsd allows.  
-It was not necessarily constructed to be a complete MPD. 
-
-
-<figure>
-<title>Sample MPD Catalog Instance</title>
-<pre><![CDATA[
-
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="./mpd-catalog.xsl"?>	
-<schema
-   targetNamespace="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
-   xmlns="http://www.w3.org/2001/XMLSchema"
-   xmlns:ca="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
-   version="3.0">
-    <annotation>
-	<documentation>
-	    Model Package Description (MPD) Catalog;
-	    This schema defines the mpd-catalog.xml artifact for
-	    Model Package Descriptions (MPD) in NIEM.  MPDs include:
-		NIEM releases, core updates, domain updates, 
-		NIEM Information Exchange Package Documentation (IEPD), 
-		and NIEM Enterprise Information Exchange Models (EIEM). 
-	    The purpose of this schema is to define/declare metadata for
-	    NIEM MPDs to search, discover, and process MPDs efficiently. 
-	</documentation>
-    </annotation>
-</schema>
-]]></pre>
-</figure>
-
-<p>This IEPD catalog instance is for MPD Specification v3.0. 
-It represents a fictitious and abbreviated IEPD (NOT necessarily complete).  
-It illustrates use of various options in mpd-catalog-3.0.xsd.</p>
-
-</section>
-
-
-<section id="Sample-XSLT-for-an-MPD-Catalog-Index" isAppendix="true">
-	<title>Sample XSLT for an MPD Catalog Index</title>
-	
-	<p>mpd-catalog.xsl (This example corresponds to this document, MPD Specification v3.0)
-URI: http://reference.niem.gov/niem/resource/mpd/catalog/3.0/example/
-Note:  Download the latest text version of this file using its http URI above.  
-Appendices are intended for browsing only; do not copy for testing or processing. </p>
-
-<p>This is a simple example written in XSLT 1.0 that generates hypertext links to the mpd-catalog entries shown in Appendix C: Sample MPD Catalog Instance based on pathID attribute values for each artifact listed in the mpd-catalog.  XSLT 1.0 will execute in most browsers.  An MPD author may use or adapt this XSLT, develop a more sophisticated XSLT as necessary, or not include an XSLT at all.</p>
-
-<p>
-XML HERE
-</p>
-</section>
-
-
-<section id="Browser-Display-of-MPD-Catalog" isAppendix="true">
-	<title>Browser Display of MPD Catalog</title>
-
-	<p>This display was generated with Appendix C example mpd-catalog.xml, Appendix D mpd-catalog.xsl, and Firefox (v11.0) browser (that executes XSLT v1.0).</p>
-
-	<p>BROWSER DISPLAY</p>
-
-</section>
-
-
-
-<section id="Common-MPD-Artifacts" isAppendix="true">
-	<title>Common MPD Artifacts</title>
-
-<p>This appendix (the table for which begins on the next page) identifies mandatory and common optional artifacts for various types of MPDs.  There is essentially no limitation on the number or types of optional artifacts that an IEPD or EIEM may contain.  The Cardinality columns list the minimum and maximum cardinality for each artifact in an MPD.  Typical cardinalities are interpreted as follows:
-	Min, Max	The associated artifact is 
-	1, 1		required; not optional; one and only one is allowed
-	1, U		required; not optional; one or any number (unbounded) is allowed;
-                        repeatable
-	0, 1		optional; zero or exactly one is allowed (0 or 1)
-	0, U		optional; zero or any number (unbounded) is allowed; repeatable
-	NA		not applicable to this MPD (effectively 0, 0)
-
-Key to File Extensions (types)csvComma Separated ValuesdocMicrosoft Word (text document); includes docxgifGraphic Interchange FormathtmHyperText Markup Language; includes htmljpgJoint Photographic Experts Group; includes jpegmdbMicrosoft Access (database); includes mdbxowlWeb Ontology LanguagepdfPortable Document FormatpngPortable Network GraphicspptMicrosoft PowerPoint (graphic, presentation); includes pptxschSchematronsvgScalable Vector GraphicstxtASCII textvsdMicrosoft Visio (graphic); includes vdx and other derivativeswsdlWeb Services Description LanguagexmiXML Metadata InterchangexmlExtensible Markup LanguagexsdXML Schema DefinitionxlsMicrosoft Excel (spreadsheet);   includes xlsxxslXML Stylesheet Language, includes xslt transformationSets of File TypesTEXT{txt, htm, pdf, doc}GRAPH{jpg, gif, png, pdf, svg, ppt, vsd}SPREAD{csv, xsl}
-Cardinality (Min, Max)ArtifactDefinition / Description
-Typical
- File
-Extensions
-Recommended PurposeIEPDEIEMNIEM
-ReleaseCore
-UpdateDomain
-UpdateSubset SchemaA NIEM schema (or set) derived from a NIEM reference schema (or set) that is a subset of the reference schema in terms 
-of its data components and cardinality of those components. xsdmember of a base schema document set or constraint schema document set00,U00,UNANANAReference SchemaA schema (or set) that is the authoritative definition of business semantics for components in its namespace; intended to serve as basis for components in IEPD schemas; constitute NIEM releases and domain updatesxsdmember of a base schema document set or constraint schema document set00,U00,U1,U1,U1,UConstraint SchemaA schema (or set) used to represent and validate (using XML Schema) tighter constraints than are possible with NIEM alone.xsdmember of a constraint schema document set0,U0,UNANANAExtension SchemaA schema (or set) that contain new data components or that extend existing NIEM components per NIEM NDR.xsdmember of a base (or constraint) schema document set0,U0,UNANANAExchange SchemaA schema declaring one or more root elements for use in IEPs (instances of an IEPD).xsdmember of a base (or constraint) schema document set1,UNANANANAWantlistAn abbreviated representation of a NIEM subset; used by the NIEM Schema Subset Generation Tool (SSGT) to generate, save, or reload a NIEM schema subset.xmlmember of a base (or constraint) schema document set0,U0,UNANANASample XML instanceAn XML instance document that validates with corresponding defining schemas; a sample IEP.xmlsample-instance1,U0,UNANA0,Umpd-catalogA manifest that contains identifiers, directory structure, characteristic properties, and other metadata for the MPD and its artifacts.xmlCatalog1,11,11,11,11,1Change logA history of modifications (initial change log identifies creation date only).xml, SPREAD, TEXTChangelog11,111,111,111,111,1Master documentAn artifact containing explanatory text; primary and initial source of human readable information (i.e., readme file); references other key documentsvariousmaster-document1,11,1NANANAConformance verificationAn artifact output from a conformance tool or other competent authority validating conformance to NIEM.variousconformance-report0,U0,U0,U0,U0,UXML Stylesheet or transformationAn XSLT or XSL file that converts an XML file to another form.  Often used 
-to convert an XML file to HTML for display in a browser. xsltransformation OR
-display0,U0,U0,U0,U0,UBusiness RulesAn artifact that documents constraints beyond the capability of NIEM and XML Schema; may be used to validate or verify that such constraints are satisfied.sch, TEXTbusiness-rules0,U0,UNANANA
-</p>
-</section>
-
-
-<section id="Rule-Summary" isAppendix="true">
-	<title>Rule Summary</title>
-<p>
-[Rule 3-1]  Any instance XML document that validates against a NIEM schema document subset will validate against the NIEM reference schema document set from which that schema document subset was derived.
-[Rule 3-4]  Each subset schema document in a schema document subset derived from a reference schema document set bears the same target namespace as the schema in the reference schema document set on which it is based.
-[Rule 3-5]  A schema document contained in a reference schema document set may be omitted from a derived schema document subset, if and only if NO elements, attributes, or types declared or defined in the schema document are required to support other elements or types within the schema document subset for exchange purposes. 
-[Rule 3-6]  An IEPD MUST contain at least one exchange schema document artifact that declares at least one top-level XML document (root) element for XML instance documents specified by the IEPD.
-[Rule 3-7]  An IEPD exchange schema document MUST NOT declare any XML element that is not intended for use as an XML instance document (root) element.
-[Rule 3-8]  An MPD MUST contain one and only one base schema document set. 
-[Rule 3-9]  A constraint schema bears a target namespace that has been previously assigned by a reference, extension, or exchange schema document, or is a schema document that is intended to support a constraint schema document that has such a target namespace. 
-[Rule 3-10]  A NIEM-conformant IEPD or EIEM MUST contain at least one schema document that is either a NIEM reference schema document or a subset schema document derived from a NIEM reference schema document.
-[Rule 3-11]  A NIEM IEPD MUST contain at least one valid sample instance XML document (i.e., IEP) artifact for each exchange schema document element that can be the root of a corresponding IEP. (this defn is very ambiguous!)
-[Rule 4-1]  An MPD MUST contain an instance XML document, i.e., an mpd-catalog.xml artifact, that validates with the NIEM MPD catalog schema document (XSD) and that resides in the root directory of the MPD and bears the file name "mpd-catalog.xml". 
-[Rule 4-2]  Every MPD MUST be assigned a version number.
-[Rule 4-3]  All NIEM version numbers adhere to the regular expression:  
-       version ::= digit+ ('.' digit+)* (status digit+)?
-       Where:	
-   digit   ::= [0-9]
-   status  ::= 'alpha' | 'beta' | 'rc' | 'rev'
-   'alpha' indicates early development
-   'beta' indicates late development; but changing or incomplete
-   'rc' indicates release candidate; complete but not approved as operational
-   'rev' indicates very minor revision that does not impact schema validation
-(The regular expression notation used above is from XML 1.0 (Fifth Edition):
-http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation)  
-[Rule 4-4]  A higher MPD version number within a version series does NOT imply compatibility between versions.  Compatibility between or among MPD versions MUST be explicitly stated in documentation.
-[Rule 4-5.1]  Every MPD MUST be assigned a valid http URI.
-[Rule 4-5.2]  The URI for an MPD MUST end in its version number.
-[Rule 4-6]  Each file artifact in an MPD MUST have a corresponding File element in its mpd-catalog.
-[Rule 4-7]  Each file set artifact in an MPD MUST have a corresponding FileSet element in its mpd-catalog.  This FileSet element must identify each file artifact that is a member of that file set artifact.
-[Rule 4-8]  Each artifact identified in the mpd-catalog MUST be assigned an id in the format of an NCName (Non-Colonized Name) as defined by [W3-XML-Namespaces].  This is required for both File and FileSet artifacts.
-[Rule 4-9]  A URI reference to an individual MPD artifact from another resource is the concatenation of 
-     The URI of the MPD that contains the artifact.
-     The crosshatch or pound character ("#").
-     A fragment identifier that is the locally unique id of the artifact within the mpd-catalog of the MPD itself.
-[Rule 4-10]  NIEM namespaces MUST NOT be used as URIs for MPD artifacts.
-[Rule 4-11]  A wantlist in an mpd-catalog.xml MUST be a member of the base or constraint schema set it is associated with. 
-[Rule 4-12]  Every MPD that is a reference schema set (i.e., NIEM releases, core updates, and domain updates) MUST contain an XML change log artifact that: 
-     Validates with the NIEM change log schemas (mpd-changelog.xsd and niem-model.xsd).
-Note:  These are the base filenames; the actual filenames also contain a version number.  For example:  mpd-changelog-1.0.xsd is the current version.
-     Records changes to previous reference schemas that this MPD represents. 
-     Bears the file name "changelog.xml".
-     Resides in the root directory of the MPD.
-[Rule 4-13]  Every MPD that is an IEPD or EIEM MUST contain a change log artifact that: 
-     Records changes to previous IEPD or EIEM schemas that this MPD represents. 
-     Begins with the substring "changelog".
-     Resides in the root directory of the MPD.
-[Rule 4-14]  The initial version of an IEPD or EIEM MUST contain a change log artifact with at least one entry for its creation date.
-[Rule 4-15]  If an IEPD or EIEM contains more than one change log artifact, then each change log artifact MUST:  
-     Have a file name that begins with the substring "changelog".
-     Reside in the MPD root directory. 
-[Rule 4-16]  An IEPD or an EIEM MUST contain a master document located in the MPD root directory whose filename begins with the substring "master-document".
-[Rule 4-17]  A NIEM IEPD or EIEM master document SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, senders/receivers, interactions, and references to other documentation. 
-[Rule 6-1]  An MPD is packaged as a single compressed archive of files that represents a sub-tree of a file system in standard [PK-ZIP] format.  This archive MUST preserve and store the logical directory structure intended by its author.
-[Rule 6-2]  Within an MPD archive, all XSD and XML artifacts MUST be valid against and follow all rules for their respective [NIEM-NDR] conformance targets (i.e., subset, constraint, extension, exchange, reference schemas, and XML instances); this includes being well-formed and valid XML Schema documents.
-[Rule 6-3]  An MPD archive MUST uncompress (unzip) to a one and only one MPD root directory.
-[Rule 6-4]  An MPD archive file MUST use file name syntax defined by the regular expression:
-   mpd-filename ::= name '-' version '.' class '.zip'       
-      Where: 
-   name  ::= alphanum ((alphanum | special)* alphanum)?
-   alphanum ::= [a-zA-Z0-9]
-   special  ::= '.' | '-' | '_'
-   version  ::= digit+ ('.' digit+)* (status digit+)?
-   digit    ::= [0-9]
-   status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
-   class    ::= 'rel' | 'cu' | 'du' | 'iepd' | 'eiem' 
-All alpha characters SHOULD be lower case to reduce the risk of complications across various file systems.  See [Rule 4-3] for an explanation of the status options.
-(The regular expression notation used above is from XML 1.0 (Fifth Edition):
-http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation)     
-[Rule 6-5]  Within an MPD, the <name> and <version> substrings in the file name MUST match exactly the values for attributes mpdName and mpdVersionID within its mpd-catalog.xml artifact.
-[Rule 6-6]  Within an MPD, the <class> substring in the file name MUST correctly correspond to the value for the attribute mpdClassCode within mpd-catalog.xml.  Correct correspondence is: 
-IF file name <class> =	THEN mpd-catalog.xml mpdClassCode =
-rel				release
-cu				core-update
-du				domain-update
-iepd				iepd
-eiem				eiem  
-[Rule 6-7]  When represented on the Internet, an MPD archive SHOULD use the following MIME Type:  
-  application/zip+<class>    where
-     <class> is one member from the set {rel, cu, du, iepd, eiem}
-Use of the generic zip MIME type application/zip is allowed, but discouraged.  No other MIME types are allowed when representing MPD archives.   
+Use of the generic zip MIME type application/zip is allowed, but discouraged.  No other MIME types are allowed when representing MPD archives.   
 [Rule 6-8]  Within an MPD archive, the value of each xsd:import schemaLocation attribute MUST be a relative path reference that resolves to the correct schema within the sub-tree.
 [Rule 6-9]  Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST resolve (If applicable, documentation that describes how to resolve with security, account, and/or password issues MUST be included).
 [Rule 6-10]  A published IEPD MUST contain all documents necessary to understand it and allow it to be implemented correctly.
