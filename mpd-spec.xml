@@ -455,14 +455,11 @@ Within the Catalog element (among other namespaces) use xmlns to declare prefix 
 <figure>
 <title>namespaces</title>
 <pre><![CDATA[
-	<ca:Catalog
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:ca="http://reference.niem.gov/niem/resource/mpd/
-          catalog/1.0/"
-xmlns:ab="http://www.organizational-iepds.any-company-
-          inc.com/niem-iepd/codes/1.1.5rev6/" >
-With this declaration, and using a safe CURIE, the previous ca:externalURI attribute becomes:
-ca:externalURI="[ab:#code-list33]"
+<ca:Catalog
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:ca="http://reference.niem.gov/niem/resource/mpd/catalog/1.0/"
+xmlns:ab="http://www.organizational-iepds.any-company-inc.com/niem-iepd/codes/1.1.5rev6/">
+With this declaration, and using a safe CURIE, the previous ca:externalURI attribute becomes:  ca:externalURI="[ab:#code-list33]"
 ]]></pre>
 </figure>
 
@@ -552,47 +549,55 @@ At a minimum, the master document should contain several fundamental elements of
     Identification of senders and receivers (or the types of senders and receivers).
     Typical interactions between senders, receivers, and systems. 
     References to other documentation within the MPD, and links to external documents that may be needed to understand and implement it.  
-[Rule 4-17]  A NIEM IEPD or EIEM master document SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, senders/receivers, interactions, and references to other documentation.  
-MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the master document.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the master document (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the master document: 
+[Rule 4-17] A NIEM IEPD or EIEM master document SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, senders/receivers, interactions, and references to other documentation.  
 
-    Use cases
-    Business processes
-    Business requirements
-    Business rules
-    Metadata security considerations
-    Domain model design specifications and documentation and/or diagrams
-    Data dictionary
-    Testing and conformance
-    Development tools and methodologies used
-    Implementation guidance (An IEPD is meant to be implemented, so this section is very important, particularly in the case of a complex IEPD that uses multiple subsets, exchange schemas, and/or IEP root elements.)
-o Security considerations (for protecting sensitive or classified information)
-o Privacy considerations (for example, Personal Identifiable Information or PPI)
-o Types of implementation
-o If an IEPD employs multiple subsets (either from the same release or from different releases):
-    Where and how are these used?
-    What are the caveats regarding duplicative data components? 
-    How are these coordinated in the implementation?
-o If an IEPD employs multiple exchange schemas and/or exchange schemas with multiple root elements:
-    What is the purpose of each (exchange and root) and when is it used?
-    How are these coordinated during the runtime preparation and transmission of IEPs?  
-Authors are also encouraged to include an executive summary, especially for particularly lengthy master documents. 
-</p>
+<p>MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the master document.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the master document (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the master document:</p>
+<ul>
+	<li><p>Use cases</p></li>
+	<li><p>Business processes</p></li>
+	<li><p>Business requirements></p></li>
+	<li><p>Business rules</p></li>
+	<li><p>Metadata security considerations</p></li>
+	<li><p>Domain model design specifications and documentation and/or diagrams</p></li>
+	<li><p>Data dictionary</p></li>
+	<li><p>Testing and conformance</p></li>
+	<li><p>Development tools and methodologies used</p></li>
+	<li><p>Implementation guidance (An IEPD is meant to be implemented, so this section is very important, particularly in the case of a complex IEPD that uses multiple subsets, exchange schemas, and/or IEP root elements.)</p></li>
+	<li><p>Security considerations (for protecting sensitive or classified information)</p></li>
+	<li><p>Privacy considerations (for example, Personal Identifiable Information or PPI)</p></li>
+	<li><p>Types of implementation</p></li>
+	<li><p>If an IEPD employs multiple subsets (either from the same release or from different releases):
+			<li><p>Where and how are these used?
+			<li><p>What are the caveats regarding duplicative data components?
+			<li><p>How are these coordinated in the implementation?
+	<li><p>If an IEPD employs multiple exchange schemas and/or exchange schemas with multiple root elements:
+			<li><p>What is the purpose of each (exchange and root) and when is it used?
+			<li><p>How are these coordinated during the runtime preparation and transmission of IEPs?
+	<li><p>Authors are also encouraged to include an executive summary, especially for particularly lengthy master documents.
+</ul>
+
 </section>
 
 <section id="Optional-MPD-Artifacts">
 	<title>Optional MPD Artifacts</title>
 <p>
 Aside from the required artifacts, MPD content is relatively flexible.  A variety of other optional documentation files may be incorporated into an MPD.  When applicable, these may include (but are not limited to) files that describe or explain: 
-    Implementation details (hardware, software, configuration, etc.)
-    Use of multiple root elements
-    Use of multiple subsets or mixed releases
-    How to use/reuse an MPD for various purposes (such as Web Services)
-    Rationales and/or business purposes
+<ul>
+	<li><p>Implementation details (hardware, software, configuration, etc.)</p></li>
+	<li><p>Use of multiple root elements</p></li>
+	<li><p>Use of multiple subsets or mixed releases</p></li>
+	<li><p>How to use/reuse an MPD for various purposes (such as Web Services)</p></li>
+	<li><p>Rationales and/or business purposes</p></li>
+</ul>
+
 In addition to documentation artifacts, a variety of other optional files can be added to an MPD to facilitate tool support and make reuse, adaptation, and/or implementation easier.  These are often files that are inputs to or outputs from software tools.  Examples include content diagrams, content models in tool-specific formats, and business rules (either formal or informal representations). 
 Another optional artifact that is encouraged, especially for IEPDs, is a conformance report or other evidence of quality.  In the future, as NIEM processes and tools mature, a conformance and quality reports and a corresponding certificate may become required artifacts.  For now, inclusion of a conformance report is at the discretion of the author or sponsor.  Though clearly, such reports can only increase confidence in MPDs that contain them. 
+
 An MPD author may include any files believed to be useful to understand, implement, reuse, and/or adapt an MPD.  However, [Rule 4-6] always applies  any file included as an artifact in an MPD must also be identified with an entry in the mpd- catalog.  
 An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it.  (See Appendix F: MPD Artifacts for a listing of the mandatory and optional artifacts for each type of MPD.) 
+
 Files vary widely in format and are often specific to the tools an author uses to parse, consume, or output them.  Therefore, if tool-specific files are included in an MPD, it is also a good practice to include copies of those files in formats that display with standard Web browsers or other cost-free, publicly available viewing tools.  Common formats include, but are not limited to ASCII text, CSV, HTML, XHTML, JPG, GIF, PNG, and PDF.  This guidance is intended to encourage and facilitate maximal sharing and distribution of MPDs; it does not prohibit and is not intended to discourage the inclusion of other file formats. 
+
 In particular, this specification does not discourage use of Microsoft (MS) file formats for documentation and other optional artifacts.  A number of MS Office products are commonly used in most large organizations.  Furthermore, viewers are publicly available for many MS products, including Word (DOC), Excel (XLS), PowerPoint (PPT), Access (MDB), and Visio (VSD).  (See http://office.microsoft.com/en-us/downloads/office-online-file-converters-and-viewers-HA001044981.aspx) 
 </p>
 </section>
@@ -602,9 +607,12 @@ In particular, this specification does not discourage use of Microsoft (MS) file
 <p>
 An MPD is a logical set of electronic files aggregated and organized to fulfill a specific purpose in NIEM.  Directory organization and packaging of an MPD should be designed around major themes in NIEM:  reuse, sharing, interoperability, and efficiency.  
 This rule is also applicable to all MPDs:
+
 [Rule 6-1]  An MPD is packaged as a single compressed archive of files that represents a sub-tree of a file system in standard [PK-ZIP] format.  This archive MUST preserve and store the logical directory structure intended by its author.
 MPD NIEM schema artifacts must be valid for both XML Schema and NIEM:
+
 [Rule 6-2]  Within an MPD archive, all XSD and XML artifacts MUST be valid against and follow all rules for their respective [NIEM-NDR] conformance targets (i.e., subset, constraint, extension, exchange, reference schemas, and XML instances); this includes being well-formed and valid XML Schema documents.
+
 NIEM releases, core updates, and domain updates follow a relatively consistent approach to directory organization [NIEM-DomainUpdate].  But there are many ways to organize IEPD and EIEM directories that may depend on a number of factors including (not limited to) business purpose and complexity.  For this reason, strict rules for IEPD and EIEM directory structure are difficult to establish.  Therefore, IEPD and EIEM authors may create their own logical directory structures.  However, for consistency and efficiency:
 Definition:  MPD root directory  The top level file directory relative to all MPD artifacts and subdirectories.  
 
@@ -613,8 +621,10 @@ Definition:  MPD root directory  The top level file directory relative to all MP
     Unpacking an MPD archive will not scatter its contents on a storage device.
     A common starting point always exists to explore or use any MPD.
     mpd-catalog and change log artifacts will always be found in the MPD root directory (as a result of [Rule 4-1] and [Rule 4-12]). 
-6.1 MPD File Name Syntax
+    
+    6.1 MPD File Name Syntax
 As previously stated, the MPD Specification is intended to facilitate tool support for processing MPDs.  Given a tool must process an MPD, providing it basic information about the MPD as early as possible will help to reduce processing time and complexity.  So, if the class and version of an MPD archive could be easily identified by its file name, then a tool would not have to immediately open the archive and process the mpd-catalog just to determine this information.  Of course, ultimately, to do anything useful, a tool will have to open the MPD archive and process its mpd-catalog.  However, a standard file name syntax would allow a tool to search through a set of MPD archives to find a particular MPD name, version, or class without having to open (unzip) each.  The following rules apply:
+
 [Rule 6-4]  An MPD archive file MUST use file name syntax defined by the regular expression:
    mpd-filename ::= name '-' version '.' class '.zip'       
       Where: 
@@ -625,14 +635,16 @@ As previously stated, the MPD Specification is intended to facilitate tool suppo
    digit    ::= [0-9]
    status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
    class    ::= 'rel' | 'cu' | 'du' | 'iepd' | 'eiem' 
-All alpha characters SHOULD be lower case to reduce the risk of complications across various file systems.  See [Rule 4-3] for an explanation of the status options.
-(The regular expression notation used above is from XML 1.0 (Fifth Edition):
-http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation)
+   
+All alpha characters SHOULD be lower case to reduce the risk of complications across various file systems.  
+See [Rule 4-3] for an explanation of the status options.
+(The regular expression notation used above is from XML 1.0 (Fifth Edition): http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation)
 Obviously, the set of class values corresponds to release, core update, domain update, IEPD, and EIEM respectively.  A valid IEPD file name corresponding to the example in Appendix C: Sample MPD Catalog Instance would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code>
 Checking this Appendix you will find that this example obeys the following two rules:
-[Rule 6-5][Rule 6-5]  Within an MPD, the <code><name></code> and <code><version></code> substrings in the file name MUST match exactly the values for attributes <code>mpdName</code> and <code>mpdVersionID</code> within its <code>mpd-catalog.xml</code> artifact.
 
-		[Rule 6-6]  Within an MPD, the <code><class></code> substring in the file name MUST correctly correspond to the value for the attribute mpdClassCode within <code>mpd-catalog.xml</code>.  Correct correspondence is: 
+[Rule 6-5] Within an MPD, the <code><name></code> and <code><version></code> substrings in the file name MUST match exactly the values for attributes <code>mpdName</code> and <code>mpdVersionID</code> within its <code>mpd-catalog.xml</code> artifact.
+
+[Rule 6-6] Within an MPD, the <code><class></code> substring in the file name MUST correctly correspond to the value for the attribute mpdClassCode within <code>mpd-catalog.xml</code>.  Correct correspondence is: 
 			IF file name <code><class></code> =	THEN <code>mpd-catalog.xml</code> mpdClassCode =
 rel				release
 cu				core-update
@@ -641,16 +653,23 @@ iepd				iepd
 eiem				eiem
 
 In HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.
-[Rule 6-7]  When represented on the Internet, an MPD archive SHOULD use the following MIME Type:  
+
+[Rule 6-7] When represented on the Internet, an MPD archive SHOULD use the following MIME Type:  
   application/zip+<class>    where
      <class> is one member from the set {rel, cu, du, iepd, eiem}
 Use of the generic zip MIME type application/zip is allowed, but discouraged.  No other MIME types are allowed when representing MPD archives.   
-[Rule 6-8]  Within an MPD archive, the value of each xsd:import schemaLocation attribute MUST be a relative path reference that resolves to the correct schema within the sub-tree.
-[Rule 6-9]  Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST resolve (If applicable, documentation that describes how to resolve with security, account, and/or password issues MUST be included).
-[Rule 6-10]  A published IEPD MUST contain all documents necessary to understand it and allow it to be implemented correctly.
-[Rule 6-11]  A published IEPD MUST link (through its mpd-catalog) to any EIEM it is based on.
-[Rule 6-12]  Within an MPD archive, if non-NIEM-conformant schemas from other standards are used and referenced within an MPD, then all xsd:import, xsd:include, and xsd:redefine constructs used within those schemas MUST be modified as needed to have a value for the schemaLocation attribute that is a relative path reference that resolves to the correct schema within the sub-tree.
-[Rule 6-13]  Within any artifact of an MPD archive, any direct reference to another resource (i.e., another artifact such as an image, schema, stylesheet, etc.) that is required to process or display an artifact SHOULD exist within the archive at the location specified by that reference.
+
+[Rule 6-8] Within an MPD archive, the value of each xsd:import schemaLocation attribute MUST be a relative path reference that resolves to the correct schema within the sub-tree.
+
+[Rule 6-9] Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST resolve (If applicable, documentation that describes how to resolve with security, account, and/or password issues MUST be included).
+
+[Rule 6-10] A published IEPD MUST contain all documents necessary to understand it and allow it to be implemented correctly.
+
+[Rule 6-11] A published IEPD MUST link (through its mpd-catalog) to any EIEM it is based on.
+
+[Rule 6-12] Within an MPD archive, if non-NIEM-conformant schemas from other standards are used and referenced within an MPD, then all xsd:import, xsd:include, and xsd:redefine constructs used within those schemas MUST be modified as needed to have a value for the schemaLocation attribute that is a relative path reference that resolves to the correct schema within the sub-tree.
+
+[Rule 6-13] Within any artifact of an MPD archive, any direct reference to another resource (i.e., another artifact such as an image, schema, stylesheet, etc.) that is required to process or display an artifact SHOULD exist within the archive at the location specified by that reference.
 </p>
 </section>
 
@@ -758,21 +777,21 @@ wantlist  An XML document that represents a NIEM schema document subset.  A NIEM
 	<title>References</title>
 	
 <p>
-[FEA-DRM]:  The Federal Enterprise Architecture Data Reference Model, Version 1.0, September 2004.  Available from http://xml.gov/documents/completed/DRMv1.pdf   A more recent DRM Version 2.0, 17 November 2005 is available from http://www.whitehouse.gov/omb/assets/egov_docs/DRM_2_0_Final.pdf 
+[FEA-DRM]:  The Federal Enterprise Architecture Data Reference Model, Version 1.0, September 2004.  Available from http://xml.gov/documents/completed/DRMv1.pdf   A more recent DRM Version 2.0, 17 November 2005 is available from http://www.whitehouse.gov/omb/assets/egov_docs/DRM_2_0_Final.pdf
 
-[GJXDM-IEPD]:  GJXDM Information Exchange Package Documentation Guidelines, Version 1.1, Global XML Structure Task Force (GXSTF), 2 March 2005.  Available from http://it.ojp.gov/documents/global_jxdm_IEPD_guidelines_v1_1.pdf 
+[GJXDM-IEPD]:  GJXDM Information Exchange Package Documentation Guidelines, Version 1.1, Global XML Structure Task Force (GXSTF), 2 March 2005.  Available from http://it.ojp.gov/documents/global_jxdm_IEPD_guidelines_v1_1.pdf
+
 [ISO-Schematron]:  Schema Definition Languages (DSDL)  Part 3: Rule-based validation  Schematron, ISO/IEC 19757-3:2006(E), First edition, 1 June 2006.  Available from http://standards.iso.org/ittf/PubliclyAvailableStandards/c040833_ISO_IEC_19757-3_2006(E).zip
 
 [NIEM-BIEC]:  Business Information Exchange Components (BIEC), Version 1.0, NIEM Technical Architecture Committee (NTAC), March 2011.  Available from http://reference.niem.gov/niem/guidance/business-information-exchange-components/1.0/
 
-[NIEM-Conformance]:  NIEM Conformance, Version 1.0, NIEM Technical Architecture Committee (NTAC), 15 September 2008.  Available from http://reference.niem.gov/niem/specification/conformance/1.0/ 
+[NIEM-Conformance]:  NIEM Conformance, Version 1.0, NIEM Technical Architecture Committee (NTAC), 15 September 2008.  Available from http://reference.niem.gov/niem/specification/conformance/1.0/
 
-[NIEM-ConOps]:  NIEM Concept of Operations, Version 0.5, NIEM Program Management Office, 9 January 2007.  Available from http://reference.niem.gov/niem/guidance/concept-of-operations/   
+[NIEM-ConOps]:  NIEM Concept of Operations, Version 0.5, NIEM Program Management Office, 9 January 2007.  Available from http://reference.niem.gov/niem/guidance/concept-of-operations/
 
-[NIEM-DomainUpdate]:  Draft NIEM Domain Update Specification, Version 1.0, NIEM Technical Architecture Committee (NTAC), 5 November 2010.  Available from 
-http://reference.niem.gov/niem/specification/domain-update/1.0/ 
+[NIEM-DomainUpdate]:  Draft NIEM Domain Update Specification, Version 1.0, NIEM Technical Architecture Committee (NTAC), 5 November 2010.  Available from http://reference.niem.gov/niem/specification/domain-update/1.0/
 
-[NIEM-HLTA]:  NIEM High-Level Tool Architecture, Version 1.1, NIEM Technical Architecture Committee, 1 December 2008.  Available from http://reference.niem.gov/niem/specification/high-level-tool-architecture/1.1/ 
+[NIEM-HLTA]:  NIEM High-Level Tool Architecture, Version 1.1, NIEM Technical Architecture Committee, 1 December 2008.  Available from http://reference.niem.gov/niem/specification/high-level-tool-architecture/1.1/
 
 [NIEM-HLVA]:  NIEM High Level Version Architecture (HLVA), Version 1.0, NIEM Technical Architecture Committee, 2008.  Available from http://reference.niem.gov/niem/specification/high-level-version-architecture/1.0/
 
@@ -785,33 +804,33 @@ https://www.niem.gov/program-managers/Pages/implementation-guide.aspx
 
 [NIEM-NDR]:  NIEM Naming and Design Rules (NDR), Version 3.0, NIEM Technical Architecture Committee (NTAC), 31 October 2008.  Available from http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/
 
-[NIEM-UserGuide]:  NIEM User Guide Volume 1, U.S. Department of Justice, Office of Justice Programs, (date unknown).  Available from http://reference.niem.gov/niem/guidance/user-guide/vol1/  
+[NIEM-UserGuide]:  NIEM User Guide Volume 1, U.S. Department of Justice, Office of Justice Programs, (date unknown).  Available from http://reference.niem.gov/niem/guidance/user-guide/vol1/
 
-[RFC2119-KeyWords]:  Bradner, S., Key words for use in RFCs to Indicate Requirement Levels, IETF RFC 2119, March 1997.  Available from http://www.ietf.org/rfc/rfc2119.txt 
+[RFC2119-KeyWords]:  Bradner, S., Key words for use in RFCs to Indicate Requirement Levels, IETF RFC 2119, March 1997.  Available from http://www.ietf.org/rfc/rfc2119.txt
 
 [RFC3986-URI]:  Berners-Lee, T., et al., Uniform Resource Identifier (URI): Generic Syntax, Request for Comments 3986, Network Working Group, January 2005.  Available from http://tools.ietf.org/html/rfc3986
 
 [W3-AssocResourcesNS]:  Associating Resources with Namespaces, TAG Finding, World Wide Web Consortium, 25 June 2008.  Available from http://www.w3.org/2001/tag/doc/nsDocuments-2008-06-25/
 
-[W3-CURIE-Syntax]:  CURIE Syntax 1.0  A syntax for expressing Compact URIs, Version 1.0, W3C Candidate Recommendation, 16 January 2009.  Available from http://www.w3.org/TR/2010/NOTE-curie-20101216/ 
+[W3-CURIE-Syntax]:  CURIE Syntax 1.0  A syntax for expressing Compact URIs, Version 1.0, W3C Candidate Recommendation, 16 January 2009.  Available from http://www.w3.org/TR/2010/NOTE-curie-20101216/
 
 [W3-OWL]:  OWL Web Ontology Language Reference, W3C Recommendation 10 February 2004.  Available from http://www.w3.org/TR/2004/REC-owl-ref-20040210/
 
-[W3-RDF]:  Resource Description Framework (RDF): Concepts and Abstract Syntax, W3C Recommendation 10 February 2004.  Available from http://www.w3.org/TR/2004/REC-rdf-concepts-20040210/ 
+[W3-RDF]:  Resource Description Framework (RDF): Concepts and Abstract Syntax, W3C Recommendation 10 February 2004.  Available from http://www.w3.org/TR/2004/REC-rdf-concepts-20040210/
 
-[W3-XML]:  Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008.  Available from http://www.w3.org/TR/2008/REC-xml-20081126/ 
+[W3-XML]:  Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008.  Available from http://www.w3.org/TR/2008/REC-xml-20081126/
 
-[W3-XML-InfoSet]:  XML Information Set (Second Edition), W3C Recommendation 4 February 2004.  Available from http://www.w3.org/TR/2004/REC-xml-infoset-20040204/ 
+[W3-XML-InfoSet]:  XML Information Set (Second Edition), W3C Recommendation 4 February 2004.  Available from http://www.w3.org/TR/2004/REC-xml-infoset-20040204/
 
 [W3-XML-Namespaces]:  Namespaces in XML (Second Edition), World Wide Web Consortium 16 August 2006.  Available from http://www.w3.org/TR/2006/REC-xml-names-20060816/
 
-[W3-XML-SchemaDatatypes]:  XML Schema Part 2: Datatypes Second Edition, W3C Recommendation 28 October 2004.  Available from http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/ 
+[W3-XML-SchemaDatatypes]:  XML Schema Part 2: Datatypes Second Edition, W3C Recommendation 28 October 2004.  Available from http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/
 
-[W3-XML-SchemaStructures]:  XML Schema Part 1: Structures Second Edition, W3C Recommendation 28 October 2004.  Available from http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/ 
+[W3-XML-SchemaStructures]:  XML Schema Part 1: Structures Second Edition, W3C Recommendation 28 October 2004.  Available from http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/
 
-[W3-XSLT]:  XSL Transformations (XSLT), Version 1.0, W3C Recommendation 16 November 1999.  Available from http://www.w3.org/TR/1999/REC-xslt-19991116 
+[W3-XSLT]:  XSL Transformations (XSLT), Version 1.0, W3C Recommendation 16 November 1999.  Available from http://www.w3.org/TR/1999/REC-xslt-19991116
 
-[W3-XSLT2]:  XSL Transformations (XSLT), Version 2.0, W3C Recommendation 23 January 2007.  Available from http://www.w3.org/TR/2007/REC-xslt20-20070123/ 
+[W3-XSLT2]:  XSL Transformations (XSLT), Version 2.0, W3C Recommendation 23 January 2007.  Available from http://www.w3.org/TR/2007/REC-xslt20-20070123/
 
 [PK-ZIP]:  APPNOTE.TXT - .ZIP File Format Specification, Version: 6.3.2, Revised: 28 September 2007, Copyright (c) 1989 - 2007 PKWare Inc.  Available from http://www.pkware.com/documents/casestudies/APPNOTE.TXT
 </p>
@@ -822,7 +841,7 @@ https://www.niem.gov/program-managers/Pages/implementation-guide.aspx
 <p>
 A NIEM-conformant IEPD or EIEM is required to have at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema.
 
-An IEPD or EIEM change log may be informal in nature and is not required to conform to the strict XML schema definition that is mandatory for releases, core updates, and domain updates.  Therefore, csv or TEXT formats are also authorized. 
+An IEPD or EIEM change log may be informal in nature and is not required to conform to the strict XML schema definition that is mandatory for releases, core updates, and domain updates.  Therefore, csv or TEXT formats are also authorized.
 
 Each NIEM release, core update, and domain update is required to conform to the change log XML schema in http://reference.niem.gov/niem/resource/mpd/changelog/.
 </p>
