@@ -151,51 +151,84 @@ Table 3-1.  MPD classes vs. schema classes	25</p>
 
 	<p>The presentation of concepts and terms in this section is sequenced for understanding.  Each subsection builds upon previous ones.  This section concludes with an explanation of each of the five MPD classes and a summary of their similarities and differences.</p>
 
-	<p>	
-2.1 Key Words for Requirement Levels
+<section id="Key-Words-for-Requirements-Levels">
+	<title>Key Words for Requirement Levels</title>
 
-Within normative content rules and definitions, the key words MUST, MUST NOT, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY, RECOMMENDED, REQUIRED, and OPTIONAL in this document are to be interpreted as described in [RFC2119-KeyWords]. 
+	<p>Within normative content rules and definitions, the key words MUST, MUST NOT, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY, RECOMMENDED, REQUIRED, and OPTIONAL in this document are to be interpreted as described in [RFC2119-KeyWords].</p>
+</section>
 
-2.2 Character Case Sensitivity
+<section id="Character-Case-Sensitity">
+	<title>Character Case Sensitivity</title>
 
-This specification imposes many constraints on the syntax for identifiers, names, labels, strings, etc.  In all cases, unless otherwise explicitly noted, syntax is case sensitive.  In particular, XML files in appendices that define particular artifacts, transformations, and examples are case sensitive.  
-Also, note that as a general principle, lower case characters are used whenever such will not conflict with the [NIEM-NDR].
+	<p>This specification imposes many constraints on the syntax for identifiers, names, labels, strings, etc.  In all cases, unless otherwise explicitly noted, syntax is case sensitive.  In particular, XML files in appendices that define particular artifacts, transformations, and examples are case sensitive.  Also, note that as a general principle, lower case characters are used whenever such will not conflict with the [NIEM-NDR].</p>
 
-2.3 Artifacts
+</section>
 
-MPDs are generally composed of files and file sets grouped for a particular purpose.  Each file AND each logical set of such files is called an artifact.  In other words, we refer to a set of files (with a defined purpose) as an artifact, and we refer to each file within that set as an artifact. 
-Definition:  artifact  A single file with a defined purpose or a set of files logically grouped for a defined purpose.  An MPD is a collection of artifacts, the purpose for which is to define and document the intended use of the MPD.
-While the kernel of an MPD is its XML schema (XSD) artifacts, there are also other kinds of MPD artifacts.  These may include HTML (or XML converted to HTML for display), text, or graphic files used for human-readable documentation.  An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD.  For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema artifacts.   Appendix F: MPD Artifacts contains a listing of mandatory and common optional artifacts for the five types of MPDs.  The various types of artifacts are described in more detail in subsequent sections.
+<section id="Artifacts">
+	<title>Artifacts</title>
 
-2.4 Schema-Namespace Correspondence in NIEM
+	<p>MPDs are generally composed of files and file sets grouped for a particular purpose.  Each file AND each logical set of such files is called an artifact.  In other words, we refer to a set of files (with a defined purpose) as an artifact, and we refer to each file within that set as an artifact.</p>
 
-To simplify automatic schema processing and reduce the potential for confusion and error, [NIEM-NDR] Principle 8 states that each NIEM-conformant namespace SHOULD be defined by exactly one reference schema document.  To support this principle, [NIEM-NDR] Rule 6-5 disallows the use of xsd:include, and [NIEM-NDR] Rule 6-35 mandates the use of the xsd:schema targetNamespace attribute in NIEM-conformant schema documents.  
-The foregoing NDR rules and principle imply that each NIEM namespace is a single NIEM-conformant schema document, and each NIEM-conformant schema document declares a target namespace.  NIEM does not permit schema documents without target namespaces, unless they are from sources outside of NIEM.
+	<definition term="artifact">
+		<p>A single file with a defined purpose or a set of files logically grouped for a defined purpose.  An MPD is a collection of artifacts, the purpose for which is to define and document the intended use of the MPD.</p>
+	</definition>
+			
+	<p>While the kernel of an MPD is its XML schema (XSD) artifacts, there are also other kinds of MPD artifacts.  These may include HTML (or XML converted to HTML for display), text, or graphic files used for human-readable documentation.  An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD.  For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema artifacts.   Appendix F: MPD Artifacts contains a listing of mandatory and common optional artifacts for the five types of MPDs.  The various types of artifacts are described in more detail in subsequent sections.</p>
+	
+</section>
 
-2.5 Harmonization
+<section id="Schema-Namespace-Correspondence-in-NIEM">
+	<title>Schema-Namespace Correspondence in NIEM</title>
 
-Harmonization is a process that NIEM governance committees and domain stewards iteratively apply to NIEM content (specifically, its semantics, structure, and relationships) during the preparation of a NIEM major or minor release.  The result is change and evolution of the model with the intent of removing semantic duplication and overlap while improving representational quality and usability.  
-Definition:  harmonization  Given a data model, harmonization is the process of reviewing its existing data definitions and declarations; reviewing how it structures and represents data; integrating new data components; and refactoring data components as necessary to remove (or reduce to the maximum extent) semantic duplication and/or semantic overlap among all data structures and definitions resulting in representational quality improvements.
+	<p>To simplify automatic schema processing and reduce the potential for confusion and error, [NIEM-NDR] Principle 8 states that each NIEM-conformant namespace SHOULD be defined by exactly one reference schema document.  To support this principle, [NIEM-NDR] Rule 6-5 disallows the use of xsd:include, and [NIEM-NDR] Rule 6-35 mandates the use of the xsd:schema targetNamespace attribute in NIEM-conformant schema documents.</p>
 
-2.6 Validation
+	<p>The foregoing NDR rules and principle imply that each NIEM namespace is a single NIEM-conformant schema document, and each NIEM-conformant schema document declares a target namespace.  NIEM does not permit schema documents without target namespaces, unless they are from sources outside of NIEM.</p>
 
-This specification often refers to the process of validation, that is, validation of XML schemas and XML instances.  Generally, this should occur periodically during and after design time to ensure the conformance and quality of an information exchange definition.  However, local architecture or policy may also dictate the need to validate more often, and in some cases may require runtime validation. 
-XML schemas that define a NIEM information exchange must be authoritative.  Application developers may use other schemas (e.g., constraint schemas) for various purposes, but for the purposes of determining NIEM conformance, the authoritative schemas are relevant.  This does not mean that XML validation must be performed on all XML instances as they are served or consumed; only that the XML instances validate if and when XML validation is performed.  Therefore, even when validation is not performed, XML instance documents must be valid against the XML schema documents that specify them.
+</section>
 
-2.7 Reference Schema Document
+<section id="Harmonization">
+	<title>Harmonization</title>
 
-A NIEM reference schema document is a schema document that is intended to be the authoritative definition of business semantics for components within its target namespace.  Reference schema documents include the NIEM Core schema documents, NIEM domain schema documents, and NIEM domain update schema documents.  The normative definition for a reference schema document and applicable conformance rules are found in the [NIEM-NDR].  The definition is repeated here:
-Definition:  reference schema document  An XML Schema document that meets all of the following criteria:
-     It is a conformant schema document.
-     It is explicitly designated as a reference schema document.  This may be declared by an MPD catalog or by a tool-specific mechanism outside the schema document. 
-     It provides the broadest, most fundamental definitions of components in its namespace. 
-     It provides the authoritative definition of business semantics for components in its namespace. 
-     It is intended to serve as the basis for components in IEPD and EIEM schema documents, including subset, constraint, extension, and exchange schema documents. 
-See also reference schema document set.
+	<p>Harmonization is a process that NIEM governance committees and domain stewards iteratively apply to NIEM content (specifically, its semantics, structure, and relationships) during the preparation of a NIEM major or minor release.  The result is change and evolution of the model with the intent of removing semantic duplication and overlap while improving representational quality and usability.  
+		Definition:  harmonization  Given a data model, harmonization is the process of reviewing its existing data definitions and declarations; reviewing how it structures and represents data; integrating new data components; and refactoring data components as necessary to remove (or reduce to the maximum extent) semantic duplication and/or semantic overlap among all data structures and definitions resulting in representational quality improvements.</p>
 
-Definition:  reference schema document set  A set of related reference schema documents, such as a NIEM release.  See also reference schema document.
-The [NIEM-NDR] conformance rules for reference schema documentss are generally stricter than those for other classes of NIEM-conformant schema documents.  For example, they are required to employ an xsd:annotation with xsd:documentation, and xsd:appinfo elements that encapsulate semantic information for each XML element and attribute declaration, and type definition. 
-Reference schemas are very uniform in their structure.  As they are the primary definitions for data components, they do not need to restrict other data definitions, and they are not allowed to use XML Schema's complex type restriction mechanisms. 
+</section>
+
+<section id="Validation">
+	<title>Validation</title>
+
+	<p>This specification often refers to the process of validation, that is, validation of XML schemas and XML instances.  Generally, this should occur periodically during and after design time to ensure the conformance and quality of an information exchange definition.  However, local architecture or policy may also dictate the need to validate more often, and in some cases may require runtime validation.</p>
+
+	<p>XML schemas that define a NIEM information exchange must be authoritative.  Application developers may use other schemas (e.g., constraint schemas) for various purposes, but for the purposes of determining NIEM conformance, the authoritative schemas are relevant.  This does not mean that XML validation must be performed on all XML instances as they are served or consumed; only that the XML instances validate if and when XML validation is performed.  Therefore, even when validation is not performed, XML instance documents must be valid against the XML schema documents that specify them.</p>
+
+</section>
+
+<section id="Reference Schema Document">
+	<title>Reference Schema Document</title>
+
+	<p>A NIEM reference schema document is a schema document that is intended to be the authoritative definition of business semantics for components within its target namespace.  Reference schema documents include the NIEM Core schema documents, NIEM domain schema documents, and NIEM domain update schema documents.  The normative definition for a reference schema document and applicable conformance rules are found in the [NIEM-NDR].  The definition is repeated here:</p>
+		
+	<definition term="reference schema document">
+		<p>An XML Schema document that meets all of the following criteria:</p>
+		<ul>
+			<li><p>It is a conformant schema document.</p></li>
+			<li><p>It is explicitly designated as a reference schema document.  This may be declared by an MPD catalog or by a tool-specific mechanism outside the schema document. 
+			<li><p>It provides the broadest, most fundamental definitions of components in its namespace. 
+			<li><p>It provides the authoritative definition of business semantics for components in its namespace. 
+			<li><p>It is intended to serve as the basis for components in IEPD and EIEM schema documents, including subset, constraint, extension, and exchange schema documents. 
+		</ul>
+		<p>See also reference schema document set.</p>
+	</definition>
+
+	<definition term="reference schema document set">
+		<p>A set of related reference schema documents, such as a NIEM release.  See also reference schema document.</p>
+	</definition>
+
+	<p>The [NIEM-NDR] conformance rules for reference schema documentss are generally stricter than those for other classes of NIEM-conformant schema documents.  For example, they are required to employ an xsd:annotation with xsd:documentation, and xsd:appinfo elements that encapsulate semantic information for each XML element and attribute declaration, and type definition.</p>
+
+	<p>Reference schemas are very uniform in their structure.  As they are the primary definitions for data components, they do not need to restrict other data definitions, and they are not allowed to use XML Schema's complex type restriction mechanisms.</p>
+
+</section>
 
 2.8 Coherence of Schema Sets
 
