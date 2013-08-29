@@ -307,31 +307,31 @@ Definition:  schema document subset  An XML schema document set built from a ref
 Because NIEM adopts an optional and over-inclusive data representation strategy, most elements in a NIEM reference schema have zero to unbounded cardinality.  So, elements with cardinality minOccurs="0" are optional and may be omitted from a subset schema document if not needed for business reasons.  It is also valid to constrain element cardinality within a subset schema document, as long as it is not constrained such that the subset relationship is broken.  For example, a reference schema document element with cardinality (minOccurs="0", maxOccurs="unbounded") may be constrained to (0,1) or (1,1) in a subset schema document.  However, if a reference schema document element's cardinality is (1,unbounded), it may not be constrained to (0,1) since this breaks the subset relationship.  The interval (0,1) is not contained within, and instead, overlaps the interval (1,unbounded). 
 The fundamental rule for a valid schema document subset is as follows:
 
-[Rule 3-1]  Any instance XML document that validates against a NIEM schema document subset will validate against the NIEM reference schema document set from which that schema document subset was derived. 
+[Rule 3-1]  Any instance XML document that validates against a NIEM schema document subset will validate against the NIEM reference schema document set from which that schema document subset was derived.
 
-NIEM Subset Operations:  These are essentially reduction operations that remove or constrain portions of a reference schema document set, thereby building a profile of the set.  They do not relax/expand the scope or change the semantics of reference schema document set content. 
+NIEM Subset Operations:  These are essentially reduction operations that remove or constrain portions of a reference schema document set, thereby building a profile of the set.  They do not relax/expand the scope or change the semantics of reference schema document set content.
 
-1. Remove an XML comment statement (e.g., <!-- comment -->)
-2. Remove an xs:annotation 
+1. Remove an XML comment statement (<pre><![CDATA[<!-- comment -->]]></pre>)
+2. Remove an xs:annotation
 (includes  xs:documentation and xs:appinfo)
-3. Increase the value of an xs:element minOccurs attribute 
+3. Increase the value of an xs:element minOccurs attribute
 (must be less than or equal to maxOccurs value)
-4. Decrease the value of an xs:element maxOccurs attribute 
+4. Decrease the value of an xs:element maxOccurs attribute
 (must be greater than or equal to minOccurs value)
 5. Remove an xs:element if minOccurs="0" and maxOccurs="0"
-6. Remove an xs:complexType or xs:simpleType 
+6. Remove an xs:complexType or xs:simpleType
 (if not supporting an element)
 7. Remove an xs:attribute from a xs:element
-8. Change an xs:attribute use="optional" to use="prohibited" 
+8. Change an xs:attribute use="optional" to use="prohibited"
 9. Change an xs:attribute use="optional" to use="required"
-10. Remove an xs:schema/xs:element declaration 
+10. Remove an xs:schema/xs:element declaration
 (if not supporting an element use)
 11. Set an xs:schema/xs:element to abstract="true"
 12. Substitute a substitutionGroup member xs:element for its associated substitution head
-13. Remove an xs:enumeration from an xs:simpleType 
+13. Remove an xs:enumeration from an xs:simpleType
 (unless it is the only remaining xs:enumeration)
 14. Add or apply a constraining facet to an xs:simpleType
-15. Remove an xs:import and its associated schema document 
+15. Remove an xs:import and its associated schema document
 (if the schema document is unused within the document set)
 
 Note that the process of deriving a schema document subset from a NIEM reference schema document set is optional; it is valid to reuse NIEM reference schema documents as-is within IEPDs or EIEMs.  The primary reasons for subsetting are to reduce IEPD size and complexity and to focus constraints. 
