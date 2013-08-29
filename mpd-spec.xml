@@ -45,75 +45,106 @@ Table 3-1.  MPD classes vs. schema classes	25</p>
 
 
 <section id="Introduction">
-<title>Introduction</title>
+	<title>Introduction</title>
 
-<p>This specification assumes familiarity with the National Information Exchange Model (NIEM), its basic concepts, architecture, processes, design rules, and general conformance rules.  For novices, the recommended reading list includes:
-    Introduction to the National Information Exchange Model [NIEM-Intro]
-    NIEM Concept of Operations [NIEM-ConOps]
-    NIEM Naming and Design Rules [NIEM-NDR]
-    NIEM High-Level Version Architecture [NIEM-HLVA]
-    NIEM High-Level Tool Architecture [NIEM-HLTA]
-    NIEM Conformance [NIEM-Conformance]
-    NIEM User Guide [NIEM-UserGuide]
-    NIEM Business Information Exchange Components (BIEC) [NIEM-BIEC]
-    NIEM Implementation Guidelines [NIEM-Implementation]
-The foregoing NIEM documents are available at http://reference.niem.gov/niem/.  See [NIEM-Implementation] for NIEM Implementation Guidelines.
+	<p>This specification assumes familiarity with the National Information Exchange Model (NIEM), its basic concepts, architecture, processes, design rules, and general conformance rules.  For novices, the recommended reading list includes:
+	<ul>
+		<p><li>Introduction to the National Information Exchange Model [NIEM-Intro]</p></li>
+		<p><li>NIEM Concept of Operations [NIEM-ConOps]</p></li>
+		<p><li>NIEM Naming and Design Rules [NIEM-NDR]</p></li>
+		<p><li>NIEM High-Level Version Architecture [NIEM-HLVA]</p></li>
+		<p><li>NIEM High-Level Tool Architecture [NIEM-HLTA]</p></li>
+		<p><li>NIEM Conformance [NIEM-Conformance]</p></li>
+		<p><li>NIEM User Guide [NIEM-UserGuide]</p></li>
+		<p><li>NIEM Business Information Exchange Components (BIEC) [NIEM-BIEC]</p></li>
+		<p><li>NIEM Implementation Guidelines [NIEM-Implementation]</p></li>
+	</ul>
+
+	<p>The foregoing NIEM documents are available at http://reference.niem.gov/niem/.  See [NIEM-Implementation] for NIEM Implementation Guidelines.
 Those knowledgeable of NIEM should be familiar with the [NIEM-NDR], [NIEM-HLVA], [NIEM-Conformance], and [NIEM-BIEC].
-This specification uses and is a peer to the NIEM Naming and Design Rules (NDR) [NIEM-NDR] and supersedes IEPD guidance previously published in Requirements for a NIEM IEPD [NIEM-IEPD] and the NIEM User Guide [NIEM-UserGuide].  The NIEM User Guide remains a good source for understanding the process of building Information Exchange Package Documentation (IEPD).
+This specification uses and is a peer to the NIEM Naming and Design Rules (NDR) [NIEM-NDR] and supersedes IEPD guidance previously published in Requirements for a NIEM IEPD [NIEM-IEPD] and the NIEM User Guide [NIEM-UserGuide].  The NIEM User Guide remains a good source for understanding the process of building Information Exchange Package Documentation (IEPD).</p>
 
-1.1 Background
+<section id="Background">
+	<title>Background</title>
 
-Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose.  Examples of such sets include, but in the future may not necessarily be limited to, a NIEM release, domain update, Information Exchange Package Documentation (IEPD), and Enterprise Information Exchange Model (EIEM).  Each of these examples is a NIEM Model Package Description (MPD).
+	<p>Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose.  Examples of such sets include, but in the future may not necessarily be limited to, a NIEM release, domain update, Information Exchange Package Documentation (IEPD), and Enterprise Information Exchange Model (EIEM).  Each of these examples is a NIEM Model Package Description (MPD).</p>
 
 Definition:  Model Package Description (MPD)  A set of related W3C XML Schema documents and other supporting files organized as one of the five classes of NIEM schema sets:
-          Release (major, minor, or micro).
-          Domain update (to a release).
-          Core update (to a release).
-          Information Exchange Package Documentation (IEPD). 
-          Enterprise Information Exchange Model (EIEM).
+<ul>
+	<p><li>Release (major, minor, or micro).</p></li>
+	<p><li>Domain update (to a release).</p></li>
+	<p><li>Core update (to a release).</p></li>
+	<p><li>Information Exchange Package Documentation (IEPD).</p></li>
+	<p><li>Enterprise Information Exchange Model (EIEM).</p></li>
+</ul>
+	<p>An MPD is self-documenting and provides sufficient normative and non-normative information to allow technical personnel to understand how to use or implement it.  An MPD is packaged as a ZIP [PK-ZIP] file.</p>
 	  
-An MPD is self-documenting and provides sufficient normative and non-normative information to allow technical personnel to understand how to use or implement it.  An MPD is packaged as a ZIP [PK-ZIP] file.
-A key NIEM concept used throughout this specification is data component.
-Definition:  data component  An XML Schema type or attribute group definition; or an XML Schema element or attribute declaration. 
-An MPD is a normative specification for XML data components in the format of World Wide Web Consortium (W3C) XML Schema definition language [W3-XML-SchemaDatatypes] [W3-XML-SchemaStructures].  MPD schema documents either (1) define the semantics and structure for NIEM reusable data components, or (2) define implementable NIEM exchange document instances inW3C Extensible Markup Language (XML) [W3-XML].
+	<p>A key NIEM concept used throughout this specification is data component.
+		
+		<definition term="data component">
+			<p>An XML Schema type or attribute group definition; or an XML Schema element or attribute declaration.</p>
+		</definition>
 
-A NIEM MPD is complete when it has been properly packaged with the schemas, documentation, and supplemental files needed to understand how to use and implement it.  MPD content design, development, and assembly may be difficult and time-consuming, especially if done manually.  Software tools have been shown to significantly reduce the complexity of designing, constructing, changing, and managing MPDs.  In order to reduce ambiguity and to facilitate interoperable and effective tool support, this baseline specification imposes some degree of consistency on the terminology, syntax, semantics, and composition of MPDs. 
+		<p>An MPD is a normative specification for XML data components in the format of World Wide Web Consortium (W3C) XML Schema definition language [W3-XML-SchemaDatatypes] [W3-XML-SchemaStructures].  MPD schema documents either (1) define the semantics and structure for NIEM reusable data components, or (2) define implementable NIEM exchange document instances inW3C Extensible Markup Language (XML) [W3-XML].</p>
 
-1.2 Purpose
-
-This document is a normative specification for the various kinds of NIEM MPDs.  The rules and guidance herein are designed to encourage and facilitate NIEM use and tools by balancing consistency, simplicity, and flexibility.  Consistency and simplicity make MPDs easy to design correctly, build rapidly, and find easily (for reuse or adaptation).  Consistency also facilitates tool support.  Flexibility enables more latitude to design and tailor MPDs for complex data exchange requirements.  As such, this document does not necessarily prescribe mandates or rules for all possible situations or organizational needs.  If an organization determines it should impose additional constraints or requirements on its IEPDs beyond those specified in this document (for example, mandating a normative set of business requirements or a domain model within IEPD documentation), then it is free to do so, as long as there are no conflicts with this MPD Specification or the [NIEM-NDR].
-This document defines terminology; identifies required and optional (but common) artifacts; defines metadata; specifies normative rules, schemes, and syntax; provides non-normative guidance; and as needed, refers to other related NIEM specifications for more detail.  
-
-1.3 Scope
-
-This specification applies to information exchange definitions and release products that employ the data component definitions and declarations in NIEM Core and Domains.  In particular, this version of this document applies to the following MPDs: 
-    NIEM releases (including major, minor, and micro releases). 
-    NIEM core updates.
-    NIEM domain updates [NIEM-DomainUpdate] (Note that these are NOT the same as the NIEM domain schemas that are part of numbered releases).
-    NIEM Information Exchange Package Documentation (IEPD) that define NIEM data exchanges.
-    NIEM Enterprise Information Exchange Models (EIEM) from which one or more NIEM IEPDs can be built or based.
-In the future, as required, other types of MPDs may be added to this list. 
-At any point in time, an incomplete MPD will be in some state of development.  This specification is applicable to such developing products in that it establishes standards on the final, published, production-quality state.  In turn, tool vendors can craft, adapt, and/or integrate software tools that will assist in the development of MPDs from raw parts to finished product. 
-NIEM is a data layer for an information architecture.  Files in an MPD generally define XML Schema types and declare XML elements and attributes to use in payloads for information exchanges.  While an MPD may also contain files from layers beyond the data layer, this specification is not intended to define details of other architectural layers.  Such files are generally present only to provide additional context, understanding, or assistance for implementing the exchange of payloads. 
-Authoritative sources are not required to revise MPDs that exist before this specification becomes effective.  However, they are always encouraged to consider revising MPDs to meet this specification, especially when making other significant changes. 
-
-1.4 Audience
-
-The following groups should review and adhere to this specification:
-    The NIEM release manager who is responsible to integrate and publish NIEM releases and core updates.
-    NIEM domain stewards who develop and publish domain updates. 
-    NIEM IEPD developers and implementers.
-    NIEM tool developers and vendors.
-    Organizations that intend to develop an EIEM. 
-    Individuals or groups responsible to review and approve MPDs. 
-</p>
+	<p>A NIEM MPD is complete when it has been properly packaged with the schemas, documentation, and supplemental files needed to understand how to use and implement it.  MPD content design, development, and assembly may be difficult and time-consuming, especially if done manually.  Software tools have been shown to significantly reduce the complexity of designing, constructing, changing, and managing MPDs.  In order to reduce ambiguity and to facilitate interoperable and effective tool support, this baseline specification imposes some degree of consistency on the terminology, syntax, semantics, and composition of MPDs. </p>
+	
 </section>
 
-<section id="Concepts-and-Terminology">
-<title>Concepts and Terminology</title>
+<section id="Purpose">
+	<title>Purpose</title>
 
-<p>The presentation of concepts and terms in this section is sequenced for understanding.  Each subsection builds upon previous ones.  This section concludes with an explanation of each of the five MPD classes and a summary of their similarities and differences. 
+	<p>This document is a normative specification for the various kinds of NIEM MPDs.  The rules and guidance herein are designed to encourage and facilitate NIEM use and tools by balancing consistency, simplicity, and flexibility.  Consistency and simplicity make MPDs easy to design correctly, build rapidly, and find easily (for reuse or adaptation).  Consistency also facilitates tool support.  Flexibility enables more latitude to design and tailor MPDs for complex data exchange requirements.  As such, this document does not necessarily prescribe mandates or rules for all possible situations or organizational needs.  If an organization determines it should impose additional constraints or requirements on its IEPDs beyond those specified in this document (for example, mandating a normative set of business requirements or a domain model within IEPD documentation), then it is free to do so, as long as there are no conflicts with this MPD Specification or the [NIEM-NDR].</p>
+
+	<p>This document defines terminology; identifies required and optional (but common) artifacts; defines metadata; specifies normative rules, schemes, and syntax; provides non-normative guidance; and as needed, refers to other related NIEM specifications for more detail.</p>
+
+</section>
+
+<section id="Scope">
+	<title>Scope</title>
+
+	<p>This specification applies to information exchange definitions and release products that employ the data component definitions and declarations in NIEM Core and Domains.  In particular, this version of this document applies to the following MPDs:</p> 
+	<ul>
+		<p><li>NIEM releases (including major, minor, and micro releases).</p></li>
+		<p><li>NIEM domain updates [NIEM-DomainUpdate] (Note that these are NOT the same as the NIEM domain schemas that are part of numbered releases). ).</p></li>
+		<p><li>Core updates (to a release).</p></li>
+		<p><li>Information Exchange Package Documentation (IEPD) that define NIEM data exchanges.</p></li>
+		<p><li>Enterprise Information Exchange Model (EIEM) from which one or more NIEM IEPDs can be built or based.</p></li>
+	</ul>
+    
+	<p>In the future, as required, other types of MPDs may be added to this list.</p>
+		
+	<p>At any point in time, an incomplete MPD will be in some state of development.  This specification is applicable to such developing products in that it establishes standards on the final, published, production-quality state.  In turn, tool vendors can craft, adapt, and/or integrate software tools that will assist in the development of MPDs from raw parts to finished product.</p>
+
+	<p>NIEM is a data layer for an information architecture.  Files in an MPD generally define XML Schema types and declare XML elements and attributes to use in payloads for information exchanges.  While an MPD may also contain files from layers beyond the data layer, this specification is not intended to define details of other architectural layers.  Such files are generally present only to provide additional context, understanding, or assistance for implementing the exchange of payloads. 
 	
+	<p>Authoritative sources are not required to revise MPDs that exist before this specification becomes effective.  However, they are always encouraged to consider revising MPDs to meet this specification, especially when making other significant changes.</p>
+</section>
+
+<section id="Audience">
+	<title>Audience</title>
+
+<p>The following groups should review and adhere to this specification:</p>
+<ul>
+	<p><li>The NIEM release manager who is responsible to integrate and publish NIEM releases and core updates.</p></li>
+	<p><li>NIEM domain stewards who develop and publish domain updates.</p></li>
+	<p><li>NIEM IEPD developers and implementers.</p></li>
+	<p><li>NIEM tool developers and vendors.</p></li>
+	<p><li>Organizations that intend to develop an EIEM.</p></li>	    
+	<p><li>Individuals or groups responsible to review and approve MPDs.</p></li>
+</ul>
+
+</section>
+</section>
+
+
+
+<section id="Concepts-and-Terminology">
+	<title>Concepts and Terminology</title>
+
+	<p>The presentation of concepts and terms in this section is sequenced for understanding.  Each subsection builds upon previous ones.  This section concludes with an explanation of each of the five MPD classes and a summary of their similarities and differences.</p>
+
+	<p>	
 2.1 Key Words for Requirement Levels
 
 Within normative content rules and definitions, the key words MUST, MUST NOT, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY, RECOMMENDED, REQUIRED, and OPTIONAL in this document are to be interpreted as described in [RFC2119-KeyWords]. 
