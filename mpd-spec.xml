@@ -760,14 +760,14 @@ At a minimum, the master document should contain several fundamental elements of
 	<li><p>Security considerations (for protecting sensitive or classified information)</p></li>
 	<li><p>Privacy considerations (for example, Personal Identifiable Information or PPI)</p></li>
 	<li><p>Types of implementation</p></li>
-	<li><p>If an IEPD employs multiple subsets (either from the same release or from different releases):
-			<li><p>Where and how are these used?
-			<li><p>What are the caveats regarding duplicative data components?
-			<li><p>How are these coordinated in the implementation?
-	<li><p>If an IEPD employs multiple exchange schemas and/or exchange schemas with multiple root elements:
-			<li><p>What is the purpose of each (exchange and root) and when is it used?
-			<li><p>How are these coordinated during the runtime preparation and transmission of IEPs?
-	<li><p>Authors are also encouraged to include an executive summary, especially for particularly lengthy master documents.
+	<li><p>If an IEPD employs multiple subsets (either from the same release or from different releases):</p></li>
+			<li><p>Where and how are these used?</p></li>
+			<li><p>What are the caveats regarding duplicative data components?</p></li>
+			<li><p>How are these coordinated in the implementation?</p></li>
+	<li><p>If an IEPD employs multiple exchange schemas and/or exchange schemas with multiple root elements:</p></li>
+		<li><p>What is the purpose of each (exchange and root) and when is it used?</p></li>			
+		<li><p>How are these coordinated during the runtime preparation and transmission of IEPs?</p></li>
+	<li><p>Authors are also encouraged to include an executive summary, especially for particularly lengthy master documents.</p></li>
 </ul>
 
 </section>
@@ -840,10 +840,10 @@ See [Rule 4-3] for an explanation of the status options.
 Obviously, the set of class values corresponds to release, core update, domain update, IEPD, and EIEM respectively.  A valid IEPD file name corresponding to the example in Appendix C: Sample MPD Catalog Instance would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code>
 Checking this Appendix you will find that this example obeys the following two rules:
 
-[Rule 6-5] Within an MPD, the <code><name></code> and <code><version></code> substrings in the file name MUST match exactly the values for attributes <code>mpdName</code> and <code>mpdVersionID</code> within its <code>mpd-catalog.xml</code> artifact.
+[Rule 6-5] Within an MPD, the <code>name</code> and <code>version</code> substrings in the file name MUST match exactly the values for attributes <code>mpdName</code> and <code>mpdVersionID</code> within its <code>mpd-catalog.xml</code> artifact.
 
 [Rule 6-6] Within an MPD, the <code><class></code> substring in the file name MUST correctly correspond to the value for the attribute mpdClassCode within <code>mpd-catalog.xml</code>.  Correct correspondence is: 
-			IF file name <code><class></code> =	THEN <code>mpd-catalog.xml</code> mpdClassCode =
+	IF file name <code>class</code> =	THEN <code>mpd-catalog.xml</code> <code>mpdClassCode</code> =
 rel				release
 cu				core-update
 du				domain-update
@@ -853,8 +853,8 @@ eiem				eiem
 In HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.
 
 [Rule 6-7] When represented on the Internet, an MPD archive SHOULD use the following MIME Type:  
-  application/zip+<class>    where
-     <class> is one member from the set {rel, cu, du, iepd, eiem}
+application/zip+<code>class</code>    where
+	  <code>class</code> is one member from the set {rel, cu, du, iepd, eiem}
 Use of the generic zip MIME type application/zip is allowed, but discouraged.  No other MIME types are allowed when representing MPD archives.   
 
 [Rule 6-8] Within an MPD archive, the value of each xsd:import schemaLocation attribute MUST be a relative path reference that resolves to the correct schema within the sub-tree.
@@ -1046,4 +1046,3 @@ Each NIEM release, core update, and domain update is required to conform to the 
 </section>
 
 </document>
-
