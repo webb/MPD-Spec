@@ -1,4 +1,4 @@
-test
+
 1	Introduction	1
 1.1	Background	1
 1.2	Purpose	2
@@ -310,7 +310,7 @@ When a schema has been omitted from a valid subset, there is no longer a reason 
 This section only applies to NIEM IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain schema subsets. 
 Previous sections defined a single schema subset derived from a reference schema set.  In general, an IEPD or EIEM contains a single cohesive schema subset (which may be a rather large set of files) based on one numbered NIEM release or domain update. 
 However, this specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM.  Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM.  However, exercising this degree of flexibility makes it critically important that developers understand the potential consequences. NIEM subsets represent a delicate compromise between flexibility and interoperability.  On the one hand, a set of IEPDs based on the same subset and numbered release use identical data components, thereby enhancing interoperability.  On the other hand, mixing dissimilar subsets from the same numbered release or mixing subsets derived from various numbered releases has the potential to negatively impact interoperability.
-The NIEM mandate that every schema have a unique namespace prevents name conflicts between reference schema sets and between two subsets derived from different reference sets.  In spite of namespace distinction, mixing subsets of multiple reference schema sets can still introduce multiple versions of semantically equivalent data components, a potentially ambiguous situation.  Even employing multiple subsets together that have been derived from the same reference set has the potential to create a similar result. Above all, it is the developer’s responsibility to ensure that, if mixing subsets from one or more numbered releases within a single IEPD or EIEM, these artifacts are carefully coordinated and clearly documented to ensure the various versions of semantically equivalent data components and different schemas with the same namespaces will not cause conflicts, confusion, and/or failure during validation or exchange implementation.
+The NIEM mandate that every schema have a unique namespace prevents name conflicts between reference schema sets and between two subsets derived from different reference sets.  In spite of namespace distinction, mixing subsets of multiple reference schema sets can still introduce multiple versions of semantically equivalent data components, a potentially ambiguous situation.  Even employing multiple subsets together that have been derived from the same reference set has the potential to create a similar result. Above all, it is the developer's responsibility to ensure that, if mixing subsets from one or more numbered releases within a single IEPD or EIEM, these artifacts are carefully coordinated and clearly documented to ensure the various versions of semantically equivalent data components and different schemas with the same namespaces will not cause conflicts, confusion, and/or failure during validation or exchange implementation.
 3.3 Extension Schemas
 This section only applies to NIEM IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain extension schemas. 
 Definition:  extension schema document  A NIEM-conformant schema document that adds domain or application specific content to the base NIEM model.
@@ -377,7 +377,7 @@ A variety of documentation files may be incorporated into a NIEM MPD.  However, 
 A master document is also mandatory for IEPDs and EIEMs.  These MPD classes are built by different developers, and may be registered into a repository for reuse by many other users and developers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM master document is the primary source and starting point for human readable documentation (similar to a "readme" file), and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM. 
 The following subsections will address these artifacts as well as the concepts, metadata, and content each supports. 
 4.1 Catalog
-Every NIEM MPD describes itself through a mandatory mpd-catalog artifact.  An mpd-catalog is a multi-purpose XML file containing metadata that describe an MPD’s 
+Every NIEM MPD describes itself through a mandatory mpd-catalog artifact.  An mpd-catalog is a multi-purpose XML file containing metadata that describe an MPD's 
     Unique identification
     Basic descriptive characteristics
     Directory structure and artifacts
@@ -667,17 +667,17 @@ eiem				eiem
 [Rule 6-11]  A published IEPD MUST link (through its mpd-catalog) to any EIEM it is based on.  When represented on the Internet, an MPD archive SHOULD use the following MIME Type:  
   application/zip+<class>    where
      <class> is one member from the set {rel, cu, du, iepd, eiem}
-Use of the generic zip MIME type application/zip is allowed, but discouraged.  No other MIME types are allowed when representing MPD archives.
+Use of the generic zip MIME type application/zip is allowed, but discouraged.� No other MIME types are allowed when representing MPD archives.
 The [NIEM-NDR] explains how NIEM employs a special type adaption mechanism to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant.  Other standards may use xsd:import without requiring schemaLocation attributes (instead, relying only on the namespace).  These standards may also use xsd:include which is disallowed by NIEM.  When standards external to NIEM are required within NIEM MPDs, the following rule applies:
-[Rule 6-12]  Within an MPD archive, if non-NIEM-conformant schemas from other standards are used and referenced within an MPD, then all xsd:import, xsd:include, and xsd:redefine constructs used within those schemas MUST be modified as needed to have a value for the schemaLocation attribute that is a relative path reference that resolves to the correct schema within the sub-tree.
+[Rule 6-12]  Within an MPD archive, if non-NIEM-conformant schemas from other standards are used and referenced within an MPD, then all xs:import, xs:include, and xs:redefine constructs used within those schemas MUST be modified as needed to have a value for the schemaLocation attribute that is a relative path reference that resolves to the correct schema within the sub-tree.
 For the case of non-NIEM-conformant schemas, this rule ensures that all schemas (or corresponding artifacts and namespaces) from other standards required for definition, validation, and use of the MPD are present within the archive.
 XML schemas are the heart of MPDs since they formally specify normative structure and semantics for data components.  However, in general, an MPD is a closed set of artifacts.  This means that all hyperlink references within artifacts should resolve to the appropriate artifact.  
 [Rule 6-13]  Within any artifact of an MPD archive, any direct reference to another resource (i.e., another artifact such as an image, schema, stylesheet, etc.) that is required to process or display an artifact SHOULD exist within the archive at the location specified by that reference.
-This means that MPD artifacts, including documentation artifacts, should be complete.  For example, if an HTML document contains a hyperlink reference (href) to a schema (xsd) or stylesheet (xsl) that is part of the MPD, then the schema file associated with that hyperlink should be present within the MPD; likewise for a sourced (src) image.  Authors should exercise good judgment with this rule.  For example, it does not require an MPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents.  The key operating words in this rule are:  "another resource … required to process or display an artifact SHOULD exist within the archive."
+This means that MPD artifacts, including documentation artifacts, should be complete.  For example, if an HTML document contains a hyperlink reference (href) to a schema (xsd) or stylesheet (xsl) that is part of the MPD, then the schema file associated with that hyperlink should be present within the MPD; likewise for a sourced (src) image.  Authors should exercise good judgment with this rule.  For example, it does not require an MPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents.  The key operating words in this rule are:  "another resource is required to process or display an artifact SHOULD exist within the archive."
 6.3 Duplication of Artifacts
 Within an MPD, the replication of files or entire file sets should be avoided.  However, replication is allowed when a reasonable rationale exists.  In some cases, file replication may make it easier to use, validate, implement, or automatically process an MPD.  For example, multiple subsets may overlap with many identical schemas.  Yet, it may be easier or even necessary to allow this form of duplication to accommodate a validation tool, rather than removing duplicate schemas, and forcing the tool to use the mpd-catalog to identify required artifacts.  mpd-catalog-1.0.xsd is designed to track duplicate artifacts (File or FileSet), as well as, reference a single File artifact from multiple FileSet artifacts. 
 6.4 Non-normative Guidance for Directories
-Aside from the rules above, this specification does not impose additional constraints on an IEPD or EIEM author’s freedom to organize directory structure.  This is why the mpd-catalog is required to list every artifact, along with its locally unique identifier, relative path name, nature, and purpose.  This enables a machine to find every artifact regardless of its location in an MPD archive and know exactly what it is.  The mpd-catalog artifact always takes precedence over the directory structure of an IEPD or EIEM. 
+Aside from the rules above, this specification does not impose additional constraints on an IEPD or EIEM author's freedom to organize directory structure.  This is why the mpd-catalog is required to list every artifact, along with its locally unique identifier, relative path name, nature, and purpose.  This enables a machine to find every artifact regardless of its location in an MPD archive and know exactly what it is.  The mpd-catalog artifact always takes precedence over the directory structure of an IEPD or EIEM. 
 Non-normative guidance for directory structuring may be useful to authors for a relatively simple IEPD or EIEM with a single subset, extension set, constraint set, and exchange schema set.  The following general guidance has been common practice for IEPD directories: 
     Create a root directory for the IEPD from the name and version identifier of the IEPD.  For example "my-iepd-3.2.4rev2".
     Per [Rule 4-1] and [Rule 4-12], mpd-catalog.xml and the change log (XML file format is not required for IEPD or EIEM change logs) must reside in the root directory.  
@@ -727,7 +727,7 @@ Appendix B: MPD Catalog Data Dictionary
 Appendix B will be folded into Appendix A (NIEM reference schemas contain documentation).
 The following table is a data dictionary for the Appendix A: MPD Catalog Schema.
 The Cardinality column lists the minimum and maximum cardinality for each element or attribute in an MPD Catalog, where U = Unbounded.  Grayed rows are the code values for the attribute relationshipCode.  Cardinality is not applicable to code values.  Typical cardinalities are interpreted as follows:
-	Min, Max	The associated element or attribute is …
+	Min, Max	The associated element or attribute is
 	1, 1		required; not optional; one and only one is allowed
 	1, U		required; not optional; one or any number is allowed; repeatable
 	0, 1		optional; zero or exactly one is allowed (0 or 1)
@@ -1552,10 +1552,11 @@ http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/
 [W3-XSLT2]:  XSL Transformations (XSLT), Version 2.0, W3C Recommendation 23 January 2007.  Available from http://www.w3.org/TR/2007/REC-xslt20-20070123/ 
 [PK-ZIP]:  APPNOTE.TXT - .ZIP File Format Specification, Version: 6.3.2, Revised: 28 September 2007, Copyright (c) 1989 - 2007 PKWare Inc.  Available from http://www.pkware.com/documents/casestudies/APPNOTE.TXT
 
+Footnotes:
 
-/ A NIEM-conformant IEPD or EIEM is required to have at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema.
+A NIEM-conformant IEPD or EIEM is required to have at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema.
 
-  An IEPD or EIEM change log may be informal in nature and is not required to conform to the strict XML schema definition that is mandatory for releases, core updates, and domain updates.  Therefore, csv or TEXT formats are also authorized. 
+An IEPD or EIEM change log may be informal in nature and is not required to conform to the strict XML schema definition that is mandatory for releases, core updates, and domain updates.  Therefore, csv or TEXT formats are also authorized. 
 
-e Each NIEM release, core update, and domain update is required to conform to the change log XML schema in http://reference.niem.gov/niem/resource/mpd/changelog/. 
+Each NIEM release, core update, and domain update is required to conform to the change log XML schema in http://reference.niem.gov/niem/resource/mpd/changelog/. 
 
