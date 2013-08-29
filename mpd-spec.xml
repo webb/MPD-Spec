@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<document 
+   xmlns="https://iead.ittl.gtri.org/wr24/doc/2011-09-30-2258"
+   xmlns:html="http://www.w3.org/1999/xhtml"
+   >
+  <title>National Information Exchange Model Conformance Specification</title>
+  <version>3.0alpha1</version>
+  <date>2013-08-27</date>
+  <author>NIEM Technical Architecture Committee (NTAC)</author>
+  <subsection id="toc">
+    <title>Contents</title>
+    <tableOfContents/>
+  </subsection>
+  <subsection>
+    <title>Authors</title>
+    <p>Mark Kindl, Georgia Tech Research Institute</p>
+  </subsection>
+  <subsection>
+    <title>Abstract</title>
+    <p>This document specifies general conformance guidance, principles, and rules for the National Information Exchange Model (NIEM) version 3.0.</p>
+  </subsection>
+  <subsection>
+    <title>Status</title>
+    <p>This document is a draft of the specification for general NIEM conformance. It represents the design that has evolved from the collaborative work of the NIEM Business Architecture Committee (NBAC) and the NIEM Technical Architecture Committee (NTAC) and their predecessors.</p>
+    <p>This specification is a product of the NIEM Program Management Office (PMO).</p>
+    <p>Send comments on this specification via email to <link href="mailto:niem-comments%40lists.gatech.edu?subject=NIEM%20Conformance%20Specification%20Version%203.0">niem-comments@lists.gatech.edu</link>.</p>
+  </subsection>
+
+<section id="Purpose">
+<title>Purpose</title>
+
+<p>This is a high-level document that introduces NIEM conformance and provides a general normative definition for its meaning, how it applies, to what it applies, as well as to what it does not apply.  This document describes the benefits of conformance, and refers to sources of information, tools, and help.  See these references to learn more about NIEM conformance and how to apply NIEM conformance in practice.</p>
+
+<p>Use this document to understand the general nature of NIEM conformance and to identify the key specifications that define the details of NIEM conformance for users and developers.</p>
+</section>
+
+<section id="Definition-of-NIEM-conformance">
+<title>Definition of NIEM conformance</title>
+
+<p>Conformance to NIEM is defined in terms of artifacts, NOT implementations, databases, systems, or tools.  NIEM defines various <em>conformance targets</em> as the classes of artifacts to which sets of NIEM normative rules apply.  This document will only address these concepts at a basic level.  Refer to appropriate NIEM specifications for details on conformance targets <ref idref="NIEM-CTAS"/>, <ref idref="NIEM-NDR"/>. </p>
+
+<definition term="conformance target">
+	<p>A class of artifact, such as an interface, protocol, document, platform, process or service that is the subject of conformance clauses and normative statements.  There may be several conformance targets defined within a specification, and these targets may be diverse so as to reflect different aspects of a specification.  For example, a protocol message and a protocol engine may be different conformance targets.</p>
+</definition>
+
+<p>In general, the three most basic NIEM conformance targets are: </p>
+
+<ul>
+<li><p>conformant instance XML document - an XML document that is an instance of a conformant schema document set and MUST conform to all applicable rules in the NIEM Naming and Design Rules <ref idref="NIEM-NDR"/>.</p></li>
+<li><p>conformant schema document set - a collection of XML Schema documents that together are capable of validating a conformant instance XML document.  A conformant schema document set MUST conform to all applicable rules in the NIEM Naming and Design Rules <ref idref="NIEM-NDR"/>.</p></li>
+<li><p>conformant Model Package Description (MPD) - a zip archive that contains a conformant schema document set of one MPD class, and that conforms to the rules specified in the NIEM Model Package Description Specification <ref idref="NIEM-MPD"/> that apply to its MPD class.  There are five NIEM MPD classes:  release, domain update, Core update, Information Exchange Package Documentation (IEPD), and Enterprise Information Exchange Model (EIEM).</p></li>
+</ul>
+
+<p>NIEM does not define information exchange <em>implementation</em> conformance.  In general, an implementation that deploys NIEM-conformant instance XML documents on a transmission medium is considered a NIEM information exchange.  However, an implementation may also apply encryption, compression, Efficient XML Interchange (EXI) encoding <ref idref="W3-EXI"/>, or other security and/or efficiency techniques to the NIEM instance XML documents as required.  Furthermore, NIEM is considered a payload layer, and as such, NIEM-conformant instance XML may be contained within standard envelopes (such as SOAP, LEXS, etc.) or other XML-based standards.  In describing an implementation that employs NIEM, an author should be as descriptive as is necessary to convey clear understanding of how NIEM is used.</p>
+
+<p>Reference schema document sets (i.e., NIEM releases, domain updates, and core updates) are subject to rigorous quality and conformance testing to ensure they are NIEM-conformant.  However, IEPDs are not under PMO control and are not subject to a formal certification process (at this time).  Therefore, it is important for NIEM users and developers to understand and make a concerted effort to ensure each Information Exchange Package Documentation (IEPD) they produce conforms to the <ref idref="NIEM-MPD"/> Specification.</p>
+
+<p>In general, NIEM specifies that an IEPD conforms to NIEM under the following conditions:</p>
+
+<ol>
+<li><p>Each XML schema within the IEPD adheres to all rules in the NIEM NDR for this schema<char name="rsquo"/>s conformance target class (i.e., reference schema document, extension schema document, constraint schema document set, external schema document, etc.).</p></li>
+<li><p>Each sample instance XML document within the IEPD validates to a NIEM-conformant schema document set in the IEPD, and adheres to all rules in the NIEM NDR for instance XML documents.</p></li>
+<li><p>The IEPD itself adheres to the NIEM MPD Specification (including required files, packaging, metadata, etc.).</p></li>
+<li><p>If an existing NIEM component matches the business semantics required by the IEPD, then that component is used by the IEPD, either directly or as the basis for derived components.  That is, the IEPD does not unnecessarily duplicate NIEM components.</p></li>
+<li><p>Each NIEM component that is used by the IEPD, either directly or as the basis for derived components, is used in a manner consistent with the component<char name="rsquo"/>s structural definition and business semantics.  That is, the IEPD preserves semantic and structural consistency.</p></li>
+</ol>
+
+<p>There are subjective factors in applying these rules that require diligent consideration by the organization that develops an IEPD.  It is important that decisions about semantics be made (or reviewed) by business subject-matter-experts (SMEs) who have thorough knowledge of the information exchange requirements, its business processes, and the domain for which it<char name="rsquo"/>s being built.</p>
+
+<p>For more detailed rules regarding IEPD conformance refer to <ref idref="NIEM-NDR"/> and <ref idref="NIEM-MPD"/>.</p>
+</section>
+
+<section>
+<title>NIEM does not define <em>compliance</em></title>
+
+<p>NIEM does NOT define <em>compliance</em>.  This term implies enforcement and the existence of an official certification process that verifies conformance or level of conformance.  Though it is envisioned for NIEM in the future, a formal certification process does not yet exist.  Therefore, compliance to NIEM is currently undefined and has no meaning.</p>
+
+<p>Early in the development of NIEM (and its predecessor), governance committees discussed the language to be used in solicitations (such grants, RFPs, etc.) that require use of NIEM.  They considered both terms, and concluded that the term <em>compliance</em> does not convey appropriate intent; it is too regulatory (for example, U.S. citizens and residents must comply with the U.S. tax code).  The objectives of NIEM are to develop information exchange standards that users desire, but are not forced, to use.  Furthermore, the purpose of both programs is to facilitate and support interoperability, NOT to force or regulate it.</p>
+
+<p>Thus, the appropriate assertion is:  Contract or grant awardees comply with contract or grant language, and that language requires IEPDs (and other MPDs), and their associated XML schema document sets and instance XML documents to <em>conform</em> to NIEM.  (See NIEM implementation guidance <ref idref="NIEM-Implement"/> which also outlines the general conformance rules.)</p>
+</section>
+
+<section>
+<title>NIEM-aware or -supporting vs. NIEM-conformant</title>
+
+<p>Systems, tools, and databases DO NOT and CANNOT conform to NIEM.  Only XML schema documents and document sets, instance XML documents, and MPDs can conform to NIEM.  For any other entity or artifact, NIEM conformance is undefined.  Internal names, or usage of data, within a given system, tool, or database have absolutely no impact on the determination of NIEM conformance.  Conformance is only about:</p>
+
+<ul>
+<li><p>XML schema document sets that conform to the <ref idref="NIEM-NDR"/>.</p></li>	
+<li><p>Payload data encapsulated in instance XML documents that conform to the <ref idref="NIEM-NDR"/> and validate to a given NIEM schema document set.</p></li>
+<li><p>The metadata, documentation, structure, and packaging of schema document sets in NIEM MPDs (releases, domain updates, core updates, IEPDs, EIEMs) as defined in the <ref idref="NIEM-MPD"/> Specification.</p></li>
+</ul>
+
+<p>An XML schema document that copies, maps to, or uses the data component names of NIEM XML document schemas or the data components they contain without importing corresponding NIEM target namespaces does not conform to NIEM.  Conforming to NIEM requires that an XML schema document reuse NIEM by importing through <code>xs:import</code> the target namespace(s) of NIEM reference schema documents or schema subset documents of NIEM reference schema documents.</p>
+
+<p>A tool, system, or database may have capabilities designed to specifically support the development of NIEM-conformant IEPDs, or that may be part of a development environment that specifically supports the implementation of NIEM-conformant IEPDs, or that may be used to test or verify NIEM-conformance, etc.  Also, a system may provide the capability to generate, send and receive, and/or process NIEM-conformant information exchanges.  Such tools or systems are NOT considered NIEM-conformant, however, because they support conformance, they may be considered NIEM-aware or NIEM-supporting.</p>
+
+<p>NIEM allows various extension methods to design and build additional XML data components that are not otherwise defined in NIEM.  Tools that assist in the creation of such extensions may also be referred to as NIEM-aware or -supporting.  However, implementers should be careful to avoid violating general conformance rules regarding duplication and consistency outlined above in Section <ref idref="Definition-of-NIEM-conformance"/>.</p>
+</section>
+
+<section>
+<title>Information sources for NIEM conformance</title>
+
+<p>NIEM conformance means adherence to the following specifications:</p>
+
+<ul>
+<li><p><em>NIEM Naming and Design Rules (NDR) v3.0</em> - The current normative reference for XML schema document set and instance XML document conformance to NIEM <ref idref="NIEM-NDR"/>.</p></li>
+<li><p><em>NIEM Conformance Target Attribute Specification (CTAS) v3.0</em> - The current normative reference for NIEM conformance targets (classes of artifacts that conform to NIEM)<ref idref="NIEM-CTAS"/>.</p></li>
+<li><p><em>NIEM Model Package Description Specification v3.0</em> - The current normative reference for NIEM IEPDs and other MPD classes of schema document sets <ref idref="NIEM-MPD"/>.</p></li>		
+<li><p><em>W3C XML Schema</em> - The normative reference for the XML Schema Definition Language <ref idref="W3-XMLSchema"/> used by NIEM.</p></li>
+</ul>
+
+<p>Other useful non-normative documents and Web pages:</p>
+
+<ul>
+	<li><p><em>NIEM User Guide volume 1</em> - A guide to the use of NIEM for designing and developing IEPDs <ref idref="NIEM-UG"/>.</p></li>
+	<li><p><em>NIEM Implementation Guide</em> - A Web page that describes NIEM conformance language for solicitations, contracts, and grants <ref idref="NIEM-Implement"/>.</p></li>
+</ul>
+</section>
+
+<section>
+<title>Benefits of IEPDs that conform to NIEM</title>
+
+<p>There are several advantages to developing NIEM-conformant IEPDs, including:</p>
+
+<ul>
+<li><p>Semantic and structural consistency.</p></li>
+<li><p>A higher degree of data interoperability.</p></li>
+<li><p>Can be reused as-is or adapted in whole or part.</p></li>
+<li><p>Easy to work with because reference schema documents (and subset schemas derived from them) use a profile of <ref idref="W3-XMLSchema"/>, thus the number of acceptable XML Schema Definition (XSD) mechanisms in use is constrained.</p></li>
+<li><p>NIEM IEPDs can be built, modified, and reused with NIEM-aware reference tools <ref idref="NIEM-Tools"/>, and with other current and future tools <ref idref="NIEM-Tools-Catalog"/> that follow the NIEM High-Level Tool Architecture <ref idref="NIEM-HLTA"/>.</p></li>
+<li><p>Can be registered, stored, published, and shared in the NIEM IEPD Registry/Repository (tool), and registered and socialized in the Justice IEPD Clearinghouse. These two Web locations can also be and often are linked.</p></li> 
+<li><p>Can use the OMG NIEM-UML profile <ref idref="NIEM-UML"/> with a UML modeling tool.</p></li>
+<li><p>Migration support exists if or when a NIEM IEPD must be updated to a later release version of NIEM <ref idref="NIEM-Tools"/>.</p></li>
+<li><p>IEPD extension schemas can be mined and reviewed by governance bodies for potential additions to future NIEM releases (Core and domains).  This is a simple way to suggest new or modified common requirements for NIEM. (See <ref idref="NIEM-HLVA"/>)</p></li>
+<li><p>PMO continues to encourage open and commercial tool support for NIEM IEPDs.</p></li>
+</ul>
+</section>
+
+<section>
+<title>Suggestions to IEPD developers</title>
+
+<p>Obviously, being as knowledgeable as possible with XML, NIEM, and its documentation is important.  To help increase understanding of and skill in building NIEM-conformant IEPDs, developers are also encouraged to:</p>
+<ul>
+<li><p>Use NIEM-aware reference tools <ref idref="NIEM-Tools"/> provided by the NIEM PMO.</p></li> 
+<li><p>Use NIEM-aware tools identified in the <ref idref="NIEM-Tools-Catalog"/> and that follow the NIEM High-Level Tool Architecture <ref idref="NIEM-HLTA"/>.</p></li>
+<li><p>Use (or reuse) methods and patterns from other NIEM-conformant schemas (e.g., use existing NIEM-conformant schema documents as templates).</p></li>
+<li><p>Adhere to the current <ref idref="NIEM-NDR"/> and <ref idref="NIEM-MPD"/> Specification.</p></li>
+<li><p>Attend formal NIEM training; or complete NIEM on-line training.</p></li> 
+<li><p>Follow guidelines presented in formal NIEM training, in on-line training, and in the NIEM User Guide Volume 1 <ref idref="NIEM-UG"/>.</p></li>
+</ul>
+</section>
+
+<section>
+<title>Tools for NIEM conformance testing or validation</title>
+
+<p>Many tools exist for validating that an instance XML document conforms to an XML schema document <ref idref="XML-Validators"/>.  No tool exists to automatically ensure 100% NIEM conformance of schema documents or document sets and IEPDs.  This is because some NIEM criteria require subjective evaluation.  For example, a tool cannot automatically verify that the definition of a NIEM component is constructed per ISO Standard 11179 <ref idref="ISO-11179"/>, and is semantically accurate.  However, the NIEM Conformance Tool can review XML schema documents and full IEPDs and automatically identify some NDR violations that confirm non-conformance.  This tool provides a simple but fairly comprehensive online facility to automatically validate schema document conformance to <ref idref="ISO-Schematron"/> rules specified in the <ref idref="NIEM-NDR"/>, and IEPD conformance to rules specified for IEPDs in the <ref idref="NIEM-MPD"/> Specification.  The tool also provides an output report of both automatic and manual conformance checks.  This report is editable so that as each manual check is performed, it can be marked as a pass or fail.</p>
+</section>
+
+<section isAppendix="true">
+<title>
+References
+</title>
+<reference id="ISO-11179">
+	<p>ISO/IEC STANDARD 11179: Information Technology - Metadata registries (MDR).  An ISO/IEC multipart standard.  NIEM uses these parts: Part 4 - Formulation of data definition (2004), Part 5 - Naming and identification principles (2005).  Available from <link>http://metadata-standards.org/11179/</link></p>
+</reference>
+<reference id="ISO-Schematron">
+	<p>ISO/IEC STANDARD 19757-3: Information technology: Document Schema Definition Languages (DSDL) Part 3: Rule-based validation: Schematron.  (1 Jun 2006).  ISO/IEC.  Retrieved from <link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c040833_ISO_IEC_19757-3_2006(E).zip</link></p>
+</reference>
+<reference id="NIEM-CTAS">
+	<p>NIEM Conformance Target Attribute Specification, v3.0alpha1, NIEM Technical Architecture Committee (NTAC), 26 June 2013.  Available from <link>http://reference.niem.gov/niem/specification/conformance-target-attribute/3.0/</link></p>
+</reference>
+<reference id="NIEM-NDR">
+	<p>NIEM Naming and Design Rules, v3.0, NIEM Technical Architecture Committee (NTAC), 7 October 2013.  Available from <link>http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/</link></p>
+</reference>
+<reference id="NIEM-HLTA">
+	<p>NIEM High-Level Tool Architecture (HLTA), v1.1, NIEM Technical Architecture Committee (NTAC), 1 December 2008.  Available from <link>http://reference.niem.gov/niem/specification/high-level-tool-architecture/1.1/</link></p>
+</reference>
+<reference id="NIEM-HLVA">
+	<p>NIEM High-Level Version Architecture, v1.0, NIEM Technical Architecture Committee (NTAC), 31 July 2008.  Available from <link>http://reference.niem.gov/niem/specification/high-level-version-architecture/1.0/</link></p></reference>
+<reference id="NIEM-Implement">
+	<p>NIEM Implementation Guide, NIEM Program Management Office (PMO), [date?].  Available from <link>https://www.niem.gov/aboutniem/grant-funding/Pages/implementation-guide.aspx</link></p>
+</reference>
+<reference id="NIEM-MPD">
+	<p>NIEM Model Package Description (MPD) Specification, v3.0, NIEM Technical Architecture Committee (NTAC), 7 October 2013.  Available from <link>http://reference.niem.gov/niem/specification/model-package-description/3.0/</link></p>
+</reference>
+<reference id="NIEM-Tools">
+	<p>NIEM Reference Tools, NIEM Program Management Office (PMO).  Available from <link>http://tools.niem.gov/</link></p>
+</reference>
+<reference id="NIEM-UG">
+	<p>NIEM User Guide, vol 1, Bureau of Justice Assistance (BJA), 20 May 2008.  Available from <link>http://reference.niem.gov/niem/guidance/user-guide/vol1/</link></p>
+</reference>
+<reference id="NIEM-UML">
+	<p>NIEM-UML Profile, v1.0beta, Object Management Group (OMG), July 2012.  Available from <link>http://reference.niem.gov/niem/specification/niem-uml/2.1/</link></p>
+</reference>
+<reference id="W3-EXI">
+	<p>Efficient XML Interchange (EXI) Format, v1.0, World Wide Web Consortium (W3C), 10 March 2011.  Available from <link>http://www.w3.org/TR/2011/REC-exi-20110310/</link></p>
+</reference>
+<reference id="W3-XMLSchema">
+	<p>XML Schema Part 1: Structures Second Edition, W3C Recommendation 28 October 2004.  
+	Available from <link>http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/</link>, XML Schema Part 2: Datatypes Second Edition, W3C Recommendation 28 October 2004.
+	Available from <link>http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/</link></p>
+</reference>
+<reference id="XML-Validators">
+	<p>XML Schema validator examples:  XSV <link>http://www.w3.org/2001/03/webdata/xsv</link>, XERCES <link>http://xerces.apache.org/</link>, Saxon <link>http://www.saxonica.com/welcome/welcome.xml</link></p>
+</reference>
+<reference id="NIEM-Tools-Catalog">
+	<p>NIEM Tools Catalog, NIEM Program Management Office (PMO).  Available from <link>https://www.niem.gov/tools-catalog/Pages/tools.aspx</link></p>
+</reference>
+
+</section>
+</document>
+
