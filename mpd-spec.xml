@@ -36,7 +36,7 @@ Figure 2-4.  BIECs, EIEM, and a small family of IEPDs.	14
 Figure 4-1.  Example versioning system.	28
 Figure 4-2.  An example of IEPD representation (abbreviated).	36
 Figure 6-1.  IEPD sample directory structure.	50
-</subsection><section>
+</subsection><subsection>
 <title>Tables</title>
 Table 2-1.  Comparison of MPD classes.	15
 Table 3-1.  MPD classes vs. schema classes	25
@@ -251,9 +251,9 @@ NIEM Subset Operations:  These are essentially reduction operations that remove 
 2. Remove an xs:annotation 
 (includes  xs:documentation and xs:appinfo)
 3. Increase the value of an xs:element minOccurs attribute 
-(must be < or = maxOccurs value)
+(must be less than or equal to maxOccurs value)
 4. Decrease the value of an xs:element maxOccurs attribute 
-(must be > or = minOccurs value)
+(must be greater than or equal to minOccurs value)
 5. Remove an xs:element if minOccurs="0" and maxOccurs="0"
 6. Remove an xs:complexType or xs:simpleType 
 (if not supporting an element)
@@ -329,7 +329,7 @@ Constraint schemas are generally designed and employed in sets, similar to schem
 To use a constraint schema to tighten constraints on IEPs, a two-pass validation technique is employed.  In the first pass, an IEP is validated against the schema subset, extensions, and one exchange schema.  This pass ensures that IEP semantics and structure conform to the NIEM model and NDR.  In the second pass, an IEP is checked against a constraint schema set, which may contain constrained versions of the schema subset, extensions, and the appropriate exchange schema.  This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate). 
 There is no restriction on the number of constraint schema sets that an IEPD or EIEM can employ.  As in other advanced situations, developers must clearly document their intentions for and use of multiple constraint schema sets.  
 In general, constraint schemas have far fewer requirements than other classes of NIEM schemas.  Since they work in tandem with NIEM normative schemas, constraint schemas are allowed to use the XML Schema language in any way necessary to express business rules.  This means that to constrain instances, constraint schemas can employ XML Schema constructs that are not allowed in other classes of NIEM schemas. 
-BIECs in particular may have additional business rules in constraint schemas.  A normative NIEM BIEC Specification (in progress at the time of the publication of this MPD Specification), will supplement or obviate constraint schemas with consistent and formal techniques for representing business rules within NIEM components.  However, as already mentioned, the MPD Specification does not prohibit or restrict the application of formal business rule techniques to MPDs now.
+BIECs in particular may have additional business rules in constraint schemas.  A normative NIEM BIEC Specification (in progress at the time of the publication of this MPD Specification), will supplement or obviate constraint schemas with consistent and formal techniques for representing business rules within NIEM components.  However, as already mentioned, the MPD Specification does not prohibit or restrict the application of formal business rule techniques to MPDs now.
 Finally, within an MPD, constraint schemas and constraint schema sets are completely distinct from the base schema set.  In the future, NIEM will prefer business rules over constraint schemas as the primary method for further constraining a base schema set. 
 3.7 Classes of MPDs vs. Classes of Schemas
 The chart in Table 3-1 summarizes which types of schemas are contained in which classes of MPDs and where they are not applicable (NA = Not Applicable; U = unbounded). 
