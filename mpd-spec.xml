@@ -75,8 +75,8 @@
 
 	<p>An MPD is a normative specification for XML data components in the format of World Wide Web Consortium (W3C) XML Schema definition language <ref idref="W3-XML-SchemaDatatypes"/>, <ref idref="W3-XML-SchemaStructures"/>.  MPD schema documents either (1) define the semantics and structure for NIEM reusable data components, or (2) define implementable NIEM exchange document instances inW3C Extensible Markup Language (XML) <ref idref="W3-XML"/>.</p>
 
-	<p>A NIEM MPD is complete when it has been properly packaged with the schemas, documentation, and supplemental files needed to understand how to use and implement it.  MPD content design, development, and assembly may be difficult and time-consuming, especially if done manually.  Software tools have been shown to significantly reduce the complexity of designing, constructing, changing, and managing MPDs.  In order to reduce ambiguity and to facilitate interoperable and effective tool support, this baseline specification imposes some degree of consistency on the terminology, syntax, semantics, and composition of MPDs. </p>
-	
+	<p>A NIEM MPD is complete when it has been properly packaged with the schemas, documentation, and supplemental files needed to understand how to use and implement it.  MPD content design, development, and assembly may be difficult and time-consuming, especially if done manually.  Software tools have been shown to significantly reduce the complexity of designing, constructing, changing, and managing MPDs.  In order to reduce ambiguity and to facilitate interoperable and effective tool support, this baseline specification imposes some degree of consistency on the terminology, syntax, semantics, and composition of MPDs.</p>
+
 </section>
 
 <section id="Purpose">
@@ -331,11 +331,11 @@ Figure 2-3.  Examples of NIEM numbered releases.
 	<p>A NIEM IEPD is a NIEM-conformant XML schema document set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents, and at least one XML document element (as defined in [W3-XML-InfoSet]) declared in a schema document.  The XML schema documents contained in an IEPD work together to define a class of instance XML documents that consistently encapsulate data for meaningful information exchanges.  Each instance XML document in this class validates against the XML schema document set contained in the IEPD.  XML schema documents in a NIEM IEPD conform to the [NIEM-NDR] and may use or extend data component definitions drawn from NIEM.</p>
 
 	<p>An IEPD consists of a minimal but complete set of artifacts (XML schema documents, documentation, sample instance XML documents, etc.) that together define and describe an implementable NIEM information exchange.   A complete and normative IEPD should contain an XML schema document set and instructional material necessary to:</p>
-<p>
-    Understand information exchange context, content, semantics, and structure. 
-    Create and validate information exchanges defined by the IEPD. 
-    Identify the lineage of the IEPD and optionally its artifacts.
-</p>
+	<ul>
+		<li><p>Understand information exchange context, content, semantics, and structure.</p></li> 
+		<li><p>Create and validate information exchanges defined by the IEPD.</p></li>
+		<li><p>Identify the lineage of the IEPD and optionally its artifacts.</p></li>
+	</ul>
 	<p>An NIEM IEPD defines an Information Exchange Package (IEP), which is an instance XML document that validates to the schema document set in the IEPD.  An IEP is an information message payload as it will appear when transmitted electronically and serialized as XML.  ([FEA-DRM] and [GJXDM-IEPD] and are the original sources of the terms information exchange package and information exchange package documentation, respectively).</p>
 
 	<definition term="Information Exchange Package (IEP)">
@@ -359,12 +359,11 @@ Figure 2-3.  Examples of NIEM numbered releases.
 	<p>Information sharing enterprises may cross various levels of government and involve multiple business domains.  They are self-defining and can be formal (with specific governance) or informal and ad hoc.  An information sharing enterprise is the primary entity that supports the development and management of BIECs and an associated Enterprise Information Exchange Model (EIEM) (to be discussed next).  Henceforth, unless otherwise stated, all references to an enterprise will implicitly mean information sharing enterprise.</p>
 
 	<p>A Business Information Exchange Component (BIEC) [NIEM-BIEC] is a NIEM-conformant content model in XML Schema for a data component that meets the specific business needs of an information sharing enterprise for exchanging data about something that is a part of one or more information exchanges.  This data component is tailored and intended to be used consistently across multiple IEPDs built by an enterprise.  A BIEC is a NIEM-conformant data component that is:</p>
-
-<p>
-    Reused from a NIEM release (for example, as a subset; with possibly modified cardinality), or
-    Extended per the [NIEM-NDR] from an existing NIEM data component, or 
-    Created per the [NIEM-NDR] as a new data component that does not duplicate existing NIEM components within a release in use.
-</p>
+<ul>
+	<li><p>Reused from a NIEM release (for example, as a subset; with possibly modified cardinality), or</p></li>
+	<li><p>Extended per the [NIEM-NDR] from an existing NIEM data component, or</p></li>
+	<li><p>Created per the [NIEM-NDR] as a new data component that does not duplicate existing NIEM components within a release in use.</p></li>
+</ul>
     
 	<definition term="Business Information Exchange Component (BIEC)">
 		<p>A NIEM-conformant XML schema data component definition or declaration (for a type, element, attribute, or other XML construct) reused, subsetted, extended, and/or created from NIEM that meets a particular recurring business requirement for an information sharing enterprise.</p>
@@ -373,11 +372,11 @@ Figure 2-3.  Examples of NIEM numbered releases.
 	<p>The use of BIECs has the potential for simplifying IEPD development and increasing consistency of the business object definitions at all steps in the process, including exchange content modeling, mapping to NIEM, creating NIEM extension components, and generating XML schema documents.</p>
 
 	<p>An Enterprise Information Exchange Model (EIEM) is an MPD that incorporates BIECs that meet enterprise business needs for exchanging data using NIEM [NIEM-BIEC].  An EIEM is an adaptation of NIEM schema documents, tailored and constrained for and by an enterprise.  An EIEM contains the following schema documents that are commonly used or expected to be used by the authoring enterprise:</p>
-
-	<p>One standard NIEM subset schema document set (or reference schema set).  One or more NIEM extension schema documents that extend existing NIEM data components or establish new NIEM-conformant data components.
-Optionally, as needed, one or more NIEM constraint schema document sets (usually based on a subset schema document set). 
-Optionally, as needed, one or more XML schema documents for non-NIEM (i.e., non-conformant) standards with associated extension schema documents that contain adapter types for the data components that will be used from those non-NIEM XML schema documents (per [NIEM-NDR]).
-</p>
+	<ul>
+		<li><p>One standard NIEM subset schema document set (or reference schema set).  One or more NIEM extension schema documents that extend existing NIEM data components or establish new NIEM-conformant data components.</p></li>
+		<li><p>Optionally, as needed, one or more NIEM constraint schema document sets (usually based on a subset schema document set).</p></li>
+		<li><p>Optionally, as needed, one or more XML schema documents for non-NIEM (i.e., non-conformant) standards with associated extension schema documents that contain adapter types for the data components that will be used from those non-NIEM XML schema documents (per <ref idref="NIEM-NDR"/>).</p></li>
+	</ul>
 
 	<definition term="Enterprise Information Exchange Model (EIEM)">
 		<p>An MPD that contains a NIEM-conformant schema document set that defines and declares data components to be consistently reused in the IEPDs of an enterprise.</p>
@@ -387,9 +386,10 @@ Optionally, as needed, one or more XML schema documents for non-NIEM (i.e., non-
 
 	<p>An information sharing enterprise that creates and maintains an EIEM authors IEPDs by reusing its EIEM content instead of (re)subsetting reference schema documents sets and (re)creating extensions.  An EIEM may also contain business rules or constraint schema document sets tailored to the enterprise and designed to restrict variability in use of NIEM data components.  This not only saves time, but it also ensures that enterprise IEPDs reuse NIEM and associated extensions consistently.  (Note that XML schema document subsets, extension schema documents, and constraint schema document sets will be defined and discussed in more detail later in this document).  Figure 2-4 below illustrates relationships among BIECs, an EIEM, and an IEPD family (Constraint schema document sets are optional and not depicted in Figure 2-4).</p>
 
-<p>
-Figure 2-4.  BIECs, EIEM, and a small family of IEPDs.
-</p>
+	<figure>
+		<title>BIECs, EIEM, and a small family of IEPDs.</title>
+		<image src="img/iepd-family.png"/>
+	</figure>
 
 </section>
 </section>
@@ -420,9 +420,38 @@ IEPDs and EIEMs contain subset, extension, and constraint schema documents and d
 
 	<p>The following table summarizes the similarities and differences of MPD classes by indicating the characteristics for each:</p>
 
-<p>
-Table 2-1.  Comparison of MPD classes.
-</p>
+	<figure>
+		<title>Comparison of MPD classes.</title>
+		<image src="img/compare-mpd.png"/>
+	</figure>
+
+<table>
+	<title>Table 1.  Comparison of MPD classes.</title>
+        <theadr>
+            <th> Characteristics of MPD Classes </th>
+	    <th> Release </th>
+	    <th> Core Update </th>
+	    <th> Domain Update </th>
+	    <th> IEPD </th>
+	    <th> EIEM </th>
+        </theadr>
+	<tr>
+            <td>Requires a URI </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	</tr>
+	<tr>
+            <td>Requires a version number </td>
+	    <td> X </td>
+	    <td>   </td>
+	    <td>   </td>
+	    <td> X </td>
+	    <td>   </td>
+	</tr>
+</table>
 
 </section>
 </section>
