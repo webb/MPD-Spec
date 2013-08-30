@@ -302,7 +302,7 @@ Figure 2-3.  Examples of NIEM numbered releases.
 <section id="Domain-Update">
 	<title>Domain Update</title>
 
-<p>A domain update is an MPD containing reference schema document or document set that represents changes to NIEM domains.  The [NIEM-HLVA] defines a domain update as both a process and a NIEM product.  Through use and analysis of NIEM releases and published content, domain users will identify issues and new data requirements for the domain and sometimes Core.  NIEM domains use these issues as the basis for incremental improvements, extensions, and proposed changes to future NIEM releases.  Both the process and product of the process are referred to as domain update.  This MPD Specification is applicable to a domain update product.</p>
+	<p>A domain update is an MPD containing reference schema document or document set that represents changes to NIEM domains.  The [NIEM-HLVA] defines a domain update as both a process and a NIEM product.  Through use and analysis of NIEM releases and published content, domain users will identify issues and new data requirements for the domain and sometimes Core.  NIEM domains use these issues as the basis for incremental improvements, extensions, and proposed changes to future NIEM releases.  Both the process and product of the process are referred to as domain update.  This MPD Specification is applicable to a domain update product.</p>
 
 	<definition term="domain update">
 		<p>A MPD that contains a reference schema document or document set issued by one or more domains that constitutes new content or an update to content that was previously included in a NIEM release.</p>
@@ -332,17 +332,19 @@ Figure 2-3.  Examples of NIEM numbered releases.
 
 <p>NIEM Information Exchange Package Documentation (IEPD) is an MPD that defines a class of instance XML documents that represent a recurring XML data exchange.</p>
 
-<definition term="Information Exchange Package Documentation (IEPD)">
-	<p>An MPD that defines one or more (generally recurring) XML data exchanges.</p>
-</definition>
+	<definition term="Information Exchange Package Documentation (IEPD)">
+		<p>An MPD that defines one or more (generally recurring) XML data exchanges.</p>
+	</definition>
 
 <p>A NIEM IEPD is a NIEM-conformant XML schema document set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents, and at least one XML document element (as defined in [W3-XML-InfoSet]) declared in a schema document.  The XML schema documents contained in an IEPD work together to define a class of instance XML documents that consistently encapsulate data for meaningful information exchanges.  Each instance XML document in this class validates against the XML schema document set contained in the IEPD.  XML schema documents in a NIEM IEPD conform to the [NIEM-NDR] and may use or extend data component definitions drawn from NIEM.</p>
 
-	<p>An IEPD consists of a minimal but complete set of artifacts (XML schema documents, documentation, sample instance XML documents, etc.) that together define and describe an implementable NIEM information exchange.   A complete and normative IEPD should contain an XML schema document set and instructional material necessary to:
+<p>An IEPD consists of a minimal but complete set of artifacts (XML schema documents, documentation, sample instance XML documents, etc.) that together define and describe an implementable NIEM information exchange.   A complete and normative IEPD should contain an XML schema document set and instructional material necessary to:</p>
+<p>
     Understand information exchange context, content, semantics, and structure. 
     Create and validate information exchanges defined by the IEPD. 
     Identify the lineage of the IEPD and optionally its artifacts.
-    An NIEM IEPD defines an Information Exchange Package (IEP), which is an instance XML document that validates to the schema document set in the IEPD.  An IEP is an information message payload as it will appear when transmitted electronically and serialized as XML.  ([FEA-DRM] and [GJXDM-IEPD] and are the original sources of the terms information exchange package and information exchange package documentation, respectively).</p>
+</p>
+	<p>An NIEM IEPD defines an Information Exchange Package (IEP), which is an instance XML document that validates to the schema document set in the IEPD.  An IEP is an information message payload as it will appear when transmitted electronically and serialized as XML.  ([FEA-DRM] and [GJXDM-IEPD] and are the original sources of the terms information exchange package and information exchange package documentation, respectively).</p>
 
 	<definition term="Information Exchange Package (IEP)">
 		<p>An XML document that is a valid instantiation of a NIEM IEPD, and therefore, validates with the schema document set of that IEPD.</p>
@@ -350,7 +352,8 @@ Figure 2-3.  Examples of NIEM numbered releases.
 
 	<p>It is NOT a requirement of NIEM conformance that an IEP be native XML on the transmission medium.  A NIEM IEP that is encrypted, compressed (e.g., using Zip, RAR, [W3-EXI], etc.), or wrapped within an envelope mechanism is still considered NIEM-conformant if its original native form can be extracted by the receiver.</p>
 
-2.9.5 Enterprise Information Exchange Model (EIEM)
+<section id="Enterprise-Information-Exchange-Model">
+		<title>Enterprise Information Exchange Model (EIEM)</title>
 
 	<p>As an organization develops IEPDs, the organization may realize that many of its IEPDs have similar business content.  A collection of closely related business data could be organized at an object level and defined as extension data components.  In NIEM, these extension components are referred to as Business Information Exchange Components (BIEC), because they are either specific to an organization's business or they represent a more general line of business that crosses organizational lines.  Often they are business data components developed and used by multiple organizations within the same community of interest.  So, instead of an "organization," it is more appropriate and provides better context if we use the term information sharing enterprise.</p>
 
@@ -360,46 +363,59 @@ Figure 2-3.  Examples of NIEM numbered releases.
 
 	<p>Information sharing enterprises may cross various levels of government and involve multiple business domains.  They are self-defining and can be formal (with specific governance) or informal and ad hoc.  An information sharing enterprise is the primary entity that supports the development and management of BIECs and an associated Enterprise Information Exchange Model (EIEM) (to be discussed next).  Henceforth, unless otherwise stated, all references to an enterprise will implicitly mean information sharing enterprise.</p>
 
-	<p>A Business Information Exchange Component (BIEC) [NIEM-BIEC] is a NIEM-conformant content model in XML Schema for a data component that meets the specific business needs of an information sharing enterprise for exchanging data about something that is a part of one or more information exchanges.  This data component is tailored and intended to be used consistently across multiple IEPDs built by an enterprise.  A BIEC is a NIEM-conformant data component that is: 
+	<p>A Business Information Exchange Component (BIEC) [NIEM-BIEC] is a NIEM-conformant content model in XML Schema for a data component that meets the specific business needs of an information sharing enterprise for exchanging data about something that is a part of one or more information exchanges.  This data component is tailored and intended to be used consistently across multiple IEPDs built by an enterprise.  A BIEC is a NIEM-conformant data component that is:</p>
+
+<p>
     Reused from a NIEM release (for example, as a subset; with possibly modified cardinality), or
     Extended per the [NIEM-NDR] from an existing NIEM data component, or 
-    Created per the [NIEM-NDR] as a new data component that does not duplicate existing NIEM components within a release in use.</p>
+    Created per the [NIEM-NDR] as a new data component that does not duplicate existing NIEM components within a release in use.
+</p>
     
 	<definition term="Business Information Exchange Component (BIEC)">
 		<p>A NIEM-conformant XML schema data component definition or declaration (for a type, element, attribute, or other XML construct) reused, subsetted, extended, and/or created from NIEM that meets a particular recurring business requirement for an information sharing enterprise.</p>
 	</definition>
 
-	<p>The use of BIECs has the potential for simplifying IEPD development and increasing consistency of the business object definitions at all steps in the process, including exchange content modeling, mapping to NIEM, creating NIEM extension components, and generating XML schema documents.
-An Enterprise Information Exchange Model (EIEM) is an MPD that incorporates BIECs that meet enterprise business needs for exchanging data using NIEM [NIEM-BIEC].  An EIEM is an adaptation of NIEM schema documents, tailored and constrained for and by an enterprise.  An EIEM contains the following schema documents that are commonly used or expected to be used by the authoring enterprise:
-    One standard NIEM subset schema document set (or reference schema set). 
-    One or more NIEM extension schema documents that extend existing NIEM data components or establish new NIEM-conformant data components.
-    Optionally, as needed, one or more NIEM constraint schema document sets (usually based on a subset schema document set). 
-    Optionally, as needed, one or more XML schema documents for non-NIEM (i.e., non-conformant) standards with associated extension schema documents that contain adapter types for the data components that will be used from those non-NIEM XML schema documents (per [NIEM-NDR]).</p>
+	<p>The use of BIECs has the potential for simplifying IEPD development and increasing consistency of the business object definitions at all steps in the process, including exchange content modeling, mapping to NIEM, creating NIEM extension components, and generating XML schema documents.</p>
+
+	<p>An Enterprise Information Exchange Model (EIEM) is an MPD that incorporates BIECs that meet enterprise business needs for exchanging data using NIEM [NIEM-BIEC].  An EIEM is an adaptation of NIEM schema documents, tailored and constrained for and by an enterprise.  An EIEM contains the following schema documents that are commonly used or expected to be used by the authoring enterprise:</p>
+
+<p>
+One standard NIEM subset schema document set (or reference schema set). 
+One or more NIEM extension schema documents that extend existing NIEM data components or establish new NIEM-conformant data components.
+Optionally, as needed, one or more NIEM constraint schema document sets (usually based on a subset schema document set). 
+Optionally, as needed, one or more XML schema documents for non-NIEM (i.e., non-conformant) standards with associated extension schema documents that contain adapter types for the data components that will be used from those non-NIEM XML schema documents (per [NIEM-NDR]).
+</p>
 
 	<definition term="Enterprise Information Exchange Model (EIEM)">
 		<p>An MPD that contains a NIEM-conformant schema document set that defines and declares data components to be consistently reused in the IEPDs of an enterprise.</p>
 	</definition>
 
 	<p>An EIEM is a collection of BIECs organized into a schema document subset and one or more extension schema documents.  Constraint schema documents and non-NIEM-conformant external standards schema documents with type adapters are optional in an EIEM.</p>
-	<p>An information sharing enterprise that creates and maintains an EIEM authors IEPDs by reusing its EIEM content instead of (re)subsetting reference schema documents sets and (re)creating extensions.  An EIEM may also contain business rules or constraint schema document sets tailored to the enterprise and designed to restrict variability in use of NIEM data components.  This not only saves time, but it also ensures that enterprise IEPDs reuse NIEM and associated extensions consistently.  (Note that XML schema document subsets, extension schema documents, and constraint schema document sets will be defined and discussed in more detail later in this document).  Figure 2-4 below illustrates relationships among BIECs, an EIEM, and an IEPD family (Constraint schema document sets are optional and not depicted in Figure 2-4). </p>
+
+	<p>An information sharing enterprise that creates and maintains an EIEM authors IEPDs by reusing its EIEM content instead of (re)subsetting reference schema documents sets and (re)creating extensions.  An EIEM may also contain business rules or constraint schema document sets tailored to the enterprise and designed to restrict variability in use of NIEM data components.  This not only saves time, but it also ensures that enterprise IEPDs reuse NIEM and associated extensions consistently.  (Note that XML schema document subsets, extension schema documents, and constraint schema document sets will be defined and discussed in more detail later in this document).  Figure 2-4 below illustrates relationships among BIECs, an EIEM, and an IEPD family (Constraint schema document sets are optional and not depicted in Figure 2-4).</p>
 
 <p>
 Figure 2-4.  BIECs, EIEM, and a small family of IEPDs.
 </p>
 
-2.10 Similarities and Differences of MPD Classes
+<section id="Similarities-and-Differences-of-MPD-Classes">
+	<title>Similarities and Differences of MPD Classes</title>
 
+<p>It will be helpful to summarize the foregoing discussions by listing the primary similarities and differences among the various types of MPDs.  This will help highlight the nature of this specification as a baseline and point of leverage for all five classes of MPDs:  NIEM release, core update, domain update, IEPD, and EIEM.  Note that these lists are not all inclusive.</p>
+
+<p>MPD class similarities:</p>
 <p>
-It will be helpful to summarize the foregoing discussions by listing the primary similarities and differences among the various types of MPDs.  This will help highlight the nature of this specification as a baseline and point of leverage for all five classes of MPDs:  NIEM release, core update, domain update, IEPD, and EIEM.  Note that these lists are not all inclusive. 
-MPD class similarities:
     Principal artifacts are XML schema documents (XSD), the purpose for which is to define and declare reusable data components for information exchanges or to define the exchanges themselves. 
     Each MPD requires a self-documenting mpd-catalog.xml artifact (containing metadata and a listing of all its artifacts), which establishes its purpose, lineage, organization, etc. 
     Each MPD requires a change log. 
     Each MPD requires a Uniform Resource Identifier (URI) and a version number.
     Each MPD must be packaged as a self-contained ZIP archive (in one form).  Self-contained simply means that an MPD has copies of (not just URLs or references to) all the schemas needed to validate instances it defines.
-    Each MPD may contain optional alternate representations besides XML Schema (for example, a generic graph, a UML graph, XMI, database format, spreadsheet, etc.). 
-MPD class differences:
-    IEPDs and EIEMs contain subset, extension, and constraint schema documents and document sets.  NIEM releases, core updates, and domain updates contain reference schema document sets.  
+    Each MPD may contain optional alternate representations besides XML Schema (for example, a generic graph, a UML graph, XMI, database format, spreadsheet, etc.).
+</p>
+
+<p>MPD class differences:</p>
+<p>
+IEPDs and EIEMs contain subset, extension, and constraint schema documents and document sets.  NIEM releases, core updates, and domain updates contain reference schema document sets.  
     An IEPD must declare at least one XML document element in an XML exchange schema document.  Other MPD classes do not have this requirement. 
     An IEPD must contain at least one sample instance XML document corresponding to each document element declared in exchange schemas.  An XSLT artifact to display instances is optional. 
     EIEMs and domain updates may optionally contain sample instance XML documents and associated XSLT files to display them.  NIEM releases and core updates do not.  
@@ -419,30 +435,31 @@ Table 2-1.  Comparison of MPD classes.
 <section id="MPD-XML-Schema-Artifacts">
 	<title>MPD XML Schema Artifacts</title>
 
-	<p>XML schema document artifacts are the essential content of MPDs because they normatively define and declare data components.  The purpose of an MPD is determined by the XML schema document or document set(s) it contains; furthermore, each schema document may have a different purpose.  The [NIEM-NDR] addresses various types of schema documents as conformance targets:  reference, extension, and constraint schema documents.  Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules.  Consult the [NIEM-NDR] for these rules. 
-Note that exchange schema document is not a conformance target.  The same set of NDR rules for extension schema documents applies to both.  This is because in an IEPD an extension schema document that declares one or more top-level XML document (sometimes referred to as root) elements is also identified as an exchange schema document. 
-The following subsections will define each type of NIEM schema and identify the types of MPDs that may or must contain them.  The last subsection discusses sample instance XML documents (IEPs) that validate with IEPD schema document sets, and when such instance XML documents are mandatory. 
+	<p>XML schema document artifacts are the essential content of MPDs because they normatively define and declare data components.  The purpose of an MPD is determined by the XML schema document or document set(s) it contains; furthermore, each schema document may have a different purpose.  The [NIEM-NDR] addresses various types of schema documents as conformance targets:  reference, extension, and constraint schema documents.  Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules.  Consult the [NIEM-NDR] for these rules.</p>
+	<p>Note that exchange schema document is not a conformance target.  The same set of NDR rules for extension schema documents applies to both.  This is because in an IEPD an extension schema document that declares one or more top-level XML document (sometimes referred to as root) elements is also identified as an exchange schema document.</p>
+	<p>The following subsections will define each type of NIEM schema and identify the types of MPDs that may or must contain them.  The last subsection discusses sample instance XML documents (IEPs) that validate with IEPD schema document sets, and when such instance XML documents are mandatory.</p>
 
 <section id="Reference-Schemas">
 	<title>Reference Schemas</title>
 
-	<p>This section generally applies to NIEM releases, core updates, and domain updates.  Though not common, it is also valid to use a reference schema document or document set within an IEPD or EIEM.  Reference schema document and reference schema document set were defined earlier in [Section 2.7].  
+	<p>This section generally applies to NIEM releases, core updates, and domain updates.  Though not common, it is also valid to use a reference schema document or document set within an IEPD or EIEM.  Reference schema document and reference schema document set were defined earlier in [Section 2.7].</p>
 
-	<p>A NIEM reference schema document is intended to be the authoritative definition schema document for a NIEM target namespace, therefore, all NIEM releases, core updates, and domain updates are composed of a reference schema document set and associated namespaces.   As a standalone artifact, a reference schema document set is always coherent and harmonized such that all types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within the set).<p>
+	<p>A NIEM reference schema document is intended to be the authoritative definition schema document for a NIEM target namespace, therefore, all NIEM releases, core updates, and domain updates are composed of a reference schema document set and associated namespaces.   As a standalone artifact, a reference schema document set is always coherent and harmonized such that all types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within the set).</p>
+	
+	<p>As authoritative definitions, NIEM reference schema document sets satisfy more rigorous documentation requirements.  The [NIEM-NDR] requires that each type definition, and element and attribute declaration in a reference schema document contain an xsd:annotation element that defines its semantic meaning.  As will be explained later, extension schema documents are also authoritative definitions, but in a local sense.  They are authoritative within a given IEPD or EIEM, and therefore, must also satisfy the same rigorous documentation rules as reference schema documents.</p>
 
-	<p>As authoritative definitions, NIEM reference schema document sets satisfy more rigorous documentation requirements.  The [NIEM-NDR] requires that each type definition, and element and attribute declaration in a reference schema document contain an xsd:annotation element that defines its semantic meaning.  As will be explained later, extension schema documents are also authoritative definitions, but in a local sense.  They are authoritative within a given IEPD or EIEM, and therefore, must also satisfy the same rigorous documentation rules as reference schema documents.  
-		Typically reference schema documents contain data components with the most relaxed cardinality (zero to unbounded repetition).  However, this is not an absolute requirement.  Cardinality in reference schema documents may be constrained if necessary to model reality.  For example, we might say that NIEM releases should restrict a Person object to a single occurrence of BirthDate.  Unfortunately, also in reality, criminal persons often present multiple identities and multiple birth dates; and so the capability to represent such is an important data requirement of NIEM.</p>
+	<p>Typically reference schema documents contain data components with the most relaxed cardinality (zero to unbounded repetition).  However, this is not an absolute requirement.  Cardinality in reference schema documents may be constrained if necessary to model reality.  For example, we might say that NIEM releases should restrict a Person object to a single occurrence of BirthDate.  Unfortunately, also in reality, criminal persons often present multiple identities and multiple birth dates; and so the capability to represent such is an important data requirement of NIEM.</p>
 </section>
 
 <section id="Subset-Schemas">
 	<title>Subset Schemas</title>
 
-	<p>This section only applies to IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain schema document subsets (only reference schema document sets).
+	<p>This section only applies to IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain schema document subsets (only reference schema document sets).</p>
 
 <section id="Basic-Subset-Concepts">
 	<title>Basic Subset Concepts</title>
 	
-	<p>A NIEM XML schema document subset is a set of subset schema documents that constitutes a reduced set of components derived from a NIEM reference schema document or document set associated with a given numbered release or domain update.  Any given XML schema document within a schema document subset is referred to as a subset schema document (terms reversed).  The primary purpose for a schema document subset is to reduce and constrain the scope and size of a full NIEM reference schema document set for use within an IEPD or EIEM.
+	<p>A NIEM XML schema document subset is a set of subset schema documents that constitutes a reduced set of components derived from a NIEM reference schema document or document set associated with a given numbered release or domain update.  Any given XML schema document within a schema document subset is referred to as a subset schema document (terms reversed).  The primary purpose for a schema document subset is to reduce and constrain the scope and size of a full NIEM reference schema document set for use within an IEPD or EIEM.</p>
 
 		<definition term="subset schema document">
 			<p>An XML schema document that meets all of the following criteria:</p>
@@ -450,12 +467,12 @@ The following subsections will define each type of NIEM schema and identify the 
 				<li><p>It is built from a referenc schema document set where one or more reference schema documents has been substituted by a its corresponding subset schema document.</p></li>
 				<li><p>It is built from a reference schema document by applying subset operations to the XML schema statements in a reference schema document.</p></li>
 				<li><p>It is explicitly designated as a subset schema document.  This may be declared by an MPD catalog or by a tool-specific mechanism outside the subset schema document.</p></li>
-
 				<li><p>It has a target namespace previously defined by a reference schema document.  That is, it does not provide original definitions and declarations for schema components, but instead provides an alternate schema representation of components that are defined by a reference schema document.</p></li>
 				<li><p>It does not alter the business semantics of components in its namespace.  The reference schema document defines these business semantics.</p></li>
 				<li><p>It is intended to express the limited vocabulary necessary for an IEPD or EIEM and to support XML Schema validation for an IEPD.</p></li>
 			</ul>
 			<p>See also schema document subset.</p>
+		</definition>
 
 			<p>Schema document subsets have been derived from a related reference schema document set (such as a NIEM release). 
 				
@@ -463,15 +480,15 @@ The following subsections will define each type of NIEM schema and identify the 
 					<p>An XML schema document set built from a reference schema document set by applying subset operations to that reference schema documents in that set.  See also subset schema document.</p>
 				</definition>
 
-				<p>Because NIEM adopts an optional and over-inclusive data representation strategy, most elements in a NIEM reference schema have zero to unbounded cardinality.  So, elements with cardinality minOccurs="0" are optional and may be omitted from a subset schema document if not needed for business reasons.  It is also valid to constrain element cardinality within a subset schema document, as long as it is not constrained such that the subset relationship is broken.  For example, a reference schema document element with cardinality (minOccurs="0", maxOccurs="unbounded") may be constrained to (0,1) or (1,1) in a subset schema document.  However, if a reference schema document element's cardinality is (1,unbounded), it may not be constrained to (0,1) since this breaks the subset relationship.  The interval (0,1) is not contained within, and instead, overlaps the interval (1,unbounded).</p>
+	<p>Because NIEM adopts an optional and over-inclusive data representation strategy, most elements in a NIEM reference schema have zero to unbounded cardinality.  So, elements with cardinality minOccurs="0" are optional and may be omitted from a subset schema document if not needed for business reasons.  It is also valid to constrain element cardinality within a subset schema document, as long as it is not constrained such that the subset relationship is broken.  For example, a reference schema document element with cardinality (minOccurs="0", maxOccurs="unbounded") may be constrained to (0,1) or (1,1) in a subset schema document.  However, if a reference schema document element's cardinality is (1,unbounded), it may not be constrained to (0,1) since this breaks the subset relationship.  The interval (0,1) is not contained within, and instead, overlaps the interval (1,unbounded).</p>
 
-				<p>The fundamental rule for a valid schema document subset is as follows:</p>
+	<p>The fundamental rule for a valid schema document subset is as follows:</p>
 
 <p>
-[Rule 3-1]  Any instance XML document that validates against a NIEM schema document subset will validate against the NIEM reference schema document set from which that schema document subset was derived.
+	[Rule 3-1]  Any instance XML document that validates against a NIEM schema document subset will validate against the NIEM reference schema document set from which that schema document subset was derived.</p>
 
-NIEM Subset Operations:  These are essentially reduction operations that remove or constrain portions of a reference schema document set, thereby building a profile of the set.  They do not relax/expand the scope or change the semantics of reference schema document set content.
-
+<p>NIEM Subset Operations:  These are essentially reduction operations that remove or constrain portions of a reference schema document set, thereby building a profile of the set.  They do not relax/expand the scope or change the semantics of reference schema document set content.</p>
+<p>
 1. Remove an XML comment statement
 2. Remove an xs:annotation
 (includes  xs:documentation and xs:appinfo)
@@ -494,32 +511,48 @@ NIEM Subset Operations:  These are essentially reduction operations that remove 
 14. Add or apply a constraining facet to an xs:simpleType
 15. Remove an xs:import and its associated schema document
 (if the schema document is unused within the document set)
+</p>
+<p>Note that the process of deriving a schema document subset from a NIEM reference schema document set is optional; it is valid to reuse NIEM reference schema documents as-is within IEPDs or EIEMs.  The primary reasons for subsetting are to reduce IEPD size and complexity and to focus constraints.</p>
 
-Note that the process of deriving a schema document subset from a NIEM reference schema document set is optional; it is valid to reuse NIEM reference schema documents as-is within IEPDs or EIEMs.  The primary reasons for subsetting are to reduce IEPD size and complexity and to focus constraints. 
+</section>
 
-3.2.2 Subset Namespaces
+<section id="Subset-Namespaces">
+	<title>Subset Namespaces</title>
 
-A subset is essentially a reference schema set (numbered release) that has been modified per the above rules to support business requirements represented in an IEPD or EIEM.  A subset derived from a reference schema set may differ from that reference set only in that its content has been reduced and/or constrained.  For this reason, schemas in a subset adopt target namespaces that are identical to the corresponding schemas in the reference schema set. 
+	<p>A subset is essentially a reference schema set (numbered release) that has been modified per the above rules to support business requirements represented in an IEPD or EIEM.  A subset derived from a reference schema set may differ from that reference set only in that its content has been reduced and/or constrained.  For this reason, schemas in a subset adopt target namespaces that are identical to the corresponding schemas in the reference schema set.</p>
 
-[Rule 3-4]  Each subset schema document in a schema document subset derived from a reference schema document set bears the same target namespace as the schema in the reference schema document set on which it is based.
+	<p>[Rule 3-4]  Each subset schema document in a schema document subset derived from a reference schema document set bears the same target namespace as the schema in the reference schema document set on which it is based.</p>
 
-3.2.3 Omitting Schemas in Subsets
+</section>
 
-In some cases, an entire schema appearing in a reference set may be omitted from a corresponding subset.  The following rule specifies when this is valid.
+<section id="Omitting Schemas in Subsets">
+	<title>Omitting Schemas in Subsets</title>
 
-[Rule 3-5]  A schema document contained in a reference schema document set may be omitted from a derived schema document subset, if and only if NO elements, attributes, or types declared or defined in the schema document are required to support other elements or types within the schema document subset for exchange purpose 
-When a schema has been omitted from a valid subset, there is no longer a reason to import it from anywhere within the subset.  Therefore, because most XML validators expect the file identified in the xsd:import schemaLocation attribute to be present, imports of that schema must be removed:
+	<p>In some cases, an entire schema appearing in a reference set may be omitted from a corresponding subset.  The following rule specifies when this is valid.</p>
 
-3.2.4 Multiple Subsets in a Single IEPD or EIEM
+<p>
+[Rule 3-5]  A schema document contained in a reference schema document set may be omitted from a derived schema document subset, if and only if NO elements, attributes, or types declared or defined in the schema document are required to support other elements or types within the schema document subset for exchange purpose.</p>
 
-This section only applies to NIEM IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain schema subsets. 
-Previous sections defined a single schema subset derived from a reference schema set.  In general, an IEPD or EIEM contains a single cohesive schema subset (which may be a rather large set of files) based on one numbered NIEM release or domain update. 
-However, this specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM.  Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM.  However, exercising this degree of flexibility makes it critically important that developers understand the potential consequences. NIEM subsets represent a delicate compromise between flexibility and interoperability.  On the one hand, a set of IEPDs based on the same subset and numbered release use identical data components, thereby enhancing interoperability.  On the other hand, mixing dissimilar subsets from the same numbered release or mixing subsets derived from various numbered releases has the potential to negatively impact interoperability.
-The NIEM mandate that every schema have a unique namespace prevents name conflicts between reference schema sets and between two subsets derived from different reference sets.  In spite of namespace distinction, mixing subsets of multiple reference schema sets can still introduce multiple versions of semantically equivalent data components, a potentially ambiguous situation.  Even employing multiple subsets together that have been derived from the same reference set has the potential to create a similar result. Above all, it is the developer's responsibility to ensure that, if mixing subsets from one or more numbered releases within a single IEPD or EIEM, these artifacts are carefully coordinated and clearly documented to ensure the various versions of semantically equivalent data components and different schemas with the same namespaces will not cause conflicts, confusion, and/or failure during validation or exchange implementation.
+	<p>When a schema has been omitted from a valid subset, there is no longer a reason to import it from anywhere within the subset.  Therefore, because most XML validators expect the file identified in the xsd:import schemaLocation attribute to be present, imports of that schema must be removed:</p>
 
-3.3 Extension Schemas
+</section>
 
-This section only applies to NIEM IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain extension schemas. 
+<section id="Multiple-Subsets-in-a-Single-IEPD-or-EIEM">
+	<title>Multiple Subsets in a Single IEPD or EIEM</title>
+
+	<p>This section only applies to NIEM IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain schema subsets.</p>
+	
+	<p>Previous sections defined a single schema subset derived from a reference schema set.  In general, an IEPD or EIEM contains a single cohesive schema subset (which may be a rather large set of files) based on one numbered NIEM release or domain update.</p>
+	
+	<p>However, this specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM.  Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM.  However, exercising this degree of flexibility makes it critically important that developers understand the potential consequences. NIEM subsets represent a delicate compromise between flexibility and interoperability.  On the one hand, a set of IEPDs based on the same subset and numbered release use identical data components, thereby enhancing interoperability.  On the other hand, mixing dissimilar subsets from the same numbered release or mixing subsets derived from various numbered releases has the potential to negatively impact interoperability.</p>
+
+	<p>The NIEM mandate that every schema have a unique namespace prevents name conflicts between reference schema sets and between two subsets derived from different reference sets.  In spite of namespace distinction, mixing subsets of multiple reference schema sets can still introduce multiple versions of semantically equivalent data components, a potentially ambiguous situation.  Even employing multiple subsets together that have been derived from the same reference set has the potential to create a similar result. Above all, it is the developer's responsibility to ensure that, if mixing subsets from one or more numbered releases within a single IEPD or EIEM, these artifacts are carefully coordinated and clearly documented to ensure the various versions of semantically equivalent data components and different schemas with the same namespaces will not cause conflicts, confusion, and/or failure during validation or exchange implementation.</p>
+</section>
+
+<section id="Extension-Schemas">
+	<title>Extension Schemas</title>
+
+	<p>This section only applies to NIEM IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain extension schemas. 
 
 Definition:  extension schema document  A NIEM-conformant schema document that adds domain or application specific content to the base NIEM model.
 
@@ -528,14 +561,17 @@ The normative definition for a NIEM IEPD extension schema is in the [NIEM-NDR]. 
 A IEPD or EIEM developer who determines that NIEM does not contain all elements required for a given information exchange has two options to account for such requirement shortfalls.  Using rules and techniques outlined in the [NIEM-NDR]:  
     Extend an existing NIEM data component. 
     Build a new NIEM-conformant data component. 
-    
+
 A NIEM extension schema may contain data components built from both options above.  Employment of extension schemas in an IEPD is entirely optional. 
 Multiple extension schemas are allowed in a single IEPD.  Developers will likely want to reuse many of their extensions in other IEPDs.  Therefore, it is most efficient to put all extensions designed for reuse into one extension schema (or into a well-organized set of extension schemas), while keeping IEPD-specific extensions in a different schema.  The reusable extension schema or schema set can then be easily redeployed in other IEPDs as needed. 
-Extension schemas generally contain new data component declarations that may (though not necessarily) be derived from or reference existing NIEM components.  This being the case, reference schemas do not exist for new data components found within extension schemas.  Therefore, extension schemas must satisfy the more rigorous documentation requirements of reference schemas in accordance with the [NIEM-NDR].  The definition or declaration of each new data component (type, element, or attribute) in an extension schema includes an xsd:annotation element that provides its semantics and NIEM-specific relationships. 
+Extension schemas generally contain new data component declarations that may (though not necessarily) be derived from or reference existing NIEM components.  This being the case, reference schemas do not exist for new data components found within extension schemas.  Therefore, extension schemas must satisfy the more rigorous documentation requirements of reference schemas in accordance with the [NIEM-NDR].  The definition or declaration of each new data component (type, element, or attribute) in an extension schema includes an xsd:annotation element that provides its semantics and NIEM-specific relationships.</p>
 
-3.4 Exchange Schemas
+</section>
 
-This section only applies to IEPDs.  NIEM releases, core updates, domain updates, and EIEMs do not contain exchange schemas. 
+<section id="Exchange-Schemas">
+	<title>Exchange Schemas</title>
+
+	<p>This section only applies to IEPDs.  NIEM releases, core updates, domain updates, and EIEMs do not contain exchange schemas. 
 An IEPD defines one or more NIEM XML data exchanges, and therefore, a class of XML instance documents, each of which validates against the XML schemas in that IEPD.  An XML instance document contains exactly one document element, which is the root element of the instance, and which cannot appear in the content of any other element within that XML instance document (by definition in [W3-XML] and [W3-XML-InfoSet]).  
 An IEPD exchange schema declares one or more document elements.  Only one document element can be used in any given information exchange instance (IEP).  
 
@@ -564,84 +600,118 @@ Now that both extension and exchange schemas have been described, it is useful t
 
 It is usually good practice to maintain namespace cohesion.  If root elements declared in an IEPD tend to change together, then group them together in the same namespace (i.e., single exchange schema).  If elements tend to change independently, then group them in separate namespaces (i.e., multiple exchange schemas).  Furthermore, while there are no restrictions on the number of root elements and exchange schemas, it may be best to first consider declaring one root per exchange schema if this arrangement can support the IEPD business requirements.  If not, only then consider scaling upward.  In all cases, clearly document the intent and rationale for how an IEPD is organized and to be implemented. 
 
-3.5 Base Schema Set
+</section>
 
-Within an MPD, the base schema set is the set of XML schemas that defines the information exchange or model in the MPD.  This set may incorporate NIEM-conformant reference schemas, subset schemas, extension schemas, exchange schemas, as well as schemas from an external non-NIEM-conformant source (for example, GML, Geospatial Markup Language).
+<section id="Base-Schema-Set">
+	<title>Base Schema Set</title>
 
-Definition:  base schema document set  A NIEM MPD artifact that is the set of all NIEM-conformant and external non-conformant XML schemas that together specify an information exchange or information model for an MPD.  
+	<p>Within an MPD, the base schema set is the set of XML schemas that defines the information exchange or model in the MPD.  This set may incorporate NIEM-conformant reference schemas, subset schemas, extension schemas, exchange schemas, as well as schemas from an external non-NIEM-conformant source (for example, GML, Geospatial Markup Language).</p>
 
-A base schema document set may incorporate reference, subset, extension, and exchange schema documents, as well as external schema documents from authoritative sources outside of NIEM.
-An MPD contains one and only one base schema set. 
+	<definition term="base schema document set">
+		<p>A NIEM MPD artifact that is the set of all NIEM-conformant and external non-conformant XML schemas that together specify an information exchange or information model for an MPD.</p>
+	</definition>
 
+	<p>A base schema document set may incorporate reference, subset, extension, and exchange schema documents, as well as external schema documents from authoritative sources outside of NIEM.  An MPD contains one and only one base schema set.</p>
+	
+<p>
 [Rule 3-8]  An MPD MUST contain one and only one base schema set.
-
-3.6 Constraint Schemas
-
-This section only applies to NIEM IEPDs and EIEMs which may use constraint schemas.  NIEM releases, core updates, and domain updates do not contain constraint schemas. 
-A constraint schema is an optional IEPD or EIEM artifact that is used to express business rules for a class of XML documents, and is not assumed to be a definition for the semantics of the components it contains and describes.  Instead, a constraint schema uses the XML Schema definition language to add constraints and restrictions to components defined or declared by other schemas, usually from a schema subset.  
-
-Definition:  constraint schema document  A schema document which imposes additional constraints on NIEM-conformant instances.  
-
-A constraint schema document or a constraint schema document set validates additional constraints imposed on an XML instance only after it is known to be NIEM-conformant (i.e., has been validated to reference schema documents, subset schema documents, extension schema documents, and/or exchange schema documents).  Constraint schema validation is a second-pass validation that occurs independently of and after conformance validation.  A constraint schema need not validate constraints that are applied by other schemas.  See also constraint schema document set.
-
-Definition:  constraint schema document set  A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.  See also constraint schema document.
-
-Note that constraint schemas are generally useful when it is necessary to impose restrictions that are more complex than cardinality.  If only cardinality restrictions are needed, then it is easier and more efficient to set these directly in the schema subset and avoid the use of constraint schemas.  Otherwise, a constraint schema may be necessary.  Note however, that any cardinality restrictions placed on NIEM release components within subsets must not violate the rules established in 3.2.1 Basic Subset Concepts which define the relationship of a subset schema to the reference schema on which it is based.  
-The [NIEM-NDR] provides a normative definition and description of constraint schemas.  However, a few points are worth mentioning here. 
-Use of constraint schemas is one option for applying additional business rules to or tightening constraints on NIEM IEPs beyond what NIEM itself provides.  This particular technique uses XML Schema.  NIEM also allows other methods that do not use XML Schema, such as [ISO-Schematron] or other language methods.  However, at this time there are no normative rules for how these techniques should be employed in NIEM IEPDs or EIEMs.  Therefore, if other techniques are used, it is a developer responsibility to incorporate appropriate artifacts and clear documentation. 
-
-Constraint schemas are generally designed and employed in sets, similar to schema subsets and reference sets.  A common practice for creating an IEPD or EIEM constraint schema set is to start with a valid NIEM subset and modify this set to further restrict the class of XML documents (IEPs) that will validate with this constraint set.  However, an extension or exchange schema can also be used to derive a constraint schema.  The namespace of a constraint schema is established the same way the namespace of a subset schema is established  it reuses the target namespace of the schema from which it is derived. 
-
-[Rule 3-9]  A constraint schema bears a target namespace that has been previously assigned by a reference schema, extension schema, or exchange schema, or is a schema that is intended to support a constraint schema that has such a target namespace. 
-
-To use a constraint schema to tighten constraints on IEPs, a two-pass validation technique is employed.  In the first pass, an IEP is validated against the schema subset, extensions, and one exchange schema.  This pass ensures that IEP semantics and structure conform to the NIEM model and NDR.  In the second pass, an IEP is checked against a constraint schema set, which may contain constrained versions of the schema subset, extensions, and the appropriate exchange schema.  This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate). 
-There is no restriction on the number of constraint schema sets that an IEPD or EIEM can employ.  As in other advanced situations, developers must clearly document their intentions for and use of multiple constraint schema sets. 
-
-In general, constraint schemas have far fewer requirements than other classes of NIEM schemas.  Since they work in tandem with NIEM normative schemas, constraint schemas are allowed to use the XML Schema language in any way necessary to express business rules.  This means that to constrain instances, constraint schemas can employ XML Schema constructs that are not allowed in other classes of NIEM schemas.
-
-BIECs in particular may have additional business rules in constraint schemas.  A normative NIEM BIEC Specification (in progress at the time of the publication of this MPD Specification), will supplement or obviate constraint schemas with consistent and formal techniques for representing business rules within NIEM components.  However, as already mentioned, the MPD Specification does not prohibit or restrict the application of formal business rule techniques to MPDs now.
-Finally, within an MPD, constraint schemas and constraint schema sets are completely distinct from the base schema set.  In the future, NIEM will prefer business rules over constraint schemas as the primary method for further constraining a base schema set. 
-
-3.7 Classes of MPDs vs. Classes of Schemas
-
-The chart in Table 3-1 summarizes which types of schemas are contained in which classes of MPDs and where they are not applicable (NA = Not Applicable; U = unbounded). 
-Notice that only NIEM releases, core updates, and domain updates contain reference schema sets, while only IEPDs and EIEMs contain the user developed schema sets.  Since an IEPD defines at least one data exchange, it must contain at least one exchange schema.  Furthermore, the diamonds (F) indicate that a NIEM-conformant IEPD or EIEM must have at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema (See [Rule 3-10] below this table).
-
-Table 3-1.  MPD classes vs. schema classes
-
-[Rule 3-10]  A NIEM-conformant IEPD or EIEM MUST contain at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema. 
-
-3.8 Sample XML Instances 
-
-XML schemas define XML data exchange instances.  It is certainly possible to construct an example XML instance for an entire NIEM release, but such an instance is of questionable value.  Rarely, if ever, will an entire NIEM release be used to define a data exchange.  However, sample XML instances are very valuable artifacts to include with IEPDs.  As samples of the actual exchange data, instances can help an IEPD implementer to understand the original intent of the IEPD developer.  They can be used by an implementer as data points for validation with the IEPD schemas.  And finally, the inclusion of valid, meaningful sample XML instances is an indication of IEPD quality.  For these reasons, IEPDs require valid sample XML instances. 
-
-[Rule 3-11]  A NIEM IEPD MUST contain at least one valid sample XML instance (i.e., IEP) artifact for each exchange schema element that can be the root of a corresponding IEP. 
-
-The intent of this rule is not to provide a test for all permutations of XML instances that might be possible given the schema definitions and declarations.  As the value propositions explain, its purpose is to ensure IEPD developers have tested their own designs, and to provide implementers with examples they can use for additional understanding and guidance.  IEPD developers should strive to include sample XML instances that (1) capture real world business cases of data exchanges, and (2) exercise as many data component definitions and declarations in the schemas as possible.  While both of these goals may not be achievable in a single sample XML instance, developers have the option to include multiple sample XML instances; however, only one per intended root element is mandatory.
-
-Note that each sample XML instance illustrates one view of the data based on a chosen set of conditions that apply to an IEP.  Other views based on different conditions likely exist.  A developer must review the business rules and other documentation in an IEPD to ensure understanding of all possible conditions.  Do not rely exclusively on sample XML instances, since they are not required to account for all IEP permutations.
-
-This specification encourages but does not mandate the inclusion of sample XML instances for EIEMs and domain updates.  Again, such instances may be valuable to user understanding of the intent and usage of data components (especially, those that are new, extended, or changed). 
 </p>
+
+</section>
+
+<section id="Constraint-Schemas">\
+	<title>Constraint Schemas</title>
+
+	<p>This section only applies to NIEM IEPDs and EIEMs which may use constraint schemas.  NIEM releases, core updates, and domain updates do not contain constraint schemas. 
+		A constraint schema is an optional IEPD or EIEM artifact that is used to express business rules for a class of XML documents, and is not assumed to be a definition for the semantics of the components it contains and describes.  Instead, a constraint schema uses the XML Schema definition language to add constraints and restrictions to components defined or declared by other schemas, usually from a schema subset.</p>
+
+	<definition term="constraint schema document">
+		<p>A schema document which imposes additional constraints on NIEM-conformant instances.</p>
+	</definition>
+
+	<p>A constraint schema document or a constraint schema document set validates additional constraints imposed on an XML instance only after it is known to be NIEM-conformant (i.e., has been validated to reference schema documents, subset schema documents, extension schema documents, and/or exchange schema documents).  Constraint schema validation is a second-pass validation that occurs independently of and after conformance validation.  A constraint schema need not validate constraints that are applied by other schemas.  See also constraint schema document set.</p>
+
+	<definition term="constraint schema document set">
+		<p>A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.  See also constraint schema document.</p>
+	</definition>
+	
+	<p>Note that constraint schemas are generally useful when it is necessary to impose restrictions that are more complex than cardinality.  If only cardinality restrictions are needed, then it is easier and more efficient to set these directly in the schema subset and avoid the use of constraint schemas.  Otherwise, a constraint schema may be necessary.  Note however, that any cardinality restrictions placed on NIEM release components within subsets must not violate the rules established in 3.2.1 Basic Subset Concepts which define the relationship of a subset schema to the reference schema on which it is based.</p>  
+		
+	<p>The [NIEM-NDR] provides a normative definition and description of constraint schemas.  However, a few points are worth mentioning here. 		Use of constraint schemas is one option for applying additional business rules to or tightening constraints on NIEM IEPs beyond what NIEM itself provides.  This particular technique uses XML Schema.  NIEM also allows other methods that do not use XML Schema, such as [ISO-Schematron] or other language methods.  However, at this time there are no normative rules for how these techniques should be employed in NIEM IEPDs or EIEMs.  Therefore, if other techniques are used, it is a developer responsibility to incorporate appropriate artifacts and clear documentation.</p>
+
+	<p>Constraint schemas are generally designed and employed in sets, similar to schema subsets and reference sets.  A common practice for creating an IEPD or EIEM constraint schema set is to start with a valid NIEM subset and modify this set to further restrict the class of XML documents (IEPs) that will validate with this constraint set.  However, an extension or exchange schema can also be used to derive a constraint schema.  The namespace of a constraint schema is established the same way the namespace of a subset schema is established  it reuses the target namespace of the schema from which it is derived.</p>
+
+<p>
+[Rule 3-9]  A constraint schema bears a target namespace that has been previously assigned by a reference schema, extension schema, or exchange schema, or is a schema that is intended to support a constraint schema that has such a target namespace.
+</p>
+
+	<p>To use a constraint schema to tighten constraints on IEPs, a two-pass validation technique is employed.  In the first pass, an IEP is validated against the schema subset, extensions, and one exchange schema.  This pass ensures that IEP semantics and structure conform to the NIEM model and NDR.  In the second pass, an IEP is checked against a constraint schema set, which may contain constrained versions of the schema subset, extensions, and the appropriate exchange schema.  This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate).</p>
+
+	<p>There is no restriction on the number of constraint schema sets that an IEPD or EIEM can employ.  As in other advanced situations, developers must clearly document their intentions for and use of multiple constraint schema sets.</p>
+
+	<p>In general, constraint schemas have far fewer requirements than other classes of NIEM schemas.  Since they work in tandem with NIEM normative schemas, constraint schemas are allowed to use the XML Schema language in any way necessary to express business rules.  This means that to constrain instances, constraint schemas can employ XML Schema constructs that are not allowed in other classes of NIEM schemas.</p>
+
+	<p>BIECs in particular may have additional business rules in constraint schemas.  A normative NIEM BIEC Specification (in progress at the time of the publication of this MPD Specification), will supplement or obviate constraint schemas with consistent and formal techniques for representing business rules within NIEM components.  However, as already mentioned, the MPD Specification does not prohibit or restrict the application of formal business rule techniques to MPDs now.</p>
+	<p>Finally, within an MPD, constraint schemas and constraint schema sets are completely distinct from the base schema set.  In the future, NIEM will prefer business rules over constraint schemas as the primary method for further constraining a base schema set.</p>
+
+</section>
+
+<section id="Classes-of-MPDs-vs.-Classes-of-Schemas">
+	<title>Classes of MPDs vs. Classes of Schemas</title>
+
+	<p>The chart in Table 3-1 summarizes which types of schemas are contained in which classes of MPDs and where they are not applicable (NA = Not Applicable; U = unbounded).</p>
+	<p>Notice that only NIEM releases, core updates, and domain updates contain reference schema sets, while only IEPDs and EIEMs contain the user developed schema sets.  Since an IEPD defines at least one data exchange, it must contain at least one exchange schema.  Furthermore, the diamonds (F) indicate that a NIEM-conformant IEPD or EIEM must have at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema (See [Rule 3-10] below this table).</p>
+
+<p>
+Table 3-1.  MPD classes vs. schema classes
+</p>
+
+<p>
+[Rule 3-10]  A NIEM-conformant IEPD or EIEM MUST contain at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema. 
+</p>
+
+</section>
+
+<section id="Sample-XML-Instances">
+	<title>Sample XML Instances</title>
+
+	<p>XML schemas define XML data exchange instances.  It is certainly possible to construct an example XML instance for an entire NIEM release, but such an instance is of questionable value.  Rarely, if ever, will an entire NIEM release be used to define a data exchange.  However, sample XML instances are very valuable artifacts to include with IEPDs.  As samples of the actual exchange data, instances can help an IEPD implementer to understand the original intent of the IEPD developer.  They can be used by an implementer as data points for validation with the IEPD schemas.  And finally, the inclusion of valid, meaningful sample XML instances is an indication of IEPD quality.  For these reasons, IEPDs require valid sample XML instances.</p>
+
+<p>
+[Rule 3-11]  A NIEM IEPD MUST contain at least one valid sample XML instance (i.e., IEP) artifact for each exchange schema element that can be the root of a corresponding IEP. 
+</p>
+
+<p>The intent of this rule is not to provide a test for all permutations of XML instances that might be possible given the schema definitions and declarations.  As the value propositions explain, its purpose is to ensure IEPD developers have tested their own designs, and to provide implementers with examples they can use for additional understanding and guidance.  IEPD developers should strive to include sample XML instances that (1) capture real world business cases of data exchanges, and (2) exercise as many data component definitions and declarations in the schemas as possible.  While both of these goals may not be achievable in a single sample XML instance, developers have the option to include multiple sample XML instances; however, only one per intended root element is mandatory.</p>
+
+<p>Note that each sample XML instance illustrates one view of the data based on a chosen set of conditions that apply to an IEP.  Other views based on different conditions likely exist.  A developer must review the business rules and other documentation in an IEPD to ensure understanding of all possible conditions.  Do not rely exclusively on sample XML instances, since they are not required to account for all IEP permutations.</p>
+
+<p>This specification encourages but does not mandate the inclusion of sample XML instances for EIEMs and domain updates.  Again, such instances may be valuable to user understanding of the intent and usage of data components (especially, those that are new, extended, or changed). 
+</p>
+
 </section>
 
 <section id="MPD-Documentation-Artifacts">
 	<title>MPD Documentation Artifacts</title>
 <p>
-A variety of documentation files may be incorporated into a NIEM MPD.  However, in addition to XML schemas, there are only two mandatory documentation artifacts required by every MPD:  the mpd-catalog and the change log.  An MPD catalog (mpd-catalog.xml) contains identifiers, key metadata, information, and relationships about the MPD.  The change log provides a history of modifications.
+	A variety of documentation files may be incorporated into a NIEM MPD.  However, in addition to XML schemas, there are only two mandatory documentation artifacts required by every MPD:  the mpd-catalog and the change log.  An MPD catalog (mpd-catalog.xml) contains identifiers, key metadata, information, and relationships about the MPD.  The change log provides a history of modifications.</p>
 
-A master document is also mandatory for IEPDs and EIEMs.  These MPD classes are built by different developers, and may be registered into a repository for reuse by many other users and developers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM master document is the primary source and starting point for human readable documentation (similar to a "readme" file), and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM. 
-The following subsections will address these artifacts as well as the concepts, metadata, and content each supports. 
+<p>A master document is also mandatory for IEPDs and EIEMs.  These MPD classes are built by different developers, and may be registered into a repository for reuse by many other users and developers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM master document is the primary source and starting point for human readable documentation (similar to a "readme" file), and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.</p>
+<p>The following subsections will address these artifacts as well as the concepts, metadata, and content each supports.</p>
 
-4.1 Catalog
+</section>
 
-Every NIEM MPD describes itself through a mandatory mpd-catalog artifact.  An mpd-catalog is a multi-purpose XML file containing metadata that describe an MPD's 
-    Unique identification
-    Basic descriptive characteristics
-    Directory structure and artifacts
-    Lineage and relationships to other MPDs
-    
-This metadata is designed to be the minimal required that will facilitate human understanding, tool support, and machine processing.  The MPD uses and functions that the mpd-catalog is designed to support include (but are not limited to):
+<section id="Catalog">
+	<title>Catalog</title>
+
+	<p>Every NIEM MPD describes itself through a mandatory mpd-catalog artifact.  An mpd-catalog is a multi-purpose XML file containing metadata that describes an MPD's</p>
+	<ul>
+		<li><p>Unique identification</p></li>
+		<li><p>Basic descriptive characteristics</p></li>
+		<li><p>Directory structure and artifacts</p></li>
+		<li><p>Lineage and relationships to other MPDs</p></li>
+	</ul>
+	<p>This metadata is designed to be the minimal required that will facilitate human understanding, tool support, and machine processing.  The MPD uses and functions that the mpd-catalog is designed to support include (but are not limited to):</p>
+<p>
     Automatic identification and processing of artifacts
     Browsing and understanding of MPD artifacts and their content
     Conformance and instance validation (as needed)
@@ -650,10 +720,15 @@ This metadata is designed to be the minimal required that will facilitate human 
     Reuse of MPDs and their artifacts
     Reuse of Business Information Exchange Components (BIEC) and associated EIEMs
     Tracing and analysis of MPD pedigree
-    
-[Rule 4-1]  An MPD MUST contain an XML mpd-catalog artifact that validates with the NIEM MPD catalog schema (XSD) and that resides in the root directory of the MPD and bears the file name "mpd-catalog.xml". 
+</p>
 
-The catalog identifies every artifact, its relative path name, file type, and purpose.  This enables a machine to find every artifact regardless of its location within an MPD, and know exactly what it is used for, and therefore, how to process it.  Appendix A: MPD Catalog Schema defines the structure and semantics of a NIEM mpd-catalog.xml file.
+<p>
+[Rule 4-1]  An MPD MUST contain an XML mpd-catalog artifact that validates with the NIEM MPD catalog schema (XSD) and that resides in the root directory of the MPD and bears the file name "mpd-catalog.xml". 
+</p>
+
+<p>The catalog identifies every artifact, its relative path name, file type, and purpose.  This enables a machine to find every artifact regardless of its location within an MPD, and know exactly what it is used for, and therefore, how to process it.  Appendix A: MPD Catalog Schema defines the structure and semantics of a NIEM mpd-catalog.xml file.</p>
+
+<p>
 
 4.2 Metadata Concepts
 
