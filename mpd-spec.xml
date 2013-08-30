@@ -912,7 +912,7 @@ Figure 4-1 illustrates eight different version series.  Within this illustration
 </section>
 
 
-<section id="MPD-Artifact URIs-Are-Not-Namespaces">
+<section id="MPD-Artifact-URIs-Are-Not-Namespaces">
 	<title>MPD Artifact URIs Are Not NIEM Namespaces</title>
 
 	<p>URI does not have the same meaning as namespace.  Do not rely on namespaces for artifact URIs.  Recall that the namespaces used in a schema subset derived from a NIEM release are identical to the namespaces of the release itself.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  The non-uniqueness of NIEM namespaces implies that they cannot be used as URIs for MPD artifacts.</p>
@@ -964,7 +964,7 @@ Figure 4-1 illustrates eight different version series.  Within this illustration
 </section>
 
 
-<section id="NIEM Releases, Core Updates, and Domain Updates">
+<section id="NIEM-Releases-Core-Updates-and-Domain-Updates">
 	<title>NIEM Releases, Core Updates, and Domain Updates</title>
 
 	<p>Although the version identifier is useful for a fast and visual indication of the state of an MPD relative to others, it only provides a fairly generalized indication of the volume, complexity, and impact of changes that have been applied since a previous version.  Of course, a change log is required to ensure a more specific accounting of changes from one version to another.</p>
@@ -1168,7 +1168,8 @@ Many organizations have their own customized formats and operating procedures fo
 	<p>As previously stated, the MPD Specification is intended to facilitate tool support for processing MPDs.  Given a tool must process an MPD, providing it basic information about the MPD as early as possible will help to reduce processing time and complexity.  So, if the class and version of an MPD archive could be easily identified by its file name, then a tool would not have to immediately open the archive and process the mpd-catalog just to determine this information.  Of course, ultimately, to do anything useful, a tool will have to open the MPD archive and process its mpd-catalog.  However, a standard file name syntax would allow a tool to search through a set of MPD archives to find a particular MPD name, version, or class without having to open (unzip) each.  The following rules apply:</p>
 
 	<rule id="r-name-syntax">
-		<p>64 An MPD archive file MUST use file name syntax defined by the regular expression:</p><pre>
+		<p>64 An MPD archive file MUST use file name syntax defined by the regular expression:</p>
+<p><pre>
    mpd-filename ::= name '-' version '.' class '.zip'       
       Where: 
    name  ::= alphanum ((alphanum | special)* alphanum)?
@@ -1177,11 +1178,11 @@ Many organizations have their own customized formats and operating procedures fo
    version  ::= digit+ ('.' digit+)* (status digit+)?
    digit    ::= [0-9]
    status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
-   class    ::= 'rel' | 'cu' | 'du' | 'iepd' | 'eiem'</pre>
-   </rule>
+   class    ::= 'rel' | 'cu' | 'du' | 'iepd' | 'eiem'
+</pre></p>
+	</rule>
    
-   <p>All alpha characters SHOULD be lower case to reduce the risk of complications across various file systems.  
-See [Rule 4-3] for an explanation of the status options.
+	<p>All alpha characters SHOULD be lower case to reduce the risk of complications across various file systems.  See [Rule 4-3] for an explanation of the status options.
 (The regular expression notation used above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>.)</p>
 
 <p>Obviously, the set of class values corresponds to release, core update, domain update, IEPD, and EIEM respectively.  A valid IEPD file name corresponding to the example in [Appendix C: Sample MPD Catalog Instance] would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code>
@@ -1189,13 +1190,16 @@ Checking this Appendix you will find that this example obeys the following two r
 
 <p>[Rule 6-5] Within an MPD, the <code>name</code> and <code>version</code> substrings in the file name MUST match exactly the values for attributes <code>mpdName</code> and <code>mpdVersionID</code> within its <code>mpd-catalog.xml</code> artifact.</p>
 
-<p>[Rule 6-6] Within an MPD, the <code>class</code> substring in the file name MUST correctly correspond to the value for the attribute mpdClassCode within <code>mpd-catalog.xml</code>.  Correct correspondence is:</p> 
+<p>[Rule 6-6] Within an MPD, the <code>class</code> substring in the file name MUST correctly correspond to the value for the attribute mpdClassCode within <code>mpd-catalog.xml</code>.  Correct correspondence is:</p>
+
+<p><pre>
 	IF file name <code>class</code> =	THEN <code>mpd-catalog.xml</code> <code>mpdClassCode</code> =
 rel				release
 cu				core-update
 du				domain-update
 iepd				iepd
 eiem				eiem
+</pre></p>
 
 <p>In HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.</p>
 
