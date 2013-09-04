@@ -52,14 +52,14 @@
 <section id="Background">
 	<title>Background</title>
 
-	<p>Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose.  Examples of such sets include, but in the future may not necessarily be limited to, a NIEM release, domain update, Information Exchange Package Documentation (IEPD), and Enterprise Information Exchange Model (EIEM).  Each of these examples is a NIEM Model Package Description (MPD).</p>
+	<p>Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose.  Examples of such sets include, but in the future may not necessarily be limited to, a NIEM release, core update (CU), domain update (DU), Information Exchange Package Documentation (IEPD), and Enterprise Information Exchange Model (EIEM).  Each of these examples is a NIEM Model Package Description (MPD).</p>
 
 	<definition term="Model Package Description (MPD)">
 		<p>A set of related W3C XML Schema documents and other supporting files organized as one of the five classes of NIEM schema sets:</p>
 <ul>
 	<li><p>Release (major, minor, or micro).</p></li>
-	<li><p>Domain update (to a release).</p></li>
-	<li><p>Core update (to a release).</p></li>
+	<li><p>Domain update (DU) to a release.</p></li>
+	<li><p>Core update (CU) to a release.</p></li>
 	<li><p>Information Exchange Package Documentation (IEPD).</p></li>
 	<li><p>Enterprise Information Exchange Model (EIEM).</p></li>
 </ul>
@@ -292,7 +292,7 @@ Figure 2-3.  Examples of NIEM numbered releases.
 <section id="Domain-Update">
 	<title>Domain Update</title>
 
-	<p>A <em>domain update</em> is an MPD containing reference schema document or document set that represents changes to NIEM domains.  The [NIEM-HLVA] defines a domain update as both a process and a NIEM product.  Through use and analysis of NIEM releases and published content, domain users will identify issues and new data requirements for the domain and sometimes Core.  NIEM domains use these issues as the basis for incremental improvements, extensions, and proposed changes to future NIEM releases.  Both the process and product of the process are referred to as domain update.  This MPD Specification is applicable to a domain update product.</p>
+	<p>A <em>domain update (DU)</em> is an MPD containing reference schema document or document set that represents changes to NIEM domains.  The [NIEM-HLVA] defines a domain update as both a process and a NIEM product.  Through use and analysis of NIEM releases and published content, domain users will identify issues and new data requirements for the domain and sometimes Core.  NIEM domains use these issues as the basis for incremental improvements, extensions, and proposed changes to future NIEM releases.  Both the process and product of the process are referred to as domain update.  This MPD Specification is applicable to a domain update product.</p>
 
 	<definition term="domain update">
 		<p>A MPD that contains a reference schema document or document set issued by one or more domains that constitutes new content or an update to content that was previously included in a NIEM release.  A domain update may define and declare new versions of content for NIEM releases or other published content.  The issuing body vets each update before publishing, but the update is not subject to review by other NIEM bodies.  A domain update must be NIEM-conformant, but otherwise it has fewer constraints on quality than does a NIEM release.  Domain update schema documents contain proposed future changes to NIEM that have not been published in a numbered release and have not been vetted by NIEM governance bodies (except by the domain or domains involved).  Domain updates are published to the NIEM Publication Area at <link>http://publication.niem.gov/</link> and available for immediate use within IEPDs.</p>
@@ -306,7 +306,7 @@ Figure 2-3.  Examples of NIEM numbered releases.
 <section id="Core-Update">
 	<title>Core Update</title>
 
-	<p>When necessary, the NIEM PMO can publish a core update.  This is essentially identical to a domain update in terms of structure and use, with two important exceptions.  First, a core update records changes that apply to a particular NIEM core version or another core update.  This also means it is applicable to all NIEM releases using that same core version.  Second, a core update is never published to replace a NIEM core.  It is intended to add new schemas, new data components, new code values, etc. to a core without waiting for the next major release.  In some cases, minor modifications to existing data components are possible.</p>
+	<p>When necessary, the NIEM PMO can publish a <em>core update (CU)</em>.  This is essentially identical to a domain update in terms of structure and use, with two important exceptions.  First, a core update records changes that apply to a particular NIEM core version or another core update.  This also means it is applicable to all NIEM releases using that same core version.  Second, a core update is never published to replace a NIEM core.  It is intended to add new schemas, new data components, new code values, etc. to a core without waiting for the next major release.  In some cases, minor modifications to existing data components are possible.</p>
 
 	<definition term="core update">
 	<p>An MPD that applies changes to a given NIEM core schema document or document set.  A core update never replaces a NIEM core; instead, it is used to add new schema documents, new data components, new code values, etc. to a particular NIEM core.  In some cases, a core update can make minor modifications to existing core data components.</p>
@@ -431,8 +431,8 @@ Figure 2-3.  Examples of NIEM numbered releases.
         <theadr>
             <th> Characteristics of MPD Classes </th>
 	    <th> Release </th>
-	    <th> Core Update </th>
-	    <th> Domain Update </th>
+	    <th> CU </th>
+	    <th> DU </th>
 	    <th> IEPD </th>
 	    <th> EIEM </th>
         </theadr>
@@ -447,10 +447,58 @@ Figure 2-3.  Examples of NIEM numbered releases.
 	<tr>
             <td>Requires a version number </td>
 	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	</tr>
+	<tr>
+            <td>Must be packaged as a ZIP archive </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	</tr>
+	<tr>
+            <td>May contain alternate model representations (in addition to XSD) </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	</tr>
+<tr>
+            <td>Requires self-documenting XML mpd-catalog (specified by XSD) </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	</tr>
+<tr>
+            <td>Requires a formal XML change log (specified by XSD) </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td> X </td>
+	    <td>   </td>
+	    <td>   </td>
+	</tr>
+<tr>
+            <td>Requires a change log but may be informal; any format </td>
+	    <td>   </td>
 	    <td>   </td>
 	    <td>   </td>
 	    <td> X </td>
+	    <td> X </td>
+	</tr>
+<tr>
+            <td>Requires a master document </td>
 	    <td>   </td>
+	    <td>   </td>
+	    <td>   </td>
+	    <td> X </td>
+	    <td> X </td>
 	</tr>
 </table>
 
