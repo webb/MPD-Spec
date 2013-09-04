@@ -3,7 +3,7 @@
    xmlns="https://iead.ittl.gtri.org/wr24/doc/2011-09-30-2258"
    xmlns:html="http://www.w3.org/1999/xhtml">
 
-  <title>National Information Exchange Model Model Package Description Specification</title>
+   <title>National Information Exchange Model Model Package Description Specification</title>
   <version>3.0alpha1</version>
   <date>2013-08-30</date>
   <author>NIEM Technical Architecture Committee (NTAC)</author>
@@ -298,7 +298,7 @@ Figure 2-3.  Examples of NIEM numbered releases.
 		<p>A MPD that contains a reference schema document or document set issued by one or more domains that constitutes new content or an update to content that was previously included in a NIEM release.  A domain update may define and declare new versions of content for NIEM releases or other published content.  The issuing body vets each update before publishing, but the update is not subject to review by other NIEM bodies.  A domain update must be NIEM-conformant, but otherwise it has fewer constraints on quality than does a NIEM release.  Domain update schema documents contain proposed future changes to NIEM that have not been published in a numbered release and have not been vetted by NIEM governance bodies (except by the domain or domains involved).  Domain updates are published to the NIEM Publication Area at <link>http://publication.niem.gov/</link> and available for immediate use within IEPDs.</p>
 </definition>
 
-<p>A <em>domain update</em> represents changes to domain schemas.  The primary artifacts that define these changes are one or more reference schema documents and a change log.  A domain update may apply to one or more domain namespaces within a single NIEM major, minor, or micro release.  A domain steward uses a domain update to:  (1) make new or changed domain content immediately available to NIEM data exchange developers between NIEM releases, and (2) request that new or changed content be harmonized into a future NIEM release.  (See the <em>Domain Update Specification</em> <ref idref"NIEM-DomainUpdate"/> which provides normative details about domain updates and the associated processes.)</p>
+<p>A <em>domain update</em> represents changes to domain schemas.  The primary artifacts that define these changes are one or more reference schema documents and a change log.  A domain update may apply to one or more domain namespaces within a single NIEM major, minor, or micro release.  A domain steward uses a domain update to:  (1) make new or changed domain content immediately available to NIEM data exchange developers between NIEM releases, and (2) request that new or changed content be harmonized into a future NIEM release.  (See the <em>Domain Update Specification</em> <ref idref="NIEM-DomainUpdate"/> which provides normative details about domain updates and the associated processes.)</p>
 
 </section>
 
@@ -685,7 +685,7 @@ Figure 2-3.  Examples of NIEM numbered releases.
 	</definition>
 
 	<definition term="constraint schema document set">
-		<p>A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.  See also <strong>constraint schema document</stong>.</p>
+		<p>A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.  See also <strong>constraint schema document</strong>.</p>
 	</definition>
 	
 	<p>Note that constraint schemas are generally useful when it is necessary to impose restrictions that are more complex than cardinality.  If only cardinality restrictions are needed, then it is easier and more efficient to set these directly in the schema subset and avoid the use of constraint schemas.  Otherwise, a constraint schema may be necessary.  Note however, that any cardinality restrictions placed on NIEM release components within subsets must not violate the rules established in 3.2.1 Basic Subset Concepts which define the relationship of a subset schema to the reference schema on which it is based.</p>  
@@ -923,12 +923,12 @@ Figure 4-1.  Example versioning system.
 	<p>By the rules of <ref idref="W3-XML"/> the value of each id attribute (which is of type <code>xs:ID</code>) must be locally unique within the <code>mpd-catalog.xml</code> file.  However, globally unique URIs are required to identify and reference artifacts between MPDs.  To facilitate references from one MPD catalog to another, the following rule applies:</p>
 
 	<rule id="r-mpd-uri-syntax">
-		<p>49 A URI reference to an individual MPD artifact from another resource is the concatenation of
-			<ul>
-				<li><p>The URI of the MPD that contains the artifact.</p></li>
-				<li><p>The crosshatch or pound character ("#").</p></li>
-				<li><p>A fragment identifier that is the locally unique <code>id</code> of the artifact within the mpd-catalog of the MPD itself.</p></li>
-			</ul>
+		<p>49 A URI reference to an individual MPD artifact from another resource is the concatenation of</p>
+		<ul>
+			<li><p>The URI of the MPD that contains the artifact.</p></li>
+			<li><p>The crosshatch or pound character ("#").</p></li>
+			<li><p>A fragment identifier that is the locally unique <code>id</code> of the artifact within the mpd-catalog of the MPD itself.</p></li>
+		</ul>
 	</rule>
 
 	<p>Example of an artifact URI:  <code>http://www.abc.org/niem-iepd/order/2.1.2rev3/#a552</code></p>
@@ -998,12 +998,14 @@ Figure 4-1.  Example versioning system.
 
 	<p>In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change.  New versions of reference schema sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs and EIEMs.  Developers must understand in detail how changes will affect their IEPD and EIEM products and the tools used to build them.  To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs.  A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users.  All of the foregoing reasons dictate that NIEM require a normative change log for reference schema sets.</p>
 
-	<rule id="r-mpd-ref-changelog"><p>412 Every MPD that is a reference schema set (i.e., NIEM releases, core updates, and domain updates) MUST contain an XML change log artifact that:</p>
+	<rule id="r-mpd-ref-changelog">
+		<p>412 Every MPD that is a reference schema set (i.e., NIEM releases, core updates, and domain updates) MUST contain an XML change log artifact that:</p>
 	<ul>
-		<li><p>Validates with the NIEM change log schemas <code>mpd-changelog.xsd</code> and <code>niem-model.xsd</code>)  Note these are the base filenames; the actual filenames also contain a version number; for example, <code>mpd-changelog-1.0.xsd</code>.</p></li>
+	<li><p>Validates with the NIEM change log schemas <code>mpd-changelog.xsd</code> and <code>niem-model.xsd</code>)  Note these are the base filenames; the actual filenames also contain a version number; for example, <code>mpd-changelog-1.0.xsd</code>.</p></li>
 	<li><p>Records changes to previous reference schemas that this MPD represents.</p></li>
 	<li><p>Bears the file name <code>changelog.xml</code>.</p></li>
 	<li><p>Resides in the root directory of the MPD.</p></li>
+	</ul>
 	</rule>
 	
 	<p>The current version of mpd-changelog.xsd can be found at:</p>
@@ -1151,7 +1153,7 @@ Many organizations have their own customized formats and operating procedures fo
 
 	<p>Files vary widely in format and are often specific to the tools an author uses to parse, consume, or output them.  Therefore, if tool-specific files are included in an MPD, it is also a good practice to include copies of those files in formats that display with standard Web browsers or other cost-free, publicly available viewing tools.  Common formats include, but are not limited to ASCII text, CSV, HTML, XHTML, JPG, GIF, PNG, and PDF.  This guidance is intended to encourage and facilitate maximal sharing and distribution of MPDs; it does not prohibit and is not intended to discourage the inclusion of other file formats.</p>
 
-	<p>In particular, this specification does not discourage use of Microsoft (MS) file formats for documentation and other optional artifacts.  A number of MS Office products are commonly used in most large organizations.  Furthermore, viewers are publicly available for many MS products, including Word (DOC), Excel (XLS), PowerPoint (PPT), Access (MDB), and Visio (VSD).  (See <link>http://office.microsoft.com/en-us/downloads/office-online-file-converters-and-viewers-HA001044981.aspx</link)</p>
+	<p>In particular, this specification does not discourage use of Microsoft (MS) file formats for documentation and other optional artifacts.  A number of MS Office products are commonly used in most large organizations.  Furthermore, viewers are publicly available for many MS products, including Word (DOC), Excel (XLS), PowerPoint (PPT), Access (MDB), and Visio (VSD).  (See <link>http://office.microsoft.com/en-us/downloads/office-online-file-converters-and-viewers-HA001044981.aspx</link></p>
 
 </section>
 
@@ -1278,9 +1280,8 @@ eiem					eiem
 <pre>
 	<code>application/zip+[class]</code>
 		where
-		<code>[class]</code> is one member from the set {rel, cu, du, iepd, eiem}</p>
-</pre>
-</rule>
+		<code>[class]</code> is one member from the set {rel, cu, du, iepd, eiem}</pre>
+	</rule>
 
 	<p>Use of the generic zip MIME type <code>application/zip</code> is allowed, but discouraged. No other MIME types are allowed when representing MPD archives.</p>
 
