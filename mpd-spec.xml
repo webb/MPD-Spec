@@ -157,7 +157,7 @@
 		<p>A single file with a defined purpose or a set of files logically grouped for a defined purpose.  An MPD is a collection of artifacts, the purpose for which is to define and document the intended use of the MPD.</p>
 	</definition>
 			
-	<p>While the kernel of an MPD is its XML schema (XSD) artifacts, there are also other kinds of MPD artifacts.  These may include HTML (or XML converted to HTML for display), text, or graphic files used for human-readable documentation.  An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD.  For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema artifacts.   Appendix F: MPD Artifacts contains a listing of mandatory and common optional artifacts for the five types of MPDs.  The various types of artifacts are described in more detail in subsequent sections.</p>
+	<p>While the kernel of an MPD is its XML schema document (XSD) artifacts, there are also other kinds of MPD artifacts.  These may include HTML (or XML converted to HTML for display), text, or graphic files used for human-readable documentation.  An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD.  For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema artifacts.   Appendix F: MPD Artifacts contains a listing of mandatory and common optional artifacts for the five types of MPDs.  The various types of artifacts are described in more detail in subsequent sections.</p>
 	
 </section>
 
@@ -186,7 +186,7 @@
 
 	<p>This specification often refers to the process of validation, that is, validation of XML schemas and XML instances.  Generally, this should occur periodically during and after design time to ensure the conformance and quality of an information exchange definition.  However, local architecture or policy may also dictate the need to validate more often, and in some cases may require runtime validation.</p>
 
-	<p>XML schemas that define a NIEM information exchange must be authoritative.  Application developers may use other schemas (e.g., constraint schemas) for various purposes, but for the purposes of determining NIEM conformance, the authoritative schemas are relevant.  This does not mean that XML validation must be performed on all XML instances as they are served or consumed; only that the XML instances validate if and when XML validation is performed.  Therefore, even when validation is not performed, XML instance documents must be valid against the XML schema documents that specify them.</p>
+	<p>XML schema document sets that define a NIEM information exchange must be authoritative.  Application developers may use other schemas (e.g., constraint schema documents) for various purposes, but for the purposes of determining NIEM conformance, the authoritative schemas are relevant.  This does not mean that XML validation must be performed on all XML instances as they are served or consumed; only that the XML instances validate if and when XML validation is performed.  Therefore, even when validation is not performed, instance XML documents must be valid against the XML schema document sets that specify them.</p>
 
 </section>
 
@@ -647,13 +647,13 @@ Figure 2-3.  Examples of NIEM numbered releases.
 	<rule id="fundamental-subset"><p>31 Any instance XML document that validates against a NIEM schema document subset will validate against the NIEM reference schema document set from which that schema document subset was derived.</p>
 	</rule>
 
-	<p>NIEM Subset Operations:  These are essentially reduction operations that remove or constrain portions of a reference schema document set, thereby building a profile of the set.  They do not relax/expand the scope or change the semantics of reference schema document set content.</p>
+	<p>NIEM Subset Operations:  These are essentially reduction operations that remove or constrain portions of a reference schema document set, thereby building a profile of the set.  They do not expand the scope (i.e., relax constraints) or change the semantics of reference schema document set content.</p>
 	<ol>
 		<li><p>Remove an XML comment statement</p></li>
 		<li><p>Remove an <code>xs:annotation</code> (includes <code>xs:documentation</code> and <code>xs:appinfo</code>)</p></li>
 		<li><p>Increase the value of an <code>xs:element minOccurs</code> attribute (must be less than or equal to <code>maxOccurs</code> value)</p></li>
 		<li><p>Decrease the value of an <code>xs:element maxOccurs</code> attribute (must be greater than or equal to <code>minOccurs</code> value)</p></li>
-		<li><p>Remove an <code>xs:element</code> if <code>minOccurs="0"</code> and <code>maxOccurs="0"</code></p></li>
+		<li><p>Remove an <code>xs:element</code> if <code>minOccurs="0"</code></p></li>
 		<li><p>Remove an <code>xs:complexType</code> or <code>xs:simpleType</code> (if not supporting an element)</p></li>
 		<li><p>Remove an <code>xs:attribute</code> from a <code>xs:element</code></p></li>
 		<li><p>Change an <code>xs:attribute use="optional"</code> to <code>use="prohibited"</code></p></li>
@@ -743,7 +743,7 @@ Figure 2-3.  Examples of NIEM numbered releases.
 
 	<p>This section only applies to IEPDs.  NIEM releases, core updates, domain updates, and EIEMs do not contain exchange schemas.</p>
 		
-	<p>An IEPD defines one or more NIEM XML data exchanges, and therefore, a class of XML instance documents, each of which validates against the XML schemas in that IEPD.  An XML instance document contains exactly one document element, which is the root element of the instance, and which cannot appear in the content of any other element within that XML instance document (by definition in <ref idref="W3-XML"/> and <ref idref="W3-XML-InfoSet"/>.</p>
+	<p>An IEPD defines one or more NIEM XML data exchanges, and therefore, a class of instance XML documents, each of which validates against the XML schema document set in that IEPD.  An instance XML document contains exactly one document element, which is the root element of the instance, and which cannot appear in the content of any other element within that instance XML document (by definition in <ref idref="W3-XML"/> and <ref idref="W3-XML-InfoSet"/>.</p>
 
 	<p>An IEPD exchange schema declares one or more document elements.  Only one document element can be used in any given information exchange instance (IEP).</p>
 
@@ -754,7 +754,7 @@ Figure 2-3.  Examples of NIEM numbered releases.
 	<p>However, a NIEM IEP (instance) could later become the payload of an XML envelope (such as a SOAP message).  That XML envelope (itself an XML document instance) will have its own document element.  In this case, the IEP no longer contains the document element for the instance.  Therefore, in the context of an IEPD, it is more appropriate to refer to a document element as a root element of an IEP.</p>
 
 	<definition term="IEP root element">
-		<p>The single top-level element in an IEP (XML instance document).  In the absence of any other XML wrapping of an IEP, a root element declared in an exchange schema document is an IEP document element.</p>
+		<p>The single top-level element in an IEP (instance XML document).  In the absence of any other XML wrapping of an IEP, a root element declared in an exchange schema document is an IEP document element.</p>
 	</definition>
 
 	<p>This results in the following rule:</p>
@@ -762,7 +762,7 @@ Figure 2-3.  Examples of NIEM numbered releases.
 	<rule id="r-mpd-exchange"><p>36 An IEPD MUST contain at least one exchange schema artifact that declares at least one top-level root element for IEP instances specified by the IEPD.</p>
 	</rule>
 
-	<p>Note that neither <ref idref="W3-XML"/> nor this rule restricts the number of root elements that can be declared by an IEPD exchange schema.  Any XML schema, including a NIEM exchange schema, may declare multiple root elements.  Furthermore, a single IEPD may contain multiple exchange schemas if such are necessary to meet business requirements.</p>
+	<p>Note that neither <ref idref="W3-XML"/> nor this rule restricts the number of root elements that can be declared by an IEPD exchange schema.  Any XML schema document, including a NIEM exchange schema, may declare multiple root elements.  Furthermore, a single IEPD may contain multiple exchange schemas if such are necessary to meet business requirements.</p>
 
 	<p>Nonetheless, regardless of the number of root elements declared by a given exchange schema, and in accordance with <ref idref="W3-XML"/>, any XML instance (i.e., IEP) that validates against a NIEM IEPD must contain one and only one root element and that element must be declared within at least one exchange schema in the IEPD.</p>
 
@@ -786,10 +786,10 @@ Figure 2-3.  Examples of NIEM numbered releases.
 <section id="Base-Schema-Set">
 	<title>Base Schema Set</title>
 
-	<p>Within an MPD, the base schema set is the set of XML schemas that defines the information exchange or model in the MPD.  This set may incorporate NIEM-conformant reference schemas, subset schemas, extension schemas, exchange schemas, as well as schemas from an external non-NIEM-conformant source (for example, GML, Geospatial Markup Language).</p>
+	<p>Within an MPD, the base schema document set is the XML schema document set that defines the information exchange or model in the MPD.  This set may incorporate NIEM-conformant reference, subset, extension, and exchange schema documents, as well as schema documents from an external non-NIEM-conformant source (for example, GML, Geospatial Markup Language).</p>
 
 	<definition term="base schema document set">
-		<p>A NIEM MPD artifact that is the set of all NIEM-conformant and external non-conformant XML schemas that together specify an information exchange or information model for an MPD.  A base schema document set may incorporate reference, subset, extension, and exchange schema documents, as well as external schema documents from authoritative sources outside of NIEM.</p>
+		<p>A NIEM MPD artifact that is the set of all NIEM-conformant and external non-conformant XML schema documents that together specify an information exchange or information model for an MPD.  A base schema document set may incorporate reference, subset, extension, and exchange schema documents, as well as external schema documents from authoritative sources outside of NIEM.  (Constraint schema documents and sets are NOT part of a base schema document set.)</p>
 	</definition>
 
 	<p>An MPD contains one and only one base schema set.</p>
@@ -862,10 +862,10 @@ Table 3-1.  MPD classes vs. schema classes
 <section id="Sample-XML-Instances">
 	<title>Sample XML Instances</title>
 
-	<p>XML schemas define XML data exchange instances.  It is certainly possible to construct an example XML instance for an entire NIEM release, but such an instance is of questionable value.  Rarely, if ever, will an entire NIEM release be used to define a data exchange.  However, sample XML instances are very valuable artifacts to include with IEPDs.  As samples of the actual exchange data, instances can help an IEPD implementer to understand the original intent of the IEPD developer.  They can be used by an implementer as data points for validation with the IEPD schemas.  And finally, the inclusion of valid, meaningful sample XML instances is an indication of IEPD quality.  For these reasons, IEPDs require valid sample XML instances.</p>
+	<p>XML schema document sets define data exchange instance XML documents.  It is certainly possible to construct an example instance XML document for an entire NIEM release, but such an instance is of questionable value.  Rarely, if ever, will an entire NIEM release be used to define a data exchange.  However, sample instance XML documents are very valuable artifacts to include with IEPDs.  As samples of the actual exchange data, instance XML documents can help an IEPD implementer to understand the original intent of the IEPD developer.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  And finally, the inclusion of valid, meaningful sample instance XML documents is an indication of IEPD quality.  For these reasons, IEPDs require valid sample instance XML documents.</p>
 
 	<rule id="r-iepd-sample">
-		<p>311 A NIEM IEPD MUST contain at least one valid sample XML instance (i.e., IEP) artifact for each exchange schema element that can be the root of a corresponding IEP.</p>
+		<p>311 A NIEM IEPD MUST contain at least one valid sample instance XML document (i.e., IEP) artifact for each exchange schema element that can be the root of a corresponding IEP.</p>
 	</rule>
 
 	<p>The intent of this rule is not to provide a test for all permutations of XML instances that might be possible given the schema definitions and declarations.  As the value propositions explain, its purpose is to ensure IEPD developers have tested their own designs, and to provide implementers with examples they can use for additional understanding and guidance.  IEPD developers should strive to include sample XML instances that (1) capture real world business cases of data exchanges, and (2) exercise as many data component definitions and declarations in the schemas as possible.  While both of these goals may not be achievable in a single sample XML instance, developers have the option to include multiple sample XML instances; however, only one per intended root element is mandatory.</p>
@@ -946,20 +946,22 @@ Table 3-1.  MPD classes vs. schema classes
 		digit   ::= [0-9]
 		status  ::= 'alpha' | 'beta' | 'rc' | 'rev'
 		'alpha' indicates early development
-		'beta' indicates late development; but changing or incomplete
-		'rc' indicates release candidate; complete but not approved as operational
-		'rev' indicates very minor revision that does not impact schema validation
-	</pre>
+		'beta' indicates late development; but changing or 
+			incomplete
+		'rc' indicates release candidate; complete but not 
+			approved as operational
+		'rev' indicates very minor revision that does not impact 
+			schema validation</pre>
 	<p>(The regular expression notation used above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>)</p>
 </rule>
 
 <p>The regular expression in <ref idref="r-mpd-vers-syntax"/> allows the following example version numbers:</p>
 	<ul>
-		<li><p>1</p></li>
-		<li><p>1.2</p></li>
-		<li><p>1.3.1.0</p></li>
-		<li><p>1.2alpha13</p></li>
-		<li><p>199.88.15rev6</p></li>
+		<li><p><code>1<code></p></li>
+		<li><p><code>1.2</code></p></li>
+		<li><p><code>1.3.1.0</code></p></li>
+		<li><p><code>1.2alpha13</code></p></li>
+		<li><p><code>199.88.15rev6</code></p></li>
 	</ul>
 
 	<p>There are two implications in <ref idref="r-mpd-vers-syntax"/>.  The first is that in some cases this version scheme implies and confirms a chronology of releases.  For example, a given product labeled version 2.3 must have been released before the same product labeled 2.3.1.  Therefore, version 2.3.1 is more current than version 2.3.</p>
@@ -971,16 +973,16 @@ Figure 4-1.  Example versioning system.
 </p>
 
 	<p>[Figure 4-1] illustrates eight different version series.  Within this illustration these are the only sequences that have chronological relationships that can be identified through version numbers.</p>
-<pre>
-    Series 2:		2.2, 2.3, 2.4
-    Series 3:		3.0, 3.1, 3.2
-    Series 2.2: 	2.2(.0), 2.2.1, 2.2.2, 2.2.3, 2.2.4
-    Series 2.3: 	2.3(.0), 2.3.1
-    Series 2.4: 	2.4(.0), 2.4.1
-    Series 3.0:		3.0(.0), 3.0.1, 3.0.2
-    Series 3.1:		3.1(.0), 3.1.1
-    Series 3.2:		3.2(.0), 3.2.1, 3.2.2
-</pre>
+	<ul>
+	<li><p>Series 2:	2.2, 2.3, 2.4</p></li>
+	<li><p>Series 3:	3.0, 3.1, 3.2</p></li>
+	<li><p>Series 2.2: 	2.2(.0), 2.2.1, 2.2.2, 2.2.3, 2.2.4</p></li>
+	<li><p>Series 2.3: 	2.3(.0), 2.3.1</p></li>
+	<li><p>Series 2.4: 	2.4(.0), 2.4.1</p></li>
+	<li><p>Series 3.0:	3.0(.0), 3.0.1, 3.0.2</p></li>
+	<li><p>Series 3.1:	3.1(.0), 3.1.1</p></li>
+	<li><p>Series 3.2:	3.2(.0), 3.2.1, 3.2.2</p></li>
+	</ul>
 
 	<p>The second implication of <ref idref="r-mpd-vers-syntax"/> is that pre-releases are easily identified by the strings <code>alpha</code>, <code>beta</code>, and <code>rc</code>.  These strings are simple visible indicators of the status or stage of development of an MPD.</p>
 
@@ -1084,7 +1086,7 @@ Figure 4-1.  Example versioning system.
 <section id="Wantlists">
 	<title>Wantlists</title>
 
-	<p>A NIEM subset is often associated with a NIEM <em>wantlist</em>.  A <em>wantlist</em> is an abbreviated representation of a NIEM schema subset, and identifies only the data components a user selected (as requirements) to build that subset.  However, there are usually a number of additional data components that the user selections are dependent upon and therefore must be added to construct the complete schema subset.  For example, a user may decide that he/she requires and therefore select <code>nc:Person</code>.  In this case, the wantlist will only contain that component, but the associated subset must contain both <code>nc:Person</code> and <code>nc:PersonType</code>.  A software tool that understands how to process NIEM subsets and wantlists (such as the NIEM Schema Subset Generator Tool - SSGT) will ensure correct correlation between a wantlist and a subset. </p>
+	<p>A NIEM subset is often associated with a NIEM <em>wantlist</em>.  A <em>wantlist</em> is an abbreviated representation of a NIEM schema subset, and identifies only the data components a user selected (as requirements) to build that subset.  However, there are usually a number of additional data components that the user selections are dependent upon and therefore must be added to construct the complete schema subset.  For example, a user may decide that he/she requires and therefore select <code>nc:Person</code>.  In this case, the wantlist will only contain that component, but the associated subset must contain both <code>nc:Person</code> and <code>nc:PersonType</code>.  A software tool that understands how to process NIEM subsets and wantlists (such as the NIEM Schema Subset Generator Tool <ref idref="NIEM-SSGT"/>) will ensure correct correlation between a wantlist and a subset. </p>
 
 	<definition term="wantlist">
 		<p>An XML document that represents a NIEM schema subset.  A NIEM wantlist identifies the data component requirements declared by the author of a subset; it does not identify the data component dependencies required to reconstitute the complete subset.  The complete subset can be computed with the reference schema from which the subset was derived.</p>
@@ -1548,7 +1550,7 @@ extension schema document  A NIEM-conformant schema document that adds domain or
 
 harmonization  Given a data model, harmonization is the process of reviewing its existing data definitions and declarations; reviewing how it structures and represents data; integrating new data components; and refactoring data components as necessary to remove (or reduce to the maximum extent) semantic duplication and/or semantic overlap among all data structures and definitions resulting in representational quality improvements.
 
-IEP root element  The single top-level element in an IEP (XML instance document).  In the absence of any other XML wrapping of an IEP, a root element declared in an exchange schema document is an IEP document element.
+IEP root element  The single top-level element in an IEP (instance XML document).  In the absence of any other XML wrapping of an IEP, a root element declared in an exchange schema document is an IEP document element.
 
 Information Exchange Package (IEP)  An XML document that is a valid instantiation of a NIEM IEPD, and therefore, validates with the schema document set of that IEPD.
 
@@ -1659,6 +1661,10 @@ wantlist  An XML document that represents a NIEM schema document subset.  A NIEM
 
 <reference id="NIEM-NDR" label="NIEM NDR">
 	<p><em>NIEM Naming and Design Rules (NDR)</em>, Version 3.0, NIEM Technical Architecture Committee (NTAC), 31 October 2008.  Available from <link>http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/</link>.</p>
+</reference>
+
+<reference id="NIEM-SSGT" label="NIEM SSGT">
+	<p>NIEM Schema Subset Generation Tool (SSGT).  Available from <link>http://tools.niem.gov/niemtools/ssgt/index.iepd</link>.</p>
 </reference>
 
 <reference id="NIEM-UserGuide" label="NIEM User Guide">
