@@ -1139,9 +1139,9 @@ Figure 4-1.  Example versioning system.
 	</ul>
 	</rule>
 	
-	<p>The current version of mpd-changelog.xsd can be found at:</p>
+	<p>The current version of <code>mpd-changelog.xsd</code> can be found at:</p>
 	<p>	<link>http://reference.niem.gov/niem/resource/mpd/changelog/</link></p>
-	<p>The current version of niem-model.xsd which describes the NIEM conceptual model can be found at:</p>
+	<p>The current version of <code>niem-model.xsd</code> which describes the NIEM conceptual model can be found at:</p>
 	<p>	<link>http://reference.niem.gov/niem/resource/model/</link></p>
 
 	<p>Since the schemas are the authority for a release or update and because almost all tool support depends on the schemas, the change log is only designed to audit transactional change to the schemas in the reference set.  There is no provision for logging changes to support documentation or other non-schema artifacts.  Non-schema changes are handled non-normatively in the form of release notes.</p>
@@ -1163,19 +1163,19 @@ Figure 4-1.  Example versioning system.
 	</ul>
 </rule>
 
-	<p>This rule does not specify the format for an IEPD or EIEM change log.  This is left to the discretion of the author.  While use of mpd-changelog.xsd is encouraged for IEPD and EIEM schemas, it is not required.  Relaxing the change log format encourages and facilitates easier and more rapid development.  IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, IEPDs and EIEMs usually contain many documentation artifacts as well as various machine readable artifacts in various formats.  A consistent standard change log for these artifacts is very difficult to specify strictly.</p>
+<p>This rule does not specify the format for an IEPD or EIEM change log.  This is left to the discretion of the author.  While use of <code>mpd-changelog.xsd</code> is encouraged for IEPD and EIEM schemas, it is not required.  Relaxing the change log format encourages and facilitates easier and more rapid development.  IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, IEPDs and EIEMs usually contain many documentation artifacts as well as various machine readable artifacts in various formats.  A consistent standard change log for these artifacts is very difficult to specify strictly.</p>
 
 	<p>The initial version of an IEPD or EIEM would not likely require a change log.  However, for consistency of validation and to help facilitate automatic processing of IEPDs and EIEMs by tools:</p>
 
 	<rule id="r-mpd-initial-changelog"><p>414 The initial version of an IEPD or EIEM MUST contain a change log artifact with at least one entry for its creation date.</p>
 </rule>
 
-	<p>Finally, if the mpd-changelog.xsd specification is used for IEPD/EIEM schema changes, then it is potentially possible that such an MPD will need a second change log if the author wants to accommodate documentation or other changes not related to schemas (since mpd-changelog.xsd cannot be extended to accommodate such changes).  If this is the case, then the following rule applies:</p>
+<p>Finally, if the <code>mpd-changelog.xsd</code> specification is used for IEPD/EIEM schema changes, then it is potentially possible that such an MPD will need a second change log if the author wants to accommodate documentation or other changes not related to schemas (since <code>mpd-changelog.xsd</code> cannot be extended to accommodate such changes).  If this is the case, then the following rule applies:</p>
 
 	<rule id="r-mpd-substring-changelog">
 		<p>415 If an IEPD or EIEM contains more than one change log artifact, then each change log artifact MUST:</p>
 		<ul>
-			<li><p>Have a file name that begins with the substring "changelog".</p></li>
+			<li><p>Have a file name that begins with the substring <code>changelog</code>.</p></li>
 			<li><p>Reside in the MPD root directory.</p></li>
 		</ul>
 	</rule>
@@ -1297,13 +1297,13 @@ Many organizations have their own customized formats and operating procedures fo
 	<p>This rule is also applicable to all MPDs:</p>
 
 <rule id="r-mpd-archive">
-	<p>61 An MPD is packaged as a single compressed archive of files that represents a sub-tree of a file system in standard [PK-ZIP] format.  This archive MUST preserve and store the logical directory structure intended by its author.</p>
+	<p>61 An MPD is packaged as a single compressed archive of files that represents a sub-tree of a file system in standard <ref idref="PK-ZIP"/> format.  This archive MUST preserve and store the logical directory structure intended by its author.</p>
 </rule>
 
 	<p>MPD NIEM schema artifacts must be valid for both XML Schema and NIEM:</p>
 
 	<rule id="r-mpd-conform-tgts">
-	<p>62 Within an MPD archive, all XSD and XML artifacts MUST be valid against and follow all rules for their respective <ref idref="NIEM-NDR"/> conformance targets (i.e., subset, constraint, extension, exchange, reference schemas, and XML instances); this includes being well-formed and valid XML Schema documents.</p>
+	<p>62 Within an MPD archive, all XSD and XML artifacts MUST be valid against and follow all rules for their respective <ref idref="NIEM-NDR"/> conformance targets (i.e., subset, constraint, extension, exchange, reference schema documents, as well as instance XML documents); this includes being well-formed and valid XML Schema documents.</p>
 </rule>
 
 <p>NIEM releases, core updates, and domain updates follow a relatively consistent approach to directory organization <ref idref="NIEM-DomainUpdate"/>.  But there are many ways to organize IEPD and EIEM directories that may depend on a number of factors including (not limited to) business purpose and complexity.  For this reason, strict rules for IEPD and EIEM directory structure are difficult to establish.  Therefore, IEPD and EIEM authors may create their own logical directory structures.  However, for consistency and efficiency:</p>
@@ -1352,15 +1352,13 @@ Many organizations have their own customized formats and operating procedures fo
 	<rule id="r-mpd-match"><p>65 Within an MPD, the <code>name</code> and <code>version</code> substrings in the file name MUST match exactly the values for attributes <code>mpdName</code> and <code>mpdVersionID</code> within its <code>mpd-catalog.xml</code> artifact.</p>
 </rule>
 
-	<rule id="r-mpd-class-code"><p>66 Within an MPD, the <code>class</code> substring in the file name MUST correctly correspond to the value for the attribute <code>mpdClassCode</code> within <code>mpd-catalog.xml</code>.  Correct correspondence is:</p>
-<pre>
-IF file name <code>class</code> =	THEN <code>mpd-catalog.xml mpdClassCode</code> =
-	rel				release
-	cu				core-update
-	du				domain-update
-	iepd				iepd
-	eiem				eiem
-</pre>
+<rule id="r-mpd-class-code"><p>66 Within an MPD, the <code>class</code> substring in the file name MUST equal the <code>mpdClassCode</code> attribute value within the mpd-catalog.</p>
+<pre>	Where values:
+		rel	= release
+		cu	= core update
+		du	= domain update
+		iepd	= information exchange package documentation
+		eiem	= enterprise information exchange model</pre>
 </rule>
 
 	<p>In HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.</p>
