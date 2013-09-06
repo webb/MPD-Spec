@@ -691,7 +691,7 @@ Figure 2-3.  Examples of NIEM numbered releases.
 		<p>35 A schema document contained in a reference schema document set may be omitted from a derived schema document subset, if and only if no elements, attributes, or types declared or defined in the schema document are required to support other elements or types within the schema document subset for exchange purpose.</p>
 	</rule>
 
-	<p>When a schema document is not required, and therefore, has been omitted from a valid schema document subset, there is no longer a reason to import it from anywhere within the subset.  Therefore, because some XML validators (and other tools) expect the file identified in the <code>xs:import/schemaLocation</code> attribute to be present, it's a good idea to remove such references to the omitted schema.</p>
+	<p>When a schema document is not required, and therefore, has been omitted from a valid schema document subset, there is no longer a reason to import it from anywhere within the schema document subset.  Therefore, because some XML validators (and other tools) expect the file identified in the <code>xs:import/schemaLocation</code> attribute to be present, it's a good idea to remove such references to omitted schema documents.  (Note that <ref idref="Subset-Operations"/> lists a valid operation for this.)</p>
 
 </section>
 
@@ -703,7 +703,7 @@ Figure 2-3.  Examples of NIEM numbered releases.
 	
 	<p>Previous sections defined a single schema subset derived from a reference schema set.  In general, an IEPD or EIEM contains a single cohesive schema subset (which may be a rather large set of files) based on one numbered NIEM release or domain update.</p>
 	
-	<p>However, this specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM.  Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM.  However, exercising this degree of flexibility makes it critically important that developers understand the potential consequences. NIEM subsets represent a delicate compromise between flexibility and interoperability.  On the one hand, a set of IEPDs based on the same subset and numbered release use identical data components, thereby enhancing interoperability.  On the other hand, mixing dissimilar subsets from the same numbered release or mixing subsets derived from various numbered releases has the potential to negatively impact interoperability.</p>
+	<p>However, this specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM.  Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM.  However, exercising this degree of flexibility makes it critically important that developers understand the potential consequences. NIEM subsets represent a delicate compromise between flexibility and interoperability.  On the one hand, a set of IEPDs based on the same subset and numbered release use identical data components, thereby enhancing interoperability.  On the other hand, mixing dissimilar subsets from the same numbered release or mixing subsets derived from various numbered releases has the potential to negatively impact interoperability through incoherence and ambiguity.</p>
 
 	<p>The NIEM mandate that every schema have a unique namespace prevents name conflicts between reference schema sets and between two subsets derived from different reference sets.  In spite of namespace distinction, mixing subsets of multiple reference schema sets can still introduce multiple versions of semantically equivalent data components, a potentially ambiguous situation.  Even employing multiple subsets together that have been derived from the same reference set has the potential to create a similar result. Above all, it is the developer's responsibility to ensure that, if mixing subsets from one or more numbered releases within a single IEPD or EIEM, these artifacts are carefully coordinated and clearly documented to ensure the various versions of semantically equivalent data components and different schemas with the same namespaces will not cause conflicts, confusion, and/or failure during validation or exchange implementation.</p>
 
@@ -714,25 +714,25 @@ Figure 2-3.  Examples of NIEM numbered releases.
 <section id="Extension-Schemas">
 	<title>Extension Schemas</title>
 
-	<p>This section only applies to NIEM IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain extension schemas.</p> 
+	<p>This section only applies to NIEM IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain extension schema documents.</p> 
 
 	<definition term="extension schema document">
 		<p>A NIEM-conformant schema document that adds domain or application specific content to the base NIEM model.</p>
 	</definition>
 
-	<p>The normative definition for a NIEM IEPD extension schema is in the <ref idref="NIEM-NDR"/>.  In general, an extension schema contains components that use or are derived from the components in reference schemas.  It is intended to express the additional vocabulary required for an IEPD, above and beyond the vocabulary available from reference schemas.</p>
+	<p>The <ref idref="NIEM-NDR"/> defines an IEPD <em>extension schema document</em> as a conformance target.  In general, an extension schema document contains components that use or are derived from the components in reference schema documents.  It is intended to express the additional vocabulary required for an IEPD, above and beyond the vocabulary available from reference schema documents.</p>
 
-	<p>A IEPD or EIEM developer who determines that NIEM does not contain all elements required for a given information exchange has two options to account for such requirement shortfalls.  Using rules and techniques outlined in the <ref idref="NIEM-NDR"/>:</p>
+	<p>An IEPD or EIEM developer who determines that NIEM is missing elements required for a given information exchange has two options to account for such requirement shortfalls.  Using rules and techniques outlined in the <ref idref="NIEM-NDR"/>:</p>
 	<ul>
-		<li><p>Extend an existing NIEM data component.</p></li>
+		<li><p>Extend an existing NIEM data component (if possible).</p></li>
 		<li><p>Build a new NIEM-conformant data component.</p></li>
 	</ul>
 
-	<p>A NIEM extension schema may contain data components built from both options above.  Employment of extension schemas in an IEPD is entirely optional.</p>
+	<p>A NIEM extension schema document may contain data components built from both options above.  Employment of extension schema documents in an IEPD is entirely optional.</p>
 
-	<p>Multiple extension schemas are allowed in a single IEPD.  Developers will likely want to reuse many of their extensions in other IEPDs.  Therefore, it is most efficient to put all extensions designed for reuse into one extension schema (or into a well-organized set of extension schemas), while keeping IEPD-specific extensions in a different schema.  The reusable extension schema or schema set can then be easily redeployed in other IEPDs as needed.</p>
+	<p>Multiple extension schema documents are allowed in a single IEPD.  Developers will likely want to reuse many of their extension schema documents in other IEPDs.  Therefore, it is most efficient to put all data component extensions designed for reuse into one extension schema document or document set, and put IEPD-specific data component extensions into a different extension schema document.  The reusable extension schema document or document set can then be easily redeployed in other IEPDs as needed.</p>
 
-	<p>Extension schemas generally contain new data component declarations that may (though not necessarily) be derived from or reference existing NIEM components.  This being the case, reference schemas do not exist for new data components found within extension schemas.  Therefore, extension schemas must satisfy the more rigorous documentation requirements of reference schemas in accordance with the <ref idref="NIEM-NDR"/>.  The definition or declaration of each new data component (type, element, or attribute) in an extension schema includes an <code>xs:annotation</code> element that provides its semantics and NIEM-specific relationships.</p>
+	<p>Extension schema documents generally contain new data component declarations that may (though not necessarily) be derived from or reference existing NIEM data components.  This being the case, reference schema documents do not exist for new data components found within extension schema documents.  Therefore, extension schema documents must satisfy the more rigorous documentation requirements of reference schema documents in accordance with the <ref idref="NIEM-NDR"/>.  The definition or declaration of each new data component (type, element, or attribute) in an extension schema document must include an <code>xs:annotation</code> element that provides its semantics and NIEM-specific relationships per the <ref idref="NIEM-NDR"/>.</p>
 
 </section>
 
@@ -740,17 +740,17 @@ Figure 2-3.  Examples of NIEM numbered releases.
 <section id="Exchange-Schemas">
 	<title>Exchange Schemas</title>
 
-	<p>This section only applies to IEPDs.  NIEM releases, core updates, domain updates, and EIEMs do not contain exchange schemas.</p>
-		
-	<p>An IEPD defines one or more NIEM XML data exchanges, and therefore, a class of instance XML documents, each of which validates against the XML schema document set in that IEPD.  An instance XML document contains exactly one document element, which is the root element of the instance, and which cannot appear in the content of any other element within that instance XML document (by definition in <ref idref="W3-XML"/> and <ref idref="W3-XML-InfoSet"/>.</p>
+	<p>This section only applies to IEPDs.  NIEM releases, core updates, domain updates, and EIEMs do not contain exchange schema documents.</p>
 
-	<p>An IEPD exchange schema declares one or more document elements.  Only one document element can be used in any given information exchange instance (IEP).</p>
+	<p>An IEPD defines one or more NIEM XML data exchanges, and therefore, a class of instance XML documents, each of which validates against the XML schema document set in that IEPD.  An instance XML document contains exactly one document element, which is the root element of that instance XML document, and which cannot appear in the content of any other element within that instance XML document (by definition in <ref idref="W3-XML"/> and <ref idref="W3-XML-InfoSet"/>.</p>
+
+	<p>An IEPD <em>exchange schema document</em> declares one or more document elements.  Only one document element can be used in any given information exchange instance XML document (IEP).</p>
 
 	<definition term="exchange schema document">
 		<p>A NIEM-conformant schema document that declares an XML document element (top-level) for a particular information exchange.</p>
 	</definition>
 
-	<p>However, a NIEM IEP (instance) could later become the payload of an XML envelope (such as a SOAP message).  That XML envelope (itself an XML document instance) will have its own document element.  In this case, the IEP no longer contains the document element for the instance.  Therefore, in the context of an IEPD, it is more appropriate to refer to a document element as a root element of an IEP.</p>
+	<p>Note that a NIEM IEP (instance XML document) could later be used as the payload of an XML envelope (i.e., another instance XML document, such as a SOAP message).  That XML envelope will have its own document element, and the IEP no longer contains the document element for the instance XML document.  Therefore, in the context of an IEPD, it is more appropriate to refer to a document element as an <em>IEP root element</em>.</p>
 
 	<definition term="IEP root element">
 		<p>The single top-level element in an IEP (instance XML document).  In the absence of any other XML wrapping of an IEP, a root element declared in an exchange schema document is an IEP document element.</p>
@@ -758,10 +758,12 @@ Figure 2-3.  Examples of NIEM numbered releases.
 
 	<p>This results in the following rule:</p>
 
-	<rule id="r-mpd-exchange"><p>36 An IEPD MUST contain at least one exchange schema artifact that declares at least one top-level root element for IEP instances specified by the IEPD.</p>
+	<rule id="r-mpd-exchange"><p>36 An IEPD MUST contain at least one exchange schema document artifact that declares at least one top-level root element for IEP instance XML documents specified by the IEPD.</p>
 	</rule>
 
-	<p>Note that neither <ref idref="W3-XML"/> nor this rule restricts the number of root elements that can be declared by an IEPD exchange schema.  Any XML schema document, including a NIEM exchange schema, may declare multiple root elements.  Furthermore, a single IEPD may contain multiple exchange schemas if such are necessary to meet business requirements.</p>
+	<p>Note that neither <ref idref="W3-XML"/> nor this rule restricts the number of root elements that can be declared by an IEPD exchange schema document.  Any XML schema document, including a NIEM exchange schema document, may declare multiple root elements.  Furthermore, a single IEPD may contain multiple exchange schema documents if such are necessary to meet business requirements.</p>
+
+	<p>HERE's WHERE I STOPPED ########################################################################################################</p>
 
 	<p>Nonetheless, regardless of the number of root elements declared by a given exchange schema, and in accordance with <ref idref="W3-XML"/>, any XML instance (i.e., IEP) that validates against a NIEM IEPD must contain one and only one root element and that element must be declared within at least one exchange schema in the IEPD.</p>
 
