@@ -19,11 +19,13 @@ XML_PASS_XSD_VALID_TOKENS := $(patsubst %,$(TOKENS_DIR)/xml-pass-xsd-valid/%,$(X
 
 VALID_TOKENS := $(XML_PASS_XSD_VALID_TOKENS)
 
-
+DEPEND_MK = tmp/dependencies.mk
 
 default:
 	@echo Bravely doing nothing.
 	@ $(MAKE) help
+
+-include $(DEPEND_MK)
 
 help:
 	@echo targets:
@@ -35,10 +37,9 @@ help:
 
 all: $(DOC_DEST_HTML)
 
-$(DOC_DEST_HTML): $(DOC_SRC)
+$(DOC_DEST_HTML): $(DOC_SRC) $(DOC_HTML_REQUIRED_FILES)
 	$(PROCESS_DOC) -html -in $< -out $@
 	$(RM) tmp.$(DOC_SRC).html $(DOC_SRC).xhtml
-
 
 valid: $(VALID_TOKENS) conformance-report.txt
 
@@ -62,12 +63,24 @@ conformance-report.txt:
 .PHONY: clean
 clean:
 	$(RM) $(wildcard *~) $(wildcard tmp.*) 
+	$(RM) -rf $(wildcard tmp)
+	$(RM) -f $(wildcard *.sch.text.xsl)
+	find . -type f -name '*~' -print0 | xargs -0 $(RM)
+	find . -type f -name '#*' -print0 | xargs -0 $(RM)
+	find -L . -name '.#*' -print0 | xargs -0 $(RM)
 
 .PHONY: distclean
 distclean: clean
 	$(RM) $(DOC_DEST_HTML) $(DOC_SRC).xhtml
 
 .PHONY: doc
-doc:
-	$(RM) $(DOC_DEST_HTML)
-	$(MAKE) $(DOC_DEST_HTML)
+doc: $(DOC_DEST_HTML)
+
+.PHONY: depend
+depend: $(DEPEND_MK)
+
+$(DEPEND_MK): $(DOC_SRC)
+	mkdir -p $(dir $@)
+	$(PROCESS_DOC) -makedepend -in $< -out $@
+
+
