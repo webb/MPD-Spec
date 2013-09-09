@@ -228,19 +228,21 @@
 		<p>A schema document set is coherent when it has the following properties:  (1) the set does not refer to a schema document outside the set (i.e., the set is closed), and (2) the set does not include two different versions of the same component in an incompatible way.</p>
 	</definition>
 
-	<p>Consider the following simple example of incoherence in the figures below.  Consider [Figure 2-1], in which Justice domain has published a new schema document (version 4.1).  Note the descendant relationships between the old and new data components.  A schema document set consisting of Screening 1.1 and Justice 4.1 is incoherent because it refers to the old Justice 4.0 schema document outside the set, and therefore, violates the first criterion (the set must be closed).  To resolve this we could incorporate the older 4.0 version into this set.  [Figure 2-2] indicates that adding Justice 4.0 violates the second criterion because multiple versions of the same component will exist that are incompatible.  To make a coherent schema document set, either the Screening domain must be adjusted to use the new Justice 4.1 component or the schema document set must be revised to use the Screening domain with Justice 4.0 and not Justice 4.1.</p>
+	<p>Consider the following simple example of incoherence in the figures below.  Consider <ref idref="incoherent-not-closed"/>, in which Justice domain has published a new schema document (version 4.1).  Note the descendant relationships between the old and new data components.  A schema document set consisting of Screening 1.1 and Justice 4.1 is incoherent because it refers to the old Justice 4.0 schema document outside the set, and therefore, violates the first criterion (the set must be closed).  To resolve this we could incorporate the older 4.0 version into this set.  <ref idref="incoherent-incompatible"/>, indicates that adding Justice 4.0 violates the second criterion because multiple versions of the same component will exist that are incompatible.  To make a coherent schema document set, either the Screening domain must be adjusted to use the new Justice 4.1 component or the schema document set must be revised to use the Screening domain with Justice 4.0 and not Justice 4.1.</p>
 
-<p>
-Figure 2-1.  Incoherent schema set - not closed.
-</p>
+	<figure id="incoherent-not-closed">
+		<title>Incoherent schema set - not closed</title>
+		<image src="img/incoherent-not-closed.png"/>
+	</figure>
 
-<p>
-Figure 2-2.  Incoherent schema set - incompatible data components.
-</p>
-	
+	<figure id="incoherent-incompatible">
+		<title>Incoherent schema set - incompatible data components</title>
+		<image src="img/incoherent-incompatible.png"/>
+	</figure>
+
 	<p>In general, two or more versions of a data component are incompatible when a type or element in one version of a schema has been copied to or redefined/redeclared in another, and both versions must exist in the same set because of cross referencing (as in the figure above).  Note that even if all data components have not changed within two versions of the same schema document, a set that contains both schema documents will still be incoherent because the mere duplication of a data component in a new namespace is considered redefinition (and, of course, duplication).</p>
 
-	<p>However, two versions of a data component can also exist in a compatible way.  The compatibility of two different versions of a data component depends on the way the ancestor component was changed to obtain the descendant.  In [Figure 2-2], Justice 4.1 and 4.0 <code>Arrest</code> elements are incompatible because the 4.1 version of <code>Arrest</code> was simply given an additional property (<code>NewElement</code>) and is essentially a redeclaration of the 4.0 version.  This results in two semantically identical elements.  In fact, as already mentioned, even if the <code>ArrestType</code> had remained the same across both versions, the 4.1 version is considered a redefinition and duplication of the 4.0 version.</p>
+	<p>However, two versions of a data component can also exist in a compatible way.  The compatibility of two different versions of a data component depends on the way the ancestor component was changed to obtain the descendant.  In <ref idref="incoherent-incompatible"/>, Justice 4.1 and 4.0 <code>Arrest</code> elements are incompatible because the 4.1 version of <code>Arrest</code> was simply given an additional property (<code>NewElement</code>) and is essentially a redeclaration of the 4.0 version.  This results in two semantically identical elements.  In fact, as already mentioned, even if the <code>ArrestType</code> had remained the same across both versions, the 4.1 version is considered a redefinition and duplication of the 4.0 version.</p>
 
 	<p>On the other hand, if the 4.1 <code>ArrestType</code> had been derived (through type derivation) from the 4.0 version, and the 4.1 <code>Arrest element</code> had been made substitutable for the 4.0 version, then these components would be compatible.  The difference is that these components have a clear relationship to their ancestors that is defined through XML mechanisms, whereas the former components do not.  Furthermore, the substitutability property makes these components easily usable together (i.e., compatible).</p>
 	
@@ -1452,18 +1454,19 @@ Many organizations have their own customized formats and operating procedures fo
 	<li><p>Maintain tool specific files (inputs and outputs) in a subdirectory of the MPD root directory with a name that contains the substring <code>library</code>.</p></li>
 </ul>
 
-	<p>The guidance above results in an IEPD directory structure illustrated below in Figure 6-1.  Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD.</p>
+<p>The guidance above results in an IEPD directory structure illustrated in <ref idref="iepd-sample-directory"/>.  Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD.</p>
 
-<figure>
-<title>6-1. IEPD sample directory structure.</title>
-</figure>
+	<figure id="iepd-sample-directory">
+		<title>IEPD sample directory structure</title>
+		<image src="img/iepd-sample-directory.png"/>
+	</figure>
 
 </section>
 </section>
 
 
 
-<section id="MPD-Catalog">
+<section id="MPD-Catalog"/>
 	<title>XML Schema Document for MPD Catalog</title>
 	<pre><include-text href="xsd/mpd-catalog-3.0.xsd"/></pre>
 </section>
@@ -1710,7 +1713,7 @@ wantlist  An XML document that represents a NIEM schema document subset.  A NIEM
 	<p><em>XSL Transformations (XSLT)</em>, Version 1.0, W3C Recommendation 16 November 1999.  Available from <link>http://www.w3.org/TR/1999/REC-xslt-19991116</link>.</p>
 </reference>
 
-<reference id="W3-XSLT2" label="W3C XML Schema Language Transformation v2.0">
+<reference id="W3-XSLT2" label="W3C XML Schema Language Transformation v2.0>
 	<p><em>XSL Transformations (XSLT)</em>, Version 2.0, W3C Recommendation 23 January 2007.  Available from <link>http://www.w3.org/TR/2007/REC-xslt20-20070123/</link>.</p>
 </reference>
 
