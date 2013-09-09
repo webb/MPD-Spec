@@ -822,8 +822,6 @@
 
 	<p>Constraint schema documents are generally designed and employed in sets, similar to reference schema document set or schema document subsets.  A common practice for creating an IEPD or EIEM constraint schema document set is to start with a valid NIEM schema document subset and modify it to further restrict the class of instance XML documents (IEPs) that will validate with this constraint schema set.  However, an extension or exchange schema document can also be used to derive a constraint schema document.  The namespace of a constraint schema document is established the same way the namespace of a subset schema document is established, by reusing the target namespace of the schema document from which it is derived.</p>
 
-	<p>#################################</p>
-
 	<rule id="r-mpd-tgtns">
 		<p>39 A constraint schema document bears a target namespace that has been previously assigned to a reference, extension, or exchange schema document, or is a constraint schema document intended to support another constraint schema document that has such a target namespace.</p>
 	</rule>
@@ -844,16 +842,17 @@
 <section id="Classes-of-MPDs-vs.-Classes-of-Schemas">
 	<title>Classes of MPDs vs. Classes of Schemas</title>
 
-	<p>The chart in Table 3-1 summarizes which types of schemas are contained in which classes of MPDs and where they are not applicable (NA = Not Applicable; U = unbounded).</p>
+	<p>The chart in <ref idref="classes-mpds-schemas"/>, summarizes which types of schema documents are contained in which classes of MPDs and where they are not applicable (NA = Not Applicable; U = unbounded).</p>
 
-	<p>Notice that only NIEM releases, core updates, and domain updates contain reference schema sets, while only IEPDs and EIEMs contain the user developed schema sets.  Since an IEPD defines at least one data exchange, it must contain at least one exchange schema.  Furthermore, the diamonds (F) indicate that a NIEM-conformant IEPD or EIEM must have at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema (See <ref idref="r-mpd-ref-sub"/> below this table).</p>
+	<p>Notice that only NIEM releases, core updates, and domain updates contain reference schema document sets, while only IEPDs and EIEMs contain the user-developed schema document sets.  Since an IEPD defines at least one data exchange, it must contain at least one exchange schema document.  Furthermore, the diamonds (F) indicate that a NIEM-conformant IEPD or EIEM must have at least one schema document that is either a NIEM reference schema document or a NIEM subset schema document derived from a NIEM reference schema document (See <ref idref="r-mpd-ref-sub"/> below this table).</p>
 
-<p>
-Table 3-1.  MPD classes vs. schema classes
-</p>
+	<figure id="classes-mpds-schemas">
+		<title>MPD classes vs. schema classes</title>
+		<image src="img/classes-mpds-schemas"/>
+	</figure>
 
 <rule id="r-mpd-ref-sub">
-	<p>310 A NIEM-conformant IEPD or EIEM MUST contain at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema.</p>
+	<p>310 A NIEM-conformant IEPD or EIEM MUST contain at least one schema document that is either a NIEM reference schema document or a subset schema document derived from a NIEM reference schema document.</p>
 </rule>
 
 </section>
@@ -865,8 +864,12 @@ Table 3-1.  MPD classes vs. schema classes
 	<p>XML schema document sets define data exchange instance XML documents.  It is certainly possible to construct an example instance XML document for an entire NIEM release, but such an instance is of questionable value.  Rarely, if ever, will an entire NIEM release be used to define a data exchange.  However, sample instance XML documents are very valuable artifacts to include with IEPDs.  As samples of the actual exchange data, instance XML documents can help an IEPD implementer to understand the original intent of the IEPD developer.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  And finally, the inclusion of valid, meaningful sample instance XML documents is an indication of IEPD quality.  For these reasons, IEPDs require valid sample instance XML documents.</p>
 
 	<rule id="r-iepd-sample">
-		<p>311 A NIEM IEPD MUST contain at least one valid sample instance XML document (i.e., IEP) artifact for each exchange schema element that can be the root of a corresponding IEP.</p>
+		<p>311 A NIEM IEPD MUST contain at least one valid sample instance XML document (i.e., IEP) artifact for each exchange schema document element that can be the root element of a corresponding IEP.</p>
 	</rule>
+
+
+	<p>################</p>
+
 
 	<p>The intent of this rule is not to provide a test for all permutations of XML instances that might be possible given the schema definitions and declarations.  As the value propositions explain, its purpose is to ensure IEPD developers have tested their own designs, and to provide implementers with examples they can use for additional understanding and guidance.  IEPD developers should strive to include sample XML instances that (1) capture real world business cases of data exchanges, and (2) exercise as many data component definitions and declarations in the schemas as possible.  While both of these goals may not be achievable in a single sample XML instance, developers have the option to include multiple sample XML instances; however, only one per intended root element is mandatory.</p>
 
