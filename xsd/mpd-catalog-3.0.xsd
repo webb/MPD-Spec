@@ -4,10 +4,10 @@
     targetNamespace="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
     version="3.0"
     xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
-    xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
+    xmlns:c"http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
     xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/"
     xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-    xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+    xmlns:s="http://release.niem.gov/niem/structures/3.0/"
     xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/"
     xmlns="http://www.w3.org/2001/XMLSchema">
 
@@ -24,18 +24,19 @@
              and NIEM Enterprise Information Exchange Models (EIEM). 
           The purpose of this schema is to define/declare relatively 
           consistent MPD content structure and metadata to process, 
-          review, register, search, and discover MPDs efficiently. 
+          display, review, register, search, discover MPDs efficiently. 
       </documentation>
       <appinfo>
         <term:LocalTerm term="AS"    literal="Authoritative Source"/>
         <term:LocalTerm term="EIEM"  literal="Enterprise Information Exchange Model"/>
-        <term:LocalTerm term="ID"    literal="Identifier"/>
+	<term:LocalTerm term="ID"    literal="Identifier"/>
+	<term:LocalTerm term="IEP"   literal="Information Exchange Package" definition="an instance XML document"/>
         <term:LocalTerm term="IEPD"  literal="Information Exchange Package Documentation"/>
 	<term:LocalTerm term="MPD"   literal="Model Package Description"/>
         <term:LocalTerm term="OASIS" literal="Organization for the Advancement of Structured Information Standards"/>
         <term:LocalTerm term="POC"   literal="Point of contact"/>
         <term:LocalTerm term="URI"   literal="Uniform Resource Identifier"/>
-        <term:LocalTerm term="Wantlist" definition="An XML file that represents a NIEM subset schema document set; used by the NIEM Schema Subset Generation Tool to input and output a subset schema document set"/>
+	<term:LocalTerm term="Wantlist" definition="An XML file that represents a NIEM schema document subset; used by NIEM Schema Subset Generation Tool to input/output a schema document subset"/>
       </appinfo> 
     </annotation>
 
@@ -48,13 +49,13 @@
     </complexType>
 
     <element name="MPD" type="c:MPDType"/>    
-    <xsd:annotation> <!-- Document element declarations and type definitions -->
-        <xsd:documentation>A Model Package Description (MPD).</xsd:documentation>
-      </xsd:annotation>
+        <xsd:annotation>
+            <xsd:documentation>A Model Package Description (MPD).</xsd:documentation>
+        </xsd:annotation>
 
     <complexType name="MPDType">
       <complexContent>
-        <extension base="structures:ObjectType">
+        <extension base="s:ObjectType">
           <sequence>
             <element ref="c:Metadata"/>
             <element ref="c:MPDCatalog"/>
@@ -66,7 +67,8 @@
             <element ref="c:SampleXMLInstanceDocument"   minOccurs="0" maxOccurs="unbounded"/>
 	    <element ref="c:BusinessRules"               minOccurs="0" maxOccurs="unbounded"/>
 	    <element ref="c:ExtendedMPDMetadata"         minOccurs="0" maxOccurs="unbounded"/>
-            <element ref="c:OASISCatalog"                minOccurs="0" maxOccurs="unbounded"/>
+	    <element ref="c:XMLCatalog"                  minOccurs="0" maxOccurs="unbounded"/>
+	    <element ref="c:IEP"				       maxOccurs,"unbounded"/>
           </sequence>
           <attribute ref="c:mpdURI"          use="required"/>
           <attribute ref="c:mpdClassCode"    use="required"/>
@@ -81,7 +83,7 @@
 
     <complexType name="FileSetType">
       <complexContent>
-        <extension base="structures:ObjectType">
+        <extension base="s:ObjectType">
           <sequence>
             <element ref="c:Artifact" minOccurs="0" maxOccurs="unbounded"/>
           </sequence>
@@ -94,7 +96,7 @@
 
     <complexType name="FileType">
       <complexContent> 
-        <extension base="structures:ObjectType">
+        <extension base="s:ObjectType">
           <sequence>
             <element ref="c:RequiredFile" minOccurs="0" maxOccurs="unbounded"/>
           </sequence>
@@ -120,7 +122,7 @@
     <element name="ReferenceSchemaDocument"   type="c:FileType" substitutionGroup="c:Artifact"/>
     <element name="ExtensionSchemaDocument"   type="c:FileType" substitutionGroup="c:Artifact"/>
     <element name="SubsetSchemaDocument"      type="c:FileType" substitutionGroup="c:Artifact"/>
-    <element name="OASISCatalog"              type="c:FileType" substitutionGroup="c:Artifact"/>
+    <element name="XMLCatalog"                type="c:FileType" substitutionGroup="c:Artifact"/>
     <element name="Documentation"             type="c:FileType" substitutionGroup="c:Artifact"/>
     <element name="ApplicationInfo"           type="c:FileType" substitutionGroup="c:Artifact"/>
 
@@ -135,7 +137,7 @@
       <complexContent>
         <restriction base="c:FileSetType">
           <sequence>
-            <element ref="c:ExtensionSchemaDocument" minOccurs="1" maxOccurs="unbounded"/>
+            <element ref="c:ExtensionSchemaDocument" minOccurs="0" maxOccurs="unbounded"/>
             <element ref="c:SubsetSchemaDocument"    minOccurs="0" maxOccurs="unbounded"/>
             <element ref="c:ExternalSchemaDocument"  minOccurs="0" maxOccurs="unbounded"/>
             <element ref="c:ReferenceSchemaDocument" minOccurs="0" maxOccurs="unbounded"/>
@@ -170,19 +172,19 @@
 
     <simpleType name="MPDClassCodeSimpleType">
         <restriction base="token">
-            <enumeration value="release"/>
-            <enumeration value="core-update"/>
-            <enumeration value="domain-update"/>
+            <enumeration value="rel"/>
+            <enumeration value="cu"/>
+            <enumeration value="du"/>
             <enumeration value="iepd"/>
             <enumeration value="eiem"/>
         </restriction>
     </simpleType>
 
     <simpleType name="MPDVersionIDSimpleType">
-        <restriction base="token">
-            <pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
-            <minLength value="1"/>
-        </restriction>
+      <restriction base="token">
+        <pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
+        <minLength value="1"/>
+      </restriction>
     </simpleType>
 
     <simpleType name="RelationshipCodeSimpleType">
@@ -198,6 +200,36 @@
         </restriction>
     </simpleType>
 
+<!-- For Defining IEPs ================================================= -->
+
+<!-- <IEP matchXPath="//ext:ParkingTicket">
+	<XMLSchemaValidation xmlCatalog="xml-catalog.xml"/>
+     </IEP>
+-->
+
+<element name="IEP" type="c:IEPType"/>
+<element name="XMLSchemaValidation" type="c:XMLSchemaValidationType"/>
+<attribute name="xmlCatalogURI" type="string"/> <!-- catalog pathname -->
+<attribute name="matchXPath" type="string"/>	<!-- XPath expression -->
+
+<complexType name="IEPType">
+    <complexContent>
+	<extension base="s:ObjectType">
+	  <sequence>
+	    <element ref="c:XMLSchemaValidation" maxOccurs="unbounded"/>
+	    <attribute ref="c:matchXPath" use="required"/>
+	  </sequence>
+	</extension>
+    </complexContent>
+</complexType>
+
+<complexType name="XMLSchemaValidationType">
+	<extension base:="s:ObjectType">
+		<sequence>
+			<attribute ref="c:xmlCatalogURI" use="required"/>
+		</sequence>
+	</extension>
+</complexType>
 
 <!-- Metadata =========================================================== -->
     
@@ -205,7 +237,7 @@
 
     <complexType name="MetadataType">
       <complexContent>
-        <extension base="structures:ObjectType">
+        <extension base="s:ObjectType">
           <sequence>
             <element ref="c:CreationDate"/>
             <element ref="c:AuthoritativeSource"/>
@@ -217,7 +249,6 @@
             <element ref="c:PurposeText"         minOccurs="0" maxOccurs="unbounded"/>
             <element ref="c:ExchangePatternText" minOccurs="0" maxOccurs="unbounded"/>
             <element ref="c:ExchangePartnerName" minOccurs="0" maxOccurs="unbounded"/>
-            <element ref="c:XMLDocumentElement"  minOccurs="1" maxOccurs="unbounded"/>   
           </sequence>
         </extension>
       </complexContent>
@@ -229,7 +260,7 @@
 
     <complexType name="POCType">
       <complexContent>
-        <extension base="structures:ObjectType">
+        <extension base="s:ObjectType">
           <sequence>
             <element ref="c:POCName"/>
             <element ref="c:POCEmail"     minOccurs="1" maxOccurs="unbounded"/>
@@ -258,16 +289,9 @@
     <element name="POCEmail"            type="string"/>
     <element name="POCTelephone"        type="string"/>
 
-    <complexType name="XMLDocumentElementType">
-      <complexContent>
-        <attribute ref="c:elementName" use="required"/>
-	<attribute ref="c:pathID"      use="required"/>
-      </complexContent>
-    </complexType>
-
     <complexType name="RelationshipType">
       <complexContent>
-        <extension base="structures:ObjectType">
+        <extension base="s:ObjectType">
           <attribute ref="c:relationshipCode" use="required"/>
           <attribute ref="c:resourceURI"      use="required"/>
           <attribute ref="c:descriptionText"  use="optional"/>
