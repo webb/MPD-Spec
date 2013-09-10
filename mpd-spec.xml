@@ -157,7 +157,7 @@
 		<p>A single file with a defined purpose or a set of files logically grouped for a defined purpose.  </p>
 	</definition>
 			
-	<p>An MPD is a collection of artifacts, the purpose for which is to define and document the intended use of the MPD.  While the kernel of an MPD is its XML schema document (XSD) artifacts, there are also other kinds of MPD artifacts.  These may include HTML (or XML converted to HTML for display), text, or graphic files used for human-readable documentation.  An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD.  For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts.   [Appendix F: MPD Artifacts] contains a listing of mandatory and common optional artifacts for the five types of MPDs.  The various types of artifacts are described in more detail in subsequent sections.</p>
+	<p>An MPD is a collection of artifacts, the purpose for which is to define and document the intended use of the MPD.  While the kernel of an MPD is its XML schema document (XSD) artifacts, there are also other kinds of MPD artifacts.  These may include HTML (or XML converted to HTML for display), text, or graphic files used for human-readable documentation.  An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD.  For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts.   [Appendix C: MPD Artifacts] contains a listing of mandatory and common optional artifacts for the five types of MPDs.  The various types of artifacts are described in more detail in subsequent sections.</p>
 	
 </section>
 
@@ -570,7 +570,7 @@
 	    <td>   </td>
 	</tr>
 	<tr>
-	<td>May supersede other published XML schema documents (target namespaces> </td>
+	<td>May supersede other published XML schema documents (target namespaces) </td>
 	    <td>   </td>
 	    <td>   </td>
 	    <td> X </td>
@@ -766,7 +766,7 @@
 
 	<p>Nonetheless, regardless of the number of root elements declared by a given exchange schema document, and in accordance with <ref idref="W3-XML"/>, any instance XML document (i.e., IEP) that validates against a NIEM IEPD must contain one and only one root element.  And so, that element must be declared within an exchange schema document in the IEPD.</p>
 
-	<p>Similar to the case of multiple schema document subsets, the flexibility provided by allowing multiple root elements and multiple exchange schema documents in a single IEPD has the potential to be both powerful and problematic.  Again, developers are responsible to carefully coordinate and clearly document multiple roots and/or multiple exchange schema documents in a single IEPD to prevent ambiguity and misinterpretation related to validation, implementation, and use.  (See [Section 5 Optional MPD Artifacts] for IEPD documentation artifacts.)</p>
+	<p>Similar to the case of multiple schema document subsets, the flexibility provided by allowing multiple root elements and multiple exchange schema documents in a single IEPD has the potential to be both powerful and problematic.  Again, developers are responsible to carefully coordinate and clearly document multiple roots and/or multiple exchange schema documents in a single IEPD to prevent ambiguity and misinterpretation related to validation, implementation, and use.  (See <ref idref="Optional-MPD-Artifacts"/> for IEPD documentation artifacts.)</p>
 
 	<p>The <ref idref="NIEM-NDR"/> does not allow local element declarations; all NIEM elements are declared with global scope at the top level.  This means that any new element declaration in a NIEM-conformant exchange schema document has the potential to be the root element in a corresponding IEP.  Therefore, if an IEPD author does not intend for a new element to be used as an IEP root element, then do not declare it in a NIEM exchange schema.  Instead, declare it in an extension schema document.</p>
 
@@ -814,7 +814,7 @@
 		<p>A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.  See also <strong>constraint schema document</strong>.</p>
 	</definition>
 	
-	<p>Constraint schema documents are generally useful when it is necessary to impose restrictions that are more complex than cardinality.  If only cardinality restrictions are needed, then it is easier and more efficient to set these directly in the subset schema documents and avoid the use of constraint schema documents.  Otherwise, constraint schema documents may be necessary.  Note however, that any cardinality restrictions placed on NIEM release components within schema document subsets must not violate the rules established in [3.2.1 Basic Subset Concepts] which define the relationship of a subset schema document to the reference schema document on which it is based.</p>  
+	<p>Constraint schema documents are generally useful when it is necessary to impose restrictions that are more complex than cardinality.  If only cardinality restrictions are needed, then it is easier and more efficient to set these directly in the subset schema documents and avoid the use of constraint schema documents.  Otherwise, constraint schema documents may be necessary.  Note however, that any cardinality restrictions placed on NIEM release components within schema document subsets must not violate the rules established in <ref idref="Basic-Subset-Concepts"/> which define the relationship of a subset schema document to the reference schema document on which it is based.</p>  
 		
 	<p>The <ref idref="NIEM-NDR"/> provides a normative definition and description of constraint schema documents.  However, a few points are worth mentioning here.</p>
 
@@ -965,7 +965,7 @@
 	<p>41 An MPD MUST contain an XML mpd-catalog artifact that validates with the NIEM MPD catalog schema (XSD) and that resides in the root directory of the MPD archive and bears the file name <code>mpd-catalog.xml</code>.</p>
 </rule>
 
-<p>The catalog identifies every artifact, its relative path name, file type, and purpose.  This enables a machine to find every artifact regardless of its location within an MPD, and know exactly what it is used for, and therefore, how to process it.  [Appendix A: MPD Catalog Schema] defines the structure and semantics of a NIEM <code>mpd-catalog.xml</code> file.</p>
+<p>The catalog identifies every artifact, its relative path name, file type, and purpose.  This enables a machine to find every artifact regardless of its location within an MPD, and know exactly what it is used for, and therefore, how to process it.  <ref idref="MPD-Catalog"/> defines the structure and semantics of a NIEM <code>mpd-catalog.xml</code> file.</p>
 
 </section>
 
@@ -987,7 +987,7 @@
 
 	<p>In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices.  This is the same version numbering scheme that is used for NIEM releases.</p>
 
-<rule id="r-mpd-vers-syntax">
+	<rule id="r-mpd-vers-syntax">
 	<p>43 All NIEM version numbers adhere to the regular expression:</p>
 	<pre>	version ::= digit+ ('.' digit+)* (status digit+)?
 	Where:	
@@ -1155,7 +1155,7 @@
 
 	<p>Given the URI for an MPD, a URI exists for each artifact in that MPD.  Again, this specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to designate an artifact URI.</p>
 
-	<p>The <code>mpd-catalog.xsd</code> schema in [Appendix A: MPD Catalog Schema] declares an <code>id</code> attribute of type <code>xs:ID</code> that is required for use in <code>FileType</code> and <code>FileSetType</code>; optional in <code>FolderType</code>.  Within <code>mpd-catalog.xml</code> an MPD author must assign a locally unique <code>id</code> value to each artifact and artifact set of the MPD.  A globally unique URI for an artifact is the concatenation of the MPD URI with "#" followed by the <code>id</code> value of the artifact or artifact set.</p> 
+	<p>The <code>mpd-catalog.xsd</code> schema in <ref idref="MPD-Catalog"/> declares an <code>id</code> attribute of type <code>xs:ID</code> that is required for use in <code>FileType</code> and <code>FileSetType</code>; optional in <code>FolderType</code>.  Within <code>mpd-catalog.xml</code> an MPD author must assign a locally unique <code>id</code> value to each artifact and artifact set of the MPD.  A globally unique URI for an artifact is the concatenation of the MPD URI with "#" followed by the <code>id</code> value of the artifact or artifact set.</p> 
 
 	<p>Since every MPD must have a URI, and an MPD catalog must list all artifacts contained in the MPD, and each artifact must be assigned a locally unique id value, then each MPD artifact has a globally unique URI that can be referenced from other external resources as needed.  The following rules concerning an artifact <code>id</code> apply:</p>
 
@@ -1169,7 +1169,7 @@
 
 	<p>These rules and the catalog schema specified in Appendix A: MPD Catalog Schema require that each individual file artifact and each set of file artifacts grouped for a particular purpose must be identified in the catalog.  This is to facilitate automatic processing of the MPD by software tools.  Note that file subdirectories (or folders) are independent of file set grouping.  Each file artifact can be identified in one and only one subdirectory (or folder) by its relative path name and file name.  However, each file artifact can be a member of multiple file set artifacts.  Therefore, while it is possible to associate a file set artifact with a single subdirectory within an MPD, it is not required.</p>
 
-	<p>Also note that the <code>Folder</code> element in [Appendix A: MPD Catalog Schema] is available to represent subdirectories in MPDs.  This allows an XSLT to generate a catalog index that can display subdirectories as needed.  However, operating system subdirectories are not authoritative for file artifact and file set organization.  For this reason the Folder element contains an optional <code>id</code> attribute, a required <code>relativePathName</code> attribute, but no URI attributes that could enable file grouping.</p>
+	<p>Also note that the <code>Folder</code> element in <ref idref="MPD-Catalog"/> is available to represent subdirectories in MPDs.  This allows an XSLT to generate a catalog index that can display subdirectories as needed.  However, operating system subdirectories are not authoritative for file artifact and file set organization.  For this reason the Folder element contains an optional <code>id</code> attribute, a required <code>relativePathName</code> attribute, but no URI attributes that could enable file grouping.</p>
 
 	<rule id="r-mpd-artifact-id">
 		<p>48 Each artifact identified in the mpd-catalog MUST be assigned an id in the format of an NCName (Non-Colonized Name) as defined by <ref idref="W3-XML-Namespaces"/>.  This is required for both File and FileSet artifacts.</p>
@@ -1403,9 +1403,9 @@ Many organizations have their own customized formats and operating procedures fo
 
 	<p>Another optional artifact that is encouraged, especially for IEPDs, is a conformance report or other evidence of quality.  In the future, as NIEM processes and tools mature, a conformance and quality reports and a corresponding certificate may become required artifacts.  For now, inclusion of a conformance report is at the discretion of the author or sponsor.  Though clearly, such reports can only increase confidence in MPDs that contain them.</p>
 
-	<p>An MPD author may include any files believed to be useful to understand, implement, reuse, and/or adapt an MPD.  However, [Rule 4-6] always applies any file included as an artifact in an MPD must also be identified with an entry in the mpd-catalog.</p>
+	<p>An MPD author may include any files believed to be useful to understand, implement, reuse, and/or adapt an MPD.  However, <ref idref="r-mpd-all-file-artifacts"/> always applies, i.e., that any file included as an artifact in an MPD must also be identified with an entry in the mpd-catalog.</p>
 
-	<p>An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it.  (See [Appendix F: MPD Artifacts] for a listing of the mandatory and optional artifacts for each type of MPD.)</p>
+	<p>An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it.  (See [Appendix C: MPD Artifacts] for a listing of the mandatory and optional artifacts for each type of MPD.)</p>
 
 	<p>Files vary widely in format and are often specific to the tools an author uses to parse, consume, or output them.  Therefore, if tool-specific files are included in an MPD, it is also a good practice to include copies of those files in formats that display with standard Web browsers or other cost-free, publicly available viewing tools.  Common formats include, but are not limited to ASCII text, CSV, HTML, XHTML, JPG, GIF, PNG, and PDF.  This guidance is intended to encourage and facilitate maximal sharing and distribution of MPDs; it does not prohibit and is not intended to discourage the inclusion of other file formats.</p>
 
@@ -1445,7 +1445,7 @@ Many organizations have their own customized formats and operating procedures fo
 	<ul>
 		<li><p>Unpacking an MPD archive will not scatter its contents on a storage device.</p></li>
 		<li><p>A common starting point always exists to explore or use any MPD.</p></li>
-		<li><p>mpd-catalog and change log artifacts will always be found in the MPD root directory (as a result of [Rule 4-1] and [Rule 4-12]).</p></li>
+		<li><p>mpd-catalog and change log artifacts will always be found in the MPD root directory (as a result of <ref idref="r-mpd-catalog"/> and <ref idref="r-mpd-ref-changelog"/>).</p></li>
 	</ul>
 
 <section id="MPD-File-Name-Syntax">
@@ -1465,11 +1465,11 @@ Many organizations have their own customized formats and operating procedures fo
 		digit    ::= [0-9]
 		status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
 		class    ::= 'rel' | 'cu' | 'du' | 'iepd' | 'eiem'</pre>
-	<p>All alpha characters SHOULD be lower case to reduce the risk of complications across various file systems.  See [Rule 4-3] for an explanation of the status options.</p>
+	<p>All alpha characters SHOULD be lower case to reduce the risk of complications across various file systems.  See <ref idref="r-mpd-vers-syntax"/> for an explanation of the status options.</p>
 	<p>(The regular expression notation used above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>.)</p>
 	</rule>
 
-	<p>Obviously, the set of class values corresponds to release, core update, domain update, IEPD, and EIEM respectively.  A valid IEPD file name corresponding to the example in [Appendix C: Sample MPD Catalog Instance] would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code></p>
+	<p>Obviously, the set of class values corresponds to release, core update, domain update, IEPD, and EIEM respectively.  A valid IEPD file name corresponding to the example in [Appendix B: Sample MPD Catalog Instance] would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code></p>
 
 	<p>Checking this Appendix you will find that this example obeys the following two rules:</p>
 
@@ -1500,7 +1500,7 @@ Many organizations have their own customized formats and operating procedures fo
 <section id="Artifact-Links-to-Other-Resources">
 	<title>Artifact Links to Other Resources</title>
 
-	<p>The <ref idref="NIEM-NDR"/> requires that each <code>xs:import</code> in a NIEM schema contain a schemaLocation attribute with either an absolute or relative path reference that resolves to the correct imported schema.  However, this specification restricts an MPD import to a relative path reference that resolves to the correct schema within the MPD itself.  It is important to understand that the URI scheme previously discussed in [Section 4.2.3 URI Scheme for MPD Artifacts] should be used only to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.</p>
+	<p>The <ref idref="NIEM-NDR"/> requires that each <code>xs:import</code> in a NIEM schema contain a schemaLocation attribute with either an absolute or relative path reference that resolves to the correct imported schema.  However, this specification restricts an MPD import to a relative path reference that resolves to the correct schema within the MPD itself.  It is important to understand that the URI scheme previously discussed in <ref idref="URI-Scheme-for-MPD-Artifacts"/> should be used only to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.</p>
 
 	<p>Regardless of references to external sources or internal MPD directory organization, each schema <code>xs:import</code> must adhere to the following rule:</p>
 
@@ -1561,12 +1561,12 @@ Many organizations have their own customized formats and operating procedures fo
 	<p>Non-normative guidance for directory structuring may be useful to authors for a relatively simple IEPD or EIEM with a single subset, extension set, constraint set, and exchange schema set.  The following general guidance has been common practice for IEPD directories:</p>
 <ul>
 	<li><p>Create a root directory for the IEPD from the name and version identifier of the IEPD.  For example <code>my-iepd-3.2.4rev2</code>.</p></li>
-	<li><p>Per [Rule 4-1] and [Rule 4-12], the mpd-catalog and the change log must reside in the root directory.</p></li>
+	<li><p>Per <ref idref="r-mpd-catalog"/> and <ref idref="r-mpd-ref-changelog"/>, the mpd-catalog and the change log must reside in the root directory.</p></li>
 	<li><p>Maintain XML stylesheets used with the mpd-catalog and change log in the MPD root directory.</p></li>
 	<li><p>Maintain each subset organized as generated by the Schema Subset Generation Tool (SSGT).  The reason for maintaining the SSGT grouping is that the SSGT ensures that all <code>xs:import schemaLocation</code> attributes contain relative path names that are correctly coordinated with the directory structure.</p></li>
 	<li><p>If derived from a schema subset, maintain the constraint schema set grouped as the subset from which it was derived (for the same reason as above).</p></li>
 	<li><p>Establish a subdirectory of the MPD root directory with the name <code>XMLschemas</code>.  Within this subdirectory:</p>
-	<ul>
+		<ul>
 		<li><p>Maintain each subset in a subdirectory with a name that contains the substring <code>subset</code>.</p></li>
 		<li><p>Maintain and correlate a wantlist with the subset it represents.  To do so, change a wantlist filename if appropriate.</p></li> 
 		<li><p>Maintain each constraint schema set (or all constraint schema documents if appropriate) in a subdirectory with a name that contains the substring <code>constraint</code>.</p></li>
