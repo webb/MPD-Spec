@@ -83,4 +83,5 @@ $(DEPEND_MK): $(DOC_SRC)
 	mkdir -p $(dir $@)
 	$(PROCESS_DOC) -makedepend -in $< -out $@
 
-
+img/%.png.width.txt:
+	touch $@
