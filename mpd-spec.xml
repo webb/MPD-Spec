@@ -4,7 +4,7 @@
    xmlns:html="http://www.w3.org/1999/xhtml">
 
    <title>National Information Exchange Model Model Package Description Specification</title>
-  <version>3.0alpha1</version>
+   <version>3.0alpha1</version>
   <date>2013-08-30</date>
   <author>NIEM Technical Architecture Committee (NTAC)</author>
   <subsection id="toc">
@@ -228,7 +228,7 @@
 		<p>A schema document set is coherent when it has the following properties:  (1) the set does not refer to a schema document outside the set (i.e., the set is closed), and (2) the set does not include two different versions of the same component in an incompatible way.</p>
 	</definition>
 
-	<p>Consider the following simple example of incoherence in the figures below.  Consider <ref idref="incoherent-not-closed"/>, in which Justice domain has published a new schema document (version 4.1).  Note the descendant relationships between the old and new data components.  A schema document set consisting of Screening 1.1 and Justice 4.1 is incoherent because it refers to the old Justice 4.0 schema document outside the set, and therefore, violates the first criterion (the set must be closed).  To resolve this we could incorporate the older 4.0 version into this set.  <ref idref="incoherent-incompatible"/>, indicates that adding Justice 4.0 violates the second criterion because multiple versions of the same component will exist that are incompatible.  To make a coherent schema document set, either the Screening domain must be adjusted to use the new Justice 4.1 component or the schema document set must be revised to use the Screening domain with Justice 4.0 and not Justice 4.1.</p>
+	<p>Consider the following simple example of incoherence in the figures below.  Consider <ref idref="incoherent-not-closed"/> in which Justice domain has published a new schema document (version 4.1).  Note the descendant relationships between the old and new data components.  A schema document set consisting of Screening 1.1 and Justice 4.1 is incoherent because it refers to the old Justice 4.0 schema document outside the set, and therefore, violates the first criterion (the set must be closed).  To resolve this we could incorporate the older 4.0 version into this set.  <ref idref="incoherent-incompatible"/> indicates that adding Justice 4.0 violates the second criterion because multiple versions of the same component will exist that are incompatible.  To make a coherent schema document set, either the Screening domain must be adjusted to use the new Justice 4.1 component or the schema document set must be revised to use the Screening domain with Justice 4.0 and not Justice 4.1.</p>
 
 	<figure id="incoherent-not-closed">
 		<title>Incoherent schema set - not closed</title>
@@ -242,7 +242,7 @@
 
 	<p>In general, two or more versions of a data component are incompatible when a type or element in one version of a schema has been copied to or redefined/redeclared in another, and both versions must exist in the same set because of cross referencing (as in the figure above).  Note that even if all data components have not changed within two versions of the same schema document, a set that contains both schema documents will still be incoherent because the mere duplication of a data component in a new namespace is considered redefinition (and, of course, duplication).</p>
 
-	<p>However, two versions of a data component can also exist in a compatible way.  The compatibility of two different versions of a data component depends on the way the ancestor component was changed to obtain the descendant.  In <ref idref="incoherent-incompatible"/>, Justice 4.1 and 4.0 <code>Arrest</code> elements are incompatible because the 4.1 version of <code>Arrest</code> was simply given an additional property (<code>NewElement</code>) and is essentially a redeclaration of the 4.0 version.  This results in two semantically identical elements.  In fact, as already mentioned, even if the <code>ArrestType</code> had remained the same across both versions, the 4.1 version is considered a redefinition and duplication of the 4.0 version.</p>
+	<p>However, two versions of a data component can also exist in a compatible way.  The compatibility of two different versions of a data component depends on the way the ancestor component was changed to obtain the descendant.  In <ref idref="incoherent-incompatible"/> Justice 4.1 and 4.0 <code>Arrest</code> elements are incompatible because the 4.1 version of <code>Arrest</code> was simply given an additional property (<code>NewElement</code>) and is essentially a redeclaration of the 4.0 version.  This results in two semantically identical elements.  In fact, as already mentioned, even if the <code>ArrestType</code> had remained the same across both versions, the 4.1 version is considered a redefinition and duplication of the 4.0 version.</p>
 
 	<p>On the other hand, if the 4.1 <code>ArrestType</code> had been derived (through type derivation) from the 4.0 version, and the 4.1 <code>Arrest element</code> had been made substitutable for the 4.0 version, then these components would be compatible.  The difference is that these components have a clear relationship to their ancestors that is defined through XML mechanisms, whereas the former components do not.  Furthermore, the substitutability property makes these components easily usable together (i.e., compatible).</p>
 	
@@ -280,9 +280,9 @@
 		<p>A NIEM release in which neither the NIEM Core nor the domain reference schema documents have changed from the previous major or minor release, but one or more new reference schema documents have been added (without impact to domain or Core schemas).  A third digit greater than zero in the version number indicates a micro release (for example, v2.1.1  note that this release does not exist as of this date).</p>
 	</definition>
 			
-	<p>A micro release is a NIEM release that adds new data components to the Core, domains, or both without removing or modifying existing Core and domain schemas or content.  <ref idref="f-examples-niem-releases"/>, illustrates both real (v1.0, v2.0, v2.1, and v3.0) and fictitious (v2.1.1 and v2.1.2) examples of major, minor, and micro release composition.</p>
+	<p>A micro release is a NIEM release that adds new data components to the Core, domains, or both without removing or modifying existing Core and domain schemas or content.  <ref idref="f-examples-niem-releases"/> illustrates both real (v1.0, v2.0, v2.1, and v3.0) and fictitious (v2.1.1 and v2.1.2) examples of major, minor, and micro release composition.</p>
 
-	<p>Note that a given NIEM reference schema document (target namespace) can exist in multiple numbered releases.  For example, as illustrated in <ref idref="f-examples-niem-releases"/>, both NIEM 2.0 and 2.1 contain (and reuse) the same NIEM Core 2.0 schema document.  Reuse of schema documents among releases is carefully coordinated to ensure coherence is maintained within each release.  The <ref idref="NIEM-HLVA"/> defines the processes for numbering releases and identifying the schema documents that compose these sets.  Later, this specification will outline a similar version numbering scheme for MPDs and their artifacts.</p>
+	<p>Note that a given NIEM reference schema document (target namespace) can exist in multiple numbered releases.  For example, as illustrated in <ref idref="f-examples-niem-releases"/> both NIEM 2.0 and 2.1 contain (and reuse) the same NIEM Core 2.0 schema document.  Reuse of schema documents among releases is carefully coordinated to ensure coherence is maintained within each release.  The <ref idref="NIEM-HLVA"/> defines the processes for numbering releases and identifying the schema documents that compose these sets.  Later, this specification will outline a similar version numbering scheme for MPDs and their artifacts.</p>
 
 	<figure id="f-examples-niem-releases">
 		<title>Examples of NIEM numbered releases</title>
@@ -386,7 +386,7 @@
 		<p>An MPD that contains a NIEM-conformant schema document set that defines and declares data components to be consistently reused in the IEPDs of an enterprise.  An EIEM is a collection of BIECs organized into a schema document subset and one or more extension schema documents.  Constraint schema documents and non-NIEM-conformant external standards schema documents with type adapters are optional.</p>
 	</definition>
 
-	<p>An information sharing enterprise that creates and maintains an EIEM authors IEPDs by reusing its EIEM content instead of (re)subsetting reference schema documents sets and (re)creating extensions.  An EIEM may also contain business rules or constraint schema document sets tailored to enterprise requirements and designed to restrict variability in use of NIEM data components.  This not only saves time, but it also ensures that enterprise IEPDs reuse NIEM and associated extensions consistently.  (XML schema document subsets, extension schema documents, and constraint schema document sets will be defined and discussed in more detail later in this document).  <ref idref="f-family-of-iepds"/>, generally illustrates how BIECs, an EIEM, and an IEPD family relate (Constraint schema document sets are optional and not depicted in this figure).</p>
+	<p>An information sharing enterprise that creates and maintains an EIEM authors IEPDs by reusing its EIEM content instead of (re)subsetting reference schema documents sets and (re)creating extensions.  An EIEM may also contain business rules or constraint schema document sets tailored to enterprise requirements and designed to restrict variability in use of NIEM data components.  This not only saves time, but it also ensures that enterprise IEPDs reuse NIEM and associated extensions consistently.  (XML schema document subsets, extension schema documents, and constraint schema document sets will be defined and discussed in more detail later in this document).  <ref idref="f-family-of-iepds"/> generally illustrates how BIECs, an EIEM, and an IEPD family relate (Constraint schema document sets are optional and not depicted in this figure).</p>
 
 	<figure id="f-family-of-iepds">
 		<title>BIECs, EIEM, and a small family of IEPDs.</title>
@@ -421,17 +421,17 @@
 		<li><p>Domain updates supersede other published schema documents/namespaces and do not include other unchanged content.  IEPDs, EIEMs, and NIEM releases are independently complete.  Core updates can only supplement and never replace a NIEM core.  However, a core update can be issued as a new complete standalone reference schema document to be used with a NIEM core.</p></li>
 	</ul>
 
-	<p><ref idref="compare-mpd-classes"/>, summarizes the similarities and differences of MPD classes by indicating the characteristics for each:</p>
+	<p><ref idref="compare-mpd-classes"/> summarizes the similarities and differences of MPD classes by indicating the characteristics for each:</p>
 
 <table id="compare-mpd-classes">
 	<title>Comparison of MPD classes</title>
         <theadr>
-            <th> Characteristics of MPD Classes </th>
-	    <th> Release </th>
-	    <th> CU </th>
-	    <th> DU </th>
-	    <th> IEPD </th>
-	    <th> EIEM </th>
+            <th>Characteristics of MPD Classes </th>
+	    <th style="CENTER"> Release </th>
+	    <th style="CENTER"> CU </th>
+	    <th style="CENTER"> DU </th>
+	    <th style="CENTER"> IEPD </th>
+	    <th style="CENTER"> EIEM </th>
         </theadr>
 	<tr>
             <td>Requires a URI </td>
@@ -842,7 +842,7 @@
 <section id="Classes-of-MPDs-vs.-Classes-of-Schemas">
 	<title>Classes of MPDs vs. Classes of Schemas</title>
 
-	<p>The chart in <ref idref="classes-mpds-xsds"/>, summarizes which types of schema documents are contained in which classes of MPDs and where they are not applicable (NA = Not Applicable; U = unbounded).</p>
+	<p>The chart in <ref idref="classes-mpds-xsds"/> summarizes which types of schema documents are contained in which classes of MPDs and where they are not applicable (NA = Not Applicable; U = unbounded).</p>
 
 	<p>Notice that only NIEM releases, core updates, and domain updates contain reference schema document sets, while only IEPDs and EIEMs contain the user-developed schema document sets.  Since an IEPD defines at least one data exchange, it must contain at least one exchange schema document.  Furthermore, the diamonds (F) indicate that a NIEM-conformant IEPD or EIEM must have at least one schema document that is either a NIEM reference schema document or a NIEM subset schema document derived from a NIEM reference schema document (See <ref idref="r-mpd-ref-sub"/> below this table).</p>
 
@@ -1058,7 +1058,7 @@ Figure 4-1.  Example versioning system.
 		<p>451 Every MPD MUST be assigned a valid <code>http</code> URI.</p>
 	</rule>
 
-	<p>This specification follows <ref idref="RFC3986-URI"/>, which defines the syntax and format for a URI.  However, this specification also restricts an MPD URI to a URL and does not allow a URN (Uniform Resource Name) to be assigned to an MPD.</p>
+	<p>This specification follows <ref idref="RFC3986-URI"/> which defines the syntax and format for a URI.  However, this specification also restricts an MPD URI to a URL and does not allow a URN (Uniform Resource Name) to be assigned to an MPD.</p>
 
 	<p>Here is a typical example of an http URI:  <code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code></p>
 
