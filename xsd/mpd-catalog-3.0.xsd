@@ -68,7 +68,7 @@
 	    <element ref="c:BusinessRules"               minOccurs="0" maxOccurs="unbounded"/>
 	    <element ref="c:ExtendedMPDMetadata"         minOccurs="0" maxOccurs="unbounded"/>
 	    <element ref="c:XMLCatalog"                  minOccurs="0" maxOccurs="unbounded"/>
-	    <element ref="c:IEP"				       maxOccurs,"unbounded"/>
+	    <element ref="c:IEP"			 minOccurs="0" maxOccurs,"unbounded"/>
           </sequence>
           <attribute ref="c:mpdURI"          use="required"/>
           <attribute ref="c:mpdClassCode"    use="required"/>
@@ -127,9 +127,9 @@
     <element name="ApplicationInfo"           type="c:FileType" substitutionGroup="c:Artifact"/>
 
     <element name="BaseSchemaDocumentSet"
-             type="c:BaseSchemaDocSetType"           substitutionGroup="c:Artifact"/>
+             type="c:BaseSchemaDocumentSetType"      substitutionGroup="c:Artifact"/>
     <element name="ConstraintSchemaDocumentSet"
-             type="c:BaseSchemaDocSetType"           substitutionGroup="c:Artifact"/>
+             type="c:BaseSchemaDocumentSetType"      substitutionGroup="c:Artifact"/>
     <element name="ReferenceSchemaDocumentSet"
              type="c:ReferenceSchemaDocumentSetType" substitutionGroup="c:Artifact"/>
 
@@ -208,7 +208,12 @@
 -->
 
 <element name="IEP" type="c:IEPType"/>
-<element name="XMLSchemaValidation" type="c:XMLSchemaValidationType"/>
+<element name="Validation" abstract="true"/>
+<element name="XSDValidation" type="c:XSDValidationType"        
+	substitutionGroup="c:Validation"/>
+<element name="SchematronValidation" type="c:SchematronValidationType" 
+	substitutionGroup="c:Validation"/>
+
 <attribute name="xmlCatalogURI" type="string"/> <!-- catalog pathname -->
 <attribute name="matchXPath" type="string"/>	<!-- XPath expression -->
 
@@ -216,19 +221,27 @@
     <complexContent>
 	<extension base="s:ObjectType">
 	  <sequence>
-	    <element ref="c:XMLSchemaValidation" maxOccurs="unbounded"/>
-	    <attribute ref="c:matchXPath" use="required"/>
-	  </sequence>
+	    <element ref="c:Validation" maxOccurs="unbounded"/>
+    	  </sequence>
+    	  <attribute ref="c:matchXPath" use="required"/>
 	</extension>
     </complexContent>
 </complexType>
 
-<complexType name="XMLSchemaValidationType">
-	<extension base:="s:ObjectType">
-		<sequence>
-			<attribute ref="c:xmlCatalogURI" use="required"/>
-		</sequence>
-	</extension>
+<complexType name="XSDValidationType">
+  <simpleContent>
+    <extension base:="s:ObjectType">
+      <attribute ref="c:xmlCatalogURI" use="required"/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<complexType name="SchematronValidationType">
+  <simpleContent>
+    <extension base:="s:ObjectType">
+      <attribute ref="c:schematronSchema" use="required"/>
+    </extension>
+  </simpleContent>
 </complexType>
 
 <!-- Metadata =========================================================== -->
