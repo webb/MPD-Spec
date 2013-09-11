@@ -162,7 +162,7 @@
 </section>
 
 <section id="Schema-Namespace-Correspondence-in-NIEM">
-	<title>Schema-Namespace Correspondence in NIEM</title>
+	<title>Schema Document and Namespace Correspondence in NIEM</title>
 
 	<p>To simplify automatic schema processing and reduce the potential for confusion and error, <ref idref="NIEM-NDR"/> principles state that each NIEM-conformant namespace SHOULD be defined by exactly one reference schema document.  To support this concept, the <ref idref="NIEM-NDR"/> disallows the use of <code>xs:include</code>, and <ref idref="NIEM-NDR"/>.  Furthermore, it mandates the use of the <code>xs:schema targetNamespace</code> attribute in NIEM-conformant schema documents.</p>
 
@@ -184,14 +184,14 @@
 <section id="Validation">
 	<title>Validation</title>
 
-	<p>This specification often refers to the process of XML validation, that is, validation of XML schemas and instance XML documents.  Generally, this should occur periodically during and after design time to ensure the conformance and quality of an information exchange definition (i.e., XML schema documents or document sets) or instance XML documents.  However, local architecture or policy may dictate the need to validate more often, and in some cases may require runtime validation.</p>
+	<p>This specification often refers to the process of <em>XML validation</em>, that is, validation of XML schemas and instance XML documents.  Generally, this should occur periodically during and after design time to ensure the conformance and quality of an information exchange definition (i.e., XML schema documents or document sets) or instance XML documents.  However, local architecture or policy may dictate the need to validate more often, and in some cases may require runtime validation.</p>
 
 	<p>XML schema document sets that define a NIEM information exchange must be authoritative.  Application developers may use other schemas (e.g., constraint schema documents) for various purposes, but for the purposes of determining NIEM conformance, the authoritative schemas are relevant.  This does not mean that XML validation must be performed on all instance XML documents as they are served or consumed; only that the instance XML documents validate if and when XML validation is performed.  Therefore, even when validation is not performed, instance XML documents must be valid against the XML schema document sets that specify them.</p>
 
 </section>
 
 <section id="Reference-Schema-Document">
-	<title>Reference Schema Document</title>
+	<title>Reference Schema Documents</title>
 
 	<p>A NIEM <em>reference schema document</em> is a schema document that is intended to be the authoritative definition of business semantics for components within its target namespace.  Reference schema documents include the NIEM Core schema documents, NIEM domain schema documents, and NIEM domain update schema documents.  The normative definition for a reference schema document and applicable conformance rules are found in the <ref idref="NIEM-NDR"/>.  The definition is repeated here:</p>
 		
@@ -219,10 +219,10 @@
 
 
 <section id="Coherence-of-Schema-Sets">
-	<title>Coherence of Schema Sets</title>
+	<title>Coherence of Schema Document Sets</title>
 
-	<p>A NIEM release is always a coherent set of reference schema documents in which multiple versions of semantically identical types or properties do not exist; and all types and properties are uniquely defined and declared.  Each numbered release has been harmonized, tested, and carefully reviewed by NIEM governance committees in order to eliminate semantic duplication.  
-		The <ref idref="NIEM-HLVA"/> defines a coherent schema document set as one that has the following properties:</p>
+	<p>A NIEM release is always a <em>coherent</em> set of reference schema documents in which multiple versions of semantically identical types or properties do not exist; and all types and properties are uniquely defined and declared.  Each numbered release has been harmonized, tested, and carefully reviewed by NIEM governance committees in order to eliminate semantic duplication.  
+		The <ref idref="NIEM-HLVA"/> defines a <em>coherent schema document set</em> as one that has the following properties:</p>
 
 	<definition term="schema document set coherence">
 		<p>A schema document set is coherent when it has the following properties:  (1) the set does not refer to a schema document outside the set (i.e., the set is closed), and (2) the set does not include two different versions of the same component in an incompatible way.</p>
@@ -584,7 +584,7 @@
 
 
 <section id="MPD-XML-Schema-Artifacts">
-	<title>MPD XML Schema Artifacts</title>
+	<title>MPD XML Schema Document Artifacts</title>
 
 	<p>XML schema document artifacts are the essential content of MPDs because they normatively define and declare data components.  The purpose of an MPD is determined by the XML schema document or document set(s) it contains; furthermore, each schema document may have a different purpose.  The <ref idref="NIEM-NDR"/> addresses various types of schema documents as conformance targets:  reference, extension, and constraint schema documents.  Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules.  Consult the <ref idref="NIEM-NDR"/> for these rules.</p>
 
@@ -594,7 +594,7 @@
 
 
 <section id="Reference-Schemas">
-	<title>Reference Schemas</title>
+	<title>Reference Schema Documents</title>
 
 	<p>This section generally applies to NIEM releases, core updates, and domain updates.  Though not common, it is also valid to use a reference schema document or document set within an IEPD or EIEM.  Reference schema document and reference schema document set were defined earlier in <ref idref="Reference-Schema-Document"/>.</p>
 
@@ -608,7 +608,7 @@
 
 
 <section id="Subset-Schemas">
-	<title>Subset Schemas</title>
+	<title>Subset Document Schemas</title>
 
 	<p>This section only applies to IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain schema document subsets (only reference schema document sets).</p>
 
@@ -662,7 +662,7 @@
 		<li><p>Change an <code>xs:attribute use="optional"</code> to <code>use="required"</code>.</p></li>
 		<li><p>Remove an <code>xs:schema/xs:element</code> declaration (if not supporting an element use).</p></li>
 		<li><p>Set an <code>xs:schema/xs:element</code> to <code>abstract="true"</code>.</p></li>
-		<li><p>Substitute a <code>substitutionGroup</code> member <code>xs:element</code> for its associated substitution head.</p></li>
+		<li><p>Substitute an <code>xs:element substitutionGroup</code> member for its associated substitution head.</p></li>
 		<li><p>Remove an <code>xs:enumeration</code> from an <code>xs:simpleType</code> (unless it is the only remaining <code>xs:enumeration</code>).</p></li>
 		<li><p>Add or apply a constraining facet to an <code>xs:simpleType</code>.</p></li>
 		<li><p>Remove an <code>xs:import</code> and its associated schema document (if the schema document is not used within the document set).</p></li>
@@ -672,7 +672,7 @@
 
 
 <section id="Subset-Namespaces">
-	<title>Subset Namespaces</title>
+	<title>Subset Schema Document Namespaces</title>
 
 	<p>A schema document subset is essentially a reference schema document set (i.e., a numbered release) that has been modified by applying the foregoing subset operations to support business requirements represented in an IEPD or EIEM.  A subset derived from a reference schema set may differ from that reference set only in that its content has been reduced and/or constrained.  For this reason, each subset schema document adopts the target namespace of its corresponding reference schema document.</p>
 
@@ -684,7 +684,7 @@
 
 
 <section id="Omitting-Schemas-in-Subsets">
-	<title>Omitting Schemas in Subsets</title>
+	<title>Omitting Schema Documents in Subsets</title>
 
 	<p>In some cases, an entire schema appearing in a reference set may be omitted from a corresponding subset.  The following rule specifies when this is valid.</p>
 
@@ -698,7 +698,7 @@
 
 
 <section id="Multiple-Subsets-in-a-Single-IEPD-or-EIEM">
-	<title>Multiple Subsets in a Single IEPD or EIEM</title>
+	<title>Multiple Schema Document Subsets in a Single IEPD or EIEM</title>
 
 	<p>This section only applies to NIEM IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain schema subsets.</p>
 	
@@ -713,7 +713,7 @@
 
 
 <section id="Extension-Schemas">
-	<title>Extension Schemas</title>
+	<title>Extension Schema Documents</title>
 
 	<p>This section only applies to NIEM IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain extension schema documents.</p> 
 
@@ -784,7 +784,7 @@
 
 
 <section id="Base-Schema-Set">
-	<title>Base Schema Set</title>
+	<title>Base Schema Document Set</title>
 
 	<p>Within an MPD, the <em>base schema document set</em> is the XML schema document set that defines the information exchange or model in the MPD.  This set may incorporate NIEM-conformant reference, subset, extension, and exchange schema documents, as well as schema documents from an external non-NIEM-conformant source (for example, GML).</p>
 
@@ -800,7 +800,7 @@
 
 
 <section id="Constraint-Schemas">
-	<title>Constraint Schemas</title>
+	<title>Constraint Schema Documents and Document Sets</title>
 
 	<p>This section only applies to NIEM IEPDs and EIEMs which may use constraint schema documents or document sets.  NIEM releases, core updates, and domain updates do not contain constraint schema documents.</p>
 
@@ -840,7 +840,7 @@
 
 
 <section id="Classes-of-MPDs-vs.-Classes-of-Schemas">
-	<title>Classes of MPDs vs. Classes of Schemas</title>
+	<title>Classes of MPDs vs. Classes of Schema Documents</title>
 
 	<p>The chart in <ref idref="classes-mpds-xsds"/> summarizes which types of schema documents are contained in which classes of MPDs and where they are not applicable (NA = Not Applicable; U = unbounded).</p>
 
@@ -908,7 +908,7 @@
 
 
 <section id="Sample-XML-Instances">
-	<title>Sample XML Instances</title>
+	<title>Sample Instance XML Documents</title>
 
 	<p>XML schema document sets define data exchange instance XML documents.  It is certainly possible to construct an example instance XML document for an entire NIEM release, but such an instance is of questionable value.  Rarely, if ever, will an entire NIEM release be used to define a data exchange.  However, sample instance XML documents are very valuable artifacts to include with IEPDs.  As samples of the actual exchange data, instance XML documents can help an IEPD implementer to understand the original intent of the IEPD developer.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  And finally, the inclusion of valid, meaningful sample instance XML documents is an indication of IEPD quality.  For these reasons, IEPDs require valid sample instance XML documents.</p>
 
@@ -1143,7 +1143,7 @@
 		<p>452 The URI for an MPD MUST end in its version number.</p>
 	</rule>
 
-	<p>Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.  (Of course, this assumes that a related family of MPDs follows the same URI scheme.)</p>
+	<p>Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.</p>
 
 	<p>And finally, note that <code>mpd-catalog.xsd</code> defines a mandatory attribute for both the <code>mpdURI</code> and the <code>mpdVersionID</code>.  Since the ending string of an MPD URI must be its version ID, then this means that the catalog duplicates the MPD version ID in two locations.  This is by design.  You will discover in <ref idref="MPD-File-Name-Syntax"/> that MPD file name syntax also intentionally duplicates the catalog <code>mpdName</code> and <code>mpdVersionID</code>.  There are two reasons for this design.  First, software tools are expected to build and process MPD catalogs.  Instead of forcing tool developers to parse the MPD URI just to retrieve the version ID, the catalog provides a separate <code>mpdVersionID</code> attribute.  Second, duplication of key metadata in URIs and file names facilitates faster visual recognition of an MPD, rather than requiring that a user open an its archive, open its <code>mpd-catalog.xml</code>, and scan its content just to locate <code>mpdName</code> or <code>mpdVersionID</code>.</p>
 
@@ -1630,6 +1630,7 @@ NIEM		National Information Exchange Model
 NTAC		NIEM Technical Architecture Committee
 PDF		Portable Document Format
 PMO		Program Management Office
+RAR		Roshal Archive (A compressed archive file format; named after its developer, Eugene Roshal)
 RDF		Resource Description Framework
 SSGT		Schema Subset Generation Tool
 SVG		Scalable Vector Graphics
