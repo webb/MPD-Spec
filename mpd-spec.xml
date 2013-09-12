@@ -1033,82 +1033,6 @@
 		<li><p>Series 3.2 is {3.2(.0), 3.2.1, 3.2.2}</p></li>
 	</ul>
 
-<table id="version-relations">
-	<title>Version Chronological Relationships</title>
-        <theadr>
-        	<th width="40">Series </th>
-		<th width="5" style="CENTER">  </th>
-		<th width="5" style="CENTER">  </th>
-		<th width="5" style="CENTER">  </th>
-		<th width="5" style="CENTER">  </th>
-		<th width="5" style="CENTER">  </th>
-        </theadr>
-	<tr>
-        	<td><char name="nbsp"/>2  <char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.2<char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.3<char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.4<char name="nbsp"/></td>
-		<td> </td>
-		<td> </td>
-	</tr>
-	<tr>
-		<td><char name="nbsp"/>3  <char name="nbsp"/></td>
-		<td><char name="nbsp"/>3.0<char name="nbsp"/></td>
-		<td><char name="nbsp"/>3.1<char name="nbsp"/></td>
-		<td><char name="nbsp"/>3.2<char name="nbsp"/></td>
-		<td> </td>
-		<td> </td>
-	</tr>
-	<tr>
-		<td><char name="nbsp"/>2.2    <char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.2(.0)<char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.2.1  <char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.2.2  <char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.2.3  <char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.2.4  <char name="nbsp"/></td>
-	</tr>
-	<tr>
-		<td><char name="nbsp"/>2.3    <char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.3(.0)<char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.3.1  <char name="nbsp"/></td>
-		<td>       </td>
-		<td>       </td>
-		<td>       </td>
-	</tr>
-	<tr>
-		<td><char name="nbsp"/>2.4    <char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.4(.0)<char name="nbsp"/></td>
-		<td><char name="nbsp"/>2.4.1  <char name="nbsp"/></td>
-		<td>       </td>
-		<td>       </td>
-		<td>       </td>
-	</tr>
-	<tr>
-		<td><char name="nbsp"/>3.0    <char name="nbsp"/></td>
-		<td><char name="nbsp"/>3.0(.0)<char name="nbsp"/></td>
-		<td><char name="nbsp"/>3.0.1  <char name="nbsp"/></td>
-		<td><char name="nbsp"/>3.0.2  <char name="nbsp"/></td>
-		<td>       </td>
-		<td>       </td>
-	</tr>
-	<tr>
-		<td><char name="nbsp"/>3.1    <char name="nbsp"/></td>
-		<td><char name="nbsp"/>3.1(.0)<char name="nbsp"/></td>
-		<td><char name="nbsp"/>3.1.1  <char name="nbsp"/></td>
-		<td>       </td>
-		<td>       </td>
-		<td>       </td>
-	</tr>
-	<tr>
-		<td><char name="nbsp"/>3.2    <char name="nbsp"/></td>
-		<td><char name="nbsp"/>3.2(.0)<char name="nbsp"/></td>
-		<td><char name="nbsp"/>3.2.1  <char name="nbsp"/></td>
-		<td><char name="nbsp"/>3.2.2  <char name="nbsp"/></td>
-		<td>       </td>
-		<td>       </td>
-	</tr>
-</table>
-
 	<p>The second implication of <ref idref="r-mpd-vers-syntax"/> is that pre-releases are easily identified by the strings <code>alpha</code>, <code>beta</code>, and <code>rc</code>.  These strings are simple visible indicators of MPD status or stage of development.</p>
 
 	<p>This specification places no further restrictions or meaning (implied or otherwise) on a version or release number.  Authors have the option to use numbers between dots to indicate degree of compatibility or other relationships between versions as needed.  For example, for a given MPD, the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2.  Such a claim is acceptable.  However, this specification does not imply any such relationships.  Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the MPD.</p>
@@ -1289,13 +1213,10 @@
 </section>
 
 
-<p>#################################</p>
-
-
 <section id="Master-Document">
 	<title>Master Document</title>
 
-	<p>A master document is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have fairly restrictive rules to obey, standard documentation for how to use them, and are centrally managed.</p>
+	<p>The <em>master document</em> is similar to a <code>readme</code> file.  It is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have fairly restrictive rules to obey, standard documentation for how to use them, and are centrally managed.</p>
 
 	<rule id="r-mpd-master">
 		<p>416 An IEPD or an EIEM MUST contain a master document located in the MPD root directory whose filename begins with the substring <code>master-document</code>.</p>
@@ -1307,12 +1228,11 @@
 		<ul>
 		<li><p>To help facilitate understanding and reuse of IEPDs and EIEMs.</p></li>
 		<li><p>To ensure that fundamental and detailed business-level information about an IEPD or EIEM are documented for human understanding.</p></li>
-		<li><p>To ensure an author has considered and conveys such fundamental information.</p></li>
-		<li><p>To provide an initial source within an IEPD or EIEM for human consumable documentation (similar to a "readme" file) and/or references to other business or technical documentation needed for understanding.</p></li>
+		<li><p>To ensure the IEPD or EIEM author has considered and conveys such fundamental information.</p></li>
+		<li><p>To provide an initial source within an IEPD or EIEM for human consumable documentation (similar to a <code>readme</code> file) and/or references to other business or technical documentation needed for understanding.</p></li>
 		</ul>
 
-		<p>The master document is not intended to be the only source of written documentation for an MPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference.  Consider the master document to be similar to a <code>readme</code> file. 
-Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize master document format or layout.  Only the file name and relative path within the MPD are strictly specified.  The following section will also describe in general terms minimal content that should be in the master document.  Adherence to such a requirement is certainly a subjective judgment.
+		<p>The master document is not intended to be the only source of written documentation for an MPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference.  Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize master document format or layout.  Only the file name and relative path within the MPD archive are strictly specified.  The following section will generally describe minimal content that should be in the master document.  This guidance is non-normative, so adherence is a subjective judgment by the author.
 </p>
 
 
@@ -1335,8 +1255,10 @@ Many organizations have their own customized formats and operating procedures fo
 	<li><p>References to other documentation within the MPD, and links to external documents that may be needed to understand and implement it.</p></li>
 	</ul>
 
+	<p>Many document formats (e.g., Microsoft Word) can display hot links to local files within the MPD archive as well as URLs to files on the Internet.  Employing such a format is highly recommended but not mandatory. 
+
 	<rule id="r-mpd-master-purpose">
-	<p>417 A NIEM IEPD or EIEM master document SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, senders/receivers, interactions, and references to other documentation.</p>
+	<p>417 A NIEM IEPD or EIEM master document SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.</p>
 </rule>
 
 	<p>MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the master document.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the master document (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the master document:</p>
@@ -1353,7 +1275,7 @@ Many organizations have their own customized formats and operating procedures fo
 	<li><p>Implementation guidance (An IEPD is meant to be implemented, so this section is very important, particularly in the case of a complex IEPD that uses multiple subsets, exchange schemas, and/or IEP root elements.)</p></li>
 	<li><p>Security considerations (for protecting sensitive or classified information)</p></li>
 	<li><p>Privacy considerations (for example, Personal Identifiable Information or PPI)</p></li>
-	<li><p>Types of implementation</p></li>
+	<li><p>Types of implementations</p></li>
 	<li><p>If an IEPD employs multiple subsets (either from the same release or from different releases):</p></li>
 		<li><p>Where and how are these used?</p></li>
 		<li><p>What are the caveats regarding duplicative data components?</p></li>
@@ -1612,6 +1534,7 @@ NIEM		National Information Exchange Model
 NTAC		NIEM Technical Architecture Committee
 PDF		Portable Document Format
 PMO		Program Management Office
+PPI		Personal Identifiable Information
 RAR		Roshal Archive (A compressed archive file format; named after its developer, Eugene Roshal)
 RDF		Resource Description Framework
 SSGT		Schema Subset Generation Tool
