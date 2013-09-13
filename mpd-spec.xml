@@ -938,8 +938,25 @@
 	<p>The following subsections will address these artifacts as well as the concepts, metadata, and content each supports.</p>
 
 
-<section id="Catalog">
-	<title>Catalog</title>
+
+<section id="OASIS-XML-Catalog">
+	<title>OASIS XML Catalog</title>
+
+	<p>NIEM MPDs use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs, specifically for the purpose of validation.  There are two methods for coordinating validation for an IEPD, one is explicit configuration and the other is by convention.  These methods apply in a strict priority sequence as follows:</p>
+
+	<rule id="oasis-root-catalog">
+		<p>By configuration, if the mpd-catalog contains at least one <code>IEP</code> element, then the base schema validation process MUST follow the validation instructions represented in the mpd-catalog <code>IEP</code> elements.  These instructions MUST identify the XML catalog(s) required to perform validation.</p>
+		<p>By convention, if the mpd-catalog does NOT contain an <code>IEP</code> element, then the base schema validation process MUST employ an XML catalog artifact (<code>catalog.xml</code>) that resides in the root directory of the MPD archive.  The root XML catalog may explicitly correlate namespaces and URIs for all XML schema document artifacts within the MPD, or it may defer to other XML catalogs within subdirectories using the XML catalog <code>nextCatalog</code> element <ref idref="OASIS-XML-Catalogs"/>.</p>
+	</rule>
+
+	<p>Note that the <ref idref="NIEM-SSGT"/> (for NIEM 3.0) now automatically adds an OASIS XML catalog to each schema document subset it generates.  Also, the NIEM 3.0 release MPD includes an XML catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
+
+</section>
+
+
+
+<section id="MPD-Catalog">
+	<title>NIEM MPD Catalog</title>
 
 	<p>Every NIEM MPD describes itself through a mandatory <em>mpd-catalog</em> artifact.  An mpd-catalog is a multi-purpose XML file containing metadata that describes an MPD's</p>
 	<ul>
@@ -951,21 +968,22 @@
 	
 	<p>This metadata is designed to be the minimal required that will facilitate human understanding, tool support, and machine processing.  The MPD uses and functions that the mpd-catalog is designed to support include (but are not limited to):</p>
 	<ul>
-		<li><p>Automatic identification and processing of artifacts</p></li>
-		<li><p>Browsing and understanding of MPD artifacts and their content</p></li>
-		<li><p>Conformance and instance validation</p></li>
+		<li><p>Identification of key artifacts</p></li>
+		<li><p>Conformance and validation</p></li>
+		<li><p>Generation of a hyperlinked display using XSLT</p></li>
+		<li><p>Browsing and understanding of artifacts and their content</p></li>
 		<li><p>Automatic registration in a registry/repository</p></li>
-		<li><p>Search, discovery, retrieval of MPDs (for example, through metadata)</p></li>
+		<li><p>Search, discovery, retrieval of MPDs (through metadata)</p></li>
 		<li><p>Reuse of MPDs and their artifacts</p></li>
 		<li><p>Reuse of BIECs and associated EIEMs</p></li>
-		<li><p>Tracing and analysis of MPD pedigree</p></li>
+		<li><p>Tracing and analysis of MPD lineage</p></li>
 	</ul>
 
 <rule id="r-mpd-catalog">
-	<p>41 An MPD MUST contain an XML mpd-catalog artifact that validates with the NIEM MPD catalog schema (XSD) and that resides in the root directory of the MPD archive and bears the file name <code>mpd-catalog.xml</code>.</p>
+	<p>41 An MPD MUST contain an XML mpd-catalog artifact that validates with the NIEM MPD catalog schema (XSD) <ref idref="MPD-Catalog-XSD"/> and that resides in the root directory of the MPD archive and bears the file name <code>mpd-catalog.xml</code>.</p>
 </rule>
 
-<p>The catalog identifies every artifact, its relative path name, file type, and purpose.  This enables a machine to find every artifact regardless of its location within an MPD, and know exactly what it is used for, and therefore, how to process it.  <ref idref="MPD-Catalog"/> defines the structure and semantics of a NIEM <code>mpd-catalog.xml</code> file.</p>
+<p>The mpd-catalog identifies each key artifact, its relative path name, file type, and purpose.  This enables a machine to find every artifact regardless of its location within an MPD, and know exactly what it is used for, and therefore, how to process it.  <ref idref="MPD-Catalog-XSD"/> defines the structure and semantics of a NIEM <code>mpd-catalog.xml</code> file.</p>
 
 </section>
 
@@ -1305,11 +1323,11 @@
 
 	<p>In addition to documentation artifacts, a variety of other optional files can be added to an MPD to facilitate tool support and make reuse, adaptation, and/or implementation easier.  These are often files that are inputs to or outputs from software tools.  Examples include content diagrams, content models in tool-specific formats, and business rules (either formal or informal representations).</p>
 
-	<p>Another optional artifact that is encouraged, especially for IEPDs, is a conformance report or other evidence of quality.  In the future, as NIEM processes and tools mature, a conformance and quality reports and a corresponding certificate may become required artifacts.  For now, inclusion of a conformance report is at the discretion of the author or sponsor.  Though clearly, such reports can only increase confidence in MPDs that contain them.</p>
+	<p>Another optional artifact that is encouraged, especially for IEPDs, is a conformance report or other evidence of quality.  In the future, as NIEM processes and tools mature, conformance and quality reports and a corresponding certificate may become required artifacts.  For now, inclusion of a conformance report is at the discretion of the author or sponsor.  Though clearly, such reports can only increase confidence in MPDs that contain them.</p>
 
 	<p>An MPD author may include any files believed to be useful to understand, implement, reuse, and/or adapt an MPD.</p>
 
-	<p>An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it.  (See <ref idref="MPD-Artifacts"/> for a listing of the mandatory and optional artifacts for each type of MPD.)</p>
+	<p>An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it.  (See <ref idref="MPD-Artifacts"/> for a listing of the mandatory and common optional artifacts for each type of MPD.)</p>
 
 	<p>Files vary widely in format and are often specific to the tools an author uses to parse, consume, or output them.  Therefore, if tool-specific files are included in an MPD, it is also a good practice to include copies of those files in formats that display with standard Web browsers or other cost-free, publicly available viewing tools.  Common formats include, but are not limited to ASCII text, CSV, HTML, XHTML, JPG, GIF, PNG, and PDF.  This guidance is intended to encourage and facilitate maximal sharing and distribution of MPDs; it does not prohibit and is not intended to discourage the inclusion of other file formats.</p>
 
@@ -1479,19 +1497,57 @@
 	<li><p>Maintain tool specific files (inputs and outputs) in a subdirectory of the MPD root directory with a name that contains the substring <code>library</code>.</p></li>
 </ul>
 
-<p>The guidance above results in an IEPD directory structure illustrated in <ref idref="iepd-sample-directory"/>.  Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD.</p>
-
-	<figure id="iepd-sample-directory">
-		<title>IEPD sample directory structure</title>
-		<image src="img/iepd-sample-directory.png"/>
-	</figure>
+<p>The guidance above might result in an IEPD directory structure that appears below.  Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD.</p>
+	<pre>
+	/ (root directory of IEPD archive)
+		changelog.*
+		master-document.*
+		mpd-catalog.xml
+		catalog.xml
+		/subset
+			/niem
+				/niem-core
+				/domains
+				/structures
+				/appinfo
+				...
+		/extension
+			ext1.xsd
+			ext2.xsd
+			...
+		/external
+			/gml
+			/icism
+			...
+		/exchange
+			query.xsd
+			request.xsd
+			...
+		/constraint
+			/niem
+				/niem-core
+				/domains
+				...
+		/business-rules
+			bus-rules1.sch
+			bus-rules2.sch
+			...
+		/iep-samples
+			query.xml
+			request.xml
+			...
+		/application-info
+			... (reserved for tool inputs/outputs, etc.)
+		/documentation
+			... (reserved for human readable documentation)			
+	</pre>
 
 </section>
 </section>
 
 
 
-<section id="MPD-Catalog" isAppendix="true">
+<section id="MPD-Catalog-XSD" isAppendix="true">
 	<title>XML Schema Document for MPD Catalog</title>
 	<pre><include-text href="xsd/mpd-catalog-3.0.xsd"/></pre>
 </section>
@@ -1534,6 +1590,7 @@ NIEM		National Information Exchange Model
 NTAC		NIEM Technical Architecture Committee
 PDF		Portable Document Format
 PMO		Program Management Office
+PNG		Portable Network Graphic
 PPI		Personal Identifiable Information
 RAR		Roshal Archive (A compressed archive file format; named after its developer, Eugene Roshal)
 RDF		Resource Description Framework
@@ -1705,6 +1762,10 @@ wantlist  An XML document that represents a NIEM schema document subset.  A NIEM
 
 <reference id="NIEM-UserGuide" label="NIEM User Guide">
 	<p><em>NIEM User Guide</em>, Volume 1, U.S. Department of Justice, Office of Justice Programs, (date unknown).  Available from <link>http://reference.niem.gov/niem/guidance/user-guide/vol1/</link>.</p>
+</reference>
+
+<reference id="OASIS-XML-Catalogs" label="XML Catalogs">
+	<p><em>XML Catalogs</em>, Organization for the Advancement of Structured Information Standards (OASIS) Standard v1.1, 7 October 2005.  Available from <link>https://www.oasis-open.org/committees/download.php/14809/std-entity-xml-catalogs-1.1.html</link>.</p>
 </reference>
 
 <reference id="RFC2119-KeyWords" label="RFC2119 Key Words">
