@@ -34,26 +34,36 @@
         <term:LocalTerm term="IEPD"  literal="Information Exchange Package Documentation"/>
 	<term:LocalTerm term="MPD"   literal="Model Package Description"/>
         <term:LocalTerm term="OASIS" literal="Organization for the Advancement of Structured Information Standards"/>
-        <term:LocalTerm term="POC"   literal="Point of contact"/>
+	<term:LocalTerm term="POC"   literal="Point of contact"/>
+	<term:LocalTerm term="SSGT"  literal="Schema Subset Generation Tool"/>
         <term:LocalTerm term="URI"   literal="Uniform Resource Identifier"/>
 	<term:LocalTerm term="Wantlist" definition="An XML file that represents a NIEM schema document subset; used by NIEM Schema Subset Generation Tool to input/output a schema document subset"/>
       </appinfo> 
     </annotation>
 
     <element name="Catalog" type="c:CatalogType"/>
+      <annotation>
+	<documentation>An MPD catalog</documentation>
+      </annotation>
 
     <complexType name="CatalogType">
+      <annotation>
+	<documentation>A datatype for an MPD catalog</documentation>
+      </annotation>
         <sequence>
             <element ref="c:MPD"/>
         </sequence>
     </complexType>
 
     <element name="MPD" type="c:MPDType"/>    
-        <xsd:annotation>
-            <xsd:documentation>A Model Package Description (MPD).</xsd:documentation>
-        </xsd:annotation>
+      <annotation>
+        <documentation>A Model Package Description (MPD).</documentation>
+      </annotation>
 
     <complexType name="MPDType">
+      <annotation>
+        <documentation>A datatype for an MPD</documentation>
+      </annotation>
       <complexContent>
         <extension base="s:ObjectType">
           <sequence>
@@ -80,8 +90,14 @@
     </complexType>
 
     <element name="Artifact" abstract="true"/>
+      <annotation>
+        <documentation>An file or file set (directory) in an MPD</documentation>
+      </annotation>
 
     <complexType name="FileSetType">
+      <annotation>
+        <documentation>A datatype for an MPD file set artifact</documentation>
+      </annotation>
       <complexContent>
         <extension base="s:ObjectType">
           <sequence>
@@ -95,6 +111,9 @@
     </complexType>
 
     <complexType name="FileType">
+      <annotation>
+        <documentation>A datatype for an MPD file artifact</documentation>
+      </annotation>
       <complexContent> 
         <extension base="s:ObjectType">
           <sequence>
@@ -109,31 +128,93 @@
     </complexType>
 
     <element name="RequiredFile" type="c:FileType"/>
+      <annotation>
+        <documentation>A ???</documentation>
+      </annotation>
 
     <element name="File"                      type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>A generic artifact in an MPD</documentation>
+      </annotation>
     <element name="MPDCatalog"                type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An mpd-catalog artifact</documentation>
+      </annotation>
     <element name="MPDChangeLog"              type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An MPD change log artifact</documentation>
+      </annotation>
     <element name="MasterDocument"            type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An MPD master document artifact</documentation>
+      </annotation>
     <element name="ExtendedMPDMetadata"       type="c:FileType" substitutionGroup="c:Artifact"/>
-    <element name="SampleXMLInstanceDocument" type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An MPD metadata artifact that adds optional author-defined metadata</documentation>
+      </annotation>
+    <element name="SampleInstanceXMLDocument" type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An example MPD instance xml document or IEP artifact</documentation>
+      </annotation>
     <element name="BusinessRules"             type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+	  <documentation>An MPD artifact that contains business rules 
+		  and constraints on exchange content</documentation>
+      </annotation>
     <element name="Wantlist"                  type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+	<documentation>An MPD artifact that represents a NIEM schema subset 
+		and is used as an import or export for the NIEM SSGT</documentation>
+      </annotation>
     <element name="ExternalSchemaDocument"    type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An MPD artifact that is a schema document external to NIEM</documentation>
+      </annotation>
     <element name="ReferenceSchemaDocument"   type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An MPD artifact that is a NIEM reference schema document</documentation>
+      </annotation>
     <element name="ExtensionSchemaDocument"   type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An MPD artifact that is a NIEM extension schema documen</documentation>
+      </annotation>
     <element name="SubsetSchemaDocument"      type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An MPD artifact that is a </documentation>
+      </annotation>
     <element name="XMLCatalog"                type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An MPD artifact that is a </documentation>
+      </annotation>
     <element name="Documentation"             type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An MPD artifact that is a </documentation>
+      </annotation>
     <element name="ApplicationInfo"           type="c:FileType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>An MPD artifact that is a </documentation>
+      </annotation>
 
     <element name="BaseSchemaDocumentSet"
              type="c:BaseSchemaDocumentSetType"      substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="ConstraintSchemaDocumentSet"
              type="c:BaseSchemaDocumentSetType"      substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="ReferenceSchemaDocumentSet"
              type="c:ReferenceSchemaDocumentSetType" substitutionGroup="c:Artifact"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
 
     <complexType name="BaseSchemaDocumentSetType">
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
       <complexContent>
         <restriction base="c:FileSetType">
           <sequence>
@@ -148,6 +229,9 @@
     </complexType>
 
     <complexType name="ReferenceSchemaDocumentSetType">
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
       <complexContent>
         <restriction base="c:FileSetType">
           <sequence>
@@ -160,17 +244,50 @@
 <!-- Primitives ========================================================= -->
 
     <attribute name="mpdURI"           type="anyURI"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <attribute name="mpdClassCode"     type="c:MPDClassCodeSimpleType"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <attribute name="mpdName"          type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <attribute name="mpdVersionID"     type="c:MPDVersionIDSimpleType"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <attribute name="externalURI"      type="anyURI"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <attribute name="pathID"           type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <attribute name="descriptionText"  type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <attribute name="mimeMediaType"    type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <attribute name="resourceURI"      type="anyURI"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <attribute name="relationshipCode" type="c:RelationshipCodeSimpleType"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
 
     <simpleType name="MPDClassCodeSimpleType">
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
         <restriction base="token">
             <enumeration value="rel"/>
             <enumeration value="cu"/>
@@ -181,6 +298,9 @@
     </simpleType>
 
     <simpleType name="MPDVersionIDSimpleType">
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
       <restriction base="token">
         <pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
         <minLength value="1"/>
@@ -188,6 +308,9 @@
     </simpleType>
 
     <simpleType name="RelationshipCodeSimpleType">
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
         <restriction base="token">
             <enumeration value="version_of"/>
             <enumeration value="specializes"/>
@@ -207,48 +330,81 @@
      </IEP>
 -->
 
-<element name="IEP" type="c:IEPType"/>
-<element name="Validation" abstract="true"/>
-<element name="XSDValidation" type="c:XSDValidationType"        
+    <element name="IEP" type="c:IEPType"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
+    <element name="Validation" abstract="true"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
+    <element name="XSDValidation" type="c:XSDValidationType"        
 	substitutionGroup="c:Validation"/>
-<element name="SchematronValidation" type="c:SchematronValidationType" 
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
+    <element name="SchematronValidation" type="c:SchematronValidationType" 
 	substitutionGroup="c:Validation"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
 
-<attribute name="xmlCatalogURI" type="string"/> <!-- catalog pathname -->
-<attribute name="matchXPath" type="string"/>	<!-- XPath expression -->
+    <attribute name="xmlCatalogURI" type="string"/> <!-- catalog pathname -->
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
+    <attribute name="matchXPath" type="string"/>	<!-- XPath expression -->
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
 
-<complexType name="IEPType">
-    <complexContent>
-	<extension base="s:ObjectType">
-	  <sequence>
-	    <element ref="c:Validation" maxOccurs="unbounded"/>
-    	  </sequence>
-    	  <attribute ref="c:matchXPath" use="required"/>
-	</extension>
-    </complexContent>
-</complexType>
+    <complexType name="IEPType">
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
+        <complexContent>
+	    <extension base="s:ObjectType">
+	      <sequence>
+	        <element ref="c:Validation" maxOccurs="unbounded"/>
+    	      </sequence>
+    	      <attribute ref="c:matchXPath" use="required"/>
+	    </extension>
+        </complexContent>
+    </complexType>
 
-<complexType name="XSDValidationType">
-  <simpleContent>
-    <extension base:="s:ObjectType">
-      <attribute ref="c:xmlCatalogURI" use="required"/>
-    </extension>
-  </simpleContent>
-</complexType>
+    <complexType name="XSDValidationType">
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
+      <simpleContent>
+        <extension base:="s:ObjectType">
+          <attribute ref="c:xmlCatalogURI" use="required"/>
+        </extension>
+      </simpleContent>
+    </complexType>
 
-<complexType name="SchematronValidationType">
-  <simpleContent>
-    <extension base:="s:ObjectType">
-      <attribute ref="c:schematronSchema" use="required"/>
-    </extension>
-  </simpleContent>
-</complexType>
+    <complexType name="SchematronValidationType">
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
+      <simpleContent>
+        <extension base:="s:ObjectType">
+          <attribute ref="c:schematronSchema" use="required"/>
+        </extension>
+      </simpleContent>
+    </complexType>
 
 <!-- Metadata =========================================================== -->
     
     <element name="Metadata" type="c:MetadataType"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
 
     <complexType name="MetadataType">
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
       <complexContent>
         <extension base="s:ObjectType">
           <sequence>
@@ -268,10 +424,19 @@
     </complexType>
 
     <element name="AuthoritativeSource" type="nc:ContactInformationType"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
 
     <element name="POC" type="c:POCType"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
 
     <complexType name="POCType">
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
       <complexContent>
         <extension base="s:ObjectType">
           <sequence>
@@ -284,25 +449,76 @@
     </complexType>
 
     <element name="CreationDate"        type="date"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="LastRevisionDate"    type="date"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="StatusText"          type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="Relationship"        type="c:RelationshipType"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="KeywordText"         type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="DomainText"          type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="PurposeText"         type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
 
     <element name="ExchangePatternText" type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="ExchangePartnerName" type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="XMLDocumentElement"  type="c:XMLDocumentElementType"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     
     <element name="ASName"              type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="ASAddressText"       type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="ASWebSiteURL"        type="anyURI"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="POCName"             type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="POCEmail"            type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
     <element name="POCTelephone"        type="string"/>
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
 
     <complexType name="RelationshipType">
+      <annotation>
+        <documentation>A </documentation>
+      </annotation>
       <complexContent>
         <extension base="s:ObjectType">
           <attribute ref="c:relationshipCode" use="required"/>
