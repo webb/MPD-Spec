@@ -939,22 +939,6 @@
 
 
 
-<section id="OASIS-XML-Catalog">
-	<title>OASIS XML Catalog</title>
-
-	<p>NIEM MPDs use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs, specifically for the purpose of validation.  There are two methods for coordinating validation for an IEPD, one is explicit configuration and the other is by convention.  These methods apply in a strict priority sequence as follows:</p>
-
-	<rule id="oasis-root-catalog">
-		<p>By configuration, if the mpd-catalog contains at least one <code>IEP</code> element, then the base schema validation process MUST follow the validation instructions represented in the mpd-catalog <code>IEP</code> elements.  These instructions MUST identify the XML catalog(s) required to perform validation.</p>
-		<p>By convention, if the mpd-catalog does NOT contain an <code>IEP</code> element, then the base schema validation process MUST employ an XML catalog artifact (<code>catalog.xml</code>) that resides in the root directory of the MPD archive.  The root XML catalog may explicitly correlate namespaces and URIs for all XML schema document artifacts within the MPD, or it may defer to other XML catalogs within subdirectories using the XML catalog <code>nextCatalog</code> element <ref idref="OASIS-XML-Catalogs"/>.</p>
-	</rule>
-
-	<p>Note that the <ref idref="NIEM-SSGT"/> (for NIEM 3.0) now automatically adds an OASIS XML catalog to each schema document subset it generates.  Also, the NIEM 3.0 release MPD includes an XML catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
-
-</section>
-
-
-
 <section id="MPD-Catalog">
 	<title>NIEM MPD Catalog</title>
 
@@ -985,13 +969,23 @@
 
 <p>The mpd-catalog identifies each key artifact, its relative path name, file type, and purpose.  This enables a machine to find every artifact regardless of its location within an MPD, and know exactly what it is used for, and therefore, how to process it.  <ref idref="MPD-Catalog-XSD"/> defines the structure and semantics of a NIEM <code>mpd-catalog.xml</code> file.</p>
 
+
+<section id="MPD-Catalog-TOC">
+	<title>MPD Catalog as a Table of Contents</title>
+
+	<p>A NIEM mpd-catalog is not required to identify every artifact in the MPD (though it can).  In the mpd-catalog an author can identify the key artifacts, their path names, and lineage, and then generate an HTML table of contents (with XSLT) that conveniently hyperlinks to those artifacts for human review.</p>
+
+</section>
 </section>
 
 
 <section id="Metadata-Concepts">
 	<title>Metadata Concepts</title>
 
-	<p>The MPD catalog contains both required and optional metadata for the MPD and its artifacts.  The following subsections specify the syntax, formats, and semantics for that metadata.</p>
+	<p>#####################################</p>
+
+	<p>The MPD catalog also contains both required and optional metadata for the MPD and its artifacts.  The following subsections specify the syntax, formats, and semantics for that metadata.</p>
+
 
 
 <section id="Version-Numbering-Scheme">
@@ -1159,6 +1153,22 @@
 
 </section>
 </section>
+
+
+<section id="OASIS-XML-Catalog">
+	<title>OASIS XML Catalog</title>
+
+	<p>NIEM MPDs use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs, specifically for the purpose of validation.  There are two methods for coordinating validation for an IEPD, one is explicit configuration and the other is by convention.  These methods apply in a strict priority sequence as follows:</p>
+
+	<rule id="r-validation">
+		<p>(1) By configuration, if the mpd-catalog contains at least one <code>IEP</code> element, then the base schema validation process MUST follow the validation instructions represented in the mpd-catalog <code>IEP</code> elements.  These instructions MUST identify the XML catalog(s) required to perform validation.  Otherwise, use convention ...</p>
+		<p>(2) By convention, if the mpd-catalog does NOT contain an <code>IEP</code> element, then the base schema validation process MUST employ an XML catalog artifact (<code>catalog.xml</code>) that resides in the root directory of the MPD archive.  The root XML catalog may explicitly correlate namespaces and URIs for all XML schema document artifacts within the MPD, or it may defer to other XML catalogs within subdirectories using the XML catalog <code>nextCatalog</code> element <ref idref="OASIS-XML-Catalogs"/>.</p>
+	</rule>
+
+	<p>Note that the <ref idref="NIEM-SSGT"/> (for NIEM 3.0) now automatically adds an OASIS XML catalog to each schema document subset it generates.  Also, the NIEM 3.0 release MPD includes an XML catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
+
+</section>
+
 
 
 <section id="Change-Log">
