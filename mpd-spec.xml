@@ -739,34 +739,40 @@
 
 
 <section id="Exchange-Schemas">
-	<title>Exchange Schemas</title>
+	<title>Exchange Schema Documents</title>
 
 	<p>This section only applies to IEPDs.  NIEM releases, core updates, domain updates, and EIEMs do not contain exchange schema documents.</p>
 
-	<p>An IEPD defines one or more NIEM XML data exchanges, and therefore, a class of instance XML documents, each of which validates against the XML schema document set in that IEPD.  An instance XML document contains exactly one document element, which is the root element of that instance XML document, and which cannot appear in the content of any other element within that instance XML document (by definition in <ref idref="W3-XML"/> and <ref idref="W3-XML-InfoSet"/>.</p>
+	<p>An IEPD defines one or more NIEM XML data exchanges, and therefore, a class of instance XML documents, each of which validates against the XML schema document set in that IEPD.  A NIEM IEP (i.e., an instance XML document) contains exactly one and only one XML document element, which is its root element, and which cannot appear in the content of any other element within that instance XML document.  This is by definition in <ref idref="W3-XML"/> and <ref idref="W3-XML-InfoSet"/>.</p>
 
-	<p>An IEPD <em>exchange schema document</em> declares one or more document elements.  Only one document element can be used in any given information exchange instance XML document (IEP).</p>
+	<p>An IEPD <em>exchange schema document</em> is an extension schema document that declares one or more document elements.  The <em>exchange schema document</em> is not a NIEM conformance target itself, instead it conforms to the <ref idref="NIEM-NDR"/> extension schema document conformance target.</p>
 
-	<definition term="exchange schema document">
-		<p>A NIEM-conformant schema document that declares an XML document element (top-level) for a particular information exchange.</p>
+	<definition id="exchange" term="exchange schema document">
+		<p>A NIEM-conformant extension schema document that declares one or more XML document elements (top-level) each of which is intended to be used as a document element for an IEP.</p>
 	</definition>
 
-	<p>Note that a NIEM IEP (instance XML document) could later be used as the payload of an XML envelope (i.e., another instance XML document, such as a SOAP message).  That XML envelope will have its own document element, and the IEP no longer contains the document element for the instance XML document.  Therefore, in the context of an IEPD, it is more appropriate to refer to a document element as an <em>IEP root element</em>.</p>
+	<p>The <ref idref="NIEM-NDR"/> does not allow local element declarations, so all extension schema documents can potentially declare XML document elements.  What distinguishes an exchange schema document from other extension schema documents is the intent for one or more of its declared elements to be an XML document element within an IEP.  Intent can be asserted implicitly by convention (generally, for simple IEPDs) or explicitly by configuration (for more complex IEPDs).  The details of these methods are discussed in <ref idref="MPD-Catalog"/> and <ref idref="Normative-Guidance-Directories"/>.</p>
+
+	<p>Although generally rare, it is possible to develop an IEPD without an extension schema.  If an author creates an IEPD based entirely on existing NIEM elements, then no extension schema is necessary.  In this case, the exchange schema defines a document element type to contain only existing NIEM elements drawn from a subset or reference schema documents, and declares the documen element of that type.  <ref idref="exchange"/> (and <ref idref="r-mpd-iep-root"/>) ensures that an exchange schema document declares document elements intended for use as the root of an instance XML document.  Because the <ref idref="NIEM-NDR"/> requires all elements be declared with global scope, element declarations not intended to be a document element of an IEP must be placed into extension schema documents.</p>
+
+
+	<section id="IEP-Root-Element"/>
+	<title>IEP Root Element</title>
+
+	<p>An IEP could later be used as the payload of an XML envelope (i.e., another instance XML document, such as a SOAP message).  That XML envelope will have its own document element, and the IEP no longer contains the document element for the instance XML document.  Therefore, in the context of an IEPD, it is more appropriate to refer to a document element as an <em>IEP root element</em>.</p>
 
 	<definition term="IEP root element">
-		<p>The single top-level element in an IEP (instance XML document).  In the absence of any other XML wrapping of an IEP, a root element declared in an exchange schema document is an IEP document element.</p>
+		<p>The top-level (parent) element of an IEP.  In the absence of any other XML wrapping of that IEP, the IEP root element is that IEP's XML document element.</p>
 	</definition>
 
-	<p>This results in the following rule:</p>
+	<p>An IEPD may contain multiple exchange schema documents and each of those documents may contain multiple IEP root elements within a single exchange document.  However, at a minimum:</p>
 
-	<rule id="r-mpd-exchange"><p>36 An IEPD MUST contain at least one exchange schema document artifact that declares at least one top-level root element for IEP instance XML documents specified by the IEPD.</p>
+	<rule id="r-mpd-exchange"><p>36 A NIEM IEPD MUST contain at least one exchange schema document artifact that declares at least one IEP root element.</p>
 	</rule>
 
-	<p>Note that neither <ref idref="W3-XML"/> nor this rule restricts the number of root elements that can be declared by an IEPD exchange schema document.  Any XML schema document, including a NIEM exchange schema document, may declare multiple root elements.  Furthermore, a single IEPD may contain multiple exchange schema documents if such are necessary to meet business requirements.</p>
+	<p>The flexibility provided by allowing the declaration of multiple IEP root elements and multiple exchange schema documents in a single IEPD has the potential to be both powerful and problematic.  Again, developers are responsible to carefully coordinate and clearly document multiple roots and/or multiple exchange schema documents in a single IEPD to prevent ambiguity and misinterpretation related to validation, implementation, and use.</p>
 
-	<p>Nonetheless, regardless of the number of root elements declared by a given exchange schema document, and in accordance with <ref idref="W3-XML"/>, any instance XML document (i.e., IEP) that validates against a NIEM IEPD must contain one and only one root element.  And so, that element must be declared within an exchange schema document in the IEPD.</p>
-
-	<p>Similar to the case of multiple schema document subsets, the flexibility provided by allowing multiple root elements and multiple exchange schema documents in a single IEPD has the potential to be both powerful and problematic.  Again, developers are responsible to carefully coordinate and clearly document multiple roots and/or multiple exchange schema documents in a single IEPD to prevent ambiguity and misinterpretation related to validation, implementation, and use.  (See <ref idref="Optional-MPD-Artifacts"/> for IEPD documentation artifacts.)</p>
+	<p>It is good practice to maintain namespace cohesion.  IEP root elements that tend to change together, may be easier to maintain if grouped in the same namespace (i.e., a single exchange schema document).  IEP root elements that tend to change independently, may be easier to maintain in separate namespaces (i.e., multiple exchange schema documents).  Furthermore, while there are no restrictions on the number of IEP root elements and exchange schema documents, it may be best to first consider declaring one root per exchange schema document if this arrangement can support the IEPD business requirements.  If not, only then consider scaling upward.</p>
 
 	<p>The <ref idref="NIEM-NDR"/> does not allow local element declarations; all NIEM elements are declared with global scope at the top level.  This means that any new element declaration in a NIEM-conformant exchange schema document has the potential to be the root element in a corresponding IEP.  Therefore, if an IEPD author does not intend for a new element to be used as an IEP root element, then do not declare it in a NIEM exchange schema.  Instead, declare it in an extension schema document.</p>
 
@@ -774,12 +780,9 @@
 		<p>37 An IEPD exchange schema MUST NOT declare any XML element that is not intended for use as an IEP root element.</p>
 	</rule>
 
-	<p>Note that this rule does not preclude the use (through <code>ref=</code>) of other elements within the exchange schema document that are declared globally elsewhere within an IEPD.  In general, elements that must be used within an exchange schema document, but are not intended to be IEP root elements should be declared in an extension schema documents.</p>
+	<p>Note that this rule does not preclude the use (through <code>ref=</code>) of other elements within the exchange schema document that are declared globally elsewhere within an IEPD.  In general, elements that must be used within an exchange schema document, but are not intended to be IEP root elements should be declared in extension schema documents that are not exchange schema documents.  (See <ref idref="MPD-Catalog"/> and <ref idref="Normative-Guidance-Directories"/> for explicit and implicit methods for asserting intent.)</p>
 
-	<p>Now that both extension and exchange schema documents have been described, it is useful to mention the following special case.  Although generally rare, it is possible to develop an IEPD without an extension schema.  If an author creates an IEPD based entirely on existing NIEM elements, then no extension schema is necessary (and this is the reason it is deemed optional).  In this case, the exchange schema defines a root element type to contain only existing NIEM elements (i.e., drawn from a subset or reference schemas) and declares the root element of that type.  The rule above merely ensures that the exchange schema declares root element(s) that are intended and will be used as the roots of instance XML documents, and no others.  However, because all NIEM elements must be declared with global scope <ref idref="NIEM-NDR"/>, in order to declare non-root elements in an IEPD, they will have to be declared in an extension schema.</p>
-
-	<p>It is usually good practice to maintain namespace cohesion.  If root elements declared in an IEPD tend to change together, then group them together in the same namespace (i.e., single exchange schema document).  If elements tend to change independently, then group them in separate namespaces (i.e., multiple exchange schema documents).  Furthermore, while there are no restrictions on the number of root elements and exchange schema documents, it may be best to first consider declaring one root per exchange schema document if this arrangement can support the IEPD business requirements.  If not, only then consider scaling upward.  In all cases, clearly document the intent and rationale for how an IEPD is organized and to be implemented.</p>
-
+</section>
 </section>
 
 
@@ -1481,12 +1484,12 @@
 </section>
 
 
-<section id="Non-normative-Guidance-for-Directories">
-	<title>Non-normative Guidance for Directories</title>
+<section id="Normative-Guidance-Directories">
+	<title>Normative Guidance for Directories</title>
 
 	<p>Aside from the rules above, this specification does not impose additional constraints on an IEPD or EIEM author's freedom to organize directory structure.  This is why the mpd-catalog is required to list every artifact, along with its locally unique identifier, relative path name, nature, and purpose.  This enables a machine to find every artifact regardless of its location in an MPD archive and know exactly what it is.  The mpd-catalog artifact always takes precedence over the directory structure of an IEPD or EIEM.</p>
 
-	<p>Non-normative guidance for directory structuring may be useful to authors for a relatively simple IEPD or EIEM with a single subset, extension set, constraint set, and exchange schema set.  The following general guidance has been common practice for IEPD directories:</p>
+	<p>Guidance for directory structuring may be useful to authors for a relatively simple IEPD or EIEM with a single schema document subset, a few extension, exchange, and external schema documents.  The following general guidance has been common practice for IEPD directories:</p>
 <ul>
 	<li><p>Create a root directory for the IEPD from the name and version identifier of the IEPD.  For example <code>my-iepd-3.2.4rev2</code>.</p></li>
 	<li><p>Per <ref idref="r-mpd-catalog"/> and <ref idref="r-mpd-ref-changelog"/>, the mpd-catalog and the change log must reside in the root directory.</p></li>
