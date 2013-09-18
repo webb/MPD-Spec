@@ -72,17 +72,8 @@
         <extension base="s:ObjectType">
           <sequence>
             <element ref="c:Metadata"/>
-            <element ref="c:MPDCatalog"/>
-            <element ref="c:MPDChangeLog"/>
-            <element ref="c:MasterDocument"              minOccurs="0"/>
-	    <element ref="c:BaseSchemaDocumentSet"       minOccurs="0"/>
-            <element ref="c:ReferenceSchemaDocumentSet"  minOccurs="0" maxOccurs="unbounded"/>
-	    <element ref="c:ConstraintSchemaDocumentSet" minOccurs="0" maxOccurs="unbounded"/>
-            <element ref="c:SampleXMLInstanceDocument"   minOccurs="0" maxOccurs="unbounded"/>
-	    <element ref="c:BusinessRules"               minOccurs="0" maxOccurs="unbounded"/>
-	    <element ref="c:ExtendedMPDMetadata"         minOccurs="0" maxOccurs="unbounded"/>
-	    <element ref="c:XMLCatalog"                  minOccurs="0" maxOccurs="unbounded"/>
-	    <element ref="c:IEP"			 minOccurs="0" maxOccurs="unbounded"/>
+	    <element ref="c:IEP" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="c:Artifact" minOccurs="0" maxOccurs="unbounded"/>
           </sequence>
           <attribute ref="c:mpdURI"          use="required"/>
           <attribute ref="c:mpdClassCode"    use="required"/>
@@ -108,7 +99,7 @@
           <sequence>
             <element ref="c:Artifact" minOccurs="0" maxOccurs="unbounded"/>
           </sequence>
-          <attribute ref="c:pathID"          use="required"/>
+          <attribute ref="c:pathURI"          use="required"/>
           <attribute ref="c:descriptionText" use="optional"/>
           <attribute ref="c:externalURI"     use="optional"/>
         </extension>
@@ -124,7 +115,7 @@
           <sequence>
             <element ref="c:RequiredFile" minOccurs="0" maxOccurs="unbounded"/>
           </sequence>
-          <attribute ref="c:pathID"          use="required"/>
+          <attribute ref="c:pathURI"          use="required"/>
           <attribute ref="c:mimeMediaType"   use="optional"/>
           <attribute ref="c:descriptionText" use="optional"/>
           <attribute ref="c:externalURI"     use="optional"/>
@@ -146,8 +137,8 @@
     <element name="MPDCatalog"                type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An mpd-catalog artifact</documentation>
-</annotation>
-</element>
+      </annotation>
+    </element>
     <element name="MPDChangeLog"              type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An MPD artifact that contains a record of the MPD changes</documentation>
@@ -299,9 +290,9 @@
 	<documentation>A globally unique identifier (a URI) for an artifact in another MPD that is reused by this MPD.</documentation>
   </annotation>
   </attribute>
-    <attribute name="pathID"           type="string">
+    <attribute name="pathURI" type="anyURI">
       <annotation>
-	  <documentation>A locally unique string that represents the location of the file (including its file name) or set (directory) within an MPD archive relative to the MPD root directory.</documentation>
+	  <documentation>A URI with a value of the relative pathname of the file.</documentation>
       </annotation>
       </attribute>
     <attribute name="descriptionText"  type="string">
@@ -420,11 +411,6 @@
 
 <!-- For Defining IEPs ================================================= -->
 
-<!-- <IEP matchXPath="//ext:ParkingTicket">
-	<XMLSchemaValidation xmlCatalog="xml-catalog.xml"/>
-     </IEP>
--->
-
     <element name="IEP" type="c:IEPType">
       <annotation>
         <documentation>An Information Exchange Package candidate</documentation>
@@ -435,8 +421,7 @@
         <documentation>An rule or instructions for validating an IEP candidate</documentation>
       </annotation>
     </element>
-    <element name="XSDValidation" type="c:XSDValidationType"        
-	substitutionGroup="c:Validation">
+    <element name="XMLSchemaValidation" type="c:XMLSchemaValidationType" substitutionGroup="c:Validation">
       <annotation>
 	<documentation>An rule or instruction for XML Schema validation</documentation>
       </annotation>
@@ -448,14 +433,21 @@
       </annotation>
     </element>
 
-    <attribute name="xmlCatalogURI" type="string">
+    <attribute name="xmlCatalogURI" type="anyURI">
       <annotation>
         <documentation>A URI to an OASIS XML catalog artifact within the MPD; its path name</documentation>
       </annotation>
     </attribute>
-    <attribute name="matchXPath" type="string">
+
+    <attribute name="schematronSchemaURI" type="anyURI">
       <annotation>
-	<documentation>An XPath expression for finding/matching an IEP candidate</documentation>
+        <documentation>A URI to a Schematron schema file.</documentation>
+      </annotation>
+    </attribute>
+
+    <attribute name="testXPath" type="string">
+      <annotation>
+	<documentation>An XPath expression for testing if an XML document is a candidate IEP.</documentation>
       </annotation>
     </attribute>
 
@@ -468,31 +460,31 @@
 	      <sequence>
 	        <element ref="c:Validation" maxOccurs="unbounded"/>
     	      </sequence>
-    	      <attribute ref="c:matchXPath" use="required"/>
+    	      <attribute ref="c:testXPath" use="required"/>
 	    </extension>
         </complexContent>
     </complexType>
 
-    <complexType name="XSDValidationType">
+    <complexType name="XMLSchemaValidationType">
       <annotation>
         <documentation>A datatype for a rule or instruction for XML Schema validation</documentation>
       </annotation>
-      <simpleContent>
+      <complexContent>
         <extension base="s:ObjectType">
           <attribute ref="c:xmlCatalogURI" use="required"/>
         </extension>
-      </simpleContent>
+      </complexContent>
     </complexType>
 
     <complexType name="SchematronValidationType">
       <annotation>
         <documentation>A datatype for a rule or instruction for Schematron validation</documentation>
       </annotation>
-      <simpleContent>
+      <complexContent>
         <extension base="s:ObjectType">
-          <attribute ref="c:schematronSchema" use="required"/>
+          <attribute ref="c:schematronSchemaURI" use="required"/>
         </extension>
-      </simpleContent>
+      </complexContent>
     </complexType>
 
 <!-- Metadata =========================================================== -->
@@ -552,9 +544,9 @@
       </complexContent>
     </complexType>
 
-    <element name="CreationDate"        type="date">
+    <element name="CreationDate" type="date">
       <annotation>
-	      <documentation>A date this MPD was published</documentation>
+	<documentation>A date this MPD was published</documentation>
       </annotation>
     </element>
     <element name="LastRevisionDate"    type="date">
