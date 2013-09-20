@@ -774,7 +774,7 @@
 
 	<p>It is good practice to maintain namespace cohesion.  IEP root elements that tend to change together, may be easier to maintain if grouped in the same namespace (i.e., a single exchange schema document).  IEP root elements that tend to change independently, may be easier to maintain in separate namespaces (i.e., multiple exchange schema documents).  Furthermore, while there are no restrictions on the number of IEP root elements and exchange schema documents, it may be best to first consider declaring one root per exchange schema document if this arrangement can support the IEPD business requirements.  If not, only then consider scaling upward.</p>
 
-	<p>The <ref idref="NIEM-NDR"/> does not allow local element declarations; all NIEM elements are declared with global scope at the top level.  This means that any new element declaration in a NIEM-conformant exchange schema document has the potential to be the root element in a corresponding IEP.  Therefore, if an IEPD author does not intend for a new element to be used as an IEP root element, then do not declare it in a NIEM exchange schema.  Instead, declare it in an extension schema document.</p>
+	<p>The <ref idref="NIEM-NDR"/> does not allow local element declarations; all NIEM elements are declared with global scope at the top level.  This means that any new element declaration in a NIEM-conformant exchange schema document has the potential to be the root element in a corresponding IEP.  Therefore, if an IEPD author does not intend for a new element to be used as an IEP root element, then do not declare it in a NIEM exchange schema document.</p>
 
 	<rule id="r-mpd-iep-root">
 		<p>37 An IEPD exchange schema MUST NOT declare any XML element that is not intended for use as an IEP root element.</p>
@@ -792,7 +792,7 @@
 	<p>Within an MPD, the <em>base schema document set</em> is the XML schema document set that defines the information exchange or model in the MPD.  This set may incorporate NIEM-conformant reference, subset, extension, and exchange schema documents, as well as schema documents from an external non-NIEM-conformant source (for example, GML).</p>
 
 	<definition term="base schema document set">
-		<p>A NIEM MPD artifact that is the set of all NIEM-conformant and external non-conformant XML schema documents that together specify an information exchange or information model for an MPD.  A base schema document set may incorporate reference, subset, extension, and exchange schema documents, as well as external schema documents from authoritative sources outside of NIEM.  Constraint schema documents and sets are NOT part of a base schema document set.</p>
+		<p>A NIEM MPD artifact that is the set of all NIEM-conformant and external non-conformant XML schema documents that together specify an information exchange or information model for an MPD.  A base schema document set may incorporate reference, subset, extension, and exchange schema documents, as well as external schema documents from authoritative sources outside of NIEM.  Constraint schema documents and sets <ref idref="Constraint-Schemas"/> are NOT part of a base schema document set.</p>
 	</definition>
 
 	<rule id="r-mpd-one-base">
@@ -835,9 +835,9 @@
 
 	<p>In general, constraint schema documents have far fewer requirements than other classes of NIEM schema documents.  Since they work in tandem with NIEM normative schema documents, constraint schema documents are allowed to use the XML Schema Definition language in any way necessary to express business rules.  This means that to constrain instance XML documents, constraint schema documents can employ XML Schema constructs that are not allowed in other classes of NIEM schema documents.</p>
 
-	<p>BIECs in particular may have additional business rules in constraint schema documents.  A normative NIEM BIEC Specification (in progress at the time of the publication of this MPD Specification), will supplement or obviate constraint schema documents with consistent and formal techniques for representing business rules within NIEM components.  However, as already mentioned, the MPD Specification does not prohibit or restrict the application of formal business rule techniques to MPDs now.</p>
+	<p>BIECs in particular may have additional business rules in constraint schema documents.  A normative NIEM BIEC Specification (not available at the time of the publication of this MPD Specification), will supplement or obviate constraint schema documents with consistent and formal techniques for representing business rules within NIEM components.  However, as already mentioned, the MPD Specification does not prohibit or restrict the application of formal business rule techniques to MPDs now.</p>
 
-	<p>Finally, within an MPD, constraint schema documents and document setsare completely distinct from the base schema document set.  In the future, NIEM will adopt business rules over constraint schema documents as the preferred method for further constraining a base schema document set.</p>
+	<p>Finally, within an MPD, constraint schema documents and document sets are completely distinct from and not a part of the base schema document set.  In the future, NIEM will adopt business rules over constraint schema documents as the preferred method for further constraining a base schema document set.</p>
 
 </section>
 
@@ -852,20 +852,20 @@
 <table id="classes-mpds-xsds">
 	<title>Schema document classes vs. MPD classes</title>
         <theadr>
-            <th> Schema Document Classes</th>
-	    <th> Release </th>
-	    <th> CU </th>
-	    <th> DU </th>
-	    <th> IEPD </th>
-	    <th> EIEM </th>
+            <th>Schema Document Classes</th>
+	    <th>Release </th>
+	    <th>CU </th>
+	    <th>DU </th>
+	    <th>IEPD </th>
+	    <th>EIEM </th>
         </theadr>
 	<tr>
             <td>Reference </td>
 	    <td> 1,U </td>
 	    <td> 1,U </td>
 	    <td> 1,U </td>
-	    <td> 0+,U </td>
-	    <td> 0+,U </td>
+	    <td> 0<strong>+</strong>,U </td>
+	    <td> 0<strong>+</strong>,U </td>
 	</tr>
 	<tr>
             <td>Subset </td>
@@ -901,7 +901,7 @@
     	</tr>
 </table>
 
-	<p>+ Indicates a NIEM-conformant IEPD or EIEM is required to have at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema.</p>
+<p><strong>+</strong> Indicates a NIEM-conformant IEPD or EIEM is required to have at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema.</p>
 
 <rule id="r-mpd-ref-sub">
 	<p>310 A NIEM-conformant IEPD or EIEM MUST contain at least one schema document that is either a NIEM reference schema document or a subset schema document derived from a NIEM reference schema document.</p>
@@ -913,15 +913,15 @@
 <section id="Sample-XML-Instances">
 	<title>Sample Instance XML Documents</title>
 
-	<p>XML schema document sets define data exchange instance XML documents.  It is certainly possible to construct an example instance XML document for an entire NIEM release, but such an instance is of questionable value.  Rarely, if ever, will an entire NIEM release be used to define a data exchange.  However, sample instance XML documents are very valuable artifacts to include with IEPDs.  As samples of the actual exchange data, instance XML documents can help an IEPD implementer to understand the original intent of the IEPD developer.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  And finally, the inclusion of valid, meaningful sample instance XML documents is an indication of IEPD quality.  For these reasons, IEPDs require valid sample instance XML documents.</p>
+	<p>XML schema document sets define data exchange instance XML documents.  It is certainly possible to construct an example instance XML document for an entire NIEM release, but such an instance is of questionable value.  Rarely, if ever, will an entire NIEM release be needed to define a data exchange.  However, sample instance XML documents are very valuable artifacts to include with IEPDs.  As samples of the actual exchange data, instance XML documents can help an IEPD implementer to understand the original intent of the IEPD author.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  And finally, the inclusion of valid, meaningful sample instance XML documents is an indication of IEPD quality.  For these reasons, IEPDs require valid sample instance XML documents.</p>
 
 	<rule id="r-iepd-sample">
-		<p>311 A NIEM IEPD MUST contain at least one valid sample instance XML document (i.e., IEP) artifact for each exchange schema document element that can be the root element of a corresponding IEP.</p>
+		<p>311 A NIEM IEPD MUST contain at least one valid sample instance XML document artifact for each IEP root element.</p>
 	</rule>
 
-	<p>The intent of this rule is not to provide a test for all permutations of instances XML documents that might be possible given the schema definitions and declarations.  Its purpose is to ensure IEPD developers have tested their own designs, and to provide implementers with examples they can use for additional understanding and guidance.  IEPD developers should strive to include sample instances XML documents that (1) capture real world business cases of data exchanges, and (2) exercise as many data component definitions and declarations in the schemas as possible.  While both of these goals may not be achievable in a single sample instance XML document, developers have the option to include multiple sample instance XML documents; however, only one per intended IEP root element is mandatory.</p>
+	<p>The intent of this rule is not to provide a test for all permutations of instances XML documents that might be possible given the schema definitions and declarations.  Its purpose is to ensure IEPD authors have tested their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  IEPD authors should strive to include sample instances XML documents that (1) capture real world business cases of data exchanges, and (2) exercise as many data component definitions and declarations in the schemas as possible.  While both of these goals may not be achievable in a single sample instance XML document, authors have the option to include multiple sample instance XML documents; however, only one per intended IEP root element is mandatory.</p>
 
-	<p>Note that each sample instance XML document illustrates one view of the data based on a chosen set of conditions that apply to an IEP.  Other views based on different conditions likely exist.  A developer must review the business rules and other documentation in an IEPD to ensure understanding of all possible conditions.  Do not rely exclusively on sample instance XML documents, since they are not required to account for all IEP permutations.</p>
+	<p>Note that each sample instance XML document illustrates one view of the data based on a chosen set of conditions that apply to an IEP.  Other views based on different conditions likely exist.  A implementer must review the business rules and other documentation in an IEPD to ensure understanding of all possible conditions.  Do not rely exclusively on sample instance XML documents, since they are not required to account for all IEP permutations.</p>
 
 	<p>This specification encourages but does not mandate the inclusion of sample instance XML documents for EIEMs and domain updates.  Again, such instances may be valuable to user understanding of the intent and usage of data components (especially, those that are new, extended, or changed). 
 </p>
@@ -935,9 +935,9 @@
 	
 	<p>A variety of documentation files may be incorporated into a NIEM MPD.  However, in addition to XML schema documents, there are only two mandatory documentation artifacts required by every MPD:  the <em>mpd-catalog</em> and the <em>change log</em>.  An mpd-catalog (<code>mpd-catalog.xml</code>) contains identifiers, key metadata, information, and relationships about the MPD.  The change log provides a history of modifications.</p>
 
-	<p>A <em>master document</em> is also mandatory for IEPDs and EIEMs.  These MPD classes are built by different developers, and may be registered into a repository for reuse by many other users and developers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM master document is the primary source and starting point for human readable documentation (similar to a <code>readme</code> file), and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.</p>
+	<p>A <em>master document</em> is also mandatory for IEPDs and EIEMs.  These MPD classes are built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM master document is the primary source and starting point for human readable documentation (similar to a <code>readme</code> file), and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.</p>
 
-	<p>The following subsections will address these artifacts as well as the concepts, metadata, and content each supports.</p>
+	<p>The following subsections will address these artifacts and the concepts, metadata, and content each supports.</p>
 
 
 
@@ -966,16 +966,16 @@
 	</ul>
 
 <rule id="r-mpd-catalog">
-	<p>41 An MPD MUST contain an XML mpd-catalog artifact that validates with the NIEM MPD catalog schema (XSD) <ref idref="MPD-Catalog-XSD"/> and that resides in the root directory of the MPD archive and bears the file name <code>mpd-catalog.xml</code>.</p>
+	<p>41 An MPD MUST contain an XML mpd-catalog artifact that (1) validates with the NIEM MPD catalog schema (XSD) <ref idref="MPD-Catalog-XSD"/>, and (2) resides in the root directory of the MPD archive, and (3) bears the file name <code>mpd-catalog.xml</code>.</p>
 </rule>
 
-<p>The mpd-catalog identifies each key artifact, its relative path name, file type, and purpose.  This enables a machine to find every artifact regardless of its location within an MPD, and know exactly what it is used for, and therefore, how to process it.  <ref idref="MPD-Catalog-XSD"/> defines the structure and semantics of a NIEM <code>mpd-catalog.xml</code> file.</p>
+<p>The mpd-catalog identifies key artifacts, MPD and artifact relationships, baseline metadata, and how to test for IEP root elements.  The mpd-catalog is important for generating a table of contents display, search and discovery, and MPD and artifact lineage.  <ref idref="MPD-Catalog-XSD"/> defines the structure and semantics for a NIEM <code>mpd-catalog.xml</code> file.</p>
 
 
 <section id="MPD-Catalog-TOC">
 	<title>MPD Catalog as a Table of Contents</title>
 
-	<p>A NIEM mpd-catalog is not required to identify every artifact in the MPD (though it can).  In the mpd-catalog an author can identify the key artifacts, their path names, and lineage, and then generate an HTML table of contents (with XSLT) that conveniently hyperlinks to those artifacts for human review.</p>
+	<p>A NIEM mpd-catalog is not required to identify or record every artifact in the MPD.  Within the mpd-catalog an author can identify the key artifacts, their path names, dependencies, and lineage.  Employing XSLT, the mpd-catalog can be displayed as a hyperlinked table of contents for human review in a browser.</p>
 
 </section>
 </section>
@@ -984,8 +984,6 @@
 <section id="Metadata-Concepts">
 	<title>Metadata Concepts</title>
 
-	<p>#####################################</p>
-
 	<p>The MPD catalog also contains both required and optional metadata for the MPD and its artifacts.  The following subsections specify the syntax, formats, and semantics for that metadata.</p>
 
 
@@ -993,7 +991,7 @@
 <section id="Version-Numbering-Scheme">
 	<title>Version Numbering Scheme</title>
 
-	<p>Many published MPDs will be periodically revised and updated; therefore, versioning is required to clearly indicate that changes have occurred.  A version number is actually part of the unique identification for an MPD (to be discussed in a subsequent section).  For this reason:</p>
+	<p>Published MPDs will be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred.  A version number is actually part of the unique identification for an MPD (to be discussed in <ref idref="URI-Scheme-for-MPDs"/>).  For this reason:</p>
 
 	<rule id="r-mpd-version">
 		<p>42 Every MPD MUST be assigned a version number.</p>
@@ -1008,12 +1006,12 @@
 		digit   ::= [0-9]
 		status  ::= 'alpha' | 'beta' | 'rc' | 'rev'
 		'alpha' indicates early development
-		'beta' indicates late development; but changing or 
-			incomplete
-		'rc' indicates release candidate; complete but not 
-			approved as operational
-		'rev' indicates very minor revision that does not impact 
-			schema validation</pre>
+		'beta' indicates late development; but changing 
+			or incomplete
+		'rc' indicates release candidate; complete but 
+			not approved as operational
+		'rev' indicates very minor revision that does 
+			not impact schema validation</pre>
 	<p>(The regular expression notation used above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>)</p>
 </rule>
 
@@ -1052,13 +1050,14 @@
 	<p>This specification places no further restrictions or meaning (implied or otherwise) on a version or release number.  Authors have the option to use numbers between dots to indicate degree of compatibility or other relationships between versions as needed.  For example, for a given MPD, the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2.  Such a claim is acceptable.  However, this specification does not imply any such relationships.  Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the MPD.</p>
 
 	<rule id="r-vers-compatability">
-		<p>44 A higher MPD version number within a version series does NOT imply compatibility between versions.  Compatibility between or among MPD versions MUST be explicitly stated in documentation.</p>
+		<p>44 MPD version numbers within a version series do NOT imply compatibility between versions.  Compatibility between or among MPD versions MUST be explicitly stated in documentation.</p>
 	</rule>
 
 	<p>Note that an author who updates an existing MPD to a new version for no other reason than to conform to this specification may choose the version number based on its previous version number or not, as long as it follows the version number syntax.</p>
 
 </section>
 
+<p>###########################################################################</p>
 
 <section id="URI-Scheme-for-MPDs">
 	<title>URI Scheme for MPDs</title>
