@@ -1057,7 +1057,6 @@
 
 </section>
 
-<p>###########################################################################</p>
 
 <section id="URI-Scheme-for-MPDs">
 	<title>URI Scheme for MPDs</title>
@@ -1074,34 +1073,31 @@
 
 	<p>Note that <ref idref="r-mpd-URI"/> explicitly states that a URI assigned to an MPD must be valid.  This means that the person or organization assigning the URI either is the registrant of the domain name, or has authority from the registrant to assign this URL as an MPD URI.  In the example above, <code>www.abc.org</code> is the domain name (between the second and third "/").  There is no requirement for a URL assigned to an MPD to resolve to any particular Internet resource or to resolve at all.  However, it is always good practice for such a URL to resolve to the resource it represents, the directory it resides in, or to documentation for that resource.  See <link>http://www.w3.org/Provider/Style/URI.html</link></p>
 
-	<p>The MPD version number is essential to its unique identification.  Incorporation of the version number within the MPD URI provides a simple visual (as well as machine readable) means of identifying one of the most fundamental relationships between MPDs, i.e., that one is a different version of another.</p>
+	<p>The MPD version number is essential to its unique identification.  Incorporation of the version number within the MPD URI provides a simple visual (as well as machine readable) means of identifying one of the most fundamental relationships between MPDs, i.e., that one is a different version of another.  Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.</p>
 
 	<rule id="r-mpd-uri-vers">
 		<p>452 The URI for an MPD MUST end in its version number.</p>
 	</rule>
 
-	<p>Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.</p>
-
-	<p>And finally, note that <code>mpd-catalog.xsd</code> defines a mandatory attribute for both the <code>mpdURI</code> and the <code>mpdVersionID</code>.  Since the ending string of an MPD URI must be its version ID, then this means that the catalog duplicates the MPD version ID in two locations.  This is by design.  You will discover in <ref idref="MPD-File-Name-Syntax"/> that MPD file name syntax also intentionally duplicates the catalog <code>mpdName</code> and <code>mpdVersionID</code>.  There are two reasons for this design.  First, software tools are expected to build and process MPD catalogs.  Instead of forcing tool developers to parse the MPD URI just to retrieve the version ID, the catalog provides a separate <code>mpdVersionID</code> attribute.  Second, duplication of key metadata in URIs and file names facilitates faster visual recognition of an MPD, rather than requiring that a user open an its archive, open its <code>mpd-catalog.xml</code>, and scan its content just to locate <code>mpdName</code> or <code>mpdVersionID</code>.</p>
+	<p>And finally, note that <code>mpd-catalog.xsd</code> defines a mandatory attribute for both the <code>mpdURI</code> and the <code>mpdVersionID</code>.  Since the ending string of an MPD URI must be its version ID, then the mpd-catalog duplicates the MPD version ID in two locations.  This is by design.  You will discover in <ref idref="MPD-File-Name-Syntax"/> that MPD file name syntax intentionally duplicates both the mpd-catalog <code>mpdName</code> and <code>mpdVersionID</code>.  There are two reasons for this design.  First, software tools are expected to build and process mpd-catalogs.  Instead of forcing tool developers to parse the URI just to retrieve name and version, the mpd-catalog provides a separate <code>mpdName</code> and <code>mpdVersionID</code> attribute.  Second, duplication of that key metadata in both the URI and the file name facilitates faster visual recognition of an MPD, rather than requiring that a user open the archive, open its <code>mpd-catalog.xml</code>, and scan its content just to locate <code>mpdName</code> or <code>mpdVersionID</code>.</p>
 
 </section>
-
 
 <section id="URI-Scheme-for-MPD-Artifacts">
 	<title>URI Scheme for MPD Artifacts</title>
 
-	<p>Given the URI for an MPD, a URI exists for each artifact in that MPD.  Again, this specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to designate an artifact URI.  Each file artifact or set (directory) artifact can be uniquely identified by its path name relative to the root directory of the MPD.  The URI for an MPD artifact is the concatenatation of (1) the MPD URI, (2) the "#" character, and (3) the path name of the artifact.</p>
+	<p>Given the URI for an MPD, a URI exists for each artifact in that MPD.  Again, this specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to designate an artifact URI.  Each file artifact or set (directory) artifact is uniquely identified by its path name relative to the root directory of the MPD archive.  The URI for an MPD artifact is the concatenatation of (1) the MPD URI, (2) the "#" character, and (3) the path name of the artifact.</p>
 
 	<rule id="r-mpd-uri-syntax">
 		<p>49 The URI reference to an individual MPD artifact from another resource is the concatenation of</p>
 		<ul>
 			<li><p>The URI of the MPD that contains the artifact.</p></li>
 			<li><p>The crosshatch or pound character ("#").</p></li>
-			<li><p>A fragment identifier that is the locally unique path name (string) of the artifact relative to the root directory of the MPD.</p></li>
+			<li><p>A fragment identifier that is the locally unique path name (string) of the artifact relative to the root directory of the MPD archive.</p></li>
 		</ul>
 	</rule>
 
-	<p>Thus, each MPD artifact has a globally unique URI that can be referenced from other external resources as needed.  Example artifact URIs include:</p>
+	<p>Thus, each MPD artifact (file or set) has a globally unique URI that can be referenced from other external resources as needed.  Example artifact URIs include:</p>
 
 	<ul>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#subset/niem-core.xsd</code></p></li>
@@ -1112,7 +1108,7 @@
 		<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/#exchange/request4.xsd</code></p></li>
 	</ul>
 
-	<p>Here is one scenario for use of an artifact URI.  Two different IEPDs exist with the following URIs:  (1) <code>http://example.gov/niem-iepd/pmix/3.0/</code> and (2) <code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code>.  The author of IEPD (1) has decided to reuse (as-is) the <code>exchange/request1.xsd</code> artifact in IEPD (2).  He can optionally create an mpd-catalog <code>Exchange</code> entry for this artifact and add the following attribute:  <code>externalURI="http://www.abc.org/niem-iepd/order/2.1.2rev3/#exchange/request4.xsd"</code>.  Additional <code>externalURI</code> attributes can be optionally added to this entry if the author knows of other uses of this same artifact in other MPDs that he wishes to acknowledge.</p> 
+	<p>Here is one scenario for use of an artifact URI within the mpd-catalog.  Consider two different IEPDs with the following URIs:  (1) <code>http://example.gov/niem-iepd/pmix/3.0/</code> and (2) <code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code>.  The author of IEPD #1 has decided to reuse (as-is) the <code>exchange/request1.xsd</code> artifact in IEPD #2.  He/she can optionally create an mpd-catalog <code>Exchange</code> entry for this artifact (since it is an exchange schema document), and add the following attribute:  <code>externalURI="http://www.abc.org/niem-iepd/order/2.1.2rev3/#exchange/request4.xsd"</code>.  Additional <code>externalURI</code> attributes can be optionally added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.</p> 
 
 	<p>Note that a URI does not have the same meaning as namespace.  Do not rely on namespaces for artifact URIs.  Recall that the namespaces used in a schema document subset derived from a NIEM release are identical to the namespaces of the release itself.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  The non-uniqueness of NIEM namespaces implies that they cannot be used as URIs for MPD artifacts.</p>
 
@@ -1122,6 +1118,7 @@
 
 </section>
 
+<p>###########################################################################</p>
 
 <section id="Wantlists">
 	<title>Wantlists</title>
