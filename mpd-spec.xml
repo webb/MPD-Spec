@@ -1165,19 +1165,18 @@
 </section>
 
 
-<p>###########################################################################</p>
 
 <section id="OASIS-XML-Catalog">
 	<title>OASIS XML Catalog</title>
 
-	<p>NIEM MPDs use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs, specifically for the purpose of validation.  There are two methods for coordinating validation for an IEPD, one is explicit configuration and the other is by convention.  These methods apply in a strict priority sequence as follows:</p>
+	<p>NIEM MPDs use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs, specifically for the purpose of XML validation.  There are two methods for coordinating validation for an IEPD, one is explicit configuration and the other is by convention.  These methods apply in a strict priority sequence as follows:</p>
 
 	<rule id="r-validation">
 		<p>(1) By configuration, if the mpd-catalog contains at least one <code>IEP</code> element, then the base schema validation process MUST follow the validation instructions represented in the mpd-catalog <code>IEP</code> elements.  These instructions MUST identify the XML catalog(s) required to perform validation.  Otherwise, use convention ...</p>
 		<p>(2) By convention, if the mpd-catalog does NOT contain an <code>IEP</code> element, then the base schema validation process MUST employ an XML catalog artifact (<code>catalog.xml</code>) that resides in the root directory of the MPD archive.  The root XML catalog may explicitly correlate namespaces and URIs for all XML schema document artifacts within the MPD, or it may defer to other XML catalogs within subdirectories using the XML catalog <code>nextCatalog</code> element <ref idref="OASIS-XML-Catalogs"/>.</p>
 	</rule>
 
-	<p>Note that the <ref idref="NIEM-SSGT"/> (for NIEM 3.0) now automatically adds an OASIS XML catalog to each schema document subset it generates.  Also, the NIEM 3.0 release MPD includes an XML catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
+	<p>Note that the <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an OASIS XML catalog to each schema document subset it generates.  The NIEM 3.0 release MPD also includes an XML catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
 
 </section>
 
@@ -1524,17 +1523,16 @@
 		changelog.*
 		master-document.*
 		mpd-catalog.xml
-		catalog.xml
+		xml-catalog.xml
 		/subset
 			/niem
 				/niem-core
 				/domains
 				/structures
-				/appinfo
 				...
 		/extension
-			ext1.xsd
-			ext2.xsd
+			extension1.xsd
+			extension2.xsd
 			...
 		/external
 			/gml
@@ -1548,10 +1546,11 @@
 			/niem
 				/niem-core
 				/domains
+				/structures
 				...
 		/business-rules
-			bus-rules1.sch
-			bus-rules2.sch
+			business-rules1.*
+			business-rules2.*
 			...
 		/iep-samples
 			query.xml
