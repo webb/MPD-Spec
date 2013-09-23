@@ -1118,21 +1118,22 @@
 
 </section>
 
-<p>###########################################################################</p>
 
 <section id="Wantlists">
 	<title>Wantlists</title>
 
-	<p>A NIEM schema document subset is often associated with a NIEM <em>wantlist</em>.  A <em>wantlist</em> is an abbreviated XML representation of a NIEM schema document subset, and identifies only the data components a user selected (as requirements) to build that schema document subset.  To reconstruct the complete schema document subset there are usually a number of additional data components that the user selections depend upon.  These must be added to reconstruct the complete schema document subset.  For example, a user may select <code>nc:Person</code> for the subset.  In this case, the wantlist will only contain that component, but the associated full subset must contain both <code>nc:Person</code> and <code>nc:PersonType</code>.  A software tool that understands how to process NIEM wantlists and schema document subsets (such as the NIEM Schema Subset Generator Tool <ref idref="NIEM-SSGT"/>) can rebuild an accurate schema document subset from a wantlist (and the reverse).</p>
+	<p>A NIEM schema document subset is often associated with a NIEM <em>wantlist</em>.  A <em>wantlist</em> is an abbreviated XML representation of a NIEM schema document subset, and identifies only the data components a user selected (as requirements) to build a schema document subset.  To reconstruct the complete schema document subset there are usually a number of additional data components that the user selections depend upon.  These must be computed from the appropriate NIEM reference model and added to reconstruct the complete schema document subset.  For example, a user may select <code>nc:Person</code> for the subset.  In this case, the wantlist will only contain that component, but the associated full subset must contain both <code>nc:Person</code> and <code>nc:PersonType</code>.  A software tool that understands how to process NIEM wantlists and schema document subsets (such as the NIEM Schema Subset Generator Tool <ref idref="NIEM-SSGT"/>) can rebuild an accurate schema document subset from a wantlist (and the reverse).</p>
 
 	<definition term="wantlist">
-		<p>An XML document that represents a NIEM schema document subset.  A NIEM wantlist identifies the data component requirements declared by the author of a subset; it does not identify the data component dependencies required to reconstitute the complete subset.  The complete subset can be computed with the reference schema document set from which the subset was derived.</p>
+		<p>An XML document that represents a complete NIEM schema document subset.</p>
 	</definition>
 
-	<p>A wantlist is always associated with a subset schema document set.  Furthermore, a wantlist may also be associated with a constraint schema document set, because this is often built by starting with a subset.  For a simple IEPD, it is often trivial to identify a single schema document subset.  However, this MPD Specification does not prohibit building complex IEPDs that contain:  (1) a base schema document set supported by multiple schema document subsets and associated wantlists, and (2) multiple constraint schema document sets, each supported by multiple wantlists.  As with other complex cases, the IEPD author is responsible to clearly document the associations between wantlists and the schema document sets they support.  In order to maintain a minimal degree of consistency for placement of a wantlist within a catalog (especially in the case of simple IEPDs):</p>
+	<p>A NIEM wantlist identifies the data component requirements declared by the subset author; it does not identify the data component dependencies required to reconstitute the complete subset.  The complete subset can be computed with the reference schema document set from which the subset was derived.</p>
+
+	<p>A wantlist is always associated with a schema document subset.  Furthermore, a wantlist may also be associated with a constraint schema document set, because this is often built by starting with a subset.  For a simple IEPD, it can sometimes be trivial to identify a single schema document subset.  However, this MPD Specification does not prohibit building complex IEPDs that contain:  (1) a base schema document set supported by multiple schema document subsets and associated wantlists, and (2) multiple constraint schema document sets, each supported by a different wantlist.  As with other complex cases, the IEPD author is responsible to clearly document the associations between wantlists and schema document sets.  In order to maintain a minimal degree of consistency for placement of a wantlist within a catalog (especially in the case of simple IEPDs):</p>
 	
 	<rule id="r-wantlist-base">
-		<p>411 A wantlist MUST be a member of the base or constraint schema document set it is associated with.  This means it MUST be within the subdirectory that groups and defines the target set.</p>
+		<p>411 A wantlist MUST be a member of the base or constraint schema document set it is associated with.  This means it MUST reside with and at the root (top-level) of the subdirectory that groups and defines the target schema document set.</p>
 	</rule>
 
 </section>
@@ -1141,17 +1142,30 @@
 <section id="MPD-Artifact-Lineage">
 	<title>MPD Artifact Lineage</title>
 
-	<p>An important MPD business requirement is transparency of lineage.  MPDs must allow identification of the relationships that may exist among artifacts, families, versions, adaptations, specializations, generalizations, etc. of MPDs.  The established URI scheme for MPDs and MPD artifacts as well as the catalog help make this possible.</p>
+	<p>An important MPD business requirement is transparency of lineage.  MPDs must facilitate identification of the relationships that may exist among artifacts, families, versions, adaptations, specializations, generalizations, etc. of MPDs.  The established URI scheme for MPDs and MPD artifacts as well as the mpd-catalog help make this possible.</p>
 
-	<p>The catalog provides a <code>Relationship</code> element with three attributes (<code>resourceURI</code>, <code>relationshipCode</code>, and <code>descriptionText</code>) to identify the pedigree of an MPD.  There are many ways that one MPD may relate to another.  This makes it extremely difficult to specify a fixed set of values that could objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>descriptionText</code> attribute is provided to further explain the nature of any of the eight <code>relationshipCode</code> values available (<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>).  In some cases, the value of <code>relationshipCode</code> may be generic enough to require a more detailed explanation in <code>descriptionText</code> (for example, if the value is <code>"adapts"</code>).</p>
+	<p>The mpd-catalog provides a <code>Relationship</code> element with three attributes (<code>resourceURI</code>, <code>relationshipCode</code>, and <code>descriptionText</code>) to identify the pedigree of an MPD.  There are many ways that one MPD may relate to another.  This makes it extremely difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>descriptionText</code> attribute is provided to further explain the nature of any of the eight <code>relationshipCode</code> values available {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>relationshipCode</code> may be generic enough to require a more detailed explanation in <code>descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
 
-	<p>The catalog also enables an MPD author to record a fine-grained pedigree between MPDs when reusing artifacts from other MPDs.  By default each artifact identified in a catalog has a globally unique URI (using a fragment reference) that can refer to it.  An MPD author signifies reuse of a given artifact by entering the URI for that artifact in the optional <code>externalURI</code> attribute within the appropriate <code>FileType</code> or <code>FileSetType</code> elements.</p>
+	<p>The mpd-catalog also enables an author to record a fine-grained pedigree between MPDs when reusing artifacts from other MPDs.  By default each artifact identified in an mpd-catalog has a globally unique URI (using a fragment reference) that can refer to it.  An MPD author signifies reuse of a given artifact by entering the URI for that artifact in the optional <code>externalURI</code> attribute within the appropriate <code>FileType</code> or <code>FileSetType</code> elements.</p>
 
-	<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse (derive from) an EIEM.  In such cases, the catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The mpd-catalog can contain many references to and semantics for artifacts and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can automatically locate, parse, and process them as needed and when available in shared repositories.</p>
+	<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse a given EIEM.  In such cases, the mpd-catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The mpd-catalog can contain many references to and semantics for artifacts and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.</p>
 
 </section>
+
+
+<section id="Declaration-of-IEP-Root-Elements">
+	<title>Declaration of IEP Root Elements and Other Validation Targets</title>
+
+	<p>Recall (in <ref idref="Exchange-Schema-Documents"/>) that all IEPD element declarations within NIEM schema documents are potentially IEP root elements because they all have global scope.  This begs the question:  How can an author explicitly declare that a particular element is intended to be an IEP root element (and subsequently, validate this assertion)?  Answer:  Use the mpd-catalog schema <ref idref="MPD-Catalog-XSD"/> <code>IEP</code> element.</p>
+
+	<p><code>IEPType</code> contains an abstract <code>Validation</code> element, and a <code>testXPath</code> attribute.  The <code>testXPath</code> attribute identifies the target of validation.  In most common cases, this target will be an IEP root element candidate within an exchange schema.  However, the target could be any element in a schema.  For example, a <code>testXPath</code> value could identify the root element of an NDEx payload <ref idref="FBI-NDEX"/> that resides within a LEXS message <ref idref="LEXS"/>.</p>
+
+	</p>In place of <code>Validation</code> a developer substitutes any number of either <code>XMLSchemaValidation</code> or <code>SchematronValidation</code> elements.  These elements contain the <code>xmlCatalogURI</code> attribute or the <code>schematronSchemaURI</code> attribute respectively.  These attributes identify the location of the XML schema document(s) with which to execute the particular validation required.  At present, only XML Schema and Schematron validation are available.  However, if needed in the future, other kinds of validation can be added to the <code>Validation</code> substitution group.</p>
+
 </section>
 
+
+<p>###########################################################################</p>
 
 <section id="OASIS-XML-Catalog">
 	<title>OASIS XML Catalog</title>
@@ -1166,7 +1180,6 @@
 	<p>Note that the <ref idref="NIEM-SSGT"/> (for NIEM 3.0) now automatically adds an OASIS XML catalog to each schema document subset it generates.  Also, the NIEM 3.0 release MPD includes an XML catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
 
 </section>
-
 
 
 <section id="Change-Log">
@@ -1717,12 +1730,20 @@ wantlist  An XML document that represents a NIEM schema document subset.  A NIEM
 	<p><em>The Federal Enterprise Architecture Data Reference Model</em>, Version 1.0, September 2004.  Available from <link>http://xml.gov/documents/completed/DRMv1.pdf</link>.  A more recent DRM Version 2.0, 17 November 2005 is available from <link>http://www.whitehouse.gov/omb/assets/egov_docs/DRM_2_0_Final.pdf</link></p>
 </reference>
 
+<reference id="FBI-NDEX" label="FBI National Data Exchange">
+	<p><em>National Data Exchange (NDEx)</em>, Version 2.1.2, March 2013.  Available from <link>https://it.ojp.gov/default.aspx?area=implementationAssistance&page=1017&standard=520</link>.  Additional information from <link>http://www.fbi.gov/about-us/cjis/n-dex/</link>.</p>
+</reference>
+
 <reference id="GJXDM-IEPD" label="GJXDM IEPD Guidelines">
 	<p><em>GJXDM Information Exchange Package Documentation Guidelines</em>, Version 1.1, Global XML Structure Task Force (GXSTF), 2 March 2005.  Available from <link>http://it.ojp.gov/documents/global_jxdm_IEPD_guidelines_v1_1.pdf</link></p>
 </reference>
 
 <reference id="ISO-Schematron" label="ISO Schematron">
 	<p><em>Schema Definition Languages (DSDL)</em>, <q>Part 3: Rule-based validation : Schematron</q>, ISO/IEC 19757-3:2006(E), First edition, 1 June 2006.  Available from <link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c040833_ISO_IEC_19757-3_2006(E).zip</link>.</p>
+</reference>
+
+<reference id="LEXS" label="Logical Entity Exchange Specifications">
+	<p><em>Logical Entity Exchange Specifications</em>, Version 4.0, 27 July 2011.	Available from <link>http://130.207.211.107/content/downloads</link>.</p>
 </reference>
 
 <reference id="NIEM-BIEC" label="NIEM BIEC">
