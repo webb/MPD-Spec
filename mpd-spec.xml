@@ -1157,11 +1157,11 @@
 <section id="Declaration-of-IEP-Root-Elements">
 	<title>Declaration of IEP Root Elements and Other Validation Targets</title>
 
-	<p>Recall (in <ref idref="Exchange-Schemas"/>) that all IEPD element declarations within NIEM schema documents are potentially IEP root elements because they all have global scope.  This begs the question:  How can an author explicitly declare that a particular element is intended to be an IEP root element (and subsequently, validate this assertion)?  Answer:  Use the mpd-catalog schema <ref idref="MPD-Catalog-XSD"/> <code>IEP</code> element.</p>
+	<p>Recall (in <ref idref="Exchange-Schemas"/>) that all IEPD element declarations within NIEM schema documents are potentially IEP root elements because they all have global scope.  So, how can an author explicitly declare that a particular element is intended to be an IEP root element (and subsequently, validate this assertion)?  He can use the mpd-catalog schema <ref idref="MPD-Catalog-XSD"/> <code>IEP</code> element.</p>
 
 	<p><code>IEPType</code> contains an abstract <code>Validation</code> element, and a <code>testXPath</code> attribute.  The <code>testXPath</code> attribute identifies the target of validation.  In most common cases, this target will be an IEP root element candidate within an exchange schema.  However, the target could be any element in a schema.  For example, a <code>testXPath</code> value could identify the root element of an NDEx payload <ref idref="FBI-NDEX"/> that resides within a LEXS message <ref idref="LEXS"/>.</p>
 
-	<p>In place of <code>Validation</code> a developer substitutes any number of either <code>XMLSchemaValidation</code> or <code>SchematronValidation</code> elements.  These elements contain the <code>xmlCatalogURI</code> attribute or the <code>schematronSchemaURI</code> attribute respectively.  These attributes identify the location of the XML schema document(s) with which to execute the particular validation required.  At present, only XML Schema and Schematron validation are available.  However, if needed in the future, other kinds of validation can be added to the <code>Validation</code> substitution group.</p>
+	<p>In place of <code>Validation</code> a developer substitutes <code>XMLSchemaValidation</code> or <code>SchematronValidation</code> elements.  These elements contain the <code>xmlCatalogURI</code> attribute or the <code>schematronSchemaURI</code> attribute respectively.  The attribute values identify the location of the XML schema document(s) with which to execute the particular validation required.  At present, only XML Schema and Schematron validation are available.  However, if needed in the future, other kinds of validation can be added to the <code>Validation</code> substitution group.</p>
 
 </section>
 
@@ -1170,12 +1170,19 @@
 <section id="OASIS-XML-Catalog">
 	<title>OASIS XML Catalog</title>
 
-	<p>NIEM MPDs use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs, specifically for the purpose of XML validation.  There are two methods for coordinating validation for an IEPD, one is explicit configuration and the other is by convention.  These methods apply in a strict priority sequence as follows:</p>
+	<p>As implied in the previous section above, NIEM MPDs use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs, specifically for the purpose of XML validation.  There are two methods for coordinating IEP validation for an IEPD, one is through explicit configuration and the other is by convention.  These methods apply in a strict priority sequence as follows:</p>
 
 	<rule id="r-validation">
-		<p>(1) By configuration, if the mpd-catalog contains at least one <code>IEP</code> element, then the base schema validation process MUST follow the validation instructions represented in the mpd-catalog <code>IEP</code> elements.  These instructions MUST identify the XML catalog(s) required to perform validation.  Otherwise, use convention ...</p>
-		<p>(2) By convention, if the mpd-catalog does NOT contain an <code>IEP</code> element, then the base schema validation process MUST employ an XML catalog artifact (<code>catalog.xml</code>) that resides in the root directory of the MPD archive.  The root XML catalog may explicitly correlate namespaces and URIs for all XML schema document artifacts within the MPD, or it may defer to other XML catalogs within subdirectories using the XML catalog <code>nextCatalog</code> element <ref idref="OASIS-XML-Catalogs"/>.</p>
+		<p>(1) By configuration, if the mpd-catalog contains at least one <code>IEP</code> element, then the base schema validation process MUST follow the validation instructions represented in the mpd-catalog <code>IEP</code> elements.  These instructions MUST identify the XML catalog(s) required to perform validation.  Otherwise ... (use convention) ...</p>
+		<p>(2) By convention, if the mpd-catalog does NOT contain an <code>IEP</code> element, then base schema validation MUST employ an XML catalog artifact (<code>xml-catalog.xml</code>) that resides in MPD archive root directory.  This xml-catalog artifact may explicitly correlate namespaces to URIs for all XML schema document artifacts within the MPD, or it may defer to other xml-catalogs within subdirectories using the xml-catalog <code>nextCatalog</code> element <ref idref="OASIS-XML-Catalogs"/>.</p>
 	</rule>
+
+	<p>By convention, validation of IEPs with base schemas and schematron schemas proceeds as follows:  For each candidate IEP (an instance XML document):</p>
+		<ol>
+			<li><p>Assemble a base XML schema <ref idref="NIEM-NDR"/> and validate the IEP against it.  Assemble the base XML schema by doing one of the following:  (a) Look for and employ an <code>xml-catalog.xml</code> artifact in the archive root directory; or (b) use all XML schema documents in the directories with names that have initial substrings <code>subset</code>, <code>extension</code>, <code>exchange</code>, and <code>external</code>.</p></li>
+			<li><p>If there exists any exchange schema documents, ensure the document element of the candidate IEP is an element declared in an exchange schema document.</p></li>
+			<li><p>For each schematron document schematron/*.xsd, assess the candidate IEP against the schematron document.</p></li>
+		</ol>
 
 	<p>Note that the <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an OASIS XML catalog to each schema document subset it generates.  The NIEM 3.0 release MPD also includes an XML catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
 
