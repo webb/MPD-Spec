@@ -787,6 +787,23 @@
 </section>
 
 
+
+<section id="External-Schemas">
+	<title>External Schema Documents</title>
+
+	<p>NIEM allows the use of <em>external schema documents</em> that do not conform to NIEM.  Data components declared and defined in external schema documents require NIEM <em>adapter types</em> to identify the fact they do not conform to NIEM.</p>
+
+	<definition term="external schema documents">
+		<p>Any XML schema document that is not a NIEM-supporting schema and that is not NIEM-conformant.
+		</p>
+	</definition>	
+
+	<p>Refer to the <ref idref="NIEM-NDR"/> for details about external schemas, adapter types, and the rules describing their usage.   
+
+</section>
+
+
+
 <section id="Base-Schema-Set">
 	<title>Base Schema Document Set</title>
 
@@ -1170,19 +1187,37 @@
 <section id="OASIS-XML-Catalog">
 	<title>OASIS XML Catalog</title>
 
-	<p>As implied in the previous section above, NIEM MPDs use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs, specifically for the purpose of XML validation.  There are two methods for coordinating IEP validation for an IEPD, one is through explicit configuration and the other is by convention.  These methods apply in a strict priority sequence as follows:</p>
+	<p>As implied in the previous section above, NIEM MPDs use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs, specifically for the purpose of XML validation.  To facilitate this: 
 
-	<rule id="r-validation">
-		<p>(1) By configuration, if the mpd-catalog contains at least one <code>IEP</code> element, then the base schema validation process MUST follow the validation instructions represented in the mpd-catalog <code>IEP</code> elements.  These instructions MUST identify the XML catalog(s) required to perform validation.  Otherwise ... (use convention) ...</p>
-		<p>(2) By convention, if the mpd-catalog does NOT contain an <code>IEP</code> element, then base schema validation MUST employ an XML catalog artifact (<code>xml-catalog.xml</code>) that resides in MPD archive root directory.  This xml-catalog artifact may explicitly correlate namespaces to URIs for all XML schema document artifacts within the MPD, or it may defer to other xml-catalogs within subdirectories using the xml-catalog <code>nextCatalog</code> element <ref idref="OASIS-XML-Catalogs"/>.</p>
+	<rule id="r-xml-catalog-all">
+		<p>All XML schema documents used in an MPD MUST be identified by namespace (<code>name</code> and location (<code>uri</code>) in an xml-catalog artifact.</p>
+	</rule>
+
+	<p>This rule means that each XML schema document (file) artifact in an MPD must be identified within some xml-catalog artifact.  Thus, one xml-catalog may contain entries for all XML schema documents, or several xml-catalogs may combine to identify all XML schema documents.  For convenience, xml-catalogs may be linked and sequenced through the use of the <code>nextCatalog</code> element <ref idref="OASIS-XML-Catalogs"/></p> 
+
+	<p>There are two methods for using xml-catalogs to coordinate IEP validation for an IEPD, one is through explicit configuration and the other is by convention.  These rules apply in a strict priority sequence as follows:</p>
+
+	<rule id="r-validation-configuration">
+		<p>(By configuration) If the mpd-catalog contains at least one <code>IEP</code> element, then the base schema validation process MUST follow the validation instructions represented in the mpd-catalog <code>IEP</code> elements.  These instructions MUST identify the XML catalog(s) required to perform validation.</p>
+	</rule>
+
+	<rule id="r-validation-convention">
+		<p>(By convention) If the mpd-catalog does NOT contain an <code>IEP</code> element, then base schema validation MUST employ an XML catalog artifact (<code>xml-catalog.xml</code>) that resides in MPD archive root directory.  This xml-catalog artifact may explicitly contain <code>uri</code> entries for all XML schema document artifacts, or it may link to other xml-catalogs by using a <code>nextCatalog</code> element <ref idref="OASIS-XML-Catalogs"/>.</p>
 	</rule>
 
 	<p>By convention, validation of IEPs with base schemas and schematron schemas proceeds as follows:  For each candidate IEP (an instance XML document):</p>
-		<ol>
-			<li><p>Assemble a base XML schema <ref idref="NIEM-NDR"/> and validate the IEP against it.  Assemble the base XML schema by doing one of the following:  (a) Look for and employ an <code>xml-catalog.xml</code> artifact in the archive root directory; or (b) use all XML schema documents in the directories with names that have initial substrings <code>subset</code>, <code>extension</code>, <code>exchange</code>, and <code>external</code>.</p></li>
-			<li><p>If there exists any exchange schema documents, ensure the document element of the candidate IEP is an element declared in an exchange schema document.</p></li>
-			<li><p>For each schematron document schematron/*.xsd, assess the candidate IEP against the schematron document.</p></li>
-		</ol>
+
+	<ol>
+		<li><p>Assemble a base XML schema <ref idref="NIEM-NDR"/> and validate the IEP against it by employing the <code>xml-catalog.xml</code> artifact in the MPD archive root directory.</p></li>
+		<li><p>If there exist any exchange schema documents, ensure the document element of the candidate IEP is an element declared in an exchange schema document.</p></li>
+		<li><p>For each schematron schema document <code>/schematron*/*.xsd</code>, assess the candidate IEP against the schematron schema document.</p></li>
+	</ol>
+
+	<p>Be aware that use of <code>xs:include</code> by non-conformant external schema documents can often be problematic when marshalling XML schema documents for validation.  If your external schema documents contain <code>xs:include</code>, then the following rule may also apply:</p>
+
+	<rule id="r-external-include"/>
+	<p>Given an external schema document set that contains <code>xs:include</code>, if th xml-catalog resulting from assembling the external schema documents contains any two <code>uri</code> element entries for two different XSD artifacts with identical namespaces, then the IEPD author is responsible to provide an xml-catalog for validation.</p>
+	</rule>
 
 	<p>Note that the <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an OASIS XML catalog to each schema document subset it generates.  The NIEM 3.0 release MPD also includes an XML catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
 
@@ -1591,6 +1626,7 @@
 
 <section id="MPD-Instance" isAppendix="true">
 	<title>Example Instance XML Document Catalog</title>
+	<p>IGNORE FOR NOW - NOT A COMPLETE EXAMPLE</p>
 	<pre><include-text href="xsd/sample.1/mpd-catalog.xml"/></pre>
 </section>
 
@@ -1658,45 +1694,47 @@ XSLT		Extensible Stylesheet Language Transformation
 	<p>The following terms are defined in the context of NIEM.</p>
 
 <pre>
-artifact  A single file with a defined purpose or a set of files logically grouped for a defined purpose.  An MPD is a collection of artifacts, the purpose for which is to define and document the intended use of the MPD.
+artifact - A single file with a defined purpose or a set of files logically grouped for a defined purpose.  An MPD is a collection of artifacts, the purpose for which is to define and document the intended use of the MPD.
 
-base schema document set  A NIEM MPD artifact that is the set of all NIEM-conformant and external non-conformant XML schemas that together specify an information exchange or information model for an MPD.  A base schema document set may incorporate reference, subset, extension, and exchange schema documents, as well as external schema documents from authoritative sources outside of NIEM.
+base schema document set - A NIEM MPD artifact that is the set of all NIEM-conformant and external non-conformant XML schemas that together specify an information exchange or information model for an MPD.  A base schema document set may incorporate reference, subset, extension, and exchange schema documents, as well as external schema documents from authoritative sources outside of NIEM.
 
-Business Information Exchange Component (BIEC)  A NIEM-conformant XML schema data component definition or declaration (for a type, element, attribute, or other XML construct) reused, subsetted, extended, and/or created from NIEM that meets a particular recurring business requirement for an information sharing enterprise.
+Business Information Exchange Component (BIEC) - A NIEM-conformant XML schema data component definition or declaration (for a type, element, attribute, or other XML construct) reused, subsetted, extended, and/or created from NIEM that meets a particular recurring business requirement for an information sharing enterprise.
 
-constraint schema document  A schema document which imposes additional constraints on NIEM-conformant instances.  A constraint schema document or a constraint schema document set validates additional constraints imposed on an instance XML document only after it is known to be NIEM-conformant (i.e., has been validated to reference schema documents, subset schema documents, extension schema documents, and/or exchange schema documents).  Constraint schema validation is a second-pass validation that occurs independently of and after conformance validation.  A constraint schema need not validate constraints that are applied by other schemas.  See also constraint schema document set.
+constraint schema document - A schema document which imposes additional constraints on NIEM-conformant instances.  A constraint schema document or a constraint schema document set validates additional constraints imposed on an instance XML document only after it is known to be NIEM-conformant (i.e., has been validated to reference schema documents, subset schema documents, extension schema documents, and/or exchange schema documents).  Constraint schema validation is a second-pass validation that occurs independently of and after conformance validation.  A constraint schema need not validate constraints that are applied by other schemas.  See also constraint schema document set.
 
-constraint schema document set  A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.  See also constraint schema document.
+constraint schema document set - A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.  See also constraint schema document.
 
-core update  An MPD that applies changes to a given NIEM core schema document or document set.  It never replaces a NIEM core; instead, it is used to add new schema documents, new data components, new code values, etc. to a particular NIEM core.  In some cases, a core update can make minor modifications to existing core data components.
+core update - An MPD that applies changes to a given NIEM core schema document or document set.  It never replaces a NIEM core; instead, it is used to add new schema documents, new data components, new code values, etc. to a particular NIEM core.  In some cases, a core update can make minor modifications to existing core data components.
 
-data component  An XML Schema type or attribute group definition; or an XML Schema element or attribute declaration.
+data component - An XML Schema type or attribute group definition; or an XML Schema element or attribute declaration.
 
-domain update  A MPD that contains a reference schema document or document set issued by one or more domains that constitutes new content or an update to content that was previously included in a NIEM release.  A domain update may define and declare new versions of content for NIEM releases or other published content.  The issuing body vets each update before publishing, but the update is not subject to review by other NIEM bodies.  A domain update must be NIEM-conformant, but otherwise it has fewer constraints on quality than does a NIEM release.  Domain update schema documents contain proposed future changes to NIEM that have not been published in a numbered release and have not been vetted by NIEM governance bodies (except by the domain or domains involved).  Domain updates are published to the NIEM Publication Area at http://publication.niem.gov/ and available for immediate use within IEPDs. 
+domain update - A MPD that contains a reference schema document or document set issued by one or more domains that constitutes new content or an update to content that was previously included in a NIEM release.  A domain update may define and declare new versions of content for NIEM releases or other published content.  The issuing body vets each update before publishing, but the update is not subject to review by other NIEM bodies.  A domain update must be NIEM-conformant, but otherwise it has fewer constraints on quality than does a NIEM release.  Domain update schema documents contain proposed future changes to NIEM that have not been published in a numbered release and have not been vetted by NIEM governance bodies (except by the domain or domains involved).  Domain updates are published to the NIEM Publication Area at http://publication.niem.gov/ and available for immediate use within IEPDs. 
 
-Enterprise Information Exchange Model (EIEM)  An MPD that contains a NIEM-conformant schema document set that defines and declares data components to be consistently reused in the IEPDs of an enterprise.  An EIEM is a collection of BIECs organized into a schema document subset and one or more extension schema documents.  Constraint schema documents and non-NIEM-conformant external standards schema documents with type adapters are optional in an EIEM.
+Enterprise Information Exchange Model (EIEM) - An MPD that contains a NIEM-conformant schema document set that defines and declares data components to be consistently reused in the IEPDs of an enterprise.  An EIEM is a collection of BIECs organized into a schema document subset and one or more extension schema documents.  Constraint schema documents and non-NIEM-conformant external standards schema documents with type adapters are optional in an EIEM.
 
-exchange schema document  A NIEM-conformant schema document that declares an XML document element (top-level) for a particular information exchange.
+exchange schema document - A NIEM-conformant schema document that declares an XML document element (top-level) for a particular information exchange.
 
-extension schema document  A NIEM-conformant schema document that adds domain or application specific content to the base NIEM model.
+extension schema document - A NIEM-conformant schema document that adds domain or application specific content to the base NIEM model.
 
-harmonization  Given a data model, harmonization is the process of reviewing its existing data definitions and declarations; reviewing how it structures and represents data; integrating new data components; and refactoring data components as necessary to remove (or reduce to the maximum extent) semantic duplication and/or semantic overlap among all data structures and definitions resulting in representational quality improvements.
+external schema document - Any XML schema document that is not a NIEM-supporting schema and that is not NIEM-conformant.
 
-IEP root element  The single top-level element in an IEP (instance XML document).  In the absence of any other XML wrapping of an IEP, a root element declared in an exchange schema document is an IEP document element.
+harmonization - Given a data model, harmonization is the process of reviewing its existing data definitions and declarations; reviewing how it structures and represents data; integrating new data components; and refactoring data components as necessary to remove (or reduce to the maximum extent) semantic duplication and/or semantic overlap among all data structures and definitions resulting in representational quality improvements.
 
-Information Exchange Package (IEP)  An XML document that is a valid instantiation of a NIEM IEPD, and therefore, validates with the schema document set of that IEPD.
+IEP root element - The single top-level element in an IEP (instance XML document).  In the absence of any other XML wrapping of an IEP, a root element declared in an exchange schema document is an IEP document element.
 
-Information Exchange Package Documentation (IEPD)  An MPD that defines one or more (generally recurring) XML data exchanges.
+Information Exchange Package (IEP) - An XML document that is a valid instantiation of a NIEM IEPD, and therefore, validates with the schema document set of that IEPD.
 
-Information Sharing Enterprise  A group of organizations with business interactions that agree to exchange information, often using multiple types of information exchanges.  The member organizations have similar business definitions for objects used in an information exchange and can usually agree on their common BIEC names and definitions.
+Information Exchange Package Documentation (IEPD) - An MPD that defines one or more (generally recurring) XML data exchanges.
 
-major release  A NIEM release in which the NIEM Core reference schema document has changed since previous releases.  The first integer of the version number indicates the major release series; for example, versions 1.0, 2.0, and 3.0 are different major releases.
+Information Sharing Enterprise - A group of organizations with business interactions that agree to exchange information, often using multiple types of information exchanges.  The member organizations have similar business definitions for objects used in an information exchange and can usually agree on their common BIEC names and definitions.
 
-micro release  A NIEM release in which neither the NIEM Core nor the domain reference schema documents have changed from the previous major or minor release, but one or more new reference schema documents have been added (without impact to domain or Core schemas).  A third digit greater than zero in the version number indicates a micro release (for example, v2.1.1  note that this release does not exist as of this date).
+major release - A NIEM release in which the NIEM Core reference schema document has changed since previous releases.  The first integer of the version number indicates the major release series; for example, versions 1.0, 2.0, and 3.0 are different major releases.
 
-minor release  A NIEM release in which the NIEM Core has not changed from previous releases in the series, but at least one or more domain reference schema documents have changed.  A second digit greater than zero in the version number indicates a minor release (for example, v2.1).  Note also that major v2.0 and minor v2.1 are in the same series (i.e., series 2) and contain the same NIEM Core schema document.
+micro release - A NIEM release in which neither the NIEM Core nor the domain reference schema documents have changed from the previous major or minor release, but one or more new reference schema documents have been added (without impact to domain or Core schemas).  A third digit greater than zero in the version number indicates a micro release (for example, v2.1.1  note that this release does not exist as of this date).
 
-Model Package Description (MPD)  A set of related W3C XML Schema documents and other supporting files organized as one of the five classes of NIEM schema sets:
+minor release - A NIEM release in which the NIEM Core has not changed from previous releases in the series, but at least one or more domain reference schema documents have changed. - A second digit greater than zero in the version number indicates a minor release (for example, v2.1). - Note also that major v2.0 and minor v2.1 are in the same series (i.e., series 2) and contain the same NIEM Core schema document.
+
+Model Package Description (MPD) - A set of related W3C XML Schema documents and other supporting files organized as one of the five classes of NIEM schema sets:
           Release (major, minor, or micro).
           Domain update (to a release).
           Core update (to a release).
@@ -1704,13 +1742,9 @@ Model Package Description (MPD)  A set of related W3C XML Schema documents and o
           Enterprise Information Exchange Model (EIEM).
 	  An MPD is self-documenting and provides sufficient normative and non-normative information to allow technical personnel to understand how to use or implement it.  An MPD is packaged as a ZIP <ref idref="PKZIP"/> file.
 
-MPD root directory  The top level file directory relative to all MPD artifacts and subdirectories.
+MPD root directory - The top level file directory relative to all MPD artifacts and subdirectories.
 
-nature  An indication of the type of an MPD artifact.  This further indicates how it should be processed by software tools.
-
-purpose  A property of an MPD artifact that indicates its usage or function.  This determines what to do with this artifact and/or how it should be processed by software tools.   
-
-reference schema document  An XML Schema document that meets all of the following criteria:
+reference schema document - An XML Schema document that meets all of the following criteria:
      It is a conformant schema document.
      It is explicitly designated as a reference schema document.  This may be declared by an MPD catalog or by a tool-specific mechanism outside the schema document. 
      It provides the broadest, most fundamental definitions of components in its namespace. 
@@ -1718,15 +1752,15 @@ reference schema document  An XML Schema document that meets all of the followin
      It is intended to serve as the basis for components in IEPD and EIEM schema documents, including subset, constraint, extension, and exchange schema documents. 
 See also reference schema document set.
 
-reference schema document set  A set of related reference schema documents, such as a NIEM release.  See also reference schema document.
+reference schema document set - A set of related reference schema documents, such as a NIEM release.  See also reference schema document.
 
-release  A reference schema document set published by the NIEM Program Management Office (PMO) at http://release.niem.gov/ and assigned a unique version number.  Each schema defines data components for use in NIEM information exchanges.  Each release is independent of other releases, although a schema document may occur in multiple releases.  A release is of high quality, and has been vetted by NIEM governance bodies.  A numbered release may be a major, minor, or micro release.
+release - A reference schema document set published by the NIEM Program Management Office (PMO) at http://release.niem.gov/ and assigned a unique version number.  Each schema defines data components for use in NIEM information exchanges.  Each release is independent of other releases, although a schema document may occur in multiple releases.  A release is of high quality, and has been vetted by NIEM governance bodies.  A numbered release may be a major, minor, or micro release.
 
-schema document set coherence  A schema document set is coherent when it has the following properties:  (1) the set does not refer to a schema document outside the set (i.e., the set is closed), and (2) the set does not include two different versions of the same component in an incompatible way.
+schema document set coherence - A schema document set is coherent when it has the following properties:  (1) the set does not refer to a schema document outside the set (i.e., the set is closed), and (2) the set does not include two different versions of the same component in an incompatible way.
 
-schema document subset  An XML schema document set built from a reference schema document set by applying subset operations to that reference schema documents in that set.  See also subset schema document.
+schema document subset - An XML schema document set built from a reference schema document set by applying subset operations to that reference schema documents in that set.  See also subset schema document.
 
-subset schema document  An XML schema document that meets all of the following criteria: 
+subset schema document - An XML schema document that meets all of the following criteria: 
     It is built from a referenc schema document set where one or more reference schema documents has been substituted by a its corresponding subset schema document.   
     It is built from a reference schema document by applying subset operations to the XML schema statements in a reference schema document.
     It is explicitly designated as a subset schema document.  This may be declared by an MPD catalog or by a tool-specific mechanism outside the subset schema document. 
@@ -1735,7 +1769,7 @@ subset schema document  An XML schema document that meets all of the following c
     It is intended to express the limited vocabulary necessary for an IEPD or EIEM and to support XML Schema validation for an IEPD.
 See also schema document subset.
 
-wantlist  An XML document that represents a NIEM schema document subset.  A NIEM wantlist identifies the data component requirements declared by the author of a subset; it does not identify the data component dependencies required to reconstitute the complete schema document subset.  The complete schema document subset can be computed from the reference schema document or document set from which the subset was derived.
+wantlist - An XML document that represents a NIEM schema document subset.  A NIEM wantlist identifies the data component requirements declared by the author of a subset; it does not identify the data component dependencies required to reconstitute the complete schema document subset.  The complete schema document subset can be computed from the reference schema document or document set from which the subset was derived.
 </pre>
 
 </section>
@@ -1873,7 +1907,7 @@ wantlist  An XML document that represents a NIEM schema document subset.  A NIEM
 <section id="Footnotes" isAppendix="true">
 	<title>Footnotes</title>
 
-<p>Footnotes (to App F: MPD Artifacts ... subset schema, reference schema, change log)</p>
+<p>IGNORE FOR NOW.  Footnotes for old App F: MPD Artifacts (subset schema, reference schema, change log).  May not need anymore.</p>
 
 <p>1 - A NIEM-conformant IEPD or EIEM is required to have at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema.</p>
 
