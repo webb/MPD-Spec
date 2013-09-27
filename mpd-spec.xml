@@ -1316,15 +1316,15 @@
 
 	<p>Be aware that if an xml-catalog (resulting from assembling external XML schema documents) contains any two <code>uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation.  It will have to be modified to ensure that each namespace resolves to one and only one unique xml-catalog <code>uri</code> attribute value.</p>
 
+	<p>The following rule </p>
 
-	<p>#################################</p>
 	<rule id="r-resolution">
-		<p>An IEPD MUST correctly resolve all namespaces to local URIs through one of the following mechanisms:</p>
-		<ul>
+		<p>An IEPD MUST correctly resolve all namespaces to local URIs through one of the following mechanisms, checked in this priority sequence:</p>
+		<ol>
 			<li><p>Include appropriate xml-catalog artifacts and one or more <code>IEP</code> elements within the <code>mpd-catalog.xml</code> that provide instructions for validating IEP root element(s) and other validation targets.</p></li>
 			<li><p>Include an <code>xml-catalog.xml</code> artifact in the IEPD root directory.</p></li>
 			<li><p>Ensure that all <code>xs:import schemaLocation</code> values in all XML schema documents resolve to appropriate XML schema documents.</p></li>
-		</ul>
+		</ol>
 	</rule>
 
 </section>
@@ -1395,7 +1395,6 @@
 		FOR EACH constraint schema $D in subdirectory name matching "constraint*"
 			Assemble an XML schema for $D
 			Validate the candidate IEP against $D
-
 	</pre>
 	<p>Note that the use of mpd-catalog <code>IEP</code> elements takes precedence over the more conventional procedure that requires looking for standard directory names <ref idref="Normative-Guidance-Directories"/>.  This is why the conventional method is only useful for very simple IEPDs.  Also, note that use of the mpd-catalog <code>IEP</code> element references, and therefore, requires xml-catalogs.</p>
 
