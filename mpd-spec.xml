@@ -1268,6 +1268,7 @@
 	<p>MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the master document.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the master document (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the master document:</p>
 
 <ul>
+	<li><p>Executive summary (especially for lengthy master documents></p></li>
 	<li><p>Use cases</p></li>
 	<li><p>Business processes</p></li>
 	<li><p>Business requirements</p></li>
@@ -1277,18 +1278,21 @@
 	<li><p>Data dictionary</p></li>
 	<li><p>Testing and conformance</p></li>
 	<li><p>Development tools and methodologies used</p></li>
-	<li><p>Implementation guidance (An IEPD is meant to be implemented, so this section is very important, particularly in the case of a complex IEPD that uses multiple subsets, exchange schemas, and/or IEP root elements.)</p></li>
-	<li><p>Security considerations (for protecting sensitive or classified information)</p></li>
-	<li><p>Privacy considerations (for example, Personal Identifiable Information or PPI)</p></li>
+	<li><p>Implementation guidance (particularly important for a complex IEPD with multiple subsets or IEP root elements)</p></li>
+	<li><p>Security considerations</p></li>
+	<li><p>Privacy considerations (e.g., Personal Identifiable Information)</p></li>
 	<li><p>Types of implementations</p></li>
-	<li><p>If an IEPD employs multiple subsets (either from the same release or from different releases):</p></li>
-		<li><p>Where and how are these used?</p></li>
-		<li><p>What are the caveats regarding duplicative data components?</p></li>
-		<li><p>How are these coordinated in the implementation?</p></li>
+	<li><p>If an IEPD employs multiple subsets:</p></li>
+	<ul>
+		<li><p>When, where, and how these are used</p></li>
+		<li><p>How these are coordinated in the implementation</p></li>
+		<li><p>Caveats regarding duplicate data components (which can occur with multiple subsets)</p></li>
+	</ul>
 	<li><p>If an IEPD employs multiple exchange schemas and/or exchange schemas with multiple root elements:</p></li>
-		<li><p>What is the purpose of each (exchange and root) and when is it used?</p></li>			
-		<li><p>How are these coordinated during the runtime preparation and transmission of IEPs?</p></li>
-	<li><p>Authors are also encouraged to include an executive summary, especially for particularly lengthy master documents.</p></li>
+	<ul>
+		<li><p>Purpose of each (exchange and root) and when it should be used</p></li>			
+		<li><p>How these are coordinated during the runtime preparation and transmission of IEPs</p></li>
+	</ul>
 </ul>
 
 </section>
@@ -1299,33 +1303,26 @@
 <section id="OASIS-XML-Catalog">
 	<title>OASIS XML Catalog</title>
 
-	<p>An OASIS XML catalog is an instance XML document describing a mapping between external entity references and locally-cached equivalents.  NIEM MPDs can use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs.  This aids in XML validation.</p>
+	<p>In general, this section is applicable to all MPDs.  However, it has particular importance to IEPDs and IEP validation (to be covered in more detail in <ref idref="Sample-IEP"/>.</p>
 
-	<p>The <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an OASIS XML catalog to each schema document subset it generates.  The NIEM 3.0 release also includes an xml-catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
+	<p><ref idref="OASIS-XML-Catalogs"/> are instance XML documents that describe a mapping between external entity references and locally-cached equivalents.  The <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an <code>xml-catalog.xml</code> artifact to each schema document subset it generates.  The NIEM 3.0 release also includes an an <code>xml-catalog.xml</code> artifact.  These are simple examples of the use of XML catalogs in NIEM.</p>
 	
-	<p>To assemble an XML schema from schema documents:</p>
-	<pre>
-	IF an <code>xml-catalog.xml</code> exists in the root directory of the MPD archive, 
-	THEN
-		Use that <code>xml-catalog.xml</code> artifact to assemble a schema.
-	ELSE
-		Use all XML schema documents in the directories with initial substring names <code>subset</code>, <code>extension</code>, <code>exchange</code>, and <code>external</code>.
-	</pre>
+	<p>While not mandatory, xml-catalogs can be used in NIEM MPDs to resolve XML schema document target namespaces to local URIs.  This can be especially useful when required to assemble a schema from an XML schema document set to validate an IEP.  Several validators (e.g., <link href="http://xerces.apache.org">Xerces</link>) utilize xml-catalogs.  IEPD authors may wish to employ xml-catalogs within their IEPDs to help facilitate validation of IEPs.</p>
+	
+	<p>By convention, for IEPDs that are relatively simple, assembling a schema can usually be facilitated by ensuring the <code>xs:import schemaLocation</code> attributes in the schema documents correctly reference appropriate schema documents.  However, in more complex IEPDs, it will likely be necessary to employ xml-catalogs.</p>
 
-	<p>Assembling a schema from the XML schema documents of non-conformant external standards that contain <code>xs:include</code> can be problematic.  If an xml-catalog resulting from assembling external XML schema documents contains any two <code>uri</code> element entries with identical namespaces, then that xml-catalog is invalid.</p>
+	<p>Be aware that assembling a schema from the XML schema documents of non-conformant external standards that contain <code>xs:include</code> can be problematic.  If an xml-catalog resulting from assembling external XML schema documents contains any two <code>uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation and may have to be built manually.</p>
 
 </section>
 
 
 
-<p>#######################</p>
+<section id="Sample-IEP">
+	<title>Sample Information Exchange Packages (IEPs)</title>
 
-<section id="Sample-XML-Instances">
-	<title>Sample Information Exchange Packages</title>
+	<p>This section only applies to IEPDs.</p>
 
-	<p>This section is only applicable to IEPDs.</p>
-
-	<p>XML schema document sets define Informaition Exchange Packages (IEP), i.e., data exchange instance XML documents.  It is certainly possible to construct an example IEP for an entire NIEM release, but such an instance is of questionable value.  Rarely, if ever, will an entire NIEM release be needed to define a data exchange.  However, sample IEPs are valuable artifacts to include with IEPDs.  As samples of the actual exchange data, IEPs can help an IEPD implementer to understand the original intent of the IEPD author.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  And finally, the inclusion of valid, meaningful sample IEP is an indication of IEPD quality.  For these reasons, IEPDs require valid IEPs.</p>
+	<p>The base schema document set in an IEPD defines Information Exchange Packages (IEPs), i.e., data exchange instance XML documents.  Sample IEPs are valuable artifacts to include with an IEPD.  As representations of the actual exchange data, IEPs can help an IEPD implementer to understand the original intent of the IEPD author.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  Furthermore, the inclusion of valid, meaningful sample IEP is an indication of IEPD quality.  For these reasons, IEPDs require valid IEPs.</p>
 
 	<rule id="r-iepd-sample">
 		<p>A NIEM IEPD MUST contain at least one valid sample instance XML document artifact for each IEP root element.</p>
@@ -1335,9 +1332,7 @@
 
 	<p>Note that each sample instance XML document illustrates one view of the data based on a chosen set of conditions that apply to an IEP.  Other views based on different conditions likely exist.  A implementer must review the business rules and other documentation in an IEPD to ensure understanding of all possible conditions.  Do not rely exclusively on sample instance XML documents, since they are not required to account for all IEP permutations.</p>
 
-	<p>This specification encourages but does not mandate the inclusion of sample instance XML documents for EIEMs and domain updates.  Again, such instances may be valuable to user understanding of the intent and usage of data components (especially, those that are new, extended, or changed).</p>
-
-</section>
+	<p>This specification encourages but does not mandate the inclusion of sample IEPs in EIEMs and domain updates.  However, IEPs may provide valuable insight into the intent and usage of new, extended, or changed data components.</p>
 
 
 
@@ -1351,14 +1346,8 @@
 	<p>In place of <code>Validation</code> a developer substitutes <code>XMLSchemaValidation</code> or <code>SchematronValidation</code> elements.  These elements contain the <code>xmlCatalogURI</code> attribute or the <code>schematronSchemaURI</code> attribute respectively.  The attribute values identify the location of the XML schema document(s) with which to execute the particular validation required.  At present, only XML Schema and Schematron validation are available.  However, if needed in the future, other kinds of validation can be added to the <code>Validation</code> substitution group.</p>
 
 </section>
-
-
-
-
 </section>
-
-<p>###########################</p>
-
+</section>
 
 
 <section id="Optional-MPD-Artifacts">
