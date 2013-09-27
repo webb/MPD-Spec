@@ -739,6 +739,23 @@
 </section>
 
 
+
+<section id="External-Schemas">
+	<title>External Schema Documents</title>
+
+	<p>NIEM allows the use of <em>external schema documents</em> that do not conform to NIEM.  Data components declared and defined in external schema documents require NIEM <em>adapter types</em> to identify the fact they do not conform to NIEM.</p>
+
+	<definition term="external schema documents">
+		<p>Any XML schema document that is not a NIEM-supporting schema and that is not NIEM-conformant.
+		</p>
+	</definition>	
+
+	<p>Refer to the <ref idref="NIEM-NDR"/> for details about external schemas, adapter types, and the rules describing their usage.</p> 
+
+</section>
+
+
+
 <section id="Exchange-Schemas">
 	<title>Exchange Schema Documents</title>
 
@@ -788,22 +805,6 @@
 
 
 
-<section id="External-Schemas">
-	<title>External Schema Documents</title>
-
-	<p>NIEM allows the use of <em>external schema documents</em> that do not conform to NIEM.  Data components declared and defined in external schema documents require NIEM <em>adapter types</em> to identify the fact they do not conform to NIEM.</p>
-
-	<definition term="external schema documents">
-		<p>Any XML schema document that is not a NIEM-supporting schema and that is not NIEM-conformant.
-		</p>
-	</definition>	
-
-	<p>Refer to the <ref idref="NIEM-NDR"/> for details about external schemas, adapter types, and the rules describing their usage.</p> 
-
-</section>
-
-
-
 <section id="Base-Schema-Set">
 	<title>Base Schema Document Set</title>
 
@@ -844,7 +845,7 @@
 	<p>Constraint schema documents are generally designed and employed in sets, similar to reference schema document set or schema document subsets.  A common practice for creating an IEPD or EIEM constraint schema document set is to start with a valid NIEM schema document subset and modify it to further restrict the class of instance XML documents (IEPs) that will validate with this constraint schema set.  However, an extension or exchange schema document can also be used to derive a constraint schema document.  The namespace of a constraint schema document is established the same way the namespace of a subset schema document is established, by reusing the target namespace of the schema document from which it is derived.</p>
 
 	<rule id="r-mpd-tgtns">
-		<p>A constraint schema document bears a target namespace that has been previously assigned to a reference, extension, or exchange schema document, or is a constraint schema document intended to support another constraint schema document that has such a target namespace.</p>
+		<p>A constraint schema document MUST bear a target namespace that has been previously assigned to a reference, extension, or exchange schema document, or is a constraint schema document intended to support another constraint schema document that has such a target namespace.</p>
 	</rule>
 
 	<p>To use a constraint schema document set to tighten constraints on IEPs, a two-pass validation technique is employed.  In the first pass, an IEP is validated against the schema document subset, extension schema documents, and one exchange schema document.  This pass ensures that IEP semantics and structure conform to the NIEM model and NDR.  In the second pass, an IEP is checked against a constraint schema document set, which may contain constrained versions of the subset schema documents, extension schema documents, and the appropriate exchange schema document.  This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate).</p>
@@ -908,7 +909,15 @@
 	    <td> NA </td>
 	    <td> 0,U </td>
 	    <td> 0,U </td>
-	</tr>
+    	</tr>
+    	<tr>
+            <td>External </td>
+	    <td> 0,U </td>
+	    <td> 0,U </td>
+	    <td> 0,U </td>
+	    <td> 0,U </td>
+	    <td> 0,U </td>
+    	</tr>
 	<tr>
             <td>Exchange </td>
 	    <td> NA </td>
@@ -951,6 +960,8 @@
 <section id="MPD-Documentation-Artifacts">
 	<title>MPD Documentation Artifacts</title>
 	
+	<p>XML schema documents (and the schemas that result from them) are the essence of a NIEM MPD.  All other artifacts are considered documentation.</p>
+
 	<p>A variety of documentation files may be incorporated into a NIEM MPD.  However, in addition to XML schema documents, there are only two mandatory documentation artifacts required by every MPD:  the <em>mpd-catalog</em> and the <em>change log</em>.  An mpd-catalog (<code>mpd-catalog.xml</code>) contains identifiers, key metadata, information, and relationships about the MPD.  The change log provides a history of modifications.</p>
 
 	<p>A <em>master document</em> is also mandatory for IEPDs and EIEMs.  These MPD classes are built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM master document is the primary source and starting point for human readable documentation (similar to a <code>readme</code> file), and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.</p>
@@ -1137,6 +1148,22 @@
 </section>
 
 
+
+<section id="MPD-Artifact-Lineage">
+	<title>MPD Artifact Lineage</title>
+
+	<p>An important MPD business requirement is transparency of lineage.  MPDs must facilitate identification of the relationships that may exist among artifacts, families, versions, adaptations, specializations, generalizations, etc. of MPDs.  The established URI scheme for MPDs and MPD artifacts as well as the mpd-catalog help make this possible.</p>
+
+	<p>The mpd-catalog provides a <code>Relationship</code> element with three attributes (<code>resourceURI</code>, <code>relationshipCode</code>, and <code>descriptionText</code>) to identify the pedigree of an MPD.  There are many ways that one MPD may relate to another.  This makes it extremely difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>descriptionText</code> attribute is provided to further explain the nature of any of the eight <code>relationshipCode</code> values available {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>relationshipCode</code> may be generic enough to require a more detailed explanation in <code>descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
+
+	<p>The mpd-catalog also enables an author to record a fine-grained pedigree between MPDs when reusing artifacts from other MPDs.  By default each artifact identified in an mpd-catalog has a globally unique URI (using a fragment reference) that can refer to it.  An MPD author signifies reuse of a given artifact by entering the URI for that artifact in the optional <code>externalURI</code> attribute within the appropriate <code>FileType</code> or <code>FileSetType</code> elements.</p>
+
+	<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse a given EIEM.  In such cases, the mpd-catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The mpd-catalog can contain many references to and semantics for artifacts and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.</p>
+
+</section>
+</section>
+
+
 <section id="Wantlists">
 	<title>Wantlists</title>
 
@@ -1157,19 +1184,6 @@
 </section>
 
 
-<section id="MPD-Artifact-Lineage">
-	<title>MPD Artifact Lineage</title>
-
-	<p>An important MPD business requirement is transparency of lineage.  MPDs must facilitate identification of the relationships that may exist among artifacts, families, versions, adaptations, specializations, generalizations, etc. of MPDs.  The established URI scheme for MPDs and MPD artifacts as well as the mpd-catalog help make this possible.</p>
-
-	<p>The mpd-catalog provides a <code>Relationship</code> element with three attributes (<code>resourceURI</code>, <code>relationshipCode</code>, and <code>descriptionText</code>) to identify the pedigree of an MPD.  There are many ways that one MPD may relate to another.  This makes it extremely difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>descriptionText</code> attribute is provided to further explain the nature of any of the eight <code>relationshipCode</code> values available {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>relationshipCode</code> may be generic enough to require a more detailed explanation in <code>descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
-
-	<p>The mpd-catalog also enables an author to record a fine-grained pedigree between MPDs when reusing artifacts from other MPDs.  By default each artifact identified in an mpd-catalog has a globally unique URI (using a fragment reference) that can refer to it.  An MPD author signifies reuse of a given artifact by entering the URI for that artifact in the optional <code>externalURI</code> attribute within the appropriate <code>FileType</code> or <code>FileSetType</code> elements.</p>
-
-	<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse a given EIEM.  In such cases, the mpd-catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The mpd-catalog can contain many references to and semantics for artifacts and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.</p>
-
-</section>
-
 
 <section id="Declaration-of-IEP-Root-Elements">
 	<title>Declaration of IEP Root Elements and Other Validation Targets</title>
@@ -1188,6 +1202,10 @@
 	<title>OASIS XML Catalog</title>
 
 	<p>As implied in the previous section above, NIEM MPDs use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs, specifically for the purpose of XML validation.  To facilitate this:</p> 
+
+
+	<p>#######################</p>
+
 
 	<rule id="r-xml-catalog-all">
 		<p>All XML schema documents used in an MPD MUST be identified by namespace (<code>name</code> and location (<code>uri</code>) in an xml-catalog artifact.</p>
@@ -1216,8 +1234,11 @@
 	<p>Be aware that use of <code>xs:include</code> by non-conformant external schema documents can often be problematic when marshalling XML schema documents for validation.  If your external schema documents contain <code>xs:include</code>, then the following rule may also apply:</p>
 
 	<rule id="r-external-include">
-	<p>Given an external schema document set that contains <code>xs:include</code>, if th xml-catalog resulting from assembling the external schema documents contains any two <code>uri</code> element entries for two different XSD artifacts with identical namespaces, then the IEPD author is responsible to provide an xml-catalog for validation.</p>
+	<p>Given an external schema document set that contains <code>xs:include</code>, if the xml-catalog resulting from assembling the external schema documents contains any two <code>uri</code> element entries for two different XSD artifacts with identical namespaces, then the IEPD author is responsible to provide an xml-catalog for validation.</p>
 	</rule>
+
+	<p>###########################</p>
+
 
 	<p>Note that the <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an OASIS XML catalog to each schema document subset it generates.  The NIEM 3.0 release MPD also includes an XML catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
 
@@ -1369,7 +1390,6 @@
 	<li><p>Authors are also encouraged to include an executive summary, especially for particularly lengthy master documents.</p></li>
 </ul>
 
-</section>
 </section>
 </section>
 </section>
