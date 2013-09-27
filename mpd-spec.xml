@@ -1306,12 +1306,25 @@
 	<p>In general, this section is applicable to all MPDs.  However, it has particular importance to IEPDs and IEP validation (to be covered in more detail in <ref idref="Sample-IEP"/>.</p>
 
 	<p><ref idref="OASIS-XML-Catalogs"/> are instance XML documents that describe a mapping between external entity references and locally-cached equivalents.  The <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an <code>xml-catalog.xml</code> artifact to each schema document subset it generates.  The NIEM 3.0 release also includes an an <code>xml-catalog.xml</code> artifact.  These are simple examples of the use of XML catalogs in NIEM.</p>
-	
-	<p>While not mandatory, xml-catalogs can be used in NIEM MPDs to resolve XML schema document target namespaces to local URIs.  This can be especially useful when required to assemble a schema from an XML schema document set to validate an IEP.  Several validators (e.g., <link href="http://xerces.apache.org">Xerces</link>) utilize xml-catalogs.  IEPD authors may wish to employ xml-catalogs within their IEPDs to help facilitate validation of IEPs.</p>
-	
-	<p>By convention, for IEPDs that are relatively simple, assembling a schema can usually be facilitated by ensuring the <code>xs:import schemaLocation</code> attributes in the schema documents correctly reference appropriate schema documents.  However, in more complex IEPDs, it will likely be necessary to employ xml-catalogs.</p>
 
-	<p>Be aware that assembling a schema from the XML schema documents of non-conformant external standards that contain <code>xs:include</code> can be problematic.  If an xml-catalog resulting from assembling external XML schema documents contains any two <code>uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation and may have to be built manually.</p>
+	<p>While not mandatory, xml-catalogs can be used in NIEM MPDs to resolve XML schema document target namespaces to local URIs.  This can be especially useful when required to assemble a schema from an XML schema document set to validate an IEP.  Several validators (e.g., <link href="http://xerces.apache.org/xerces2-j/faq-xcatalogs.html">Xerces</link>) utilize xml-catalogs.  IEPD authors may wish to employ xml-catalogs within their IEPDs to help facilitate validation of IEPs.</p>
+	
+	<p>By convention, for IEPDs that are relatively simple, assembling a schema can usually be facilitated simply by ensuring the <code>xs:import schemaLocation</code> attribute values in the schema documents correctly reference the appropriate XML schema documents.  However, in more complex IEPDs, it may be necessary to employ xml-catalogs.</p>
+
+	<p>Assembling a schema from or building an xml-catalog for the XML schema documents of non-conformant external standards that contain <code>xs:include</code> can be problematic.  <ref idref="NIEM-SSGT"/> schema document subsets and NIEM reference schema document sets contain <code>xml-catalog.xml</code> artifacts that are correctly constructed for user convenience.</p>
+
+	<p>Be aware that if an xml-catalog (resulting from assembling external XML schema documents) contains any two <code>uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation.  It will have to be modified to ensure that each namespace resolves to one and only one unique xml-catalog <code>uri</code> attribute value.</p>
+
+
+	<p>#################################</p>
+	<rule id="r-resolution">
+		<p>An IEPD MUST correctly resolve all namespaces to local URIs through one of the following mechanisms:</p>
+		<ul>
+			<li><p>Include appropriate xml-catalog artifacts and one or more <code>IEP</code> elements within the <code>mpd-catalog.xml</code> that provide instructions for validating IEP root element(s) and other validation targets.</p></li>
+			<li><p>Include an <code>xml-catalog.xml</code> artifact in the IEPD root directory.</p></li>
+			<li><p>Ensure that all <code>xs:import schemaLocation</code> values in all XML schema documents resolve to appropriate XML schema documents.</p></li>
+		</ul>
+	</rule>
 
 </section>
 
@@ -1322,15 +1335,19 @@
 
 	<p>This section only applies to IEPDs.</p>
 
-	<p>The base schema document set in an IEPD defines Information Exchange Packages (IEPs), i.e., data exchange instance XML documents.  Sample IEPs are valuable artifacts to include with an IEPD.  As representations of the actual exchange data, IEPs can help an IEPD implementer to understand the original intent of the IEPD author.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  Furthermore, the inclusion of valid, meaningful sample IEP is an indication of IEPD quality.  For these reasons, IEPDs require valid IEPs.</p>
+	<p>The base schema document set in an IEPD defines Information Exchange Packages (IEPs), i.e., data exchange instance XML documents.  Sample IEPs are valuable artifacts to include with an IEPD.  As representations of the actual exchange data, IEPs can help an IEPD implementer to understand the original intent of the IEPD author.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  Furthermore, the inclusion of meaningful, valid IEPs is an indication of IEPD quality.</p>
+
+	<definition term="valid IEP">
+		<p>An IEP that validates to the IEPD base schema document set, all required constraint schema document sets, and all required Schematron documents.</p>
+	</definition>
 
 	<rule id="r-iepd-sample">
-		<p>A NIEM IEPD MUST contain at least one valid sample instance XML document artifact for each IEP root element.</p>
+		<p>A NIEM IEPD MUST contain at least one valid IEP artifact for each IEP root element.</p>
 	</rule>
 
-	<p>The intent of this rule is not to provide a test for all permutations of instances XML documents that might be possible given the schema definitions and declarations.  Its purpose is to ensure IEPD authors have tested their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  IEPD authors should strive to include sample instances XML documents that (1) capture real world business cases of data exchanges, and (2) exercise as many data component definitions and declarations in the schemas as possible.  While both of these goals may not be achievable in a single sample instance XML document, authors have the option to include multiple sample instance XML documents; however, only one per intended IEP root element is mandatory.</p>
+	<p>The intent of the foregoing rule is not to provide a test for all permutations of IEPs that might be possible given the schema definitions and declarations.  Its purpose is to ensure IEPD authors have tested their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges (if possible), and (2) exercise as many data component definitions and declarations in the schemas as possible.  While both of these goals may not be achievable in a single IEP, authors have the option to include multiple IEPs; however, only one per intended IEP root element is mandatory.</p>
 
-	<p>Note that each sample instance XML document illustrates one view of the data based on a chosen set of conditions that apply to an IEP.  Other views based on different conditions likely exist.  A implementer must review the business rules and other documentation in an IEPD to ensure understanding of all possible conditions.  Do not rely exclusively on sample instance XML documents, since they are not required to account for all IEP permutations.</p>
+	<p>Note that each sample IEP illustrates one view of the data based on a chosen set of conditions.  Other views based on different conditions likely exist.  An implementer will still need to review the business rules and other documentation in an IEPD to ensure understanding of all potential conditions.  Do not rely exclusively on sample IEPs, since they will not likely account for all possible permutations.</p>
 
 	<p>This specification encourages but does not mandate the inclusion of sample IEPs in EIEMs and domain updates.  However, IEPs may provide valuable insight into the intent and usage of new, extended, or changed data components.</p>
 
