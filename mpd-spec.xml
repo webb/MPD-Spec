@@ -1296,12 +1296,36 @@
 
 
 
+<section id="OASIS-XML-Catalog">
+	<title>OASIS XML Catalog</title>
+
+	<p>An OASIS XML catalog is an instance XML document describing a mapping between external entity references and locally-cached equivalents.  NIEM MPDs can use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs.  This aids in XML validation.</p>
+
+	<p>The <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an OASIS XML catalog to each schema document subset it generates.  The NIEM 3.0 release also includes an xml-catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
+	
+	<p>To assemble an XML schema from schema documents:</p>
+	<pre>
+	IF an <code>xml-catalog.xml</code> exists in the root directory of the MPD archive, 
+	THEN
+		Use that <code>xml-catalog.xml</code> artifact to assemble a schema.
+	ELSE
+		Use all XML schema documents in the directories with initial substring names <code>subset</code>, <code>extension</code>, <code>exchange</code>, and <code>external</code>.
+	</pre>
+
+	<p>Assembling a schema from the XML schema documents of non-conformant external standards that contain <code>xs:include</code> can be problematic.  If an xml-catalog resulting from assembling external XML schema documents contains any two <code>uri</code> element entries with identical namespaces, then that xml-catalog is invalid.</p>
+
+</section>
+
+
+
 <p>#######################</p>
 
 <section id="Sample-XML-Instances">
-	<title>Sample Instance XML Documents</title>
+	<title>Sample Information Exchange Packages</title>
 
-	<p>XML schema document sets define data exchange instance XML documents.  It is certainly possible to construct an example instance XML document for an entire NIEM release, but such an instance is of questionable value.  Rarely, if ever, will an entire NIEM release be needed to define a data exchange.  However, sample instance XML documents are very valuable artifacts to include with IEPDs.  As samples of the actual exchange data, instance XML documents can help an IEPD implementer to understand the original intent of the IEPD author.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  And finally, the inclusion of valid, meaningful sample instance XML documents is an indication of IEPD quality.  For these reasons, IEPDs require valid sample instance XML documents.</p>
+	<p>This section is only applicable to IEPDs.
+
+	<p>XML schema document sets define Informaition Exchange Packages (IEP), i.e., data exchange instance XML documents.  It is certainly possible to construct an example IEP for an entire NIEM release, but such an instance is of questionable value.  Rarely, if ever, will an entire NIEM release be needed to define a data exchange.  However, sample IEPs are valuable artifacts to include with IEPDs.  As samples of the actual exchange data, IEPs can help an IEPD implementer to understand the original intent of the IEPD author.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  And finally, the inclusion of valid, meaningful sample IEP is an indication of IEPD quality.  For these reasons, IEPDs require valid IEPs.</p>
 
 	<rule id="r-iepd-sample">
 		<p>A NIEM IEPD MUST contain at least one valid sample instance XML document artifact for each IEP root element.</p>
@@ -1331,45 +1355,7 @@
 
 
 
-<section id="OASIS-XML-Catalog">
-	<title>OASIS XML Catalog</title>
 
-	<p>As implied in the previous section above, NIEM MPDs use <em>OASIS XML Catalogs</em> <ref idref="OASIS-XML-Catalogs"/> to resolve XML schema document target namespaces to URIs, specifically for the purpose of XML validation.  To facilitate this:</p> 
-
-	<rule id="r-xml-catalog-all">
-		<p>All XML schema documents used in an MPD MUST be identified by namespace (<code>name</code> and location (<code>uri</code>) in an xml-catalog artifact.</p>
-	</rule>
-
-	<p>This rule means that each XML schema document (file) artifact in an MPD must be identified within some xml-catalog artifact.  Thus, one xml-catalog may contain entries for all XML schema documents, or several xml-catalogs may combine to identify all XML schema documents.  For convenience, xml-catalogs may be linked and sequenced through the use of the <code>nextCatalog</code> element <ref idref="OASIS-XML-Catalogs"/></p> 
-
-	<p>There are two methods for using xml-catalogs to coordinate IEP validation for an IEPD, one is through explicit configuration and the other is by convention.  These rules apply in a strict priority sequence as follows:</p>
-
-	<rule id="r-validation-configuration">
-		<p>(By configuration) If the mpd-catalog contains at least one <code>IEP</code> element, then the base schema validation process MUST follow the validation instructions represented in the mpd-catalog <code>IEP</code> elements.  These instructions MUST identify the XML catalog(s) required to perform validation.</p>
-	</rule>
-
-	<rule id="r-validation-convention">
-		<p>(By convention) If the mpd-catalog does NOT contain an <code>IEP</code> element, then base schema validation MUST employ an XML catalog artifact (<code>xml-catalog.xml</code>) that resides in MPD archive root directory.  This xml-catalog artifact may explicitly contain <code>uri</code> entries for all XML schema document artifacts, or it may link to other xml-catalogs by using a <code>nextCatalog</code> element <ref idref="OASIS-XML-Catalogs"/>.</p>
-	</rule>
-
-	<p>By convention, validation of IEPs with base schemas and schematron schemas proceeds as follows:  For each candidate IEP (an instance XML document):</p>
-
-	<ol>
-		<li><p>Assemble a base XML schema <ref idref="NIEM-NDR"/> and validate the IEP against it by employing the <code>xml-catalog.xml</code> artifact in the MPD archive root directory.</p></li>
-		<li><p>If there exist any exchange schema documents, ensure the document element of the candidate IEP is an element declared in an exchange schema document.</p></li>
-		<li><p>For each schematron schema document <code>/schematron*/*.xsd</code>, assess the candidate IEP against the schematron schema document.</p></li>
-	</ol>
-
-	<p>Be aware that use of <code>xs:include</code> by non-conformant external schema documents can often be problematic when marshalling XML schema documents for validation.  If your external schema documents contain <code>xs:include</code>, then the following rule may also apply:</p>
-
-	<rule id="r-external-include">
-	<p>Given an external schema document set that contains <code>xs:include</code>, if the xml-catalog resulting from assembling the external schema documents contains any two <code>uri</code> element entries for two different XSD artifacts with identical namespaces, then the IEPD author is responsible to provide an xml-catalog for validation.</p>
-	</rule>
-
-
-	<p>Note that the <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an OASIS XML catalog to each schema document subset it generates.  The NIEM 3.0 release MPD also includes an XML catalog.  These are simple examples of the use of XML catalogs in NIEM.</p>
-
-</section>
 </section>
 
 <p>###########################</p>
