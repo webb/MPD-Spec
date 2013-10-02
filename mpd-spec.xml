@@ -401,20 +401,21 @@
 	<p>MPD class similarities:</p>
 	<ul>
 		<li><p>Principal artifacts are XML schema documents (XSD), the purpose for which is to define and declare reusable data components for information exchanges or to define the exchanges themselves.</p></li>
-		<li><p>Each MPD requires a self-documenting <code>mpd-catalog.xml</code> artifact (containing metadata and a listing of its key artifacts), which establishes its purpose, lineage, organization, etc.</p></li>
+		<li><p>Each MPD requires a self-documenting <code>mpd-catalog.xml</code> artifact containing metadata and a listing of its key artifacts.  This establishes its name, version, class, purpose, general content, lineage, etc.</p></li>
 		<li><p>Each MPD requires a change log.</p></li>
 		<li><p>Each MPD requires a Uniform Resource Identifier (URI) and a version number.</p></li>
-		<li><p>Each MPD must be packaged as a self-contained ZIP archive (in one form).  Self-contained simply means that an MPD has copies of (not just URLs or references to) all schema documents needed to validate instances it defines.</p></li>
-		<li><p>Each MPD may contain optional alternate representations besides XML Schema (for example, a generic graph, a UML graph, XMI, database format, spreadsheet, etc.).</p></li>
+		<li><p>Each MPD must be packaged as a self-contained ZIP archive (in one form).  Self-contained simply means that an MPD has copies of (not just URLs or references to) all schema documents needed to validate instance XML documents it defines.</p></li>
+		<li><p>Each MPD may contain optional alternate representations besides XML Schema (for example, generic diagram, UML diagram, XMI, database format, spreadsheet, etc.).</p></li>
 	</ul>
 
 	<p>MPD class differences:</p>
 	<ul>
-		<li><p>IEPDs and EIEMs contain subset, extension, and constraint schema documents and document sets.  NIEM releases, core updates, and domain updates contain reference schema document sets.</p></li>
+		<li><p>IEPDs and EIEMs contain subset, extension, external, and constraint schema documents and document sets.  NIEM releases, core updates, and domain updates contain reference schema document sets.</p></li>
 		<li><p>An IEPD must declare at least one XML document element in an XML exchange schema document.  Other MPD classes do not have this requirement.</p></li>
-		<li><p>An IEPD must contain at least one sample instance XML document corresponding to each document element declared in exchange schemas.  An XSLT artifact to display instances is optional.</p></li>
+		<li><p>An IEPD must contain at least one sample instance XML document corresponding to each document element declared in exchange schemas.</p></li>
 		<li><p>EIEMs and domain updates may optionally contain sample instance XML documents and associated XSLT files to display them.  NIEM releases and core updates do not.</p></li>
-		<li><p>Domain updates supersede other published schema documents/namespaces and do not include other unchanged content.  IEPDs, EIEMs, and NIEM releases are independently complete.  Core updates can only supplement and never replace a NIEM core.  However, a core update can be issued as a new complete standalone reference schema document to be used with a NIEM core.</p></li>
+		<li><p>A domain update may supersede and replace another published schema document/namespace.  It may also add to or modify content in another published schema document/namespace without including the unchanged content.  Core updates may only add to (supplement); never a replacement for and never modifies a NIEM Core.</p></li>
+		<li><p>IEPDs, EIEMs, and NIEM releases are independently complete.  A core update can be issued as a new complete standalone reference schema document to be used with a NIEM core.</p></li>
 	</ul>
 
 	<p><ref idref="compare-mpd-classes"/> summarizes the similarities and differences of MPD classes by indicating the characteristics for each:</p>
@@ -462,7 +463,7 @@
 	    <td> X </td>
 	</tr>
 	<tr>
-            <td>Requires self-documenting XML mpd-catalog (specified by XSD) </td>
+            <td>Requires XML mpd-catalog (specified by XSD) </td>
 	    <td> X </td>
 	    <td> X </td>
 	    <td> X </td>
@@ -510,7 +511,7 @@
 	    <td>   </td>
 	</tr>
 	<tr>
-	    <td>Can contain subset, extension, constraint, and/or exchange schema documents </td>
+	    <td>Can contain subset, extension, external, constraint, or exchange schema documents </td>
 	    <td>   </td>
 	    <td>   </td>
 	    <td>   </td>
@@ -518,7 +519,7 @@
 	    <td>   </td>
 	</tr>
 	<tr>
-            <td>Contains subset and extension schema documents; optionally constraint schema document sets </td>
+            <td>Contains subset, extension, or extension schema documents; optionally constraint schema document sets </td>
 	    <td>   </td>
 	    <td>   </td>
 	    <td>   </td>
