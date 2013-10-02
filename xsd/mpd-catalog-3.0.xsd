@@ -11,8 +11,11 @@
     xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/"
     xmlns="http://www.w3.org/2001/XMLSchema">
 
+    <import namespace="http://release.niem.gov/niem/appinfo/3.0/"/>
+    <import namespace="http://release.niem.gov/niem/conformanceTargets/3.0/"/>
     <import namespace="http://release.niem.gov/niem/structures/3.0/"/>
     <import namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
+    <import namespace="http://release.niem.gov/niem/localTerminology/3.0/"/>
 
     <annotation>
       <documentation>
@@ -53,9 +56,13 @@
       <annotation>
 	<documentation>A datatype for an MPD catalog</documentation>
       </annotation>
-        <sequence>
+      <complexContent>
+	<extension base="s:ObjectType">
+          <sequence>
             <element ref="c:MPD"/>
-        </sequence>
+    	  </sequence>
+        </extension>
+      </complexContent>
     </complexType>
 
     <element name="MPD" type="c:MPDType">    
@@ -159,7 +166,7 @@
         <documentation>An example MPD instance XML document or IEP artifact</documentation>
 </annotation>
 </element>
-    <element name="BusinessRules"             type="c:FileType" substitutionGroup="c:Artifact">
+    <element name="BusinessRulesArtifact"     type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
 	  <documentation>An MPD artifact that contains business rules 
 		  and constraints on exchange content</documentation>
