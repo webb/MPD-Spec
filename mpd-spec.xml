@@ -182,7 +182,7 @@
 
 	<p>This specification often refers to the process of <em>XML validation</em>, that is, validation of XML schemas and instance XML documents.  Generally, this should occur periodically during and after design time to ensure the conformance and quality of an information exchange definition (i.e., XML schema documents or document sets) or instance XML documents.  However, local architecture or policy may dictate the need to validate more often, and in some cases may require runtime validation.</p>
 
-	<p>XML schema document sets that define a NIEM information exchange must be authoritative.  Application developers may use other schemas (e.g., constraint schema documents) for various purposes, but for the purposes of determining NIEM conformance, the authoritative schemas are relevant.  This does not mean that XML validation must be performed on all instance XML documents as they are served or consumed; only that the instance XML documents validate if and when XML validation is performed.  Therefore, even when validation is not performed, instance XML documents must be valid against the XML schema document sets that specify them.</p>
+	<p>XML schema document sets that define a NIEM information exchange must be authoritative.  Application developers may use other schemas (e.g., constraint or Schematron schema documents) for various purposes, but for the purposes of determining NIEM conformance, the authoritative reference schema documents (NIEM releases) are relevant.  This does not mean that XML validation must be performed on all instance XML documents as they are served or consumed; only that the instance XML documents validate if and when XML validation is performed.  Therefore, even when validation is not performed, instance XML documents must be valid against the XML schema document sets that specify them.</p>
 
 </section>
 
@@ -685,19 +685,6 @@
 </section>
 
 
-<section id="Omitting-Schemas-in-Subsets">
-	<title>Omitting Schema Documents in Subsets</title>
-
-	<p>In some cases, an entire schema appearing in a reference set may be omitted from a corresponding subset.  The following rule specifies when this is valid.</p>
-
-	<rule id="r-subset-omit-xsd">
-		<p>A schema document contained in a reference schema document set may be omitted from a derived schema document subset, if and only if no elements, attributes, or types declared or defined in the schema document are required to support other elements or types within the schema document subset for exchange purpose.</p>
-	</rule>
-
-	<p>When a schema document is not required, and therefore, has been omitted from a valid schema document subset, there is no longer a reason to import it from anywhere within the schema document subset.  Therefore, because some XML validators (and other tools) expect the file identified in the <code>xs:import/schemaLocation</code> attribute to be present, it's a good idea to remove such references to omitted schema documents.  (Note that <ref idref="Subset-Operations"/> lists a valid operation for this.)</p>
-
-</section>
-
 
 <section id="Multiple-Subsets-in-a-Single-IEPD-or-EIEM">
 	<title>Multiple Schema Document Subsets in a Single IEPD or EIEM</title>
@@ -733,9 +720,9 @@
 
 	<p>A NIEM extension schema document may contain data components built from both options above.  Employment of extension schema documents in an IEPD is entirely optional.</p>
 
-	<p>Multiple extension schema documents are allowed in a single IEPD.  Developers will likely want to reuse many of their extension schema documents in other IEPDs.  Therefore, it is most efficient to put all data component extensions designed for reuse into one extension schema document or document set, and put IEPD-specific data component extensions into a different extension schema document.  The reusable extension schema document or document set can then be easily redeployed in other IEPDs as needed.</p>
+	<p>Multiple extension schema documents are allowed in a single IEPD.  Developers will likely want to reuse many of their extension schema documents in other IEPDs.  Therefore, the best practice for extension is to group all data components designed to reuse into one extension schema document or document set, and group IEPD-specific data components into another.  Then the reusable extension components can be more easily redeployed in other IEPDs as needed.</p>
 
-	<p>Extension schema documents generally contain new data component declarations that may (though not necessarily) be derived from or reference existing NIEM data components.  This being the case, reference schema documents do not exist for new data components found within extension schema documents.  Therefore, extension schema documents must satisfy the more rigorous documentation requirements of reference schema documents in accordance with the <ref idref="NIEM-NDR"/>.  The definition or declaration of each new data component (type, element, or attribute) in an extension schema document must include an <code>xs:annotation</code> element that provides its semantics and NIEM-specific relationships per the <ref idref="NIEM-NDR"/>.</p>
+	<p>Extension schema documents generally contain new data component declarations that may (though not necessarily) be derived from or reference existing NIEM data components.  This being the case, reference schema documents do not exist for new data components found within extension schema documents.  Therefore, extension schema documents must satisfy the more rigorous documentation requirements of reference schema documents.  Per the <ref idref="NIEM-NDR"/>, the definition or declaration of each new data component in an extension schema document must include an <code>xs:annotation</code> element that provides its semantics and NIEM-specific relationships.</p>
 
 </section>
 
