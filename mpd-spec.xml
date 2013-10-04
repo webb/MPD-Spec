@@ -855,7 +855,7 @@
 
 	<p>The chart in <ref idref="classes-mpds-xsds"/> summarizes which types of schema documents are contained in which classes of MPDs and where they are not applicable (NA = Not Applicable; U = unbounded).</p>
 
-	<p>Notice that only NIEM releases, core updates, and domain updates contain reference schema document sets, while only IEPDs and EIEMs contain the user-developed schema document sets.  Since an IEPD defines at least one data exchange, it must contain at least one exchange schema document.  Furthermore, the diamonds (F) indicate that a NIEM-conformant IEPD or EIEM must have at least one schema document that is either a NIEM reference schema document or a NIEM subset schema document derived from a NIEM reference schema document (See <ref idref="r-mpd-ref-sub"/> below this table).</p>
+	<p>Notice that only NIEM releases, core updates, and domain updates contain reference schema document sets, while only IEPDs and EIEMs contain the user-developed schema document sets.  The pluses (+) indicate that a NIEM-conformant IEPD or EIEM must have at least one schema document that is either a NIEM reference schema document or a NIEM subset schema document derived from a NIEM reference schema document (See <ref idref="r-mpd-ref-sub"/>).</p>
 
 <table id="classes-mpds-xsds">
 	<title>Schema document classes vs. MPD classes</title>
@@ -917,8 +917,6 @@
     	</tr>
 </table>
 
-<p><strong>+</strong> Indicates a NIEM-conformant IEPD or EIEM is required to have at least one schema that is either a NIEM reference schema or a subset derived from a NIEM reference schema.</p>
-
 	<rule id="r-mpd-ref-sub">
 		<p>A NIEM-conformant IEPD or EIEM MUST contain at least one schema document that is either a NIEM reference schema document or a subset schema document derived from a NIEM reference schema document.</p>
 </rule>
@@ -932,9 +930,9 @@
 	
 	<p>XML schema documents (and the schemas that result from them) are the essence of a NIEM MPD.  All other artifacts are considered documentation.</p>
 
-	<p>A variety of documentation files may be incorporated into a NIEM MPD.  However, in addition to XML schema documents, there are only two mandatory documentation artifacts required by every MPD:  the <em>mpd-catalog</em> and the <em>change log</em>.  An mpd-catalog (<code>mpd-catalog.xml</code>) contains identifiers, key metadata, information, and relationships about the MPD.  The change log provides a history of modifications.</p>
+	<p>A variety of documentation files may be incorporated into a NIEM MPD.  However, in addition to XML schema documents, there are only two mandatory documentation artifacts required by every MPD:  the <em>mpd-catalog</em> and the <em>change log</em>.  An mpd-catalog (<code>mpd-catalog.xml</code>) contains basic metadata, relationship and lineage data, and validation information.  The change log provides a history of modifications.</p>
 
-	<p>A <em>master document</em> is also mandatory for IEPDs and EIEMs.  These MPD classes are built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM master document is the primary source and starting point for human readable documentation (similar to a <code>readme</code> file), and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.</p>
+	<p>A <em>master document</em> is mandatory for IEPDs and EIEMs.  These MPD classes are built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM master document is the primary source and starting point for human readable documentation (similar to a <code>readme</code> file), and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.</p>
 
 	<p>The following subsections will address these artifacts and the concepts, metadata, and content each supports.</p>
 
@@ -968,14 +966,16 @@
 		<p>An MPD MUST contain an XML mpd-catalog artifact that (1) validates with the NIEM MPD catalog schema (XSD) <ref idref="MPD-Catalog-XSD"/>, and (2) resides in the root directory of the MPD archive, and (3) bears the file name <code>mpd-catalog.xml</code>.</p>
 </rule>
 
-<p>The mpd-catalog identifies key artifacts, MPD and artifact relationships, baseline metadata, and how to test for IEP root elements.  The mpd-catalog is important for generating a table of contents display, search and discovery, and MPD and artifact lineage.  <ref idref="MPD-Catalog-XSD"/> defines the structure and semantics for a NIEM <code>mpd-catalog.xml</code> file.</p>
+<p>The mpd-catalog identifies basic metadata, key artifacts, and MPD and artifact relationships.  When needed, it also provides specific information for how to qualify and validate a candidate IEP for the given IEPD.  The mpd-catalog is important for generating a table of contents display, registration, search and discovery, and MPD and artifact lineage.  <ref idref="MPD-Catalog-XSD"/> defines the structure and semantics for a NIEM <code>mpd-catalog.xml</code> file.</p>
 
 
 
 <section id="MPD-Catalog-TOC">
 	<title>MPD Catalog as a Table of Contents</title>
 
-	<p>A NIEM mpd-catalog is not required to identify or record every artifact in the MPD.  Within the mpd-catalog an author can identify the key artifacts, their path names, dependencies, and lineage.  Employing XSLT, the mpd-catalog can be displayed as a hyperlinked table of contents for human review in a browser.</p>
+	<p>A NIEM mpd-catalog is not required to identify or record every artifact in the MPD.  The MPD author decides which artifacts (files and sets) are important enough to include in the mpd-catalog.  The author may choose to include all artifacts, some artifacts, or no artifacts.</p> 
+
+	<p>The mpd-catalog is designed to identify, classify, and describe any artifact, its path name, dependencies, and lineage.  Employing XSLT, an mpd-catalog can be transformed into an <code>index.html</code> artifact that displays a hyperlinke MPD table of contents and metadata summary for human review in a browser.</p>
 
 </section>
 </section>
@@ -984,7 +984,7 @@
 <section id="Metadata-Concepts">
 	<title>Metadata Concepts</title>
 
-	<p>The MPD catalog also contains both required and optional metadata for the MPD and its artifacts.  The following subsections specify the syntax, formats, and semantics for that metadata.</p>
+	<p>The mpd-catalog also contains both required and optional metadata for the MPD and its artifacts.  The following subsections specify the syntax, formats, and semantics for that metadata.</p>
 
 
 
@@ -1047,13 +1047,15 @@
 
 	<p>The second implication of <ref idref="r-mpd-vers-syntax"/> is that pre-releases are easily identified by the strings <code>alpha</code>, <code>beta</code>, and <code>rc</code>.  These strings are simple visible indicators of MPD status or stage of development.</p>
 
-	<p>This specification places no further restrictions or meaning (implied or otherwise) on a version or release number.  Authors have the option to use numbers between dots to indicate degree of compatibility or other relationships between versions as needed.  For example, for a given MPD, the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2.  Such a claim is acceptable.  However, this specification does not imply any such relationships.  Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the MPD.</p>
+	<p>This specification places no further restrictions or meaning (implied or otherwise) on a version number.  Authors have the option to use integers between dots to indicate degree of compatibility or other relationships between versions as needed.  For example, for a given MPD, the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2.  Such a claim is acceptable.  However, this specification does not imply any such relationships.  Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the MPD.</p>
 
 	<rule id="r-vers-compatability">
 		<p>MPD version numbers within a version series do NOT imply compatibility between versions.  Compatibility between or among MPD versions MUST be explicitly stated in documentation.</p>
 	</rule>
 
-	<p>Note that an author who updates an existing MPD to a new version for no other reason than to conform to this specification may choose the version number based on its previous version number or not, as long as it follows the version number syntax.</p>
+	<p>Note that an author who updates an existing MPD to a new version may choose the version number based on its previous version number or not, as long as it follows the version number syntax. </p>
+
+	<p>Version number syntax applies to MPDs only; there is no mandate to apply this syntax to artifact versioning.  To do so is optional.</p>  
 
 </section>
 
@@ -1087,7 +1089,7 @@
 <section id="URI-Scheme-for-MPD-Artifacts">
 	<title>URI Scheme for MPD Artifacts</title>
 
-	<p>Given the URI for an MPD, a URI exists for each artifact in that MPD.  Again, this specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to designate an artifact URI.  Each file artifact or set (directory) artifact is uniquely identified by its path name relative to the root directory of the MPD archive.  The URI for an MPD artifact is the concatenatation of (1) the MPD URI, (2) the "#" character, and (3) the path name of the artifact.</p>
+	<p>Given the URI for an MPD, a URI also exists for each artifact in that MPD.  Again, this specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to designate an artifact URI.  Each file artifact or set (directory) artifact is uniquely identified by its path name relative to the root directory of the MPD archive.  The URI for an MPD artifact is the concatenatation of (1) the MPD URI, (2) the "#" character, and (3) the path name of the artifact.</p>
 
 	<rule id="r-mpd-uri-syntax">
 		<p>The URI reference to an individual MPD artifact from another resource is the concatenation of</p>
@@ -1104,8 +1106,8 @@
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#subset/niem-core.xsd</code></p></li>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0beta2/#extension/ext-1.1.xsd</code></p></li>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#documentation/user-manual.docx</code></p></li>
-		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#application/</code> (a set artifact)</p></li>
-		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#sampleXML/query/</code> (a set artifact)</p></li>
+		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#application-info/</code> (a set artifact)</p></li>
+		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query/</code> (a set artifact)</p></li>
 		<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/#exchange/request4.xsd</code></p></li>
 	</ul>
 
@@ -1119,12 +1121,16 @@
 
 </section>
 
+	<p>Later in <ref idref="OASIS-XML-Catalog"/> we will describe the use of OASIS XML Catalogs to correlate and resolve namespaces to their corresponding local URIs.</p>
+
+
+	<p>###########</p>
 
 
 <section id="MPD-Artifact-Lineage">
 	<title>MPD Artifact Lineage</title>
 
-	<p>An important MPD business requirement is transparency of lineage.  MPDs must facilitate identification of the relationships that may exist among artifacts, families, versions, adaptations, specializations, generalizations, etc. of MPDs.  The established URI scheme for MPDs and MPD artifacts as well as the mpd-catalog help make this possible.</p>
+	<p>An important MPD business requirement is transparency of lineage.  MPDs internally facilitate identification of the relationships that may exist among their artifacts, families, versions, adaptations, specializations, generalizations, etc.  The URI scheme for MPDs and artifacts as well as the mpd-catalog make this possible.</p>
 
 	<p>The mpd-catalog provides a <code>Relationship</code> element with three attributes (<code>resourceURI</code>, <code>relationshipCode</code>, and <code>descriptionText</code>) to identify the pedigree of an MPD.  There are many ways that one MPD may relate to another.  This makes it extremely difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>descriptionText</code> attribute is provided to further explain the nature of any of the eight <code>relationshipCode</code> values available {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>relationshipCode</code> may be generic enough to require a more detailed explanation in <code>descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
 
