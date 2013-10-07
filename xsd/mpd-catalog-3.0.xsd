@@ -30,9 +30,10 @@
              NIEM releases, core updates, domain updates, 
              NIEM Information Exchange Package Documentation (IEPD), 
              and NIEM Enterprise Information Exchange Models (EIEM). 
-          The purpose of this schema is to define/declare relatively 
-          consistent MPD content structure and metadata to process, 
-          display, review, register, search, discover MPDs efficiently. 
+          The purpose of this schema is to facilitate consistent declaration
+	  of MPD content, metadata, and lineage to process, display, review, register,  
+	  search, discover MPDs efficiently. For IEPDs, the mpd-catalog also provides 
+	  instructions for testing candidate IEPs and validating IEPs to schemas. 
       </documentation>
       <appinfo>
         <term:LocalTerm term="AS"    literal="Authoritative Source"/>
@@ -47,7 +48,8 @@
 	<term:LocalTerm term="POC"   literal="Point of contact"/>
 	<term:LocalTerm term="SSGT"  literal="Schema Subset Generation Tool"/>
         <term:LocalTerm term="URI"   literal="Uniform Resource Identifier"/>
-	<term:LocalTerm term="Wantlist" definition="An XML file that represents a NIEM schema document subset; used by NIEM Schema Subset Generation Tool to input/output a schema document subset"/>
+	<term:LocalTerm term="Wantlist" definition="An XML file that represents a NIEM schema document subset; 
+				used by NIEM Schema Subset Generation Tool to input/output a schema document subset"/>
       </appinfo> 
     </annotation>
 
@@ -135,89 +137,108 @@
       </complexContent>
     </complexType>
 
+
+<!-- Used to declare file dependencies =================================================== -->
+
     <element name="RequiredFile" type="c:FileType">
       <annotation>
-        <documentation>An MPD file artifact that another artifact depends on and should not be separated from</documentation>
+	<documentation>An MPD file artifact that another artifact depends 
+		on and should not be separated from.</documentation>
       </annotation>
     </element>
 
-    <element name="File"                      type="c:FileType" substitutionGroup="c:Artifact">
+
+<!-- File Artifact classifiers ============================================================ -->
+
+
+    <element name="File" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
-        <documentation>An electronic file artifact in an MPD; a file stored on a computer system.</documentation>
+	<documentation>A generic electronic file artifact in an MPD; 
+		a file stored on a computer system; </documentation>
       </annotation>
       </element>
-    <element name="MPDCatalog"                type="c:FileType" substitutionGroup="c:Artifact">
+
+    <element name="MPDCatalog"          type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An mpd-catalog artifact</documentation>
       </annotation>
     </element>
-    <element name="MPDChangeLog"              type="c:FileType" substitutionGroup="c:Artifact">
+    <element name="MPDChangeLog"        type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An MPD artifact that contains a record of the MPD changes</documentation>
-</annotation>
-</element>
-    <element name="MasterDocument"            type="c:FileType" substitutionGroup="c:Artifact">
+      </annotation>
+    </element>
+    <element name="MasterDocument"      type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An MPD master document (readme) artifact</documentation>
-</annotation>
-</element>
-    <element name="ExtendedMPDMetadata"       type="c:FileType" substitutionGroup="c:Artifact">
+      </annotation>
+    </element>
+    <element name="ExtendedMPDMetadata" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An MPD metadata artifact that adds optional author-defined metadata</documentation>
-</annotation>
-</element>
-    <element name="IEPSampleXMLDocument" type="c:FileType" substitutionGroup="c:Artifact">
+      </annotation>
+    </element>
+    <element name="MPDCatalogExtensionXMLCatalog" type="c:FileType" substitutionGroup="c:Artifact">
+      <annotation>
+        <documentation>An xml-catalog that identifies mpd-catalog extensions.</documentation>
+      </annotation>
+    </element>
+    <element name="IEPSampleXMLDocument"    type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An example MPD instance XML document or IEP artifact</documentation>
-</annotation>
-</element>
-    <element name="BusinessRulesArtifact"     type="c:FileType" substitutionGroup="c:Artifact">
+      </annotation>
+    </element>
+    <element name="BusinessRulesArtifact"   type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
-	  <documentation>An MPD artifact that contains business rules 
-		  and constraints on exchange content</documentation>
-  </annotation>
-  </element>
-    <element name="Wantlist"                  type="c:FileType" substitutionGroup="c:Artifact">
-      <annotation>
-	<documentation>An MPD artifact that represents a NIEM schema subset 
-		and is used as an import or export for the NIEM SSGT</documentation>
-</annotation>
-</element>
-    <element name="ExternalSchemaDocument"    type="c:FileType" substitutionGroup="c:Artifact">
+	<documentation>An MPD artifact that contains business rules 
+		and constraints on exchange content</documentation>
+      </annotation>
+    </element>
+    <element name="ExternalSchemaDocument"  type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An MPD artifact that is a schema document external to NIEM</documentation>
-</annotation>
-</element>
-    <element name="ReferenceSchemaDocument"   type="c:FileType" substitutionGroup="c:Artifact">
+      </annotation>
+    </element>
+    <element name="ReferenceSchemaDocument" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An MPD artifact that is a NIEM reference schema document</documentation>
       </annotation>
       </element>
-    <element name="ExtensionSchemaDocument"   type="c:FileType" substitutionGroup="c:Artifact">
+    <element name="ExtensionSchemaDocument" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An MPD artifact that is a NIEM extension schema document</documentation>
       </annotation>
       </element>
-    <element name="SubsetSchemaDocument"      type="c:FileType" substitutionGroup="c:Artifact">
+    <element name="SubsetSchemaDocument"    type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An MPD artifact that is a subset schema document</documentation>
       </annotation>
       </element>
-    <element name="XMLCatalog"                type="c:FileType" substitutionGroup="c:Artifact">
+    <element name="Wantlist" type="c:FileType" substitutionGroup="c:Artifact">
+      <annotation>
+	<documentation>An MPD artifact that represents a NIEM schema subset 
+		and is used as an import or export for the NIEM SSGT</documentation>
+      </annotation>
+    </element>
+    <element name="XMLCatalog" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An MPD artifact that is an OASIS XML catalog </documentation>
       </annotation>
       </element>
-    <element name="Documentation"             type="c:FileType" substitutionGroup="c:Artifact">
+    <element name="Documentation" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An MPD artifact that is a form of explanatory documentation</documentation>
       </annotation>
       </element>
-    <element name="ApplicationInfo"           type="c:FileType" substitutionGroup="c:Artifact">
+    <element name="ApplicationInfo"         type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
-        <documentation>An MPD artifact that is used (e.g., imported or exported) by a software tool</documentation>
+	<documentation>An MPD artifact that is used by a software tool
+		(e.g., import, export, input, output, etc.)</documentation>
       </annotation>
       </element>
+
+
+<!-- Set Artifact Classifiers ====================================================== -->
 
     <element name="BaseSchemaDocumentSet"
              type="c:BaseSchemaDocumentSetType"      substitutionGroup="c:Artifact">
@@ -242,9 +263,14 @@
       </annotation>
       </element>
 
+
+<!-- Artifact Classifier Types ====================================================== -->
+
     <complexType name="BaseSchemaDocumentSetType">
       <annotation>
-	  <documentation>A datatype for an MPD set artifact that may include a schema document subset, as well as reference, extension, exchange, and external schema documents</documentation>
+	<documentation>A datatype for an MPD set artifact that may include a schema 
+		document subset, as well as reference, extension, exchange, 
+		and external schema documents</documentation>
       </annotation>
       <complexContent>
         <restriction base="c:FileSetType">
@@ -261,7 +287,8 @@
 
     <complexType name="ReferenceSchemaDocumentSetType">
       <annotation>
-	  <documentation>A datatype for an MPD set artifact that is a reference schema document set </documentation>
+	<documentation>A datatype for an MPD set artifact 
+		that is a reference schema document set </documentation>
       </annotation>
       <complexContent>
         <restriction base="c:FileSetType">
@@ -321,7 +348,8 @@
       </attribute>
     <attribute name="relationshipCode" type="c:RelationshipCodeSimpleType">
       <annotation>
-	<documentation>A classification or reason for the connectedness between this MPD and the resource referenced in resourceURI.</documentation>
+	<documentation>A classification or reason for the connectedness 
+		between this MPD and the resource referenced in resourceURI.</documentation>
       </annotation>
       </attribute>
 
