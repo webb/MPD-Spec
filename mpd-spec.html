@@ -96,11 +96,16 @@
     xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/"
     xmlns="http://www.w3.org/2001/XMLSchema"&gt;
 
-    &lt;import namespace="http://release.niem.gov/niem/appinfo/3.0/"/&gt;
-    &lt;import namespace="http://release.niem.gov/niem/conformanceTargets/3.0/"/&gt;
-    &lt;import namespace="http://release.niem.gov/niem/structures/3.0/"/&gt;
-    &lt;import namespace="http://release.niem.gov/niem/niem-core/3.0/"/&gt;
-    &lt;import namespace="http://release.niem.gov/niem/localTerminology/3.0/"/&gt;
+    &lt;import namespace="http://release.niem.gov/niem/appinfo/3.0/" 
+	    schemaLocation="http://release.niem.gov/niem/appinfo/3.0/"/&gt;
+    &lt;import namespace="http://release.niem.gov/niem/conformanceTargets/3.0/"
+	    schemaLocation="http://release.niem.gov/niem/conformanceTargets/3.0/"/&gt;
+    &lt;import namespace="http://release.niem.gov/niem/structures/3.0/"
+	    schemaLocation="http://release.niem.gov/niem/structures/3.0/"/&gt;
+    &lt;import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+	    schemaLocation="http://release.niem.gov/niem/niem-core/3.0/"/&gt;
+    &lt;import namespace="http://release.niem.gov/niem/localTerminology/3.0/"
+	    schemaLocation="http://release.niem.gov/niem/localTerminology/3.0/"/&gt;
 
     &lt;annotation&gt;
       &lt;documentation&gt;
@@ -522,21 +527,33 @@
       &lt;/annotation&gt;
     &lt;/element&gt;
 
+    &lt;element name="IEPSampleURI" type="anyURI"&gt;
+      &lt;annotation&gt;
+        &lt;documentation&gt;A local URI to a sample IEP.&lt;/documentation&gt;
+      &lt;/annotation&gt;
+    &lt;/element&gt;
+
     &lt;attribute name="xmlCatalogURI" type="anyURI"&gt;
       &lt;annotation&gt;
-        &lt;documentation&gt;A URI to an OASIS XML catalog artifact within the MPD; its path name&lt;/documentation&gt;
+        &lt;documentation&gt;A URI for an OASIS XML catalog artifact within the MPD; its path name&lt;/documentation&gt;
       &lt;/annotation&gt;
     &lt;/attribute&gt;
 
     &lt;attribute name="schematronSchemaURI" type="anyURI"&gt;
       &lt;annotation&gt;
-        &lt;documentation&gt;A URI to a Schematron schema file.&lt;/documentation&gt;
+        &lt;documentation&gt;A URI for a Schematron schema file.&lt;/documentation&gt;
       &lt;/annotation&gt;
     &lt;/attribute&gt;
 
     &lt;attribute name="testXPath" type="string"&gt;
       &lt;annotation&gt;
 	&lt;documentation&gt;An XPath expression for testing if an XML document is a candidate IEP.&lt;/documentation&gt;
+      &lt;/annotation&gt;
+    &lt;/attribute&gt;
+
+    &lt;attribute name="iepClassURI" type="anyURI"&gt;
+      &lt;annotation&gt;
+	&lt;documentation&gt;A URI for a class of IEP defined by the IEPD.&lt;/documentation&gt;
       &lt;/annotation&gt;
     &lt;/attribute&gt;
 
@@ -547,9 +564,11 @@
         &lt;complexContent&gt;
 	    &lt;extension base="s:ObjectType"&gt;
 	      &lt;sequence&gt;
-	        &lt;element ref="c:Validation" maxOccurs="unbounded"/&gt;
+		&lt;element ref="c:Validation" maxOccurs="unbounded"/&gt;
+		&lt;element ref="c:IEPSampleURI" maxOccurs="unbounded"/&gt;
     	      &lt;/sequence&gt;
-    	      &lt;attribute ref="c:testXPath" use="required"/&gt;
+	      &lt;attribute ref="c:testXPath" use="required"/&gt;
+	      &lt;attribute ref="c:iepClassURI" use="required"/&gt;
 	    &lt;/extension&gt;
         &lt;/complexContent&gt;
     &lt;/complexType&gt;
