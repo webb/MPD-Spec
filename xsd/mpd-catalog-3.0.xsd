@@ -448,31 +448,44 @@
 
 <!-- For Defining IEPs ================================================= -->
 
-    <element name="IEPDefinition" type="c:IEPDefinitionType">
+    <element name="IEPDefinition" type="s:id">
       <annotation>
-        <documentation>An Information Exchange Package candidate</documentation>
+        <documentation>An Information Exchange Package candidate.</documentation>
       </annotation>
     </element>
-    <element name="Validation" abstract="true">
+    <element name="ValidationConstraint" abstract="true">
       <annotation>
-        <documentation>An rule or instructions for validating an IEP candidate</documentation>
+        <documentation>A rule or instructions for validating an IEP candidate.</documentation>
       </annotation>
     </element>
-    <element name="XMLSchemaValidation" type="c:XMLSchemaValidationType" substitutionGroup="c:Validation">
+    <element name="XPathConstraint" type="c:XPathConstraintType"
+	    substitutionGroup="c:ValidationContraint"/>
       <annotation>
-	<documentation>An rule or instruction for XML Schema validation</documentation>
+	<documentation>An XPath test applied to an IEP candidate.</documentation>
+      </annotation>
+    </element>
+    <element name="XMLSchemaValidation" type="c:XMLSchemaValidationType" 
+	substitutionGroup="c:ValidationConstraint">
+      <annotation>
+	<documentation>A rule or instruction for XML Schema validation.</documentation>
       </annotation>
     </element>
     <element name="SchematronValidation" type="c:SchematronValidationType" 
-	substitutionGroup="c:Validation">
+	substitutionGroup="c:ValidationConstraint">
       <annotation>
-        <documentation>A rule or instruction for Schematron validation</documentation>
+        <documentation>A rule or instruction for Schematron validation.</documentation>
       </annotation>
     </element>
 
     <element name="IEPSampleURI" type="anyURI">
       <annotation>
         <documentation>A local URI to a sample IEP.</documentation>
+      </annotation>
+    </element>
+
+    <element name="DerivedFromIEPDefinition" type="c:DerivedFromDefinitionType">
+      <annotation>
+        <documentation>A reference to a parent IEP Definition; expresses an "is-a" relationship.</documentation>
       </annotation>
     </element>
 
@@ -494,12 +507,6 @@
       </annotation>
     </attribute>
 
-    <attribute name="iepDefinitionURI" type="anyURI">
-      <annotation>
-	<documentation>A URI for a class of IEP defined by the IEPD.</documentation>
-      </annotation>
-    </attribute>
-
     <complexType name="IEPDefinitionType">
       <annotation>
         <documentation>A datatype for an IEP candidate</documentation>
@@ -507,11 +514,11 @@
         <complexContent>
 	    <extension base="s:ObjectType">
 	      <sequence>
-		<element ref="c:Validation" maxOccurs="unbounded"/>
-		<element ref="c:IEPSampleURI" maxOccurs="unbounded"/>
+		<element ref="c:ValidationConstraint" maxOccurs="unbounded"/>
+		<element ref="c:IEPSampleURI"         maxOccurs="unbounded"/>
+		<element ref="c:DerivedFromIEPDefinition" minoccurs="0" maxOccurs="unbounded"/>
     	      </sequence>
-	      <attribute ref="c:testXPath" use="required"/>
-	      <attribute ref="c:iepDefinitionURI" use="required"/>
+	      <attribute ref="s:id" use="required"/>
 	    </extension>
         </complexContent>
     </complexType>
@@ -537,6 +544,30 @@
         </extension>
       </complexContent>
     </complexType>
+
+    <complexType name="XPathConstraintType">
+      <annotation>
+        <documentation>A datatype for an XPath test applied to an IEP candidate</documentation>
+      </annotation>
+      <complexContent>
+        <extension base="s:ObjectType">
+          <attribute ref="c:testXPath" use="required"/>
+        </extension>
+      </complexContent>
+    </complexType>
+
+    <complexType name="DerivedFromIEPDefinitionType">
+      <annotation>
+        <documentation>A datatype for a reference to another IEP Definition.</documentation>
+      </annotation>
+      <complexContent>
+        <extension base="s:ObjectType">
+          <attribute ref="s:ref" use="required"/>
+        </extension>
+      </complexContent>
+    </complexType>
+
+
 
 <!-- Metadata =========================================================== -->
     
