@@ -37,16 +37,17 @@
       </documentation>
       <appinfo>
         <term:LocalTerm term="AS"    literal="Authoritative Source"/>
+	<term:LocalTerm term="CAM"   literal="Content Assembly Mechanism"/>
 	<term:LocalTerm term="EIEM"  literal="Enterprise Information Exchange Model"/>
 	<term:LocalTerm term="IANA"  literal="Internet Assigned Numbers Authority"/>
 	<term:LocalTerm term="ID"    literal="Identifier"/>
 	<term:LocalTerm term="IEP"   literal="Information Exchange Package" 
-		definition="an instance XML document"/>
+					definition="an instance XML document"/>
 	<term:LocalTerm term="IEPD"  literal="Information Exchange Package Documentation"/>
 	<term:LocalTerm term="MIME"  literal="Multipurpose Internet Mail Extension"/>
 	<term:LocalTerm term="MPD"   literal="Model Package Description"/>
 	<term:LocalTerm term="OASIS" literal="Organization for the Advancement 
-		of Structured Information Standards"/>
+					of Structured Information Standards"/>
 	<term:LocalTerm term="POC"   literal="Point of contact"/>
 	<term:LocalTerm term="SSGT"  literal="Schema Subset Generation Tool"/>
         <term:LocalTerm term="URI"   literal="Uniform Resource Identifier"/>
@@ -494,6 +495,7 @@
 		      constraints and a unique identifier. Every IEP is an instance 
 		      of one or more IEP Conformance Targets.</documentation>
       </annotation>
+
     </element>
     <element name="ValidityConstraint" abstract="true">
       <annotation>
@@ -560,13 +562,7 @@
       </annotation>
     </element>
 
-<!-- URIs ================================================================== -->
-
-    <element name="IEPSampleURI" type="anyURI">
-      <annotation>
-        <documentation>A local URI to a sample IEP.</documentation>
-      </annotation>
-    </element>
+<!-- URI and expression attributes ====================================== -->
 
     <attribute name="xmlCatalogURI" type="anyURI">
       <annotation>
@@ -594,14 +590,14 @@
       </annotation>
     </attribute>
 
-    <attribute name="camURI" type="anyURI">
+    <attribute name="camArtifactURI" type="anyURI">
       <annotation>
 	      <documentation>.</documentation>
       </annotation>
     </attribute>
 
 
-<!-- Validity Types ======================================================== -->
+<!-- Validity Types ====================================================== -->
 
     <complexType name="IEPConformantTargetType">
       <annotation>
@@ -613,12 +609,18 @@
 	    <extension base="s:ObjectType">
 	      <sequence>
 		<element ref="c:ValidityConstraint" maxOccurs="unbounded"/>
-		<element ref="c:IEPSampleURI"         maxOccurs="unbounded"/>
+		<element ref="c:IEPSampleURI"       maxOccurs="unbounded"/>
     	      </sequence>
 	      <attribute ref="s:id" use="required"/>
 	    </extension>
         </complexContent>
     </complexType>
+
+    <element name="IEPSampleURI" type="anyURI">
+      <annotation>
+        <documentation>A local URI to a sample IEP.</documentation>
+      </annotation>
+    </element>
 
     <complexType name="XMLSchemaValidationType">
       <annotation>
@@ -722,7 +724,7 @@
       <complexContent>
         <extension base="s:ObjectType">
 	  <sequence>
-	    <attribute ref="c:CAMURI"/>
+	    <attribute ref="c:camArtifactURI"/>
 	  </sequence>
         </extension>
       </complexContent>
