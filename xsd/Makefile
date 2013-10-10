@@ -30,7 +30,13 @@ $(TOKENS_DIR)/xmllint/%: %
 	@ touch $@
 
 $(TOKENS_DIR)/mpd-catalog-xml--xsd-valid/%: % xml-catalog.xml $(XSDS)
-	$(IEAD_TOOLS_ROOT)/bin/xsdvalid -catalog xml-catalog.xml $<
+	MPD=$(patsubst %/mpd-catalog.xml,%,$<); \
+	EXT=$$MPD/mpd-catalog-extension-xml-catalog.xml; \
+	if [[ -f $$EXT ]]; \
+		then EXTCAT="-catalog $$EXT"; \
+		else EXTCAT=""; \
+	fi; \
+	$(IEAD_TOOLS_ROOT)/bin/xsdvalid -catalog xml-catalog.xml $$EXTCAT $<
 	@ mkdir -p $(dir $@)
 	@ touch $@
 

@@ -1,30 +1,45 @@
-<xs:schema>
-	<term:LocalTerm term="CAM"   literal="Content Assembly Mechanism"/>
-    <element name="CAMValidation" type="c:CAMValidationType" 
-	substitutionGroup="c:ValidityConstraint">
-      <annotation>
-	      <documentation>.</documentation>
-      </annotation>
-    </element>
+<xs:schema
+   targetNamespace="http://example.org/mpd-extension/cam-validation/1.0"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/"
+   xmlns:mpd-catalog="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
+   xmlns:cam-extension="http://example.org/mpd-extension/cam-validation/1.0"
+   >
 
-    <complexType name="CAMValidationType">
-      <annotation>
-	      <documentation>A datatype for .</documentation>
-      </annotation>
-      <complexContent>
-        <extension base="s:ObjectType">
-	  <sequence>
-	    <attribute ref="c:camArtifactURI"/>
-	  </sequence>
-        </extension>
-      </complexContent>
-    </complexType>
+  <xs:annotation>
+    <xs:documentation>Extensions to an MPD catalog to accommodate CAM validation.</xs:documentation>
+    <xs:appinfo>
+      <term:LocalTerm term="CAM"   literal="Content Assembly Mechanism"/>
+    </xs:appinfo>
+  </xs:annotation>
 
-    <attribute name="camArtifactURI" type="anyURI">
-      <annotation>
-	      <documentation>.</documentation>
-      </annotation>
-    </attribute>
+  <xs:import namespace="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"/>
 
+  <xs:element name="CAMValidationConstraint" 
+              type="cam-extension:CAMValidationConstraintType"
+	      substitutionGroup="mpd-catalog:ValidityConstraint">
+    <xs:annotation>
+      <xs:documentation>A validity constraint indicating that an IEP must validate against a CAM template.</xs:documentation>
+      </xs:annotation>
+    </xs:element>
+
+    <xs:complexType name="CAMValidationConstraintType">
+      <xs:annotation>
+	      <xs:documentation>A datatype for a validity constraint for a CAM template.</xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+        <xs:extension base="mpd-catalog:ValidityConstraintType">
+	  <xs:sequence>
+	  </xs:sequence>
+	  <xs:attribute ref="cam-extension:camArtifactURI"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
+    <xs:attribute name="camArtifactURI" type="xs:anyURI">
+      <xs:annotation>
+	<xs:documentation>.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
 
 </xs:schema>
