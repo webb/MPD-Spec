@@ -7,6 +7,7 @@
 
 <ns prefix="c" uri="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"/>
 <ns prefix="xml-catalog" uri="urn:oasis:names:tc:entity:xmlns:xml:catalog"/>
+<ns prefix="structures" uri="http://release.niem.gov/niem/structures/3.0/"/>
 
 <pattern>
   <rule context="/">
@@ -32,6 +33,13 @@
     <assert test="not(doc-available($uri))
                   or doc($uri)/xml-catalog:catalog"
             >An attribute c:xmlCatalogURI MUST resolve to an XML catalog.</assert>
+  </rule>
+</pattern>
+
+<pattern>
+  <rule context="c:IEPConformanceTarget">
+    <assert test="exists(@structures:id)"
+            >An IEP conformance target MUST have an ID.</assert>
   </rule>
 </pattern>
 

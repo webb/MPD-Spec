@@ -11,16 +11,10 @@
     xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/"
     xmlns="http://www.w3.org/2001/XMLSchema">
 
-    <import namespace="http://release.niem.gov/niem/appinfo/3.0/" 
-	    schemaLocation="http://release.niem.gov/niem/appinfo/3.0/"/>
-    <import namespace="http://release.niem.gov/niem/conformanceTargets/3.0/"
-	    schemaLocation="http://release.niem.gov/niem/conformanceTargets/3.0/"/>
-    <import namespace="http://release.niem.gov/niem/structures/3.0/"
-	    schemaLocation="http://release.niem.gov/niem/structures/3.0/"/>
-    <import namespace="http://release.niem.gov/niem/niem-core/3.0/"
-	    schemaLocation="http://release.niem.gov/niem/niem-core/3.0/"/>
-    <import namespace="http://release.niem.gov/niem/localTerminology/3.0/"
-	    schemaLocation="http://release.niem.gov/niem/localTerminology/3.0/"/>
+    <import namespace="http://release.niem.gov/niem/conformanceTargets/3.0/"/>
+    <import namespace="http://release.niem.gov/niem/structures/3.0/"/>
+    <import namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
+    <import namespace="http://release.niem.gov/niem/localTerminology/3.0/"/>
 
     <annotation>
       <documentation>
@@ -37,7 +31,6 @@
       </documentation>
       <appinfo>
         <term:LocalTerm term="AS"    literal="Authoritative Source"/>
-	<term:LocalTerm term="CAM"   literal="Content Assembly Mechanism"/>
 	<term:LocalTerm term="EIEM"  literal="Enterprise Information Exchange Model"/>
 	<term:LocalTerm term="IANA"  literal="Internet Assigned Numbers Authority"/>
 	<term:LocalTerm term="ID"    literal="Identifier"/>
@@ -90,15 +83,15 @@
       <complexContent>
         <extension base="s:ObjectType">
           <sequence>
+            <element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/>
             <element ref="c:Metadata"/>
-	    <element ref="c:IEPDefinition" minOccurs="0" maxOccurs="unbounded"/>
+	    <element ref="c:IEPConformanceTarget" minOccurs="0" maxOccurs="unbounded"/>
             <element ref="c:Artifact"      minOccurs="0" maxOccurs="unbounded"/>
           </sequence>
           <attribute ref="c:mpdURI"          use="required"/>
           <attribute ref="c:mpdClassCode"    use="required"/>
           <attribute ref="c:mpdName"         use="required"/>
           <attribute ref="c:mpdVersionID"    use="required"/>
-          <attribute ref="c:descriptionText" use="optional"/>
         </extension>
       </complexContent>
     </complexType>
@@ -489,7 +482,7 @@
 
 <!-- IEP Conformance Targets ========================================================== -->
 
-    <element name="IEPConformanceTarget" type="s:id">
+    <element name="IEPConformanceTarget" type="c:IEPConformantTargetType">
       <annotation>
 	      <documentation>A class or category of IEPs which has a set of validity 
 		      constraints and a unique identifier. Every IEP is an instance 
@@ -497,17 +490,28 @@
       </annotation>
 
     </element>
-    <element name="ValidityConstraint" abstract="true">
+    <element name="ValidityConstraint" abstract="true" type="c:ValidityConstraintType">
       <annotation>
-	      <documentation>A rule or instructions for validating 
-		      an IEP candidate.</documentation>
+	<documentation>A rule or instructions for validating an IEP candidate.</documentation>
       </annotation>
     </element>
+
+    <complexType name="ValidityConstraintType">
+      <annotation>
+        <documentation>A base type for all validity constraints.</documentation></annotation>
+      <complexContent>
+        <extension base="s:ObjectType">
+          <sequence>
+            <element ref="nc:DescriptionText" minOccurs="0"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
 
 <!-- Validity Constraints ========================================================= -->
 
     <element name="XPathConstraint" type="c:XPathConstraintType"
-	    substitutionGroup="c:ValidityContraint">
+	    substitutionGroup="c:ValidityConstraint">
       <annotation>
 	      <documentation>An XPath test applied to an IEP candidate 
 		      that returns a Boolean response.</documentation>
@@ -555,13 +559,6 @@
       </annotation>
     </element>
 
-    <element name="CAMValidation" type="c:CAMValidationType" 
-	substitutionGroup="c:ValidityConstraint">
-      <annotation>
-	      <documentation>.</documentation>
-      </annotation>
-    </element>
-
 <!-- URI and expression attributes ====================================== -->
 
     <attribute name="xmlCatalogURI" type="anyURI">
@@ -590,13 +587,6 @@
       </annotation>
     </attribute>
 
-    <attribute name="camArtifactURI" type="anyURI">
-      <annotation>
-	      <documentation>.</documentation>
-      </annotation>
-    </attribute>
-
-
 <!-- Validity Types ====================================================== -->
 
     <complexType name="IEPConformantTargetType">
@@ -608,10 +598,9 @@
         <complexContent>
 	    <extension base="s:ObjectType">
 	      <sequence>
-		<element ref="c:ValidityConstraint" maxOccurs="unbounded"/>
-		<element ref="c:IEPSampleURI"       maxOccurs="unbounded"/>
+		<element ref="c:ValidityConstraint" minOccurs="0" maxOccurs="unbounded"/>
+		<element ref="c:IEPSampleURI"       minOccurs="0" maxOccurs="unbounded"/>
     	      </sequence>
-	      <attribute ref="s:id" use="required"/>
 	    </extension>
         </complexContent>
     </complexType>
@@ -628,7 +617,7 @@
 		      for XML Schema validation.</documentation>
       </annotation>
       <complexContent>
-        <extension base="s:ObjectType">
+        <extension base="c:ValidityConstraintType">
           <attribute ref="c:xmlCatalogURI" use="required"/>
         </extension>
       </complexContent>
@@ -640,7 +629,7 @@
 		      for Schematron validation.</documentation>
       </annotation>
       <complexContent>
-        <extension base="s:ObjectType">
+        <extension base="c:ValidityConstraintType">
           <attribute ref="c:schematronSchemaURI" use="required"/>
         </extension>
       </complexContent>
@@ -652,7 +641,7 @@
 		      applied to an IEP candidate.</documentation>
       </annotation>
       <complexContent>
-        <extension base="s:ObjectType">
+        <extension base="c:ValidityConstraintType">
           <attribute ref="c:testXPath" use="required"/>
         </extension>
       </complexContent>
@@ -663,17 +652,21 @@
 	      <documentation>A datatype for .</documentation>
       </annotation>
       <complexContent>
-        <extension base="s:ObjectType">
-          <attribute ref="c:documentElementList" use="required"/>
+        <extension base="c:ValidityConstraintType">
+          <attribute ref="c:documentElementIDList" use="required"/>
         </extension>
       </complexContent>
     </complexType>
-
-    <attribute name="documentElementList" type="string">
+    
+    <attribute name="documentElementIDList" type="c:QNameListSimpleType">
       <annotation>
-	      <documentation>.</documentation>
+	<documentation>A list of valid document elements for an IEP.</documentation>
       </annotation>
     </attribute>
+
+    <simpleType name="QNameListSimpleType">
+      <list itemType="QName"/>
+    </simpleType>
 
     <complexType name="ConformsToType">
       <annotation>
@@ -682,8 +675,8 @@
 		      external conformance target.</documentation>
       </annotation>
       <complexContent>
-        <extension base="s:ObjectType">
-          <attribute ref="c:ConformanceTargetURI" use="required"/>
+        <extension base="c:ValidityConstraintType">
+          <attribute ref="c:conformanceTargetURI" use="required"/>
         </extension>
       </complexContent>
     </complexType>
@@ -694,21 +687,13 @@
 		      in a human language.</documentation>
       </annotation>
       <complexContent>
-        <extension base="s:ObjectType">
+        <extension base="c:ValidityConstraintType">
 	  <sequence>
-	    <element ref="c:ConstraintDescriptionText"/>
             <element ref="c:RuleText"/>
 	  </sequence>
         </extension>
       </complexContent>
     </complexType>
-
-    <element name="ConstraintDescriptionText" type="nc:TextType"> 
-      <annotation>
-	      <documentation>A short explanation of a validity rule.
-	      </documentation>
-      </annotation>
-    </element>
 
     <element name="RuleText" type="nc:TextType"> 
       <annotation>
@@ -716,19 +701,6 @@
 		      in a human language.</documentation>
       </annotation>
     </element>
-
-    <complexType name="CAMValidationType">
-      <annotation>
-	      <documentation>A datatype for .</documentation>
-      </annotation>
-      <complexContent>
-        <extension base="s:ObjectType">
-	  <sequence>
-	    <attribute ref="c:camArtifactURI"/>
-	  </sequence>
-        </extension>
-      </complexContent>
-    </complexType>
 
 <!-- Metadata ============================================================== -->
     
