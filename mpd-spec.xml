@@ -2,7 +2,6 @@
 <document
    xmlns="https://iead.ittl.gtri.org/wr24/doc/2011-09-30-2258"
    xmlns:html="http://www.w3.org/1999/xhtml">
-
    <title>National Information Exchange Model Model Package Description Specification</title>
    <version>3.0alpha2</version>
   <date>2013-10-16</date>
@@ -12,8 +11,8 @@
     <tableOfContents/>
   </subsection>
   <subsection>
-	  <title>Abstract</title>
-    <p>This document specifies normative rules and non-normative guidance for building Model Package Descriptions (MPDs) that conform to the National Information Exchange Model (NIEM) version 3.0.</p>
+	<title>Abstract</title>
+	<p>This document specifies normative rules and non-normative guidance for building Model Package Descriptions (MPDs) that conform to the National Information Exchange Model (NIEM) version 3.0.</p>
   </subsection>
   <subsection>
     <title>Status</title>
@@ -329,19 +328,21 @@
 
 	<p>A NIEM IEPD is a NIEM-conformant XML schema document set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents, and at least one XML document element (or <em>root</em> as defined in <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#document">#document</link>) declared in a schema document.  The XML schema documents contained in an IEPD work together to define a class of instance XML documents that consistently encapsulate data for meaningful information exchanges.  Each instance XML document in this class validates against the XML schema document set contained in the IEPD.  XML schema documents in a NIEM IEPD conform to the <ref idref="NIEM-NDR"/> and may use or extend data component definitions drawn from NIEM.  An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See <ref idref="NIEM-NDR"/> for details.)</p>
 
-	<p>An IEPD consists of a minimal but complete set of artifacts (XML schema documents, documentation, sample instance XML documents, etc.) that together define and describe an implementable NIEM information exchange.   A complete and normative IEPD should contain an XML schema document set and instructional material necessary to:</p>
+	<p>An IEPD consists of a set of artifacts (XML schema documents, documentation, sample instance XML documents, etc.) that together define and describe an implementable NIEM information exchange.  An IEPD should contain an XML schema document set and instructional material necessary to:</p>
 	<ul>
 		<li><p>Understand information exchange context, content, semantics, and structure.</p></li> 
-		<li><p>Create and validate information exchanges defined by the IEPD.</p></li>
+		<li><p>Create and validate XML documents defined by the IEPD, and used for information exchanges.</p></li>
 		<li><p>Identify the lineage of the IEPD itself and optionally its artifacts.</p></li>
 	</ul>
-	<p>A NIEM IEPD defines an <em>Information Exchange Package (IEP)</em>, which is an instance XML document that validates to the IEPD schema document set.  An IEP is an information message payload serialized as XML and transmitted electronically.  (<ref idref="FEA-DRM"/> and <ref idref="GJXDM-IEPD"/> are the original sources of the terms <em>information exchange package</em> and <em>information exchange package documentation</em>, respectively).</p>
+	<p>A NIEM IEPD defines one or more classes of XML documents.  Each of these XML documents is an <em>Information Exchange Package (IEP)</em> that satisfies all validity constraints for its class as defined by the IEPD.  An IEP is an information message payload serialized as XML and transmitted electronically.  (<ref idref="FEA-DRM"/> and <ref idref="GJXDM-IEPD"/> are the original sources of the terms <em>information exchange package</em> and <em>information exchange package documentation</em>, respectively).</p>
 
-	<definition term="Information Exchange Package (IEP)">
-		<p>An XML document that is a valid instantiation of a NIEM IEPD, and therefore, validates with the schema document set of that IEPD.</p>
+	<definition id="IEP" term="Information Exchange Package (IEP)">
+		<p>An XML document that satisfies all the validity constraints for its class as defined by a NIEM IEPD.</p>
 	</definition>
 
-	<p>NIEM conformance does not require that an IEP be native XML on the transmission medium.  A NIEM-conformant instance XML document may be encrypted, compressed (e.g., using Zip, RAR, <ref idref="W3-EXI"/>, etc.), or wrapped within an envelope mechanism, as long as its original native XML form can be retrieved by the receiver.</p>
+	<p>How to declare validity constraints for one or more IEP classes within an IEPD will be covered in more depth in <ref idref="Information-Exchange-Packages"/>.</p>
+
+		<p>Note that NIEM conformance does not require that an IEP be native XML on the transmission medium.  A NIEM-conformant IEP may be encrypted, compressed (e.g., using <ref idref="PKZIP"/>, <ref idref="RAR"/>, <ref idref="W3-EXI"/>, etc.), or wrapped within an envelope mechanism, as long as its original native XML form can be retrieved by the receiver.</p>
 
 </section>
 
@@ -1119,7 +1120,7 @@
 		<p>NIEM namespaces MUST NOT be used as URIs for MPD artifacts.</p>
 	</rule>
 
-	<p>Later in <ref idref="OASIS-XML-Catalog"/> we will describe the use of OASIS XML Catalogs to correlate and resolve namespaces to their corresponding local URIs.</p>
+	<p>Later in <ref idref="OASIS-XML-Catalogs"/> we will describe the use of OASIS XML Catalogs to correlate and resolve namespaces to their corresponding local URIs.</p>
 
 </section>
 
@@ -1295,39 +1296,39 @@
 </section>
 </section>
 
-<p> ====================================================================== </p>
 
-<section id="OASIS-XML-Catalog">
-	<title>OASIS XML Catalog</title>
 
-	<p>In general, this section is applicable to all MPDs.  However, it has particular importance to IEPDs and IEP validation (to be covered in more detail in <ref idref="Sample-IEP"/>.</p>
+<section id="OASIS-XML-Catalogs">
+	<title>OASIS XML Catalogs</title>
 
-	<p><ref idref="OASIS-XML-Catalogs"/> are instance XML documents that describe a mapping between external entity references and locally-cached equivalents.  The <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an <code>xml-catalog.xml</code> artifact to each schema document subset it generates.  The NIEM 3.0 release also includes an an <code>xml-catalog.xml</code> artifact.  These are simple examples of the use of XML catalogs in NIEM.</p>
+	<p>This section is applicable to all MPDs.  However, it is of particular importance to IEPDs and IEP validation (to be covered in more detail in <ref idref="Information-Exchange-Packages"/>.</p> 
 
-	<p>XML catalogs are used in NIEM MPDs to resolve XML schema document target namespaces to local URIs.  These are especially useful when required to assemble a schema from an XML schema document set to validate an IEP.  Several validators (e.g., <link href="http://xerces.apache.org/xerces2-j/faq-xcatalogs.html">Xerces</link>) utilize xml-catalogs.  IEPD authors must employ xml-catalogs within their IEPDs to help facilitate validation of IEPs.</p>
+	<p><ref idref="OASIS-XML-Catalogs"/> are XML documents that describe a mapping between external entity references and locally-cached equivalents.  They are used to resolve XML schema document target namespaces to local URIs.  This is especially useful when assembling an XML schema from an XML schema document set.  Some validators (e.g., <link href="http://xerces.apache.org/xerces2-j/faq-xcatalogs.html">Xerces</link>) and other tools utilize xml-catalogs for this purpose.</p>
 
-	<p>Assembling a schema from or building an xml-catalog for the XML schema documents of non-conformant external standards that contain <code>xs:include</code> can be problematic.  <ref idref="NIEM-SSGT"/>-generated schema document subsets as well as NIEM releases contain <code>xml-catalog.xml</code> artifacts that are correctly constructed for user convenience.</p>
+	<p>The <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an <code>xml-catalog.xml</code> artifact to each schema document subset it generates.  The NIEM 3.0 release also includes an <code>xml-catalog.xml</code> artifact.  These xml-catalogs are provided simply for user convenience in the case these schema document sets must be assembled into a schema.</p>
 
-	<p>Be aware that if an xml-catalog (resulting from assembling external XML schema documents) contains any two <code>uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation.  It will have to be modified to ensure that each namespace resolves to one and only one unique xml-catalog <code>uri</code> attribute value.</p>
+	<p>IEPD authors must employ xml-catalogs within IEPDs to facilitate validation of IEPs.</p>
 
-	<p>The following rule summarizes the precedence for the two methods that ensure the namespaces of all XML schema documents resolve to a local artifact:</p>
+	<p>Assembling a schema or building an xml-catalog from the XML schema documents of non-conformant external standards that contain <code>xs:include</code> statements can be problematic.  Be aware that if an xml-catalog (resulting from processing a set of external XML schema documents) contains any two <code>uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation.  It will have to be modified to ensure that each namespace resolves to one and only one unique xml-catalog <code>uri</code> attribute value.</p>
+
+	<p>In order to support schema assembly for the purpose of XML validation, the following rule requires that the namespaces of all XML schema documents used within an IEPD resolve to a locally-unique artifact:</p>
 
 	<rule id="r-resolution">
-		<p>An IEPD MUST correctly resolve all namespaces to local URIs through one of the following mechanisms, according to this precedence:</p>
-		<ol>
-			<li><p>Include appropriate xml-catalog artifacts and one or more <code>IEPDefinition</code> elements within the <code>mpd-catalog.xml</code> that provide instructions for validation.</p></li>
-			<li><p>Include an <code>xml-catalog.xml</code> artifact in the IEPD root directory.</p></li>
-		</ol>
+		<p>An IEPD MUST resolve each namespace it uses to a locally-unique URI through one or more <ref idref="OASIS-XML-Catalogs"/>.</p>
 	</rule>
+
+	<p>This rule implies that <code>NextCatalog</code> elements may be used within xml-catalogs to connect them and control their parsing sequence.  An IEPD must contain at least one xml-catalog because it is the only MPD that can specify an IEP <ref idref="IEP"/> and provide validation instructions that would require schema assembly from schema documents.  <ref idref="Information-Exchange-Packages"/> provides more specifics about using xml-catalogs in IEPDs.</p>
 
 </section>
 
 
+<p> ====================================================================== </p>
 
-<section id="Sample-IEP">
-	<title>Sample Information Exchange Packages (IEPs)</title>
 
-	<p>Only IEPDs must contain IEPs.  So, this section only applies to IEPDs.</p>
+<section id="Information-Exchange-Packages">
+	<title>Information Exchange Packages</title>
+
+	<p>Only IEPDs must contain Information Exchange Packages (IEPs).  So, this section only applies to IEPDs.</p>
 
 	<p>The base schema document set in an IEPD defines Information Exchange Packages (IEPs), i.e., data exchange instance XML documents.  Sample IEPs are valuable artifacts to include with an IEPD.  As representations of the actual exchange data, IEPs can help an IEPD implementer to understand the original intent of the IEPD author.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  Furthermore, the inclusion of meaningful, valid IEPs is an indication of IEPD quality.</p>
 
@@ -1890,6 +1891,10 @@ wantlist - An XML document that represents a NIEM schema document subset.  A NIE
 
 <reference id="OASIS-XML-Catalogs" label="OASIS XML Catalogs">
 	<p><em>XML Catalogs</em>, Organization for the Advancement of Structured Information Standards (OASIS) Standard v1.1, 7 October 2005.  Available from <link>https://www.oasis-open.org/committees/download.php/14809/std-entity-xml-catalogs-1.1.html</link>.</p>
+</reference>
+
+<reference id="RAR" label="RAR">
+	<p><link>http://win-rar.com</link></p>
 </reference>
 
 <reference id="RFC2119-KeyWords" label="RFC2119 Key Words">
