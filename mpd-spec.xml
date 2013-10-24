@@ -1322,15 +1322,39 @@
 </section>
 
 
-<p> ====================================================================== </p>
+<!-- ======================================================================================= -->
 
 
 <section id="Information-Exchange-Packages">
 	<title>Information Exchange Packages</title>
 
-	<p>Only IEPDs must contain Information Exchange Packages (IEPs).  So, this section only applies to IEPDs.</p>
+	<p>This section only applies to IEPDs.</p>
 
-	<p>The base schema document set in an IEPD defines Information Exchange Packages (IEPs), i.e., data exchange instance XML documents.  Sample IEPs are valuable artifacts to include with an IEPD.  As representations of the actual exchange data, IEPs can help an IEPD implementer to understand the original intent of the IEPD author.  They can be used by an implementer as data points for validation with the IEPD base schema document set or a constraint schema document set.  Furthermore, the inclusion of meaningful, valid IEPs is an indication of IEPD quality.</p>
+	<p>An IEPD is the only MPD that defines IEPs <ref idref="IEP"/>.  An IEPD does this by declaring (either implicitly or explicitly) one or more <em>IEP Conformance Targets</em>.</p>
+
+	<definition term="IEP Conformance Target" id="iep-conformance-target">
+		<p>A class or category of IEPs which has a set of one or more validity constraints and a unique identifier.  Every IEP is an instance of one or more IEP Conformance Targets.</p>
+	</definition>
+
+	<p>This definition requires that a IEP conformance target be associated with a unique identifier, a <em>Conformance Target URI</em> that distinguishes it from all other IEP conformance targets.  Similar to a URI for an MPD artifact, construct a <em>conformance target URI</em> by concatenating the IEPD's http URI, the pound character (<code>#</code>), and a locally unique (within the IEPD) <link href="http://www.w3.org/TR/xmlschema-2/#NCName">NCName</link> <ref idref="W3-XML-Schema-Structures"/>.</p>
+
+	<definition term="IEP Conformance Target URI" id="iep-conformance-target-uri">
+		<p>A globally unique identifier for an IEP conformance target declared in an IEPD, formed by concatenating:</p>
+		<ol>
+			<li><p>the IEPD URI</p></li>
+			<li><p>the pound character (<code>#</code>) and</p></li>
+			<li><p>a locally unique <link href="http://www.w3.org/TR/xmlschema-2/#NCName">NCName</link> per <ref idref="W3-XML-Schema-Structures"/></p></li>
+		</ol>
+	</definition>	
+
+	<p>An IEPD defines a IEP conformance target through one of two methods.  A simple IEPD may rely on convention, while a more complex IEPD explicitly and formally declares IEP conformance targets in its mpd-catalog.  The subsections that follow describe the artifacts and procedures for declaring and identifying IEP Conformance Targets in IEPDs.</p>
+
+<!-- UNFINISHED ... used to be "Sample IEP" section
+
+	<p>Sample IEPs are valuable artifacts to include with an IEPD.  As representations of the actual exchange data, an IEP can: 
+		Help an IEPD implementer to understand the original intent of the IEPD author.
+		Be used by an implementer as a data point for validation with the IEPD base schema document set or a constraint schema document set.  
+		Be an indicator of IEPD quality.</p>
 
 	<definition term="valid IEP" id="valid-IEP">
 		<p>An IEP that validates to the IEPD base schema document set.</p>
@@ -1346,6 +1370,23 @@
 
 	<p>This specification encourages but does not mandate the inclusion of sample IEPs in EIEMs and domain updates.  However, IEPs may provide valuable insight into the intent and usage of new, extended, or changed data components.</p>
 
+-->
+
+</section>
+
+
+
+<!-- ======================================================================= -->
+
+<section id="Schema-Validity-Assessment"/>
+	<title>Schema Validity Assessment</title>
+
+	<p></p>
+
+</section>
+
+
+<!-- ======================================================================= -->
 
 
 <section id="Declaration-of-IEP-Root-Elements">
@@ -1390,7 +1431,42 @@
 			Assemble an XML schema for $D
 			Validate the candidate IEP against $D
 	</pre>
-	<p>Note that the use of mpd-catalog <code>IEP</code> elements takes precedence over the more conventional procedure that requires looking for standard directory names <ref idref="Non-Normative-Guidance-Directories"/>.  This is why the conventional method is only useful for very simple IEPDs.  Also, note that use of the mpd-catalog <code>IEP</code> element references, and therefore, requires xml-catalogs.</p>
+	<p>Note that the use of mpd-catalog <code>IEP</code> elements takes precedence over the more conventional procedure that requires looking for standard directory names <ref idref="Normative-Guidance-Directories"/>.  This is why the conventional method is only useful for very simple IEPDs.  Also, note that use of the mpd-catalog <code>IEP</code> element references, and therefore, requires xml-catalogs.</p>
+
+
+<!-- ========================== UNFINISHED =========================== -->
+
+	<pre>
+	Declaring Validity Constraints
+	Requirements for Sample IEPs
+
+	MPD Catalog Extension
+	Valid vs Complete
+
+	<definition term="Valid MPD">
+		<p></p>
+	</definition>
+
+	<definition term="Complete MPD">
+		<p></p>
+	</definition>
+
+	<definition term="Valid IEP">
+		<p></p>
+	</definition>
+
+	<definition term="Valid IEPD">
+		<p></p>
+	</definition>
+
+	<definition term="Complete IEPD">
+		<p></p>
+	</definition>
+
+	</pre>
+
+<!-- ================================================================= -->
+
 
 </section>
 </section>
@@ -1448,7 +1524,7 @@
 
 
 <section id="Directory-Organization-Packaging-Other-Criteria">
-	<title>Directory Organization, Packaging, Other Criteria</title>
+	<title>Directory Organization, Packaging, and Other Criteria</title>
 	
 	<p>An MPD is a logical set of electronic files aggregated and organized to fulfill a specific purpose in NIEM.  Directory organization and packaging of an MPD should be designed around major themes in NIEM:  reuse, sharing, interoperability, and efficiency.</p>
 
@@ -1605,7 +1681,7 @@
 	<li><p>Maintain tool-specific artifacts (inputs, outputs, imports, exports, etc.) in a subdirectory with a name that begins with the substring <code>application-info</code>.</p></li>
 </ul>
 
-<p>The guidance above results in an IEPD directory structure that appears below.  Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD.  When the standard conventions will not work well for an IEPD, the author should configure the IEPD using the mpd-catalog (in particular, the <code>IEP</code> element) and xml-catlogs.</p>	
+<p>The guidance above results in an IEPD directory structure that appears below.  Filenames within the <code>extension</code>, <code>external</code>, <code>exchange</code>, <code>schematron</code>, and <code>iep-sample</code> subdirectories are non-normative examples.  Authors are free to assign names for such files according to their own requirements (as long as they do not violate the rules in this specification for other files such as <code>xml-catalog.xml</code> or <code>mpd-catalog.xml</code>).  Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD.  When the standard conventions will not work for an IEPD, the author should configure the IEPD using the mpd-catalog <code>IEP</code> element and xml-catalogs.</p>	
 <pre>
 	/my_iepd-3.2rev4		(root directory of IEPD archive)
 		changelog.*
