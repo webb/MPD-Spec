@@ -1380,26 +1380,27 @@
 	<p>In order to organize a simple IEPD for validatation by convention, an IEPD requires the following set up:</p>
 
 	<ul>
-	<li><p>No <code>IEP</code> element can exist in the mpd-catalog.xml artifact.  Rationale:  Existence of an <code>IEP</code> element takes precedence over convention).</p></li>
-	<li><p>An xml-catalog.xml artifact must exist within the IEPD root directory.  Rationale:  This artifact is required to resolve each and every namespace to a local URI.</p></li>
-	<li><p>A single base schema set must reside within an IEPD subdirectory with initial substring:  <code>"base-xsd"</code>.  Rationale:  An IEPD requires a base schema set.</p></li>
-	<li><p>All IEP root elements must be declared within exchange schemas artifacts that reside within an IEPD subdirectory with initial substring:  <code>"base-xsd/exchange"</code>.  Rationale:  Every element declared in a NIEM exchange schema document is potentially (and therefore, intended to be) an XML document element.</p></li> 
-	<li><p>If present, optional constraint schema sets must reside within an IEPD subdirectory with initial substring:  <code>"constraint"</code>.  Rationale:  For purpose of locating them consistently.</p></li>
-	<li><p>If present, optional Schematron rule artifacts must reside within an IEPD subdirectory with intitial substring:  <code>"schematron"</code>.  Rationale:  For purpose of locating them consistently.</p></li>
+	<li><p>No <code>IEP</code> element can exist in the mpd-catalog.xml artifact.  (Rationale:  Existence of an <code>IEP</code> element takes precedence over convention.)</p></li>
+	<li><p>An <code>xml-catalog.xml</code> artifact must exist within the IEPD root directory.  (Rationale:  This artifact is required to resolve each and every namespace to a local URI.)</p></li>
+	<li><p>A single base schema set must reside within an IEPD subdirectory with initial substring:  <code>"base-xsd"</code>.  (Rationale:  An IEPD requires a base schema set.)</p></li>
+	<li><p>All IEP root elements must be declared within exchange schemas artifacts that reside within an IEPD subdirectory with initial substring:  <code>"base-xsd/exchange"</code>.  (Rationale:  Every element declared in a NIEM exchange schema document is potentially, and therefore, intended to be an XML document element.)</p></li> 
+	<li><p>If present, optional constraint schema sets must reside within an IEPD subdirectory with initial substring:  <code>"constraint"</code>.  (Rationale:  For purpose of locating them consistently.)</p></li>
+	<li><p>If present, optional Schematron rule artifacts must reside within an IEPD subdirectory with initial substring:  <code>"schematron"</code>.  (Rationale:  For purpose of locating them consistently.)</p></li>
 	</ul>
 
 	<p>In summary, IEPD organization for conventional validation can be represented as an algorithm for validating a candidate IEP.  Given a candidate IEP:</p>
 
-	<p>IF a c:IEP element exists in the mpd-catalog.xml artifact,</p>
-	<p>THEN ignore convention and validate the candidate IEP according to the instructions defined by that element.</p>
-	<p>ELSE</p>
-		<p>Assemble a base schema and validate the candidate IEP against it.  (XML schema validation for NIEM conformance)</p>
-		<p>Identify all Schematron documents and validate the candidate IEP against each.  (Schematron validation for additional business rules)</p>
-		<p>Set $L = list of elements declared by XML schema documents in the subdirectory name matching "exchange*" (Identify all IEP root elements)</p>
-		<p>IF $L is non-empty, THEN verify the candidate IEP document element is in L.  (Ensure candidate IEP's XML document element is in the list of all IEP root elements)</p>
-			<p>FOR EACH constraint schema $D in subdirectory name matching "constraint*"  (validate candidate IEP against all constraint schemas assembled from constraint sets)</p>
-				<p>Assemble an XML schema for $D</p>
-				<p>Validate the candidate IEP against $D</p>
+	<p>&nbsp;&nbsp;<code>IF</code> a <code>c:IEP</code> element exists in the <code>mpd-catalog.xml</code> artifact,</p>
+	<p>&nbsp;&nbsp;<code>THEN</code> ignore convention and validate the candidate IEP according to the instructions defined by that element.</p>  (<code>IEP</code> takes precedence.)
+	<p>&nbsp;&nbsp;<code>ELSE</code>:</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;Assemble a base schema and validate the candidate IEP against it.  (XML schema validation for NIEM conformance.)</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;Identify all Schematron documents and validate the candidate IEP against each.  (Schematron validation for additional business rules.)</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;<code>Set $L = list</code> of elements declared by XML schema documents in the subdirectory name matching <code>"exchange*"</code>. (Identify all IEP root elements.)</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;<code>IF $L</code> is non-empty,</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;<code>THEN</code> verify the candidate IEP document element is in <code>L</code>.  (Ensure candidate IEP's XML document element is in the list of all IEP root elements.)</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>FOR EACH</code> constraint schema <code>$D</code> in subdirectory name matching <code>"constraint*"</code>:  (validate candidate IEP against all constraint schemas assembled from constraint sets.)</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assemble an XML schema for <code>$D</code>.</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Validate the candidate IEP against <code>$D</code>.</p>
 </section>
 
 
