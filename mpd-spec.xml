@@ -1406,76 +1406,21 @@
 
 
 <section id="Configuration">
-	<title>Validation by Configuration (explicit)</title>
+	<title>Validation by Configuration - Declaring explicit validity constraints</title>
 
-	<p></p>
-
-</section>
-
-
-
-
-
+	<p<strong>(TBD)</strong></p>
 
 </section>
 
 
 
-
-
-<!-- UNFINISHED ... used to be "Sample IEP" section
-
-	<p>Sample IEPs are valuable artifacts to include with an IEPD.  As representations of the actual exchange data, an IEP can: 
-		Help an IEPD implementer to understand the original intent of the IEPD author.
-		Be used by an implementer as a data point for validation with the IEPD base schema document set or a constraint schema document set.  
-		Be an indicator of IEPD quality.</p>
-
-
-	
-	<rule id="r-iep-sample">
-		<p>A NIEM IEPD MUST contain at least one valid IEP artifact for each IEP root element.</p>
-	</rule>
-
-	<p>The intent of the foregoing rule is not to provide a test for all permutations of IEPs that might be possible given the schema definitions and declarations.  Its purpose is to ensure IEPD authors have tested their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges (if possible), and (2) exercise as many data component definitions and declarations in the schemas as possible.  While both of these goals may not be achievable in a single IEP, authors have the option to include multiple IEPs; however, only one per intended IEP root element is mandatory.</p>
-
-	<p>Note that each sample IEP illustrates one view of the data based on a chosen set of conditions.  Other views based on different conditions likely exist.  An implementer will still need to review the business rules and other documentation in an IEPD to ensure understanding of all potential conditions.  Do not rely exclusively on sample IEPs, since they will not likely account for all possible permutations.</p>
-
-	<p>This specification encourages but does not mandate the inclusion of sample IEPs in EIEMs and domain updates.  However, IEPs may provide valuable insight into the intent and usage of new, extended, or changed data components.</p>
-
--->
-
+</section>
+</section>
 </section>
 </section>
 
 
-<!-- ======================================================================= -->
-
-
-<section id="Declaration-of-IEP-Root-Elements">
-	<title>Declaration of IEP Root Elements and Other Validation Targets</title>
-
-	<p>However, some IEPDs may require a more explicit means of identifying intended IEP root elements.  This can be done through the mpd-catalog schema <ref idref="MPD-Catalog-XSD"/> <code>IEP</code> element.  Use of <code>IEP</code> elements in the mpd-catalog takes precedence over the convention mentioned above for simple IEPDs.</p>
-
-	<p>Refer to <ref idref="MPD-Catalog-XSD"/>.  The <code>IEPType</code> contains an abstract <code>ValidityConstraint</code> element.  In most common cases, this target will be an IEP root element candidate within an exchange schema.  However, the target could be any element in a NIEM-conformant schema.  For example, a <code>testXPath</code> value could identify the root element of an NDEx payload <ref idref="FBI-NDEX"/> that resides within a LEXS message <ref idref="LEXS"/>.</p>
-
-	<p>In place of <code>Validation</code> a developer substitutes <code>XMLSchemaValidation</code> or <code>SchematronValidation</code> elements.  These elements contain the <code>xmlCatalogURI</code> attribute or the <code>schematronSchemaURI</code> attribute respectively.  The attribute values identify the location of the XML schema document(s) with which to execute a particular validation.  At present, only XML Schema and Schematron validation are available.  However, in the future, other kinds of validation may be added to the <code>Validation</code> substitution group.</p>
-
-</section>
-
-
-
-<section id="Validation-Candidate-IEPs">
-	<title>Validation of Candidate IEPs</title>
-
-	<p>In order to conform to this specification for inclusion within an IEPD, an IEP must be valid <ref idref="valid-iep"/>.  An IEP is a <em>candidate IEP</em> until it has been validated against its IEPD schemas.</p>  
-
-	<p>Note that the use of mpd-catalog <code>IEP</code> elements takes precedence over the more conventional procedure that requires looking for standard directory names <ref idref="Normative-Guidance-Directories"/>.  This is why the conventional method is only useful for very simple IEPDs.  Also, note that use of the mpd-catalog <code>IEP</code> element references, and therefore, requires xml-catalogs.</p>
-
-
-<!-- ========================== UNFINISHED =========================
-
-Declaring Validity Constraints
-
+<!-- =====================================================================================
 
 Extending an MPD Catalog for additional validity constraints
 
@@ -1499,11 +1444,46 @@ Requirements for IEP samples
 		<p></p>
 	</definition>
 
--->
+===========================================================================================
+
+<p>Sample IEP</p>
+
+	<p>Sample IEPs are valuable artifacts to include with an IEPD.  As representations of the actual exchange data, an IEP can: 
+		Help an IEPD implementer to understand the original intent of the IEPD author.
+		Be used by an implementer as a data point for validation with the IEPD base schema document set or a constraint schema document set.  
+		Be an indicator of IEPD quality.</p>
 
 
+	<rule id="r-iep-sample">
+		<p>A NIEM IEPD MUST contain at least one valid IEP artifact for each IEP root element.</p>
+	</rule>
 
-</section>
+	<p>The intent of the foregoing rule is not to provide a test for all permutations of IEPs that might be possible given the schema definitions and declarations.  Its purpose is to ensure IEPD authors have tested their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges (if possible), and (2) exercise as many data component definitions and declarations in the schemas as possible.  While both of these goals may not be achievable in a single IEP, authors have the option to include multiple IEPs; however, only one per intended IEP root element is mandatory.</p>
+
+	<p>Note that each sample IEP illustrates one view of the data based on a chosen set of conditions.  Other views based on different conditions likely exist.  An implementer will still need to review the business rules and other documentation in an IEPD to ensure understanding of all potential conditions.  Do not rely exclusively on sample IEPs, since they will not likely account for all possible permutations.</p>
+
+	<p>This specification encourages but does not mandate the inclusion of sample IEPs in EIEMs and domain updates.  However, IEPs may provide valuable insight into the intent and usage of new, extended, or changed data components.</p>
+
+===========================================================================================
+
+<p>Declaration of IEP Root Elements and Other Validation Targets</p>
+
+	<p>However, some IEPDs may require a more explicit means of identifying intended IEP root elements.  This can be done through the mpd-catalog schema <ref idref="MPD-Catalog-XSD"/> <code>IEP</code> element.  Use of <code>IEP</code> elements in the mpd-catalog takes precedence over the convention mentioned above for simple IEPDs.</p>
+
+	<p>Refer to <ref idref="MPD-Catalog-XSD"/>.  The <code>IEPType</code> contains an abstract <code>ValidityConstraint</code> element.  In most common cases, this target will be an IEP root element candidate within an exchange schema.  However, the target could be any element in a NIEM-conformant schema.  For example, a <code>testXPath</code> value could identify the root element of an NDEx payload <ref idref="FBI-NDEX"/> that resides within a LEXS message <ref idref="LEXS"/>.</p>
+
+	<p>In place of <code>Validation</code> a developer substitutes <code>XMLSchemaValidation</code> or <code>SchematronValidation</code> elements.  These elements contain the <code>xmlCatalogURI</code> attribute or the <code>schematronSchemaURI</code> attribute respectively.  The attribute values identify the location of the XML schema document(s) with which to execute a particular validation.  At present, only XML Schema and Schematron validation are available.  However, in the future, other kinds of validation may be added to the <code>Validation</code> substitution group.</p>
+
+===========================================================================================
+
+<p>Declaring validity constraints</p>
+
+	<p>In order to conform to this specification for inclusion within an IEPD, an IEP must be valid <ref idref="valid-iep"/>.  An IEP is a <em>candidate IEP</em> until it has been validated against its IEPD schemas.</p>  
+
+	<p>Note that the use of mpd-catalog <code>IEP</code> elements takes precedence over the more conventional procedure that requires looking for standard directory names <ref idref="Normative-Guidance-Directories"/>.  This is why the conventional method is only useful for very simple IEPDs.  Also, note that use of the mpd-catalog <code>IEP</code> element references, and therefore, requires xml-catalogs.</p>
+
+============================================================================================= -->
+
 
 
 <section id="Optional-MPD-Artifacts">
