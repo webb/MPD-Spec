@@ -760,7 +760,9 @@
 
 	<p>The <ref idref="NIEM-NDR"/> does not allow local element declarations, so all extension schema documents can potentially declare XML document elements.  What distinguishes an exchange schema document from other extension schema documents is the intent for one or more of its declared elements to be an XML document element within an IEP.  Intent can be asserted implicitly by convention (generally, for simple IEPDs) or explicitly by configuration (for more complex IEPDs).  The details of these methods are discussed in <ref idref="MPD-Catalog"/> and <ref idref="Normative-Guidance-Directories"/>.</p>
 
-	<p>Although generally rare, it is possible to develop an IEPD without an extension schema.  If an author creates an IEPD based entirely on existing NIEM elements, then no extension schema is necessary.  In this case, the exchange schema defines a document element type to contain only existing NIEM elements drawn from a subset or reference schema documents, and declares the documen element of that type.  <ref idref="exchange"/> (and <ref idref="r-mpd-iep-root"/>) ensures that an exchange schema document declares document elements intended for use as the root of an instance XML document.  Because the <ref idref="NIEM-NDR"/> requires all elements be declared with global scope, element declarations not intended to be a document element of an IEP must be placed into extension schema documents.</p>
+	<!-- TODO:  Above refs are no longer correct; revise -->
+
+	<p>Although generally rare, it is possible to develop an IEPD without an extension schema.  If an author creates an IEPD based entirely on existing NIEM elements, then no extension schema is necessary.  In this case, the exchange schema defines a document element type to contain only existing NIEM elements drawn from a subset or reference schema documents, and declares the documen element of that type.  <ref idref="exchange"/> (and <ref idref="r-mpd-iep-root"/>) ensures that an exchange schema document declares document elements intended for use as the root of an instance XML document.  Because the <ref idref="NIEM-NDR"/> requires all elements be declared with global scope, element declarations not intended to be a document element of an IEP should be placed into extension schema documents.</p>
 
 
 	<section id="IEP-Root-Element">
@@ -768,8 +770,10 @@
 
 	<p>An IEP could later be used as the payload of an XML envelope (i.e., another instance XML document, such as a SOAP message).  That XML envelope will have its own document element, and the IEP no longer contains the document element for the instance XML document.  Therefore, in the context of an IEPD, it is more appropriate to refer to a document element as an <em>IEP root element</em>.</p>
 
+<!-- TODO:  This rule may not be valid now; no reason to have such if IEP allows configuration of validation -->
+
 	<definition term="IEP root element">
-		<p>The top-level (parent) element of an IEP.  In the absence of any other XML wrapping of that IEP, the IEP root element is that IEP's XML document element.</p>
+		<p>The top-level (parent) element of an IEP.  An IEP root element is an IEP's XML document element.</p>
 	</definition>
 
 	<p>An IEPD may contain multiple exchange schema documents and each of those documents may contain multiple IEP root elements within a single exchange document.  However, at a minimum:</p>
@@ -1349,9 +1353,6 @@
 
 
 
-
-<!-- ======================================================================= -->
-
 <section id="Schema-Validation">
 	<title>Schema Validation</title>
 
@@ -1364,22 +1365,41 @@
 <section id="Convention">
 	<title>Validation by Convention (implicit)</title>
 
-	<p>A simple conventional approach will ensure an IEPD contains particular artifacts organized in a standard way.  This will enable a user or a process to identify the artifacts and execute schema validation on a candidate IEP.</p>
-
-	<definition term="candidate IEP" id="candidate-iep">
-		<p>An instance XML document that requires validation with schema definitions specified in an IEPD.</p>
-	</definition>
+	<p>A simple conventional approach will ensure an IEPD contains particular artifacts organized in a standard way.  This will enable a user or a process to identify the artifacts and execute schema validation on a <em>candidate IEP to prove that it is a <em>valid IEP</em>.</p>
 
 	<definition term="valid IEP" id="valid-iep">
-		<p>An IEP (an instance XML document) that validates with an XML schema assembled from the IEPD base schema document set.</p>
+		<p>An IEP (an instance XML document) that satisfies all required validity constraints defined in a given IEPD.  We say that such an IEP is a valid IEP for that IEPD.</p>
 	</definition>
 
-	<p>For completeness and consistency, this is an appropriate time to define a <em>valid IEP</em>.</p>
+	<definition term="candidate IEP" id="candidate-iep">
+		<p>An instance XML document that is under consideration as a valid IEP for a given IEPD (and therefore, has not yet been proven to be a valid IEP).</p>
+	</definition>
 
-	<p>Recall (in <ref idref="Exchange-Schema-Documents"/>) that all IEPD element declarations within NIEM schema documents are potentially IEP root elements because they all have global scope.  By convention, in the absence of any explicit declarations of author intent, all elements declared in exchange schema documents are considered IEP root IEP elements.  So, for simple conventional IEPDs ensure that only IEP root elements are declared in exchange schema documents.  This will constitute IEP root intent.</p>
+	<p>Recall (in <ref idref="Exchange-Schema-Documents"/>) that all IEPD element declarations within NIEM schema documents are potentially IEP root elements because they all have global scope.  By convention, in the absence of any explicit declarations of author intent, all elements declared in exchange schema documents are considered IEP root elements.  So, for simple conventional IEPDs, ensure that only IEP root elements are declared in exchange schema documents, as these declarations constitute intent to use them as XML document elements.</p>
 
-	<p>To summarize the conventional (implicit) IEPD approach:</p>
+	<p>In order to organize a simple IEPD for validatation by convention, an IEPD requires the following set up:</p>
 
+	<ul>
+	<li><p>No <code>IEP</code> element can exist in the mpd-catalog.xml artifact.  Rationale:  Existence of an <code>IEP</code> element takes precedence over convention).</p></li>
+	<li><p>An xml-catalog.xml artifact must exist within the IEPD root directory.  Rationale:  This artifact is required to resolve each and every namespace to a local URI.</p></li>
+	<li><p>A single base schema set must reside within an IEPD subdirectory with initial substring:  <code>"base-xsd"</code>.  Rationale:  An IEPD requires a base schema set.</p></li>
+	<li><p>All IEP root elements must be declared within exchange schemas artifacts that reside within an IEPD subdirectory with initial substring:  <code>"base-xsd/exchange"</code>.  Rationale:  Every element declared in a NIEM exchange schema document is potentially (and therefore, intended to be) an XML document element.</p></li> 
+	<li><p>If present, optional constraint schema sets must reside within an IEPD subdirectory with initial substring:  <code>"constraint"</code>.  Rationale:  For purpose of locating them consistently.</p></li>
+	<li><p>If present, optional Schematron rule artifacts must reside within an IEPD subdirectory with intitial substring:  <code>"schematron"</code>.  Rationale:  For purpose of locating them consistently.</p></li>
+	</ul>
+
+	<p>In summary, IEPD organization for conventional validation can be represented as an algorithm for validating a candidate IEP.  Given a candidate IEP:</p>
+
+	IF a c:IEP element exists in the mpd-catalog.xml artifact,<br/>
+	THEN ignore convention and validate the candidate IEP according to the instructions defined by that element.<br/>
+	ELSE<br/>
+		Assemble a base schema and validate the candidate IEP against it.  (XML schema validation for NIEM conformance)<br/>
+		Identify all Schematron documents and validate the candidate IEP against each.  (Schematron validation for additional business rules)<br/>
+		Set $L = list of elements declared by XML schema documents in the subdirectory name matching "exchange*" (Identify all IEP root elements)<br/>
+		IF $L is non-empty, THEN verify the candidate IEP document element is in L.  (Ensure candidate IEP's XML document element is in the list of all IEP root elements)<br/>
+			FOR EACH constraint schema $D in subdirectory name matching "constraint*"  (validate candidate IEP against all constraint schemas assembled from constraint sets)<br/>
+				Assemble an XML schema for $D<br/>
+				Validate the candidate IEP against $D<br/>
 </section>
 
 
@@ -1448,21 +1468,7 @@
 
 	<p>In order to conform to this specification for inclusion within an IEPD, an IEP must be valid <ref idref="valid-iep"/>.  An IEP is a <em>candidate IEP</em> until it has been validated against its IEPD schemas.</p>  
 
-	<p>The procedure for validating a candidate IEP within an IEPD is an algorithm.  Given a candidate IEP:</p>
-	<pre>
 
-	IF a c:IEP element exists in the mpd-catalog.xml artifact,
-	THEN
-	    Validate the candidate IEP according to the instructions defined by that element.
-	ELSE
-	    Assemble a base schema and validate the candidate IEP against it.
-	    Identify all Schematron documents and validate the candidate IEP against each.
-	    Identify all exchange root IEP elements and validate:
-	    Set $L = list of elements declared by XML schema documents in subdirectory name matching "exchange*"
-		IF $L is non-empty, THEN verify the candidate IEP document element is in L.
-		FOR EACH constraint schema $D in subdirectory name matching "constraint*"
-			Assemble an XML schema for $D
-			Validate the candidate IEP against $D
 	</pre>
 	<p>Note that the use of mpd-catalog <code>IEP</code> elements takes precedence over the more conventional procedure that requires looking for standard directory names <ref idref="Normative-Guidance-Directories"/>.  This is why the conventional method is only useful for very simple IEPDs.  Also, note that use of the mpd-catalog <code>IEP</code> element references, and therefore, requires xml-catalogs.</p>
 
@@ -1733,16 +1739,16 @@ Requirements for IEP samples
 				query.xsd
 				request.xsd
 				...
-			/constraint
-				/niem
-					/niem-core
-					/domains
-					/structures
-					...
-			/schematron
-				business-rules1.sch
-				business-rules2.sch
+		/constraint
+			/niem
+				/niem-core
+				/domains
+				/structures
 				...
+		/schematron
+			business-rules1.sch
+			business-rules2.sch
+			...
 		/iep-sample
 			query.xml
 			request.xml
