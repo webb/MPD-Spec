@@ -1365,7 +1365,7 @@
 <section id="Convention">
 	<title>Validation by Convention (implicit)</title>
 
-	<p>A simple conventional approach will ensure an IEPD contains particular artifacts organized in a standard way.  This will enable a user or a process to identify the artifacts and execute schema validation on a <em>candidate IEP to prove that it is a <em>valid IEP</em>.</p>
+	<p>A simple conventional approach will ensure an IEPD contains particular artifacts organized in a standard way.  This will enable a user or a process to identify the artifacts and execute schema validation on a <em>candidate IEP</em> to prove that it is a <em>valid IEP</em>.</p>
 
 	<definition term="valid IEP" id="valid-iep">
 		<p>An IEP (an instance XML document) that satisfies all required validity constraints defined in a given IEPD.  We say that such an IEP is a valid IEP for that IEPD.</p>
@@ -1390,7 +1390,7 @@
 
 	<p>In summary, IEPD organization for conventional validation can be represented as an algorithm for validating a candidate IEP.  Given a candidate IEP:</p>
 
-	IF a c:IEP element exists in the mpd-catalog.xml artifact,<br/>
+	<p>IF a c:IEP element exists in the mpd-catalog.xml artifact,<br/>
 	THEN ignore convention and validate the candidate IEP according to the instructions defined by that element.<br/>
 	ELSE<br/>
 		Assemble a base schema and validate the candidate IEP against it.  (XML schema validation for NIEM conformance)<br/>
@@ -1399,7 +1399,7 @@
 		IF $L is non-empty, THEN verify the candidate IEP document element is in L.  (Ensure candidate IEP's XML document element is in the list of all IEP root elements)<br/>
 			FOR EACH constraint schema $D in subdirectory name matching "constraint*"  (validate candidate IEP against all constraint schemas assembled from constraint sets)<br/>
 				Assemble an XML schema for $D<br/>
-				Validate the candidate IEP against $D<br/>
+				Validate the candidate IEP against $D<br/></p>
 </section>
 
 
@@ -1468,8 +1468,6 @@
 
 	<p>In order to conform to this specification for inclusion within an IEPD, an IEP must be valid <ref idref="valid-iep"/>.  An IEP is a <em>candidate IEP</em> until it has been validated against its IEPD schemas.</p>  
 
-
-	</pre>
 	<p>Note that the use of mpd-catalog <code>IEP</code> elements takes precedence over the more conventional procedure that requires looking for standard directory names <ref idref="Normative-Guidance-Directories"/>.  This is why the conventional method is only useful for very simple IEPDs.  Also, note that use of the mpd-catalog <code>IEP</code> element references, and therefore, requires xml-catalogs.</p>
 
 
