@@ -1390,7 +1390,7 @@
 	<p>In order to organize a simple IEPD for validatation by convention, an IEPD requires the following set up:</p>
 
 	<ul>
-	<li><p>No <code>IEP</code> element can exist in the mpd-catalog.xml artifact.  (Rationale:  Existence of an <code>IEP</code> element takes precedence over convention.)</p></li>
+	<li><p>No <code>IEPConformanceTarget</code> element can exist in the mpd-catalog.xml artifact.  (Rationale:  Existence of an <code>IEPConformanceTarget</code> element takes precedence over convention.)</p></li>
 	<li><p>An <code>xml-catalog.xml</code> artifact must exist within the IEPD root directory.  (Rationale:  This artifact is required to resolve each and every namespace to a local URI.)</p></li>
 	<li><p>A single base schema set must reside within an IEPD subdirectory with initial substring:  <code>"base-xsd"</code>.  (Rationale:  An IEPD requires a base schema set.)</p></li>
 	<li><p>All IEP root elements must be declared within exchange schema artifacts that reside within an IEPD subdirectory with initial substring:  <code>"base-xsd/exchange"</code>.  (Rationale:  Every element declared in a NIEM exchange schema document is potentially, and therefore, intended to be an XML document element.)</p></li>
@@ -1402,7 +1402,7 @@
 
 	<blockquote>
 	<p><char name="nbsp"/><char name="nbsp"/><code>IF </code> a <code> c:IEP</code> element exists in the <code>mpd-catalog.xml</code> artifact,</p>
-	<p><char name="nbsp"/><char name="nbsp"/><code>THEN</code> ignore convention and validate the candidate IEP according to the instructions defined by that element.  (An <code>IEP</code> element in the mpd-catalog takes precedence.)</p>
+	<p><char name="nbsp"/><char name="nbsp"/><code>THEN</code> ignore convention and validate the candidate IEP according to the instructions defined by that element.  (An <code>IEPConformanceTarget</code> element in the mpd-catalog takes precedence.)</p>
 	<p><char name="nbsp"/><char name="nbsp"/><code>ELSE</code>:</p>
 	<blockquote>
 	<p><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/>Assemble a base schema and validate the candidate IEP against it.  (XML schema validation for NIEM conformance.)</p>
@@ -1420,7 +1420,7 @@
 	</blockquote>
 	</blockquote>
 
-	<p>The foregoing requirements are established and only make sense for simple IEPDs that can employ traditional IEPD conventions.  For whatever reasons, when schema validity constraints cannot be easily applied to an IEPD or if the IEPD itself requires a complex or non-conventional organization, then the IEPD author should explicitly declare validity constraints in the mpd-catalog using <code>IEP</code> elements.  <ref idref="Configuration"/> describes the techniques.</p>
+	<p>The foregoing requirements are established and only make sense for simple IEPDs that can employ traditional IEPD conventions.  For whatever reasons, when schema validity constraints cannot be easily applied to an IEPD or if the IEPD itself requires a complex or non-conventional organization, then the IEPD author should explicitly declare validity constraints in the mpd-catalog using <code>IEPConformanceTarget</code> elements.  <ref idref="Configuration"/> describes the techniques.</p>
 
 </section>
 
@@ -1429,7 +1429,7 @@
 <section id="Configuration">
 	<title>Validation by Configuration - Declaring explicit validity constraints</title>
 
-	<p>Explicit declaration of validity constraints is far more flexible than relying on convention.  Declaring validity constraints in the mpd-catalog, frees an IEPD author from having to follow conventional IEPD organization.  Many standard validity constraints can be controlled from <code>IEP</code> elements within the mpd-catalog without the need to standardize IEPD directory structure or hunt for validation artifacts.  Instead, the <code>IEP</code> element identifies the conformance target, the type of validation, and the location of the validation artifact.  It can also identify the location of IEP samples that are known to satisfy the validity constraints.</p>
+	<p>Explicit declaration of validity constraints is far more flexible than relying on convention.  Declaring validity constraints in the mpd-catalog, frees an IEPD author from having to follow conventional IEPD organization.  Many standard validity constraints can be controlled from <code>IEPConformanceTarget</code> elements within the mpd-catalog without the need to standardize IEPD directory structure or hunt for validation artifacts.  Instead, the <code>IEPConformanceTarget</code> element identifies the conformance target, the type of validation, and the location of the validation artifact.  It can also identify the location of IEP samples that are known to satisfy the validity constraints.</p>
 
 	<p>*** TBD -- ... more to follow ***</p>
 
@@ -1498,7 +1498,7 @@
 
 <p>Declaration of IEP Root Elements and Other Validation Targets</p>
 
-	<p>However, some IEPDs may require a more explicit means of identifying intended IEP root elements.  This can be done through the mpd-catalog schema <ref idref="MPD-Catalog-XSD"/> <code>IEP</code> element.  Use of <code>IEP</code> elements in the mpd-catalog takes precedence over the convention mentioned above for simple IEPDs.</p>
+	<p>However, some IEPDs may require a more explicit means of identifying intended IEP root elements.  This can be done through the mpd-catalog schema <ref idref="MPD-Catalog-XSD"/> <code>IEPConformanceTarget</code> element.  Use of <code>IEPConformanceTarget</code> elements in the mpd-catalog takes precedence over the convention mentioned above for simple IEPDs.</p>
 
 	<p>Refer to <ref idref="MPD-Catalog-XSD"/>.  The <code>IEPType</code> contains an abstract <code>ValidityConstraint</code> element.  In most common cases, this target will be an IEP root element candidate within an exchange schema.  However, the target could be any element in a NIEM-conformant schema.  For example, a <code>testXPath</code> value could identify the root element of an NDEx payload <ref idref="FBI-NDEX"/> that resides within a LEXS message <ref idref="LEXS"/>.</p>
 
@@ -1510,7 +1510,7 @@
 
 	<p>In order to conform to this specification for inclusion within an IEPD, an IEP must be valid <ref idref="valid-iep"/>.  An IEP is a <em>candidate IEP</em> until it has been validated against its IEPD schemas.</p>  
 
-	<p>Note that the use of mpd-catalog <code>IEP</code> elements takes precedence over the more conventional procedure that requires looking for standard directory names <ref idref="Normative-Guidance-Directories"/>.  This is why the conventional method is only useful for very simple IEPDs.  Also, note that use of the mpd-catalog <code>IEP</code> element references, and therefore, requires xml-catalogs.</p>
+	<p>Note that the use of mpd-catalog <code>IEPConformanceTarget</code> elements takes precedence over the more conventional procedure that requires looking for standard directory names <ref idref="Normative-Guidance-Directories"/>.  This is why the conventional method is only useful for very simple IEPDs.  Also, note that use of the mpd-catalog <code>IEPConformanceTarget</code> element references, and therefore, requires xml-catalogs.</p>
 
 ============================================================================================= -->
 
@@ -1721,7 +1721,7 @@
 	<li><p>Maintain tool-specific artifacts (inputs, outputs, imports, exports, etc.) in a subdirectory with a name that begins with the substring <code>application-info</code>.</p></li>
 </ul>
 
-<p>The guidance above results in an IEPD directory structure that appears below.  Filenames within the <code>extension</code>, <code>external</code>, <code>exchange</code>, <code>schematron</code>, and <code>iep-sample</code> subdirectories are non-normative examples.  Authors are free to assign names for such files according to their own requirements (as long as they do not violate the rules in this specification for other files such as <code>xml-catalog.xml</code> or <code>mpd-catalog.xml</code>).  Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD.  When the standard conventions will not work for an IEPD, the author should configure the IEPD using the mpd-catalog <code>IEP</code> element and xml-catalogs.</p>	
+<p>The guidance above results in an IEPD directory structure that appears below.  Filenames within the <code>extension</code>, <code>external</code>, <code>exchange</code>, <code>schematron</code>, and <code>iep-sample</code> subdirectories are non-normative examples.  Authors are free to assign names for such files according to their own requirements (as long as they do not violate the rules in this specification for other files such as <code>xml-catalog.xml</code> or <code>mpd-catalog.xml</code>).  Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD.  When the standard conventions will not work for an IEPD, the author should configure the IEPD using the mpd-catalog <code>IEPConformanceTarget</code> element and xml-catalogs.</p>	
 <pre>
 	/my_iepd-3.2rev4		(root directory of IEPD archive)
 		changelog.*
