@@ -78,7 +78,7 @@
     xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
     xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/"
     xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-    xmlns:s="http://release.niem.gov/niem/structures/3.0/"
+    xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
     xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/"
     xmlns="http://www.w3.org/2001/XMLSchema"&gt;
 
@@ -133,7 +133,7 @@
 	&lt;documentation&gt;A datatype for an MPD catalog.&lt;/documentation&gt;
       &lt;/annotation&gt;
       &lt;complexContent&gt;
-	&lt;extension base="s:ObjectType"&gt;
+	&lt;extension base="structures:ObjectType"&gt;
           &lt;sequence&gt;
             &lt;element ref="c:MPD"/&gt;
     	  &lt;/sequence&gt;
@@ -152,7 +152,7 @@
         &lt;documentation&gt;A datatype for an MPD.&lt;/documentation&gt;
       &lt;/annotation&gt;
       &lt;complexContent&gt;
-        &lt;extension base="s:ObjectType"&gt;
+        &lt;extension base="structures:ObjectType"&gt;
           &lt;sequence&gt;
             &lt;element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/&gt;
             &lt;element ref="c:Metadata"/&gt;
@@ -178,12 +178,12 @@
         &lt;documentation&gt;A datatype for an MPD file set artifact.&lt;/documentation&gt;
       &lt;/annotation&gt;
       &lt;complexContent&gt;
-        &lt;extension base="s:ObjectType"&gt;
+        &lt;extension base="structures:ObjectType"&gt;
           &lt;sequence&gt;
+            &lt;element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/&gt;
             &lt;element ref="c:Artifact" minOccurs="0" maxOccurs="unbounded"/&gt;
           &lt;/sequence&gt;
           &lt;attribute ref="c:pathURI"         use="required"/&gt;
-          &lt;attribute ref="c:descriptionText" use="optional"/&gt;
           &lt;attribute ref="c:externalURI"     use="optional"/&gt;
         &lt;/extension&gt;
       &lt;/complexContent&gt;
@@ -194,13 +194,13 @@
         &lt;documentation&gt;A datatype for an MPD file artifact.&lt;/documentation&gt;
       &lt;/annotation&gt;
       &lt;complexContent&gt; 
-        &lt;extension base="s:ObjectType"&gt;
+        &lt;extension base="structures:ObjectType"&gt;
           &lt;sequence&gt;
             &lt;element ref="c:RequiredFile" minOccurs="0" maxOccurs="unbounded"/&gt;
+            &lt;element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/&gt;
           &lt;/sequence&gt;
           &lt;attribute ref="c:pathURI"          use="required"/&gt;
           &lt;attribute ref="c:mimeMediaType"   use="optional"/&gt;
-          &lt;attribute ref="c:descriptionText" use="optional"/&gt;
           &lt;attribute ref="c:externalURI"     use="optional"/&gt;
         &lt;/extension&gt;
       &lt;/complexContent&gt;
@@ -405,13 +405,6 @@
 		&lt;/documentation&gt;
       &lt;/annotation&gt;
       &lt;/attribute&gt;
-    &lt;attribute name="descriptionText"  type="string"&gt;
-      &lt;annotation&gt;
-	      &lt;documentation&gt;A statement that provides an explanation 
-		      or additional detail to describe an MPD artifact 
-		      or a relationship between MPDs.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-      &lt;/attribute&gt;
     &lt;attribute name="mimeMediaType"    type="string"&gt;
       &lt;annotation&gt;
 	      &lt;documentation&gt;A classification for an MPD file
@@ -553,7 +546,7 @@
 
 &lt;!-- IEP Conformance Targets ========================================================== --&gt;
 
-    &lt;element name="IEPConformanceTarget" type="c:IEPConformantTargetType"&gt;
+    &lt;element name="IEPConformanceTarget" type="c:IEPConformanceTargetType"&gt;
       &lt;annotation&gt;
 	      &lt;documentation&gt;A class or category of IEPs which has a set of validity 
 		      constraints and a unique identifier. Every IEP is an instance 
@@ -561,72 +554,150 @@
       &lt;/annotation&gt;
     &lt;/element&gt;
 
-    &lt;element name="ValidityConstraint" abstract="true" type="c:ValidityConstraintType"&gt;
+    &lt;element name="ValidityConstraint" abstract="true"&gt;
       &lt;annotation&gt;
-	&lt;documentation&gt;A rule or instructions for validating an IEP candidate.&lt;/documentation&gt;
+	&lt;documentation&gt;A rule or instructions for validating an IEP
+	  candidate.&lt;/documentation&gt;
       &lt;/annotation&gt;
     &lt;/element&gt;
 
-    &lt;complexType name="ValidityConstraintType"&gt;
+&lt;!-- Validity Constraints ========================================================= --&gt;
+
+    &lt;element name="ValidToXPath" type="c:XPathType"
+	    substitutionGroup="c:ValidityConstraint"&gt;
       &lt;annotation&gt;
-        &lt;documentation&gt;A base type for all validity constraints.&lt;/documentation&gt;&lt;/annotation&gt;
+	      &lt;documentation&gt;A validity constraint that indicates that the given 
+		      xpath expression, evaluated against an artifact, has an 
+		      effective boolean value of true.&lt;/documentation&gt;
+      &lt;/annotation&gt;
+    &lt;/element&gt;
+
+    &lt;complexType name="XPathType"&gt;
+      &lt;annotation&gt;
+	&lt;documentation&gt;A datatype for an XPath expression.&lt;/documentation&gt;
+      &lt;/annotation&gt;
       &lt;complexContent&gt;
-        &lt;extension base="s:ObjectType"&gt;
+        &lt;extension base="structures:ObjectType"&gt;
           &lt;sequence&gt;
-            &lt;element ref="nc:DescriptionText" minOccurs="0"/&gt;
+            &lt;element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/&gt;
           &lt;/sequence&gt;
+          &lt;attribute ref="c:xPathText" use="required"/&gt;
         &lt;/extension&gt;
       &lt;/complexContent&gt;
     &lt;/complexType&gt;
 
-&lt;!-- Validity Constraints ========================================================= --&gt;
-
-    &lt;element name="XPathConstraint" type="c:XPathConstraintType"
-	    substitutionGroup="c:ValidityConstraint"&gt;
+    &lt;attribute name="xPathText" type="string"&gt;
       &lt;annotation&gt;
-	      &lt;documentation&gt;An XPath test applied to an IEP candidate 
-		      that returns a Boolean response.&lt;/documentation&gt;
+	&lt;documentation&gt;An XPath expression.&lt;/documentation&gt;
+      &lt;/annotation&gt;
+    &lt;/attribute&gt;
+
+    &lt;element name="XMLSchemaValidToXMLCatalog" type="c:FileType" 
+	     substitutionGroup="c:ValidityConstraint"&gt;
+      &lt;annotation&gt;
+	&lt;documentation&gt;A validity constraint that indicates that an
+	artifact must be XML Schema valid against the XML catalog
+	described by XML Catalog file identified by this file
+	object.&lt;/documentation&gt;
       &lt;/annotation&gt;
     &lt;/element&gt;
 
-    &lt;element name="XMLSchemaValidation" type="c:XMLSchemaValidationType" 
+    &lt;element name="ValidToSchematron" type="c:FileType"
 	substitutionGroup="c:ValidityConstraint"&gt;
       &lt;annotation&gt;
-	      &lt;documentation&gt;A rule or instruction for XML Schema validation.
-	      &lt;/documentation&gt;
+	&lt;documentation&gt;A validity constraint that indicates that an
+	  artifact must be valid against the ruled carried by the
+	  Schematron file identified by this file
+	  object.&lt;/documentation&gt;
       &lt;/annotation&gt;
     &lt;/element&gt;
 
-    &lt;element name="SchematronValidation" type="c:SchematronValidationType" 
-	substitutionGroup="c:ValidityConstraint"&gt;
+    &lt;element name="HasDocumentElement" type="c:QualifiedNamesType" 
+	     substitutionGroup="c:ValidityConstraint"&gt;
       &lt;annotation&gt;
-	      &lt;documentation&gt;A rule or instruction for Schematron validation.
-	      &lt;/documentation&gt;
+	&lt;documentation&gt;A validity constraint that indicates that an
+	  artifact has a document element with a name that is one of
+	  the given qualified names.&lt;/documentation&gt;
       &lt;/annotation&gt;
     &lt;/element&gt;
 
-    &lt;element name="DocumentElementConstraint" type="c:DocumentElementConstraintType" 
-	substitutionGroup="c:ValidityConstraint"&gt;
+    &lt;complexType name="QualifiedNamesType"&gt;
       &lt;annotation&gt;
-	      &lt;documentation&gt;An explicit set of XML document elements in an IEP.
-	      &lt;/documentation&gt;
+	&lt;documentation&gt;A datatype for a set of qualified names.&lt;/documentation&gt;
       &lt;/annotation&gt;
-    &lt;/element&gt;
-
-    &lt;element name="ConformsTo" type="c:ConformsToType"
-	substitutionGroup="c:ValidityConstraint"&gt;
-      &lt;annotation&gt;
-	      &lt;documentation&gt;A relationship to another IEP conformance 
-		      target in this MPD or to an external conformance 
-		      target.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-    &lt;/element&gt;
+      &lt;complexContent&gt;
+        &lt;extension base="structures:ObjectType"&gt;
+          &lt;sequence&gt;
+            &lt;element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/&gt;
+          &lt;/sequence&gt;
+          &lt;attribute ref="c:qualifiedNameList" use="required"/&gt;
+        &lt;/extension&gt;
+      &lt;/complexContent&gt;
+    &lt;/complexType&gt;
     
-    &lt;element name="TextRule" type="c:TextRuleType" 
+    &lt;attribute name="qualifiedNameList" type="c:qualifiedNameListSimpleType"&gt;
+      &lt;annotation&gt;
+	&lt;documentation&gt;A list of qualified names.&lt;/documentation&gt;
+      &lt;/annotation&gt;
+    &lt;/attribute&gt;
+
+    &lt;simpleType name="qualifiedNameListSimpleType"&gt;
+      &lt;annotation&gt;
+        &lt;documentation&gt;A simple datatype denothing list of qualified names.&lt;/documentation&gt;
+      &lt;/annotation&gt;
+      &lt;list itemType="QName"/&gt;
+    &lt;/simpleType&gt;
+
+    &lt;element name="ConformsToConformanceTarget" type="c:ConformanceTargetType"
+	     substitutionGroup="c:ValidityConstraint"&gt;
+      &lt;annotation&gt;
+	&lt;documentation&gt;A validity constraint that indicates that an
+	artifact must conform to the given conformance target.&lt;/documentation&gt;
+      &lt;/annotation&gt;
+    &lt;/element&gt;
+
+    &lt;complexType name="ConformanceTargetType"&gt;
+      &lt;annotation&gt;
+        &lt;documentation&gt;A datatype for identifying and describing a
+          conformance target.&lt;/documentation&gt;
+      &lt;/annotation&gt;
+      &lt;complexContent&gt;
+        &lt;extension base="structures:ObjectType"&gt;
+          &lt;sequence&gt;
+            &lt;element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/&gt;
+          &lt;/sequence&gt;
+          &lt;attribute ref="c:conformanceTargetURI" use="required"/&gt;
+        &lt;/extension&gt;
+      &lt;/complexContent&gt;
+    &lt;/complexType&gt;
+
+    &lt;element name="ConformsToRule" type="c:TextRuleType" 
 	substitutionGroup="c:ValidityConstraint"&gt;
       &lt;annotation&gt;
-	      &lt;documentation&gt;A informal validity rule or instruction 
-		      drafted in a human language.&lt;/documentation&gt;
+	&lt;documentation&gt;A validity constraint that indicates that an
+	  artifact must conform to the given text rule, drafted in a
+	  human language.&lt;/documentation&gt;
+      &lt;/annotation&gt;
+    &lt;/element&gt;
+
+    &lt;complexType name="TextRuleType"&gt;
+      &lt;annotation&gt;
+	&lt;documentation&gt;A datatype for a rule drafted 
+	  in a human language.&lt;/documentation&gt;
+      &lt;/annotation&gt;
+      &lt;complexContent&gt;
+        &lt;extension base="structures:ObjectType"&gt;
+	  &lt;sequence&gt;
+            &lt;element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/&gt;
+	    &lt;element ref="c:RuleText"/&gt;
+	  &lt;/sequence&gt;
+        &lt;/extension&gt;
+      &lt;/complexContent&gt;
+    &lt;/complexType&gt;
+
+    &lt;element name="RuleText" type="nc:TextType"&gt; 
+      &lt;annotation&gt;
+	&lt;documentation&gt;A rule written in a human language.&lt;/documentation&gt;
       &lt;/annotation&gt;
     &lt;/element&gt;
 
@@ -651,23 +722,16 @@
       &lt;/annotation&gt;
     &lt;/attribute&gt;
 
-    &lt;attribute name="testXPath" type="string"&gt;
-      &lt;annotation&gt;
-	      &lt;documentation&gt;An XPath expression for testing 
-		      if an XML document is a candidate IEP.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-    &lt;/attribute&gt;
-
 &lt;!-- Validity Types ====================================================== --&gt;
 
-    &lt;complexType name="IEPConformantTargetType"&gt;
+    &lt;complexType name="IEPConformanceTargetType"&gt;
       &lt;annotation&gt;
-	      &lt;documentation&gt;A datatype for an IEP class or category which 
-		      has a set of validity constraints and a unique identifier.
-	      &lt;/documentation&gt;
+	&lt;documentation&gt;A datatype for a class or category of IEP,
+	  which has a set of validity constraints and a unique
+	  identifier.&lt;/documentation&gt;
       &lt;/annotation&gt;
         &lt;complexContent&gt;
-	    &lt;extension base="s:ObjectType"&gt;
+	    &lt;extension base="structures:ObjectType"&gt;
 	      &lt;sequence&gt;
 		&lt;element ref="c:ValidityConstraint" minOccurs="0" maxOccurs="unbounded"/&gt;
 		&lt;element ref="c:IEPSampleURI"       minOccurs="0" maxOccurs="unbounded"/&gt;
@@ -680,97 +744,6 @@
       &lt;annotation&gt;
 	      &lt;documentation&gt;A local URI for a sample XML document defined 
 		      by an IEP conformance target.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-    &lt;/element&gt;
-
-    &lt;complexType name="XMLSchemaValidationType"&gt;
-      &lt;annotation&gt;
-	      &lt;documentation&gt;A datatype for a rule or instruction 
-		      for XML Schema validation.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-      &lt;complexContent&gt;
-        &lt;extension base="c:ValidityConstraintType"&gt;
-          &lt;attribute ref="c:xmlCatalogURI" use="required"/&gt;
-        &lt;/extension&gt;
-      &lt;/complexContent&gt;
-    &lt;/complexType&gt;
-
-    &lt;complexType name="SchematronValidationType"&gt;
-      &lt;annotation&gt;
-	      &lt;documentation&gt;A datatype for a rule or instruction
-		      for Schematron validation.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-      &lt;complexContent&gt;
-        &lt;extension base="c:ValidityConstraintType"&gt;
-          &lt;attribute ref="c:schematronSchemaURI" use="required"/&gt;
-        &lt;/extension&gt;
-      &lt;/complexContent&gt;
-    &lt;/complexType&gt;
-
-    &lt;complexType name="XPathConstraintType"&gt;
-      &lt;annotation&gt;
-	      &lt;documentation&gt;A datatype for an XPath test 
-		      applied to an IEP candidate.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-      &lt;complexContent&gt;
-        &lt;extension base="c:ValidityConstraintType"&gt;
-          &lt;attribute ref="c:testXPath" use="required"/&gt;
-        &lt;/extension&gt;
-      &lt;/complexContent&gt;
-    &lt;/complexType&gt;
-
-    &lt;complexType name="DocumentElementConstraintType"&gt;
-      &lt;annotation&gt;
-	      &lt;documentation&gt;A datatype for .&lt;/documentation&gt;
-      &lt;/annotation&gt;
-      &lt;complexContent&gt;
-        &lt;extension base="c:ValidityConstraintType"&gt;
-          &lt;attribute ref="c:documentElementIDList" use="required"/&gt;
-        &lt;/extension&gt;
-      &lt;/complexContent&gt;
-    &lt;/complexType&gt;
-    
-    &lt;attribute name="documentElementIDList" type="c:QNameListSimpleType"&gt;
-      &lt;annotation&gt;
-	&lt;documentation&gt;A list of valid document elements for an IEP.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-    &lt;/attribute&gt;
-
-    &lt;simpleType name="QNameListSimpleType"&gt;
-      &lt;list itemType="QName"/&gt;
-    &lt;/simpleType&gt;
-
-    &lt;complexType name="ConformsToType"&gt;
-      &lt;annotation&gt;
-	      &lt;documentation&gt;A datatype for a relationship to another 
-		      IEP conformance target in this MPD or to an 
-		      external conformance target.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-      &lt;complexContent&gt;
-        &lt;extension base="c:ValidityConstraintType"&gt;
-          &lt;attribute ref="c:conformanceTargetURI" use="required"/&gt;
-        &lt;/extension&gt;
-      &lt;/complexContent&gt;
-    &lt;/complexType&gt;
-
-    &lt;complexType name="TextRuleType"&gt;
-      &lt;annotation&gt;
-	      &lt;documentation&gt;A datatype for a informal rule drafted 
-		      in a human language.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-      &lt;complexContent&gt;
-        &lt;extension base="c:ValidityConstraintType"&gt;
-	  &lt;sequence&gt;
-            &lt;element ref="c:RuleText"/&gt;
-	  &lt;/sequence&gt;
-        &lt;/extension&gt;
-      &lt;/complexContent&gt;
-    &lt;/complexType&gt;
-
-    &lt;element name="RuleText" type="nc:TextType"&gt; 
-      &lt;annotation&gt;
-	      &lt;documentation&gt;A informal validity rule drafted 
-		      in a human language.&lt;/documentation&gt;
       &lt;/annotation&gt;
     &lt;/element&gt;
 
@@ -788,7 +761,7 @@
 		      about an MPD.&lt;/documentation&gt;
       &lt;/annotation&gt;
       &lt;complexContent&gt;
-        &lt;extension base="s:ObjectType"&gt;
+        &lt;extension base="structures:ObjectType"&gt;
           &lt;sequence&gt;
             &lt;element ref="c:CreationDate"/&gt;
             &lt;element ref="c:AuthoritativeSource"/&gt;
@@ -824,7 +797,7 @@
         &lt;documentation&gt;A datatype for a point of contact.&lt;/documentation&gt;
       &lt;/annotation&gt;
       &lt;complexContent&gt;
-        &lt;extension base="s:ObjectType"&gt;
+        &lt;extension base="structures:ObjectType"&gt;
           &lt;sequence&gt;
             &lt;element ref="c:POCName"/&gt;
             &lt;element ref="c:POCEmail"     minOccurs="1" maxOccurs="unbounded"/&gt;
@@ -931,10 +904,12 @@
 		      related to this MPD.&lt;/documentation&gt;
       &lt;/annotation&gt;
       &lt;complexContent&gt;
-        &lt;extension base="s:ObjectType"&gt;
+        &lt;extension base="structures:ObjectType"&gt;
+          &lt;sequence&gt;
+            &lt;element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/&gt;
+          &lt;/sequence&gt;
           &lt;attribute ref="c:relationshipCode" use="required"/&gt;
           &lt;attribute ref="c:resourceURI"      use="required"/&gt;
-          &lt;attribute ref="c:descriptionText"  use="optional"/&gt;
         &lt;/extension&gt;
       &lt;/complexContent&gt;
     &lt;/complexType&gt;
@@ -942,7 +917,10 @@
 &lt;/schema&gt;
 
 </pre></div><div class="section"><a name="MPD-Instance"></a><div class="heading">Appendix B. Example Instance XML Document Catalog</div><p>*** TBD ... requires more work. ***</p><pre>&lt;?xml version="1.0" encoding="US-ASCII"?&gt;
-&lt;c:Catalog xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"&gt;
+&lt;c:Catalog 
+   xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
+   xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+   xmlns:ns="http://example.org/namespace"&gt;
   &lt;c:MPD 
      c:mpdURI="http://example.org/myIEPD/"
      c:mpdClassCode="iepd"
@@ -954,9 +932,10 @@
       &lt;c:AuthoritativeSource&gt;
       &lt;/c:AuthoritativeSource&gt;
     &lt;/c:Metadata&gt;
-    &lt;c:IEP c:testXPath="//ext:ParkingTicket"&gt;
-      &lt;c:XMLSchemaValidation c:xmlCatalogURI="xml-catalog.xml"/&gt;
-    &lt;/c:IEP&gt;
+    &lt;c:IEPConformanceTarget structures:id="message"&gt;
+      &lt;c:XMLSchemaValidToXMLCatalog c:pathURI="xml-catalog.xml"/&gt;
+      &lt;c:ValidToXPath c:xPathText="//xml-catalog.xml"/&gt;
+    &lt;/c:IEPConformanceTarget&gt;
     &lt;c:MasterDocument
        c:pathURI="master-document.html"&gt;
     &lt;/c:MasterDocument&gt;
