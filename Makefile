@@ -89,3 +89,9 @@ $(DEPEND_MK): $(DOC_SRC)
 
 img/%.png.width.txt:
 	touch $@
+
+.PHONY: widths
+widths:
+	cd img; \
+	for f in *.png; do identify -format '%w\n' $$f > $$f.width.txt; done
+
