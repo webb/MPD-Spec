@@ -13,6 +13,7 @@ PROCESS_DOC = $(BIN_DIR)/process-doc
 DOC_NAME = mpd-spec
 DOC_SRC = $(DOC_NAME).xml
 DOC_DEST_HTML = $(DOC_NAME).html
+DOC_DEST_TEXT = $(DOC_NAME).txt
 
 XML_PASS := $(wildcard examples/*.pass/*.xml)
 XML_PASS_XSD_VALID_TOKENS := $(patsubst %,$(TOKENS_DIR)/xml-pass-xsd-valid/%,$(XML_PASS))
@@ -35,11 +36,14 @@ help:
 	@echo ' ' distclean: clean up everything that could be generated
 	@echo ' ' valid: validate test instances against schemas
 
-all: $(DOC_DEST_HTML)
+all: $(DOC_DEST_HTML) $(DOC_DEST_TEXT)
 
 $(DOC_DEST_HTML): $(DOC_SRC) $(DOC_HTML_REQUIRED_FILES)
 	$(PROCESS_DOC) -html -in $< -out $@
 	$(RM) tmp.$(DOC_SRC).html $(DOC_SRC).xhtml
+
+$(DOC_DEST_TEXT): $(DOC_SRC) $(DOC_TEXT_REQUIRED_FILES)
+	$(PROCESS_DOC) -plaintext -in $< -out $@
 
 valid: $(VALID_TOKENS) conformance-report.txt
 
