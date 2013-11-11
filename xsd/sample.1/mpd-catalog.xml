@@ -2,6 +2,7 @@
 <c:Catalog 
    xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
    xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
    xmlns:ns="http://example.org/namespace">
   <c:MPD 
      c:mpdURI="http://example.org/myIEPD/"
@@ -15,7 +16,14 @@
       </c:AuthoritativeSource>
     </c:Metadata>
     <c:IEPConformanceTarget structures:id="message">
-      <c:XMLSchemaValidToXMLCatalog c:pathURI="xml-catalog.xml"/>
+      <c:XMLSchemaValid>
+        <nc:DescriptionText>MUST be valid to this XML Schema.</nc:DescriptionText>
+        <c:ValidationRootXPath c:xPathText="//ns:ParkingTicket"/>
+        <c:XMLCatalog c:pathURI="xml-catalog.xml"/>
+      </c:XMLSchemaValid>
+      <c:SchematronValid>
+        <c:SchematronSchema c:pathURI="rules.sch"/>
+      </c:SchematronValid>
       <c:ValidToXPath c:xPathText="//xml-catalog.xml"/>
     </c:IEPConformanceTarget>
     <c:MasterDocument

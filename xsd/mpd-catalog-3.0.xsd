@@ -521,33 +521,99 @@
       </annotation>
     </attribute>
 
-    <element name="XMLSchemaValidToXMLCatalog" type="c:FileType" 
-	 substitutionGroup="c:ValidityConstraint">
+    <element name="XMLSchemaValid" 
+             type="c:XMLSchemaValidationType"
+	     substitutionGroup="c:ValidityConstraint">
       <annotation>
-	<documentation>A validity constraint that indicates that an
-	artifact must be XML Schema valid against the XML catalog
-	described by XML Catalog file identified by this file
-	object.</documentation>
+	<documentation>A validity constraint that indicates that an artifact must be locally XML Schema valid against an XML schema described by an XML Catalog file, starting with a given validation root.</documentation>
       </annotation>
     </element>
 
-    <element name="ValidToSchematron" type="c:FileType"
+    <complexType name="ValidationWithValidationRootType">
+      <annotation>
+        <documentation>A datatype for a base for a validation that may start with a validation root.</documentation>
+      </annotation>
+      <complexContent>
+        <extension base="structures:ObjectType">
+          <sequence>
+            <element ref="nc:DescriptionText" minOccurs="0"/>
+            <element ref="c:ValidationRootXPath" minOccurs="0"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+
+    <complexType name="XMLSchemaValidationType">
+      <annotation>
+        <documentation>A datatype for an XML Schema validation constraint, indicating an XML Schema against which an artifact may be validated, as well as a description of the validation roots for assessment of validity.</documentation>
+      </annotation>
+      <complexContent>
+        <extension base="c:ValidationWithValidationRootType">
+          <sequence>
+            <element ref="c:XMLCatalog" minOccurs="0"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+
+    <element name="ValidationRootXPath" type="c:XPathType">
+      <annotation>
+        <documentation>An XPath expression that identfies a seqence of zero or more validation root elements for a validity constraint on an XML document.</documentation>
+      </annotation>
+    </element>
+
+    <element name="SchematronValid" 
+             type="c:SchematronValidationType"
+	     substitutionGroup="c:ValidityConstraint">
+      <annotation>
+	<documentation>A validity constraint that indicates that an artifact must be valid against the rules carried by a Schematron file, starting with the identified validation roots.</documentation>
+      </annotation>
+    </element>
+
+    <complexType name="SchematronValidationType">
+      <annotation>
+        <documentation>A datatype for a Schematron validation constraint, indicating a Schematron schema document against which an artifact may be validated, as well as a description of the validation roots for assessment of validity.</documentation>
+      </annotation>
+      <complexContent>
+        <extension base="c:ValidationWithValidationRootType">
+          <sequence>
+            <element ref="c:SchematronSchema"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+
+    <element name="SchematronSchema" type="c:FileType">
+      <annotation>
+        <documentation>A Schematron schema document.</documentation>
+      </annotation>
+    </element>
+
+    <element name="RelaxNGValid" type="c:RelaxNGValidationType"
 	substitutionGroup="c:ValidityConstraint">
       <annotation>
 	<documentation>A validity constraint that indicates that 
 	  an artifact must be valid against the rules carried by 
-	  the Schematron file identified by this file object.
-  	</documentation>
+	  a RelaxNG schema.</documentation>
       </annotation>
     </element>
 
-   <element name="ValidToRelaxNG" type="c:FileType"
-	substitutionGroup="c:ValidityConstraint">
+    <complexType name="RelaxNGValidationType">
       <annotation>
-	<documentation>A validity constraint that indicates that 
-	  an artifact must be valid against the rules carried by 
-	  the Schematron file identified by this file object.
-	  </documentation>
+        <documentation>A datatype for a RelaxNG validation constraint, indicating a RelaxNG schema document against which an artifact may be validated, as well as a description of the validation roots for assessment of validity.</documentation>
+      </annotation>
+      <complexContent>
+        <extension base="c:ValidationWithValidationRootType">
+          <sequence>
+            <element ref="c:RelaxNGSchema"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+
+    <element name="RelaxNGSchema" type="c:FileType">
+      <annotation>
+        <documentation>A RelaxNG schema.</documentation>
       </annotation>
     </element>
 
@@ -647,12 +713,6 @@
       <annotation>
 	<documentation>A URI for an OASIS XML catalog artifact
 	within the MPD; its pathname.</documentation>
-      </annotation>
-    </attribute>
-
-    <attribute name="schematronSchemaURI" type="anyURI">
-      <annotation>
-        <documentation>A URI for a Schematron schema file.</documentation>
       </annotation>
     </attribute>
 
@@ -854,4 +914,3 @@
     </complexType>
 
 </schema>
-
