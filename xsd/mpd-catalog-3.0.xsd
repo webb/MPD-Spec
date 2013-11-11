@@ -40,21 +40,21 @@
 				     		Documentation"/>
 	<term:LocalTerm term="MIME"  literal="Multipurpose Internet Mail Extension"/>
 	<term:LocalTerm term="MPD"   literal="Model Package Description"/>
-	<term:LocalTerm term="OASIS" literal="Organization for the Advancement 
+	<term:LocalTerm term="OASIS" literal="Organization for the Advancement
 						of Structured Information Standards"/>
 	<term:LocalTerm term="POC"   literal="Point of contact"/>
 	<term:LocalTerm term="SSGT"  literal="Schema Subset Generation Tool"/>
         <term:LocalTerm term="URI"   literal="Uniform Resource Identifier"/>
 	<term:LocalTerm term="Wantlist" definition="An XML file that represents a NIEM
-		schema document subset; used by NIEM Schema Subset Generation Tool 
-		to input/output a schema document subset"/>
+			schema document subset; used by NIEM Schema Subset Generation
+			Tool to input/output a schema document subset"/>
       </appinfo> 
     </annotation>
 
     <element name="Catalog" type="c:CatalogType">
       <annotation>
-	<documentation>An MPD catalog that describes MPD artifacts 
-		      and metadata.</documentation>
+	<documentation>An MPD catalog that describes MPD artifacts and metadata.
+	</documentation>
       </annotation>
     </element>
 
@@ -141,8 +141,8 @@
 
     <element name="RequiredFile" type="c:FileType">
       <annotation>
-	<documentation>An MPD file artifact that another artifact depends 
-		on and should not be separated from.</documentation>
+	<documentation>An MPD file artifact that another artifact depends on
+	and should not be separated from.</documentation>
       </annotation>
     </element>
 
@@ -152,7 +152,7 @@
     <element name="File" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
 	<documentation>A generic electronic file artifact in an MPD; 
-		a file stored on a computer system.</documentation>
+	a file stored on a computer system.</documentation>
       </annotation>
       </element>
 
@@ -178,8 +178,8 @@
     <element name="ExtendedMPDMetadata" type="c:FileType" 
 	     substitutionGroup="c:Artifact">
       <annotation>
-	 <documentation>An MPD metadata artifact that adds 
-	 optional author-defined metadata.</documentation>
+	<documentation>An MPD metadata artifact that adds optional author-defined
+	metadata.</documentation>
       </annotation>
     </element>
 
@@ -252,6 +252,18 @@
       </annotation>
     </element>
 
+    <element name="SchematronSchema" type="c:FileType" substitutionGroup="c:Artifact">
+      <annotation>
+        <documentation>A Schematron schema document.</documentation>
+      </annotation>
+    </element>
+
+    <element name="RelaxNGSchema" type="c:FileType" substitutionGroup="c:Artifact">
+      <annotation>
+        <documentation>A RelaxNG schema.</documentation>
+      </annotation>
+    </element>
+
     <element name="Documentation" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
 	<documentation>An MPD artifact that is a form of explanatory documentation.
@@ -276,7 +288,7 @@
 	as well as reference, extension, exchange, and external schema documents.
 	</documentation>
       </annotation>
-      </element>
+    </element>
 
     <element name="ConstraintSchemaDocumentSet"
              type="c:BaseSchemaDocumentSetType"      substitutionGroup="c:Artifact">
@@ -284,7 +296,7 @@
 	<documentation>An MPD set artifact that may contain one or more constraint 
 	schema documents.</documentation>
       </annotation>
-      </element>
+    </element>
   
     <element name="ReferenceSchemaDocumentSet"
              type="c:ReferenceSchemaDocumentSetType" substitutionGroup="c:Artifact">
@@ -299,9 +311,9 @@
 
     <complexType name="BaseSchemaDocumentSetType">
       <annotation>
-	<documentation>A datatype for an MPD set artifact that may include 
-	a schema document subset, as well as reference, extension, exchange, 
-	and external schema documents.</documentation>
+	<documentation>A datatype for an MPD set artifact that may include a schema
+	document subset, as well as reference, extension, exchange, and external
+	schema documents.</documentation>
       </annotation>
       <complexContent>
         <restriction base="c:FileSetType">
@@ -341,55 +353,62 @@
       <annotation>
         <documentation>A globally unique identifier (URI) for an MPD.</documentation>
       </annotation>
-      </attribute>
+    </attribute>
+
     <attribute name="mpdClassCode" type="c:MPDClassCodeSimpleType">
       <annotation>
 	<documentation>A classification for an MPD; values are drawn 
-	from {rel, cu, du, iepd, eiem}.</documentation>
+	from the set {rel, cu, du, iepd, eiem}.</documentation>
       </annotation>
-      </attribute>
+    </attribute>
+
     <attribute name="mpdName"      type="string">
       <annotation>
         <documentation>A label or title for an MPD.</documentation>
       </annotation>
-      </attribute>
+    </attribute>
+
     <attribute name="mpdVersionID" type="c:MPDVersionIDSimpleType">
       <annotation>
-	<documentation>An identifier that distinguishes 
-	releases of a given MPD.</documentation>
-      </annotation>
-      </attribute>
-    <attribute name="externalURI" type="anyURI">
-    <annotation>
-	<documentation>A globally unique identifier (URI) for an artifact 
-	in another MPD that is reused by this MPD.</documentation>
-  </annotation>
-  </attribute>
-    <attribute name="pathURI" type="anyURI">
-      <annotation>
-	<documentation>A URI for the relative pathname of an artifact.
+	<documentation>An identifier that distinguishes releases of a given MPD.
 	</documentation>
       </annotation>
-      </attribute>
+    </attribute>
+
+    <attribute name="externalURI" type="anyURI">
+      <annotation>
+	<documentation>A globally unique identifier (URI) for an artifact 
+	in another MPD that is reused by this MPD.</documentation>
+      </annotation>
+    </attribute>
+
+    <attribute name="pathURI" type="anyURI">
+      <annotation>
+	<documentation>A URI for the relative pathname of an artifact.</documentation>
+      </annotation>
+    </attribute>
+
     <attribute name="mimeMediaType" type="string">
       <annotation>
 	<documentation>A classification for an MPD file
 	artifact from the IANA MIME media classes: 
 	http://www.iana.org/assignments/media-types.</documentation>
       </annotation>
-      </attribute>
+    </attribute>
+
     <attribute name="resourceURI"   type="anyURI">
       <annotation>
 	<documentation>A globally unique identifier (URI) for another 
 	MPD or document to which this MPD relates.</documentation>
       </annotation>
-      </attribute>
+    </attribute>
+
     <attribute name="relationshipCode" type="c:RelationshipCodeSimpleType">
       <annotation>
-	<documentation>A classification or reason for the connectedness 
-	between this MPD and the resource referenced in resourceURI.</documentation>
+	<documentation>A classification or reason for the connectedness between
+	this MPD and the resource referenced in resourceURI.</documentation>
       </annotation>
-      </attribute>
+    </attribute>
 
     <simpleType name="MPDClassCodeSimpleType">
       <annotation>
@@ -444,68 +463,62 @@
         <restriction base="token">
 	    <enumeration value="version_of">
 	      <annotation>
-		<documentation>A relationshipCode value for indicating 
-		that this MPD is a different version of the MPD 
-		referenced in resourceURI.  This code value is only 
-		needed in cases where significant name changes might 
-		obscure the relationship to the previous version.  
-		For example, NIEM Justice 4.1 is a version of
-		GJXDM 3.0.3.</documentation>
+		<documentation>A relationshipCode value for indicating that this MPD
+		is a different version of the MPD referenced in resourceURI.  This
+		code value is only needed in cases where significant name changes
+		might obscure the relationship to the previous version.  For example,
+		NIEM Justice 4.1 is a version of GJXDM 3.0.3.</documentation>
 	        </annotation>
 	    </enumeration>
 	    <enumeration value="specializes">
 	      <annotation>
-		<documentation>A relationshipCode value for indicating 
-		that this MPD is a generalization of the MPD referenced 
-		in resourceURI.  This value is the inverse of specializes.
-		</documentation>
+		<documentation>A relationshipCode value for indicating that this
+		MPD is a generalization of the MPD referenced in resourceURI.
+		This value is the inverse of specializes.</documentation>
 	      </annotation>
 	    </enumeration>
             <enumeration value="generalizes">
 	      <annotation>
-		<documentation>A relationshipCode value for indicating 
-		that this MPD is a generalization of the MPD referenced 
-		in resourceURI.  This value is the inverse of specializes.
-		</documentation>
+		<documentation>A relationshipCode value for indicating that this MPD
+		is a generalization of the MPD referenced in resourceURI.  This
+		value is the inverse of specializes.</documentation>
 		</annotation>
 	    </enumeration>
             <enumeration value="supersedes">
 		<annotation>
-		  <documentation>A relationshipCode value for indicating
-		  that this MPD replaces the MPD referenced in resourceURI.
-		  </documentation>
+		  <documentation>A relationshipCode value for indicating that this
+		  MPD replaces the MPD referenced in resourceURI.</documentation>
 		</annotation>
 	    </enumeration>
             <enumeration value="deprecates">
 		<annotation>
-		  <documentation>A relationshipCode value for indicating 
-		  that content in this MPD is preferred over content in the 
-		  MPD referenced in resourceURI; and at some time in the 
-		  future will supersede the MPD referenced in resourceURI.
-		  </documentation>
+		  <documentation>A relationshipCode value for indicating that content
+		  in this MPD is preferred over content in the MPD referenced in
+		  resourceURI; and at some time in the future will supersede the
+		  MPD referenced in resourceURI.</documentation>
 		</annotation>
 	    </enumeration>
             <enumeration value="adapts">
 		<annotation>
-		  <documentation>A relationshipCode value for indicating that
-		  this MPD is an adaptation of the MPD referenced in resourceURI.
+		  <documentation>A relationshipCode value for indicating that this
+		  MPD is an adaptation of the MPD referenced in resourceURI.
 		  </documentation>
 		</annotation>
 	    </enumeration>
             <enumeration value="updates">
 		<annotation>
-		  <documentation>A relationshipCode value for indicating  
-		  that this MPD is an incremental update to the resource 
-		  referenced in resourceURI.  Used by a core or domain 
-		  update to identify the domain schema in a NIEM release 
-		  being incrementally updated (not replaced).</documentation>
+		  <documentation>A relationshipCode value for indicating that
+		  this MPD is an incremental update to the resource referenced in
+		  resourceURI.  Used by a core or domain update to identify the
+		  domain schema in a NIEM release being incrementally updated
+		  (not replaced).</documentation>
 		</annotation>
 	    </enumeration>
             <enumeration value="conforms_to">
 		<annotation>
-		  <documentation>A relationshipCode value for indicating 
-		  that this MPD conforms to the specification or
-		  standard referenced in resourceURI.</documentation>
+		  <documentation>A relationshipCode value for indicating that this
+		  MPD conforms to the specification or standard referenced in
+		  resourceURI.</documentation>
 		</annotation>
 	    </enumeration>
         </restriction>
@@ -517,8 +530,8 @@
     <element name="IEPConformanceTarget" type="c:IEPConformanceTargetType">
       <annotation>
 	<documentation>A class or category of IEPs which has a set of validity 
-	constraints and a unique identifier. Every IEP is an instance 
-	of one or more IEP Conformance Targets.</documentation>
+	constraints and a unique identifier. Every IEP is an instance of one or
+	more IEP Conformance Targets.</documentation>
       </annotation>
     </element>
 
@@ -539,8 +552,8 @@
 
     <element name="ValidityConstraint" abstract="true">
       <annotation>
-	<documentation>A rule or instructions for validating an IEP
-	  candidate.</documentation>
+	<documentation>A rule or instructions for validating an IEP candidate.
+	</documentation>
       </annotation>
     </element>
 
@@ -550,9 +563,9 @@
     <element name="ValidToXPath" type="c:XPathType"
 	    substitutionGroup="c:ValidityConstraint">
       <annotation>
-	<documentation>A validity constraint that indicates that the 
-	given xpath expression, evaluated against an artifact, has 
-	an effective boolean value of true.</documentation>
+	<documentation>A validity constraint that indicates that the given XPath 
+	expression, evaluated against an artifact, has an effective boolean value 
+	of TRUE.</documentation>
       </annotation>
     </element>
 
@@ -650,27 +663,20 @@
       </complexContent>
     </complexType>
 
-    <element name="SchematronSchema" type="c:FileType">
-      <annotation>
-        <documentation>A Schematron schema document.</documentation>
-      </annotation>
-    </element>
-
     <element name="RelaxNGValid" type="c:RelaxNGValidationType"
 	substitutionGroup="c:ValidityConstraint">
       <annotation>
-	<documentation>A validity constraint that indicates that 
-	  an artifact must be valid against the rules carried by 
-	  a RelaxNG schema.</documentation>
+	<documentation>A validity constraint that indicates that an artifact must
+	be valid against the rules carried by a RelaxNG schema.</documentation>
       </annotation>
     </element>
 
     <complexType name="RelaxNGValidationType">
       <annotation>
-	<documentation>A datatype for a RelaxNG validation constraint, 
-	indicating a RelaxNG schema document against which an artifact
-	may be validated, as well as a description of the validation 
-	roots for assessment of validity.</documentation>
+	<documentation>A datatype for a RelaxNG validation constraint, indicating a
+	RelaxNG schema document against which an artifact may be validated, as well
+	as a description of the validation roots for assessment of validity.
+	</documentation>
       </annotation>
       <complexContent>
         <extension base="c:ValidationWithValidationRootType">
@@ -681,18 +687,12 @@
       </complexContent>
     </complexType>
 
-    <element name="RelaxNGSchema" type="c:FileType">
-      <annotation>
-        <documentation>A RelaxNG schema.</documentation>
-      </annotation>
-    </element>
-
     <element name="HasDocumentElement" type="c:QualifiedNamesType" 
 	substitutionGroup="c:ValidityConstraint">
       <annotation>
-	<documentation>A validity constraint that indicates that an
-	  artifact has a document element with a name that is one of
-	  the given qualified names.</documentation>
+	<documentation>A validity constraint that indicates that an artifact has
+	a document element with a name that is one of the given qualified names.
+	</documentation>
       </annotation>
     </element>
 
@@ -734,8 +734,8 @@
 
     <complexType name="ConformanceTargetType">
       <annotation>
-        <documentation>A datatype for identifying and describing
-        a conformance target.</documentation>
+        <documentation>A datatype for identifying and describing a conformance target.
+        </documentation>
       </annotation>
       <complexContent>
         <extension base="structures:ObjectType">
@@ -866,12 +866,14 @@
 	<documentation>A date this MPD was published.</documentation>
       </annotation>
     </element>
+
     <element name="LastRevisionDate" type="date">
       <annotation>
-	<documentation>A date the latest changes to an MPD were
-	published (i.e., CreationDate of previous version).</documentation>
+	<documentation>A date the latest changes to an MPD were published
+	(i.e., CreationDate of previous version).</documentation>
       </annotation>
     </element>
+
     <element name="StatusText"   type="string">
       <annotation>
 	 <documentation>A description of the current state of this MPD 
@@ -879,73 +881,82 @@
 	 </documentation>
       </annotation>
     </element>
+
     <element name="Relationship" type="c:RelationshipType">
       <annotation>
 	<documentation>A reference to another MPD related to this MPD.
 	</documentation>
       </annotation>
     </element>
+
     <element name="KeywordText"  type="string">
       <annotation>
 	<documentation>A common alias, term, or phrase that would help 
 	to facilitate search and discovery of this MPD.</documentation>
       </annotation>
     </element>
+
     <element name="DomainText"   type="string">
       <annotation>
 	<documentation>A description of the environment or NIEM Domain 
 	in which this MPD is applicable or used.</documentation>
       </annotation>
     </element>
+
     <element name="PurposeText"  type="string">
       <annotation>
 	<documentation>A description of the intended usage and reason 
 	for which an MPD exists.</documentation>
       </annotation>
     </element>
+
     <element name="ExchangePatternText" type="string">
       <annotation>
-	<documentation>A description of a transactional or design pattern 
-	used for this IEPD (generally, applicable to IEPDs only).
-	</documentation>
+	<documentation>A description of a transactional or design pattern used
+	for this IEPD (generally, applicable to IEPDs only).</documentation>
       </annotation>
     </element>
+
     <element name="ExchangePartnerName" type="string">
       <annotation>
-	<documentation>A name of an entity or organization
-	that uses this MPD.</documentation>
+	<documentation>A name of an entity or organization that uses this MPD.
+	</documentation>
       </annotation>
     </element>
     
     <element name="ASName"       type="string">
       <annotation>
-	<documentation>A name for the current MPD authoritative source; 
-	could be the author, creator, sponsor, etc. 
-	(organization or person name).</documentation>
+	<documentation>A name for the current MPD authoritative source; could be the
+	author, creator, sponsor, etc. (organization or person name).</documentation>
       </annotation>
     </element>
+
     <element name="ASAddressText" type="string">
       <annotation>
         <documentation>A description of the location of the 
 	authoritative source for the MPD.</documentation>
       </annotation>
     </element>
+
     <element name="ASWebSiteURL" type="anyURI">
       <annotation>
-	<documentation>A URL for the Web site of the 
-	authoritative source for the MPD.</documentation>
+	<documentation>A URL for the Web site of the authoritative source for the MPD.
+	</documentation>
       </annotation>
     </element>
+
     <element name="POCName"      type="string">
       <annotation>
         <documentation>A name for a person, position, or title.</documentation>
       </annotation>
     </element>
+
     <element name="POCEmail"     type="string">
       <annotation>
         <documentation>An email address.</documentation>
       </annotation>
     </element>
+
     <element name="POCTelephone" type="string">
       <annotation>
         <documentation>A telephone number.</documentation>
@@ -954,8 +965,8 @@
 
     <complexType name="RelationshipType">
       <annotation>
-	 <documentation>A datatype for a reference to another
-	 MPD related to this MPD.</documentation>
+	<documentation>A datatype for a reference to another MPD related to this MPD.
+	<documentation>
       </annotation>
       <complexContent>
         <extension base="structures:ObjectType">
