@@ -24,10 +24,10 @@
              NIEM releases, core updates, domain updates, 
              NIEM Information Exchange Package Documentation (IEPD), 
              and NIEM Enterprise Information Exchange Models (EIEM). 
-          The purpose of this schema is to facilitate consistent declaration
-	  of MPD content, metadata, and lineage to process, display, review, 
-	  register, search, and discover MPDs efficiently. For IEPDs, the 
-	  mpd-catalog also provides instructions for validating IEPs to schemas. 
+          The purpose of this schema is to facilitate consistent declaration of
+	  MPD content, metadata, and lineage to process, display, review, register,
+	  search, and discover MPDs efficiently. For IEPDs, the mpd-catalog also 
+	  provides instructions for validating IEPs to schemas. 
       </documentation>
       <appinfo>
         <term:LocalTerm term="AS"    literal="Authoritative Source"/>
@@ -35,16 +35,17 @@
 	<term:LocalTerm term="IANA"  literal="Internet Assigned Numbers Authority"/>
 	<term:LocalTerm term="ID"    literal="Identifier"/>
 	<term:LocalTerm term="IEP"   literal="Information Exchange Package" 
-					definition="an instance XML document"/>
-	<term:LocalTerm term="IEPD"  literal="Information Exchange Package Documentation"/>
+				     definition="an instance XML document"/>
+	<term:LocalTerm term="IEPD"  literal="Information Exchange Package 
+				     		Documentation"/>
 	<term:LocalTerm term="MIME"  literal="Multipurpose Internet Mail Extension"/>
 	<term:LocalTerm term="MPD"   literal="Model Package Description"/>
 	<term:LocalTerm term="OASIS" literal="Organization for the Advancement 
-					of Structured Information Standards"/>
+						of Structured Information Standards"/>
 	<term:LocalTerm term="POC"   literal="Point of contact"/>
 	<term:LocalTerm term="SSGT"  literal="Schema Subset Generation Tool"/>
         <term:LocalTerm term="URI"   literal="Uniform Resource Identifier"/>
-	<term:LocalTerm term="Wantlist" definition="An XML file that represents a NIEM 
+	<term:LocalTerm term="Wantlist" definition="An XML file that represents a NIEM
 		schema document subset; used by NIEM Schema Subset Generation Tool 
 		to input/output a schema document subset"/>
       </appinfo> 
@@ -83,15 +84,15 @@
       <complexContent>
         <extension base="structures:ObjectType">
           <sequence>
-            <element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/>
-            <element ref="c:Metadata"/>
-	    <element ref="c:IEPConformanceTarget" minOccurs="0" maxOccurs="unbounded"/>
-            <element ref="c:Artifact"      minOccurs="0" maxOccurs="unbounded"/>
+           <element ref="nc:DescriptionText" minOccurs="0"/>
+           <element ref="c:Metadata"/>
+	   <element ref="c:IEPConformanceTarget" minOccurs="0" maxOccurs="unbounded"/>
+           <element ref="c:Artifact" 		 minOccurs="0" maxOccurs="unbounded"/>
           </sequence>
-          <attribute ref="c:mpdURI"          use="required"/>
-          <attribute ref="c:mpdClassCode"    use="required"/>
-          <attribute ref="c:mpdName"         use="required"/>
-          <attribute ref="c:mpdVersionID"    use="required"/>
+          <attribute ref="c:mpdURI"       use="required"/>
+          <attribute ref="c:mpdClassCode" use="required"/>
+          <attribute ref="c:mpdName"      use="required"/>
+          <attribute ref="c:mpdVersionID" use="required"/>
         </extension>
       </complexContent>
     </complexType>
@@ -109,7 +110,7 @@
       <complexContent>
         <extension base="structures:ObjectType">
           <sequence>
-            <element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/>
+            <element ref="nc:DescriptionText" minOccurs="0"/>
             <element ref="c:Artifact" minOccurs="0" maxOccurs="unbounded"/>
           </sequence>
           <attribute ref="c:pathURI"         use="required"/>
@@ -126,7 +127,7 @@
         <extension base="structures:ObjectType">
           <sequence>
             <element ref="c:RequiredFile" minOccurs="0" maxOccurs="unbounded"/>
-            <element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/>
+            <element ref="nc:DescriptionText" minOccurs="0"/>
           </sequence>
           <attribute ref="c:pathURI"          use="required"/>
           <attribute ref="c:mimeMediaType"   use="optional"/>
@@ -136,7 +137,7 @@
     </complexType>
 
 
-<!-- For declaring file dependencies =============================================== -->
+<!-- For declaring file dependencies ============================================= -->
 
     <element name="RequiredFile" type="c:FileType">
       <annotation>
@@ -146,7 +147,7 @@
     </element>
 
 
-<!-- File Artifact classifiers ===================================================== -->
+<!-- File Artifact classifiers =================================================== -->
 
     <element name="File" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
@@ -209,7 +210,8 @@
       </element>
     <element name="SubsetSchemaDocument"    type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
-        <documentation>An MPD artifact that is a subset schema document.</documentation>
+	<documentation>An MPD artifact that is a subset schema document.
+	</documentation>
       </annotation>
       </element>
     <element name="Wantlist" type="c:FileType" substitutionGroup="c:Artifact">
@@ -225,10 +227,11 @@
       </element>
     <element name="Documentation" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
-        <documentation>An MPD artifact that is a form of explanatory documentation.</documentation>
+	<documentation>An MPD artifact that is a form of explanatory documentation.
+	</documentation>
       </annotation>
       </element>
-    <element name="ApplicationInfo"         type="c:FileType" substitutionGroup="c:Artifact">
+    <element name="ApplicationInfo" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
 	<documentation>An MPD artifact that is used by a software tool
 	(e.g., import, export, input, output, etc.).</documentation>
@@ -236,7 +239,7 @@
       </element>
 
 
-<!-- Set Artifact Classifiers ====================================================== -->
+<!-- Set Artifact Classifiers ==================================================== -->
 
     <element name="BaseSchemaDocumentSet"
              type="c:BaseSchemaDocumentSetType"      substitutionGroup="c:Artifact">
@@ -262,7 +265,7 @@
       </element>
 
 
-<!-- Artifact Classifier Types ====================================================== -->
+<!-- Artifact Classifier Types =================================================== -->
 
     <complexType name="BaseSchemaDocumentSetType">
       <annotation>
@@ -291,14 +294,14 @@
       <complexContent>
         <restriction base="c:FileSetType">
           <sequence>
-            <element ref="c:ReferenceSchemaDocument" minOccurs="1" maxOccurs="unbounded"/>
+            <element ref="c:ReferenceSchemaDocument" maxOccurs="unbounded"/>
           </sequence>
         </restriction>
       </complexContent>
     </complexType>
 
 
-<!-- Primitives ====================================================================== -->
+<!-- Primitives ================================================================== -->
 
     <attribute name="mpdURI"           type="anyURI">
       <annotation>
@@ -376,7 +379,8 @@
 	    </enumeration>
             <enumeration value="iepd">
 		<annotation>
-		  <documentation>information exchange package documentation</documentation>
+		  <documentation>information exchange package documentation
+		  </documentation>
 		</annotation>
 	    </enumeration>
             <enumeration value="eiem">
@@ -473,7 +477,7 @@
         </restriction>
     </simpleType>
 
-<!-- IEP Conformance Targets ================================================ -->
+<!-- IEP Conformance Targets ==================================================== -->
 
     <element name="IEPConformanceTarget" type="c:IEPConformanceTargetType">
       <annotation>
@@ -490,7 +494,7 @@
       </annotation>
     </element>
 
-<!-- Validity Constraints ==================================================== -->
+<!-- Validity Constraints ======================================================== -->
 
     <element name="ValidToXPath" type="c:XPathType"
 	    substitutionGroup="c:ValidityConstraint">
@@ -508,7 +512,7 @@
       <complexContent>
         <extension base="structures:ObjectType">
           <sequence>
-            <element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/>
+            <element ref="nc:DescriptionText" minOccurs="0"/>
           </sequence>
           <attribute ref="c:xPathText" use="required"/>
         </extension>
@@ -525,18 +529,21 @@
              type="c:XMLSchemaValidationType"
 	     substitutionGroup="c:ValidityConstraint">
       <annotation>
-	<documentation>A validity constraint that indicates that an artifact must be locally XML Schema valid against an XML schema described by an XML Catalog file, starting with a given validation root.</documentation>
+	<documentation>A validity constraint that indicates that an artifact must
+	be locally XML Schema valid against an XML schema described by an XML Catalog
+	file, starting with a given validation root.</documentation>
       </annotation>
     </element>
 
     <complexType name="ValidationWithValidationRootType">
       <annotation>
-        <documentation>A datatype for a base for a validation that may start with a validation root.</documentation>
+	<documentation>A datatype for a base for a validation that may start with 
+	a validation root.</documentation>
       </annotation>
       <complexContent>
         <extension base="structures:ObjectType">
           <sequence>
-            <element ref="nc:DescriptionText" minOccurs="0"/>
+            <element ref="nc:DescriptionText"    minOccurs="0"/>
             <element ref="c:ValidationRootXPath" minOccurs="0"/>
           </sequence>
         </extension>
@@ -545,7 +552,9 @@
 
     <complexType name="XMLSchemaValidationType">
       <annotation>
-        <documentation>A datatype for an XML Schema validation constraint, indicating an XML Schema against which an artifact may be validated, as well as a description of the validation roots for assessment of validity.</documentation>
+	<documentation>A datatype for an XML Schema validation constraint, indicating
+	an XML Schema against which an artifact may be validated, as well as a 
+	description of validation roots for assessment of validity.</documentation>
       </annotation>
       <complexContent>
         <extension base="c:ValidationWithValidationRootType">
@@ -558,7 +567,9 @@
 
     <element name="ValidationRootXPath" type="c:XPathType">
       <annotation>
-        <documentation>An XPath expression that identfies a seqence of zero or more validation root elements for a validity constraint on an XML document.</documentation>
+	<documentation>An XPath expression that identfies a seqence of zero or more 	      
+	validation root elements for a validity constraint on an XML document.
+	</documentation>
       </annotation>
     </element>
 
@@ -566,13 +577,18 @@
              type="c:SchematronValidationType"
 	     substitutionGroup="c:ValidityConstraint">
       <annotation>
-	<documentation>A validity constraint that indicates that an artifact must be valid against the rules carried by a Schematron file, starting with the identified validation roots.</documentation>
+	<documentation>A validity constraint that indicates that an artifact must
+	be valid against the rules carried by a Schematron file, starting with 
+	the identified validation roots.</documentation>
       </annotation>
     </element>
 
     <complexType name="SchematronValidationType">
       <annotation>
-        <documentation>A datatype for a Schematron validation constraint, indicating a Schematron schema document against which an artifact may be validated, as well as a description of the validation roots for assessment of validity.</documentation>
+	<documentation>A datatype for a Schematron validation constraint, indicating
+	a Schematron schema document against which an artifact may be validated
+	as well as a description of the validation roots for assessment of validity.
+	</documentation>
       </annotation>
       <complexContent>
         <extension base="c:ValidationWithValidationRootType">
@@ -600,7 +616,10 @@
 
     <complexType name="RelaxNGValidationType">
       <annotation>
-        <documentation>A datatype for a RelaxNG validation constraint, indicating a RelaxNG schema document against which an artifact may be validated, as well as a description of the validation roots for assessment of validity.</documentation>
+	<documentation>A datatype for a RelaxNG validation constraint, 
+	indicating a RelaxNG schema document against which an artifact
+	may be validated, as well as a description of the validation 
+	roots for assessment of validity.</documentation>
       </annotation>
       <complexContent>
         <extension base="c:ValidationWithValidationRootType">
@@ -633,7 +652,7 @@
       <complexContent>
         <extension base="structures:ObjectType">
           <sequence>
-            <element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/>
+            <element ref="nc:DescriptionText" minOccurs="0"/>
           </sequence>
           <attribute ref="c:qualifiedNameList" use="required"/>
         </extension>
@@ -670,7 +689,7 @@
       <complexContent>
         <extension base="structures:ObjectType">
           <sequence>
-            <element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/>
+            <element ref="nc:DescriptionText" minOccurs="0"/>
           </sequence>
           <attribute ref="c:conformanceTargetURI" use="required"/>
         </extension>
@@ -694,7 +713,7 @@
       <complexContent>
         <extension base="structures:ObjectType">
 	  <sequence>
-            <element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/>
+            <element ref="nc:DescriptionText" minOccurs="0"/>
 	    <element ref="c:RuleText"/>
 	  </sequence>
         </extension>
@@ -707,7 +726,7 @@
       </annotation>
     </element>
 
-<!-- URI and expression attributes ====================================== -->
+<!-- URI and expression attributes =============================================== -->
 
     <attribute name="xmlCatalogURI" type="anyURI">
       <annotation>
@@ -722,21 +741,21 @@
       </annotation>
     </attribute>
 
-<!-- Validity Types ====================================================== -->
+<!-- Validity Types ============================================================== -->
 
     <complexType name="IEPConformanceTargetType">
       <annotation>
 	<documentation>A datatype for a class or category of IEP, which
 	has a set of validity constraints and a unique identifier.</documentation>
       </annotation>
-        <complexContent>
-	    <extension base="structures:ObjectType">
-	      <sequence>
-		<element ref="c:ValidityConstraint" minOccurs="0" maxOccurs="unbounded"/>
-		<element ref="c:IEPSampleURI"       minOccurs="0" maxOccurs="unbounded"/>
-    	      </sequence>
-	    </extension>
-        </complexContent>
+      <complexContent>
+	<extension base="structures:ObjectType">
+	  <sequence>
+	    <element ref="c:ValidityConstraint" minOccurs="0" maxOccurs="unbounded"/>
+	    <element ref="c:IEPSampleURI"       minOccurs="0" maxOccurs="unbounded"/>
+    	  </sequence>
+	</extension>
+      </complexContent>
     </complexType>
 
     <element name="IEPSampleURI" type="anyURI">
@@ -746,7 +765,7 @@
       </annotation>
     </element>
 
-<!-- Metadata ============================================================== -->
+<!-- Metadata ==================================================================== -->
     
     <element name="Metadata" type="c:MetadataType">
       <annotation>
@@ -799,8 +818,8 @@
         <extension base="structures:ObjectType">
           <sequence>
             <element ref="c:POCName"/>
-            <element ref="c:POCEmail"     minOccurs="1" maxOccurs="unbounded"/>
-            <element ref="c:POCTelephone" minOccurs="1" maxOccurs="unbounded"/>
+            <element ref="c:POCEmail"     maxOccurs="unbounded"/>
+            <element ref="c:POCTelephone" maxOccurs="unbounded"/>
           </sequence>
         </extension>
       </complexContent>
@@ -811,38 +830,38 @@
 	<documentation>A date this MPD was published.</documentation>
       </annotation>
     </element>
-    <element name="LastRevisionDate"    type="date">
+    <element name="LastRevisionDate" type="date">
       <annotation>
 	<documentation>A date the latest changes to an MPD were
 	published (i.e., CreationDate of previous version).</documentation>
       </annotation>
     </element>
-    <element name="StatusText"          type="string">
+    <element name="StatusText"   type="string">
       <annotation>
 	 <documentation>A description of the current state of this MPD 
 	 in development; may also project future plans for the MPD.
 	 </documentation>
       </annotation>
     </element>
-    <element name="Relationship"        type="c:RelationshipType">
+    <element name="Relationship" type="c:RelationshipType">
       <annotation>
 	<documentation>A reference to another MPD related to this MPD.
 	</documentation>
       </annotation>
     </element>
-    <element name="KeywordText"         type="string">
+    <element name="KeywordText"  type="string">
       <annotation>
 	<documentation>A common alias, term, or phrase that would help 
 	to facilitate search and discovery of this MPD.</documentation>
       </annotation>
     </element>
-    <element name="DomainText"          type="string">
+    <element name="DomainText"   type="string">
       <annotation>
 	<documentation>A description of the environment or NIEM Domain 
 	in which this MPD is applicable or used.</documentation>
       </annotation>
     </element>
-    <element name="PurposeText"         type="string">
+    <element name="PurposeText"  type="string">
       <annotation>
 	<documentation>A description of the intended usage and reason 
 	for which an MPD exists.</documentation>
@@ -862,36 +881,36 @@
       </annotation>
     </element>
     
-    <element name="ASName"              type="string">
+    <element name="ASName"       type="string">
       <annotation>
 	<documentation>A name for the current MPD authoritative source; 
 	could be the author, creator, sponsor, etc. 
 	(organization or person name).</documentation>
       </annotation>
     </element>
-    <element name="ASAddressText"       type="string">
+    <element name="ASAddressText" type="string">
       <annotation>
         <documentation>A description of the location of the 
 	authoritative source for the MPD.</documentation>
       </annotation>
     </element>
-    <element name="ASWebSiteURL"        type="anyURI">
+    <element name="ASWebSiteURL" type="anyURI">
       <annotation>
 	<documentation>A URL for the Web site of the 
 	authoritative source for the MPD.</documentation>
       </annotation>
     </element>
-    <element name="POCName"             type="string">
+    <element name="POCName"      type="string">
       <annotation>
         <documentation>A name for a person, position, or title.</documentation>
       </annotation>
     </element>
-    <element name="POCEmail"            type="string">
+    <element name="POCEmail"     type="string">
       <annotation>
         <documentation>An email address.</documentation>
       </annotation>
     </element>
-    <element name="POCTelephone"        type="string">
+    <element name="POCTelephone" type="string">
       <annotation>
         <documentation>A telephone number.</documentation>
       </annotation>
@@ -899,13 +918,13 @@
 
     <complexType name="RelationshipType">
       <annotation>
-	 <documentation>A datatype for a reference to another MPD 
-	 related to this MPD.</documentation>
+	 <documentation>A datatype for a reference to another
+	 MPD related to this MPD.</documentation>
       </annotation>
       <complexContent>
         <extension base="structures:ObjectType">
           <sequence>
-            <element ref="nc:DescriptionText" minOccurs="0" maxOccurs="1"/>
+            <element ref="nc:DescriptionText" minOccurs="0"/>
           </sequence>
           <attribute ref="c:relationshipCode" use="required"/>
           <attribute ref="c:resourceURI"      use="required"/>
@@ -914,3 +933,4 @@
     </complexType>
 
 </schema>
+
