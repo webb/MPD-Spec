@@ -5,7 +5,7 @@
    <title>National Information Exchange Model Model Package Description Specification</title>
    <version>3.0alpha3</version>
    <date>2013-11-01</date>
-  <author>NIEM Technical Architecture Committee (NTAC)</author>
+   <author>NIEM Technical Architecture Committee (NTAC)</author>
   <subsection id="toc">
     <title>Contents</title>
     <tableOfContents/>
@@ -735,8 +735,7 @@
 	<p>NIEM allows the use of <em>external schema documents</em> that do not conform to NIEM.  Data components declared and defined in external schema documents require NIEM <em>adapter types</em> to identify the fact they do not conform to NIEM.</p>
 
 	<definition term="external schema documents">
-		<p>Any XML schema document that is not a NIEM-supporting schema and that is not NIEM-conformant.
-		</p>
+		<p>Any XML schema document that is not a NIEM-supporting schema and that is not NIEM-conformant.</p>
 	</definition>	
 
 	<p>Refer to the <ref idref="NIEM-NDR"/> for details about external schemas, adapter types, and the rules describing their usage.</p> 
@@ -978,9 +977,13 @@
 <section id="MPD-Catalog-TOC">
 	<title>MPD Catalog as a Table of Contents</title>
 
-	<p>A NIEM mpd-catalog is not required to identify or record every artifact in the MPD.  The MPD author decides which artifacts (files and sets) are important enough to include in the mpd-catalog.  The author may choose to include all artifacts, some artifacts, or no artifacts.</p> 
+	<p>A NIEM mpd-catalog is not required to identify or record every artifact in the MPD.  The MPD author decides which artifacts (files and sets) are important enough to explicitly include in the mpd-catalog.  The author may choose to include all artifacts, some artifacts, or no artifacts.</p> 
 
-	<p>The mpd-catalog is designed to identify, classify, and describe any artifact, its path name, dependencies, and lineage.  Employing XSLT, an mpd-catalog can be transformed into an <code>index.html</code> artifact that displays a hyperlinke MPD table of contents and metadata summary for human review in a browser.</p>
+	<p>The mpd-catalog is designed to identify, classify, and describe any artifact, its path name, dependencies, and lineage.  Employing XSLT, an mpd-catalog can be transformed into an <code>index.html</code> artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.</p>
+
+	<p><ref idref="MPD-Catalog-XSD"/> only provides classifier elements for the most common artifacts and artifact sets used in IEPDs.  For other less common or generic artifacts two general classifiers exist:  <code>Documentation</code> and <code>ApplicationInfo</code>.  These elements loosely correspond to the meaning of the XML Schema <code>xs:annotation</code> child elements, <code>xs:documentation</code> and <code>xs:appInfo</code>.</p>  So, general visual, audio, or textual explanatory documentation should be classified as <code>Documentation</code>, while tool-specific artifacts (such as imports, exports, executables, etc.) should be classified as <code>ApplicationInfo</code>.</p>
+
+<p>A best practice is to use the <code>master-document</code> artifact (required in the MPD directory root) to reference <code>Documentation</code> and <code>ApplicationInfo</code> artifacts whether they have been classified in the MPD Catalog or not.</p>
 
 </section>
 
@@ -989,7 +992,11 @@
 <section id="Extending-an-MPD-Catalog">
 	<title>Extending an MPD Catalog</title>
 
-	<p>An MPD Catalog may be extended to accomodate additional metadata <ref idref="MPD-Catalog-XSD"/> or other validity constraints <ref idref="Configuration"/>, for example, non-standard rule formats or those associated with specific tools.</p>
+	<p>An MPD Catalog may be extended to accomodate additional metadata <ref idref="MPD-Catalog-XSD"/>.  It can also be extended to use other validity constraint schemas or rules not declared in <code>mpd-catalog.xsd</code>.  Schemas or rules may be either standard or non-standard.  For example, an IEPD author may extend an MPD Catalog to employ a rule format associated with a specific software tool.</p>
+
+	<p>To extend an MPD Catalog for additional metadata ... [TBD].</p>
+
+	<p>To extend an MPD Catalog for other validity constraint schema languages or rules ... [TBD].  [Probably need to move this part down to the validation section.]</p>
 
 </section>
 </section>
@@ -1355,7 +1362,7 @@
 		<ol>
 			<li><p>the IEPD URI</p></li>
 			<li><p>the pound character (<code>#</code>) and</p></li>
-			  <li><p>a locally unique <link href="http://www.w3.org/TR/xmlschema-2/#NCName">NCName</link> per <ref idref="W3-XML-Schema-Structures"/></p></li>
+			<li><p>a locally unique <link href="http://www.w3.org/TR/xmlschema-2/#NCName">NCName</link> per <ref idref="W3-XML-Schema-Structures"/></p></li>
 		</ol>
 	</definition>	
 
@@ -1364,70 +1371,18 @@
 
 
 <section id="Schema-Validation">
-	<title>Schema Validation - Implicit validity constraints</title>
+	<title>Schema Validation</title>
 
 	<p>NIEM employs the W3C XML Schema Definition (XSD) Language (<ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>), one of several XML schema definition languages designed to define an instance XML document and enable its validation.  In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema (<ref idref="W3-XML-Schema-Structures"/> <link href="http://www.w3.org/TR/xmlschema11-1/#sec-schema-validity-and-docs">2.5 Schema-validity and documents</link>).</p>
-	<p>So, a NIEM IEPD is an MPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing xml-catalogs to resolve <code>xs:import</code> statements and similar XML Schema constructs).  In turn, the resulting XML schema can be used to validate one or more instance XML documents, i.e., NIEM IEPs <ref idref="IEP"/>).  In some cases, how to validate an IEP with an IEPD may be fairly obvious -- driven by simple conventions.  In more complex cases, it may be necessary to provide explicit conformance targets and validation directives.</p>
 
-	<p>To be clear, in the following subsections references to "validation" will refer to "XML Schema validation".</p>
+	<p>So, a NIEM IEPD is an MPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing xml-catalogs to resolve <code>xs:import</code> statements and similar XML Schema constructs).  In turn, the resulting XML schema can be used to validate one or more instance XML documents (i.e., NIEM IEPs <ref idref="IEP"/>) for NIEM conformance.</p>
 
-
-<section id="Convention">
-	<title>Validation by Convention (implicit)</title>
-
-	<p>A simple conventional approach will ensure an IEPD contains particular artifacts organized in a standard way.  This will enable a user or a process to identify the artifacts and execute schema validation on a <em>candidate IEP</em> to prove that it is a <em>valid IEP</em>.</p>
-
-	<definition term="valid IEP" id="valid-iep">
-		<p>An IEP (an instance XML document) that satisfies all required validity constraints defined in a given IEPD.  We say that such an IEP is a valid IEP for that IEPD.</p>
-	</definition>
-
-	<definition term="candidate IEP" id="candidate-iep">
-		<p>An instance XML document that is under consideration as a valid IEP for a given IEPD (and therefore, has not yet been proven to be a valid IEP).</p>
-	</definition>
-
-	<p>Recall (in <ref idref="Exchange-Schema-Documents"/>) that all IEPD element declarations within NIEM schema documents are potentially IEP root elements because they all have global scope.  By convention, in the absence of any explicit declarations of author intent, all elements declared in exchange schema documents are considered IEP root elements.  So, for simple conventional IEPDs, ensure that only IEP root elements are declared in exchange schema documents, as these declarations constitute intent to use them as XML document elements.</p>
-
-	<p>In order to organize a simple IEPD for validatation by convention, an IEPD requires the following set up:</p>
-
-	<ul>
-	<li><p>No <code>IEPConformanceTarget</code> element can exist in the mpd-catalog.xml artifact.  (Rationale:  Existence of an <code>IEPConformanceTarget</code> element takes precedence over convention.)</p></li>
-	<li><p>An <code>xml-catalog.xml</code> artifact must exist within the IEPD root directory.  (Rationale:  This artifact is required to resolve each and every namespace to a local URI.)</p></li>
-	<li><p>A single base schema set must reside within an IEPD subdirectory with initial substring:  <code>"base-xsd"</code>.  (Rationale:  An IEPD requires a base schema set.)</p></li>
-	<li><p>All IEP root elements must be declared within exchange schema artifacts that reside within an IEPD subdirectory with initial substring:  <code>"base-xsd/exchange"</code>.  (Rationale:  Every element declared in a NIEM exchange schema document is potentially, and therefore, intended to be an XML document element.)</p></li>
-	<li><p>If present, optional constraint schema sets must reside within an IEPD subdirectory with initial substring:  <code>"constraint"</code>.  (Rationale:  For purpose of locating them consistently.)</p></li>
-	<li><p>If present, optional Schematron rule artifacts must reside within an IEPD subdirectory with initial substring:  <code>"schematron"</code>.  (Rationale:  For purpose of locating them consistently.)</p></li>
-	</ul>
-
-	<p>In summary, IEPD organization for conventional validation can be represented as an algorithm for validating a candidate IEP.  Given a candidate IEP:</p>
-
-	<blockquote>
-	<p><char name="nbsp"/><char name="nbsp"/><code>IF </code> a <code> c:IEP</code> element exists in the <code>mpd-catalog.xml</code> artifact,</p>
-	<p><char name="nbsp"/><char name="nbsp"/><code>THEN</code> ignore convention and validate the candidate IEP according to the instructions defined by that element.  (An <code>IEPConformanceTarget</code> element in the mpd-catalog takes precedence.)</p>
-	<p><char name="nbsp"/><char name="nbsp"/><code>ELSE</code>:</p>
-	<blockquote>
-	<p><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/>Assemble a base schema and validate the candidate IEP against it.  (XML schema validation for NIEM conformance.)</p>
-	<p><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/>Identify all Schematron documents and validate the candidate IEP against each.  (Schematron validation for additional business rules.)</p>
-	<p><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><code>Set $L =</code> list of elements declared by XML schema documents in the subdirectory name matching <code>"exchange*"</code>. (Identify all IEP root elements.)</p>
-	<p><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><code>IF $L</code> is non-empty,</p>
-	<p><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><code>THEN</code> verify the candidate IEP document element is in <code>$L</code>.  (Ensure the candidate IEP's XML document element is in the list of all intended IEP root elements.)</p>
-	<blockquote>
-		<p><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><code>FOR EACH</code> constraint schema <code>$D</code> in subdirectory name matching <code>"constraint*"</code>:  (Validate candidate IEP against each constraint schema that can be assembled from a constraint set in the <code>constraint</code> subdirectory.)</p>
-	<blockquote>
-	<p><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/>Assemble an XML schema for <code>$D</code>.</p>
-	<p><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/>Validate the candidate IEP against <code>$D</code>.</p>
-	</blockquote>
-	</blockquote>
-	</blockquote>
-	</blockquote>
-
-	<p>The foregoing requirements are established and only make sense for simple IEPDs that can employ traditional IEPD conventions.  For whatever reasons, when schema validity constraints cannot be easily applied to an IEPD or if the IEPD itself requires a complex or non-conventional organization, then the IEPD author should explicitly declare validity constraints in the mpd-catalog using <code>IEPConformanceTarget</code> elements.  <ref idref="Configuration"/> describes the techniques.</p>
-
-</section>
+	<p>To be clear, references to "validation" in the following subsections refer to "XML Schema validation".  However, an IEPD author may also choose to include artifacts to validate with other types of schemas or rules, including but not limited to <ref idref="W3-Schematron"/> and <ref idref="RelaxNG"/>.  IEPD authors may also include artifacts for NIEM constraint schema validation, which, of course, is XML Schema validation (See <ref idref="Constraint-Schemas"/>.</p>
 
 
 
-<section id="Configuration">
-	<title>Validation by Configuration - Declaring explicit validity constraints</title>
+<section id="Declairing-Validity-Constraints">
+	<title>Declaring Validity Constraints</title>
 
 	<p>Explicit declaration of validity constraints is far more flexible than relying on convention.  Declaring validity constraints in the mpd-catalog, frees an IEPD author from having to follow conventional IEPD organization.  Many standard validity constraints can be controlled from <code>IEPConformanceTarget</code> elements within the mpd-catalog without the need to standardize IEPD directory structure or hunt for validation artifacts.  Instead, the <code>IEPConformanceTarget</code> element identifies the conformance target, the type of validation, and the location of the validation artifact.  It can also identify the location of IEP samples that are known to satisfy the validity constraints.</p>
 
@@ -1774,7 +1729,7 @@
 
 
 <section id="MPD-Catalog-XSD" isAppendix="true">
-	<title>XML Schema Document for MPD Catalog</title>
+	<title>MPD Catalog XML Schema Document</title>
 	<pre><include-text href="xsd/mpd-catalog-3.0.xsd"/></pre>
 </section>
 
