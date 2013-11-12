@@ -228,10 +228,18 @@
     </element>
 
     <element name="ExtensionSchemaDocument" type="c:FileType" 
-	       substitutionGroup="c:Artifact">
+	     substitutionGroup="c:Artifact">
       <annotation>
 	<documentation>An MPD artifact that is a NIEM extension schema document.
 	</documentation>
+      </annotation>
+    </element>
+
+    <element name="ExchangeSchemaDocument" type="c:FileType" 
+	     substitutionGroup="c:Artifact">
+      <annotation>
+	<documentation>An MPD artifact that is a NIEM exchange schema document, 
+	and must declare at least one IEP root element.</documentation>
       </annotation>
     </element>
 
@@ -450,12 +458,11 @@
 
     <simpleType name="MPDVersionIDSimpleType">
       <annotation>
-	<documentation>A datatype for an identifier that 
-	distinguishes releases of a given MPD.</documentation>
+	<documentation>A datatype for an identifier that distinguishes releases
+	of a given MPD.</documentation>
       </annotation>
       <restriction base="token">
         <pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
-        <minLength value="1"/>
       </restriction>
     </simpleType>
 
@@ -714,13 +721,13 @@
       </complexContent>
     </complexType>
     
-    <attribute name="qualifiedNameList" type="c:qualifiedNameListSimpleType">
+    <attribute name="qualifiedNameList" type="c:QualifiedNameListSimpleType">
       <annotation>
 	<documentation>A list of qualified names.</documentation>
       </annotation>
     </attribute>
 
-    <simpleType name="qualifiedNameListSimpleType">
+    <simpleType name="QualifiedNameListSimpleType">
       <annotation>
 	<documentation>A simple datatype denoting a list of qualified names.
 	</documentation>
@@ -843,27 +850,28 @@
       </annotation>
     </element>
 
+<!-- These have been replaced by nc:ContactInforationType; BUT ...
+     May also need an Entity (org or person) who IS the Auth Src. 
+
     <element name="POC" type="c:POCType">
-      <annotation>
-	 <documentation>A point of contact for an authoritative source.
-	 </documentation>
-      </annotation>
-    </element>
 
     <complexType name="POCType">
-      <annotation>
-        <documentation>A datatype for a point of contact.</documentation>
-      </annotation>
-      <complexContent>
-        <extension base="structures:ObjectType">
-          <sequence>
             <element ref="c:POCName"/>
             <element ref="c:POCEmail"     maxOccurs="unbounded"/>
             <element ref="c:POCTelephone" maxOccurs="unbounded"/>
-          </sequence>
-        </extension>
-      </complexContent>
-    </complexType>
+    
+    <element name="ASName" type="string">
+	<documentation>A name for the current MPD authoritative source; could be the
+	author, creator, sponsor, etc. (organization or person name).</documentation>
+
+    <element name="ASAddressText" type="string">
+
+    <element name="ASWebSiteURL" type="anyURI">
+
+    <element name="POCName" type="string">
+        <documentation>A name for a person, position, or title.</documentation>
+
+-->
 
     <element name="CreationDate" type="date">
       <annotation>
@@ -925,45 +933,6 @@
       <annotation>
 	<documentation>A name of an entity or organization that uses this MPD.
 	</documentation>
-      </annotation>
-    </element>
-    
-    <element name="ASName"       type="string">
-      <annotation>
-	<documentation>A name for the current MPD authoritative source; could be the
-	author, creator, sponsor, etc. (organization or person name).</documentation>
-      </annotation>
-    </element>
-
-    <element name="ASAddressText" type="string">
-      <annotation>
-        <documentation>A description of the location of the 
-	authoritative source for the MPD.</documentation>
-      </annotation>
-    </element>
-
-    <element name="ASWebSiteURL" type="anyURI">
-      <annotation>
-	<documentation>A URL for the Web site of the authoritative source for the MPD.
-	</documentation>
-      </annotation>
-    </element>
-
-    <element name="POCName"      type="string">
-      <annotation>
-        <documentation>A name for a person, position, or title.</documentation>
-      </annotation>
-    </element>
-
-    <element name="POCEmail"     type="string">
-      <annotation>
-        <documentation>An email address.</documentation>
-      </annotation>
-    </element>
-
-    <element name="POCTelephone" type="string">
-      <annotation>
-        <documentation>A telephone number.</documentation>
       </annotation>
     </element>
 
