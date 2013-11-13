@@ -15,6 +15,14 @@
     <import namespace="http://release.niem.gov/niem/structures/3.0/"/>
     <import namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
 
+<!-- 
+Please understand, this schema is a work-in-progress.  We realize there are
+component names that do not necessarily conform to the NDR yet.  Also, we are
+reusing some NIEM 3.0 components that still require review to ensure they have 
+all appropriate properties they replaced (for example, AuthoritativeSource 
+is now type="nc:EntityType".  Nonetheless, we appreciate your feedback.)
+-->
+
     <annotation>
 
       <documentation>
@@ -113,10 +121,10 @@
         <extension base="structures:ObjectType">
           <sequence>
             <element ref="nc:DescriptionText" minOccurs="0"/>
-            <element ref="c:Artifact" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="c:Artifact"         minOccurs="0" maxOccurs="unbounded"/>
           </sequence>
-          <attribute ref="c:pathURI"         use="required"/>
-          <attribute ref="c:externalURI"     use="optional"/>
+          <attribute ref="c:pathURI"     use="required"/>
+          <attribute ref="c:externalURI" use="optional"/>
         </extension>
       </complexContent>
     </complexType>
@@ -128,12 +136,12 @@
       <complexContent> 
         <extension base="structures:ObjectType">
           <sequence>
-            <element ref="c:RequiredFile" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="c:RequiredFile"     minOccurs="0" maxOccurs="unbounded"/>
             <element ref="nc:DescriptionText" minOccurs="0"/>
           </sequence>
-          <attribute ref="c:pathURI"          use="required"/>
-          <attribute ref="c:mimeMediaType"   use="optional"/>
-          <attribute ref="c:externalURI"     use="optional"/>
+          <attribute ref="c:pathURI"           use="required"/>
+          <attribute ref="c:mimeMediaTypeText" use="optional"/>
+          <attribute ref="c:externalURI"       use="optional"/>
         </extension>
       </complexContent>
     </complexType>
@@ -233,14 +241,6 @@
       </annotation>
     </element>
 
-    <element name="ExchangeSchemaDocument" type="c:FileType" 
-	     substitutionGroup="c:Artifact">
-      <annotation>
-	<documentation>An MPD artifact that is a NIEM exchange schema document, 
-	and must declare at least one IEP root element.</documentation>
-      </annotation>
-    </element>
-
     <element name="SubsetSchemaDocument"    type="c:FileType" 
 	       substitutionGroup="c:Artifact">
       <annotation>
@@ -291,6 +291,8 @@
 
 <!-- Set Artifact Classifiers ==================================================== -->
 
+<!-- May no longer need BaseSchemaDocumentSet? -->
+
     <element name="BaseSchemaDocumentSet"
              type="c:BaseSchemaDocumentSetType"      substitutionGroup="c:Artifact">
       <annotation>
@@ -318,6 +320,8 @@
 
 
 <!-- Artifact Classifier Types =================================================== -->
+
+<!-- May no longer need this? Caution! Also reused by ConstraintSchemaDocumentSet -->
 
     <complexType name="BaseSchemaDocumentSetType">
       <annotation>
@@ -398,7 +402,7 @@
       </annotation>
     </attribute>
 
-    <attribute name="mimeMediaType" type="string">
+    <attribute name="mimeMediaTypeText" type="string">
       <annotation>
 	<documentation>A classification for an MPD file
 	artifact from the IANA MIME media classes: 
@@ -552,8 +556,9 @@
       <complexContent>
 	<extension base="structures:ObjectType">
 	  <sequence>
+	    <element ref="nc:DescriptionText"   minOccurs="0"/>
 	    <element ref="c:ValidityConstraint" minOccurs="0" maxOccurs="unbounded"/>
-	    <element ref="c:IEPSampleURI"       minOccurs="0" maxOccurs="unbounded"/>
+	    <element ref="c:IEPSampleDocument"  minOccurs="0" maxOccurs="unbounded"/>
     	  </sequence>
 	</extension>
       </complexContent>
@@ -756,6 +761,12 @@
       </complexContent>
     </complexType>
 
+    <attribute name="conformanceTargetURI" type="anyURI">
+      <annotation>
+        <documentation>A URI for a conformance target.</documentation>
+      </annotation>
+    </attribute>
+
     <element name="ConformsToRule" type="c:TextRuleType" 
 	substitutionGroup="c:ValidityConstraint">
       <annotation>
@@ -787,38 +798,15 @@
     </element>
 
 
-<!-- URI attributes and elements ================================================= -->
-
-    <attribute name="xmlCatalogURI" type="anyURI">
-      <annotation>
-	<documentation>A URI for an OASIS XML catalog artifact
-	within the MPD; its pathname.</documentation>
-      </annotation>
-    </attribute>
-
-    <attribute name="conformanceTargetURI" type="anyURI">
-      <annotation>
-        <documentation>A URI for a conformance target.</documentation>
-      </annotation>
-    </attribute>
-
-    <element name="IEPSampleURI" type="anyURI">
-      <annotation>
-	<documentation>A local URI for a sample XML document  
-	defined by an IEP conformance target.</documentation>
-      </annotation>
-    </element>
-
-
 <!-- Metadata ==================================================================== -->
     
-    <element name="Metadata" type="c:MetadataType">
+    <element name="MPDInformation" type="c:MPDInformationType">
       <annotation>
         <documentation>A set of descriptive data about an MPD.</documentation>
       </annotation>
     </element>
 
-    <complexType name="MetadataType">
+    <complexType name="MPDInformationType">
       <annotation>
 	<documentation>A datatype for a set of descriptive data about an MPD.
 	</documentation>
@@ -841,34 +829,28 @@
       </complexContent>
     </complexType>
 
-    <element name="AuthoritativeSource" type="nc:ContactInformationType">
+    <element name="AuthoritativeSource" type="nc:EntityType">
       <annotation>
 	      <documentation>An official sponsoring or authoring 
 	      organization responsible for an MPD.</documentation>
       </annotation>
     </element>
 
-<!-- These have been replaced by nc:ContactInforationType; BUT ...
-     May also need an Entity (org or person) who IS the Auth Src. 
+<!-- These have been replaced by nc:EntityType which 
+    allows a Person or Organization as the Auth Src. 
 
     <element name="POC" type="c:POCType">
-
     <complexType name="POCType">
             <element ref="c:POCName"/>
             <element ref="c:POCEmail"     maxOccurs="unbounded"/>
             <element ref="c:POCTelephone" maxOccurs="unbounded"/>
-    
     <element name="ASName" type="string">
 	<documentation>A name for the current MPD authoritative source; could be the
-	author, creator, sponsor, etc. (organization or person name).</documentation>
-
+	author, creator, sponsor, etc. (organization or person).</documentation>
     <element name="ASAddressText" type="string">
-
     <element name="ASWebSiteURL" type="anyURI">
-
     <element name="POCName" type="string">
         <documentation>A name for a person, position, or title.</documentation>
-
 -->
 
     <element name="CreationDate" type="date">
