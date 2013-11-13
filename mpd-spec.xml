@@ -644,7 +644,9 @@
 	<rule id="fundamental-subset">
 		<p>Any instance XML document that validates against a NIEM schema document subset will validate against the NIEM reference schema document set from which that schema document subset was derived.</p>
 	</rule>
+
 </section>
+
 
 
 <section id="Subset-Operations">
@@ -749,6 +751,8 @@
 <section id="Exchange-Schema-Documents">
 	<title>Exchange Schema Documents</title>
 
+	<p>[TBD] [Exchange schema is subsumed by extension schema; this section may be removed or replaced]</p>
+
 	<p>This section only applies to IEPDs.  NIEM releases, core updates, domain updates, and EIEMs do not contain exchange schema documents.</p>
 
 	<p>An IEPD defines one or more NIEM XML data exchanges, and therefore, a class of instance XML documents, each of which validates against the XML schema document set in that IEPD.  A NIEM IEP (i.e., an instance XML document) contains exactly one and only one XML document element, which is its root element, and which cannot appear in the content of any other element within that instance XML document.  This is by definition in <ref idref="W3-XML"/> and <ref idref="W3-XML-InfoSet"/>.</p>
@@ -759,19 +763,18 @@
 		<p>A NIEM-conformant extension schema document that declares one or more XML document elements (top-level) each of which is intended to be used as a document element for an IEP.</p>
 	</definition>
 
-	<p>The <ref idref="NIEM-NDR"/> does not allow local element declarations, so all extension schema documents can potentially declare XML document elements.  What distinguishes an exchange schema document from other extension schema documents is the intent for one or more of its declared elements to be an XML document element within an IEP.  Intent can be asserted implicitly by convention (generally, for simple IEPDs) or explicitly by configuration (for more complex IEPDs).  The details of these methods are discussed in <ref idref="MPD-Catalog"/> and <ref idref="Normative-Guidance-Directories"/>.</p>
-
-	<!-- TODO:  Above refs are no longer correct; revise -->
+	<p>The <ref idref="NIEM-NDR"/> does not allow local element declarations, so all extension schema documents can potentially declare XML document elements.  What distinguishes an exchange schema document from other extension schema documents is the intent for one or more of its declared elements to be an XML document element within an IEP.  Intent can be asserted implicitly by convention (generally, for simple IEPDs) or explicitly by configuration (for more complex IEPDs).  The details of these methods are discussed in <ref idref="MPD-Catalog"/> and <ref idref="Non-Normative-Guidance-Directories"/>.</p>
 
 	<p>Although generally rare, it is possible to develop an IEPD without an extension schema.  If an author creates an IEPD based entirely on existing NIEM elements, then no extension schema is necessary.  In this case, the exchange schema defines a document element type to contain only existing NIEM elements drawn from a subset or reference schema documents, and declares the documen element of that type.  <ref idref="exchange"/> (and <ref idref="r-mpd-iep-root"/>) ensures that an exchange schema document declares document elements intended for use as the root of an instance XML document.  Because the <ref idref="NIEM-NDR"/> requires all elements be declared with global scope, element declarations not intended to be a document element of an IEP should be placed into extension schema documents.</p>
 
 
-	<section id="IEP-Root-Element">
+
+<section id="IEP-Root-Element">
 	<title>IEP Root Element</title>
 
 	<p>An IEP could later be used as the payload of an XML envelope (i.e., another instance XML document, such as a SOAP message).  That XML envelope will have its own document element, and the IEP no longer contains the document element for the instance XML document.  Therefore, in the context of an IEPD, it is more appropriate to refer to a document element as an <em>IEP root element</em>.</p>
 
-<!-- TODO:  This rule may not be valid now; no reason to have such if IEP allows configuration of validation -->
+	<p>[TBD] [Following definition and term may no longer be required; no reason for it if IEPConformanceTarget element configures for validation]</p>
 
 	<definition term="IEP root element">
 		<p>The top-level (parent) element of an IEP.  An IEP root element is an IEP's XML document element.</p>
@@ -1000,7 +1003,7 @@
 
 	<p>To extend an MPD Catalog for additional metadata ... [TBD].</p>
 
-	<p>To extend an MPD Catalog for other validity constraint schema languages or rules ... [TBD].  [Probably need to move this part down to the validation section.]</p>
+	<p>To extend an MPD Catalog for other validity constraint schema languages or rules ... [TBD] [Might move this down to validation section]</p>
 
 </section>
 </section>
@@ -1390,7 +1393,15 @@
 
 	<p>Explicit declaration of validity constraints is far more flexible than relying on convention.  Declaring validity constraints in the mpd-catalog, frees an IEPD author from having to follow conventional IEPD organization.  Many standard validity constraints can be controlled from <code>IEPConformanceTarget</code> elements within the mpd-catalog without the need to standardize IEPD directory structure or hunt for validation artifacts.  Instead, the <code>IEPConformanceTarget</code> element identifies the conformance target, the type of validation, and the location of the necessary validation artifact(s).  It can also identify IEP samples known to satisfy the validity constraints.</p>
 
-	<p>*** TBD -- ... more to follow ***</p>
+	<rule id="validity-constraints">
+		<p>An IEPD MUST explicitly declare all intended validity constraints by employing the <code>IEPConformanceTarget</code> element in its <code>mpd-catalog.xml</code> artifact.</p>
+	</rule>
+
+	<p><ref idref="MPD-Catalog-XSD"/> provides XML elements for various validity constraints.  Note that there may exist multiple ways to declare the same validity constraint with these elements.  This rule only requires that validity constraints be declared once in a single form.  For example, it may be possible to use the <code>HasDocumentElement</code> and the <code>ValidToXPath</code></p> elements to declare the same XML document elements.  However, it is only required that an IEPD author use one or the other. 
+
+	<p>Recall that this section is not applicable to an MPD that is an EIEM, because it does not define an information exchange.  That said, there may be good rationales for an EIEM author to provide validity constraints with an EIEM.  However, this is not a required for an EIEM.</p>	
+
+	<p>[TBD] [more to follow ...]</p>
 
 </section>
 
@@ -1399,7 +1410,7 @@
 <section id="IEP-Sample-Requirements">
 	<title>Requirements for IEP Samples</title>
 
-	<p>*** TBD ***</p>
+	<p>[TBD]</p>
 
 </section>
 
@@ -1411,29 +1422,28 @@
 <section id="Valid-vs-Complete-IEPD">
 	<title>Valid vs. Complete IEPD</title>
 
-	<p>*** TBD ***</p>
+	<p>[TBD]</p>
 
 	<definition term="Valid IEPD">
-		<p>TBD</p>
+		<p>[TBD]</p>
 	</definition>
 
 	<definition term="Complete IEPD">
-		<p>TBD</p>
+		<p>[TBD]</p>
 	</definition>
 
 	<definition term="Valid MPD">
-		<p>TBD</p>
+		<p>[TBD]</p>
 	</definition>
 
 	<definition term="Complete MPD">
-		<p>TBD</p>
+		<p>[TBD]</p>
 	</definition>
 
 </section>
 
 
-
-<!-- =====================================================================================
+<!-- ====================== Working stuff ================================================
 
 <p>Sample IEP</p>
 
@@ -1469,7 +1479,7 @@
 
 	<p>In order to conform to this specification for inclusion within an IEPD, an IEP must be valid <ref idref="valid-iep"/>.  An IEP is a <em>candidate IEP</em> until it has been validated against its IEPD schemas.</p>  
 
-	<p>Note that the use of mpd-catalog <code>IEPConformanceTarget</code> elements takes precedence over the more conventional procedure that requires looking for standard directory names <ref idref="Normative-Guidance-Directories"/>.  This is why the conventional method is only useful for very simple IEPDs.  Also, note that use of the mpd-catalog <code>IEPConformanceTarget</code> element references, and therefore, requires xml-catalogs.</p>
+	<p>Note that the use of mpd-catalog <code>IEPConformanceTarget</code> elements takes precedence over the more conventional procedure that requires looking for standard directory names <ref idref="Non-Normative-Guidance-Directories"/>.  This is why the conventional method is only useful for very simple IEPDs.  Also, note that use of the mpd-catalog <code>IEPConformanceTarget</code> element references, and therefore, requires xml-catalogs.</p>
 
 ============================================================================================= -->
 
@@ -1655,10 +1665,12 @@
 </section>
 
 
-<section id="Normative-Guidance-Directories">
-	<title>Normative Guidance for Directory Structures</title>
+<section id="Non-Normative-Guidance-Directories">
+	<title>Non-Normative Guidance for Directory Structures</title>
 
-	<p>Guidance for directory structuring may be useful to authors for a relatively simple IEPD or EIEM with a single schema document subset, a few extension, exchange, and external schema documents.  The following general guidance has been common practice for IEPD directories:</p>
+	<p>NIEM releases, core updates, and domain updates generally follow a consistent directory organization.  When employing release and updates within IEPDs and EIEMs whether as-is or as subsets, users are encouraged to maintain their original directory structures.  However, aside from applicable rules previously stated in the sections preceding sections, there are no normative rules for organizing directories within IEPDs or EIEMs.  
+
+	<p>Guidance for directory structuring may be useful to authors, especially in the case of a relatively simple IEPD or EIEM with a single schema document subset, and a few extension, exchange, and external schema documents.  The following has been common non-normative practice for IEPD directories:</p>
 <ul>
 	<li><p>Create a root directory for the IEPD from the name and version identifier of the IEPD.  For example <code>my_iepd-3.2rev4</code>.</p></li>
 	<li><p>Per <ref idref="r-mpd-catalog"/> and <ref idref="r-mpd-ref-changelog"/>, the mpd-catalog and the change log must reside in the root directory.</p></li>
@@ -1680,7 +1692,9 @@
 	<li><p>Maintain tool-specific artifacts (inputs, outputs, imports, exports, etc.) in a subdirectory with a name that begins with the substring <code>application-info</code>.</p></li>
 </ul>
 
-<p>The guidance above results in an IEPD directory structure that appears below.  Filenames within the <code>extension</code>, <code>external</code>, <code>exchange</code>, <code>schematron</code>, and <code>iep-sample</code> subdirectories are non-normative examples.  Authors are free to assign names for such files according to their own requirements (as long as they do not violate the rules in this specification for other files such as <code>xml-catalog.xml</code> or <code>mpd-catalog.xml</code>).  Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD.  When the standard conventions will not work for an IEPD, the author should configure the IEPD using the mpd-catalog <code>IEPConformanceTarget</code> element and xml-catalogs.</p>	
+	<p>Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD or EIEM.  Regardless of directory organization and file naming, an IEPD or EIEM author should always configure all IEP conformance targets using the mpd-catalog <code>IEPConformanceTarget</code> element and the appropriate validation artifacts (such as xml-catalogs, Schematron schemas, RelaxNG schemas, etc.).</p>
+
+	<p>The guidance above results in an IEPD directory structure that appears below.  Filenames within the <code>extension</code>, <code>external</code>, <code>exchange</code>, <code>schematron</code>, and <code>iep-sample</code> subdirectories are non-normative examples.  Authors are free to assign names for such files according to their own requirements (as long as they do not violate the rules in this specification for other files such as <code>xml-catalog.xml</code> or <code>mpd-catalog.xml</code>).</p>
 <pre>
 	/my_iepd-3.2rev4		(root directory of IEPD archive)
 		changelog.*
@@ -1740,14 +1754,14 @@
 
 <section id="MPD-Instance" isAppendix="true">
 	<title>Example Instance XML Document Catalog</title>
-	<p>*** TBD ... requires more work. ***</p>
+	<p>[TBD] [More work required]</p>
 	<pre><include-text href="xsd/sample.1/mpd-catalog.xml"/></pre>
 </section>
 
 
 <section id="MPD-Artifacts" isAppendix="true">
 	<title>MPD Artifacts</title>
-	<p>*** TBD ***</p>
+	<p>[TBD] [More work required]</p>
 </section>
 
 
