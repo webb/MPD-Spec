@@ -1113,10 +1113,10 @@
 	<p>The MPD version number is essential to its unique identification.  Incorporation of the version number within the MPD URI provides a simple visual (as well as machine readable) means of identifying one of the most fundamental relationships between MPDs, i.e., that one is a different version of another.  Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.</p>
 
 	<rule id="r-mpd-uri-vers">
-		<p>The URI for an MPD MUST end in its version number.</p>
+		<p>The URI for an MPD MUST end in its version number concatenated with a forward slash character ("/").</p>
 	</rule>
 
-	<p>And finally, note that <code>mpd-catalog.xsd</code> defines a mandatory attribute for both the <code>mpdURI</code> and the <code>mpdVersionID</code>.  Since the ending string of an MPD URI must be its version ID, then the mpd-catalog duplicates the MPD version ID in two locations.  This is by design.  You will discover in <ref idref="MPD-File-Name-Syntax"/> that MPD file name syntax intentionally duplicates both the mpd-catalog <code>mpdName</code> and <code>mpdVersionID</code>.  There are two reasons for this design.  First, software tools are expected to build and process mpd-catalogs.  Instead of forcing tool developers to parse the URI just to retrieve name and version, the mpd-catalog provides a separate <code>mpdName</code> and <code>mpdVersionID</code> attribute.  Second, duplication of that key metadata in both the URI and the file name facilitates faster visual recognition of an MPD, rather than requiring that a user open the archive, open its <code>mpd-catalog.xml</code>, and scan its content just to locate <code>mpdName</code> or <code>mpdVersionID</code>.</p>
+	<p>And finally, note that <code>mpd-catalog.xsd</code> defines a mandatory attribute for both the <code>mpdURI</code> and the <code>mpdVersionID</code>.  Since the ending substring of an MPD URI must be its version ID (and forward slash), then the mpd-catalog duplicates the MPD version ID in two locations.  By design, <ref idref="MPD-File-Name-Syntax"/> intentionally duplicates both the mpd-catalog <code>mpdName</code> and <code>mpdVersionID</code>.  There are two reasons for this design.  First, software tools are expected to build and process mpd-catalogs.  Instead of forcing tool developers to parse the URI just to retrieve name and version, the mpd-catalog provides a separate <code>mpdName</code> and <code>mpdVersionID</code> attribute.  Second, duplication of that key metadata in both the URI and the file name facilitates faster visual recognition of an MPD, rather than requiring that a user open the archive, open its <code>mpd-catalog.xml</code>, and scan its content just to locate <code>mpdName</code> or <code>mpdVersionID</code>.</p>
 
 </section>
 
@@ -1378,7 +1378,15 @@
 		</ol>
 	</definition>	
 
-	<p>An IEPD defines IEP conformance targets by explicitly and formally declaring them within its mpd-catalog.  The subsections that follow describe the concepts, artifacts, and procedures for declaring and identifying IEP Conformance Targets in IEPDs.</p>
+	<p>The foregoing definition requires that an IEP conformance target class have a URI.  As a result, the following rule is also required: 
+
+	<rule id="iep-conformance-target-id"/>
+		<p>An <code>IEPConformanceTarget</code> MUST be assigned a locally unique NCName value for its <code>structures:id</code> attribute.</p>
+	</rule>
+
+	<p>An IEPD defines IEP conformance target classes by explicitly and formally declaring them within its mpd-catalog.  The rule above ensures that conformance target classes can be referenced between IEPDs and not only within an IEPD.</p>
+
+	<p>The following subsections the concepts, artifacts, and procedures for declaring and identifying IEP Conformance Targets in IEPDs.</p>
 
 
 
@@ -1389,7 +1397,7 @@
 
 	<p>So, a NIEM IEPD is an MPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing xml-catalogs to resolve <code>xs:import</code> statements and similar XML Schema constructs).  In turn, the resulting XML schema can be used to validate one or more instance XML documents (i.e., NIEM IEPs <ref idref="IEP"/>) for NIEM conformance.</p>
 
-	<p>To be clear, references to "validation" in the following subsections refer to "XML Schema validation".  However, an IEPD author may also choose to include artifacts to validate with other types of schemas or rules, including but not limited to <ref idref="ISO-Schematron"/> and <ref idref="ISO-RelaxNG"/>.  IEPD authors may also include artifacts for NIEM constraint schema validation, which, of course, is XML Schema validation (See <ref idref="Constraint-Schemas"/>.</p>
+	<p>NIEM is based on XML Schema, and so the term "schema validation" usually refers to "XML Schema validation".  However, an IEPD author may also choose to include artifacts to validate with other types of schemas or rules, including but not limited to <ref idref="ISO-Schematron"/> and <ref idref="ISO-RelaxNG"/>.  IEPD authors may also include artifacts for NIEM constraint schema validation, which, of course, is XML Schema validation (See <ref idref="Constraint-Schemas"/>.</p>
 
 </section>
 
@@ -1404,52 +1412,67 @@
 		<p>An IEPD MUST explicitly declare all intended validity constraints by employing the <code>IEPConformanceTarget</code> element in its <code>mpd-catalog.xml</code> artifact.</p>
 	</rule>
 
-	<p><ref idref="MPD-Catalog-XSD"/> provides XML elements for various validity constraints.  Note that there may exist multiple ways to declare the same validity constraint with these elements.  This rule only requires that validity constraints be declared once in a single form.  For example, it may be possible to use the <code>HasDocumentElement</code> and the <code>ValidToXPath</code> elements to declare the same XML document elements.  However, it is only required that an IEPD author use one or the other.</p> 
+	<p><ref idref="MPD-Catalog-XSD"/> provides XML elements for various validity constraints.  Each element is in the <code>substitutionGroup</code> for the abstract element <code>ValidityConstraint</code>.  Note that there may exist multiple ways to declare the same validity constraint with these elements.  This rule only requires that validity constraints be declared once in a single form.  For example, it may be possible to use the <code>HasDocumentElement</code> and the <code>ValidToXPath</code> elements to declare the same XML document elements.  However, it is only required that an IEPD author use one or the other.</p> 
 
 	<p>Recall that this section is not applicable to an MPD that is an EIEM, because it does not define an information exchange.  That said, there may be good rationales for an EIEM author to provide validity constraints with an EIEM.  However, this is not a required for an EIEM.</p>
 
-	<p>The following subsections will detail the use of each <code>IEPConformanceTarget</code> validity constraint.</p>	
+	<p>The following subsections explain in more detail the purpose and use of each <code>IEPConformanceTarget</code> validity constraint.</p>	
 
 
 
 <section id="ValidToXPath">
 	<title>ValidToXPath</title>
-	<p></p>
+
+	<p><code>ValidToXPath</code> is the most generic of the constraints provided.  Its purpose is to ensure that some given condition is satisfied within an IEP.  The condition is defined by an XPath expression contained in the <code>xPathText</code> attribute.  If the XPath expression applied to a target instance XML document returns a Boolean value of TRUE, then the condition is satisfied by that XML document.</p>
+
+	<p>This validity constraint is useful for a variety of purposes.  For example, an IEPD author may require that a particular class of IEP (defined by an <code>IEPConformanceTarget</code>) must contain a particular element with a particular attribute whose value is an integer greater than some required minimum.  An XPath expression can validate this.</p>
+	<p>Of course, <code>ValidToXPath</code> can also employ a simple XPath expression to validate that an IEP is rooted with an intended XML document element.  However, there are other validity constraints that can do this as well.  The IEPD author may choose the configuration.</p>
+
 </section>
 
 <section id="XMLSchemaValid">
 	<title>XMLSchemaValid</title>
-	<p></p>
+	<p>Because NIEM is based on XML Schema, then <code>XMLSchemaValid</code> will likely be employed by almost all IEPDs.  This constraint simply ensures that an IEP artifact is schema valid to an XML schema described by and assembled with an XML Catalog.  The starting XML Catalog artifact is identified by the <code>XMLCatalog</code> element.</p>
 </section>
 
 <section id="SchematronValid">
 	<title>SchematronValid</title>
-	<p></p>
+	<p><code>SchematronValid</code> is similar to <code>XMLSchemaValid</code>, but uses a <code>SchematronSchema</code> element to identify the Schematron rule file that applies to the IEP.</p>
 </section>
 
 <section id="RelaxNGValid">
 	<title>RelaxNGValid</title>
-	<p></p>
+	<p><code>RelaxNGValid</code> is similar to the previous two validity constraints, but uses a <code>RelaxNGSchema</code> element to identify the RelaxNG schema file to which the IEP must validate.</p>
 </section>
 
 <section id="HasDocumentElement">
 	<title>HasDocumentElement</title>
-	<p></p>
+
+	<p><code>HasDocumentElement</code> is a validity constraint that identifies all intended XML document elements for an IEP conformance class.  This constraint ensures that an IEP artifact is rooted by one XML document element that is a member of the list of elements in its <code>qualifiedNameList</code> attribute.  This is a common validity constraint employed by simple IEPDs that declare one or more intended XML document elements.</p>
+
+	<p>Note that this validity constraint only declares XML document elements.  If an IEPD defines IEPs for payloads and envelopes (i.e., one IEP encapsulates another), then other validity constraints will be required (such as <code>ValidToXPath</code>) to validate conformance targets that are not necessarily XML document elements.</p>
+
 </section>
 
 <section id="ConformsToConformanceTarget">
 	<title>ConformsToConformanceTarget</title>
-	<p></p>
+
+	<p><code>ConformsToConformanceTarget</code> enables an IEPD author to effectively subclass and relate conformance target classes.  For example, using this constraint, a given conformance target class defined by an <code>IEPConformanceTarget</code> <code>structures:id="A2"</code> can be required to also conform to another class <code>structures:id="A1"</code>.  This creates an <em>IS-A</em> relationship.  We say that <code>A2</code> <em>is an</em> <code>A1</colde>, or that <code>A2</code> is a specialization of <code>A1</code>.</p>
+
+	<p>Conformance target classes are related through the <code>ConformsToConformanceTarget/conformanceTargetURI</code> attribute.  Recall in <ref idref="iep-conformance-target-uri"/> that this URI is formed by the concatenation of the URI of the IEPD (<code>mpdURI</code>) itself, the pound character (<code>"#"</code>), and the value of the conformance class <code>structures:id</code>.</p>
+
 </section>
 
 <section id="ConformsToRule">
 	<title>ConformsToRule</title>
-	<p></p>
+	<p>Sometimes it is not possible to formally declare an executable validity constraint.  For example, we can mandate that a data component definition must be present, must be in English, and must follow <ref idref="ISO-11179-4"/>.  Validating that text is present is easy, and validating that is in English is more difficult, but validating that it obeys <ref idref="ISO-11179-4"/> is intractable.  Thus, <code>ConformsToRule</code> provides an IEPD author with English text representation as an alternative when it is not possible or not easy to define more formal validation rules or validity constraints.</p>
+</section>
+
 </section>
 
 
-</section>
 
+<!-- ############################################################## -->
 
 
 <section id="Extending-IEPConformanceTarget">
@@ -1459,20 +1482,10 @@
 
 </section>
 
-
-
-<section id="IEP-Samples">
-	<title>IEP Sample XML Instance Documents</title>
-
-	<p>[TBD]</p>
-
-</section>
-
-
-
 </section>
 
 </section>
+
 
 
 <section id="Valid-vs-Complete-IEPD">
@@ -1499,29 +1512,6 @@
 </section>
 
 
-<!-- ############################################################################ 
-
-<p>Sample IEP</p>
-
-	<p>Sample IEPs are valuable artifacts to include with an IEPD.  As representations of the actual exchange data, an IEP can: 
-		Help an IEPD implementer to understand the original intent of the IEPD author.
-		Be used by an implementer as a data point for validation with the IEPD base schema document set or a constraint schema document set.  
-		Be an indicator of IEPD quality.</p>
-
-
-	<rule id="r-iep-sample">
-		<p>A NIEM IEPD MUST contain at least one valid IEP artifact for each IEP root element.</p>
-	</rule>
-
-	<p>The intent of the foregoing rule is not to provide a test for all permutations of IEPs that might be possible given the schema definitions and declarations.  Its purpose is to ensure IEPD authors have tested their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges (if possible), and (2) exercise as many data component definitions and declarations in the schemas as possible.  While both of these goals may not be achievable in a single IEP, authors have the option to include multiple IEPs; however, only one per intended IEP root element is mandatory.</p>
-
-	<p>Note that each sample IEP illustrates one view of the data based on a chosen set of conditions.  Other views based on different conditions likely exist.  An implementer will still need to review the business rules and other documentation in an IEPD to ensure understanding of all potential conditions.  Do not rely exclusively on sample IEPs, since they will not likely account for all possible permutations.</p>
-
-	<p>This specification encourages but does not mandate the inclusion of sample IEPs in EIEMs and domain updates.  However, IEPs may provide valuable insight into the intent and usage of new, extended, or changed data components.</p>
-
--->
-
-
 
 <section id="Optional-MPD-Artifacts">
 	<title>Optional MPD Artifacts</title>
@@ -1546,6 +1536,27 @@
 	<p>Files vary widely in format and are often specific to the tools an author uses to parse, consume, or output them.  Therefore, if tool-specific files are included in an MPD, it is also a good practice to include copies of those files in formats that display with standard Web browsers or other cost-free, publicly available viewing tools (e.g., ASCII text, PDF, CSV, HTML, JPG, GIF, PNG).  This guidance is intended to encourage and facilitate maximal sharing and distribution of MPDs; it does not prohibit and is not intended to discourage the inclusion of other file formats.</p>
 
 	<p>In particular, this specification does not discourage use of Microsoft file formats for documentation and other optional artifacts.  Microsoft Office products are in common use, and free viewers are available for many of them (See <link>http://office.microsoft.com/en-us/downloads/office-online-file-converters-and-viewers-HA001044981.aspx</link>).</p>
+
+
+<section id="IEP-Samples">
+	<title>IEP Sample XML Instance Documents</title>
+
+	<p>Best practice; highly recommend</p>
+
+	<p>Sample IEPs are valuable artifacts to include with an IEPD.  As representations of the actual exchange data, an IEP can:</p>
+	<ul>
+		<li><p>Help an IEPD implementer to understand the original intent of the IEPD author.</p></li>
+		<li><p>Be used by an implementer as a data point for validation with the IEPD base schema document set or a constraint schema document set.</p></li>
+		<li><p>Indicate or imply IEPD quality.</p></li>
+	</ul>
+
+	<p>The purpose of this recommendation is not to provide a test for all permutations of IEPs that might be possible given the schema definitions and declarations; rather, it is to encourage IEPD authors to test their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges (if possible), and (2) exercise as many data component definitions and declarations in the schemas as possible.  Where it makes sense, an IEPD author should strive to provide sample IEPs that exercise the XML document elements (or payload root elements).  When a single IEP may not provide enough example coverage, authors may want to include multiple IEPs.</p>
+
+	<p>Note that each sample IEP illustrates one view of the data based on a chosen set of conditions.  Other views based on different conditions likely exist.  An implementer will still need to review the business rules and other documentation in an IEPD to ensure understanding of all potential conditions.  Do not rely exclusively on sample IEPs, since they will not likely account for all possible permutations.</p>
+
+	<p>This specification also encourages inclusion of sample IEPs in EIEMs and domain updates.  Sample IEPs may provide valuable insight into the intent and usage of new, extended, or changed data components.</p>
+
+</section>
 
 
 
@@ -1946,12 +1957,20 @@ wantlist - An XML document that represents a NIEM schema document subset.  A NIE
 	<p><em>GJXDM Information Exchange Package Documentation Guidelines</em>, Version 1.1, Global XML Structure Task Force (GXSTF), 2 March 2005.  Available from <link>http://it.ojp.gov/documents/global_jxdm_IEPD_guidelines_v1_1.pdf</link></p>
 </reference>
 
+<reference id="ISO-11179-4" label="ISO 11179-4">
+	<p><em>ISO/IEC 11179-4 Information Technology <char name="mdash"/> Metadata Registries (MDR) <char name="mdash"/> Part 4: Formulation of Data Definitions Second Edition,</em> 15 July 2004. Available from <link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c035346_ISO_IEC_11179-4_2004(E).zip</link>.</p>
+</reference>
+
+<reference id="ISO-11179-5" label="ISO 11179-5">
+	<p><em>ISO/IEC 11179-5:2005, Information technology <char name="mdash"/> Metadata registries (MDR) <char name="mdash"/> Part 5: Naming and identification principles</em>. Available from <link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c035347_ISO_IEC_11179-5_2005(E).zip</link>.</p>
+</reference>
+
 <reference id="ISO-RelaxNG" label="ISO RelaxNG">
-	<p><em>Document Schema Definition Language (DSDL) -- Part 2: Regular-grammar-based validation -- RELAX NG</em>, ISO/IEC 19757-2:2008, Second edition, 15 December 2008.  Available from <link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c052348_ISO_IEC_19757-2_2008(E).zip</link>.  See also <link>http://relaxng.org</link>.</p>
+	<p><em>Document Schema Definition Language (DSDL) <char name="mdash"/> Part 2: Regular-grammar-based validation <char name="mdash"/> RELAX NG</em>, ISO/IEC 19757-2:2008, Second Edition, 15 December 2008.  Available from <link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c052348_ISO_IEC_19757-2_2008(E).zip</link>.  See also <link>http://relaxng.org</link>.</p>
 </reference>
 
 <reference id="ISO-Schematron" label="ISO Schematron">
-	<p><em>Schema Definition Languages (DSDL) -- Part 3: Rule-based validation -- Schematron</em>, ISO/IEC 19757-3:2006(E), First edition, 1 June 2006.  Available from <link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c040833_ISO_IEC_19757-3_2006(E).zip</link>.</p>
+	<p><em>Schema Definition Languages (DSDL) <char name="mdash"/> Part 3: Rule-based validation <char name="mdash"/> Schematron</em>, ISO/IEC 19757-3:2006(E), First Edition, 1 June 2006.  Available from <link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c040833_ISO_IEC_19757-3_2006(E).zip</link>.</p>
 </reference>
 
 <reference id="LEXS" label="Logical Entity Exchange Specifications">
