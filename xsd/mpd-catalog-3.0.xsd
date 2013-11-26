@@ -16,10 +16,10 @@
     <import namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
 
 <!-- 
-This schema is a work-in-progress.  We realize component names exist that do not 
-necessarily conform to the NDR yet.  Also, we are reusing some NIEM 3.0 components 
-that still require review to ensure they have all appropriate properties they 
-replaced.  for example, AuthoritativeSource is now type="nc:EntityType".  
+This schema is a work-in-progress.  Component names exist that do not 
+necessarily conform to the NDR yet.  We are reusing some NIEM 3.0 components 
+that require review to ensure they have all appropriate properties they 
+replaced.  For example, AuthoritativeSource is now type="nc:EntityType".  
 Nonetheless, we appreciate your feedback.
 -->
 
@@ -39,7 +39,6 @@ Nonetheless, we appreciate your feedback.
       </documentation>
 
       <appinfo>
-        <term:LocalTerm term="AS"    literal="Authoritative Source"/>
 	<term:LocalTerm term="EIEM"  literal="Enterprise Information Exchange Model"/>
 	<term:LocalTerm term="IANA"  literal="Internet Assigned Numbers Authority"/>
 	<term:LocalTerm term="ID"    literal="Identifier"/>
@@ -50,7 +49,7 @@ Nonetheless, we appreciate your feedback.
 	<term:LocalTerm term="MIME"  literal="Multipurpose Internet Mail Extension"/>
 	<term:LocalTerm term="MPD"   literal="Model Package Description"/>
 	<term:LocalTerm term="OASIS" literal="Organization for the Advancement
-						of Structured Information Standards"/>
+					      of Structured Information Standards"/>
 	<term:LocalTerm term="POC"   literal="Point of contact"/>
 	<term:LocalTerm term="SSGT"  literal="Schema Subset Generation Tool"/>
         <term:LocalTerm term="URI"   literal="Uniform Resource Identifier"/>
@@ -305,29 +304,25 @@ Nonetheless, we appreciate your feedback.
              type="c:SchemaDocumentSetType" substitutionGroup="c:Artifact">
       <annotation>
 	<documentation>An MPD set artifact that may include constraint schema 
-	document subsets, extension and external schema documents, and other 
-	supporting artifacts.</documentation>
+	document subsets, and associated extension and external schema documents, 
+	and other supporting artifacts.</documentation>
       </annotation>
     </element>
 
    <complexType name="SchemaDocumentSetType">
       <annotation>
-	<documentation>A datatype for an MPD set artifact that may include a schema
-	document subset, as well as reference, extension, exchange, and external
-	schema documents.</documentation>
+	<documentation>A datatype for an MPD set artifact that may include schema
+	document subsets, extension schema documents, and external schema documents.
+	</documentation>
       </annotation>
       <complexContent>
         <restriction base="c:FileSetType"/>
  	  <sequence>
-	    <element ref="nc:DescriptionText" minOccurs="0"/>
-	    <element ref="c:XMLCatalog"		     maxOccurs="unbounded"/>
-	    <element ref="c:Wantlist" minOccurs="0"/>
-	    <element ref="c:SubsetSchemaDocument"    minOccurs="0" 
-		    				     maxOccurs="unbounded"/>
-	    <element ref="c:ExtensionSchemaDocument" minOccurs="0" 
-						     maxOccurs="unbounded"/>
-	    <element ref="c:ExternalSchemaDocument"  minOccurs="0" 
-		    				     maxOccurs="unbounded"/>
+	    <element ref="nc:DescriptionText"  minOccurs="0"/>
+	    <element ref="c:XMLCatalog"/>
+	    <element ref="c:Wantlist"          minOccurs="0"/>
+	    <element ref="c:XMLSchemaDocument" minOccurs="0" 
+		    			       maxOccurs="unbounded"/>
           </sequence>
         </restriction>
       </complexContent>
@@ -340,7 +335,8 @@ Nonetheless, we appreciate your feedback.
       </annotation>
       <complexContent>
         <restriction base="c:FileSetType">
-          <sequence>
+	  <sequence>
+	    <element ref="nc:DescriptionText" minOccurs="0"/>
             <element ref="c:ReferenceSchemaDocument" maxOccurs="unbounded"/>
           </sequence>
         </restriction>
