@@ -1036,25 +1036,27 @@
 	<pre>	version ::= digit+ ('.' digit+)* (status digit+)?
 	Where:	
 		digit   ::= [0-9]
-		status  ::= 'alpha' | 'beta' | 'rc' | 'rev'
-		'alpha' indicates early development
-		'beta' indicates late development; but changing 
-			or incomplete
-		'rc' indicates release candidate; complete but 
-			not approved as operational
-		'rev' indicates very minor revision that does 
-			not impact schema validation</pre>
-	<p>(The regular expression notation used above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>)</p>
-</rule>
+		status  ::= 'alpha' | 'beta' | 'rc' | 'rev'</pre>
+	</rule>
 
-<p>The regular expression in <ref idref="r-mpd-vers-syntax"/> allows the following example version numbers:</p>
-	<ul>
-		<li><p><code>1</code></p></li>
-		<li><p><code>1.2</code></p></li>
-		<li><p><code>1.3.1.0</code></p></li>
-		<li><p><code>1.2alpha13</code></p></li>
-		<li><p><code>199.88.15rev6</code></p></li>
-	</ul>
+	<p>The meaning of <code>status</code> value options are as follows:
+		<ul>
+			<li><p><code>alpha</code> indicates early development; changing significantly.</p></li>
+			<li><p><code>beta</code> indicates late development; but changing or incomplete.</p></li>
+			<li><p><code>rc</code> indicates release candidate; complete but not approved as operational.</p></li>
+			<li><p><code>rev</code> indicates very minor revision that does not impact schema validation.</p></li>
+		</ul>
+
+	<p>The regular expression notation used above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>.</p>
+
+	<p>The regular expression in <ref idref="r-mpd-vers-syntax"/> allows the following example version numbers:</p>
+		<ul>
+			<li><p><code>1</code></p></li>
+			<li><p><code>1.2</code></p></li>
+			<li><p><code>1.3.1.0</code></p></li>
+			<li><p><code>1.2alpha13</code></p></li>
+			<li><p><code>199.88.15rev6</code></p></li>
+		</ul>
 
 	<p>There are two implications in <ref idref="r-mpd-vers-syntax"/>.  The first is that in some cases this version scheme implies and confirms a chronology of releases.  For example, a given product labeled version 2.3 must have been released before the same product labeled 2.3.1.  Therefore, version 2.3.1 is more current than version 2.3.</p>
 
@@ -1463,7 +1465,36 @@
 <section id="ConformsToRule">
 	<title>ConformsToRule</title>
 	<p>Sometimes it is not possible to formally declare an executable validity constraint.  For example, we can mandate that a data component definition must be present, must be in English, and must follow <ref idref="ISO-11179-4"/>.  Validating that text is present is easy, and validating that is in English is more difficult, but validating that it obeys <ref idref="ISO-11179-4"/> is intractable.  Thus, <code>ConformsToRule</code> provides an IEPD author with English text representation as an alternative when it is not possible or not easy to define more formal validation rules or validity constraints.</p>
+
 </section>
+
+</section>
+
+
+
+<section id="IEP-Samples">
+	<title>IEP Sample XML Instance Documents</title>
+
+	<p>Sample IEP XML instance documents are representations of actual or example exchange data instances and can be extremely valuable artifacts in an IEPD.  Sample IEPs can:</p>
+	<ul>
+		<li><p>Help an IEPD implementer to understand the original intent of the IEPD author.</p></li>
+		<li><p>Be used by an implementer as a data point for validation of IEP conformance targets.</p></li>
+		<li><p>Indicate or imply IEPD quality.</p></li>
+	</ul>
+
+	<p>For these reasons, IEP samples are required for IEPDs:</p>
+
+	<rule id="r-iep-samples"/>
+		<p>An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared <code>IEPConformanceTarget</code> class.  If applicable and appropriate, one IEP sample MAY exemplify multiple classes.</p>
+	</rule>
+
+	<p>Note that this rule requires that each IEP conformance target class be covered by at least one IEP sample document instance.  This does not necessarily mandate a different IEP sample for each IEP conformance target.  It may be possible, and is therefore acceptable, for a given IEP sample to serve as an example of one or more IEP conformance target classes.</p>
+	
+	<p>The purpose of this rule is not to provide a test for all IEP permutations that might be possible given the schema definitions and validity constraint declarations; rather, it is to encourage IEPD authors to test their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  To the extent possible, IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges, and (2) exercise as many data components and validity constraints as possible.  Where it makes sense, an IEPD author should strive to provide enough sample IEPs to exercise all the XML document elements (or payload root elements).  If a single IEP cannot provide enough example coverage, an author may include multiple IEPs (but is not required to do so).</p>
+
+	<p>Each sample IEP usually illustrates a single view of the data based on a chosen set of conditions.  Other views based on different conditions likely exist.  An implementer will likely still need to review the IEPD documentation to ensure understanding of all potential conditions.  Therefore, as appropriate, the author should not rely exclusively on sample IEPs to convey implementation understanding, since they will not likely account for all possible permutations.</p>
+
+	<p>This specification also encourages (but does not mandate) inclusion of sample IEPs in other MPDs such as EIEMs and domain updates; these can sometimes provide valuable insight into the intent and usage of new, extended, or changed data components.</p>
 
 </section>
 
@@ -1562,25 +1593,6 @@ MPD catalog extension XSD:
 	<p>In particular, this specification does not discourage use of Microsoft file formats for documentation and other optional artifacts.  Microsoft Office products are in common use, and free viewers are available for many of them (See <link>http://office.microsoft.com/en-us/downloads/office-online-file-converters-and-viewers-HA001044981.aspx</link>).</p>
 
 
-<section id="IEP-Samples">
-	<title>IEP Sample XML Instance Documents</title>
-
-	<p>An IEPD best practice that is highly recommended but not mandated by this specification is to include IEP example XML instance documents that validate with the schemas, rules, and other declared validity constraints.  Sample IEPs are representations of actual exchange data instances and can be extremely valuable artifacts in an IEPD.  Sample IEPs can:</p>
-	<ul>
-		<li><p>Help an IEPD implementer to understand the original intent of the IEPD author.</p></li>
-		<li><p>Be used by an implementer as a data point for validation of IEP conformance targets.</p></li>
-		<li><p>Indicate or imply IEPD quality.</p></li>
-	</ul>
-
-	<p>The purpose of this recommendation is not to provide a test for all IEP permutations that might be possible given the schema definitions and validity constraint declarations; rather, it is to encourage IEPD authors to test their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  To the extent possible, IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges, and (2) exercise as many data components and validity constraints as possible.  Where it makes sense, an IEPD author should strive to provide enough sample IEPs to exercise all the XML document elements (or payload root elements).  If a single IEP cannot provide enough example coverage, an author can include multiple IEPs.</p>
-
-	<p>Each sample IEP usually illustrates a single view of the data based on a chosen set of conditions.  Other views based on different conditions likely exist.  An implementer will still need to review the IEPD documentation to ensure understanding of all potential conditions.  Therefore, as appropriate, the author should not rely exclusively on sample IEPs to convey implementation understanding, since they will not likely account for all possible permutations.</p>
-
-	<p>This specification also encourages inclusion of sample IEPs in other MPDs such as EIEMs and domain updates; these can sometimes provide valuable insight into the intent and usage of new, extended, or changed data components.</p>
-
-</section>
-
-
 
 <section id="Wantlists">
 	<title>Wantlists</title>
@@ -1662,14 +1674,16 @@ MPD catalog extension XSD:
 
 	<p>Alphabetic characters are lower case to reduce the risk of complications across various file systems.</p>
 
-	<p>The <code>status</code> value options are defined in <ref idref="r-mpd-vers-syntax"/>.</p>
+	<p>The <code>status</code> value options are as defined beneath <ref idref="r-mpd-vers-syntax"/>.</p>
 
-	<p>The <code>class</code> value options are defined as follows: 
-<pre>	rel  = release
-	cu   = core update
-	du   = domain update
-	iepd = information exchange package documentation
-	eiem = enterprise information exchange model</pre>
+	<p>The <code>class</code> value options are defined as follows:
+		<ul>
+			<li><p>rel = release</p></li>
+			<li><p>cu = core update</p></li>
+			<li><p>du = domain update</p></li>
+			<li><p>iepd = information exchange package documentation</p></li>
+			<li><p>eiem = enterprise information exchange model</p></li>
+		</ul>
 
 	<p>A valid IEPD file name corresponding to the example in <ref idref="MPD-Instance"/> would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code></p>
 
@@ -1777,7 +1791,7 @@ MPD catalog extension XSD:
 		mpd-catalog.xml
 		xml-catalog.xml
 		mpd-catalog-extension-xml-catalog.xml
-		mpd-catalog-extension.xs
+		mpd-catalog-extension.xsd
 		changelog.*
 		master-document.*
 
