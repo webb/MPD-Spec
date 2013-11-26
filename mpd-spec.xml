@@ -822,7 +822,6 @@
 -->
 
 
-
 <section id="Constraint-Schemas">
 	<title>Constraint Schema Documents and Document Sets</title>
 
@@ -857,8 +856,6 @@
 	<p>In general, constraint schema documents have far fewer requirements than other classes of NIEM schema documents.  Since they work in tandem with NIEM normative schema documents, constraint schema documents are allowed to use the XML Schema Definition language in any way necessary to express business rules.  This means that to constrain instance XML documents, constraint schema documents can employ XML Schema constructs that are not allowed in other classes of NIEM schema documents.</p>
 
 	<p>BIECs in particular may have additional business rules in constraint schema documents.  A normative NIEM BIEC Specification (not available at the time of the publication of this MPD Specification), will supplement or obviate constraint schema documents with consistent and formal techniques for representing business rules within NIEM components.  However, as already mentioned, the MPD Specification does not prohibit or restrict the application of formal business rule techniques to MPDs now.</p>
-
-	<p>Finally, within an MPD, constraint schema documents and document sets are completely distinct from and not a part of the base schema document set.  In the future, NIEM will adopt business rules over constraint schema documents as the preferred method for further constraining a base schema document set.</p>
 
 </section>
 
@@ -1570,7 +1567,7 @@ MPD catalog extension XSD:
 	<p>An IEPD best practice that is highly recommended but not mandated by this specification is to include IEP example XML instance documents that validate with the schemas, rules, and other declared validity constraints.  Sample IEPs are representations of actual exchange data instances and can be extremely valuable artifacts in an IEPD.  Sample IEPs can:</p>
 	<ul>
 		<li><p>Help an IEPD implementer to understand the original intent of the IEPD author.</p></li>
-		<li><p>Be used by an implementer as a data point for validation with the IEPD base schema document set or a constraint schema document set.</p></li>
+		<li><p>Be used by an implementer as a data point for validation of IEP conformance targets.</p></li>
 		<li><p>Indicate or imply IEPD quality.</p></li>
 	</ul>
 
@@ -1595,10 +1592,10 @@ MPD catalog extension XSD:
 
 	<p>A NIEM wantlist identifies the data component requirements declared by the subset author; it does not identify the data component dependencies required to reconstitute the complete subset.  The complete subset can be computed with the reference schema document set from which the subset was derived.</p>
 
-	<p>A wantlist is always associated with a schema document subset.  A wantlist may also be associated with a constraint schema document set, because constraint schema documents are often built from a schema document subset.  For a simple IEPD, it can sometimes be trivial to identify a single schema document subset.  However, this MPD Specification does not prohibit building complex IEPDs that contain:  (1) a base schema document set supported by multiple schema document subsets and associated wantlists, and (2) multiple constraint schema document sets, each supported by a different wantlist.  As with other complex cases, the IEPD author is responsible to clearly document the associations between wantlists and schema document sets.  In order to maintain a minimal degree of consistency for placement of a wantlist within an IEPD or EIEM:</p>
+	<p>A wantlist is always associated with a schema document subset.  A wantlist may also be associated with a constraint schema document set, because constraint schema documents are often built from a schema document subset.  For a simple IEPD, it can sometimes be trivial to identify a single schema document subset.  However, this MPD Specification does not prohibit building complex IEPDs that contain schema document sets supported by multiple schema document subsets and associated wantlists.  As with other complex cases, the IEPD author is responsible to clearly document the associations between wantlists and schema document sets.  In order to maintain a minimal degree of consistency for placement of a wantlist within an IEPD or EIEM:</p>
 	
 	<rule id="r-wantlist-base">
-		<p>A wantlist MUST be a member of the base or constraint schema document set directory it is associated with.  This means it MUST reside with and at the root of the subdirectory that groups and defines its target schema document set.</p>
+		<p>A wantlist MUST be a member of the schema document set directory it is associated with.  This means it MUST reside with and at the root of the subdirectory that groups and defines its target schema document set.</p>
 	</rule>
 
 </section>
@@ -1899,8 +1896,6 @@ XSLT		Extensible Stylesheet Language Transformation
 
 <pre>
 artifact - A single file with a defined purpose or a set of files logically grouped for a defined purpose.  An MPD is a collection of artifacts, the purpose for which is to define and document the intended use of the MPD.
-
-base schema document set - A NIEM MPD artifact that is the set of all NIEM-conformant and external non-conformant XML schemas that together specify an information exchange or information model for an MPD.  A base schema document set may incorporate reference, subset, and extension schemas documents, as well as external schema documents from authoritative sources outside of NIEM.
 
 Business Information Exchange Component (BIEC) - A NIEM-conformant XML schema data component definition or declaration (for a type, element, attribute, or other XML construct) reused, subsetted, extended, and/or created from NIEM that meets a particular recurring business requirement for an information sharing enterprise.
 
