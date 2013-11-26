@@ -159,7 +159,7 @@
 <section id="Schema-Namespace-Correspondence-in-NIEM">
 	<title>Schema Document and Namespace Correspondence in NIEM</title>
 
-	<p>To simplify automatic schema processing and reduce the potential for confusion and error, <ref idref="NIEM-NDR"/> principles state that each NIEM-conformant namespace SHOULD be defined by exactly one reference schema document.  To support this concept, the <ref idref="NIEM-NDR"/> disallows the use of <code>xs:include</code>, and <ref idref="NIEM-NDR"/>.  Furthermore, it mandates the use of the <code>xs:schema targetNamespace</code> attribute in NIEM-conformant schema documents.</p>
+	<p>To simplify automatic schema processing and reduce the potential for confusion and error, <ref idref="NIEM-NDR"/> principles state that each NIEM-conformant namespace SHOULD be defined by exactly one reference schema document.  To support this concept, the <ref idref="NIEM-NDR"/> disallows the use of <code>xs:include</code>.  Furthermore, it mandates the use of the <code>xs:schema targetNamespace</code> attribute in NIEM-conformant schema documents.</p>
 
 	<p>So, (1) each NIEM namespace is defined by a single NIEM-conformant schema document, and (2) each NIEM-conformant schema document declares a target namespace.  NIEM does not permit schema documents without target namespaces, unless they are from sources outside of NIEM.</p>
 
@@ -585,9 +585,9 @@
 <section id="MPD-XML-Schema-Artifacts">
 	<title>MPD XML Schema Document Artifacts</title>
 
-	<p>XML schema document artifacts are the essential content of MPDs because they normatively define and declare data components.  The purpose of an MPD is determined by the XML schema document or document set(s) it contains; furthermore, each schema document may have a different purpose.  The <ref idref="NIEM-NDR"/> addresses various types of schema documents as conformance targets:  reference, extension, and constraint schema documents.  Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules.  Consult the <ref idref="NIEM-NDR"/> for these rules.</p>
+	<p>XML schema document artifacts are the essential content of MPDs because they normatively define and declare data components.  The purpose of an MPD is determined by the XML schema document or document set(s) it contains; furthermore, each schema document may have a different purpose.  The <ref idref="NIEM-NDR"/> addresses some schema documents as conformance targets including reference schema documents, extension schema documents, and schema document sets.  Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules.  Consult the <ref idref="NIEM-NDR"/> for these rules.  NIEM also employs a special technique that relies on constraint schema documents and document sets.</p>
 
-	<p>The following subsections will define each type of NIEM schema and identify the types of MPDs that may or must contain them.  The last subsection discusses sample instance XML documents (IEPs) that validate with IEPD schema document sets, and when such instance XML documents are mandatory.</p>
+	<p>The following subsections will define each type of NIEM schema document and document set, and will identify the types of MPDs that may or must contain them.  The last subsection discusses sample instance XML documents (IEPs) that validate with IEPD schema document sets, and when such instance XML documents are mandatory.</p>
 
 
 <section id="Reference-Schemas">
@@ -716,15 +716,16 @@
 
 	<p>The <ref idref="NIEM-NDR"/> defines an IEPD <em>extension schema document</em> as a conformance target.  In general, an extension schema document contains components that use or are derived from the components in reference schema documents.  It is intended to express the additional vocabulary required for an IEPD, above and beyond the vocabulary available from reference schema documents.</p>
 
-	<p>An IEPD or EIEM developer who determines that NIEM is missing elements required for a given information exchange has two options to account for such requirement shortfalls.  Using rules and techniques outlined in the <ref idref="NIEM-NDR"/>:</p>
+	<p>An IEPD or EIEM developer who determines that NIEM is missing elements required for a given information exchange has three options to account for such requirement shortfalls.  Using rules and techniques outlined in the <ref idref="NIEM-NDR"/>:</p>
 	<ul>
 		<li><p>Extend an existing NIEM data component (if possible).</p></li>
+		<li><p>Augment an existing NIEM data type (through NIEM Type Augmentation).</p></li>
 		<li><p>Build a new NIEM-conformant data component.</p></li>
 	</ul>
 
 	<p>A NIEM extension schema document may contain data components built from both options above.  Employment of extension schema documents in an IEPD is entirely optional.</p>
 
-	<p>Multiple extension schema documents are allowed in a single IEPD.  Developers will likely want to reuse many of their extension schema documents in other IEPDs.  Therefore, the best practice for extension is to group all data components designed to reuse into one extension schema document or document set, and group IEPD-specific data components into another.  Then the reusable extension components can be more easily redeployed in other IEPDs as needed.</p>
+	<p>Multiple extension schema documents are allowed in a single IEPD.  Developers will likely want to reuse many of their extension schema documents in other IEPDs.  Therefore, the best practice for extension is to group all data components designed to reuse into one extension schema document or document set, and group IEPD-specific data components into another.  Then the reusable extension components can be more easily redeployed in other IEPDs as needed.  Also, recall that <ref idref="Enterprise-Information-Exchange-Model"/> discusses EIEM employment for larger scale reuse of NIEM data components in multiple IEPDs.</p>
 
 	<p>Extension schema documents generally contain new data component declarations that may (though not necessarily) be derived from or reference existing NIEM data components.  This being the case, reference schema documents do not exist for new data components found within extension schema documents.  Therefore, extension schema documents must satisfy the more rigorous documentation requirements of reference schema documents.  Per the <ref idref="NIEM-NDR"/>, the definition or declaration of each new data component in an extension schema document must include an <code>xs:annotation</code> element that provides its semantics and NIEM-specific relationships.</p>
 
@@ -1649,30 +1650,33 @@ MPD catalog extension XSD:
 	mpd-filename ::= name '-' version '.' class '.zip'       
 	Where: 
 		name     ::= alphanum ((alphanum | special)* alphanum)?
-		alphanum ::= [a-zA-Z0-9]
+		alphanum ::= [a-z0-9]
 		special  ::= '.' | '-' | '_'
 		version  ::= digit+ ('.' digit+)* (status digit+)?
 		digit    ::= [0-9]
 		status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
 		class    ::= 'rel' | 'cu' | 'du' | 'iepd' | 'eiem'</pre>
-	<p>All alpha characters SHOULD be lower case to reduce the risk of complications across various file systems.  See <ref idref="r-mpd-vers-syntax"/> for an explanation of the status options.</p>
-	<p>(The regular expression notation used above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>.)</p>
 	</rule>
 
-	<p>The class values correspond to <ref idref="r-mpd-class-code"/>.  A valid IEPD file name corresponding to the example in <ref idref="MPD-Instance"/> would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code></p>
+	<p>The regular expression notation used in the rule above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>.</p>
 
-	<p>Checking this Appendix you will find that this example obeys the following two rules:</p>
+	<p>Alphabetic characters are lower case to reduce the risk of complications across various file systems.</p>
+
+	<p>The <code>status</code> value options are defined in <ref idref="r-mpd-vers-syntax"/>.</p>
+
+	<p>The <code>class</code> value options are defined as follows: 
+<pre>	rel  = release
+	cu   = core update
+	du   = domain update
+	iepd = information exchange package documentation
+	eiem = enterprise information exchange model</pre>
+
+	<p>A valid IEPD file name corresponding to the example in <ref idref="MPD-Instance"/> would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code></p>
+
+	<p>Checking this Appendix you will find that this example also adheres to the following rule:</p>
 
 	<rule id="r-mpd-match">
-		<p>Within an MPD, the <code>name</code> and <code>version</code> substrings in the file name MUST match exactly the values for attributes <code>mpdName</code> and <code>mpdVersionID</code> within its <code>mpd-catalog.xml</code> artifact.</p>
-	</rule>
-
-	<rule id="r-mpd-class-code"><p>Within an MPD, the <code>class</code> substring in the file name MUST equal the <code>mpdClassCode</code> attribute value within the mpd-catalog.  Values are:</p>
-<pre>	rel	= release
-	cu	= core update
-	du	= domain update
-	iepd	= information exchange package documentation
-	eiem	= enterprise information exchange model</pre>
+		<p>For an MPD, the file name substrings for <code>name</code>, <code>version</code>, and <code>class</code> MUST match exactly the mpd-catalog.xml attribute values for <code>mpdName</code>, <code>mpdVersionID</code>, and <code>mpdClassCode</code> respectively.</p>
 	</rule>
 
 	<p>In HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.</p>
@@ -1682,7 +1686,7 @@ MPD catalog extension XSD:
 <pre>	application/zip+[class]
 		where [class] is one member from the value set 
 		{rel, cu, du, iepd, eiem}.</pre>
-		<p>Use of the generic zip MIME type <code>application/zip</code> is allowed, but discouraged.  No other MIME types are allowed when representing MPD archives.</p>
+		<p>Use of the generic Zip MIME type <code>application/zip</code> is allowed, but discouraged.  No other MIME types are allowed when representing MPD archives.</p>
 	</rule>
 
 </section>
