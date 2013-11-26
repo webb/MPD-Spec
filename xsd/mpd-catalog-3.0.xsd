@@ -94,8 +94,8 @@ Nonetheless, we appreciate your feedback.
       <complexContent>
         <extension base="structures:ObjectType">
           <sequence>
-           <element ref="nc:DescriptionText" minOccurs="0"/>
-           <element ref="c:Metadata"/>
+           <element ref="nc:DescriptionText"	 minOccurs="0"/>
+	   <element ref="c:MPDInformation"   	 minOccurs="0"/>
 	   <element ref="c:IEPConformanceTarget" minOccurs="0" maxOccurs="unbounded"/>
            <element ref="c:Artifact" 		 minOccurs="0" maxOccurs="unbounded"/>
           </sequence>
@@ -113,21 +113,14 @@ Nonetheless, we appreciate your feedback.
       </annotation>
     </element>
 
-    <complexType name="FileSetType">
+<!-- File artifact classifiers for a table of contents =========================== -->
+
+    <element name="File" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
-        <documentation>A datatype for an MPD file set artifact.</documentation>
+	<documentation>A generic electronic file artifact in an MPD; 
+	a file stored on a computer system.</documentation>
       </annotation>
-      <complexContent>
-        <extension base="structures:ObjectType">
-          <sequence>
-            <element ref="nc:DescriptionText" minOccurs="0"/>
-            <element ref="c:Artifact"         minOccurs="0" maxOccurs="unbounded"/>
-          </sequence>
-          <attribute ref="c:pathURI"     use="required"/>
-          <attribute ref="c:externalURI" use="optional"/>
-        </extension>
-      </complexContent>
-    </complexType>
+      </element>
 
     <complexType name="FileType">
       <annotation>
@@ -146,29 +139,33 @@ Nonetheless, we appreciate your feedback.
       </complexContent>
     </complexType>
 
-
-<!-- For declaring file dependencies ============================================= -->
-
-    <element name="RequiredFile" type="c:FileType">
-      <annotation>
-	<documentation>An MPD file artifact that another artifact depends on
-	and should not be separated from.</documentation>
-      </annotation>
-    </element>
-
-
-<!-- File Artifact classifiers =================================================== -->
-
-    <element name="File" type="c:FileType" substitutionGroup="c:Artifact">
-      <annotation>
-	<documentation>A generic electronic file artifact in an MPD; 
-	a file stored on a computer system.</documentation>
-      </annotation>
-      </element>
-
     <element name="MPDCatalog" type="c:FileType" substitutionGroup="c:Artifact">
       <annotation>
         <documentation>An mpd-catalog artifact.</documentation>
+      </annotation>
+    </element>
+
+    <element name="MPDCatalogExtension" type="c:FileType" 
+	     substitutionGroup="c:Artifact">
+      <annotation>
+	<documentation>An MPD metadata artifact that adds optional author-defined
+	content (metadata, artifact classifiers, or IEPConformanceTargets).
+	</documentation>
+      </annotation>
+    </element>
+
+    <element name="XMLCatalog" type="c:FileType" substitutionGroup="c:Artifact">
+      <annotation>
+        <documentation>An MPD artifact that is an OASIS XML catalog.</documentation>
+      </annotation>
+    </element>
+
+    <element name="MPDCatalogExtensionXMLCatalog" type="c:FileType" 
+	     substitutionGroup="c:Artifact">
+      <annotation>
+	<documentation>A specific xml-catalog in the MPD archive root directory
+	(mpd-catalog-extension-xml-catalog.xml)	that identifies mpd-catalog 
+	extensions.</documentation>
       </annotation>
     </element>
 
@@ -185,23 +182,7 @@ Nonetheless, we appreciate your feedback.
       </annotation>
     </element>
 
-    <element name="ExtendedMPDMetadata" type="c:FileType" 
-	     substitutionGroup="c:Artifact">
-      <annotation>
-	<documentation>An MPD metadata artifact that adds optional author-defined
-	metadata.</documentation>
-      </annotation>
-    </element>
-
-    <element name="MPDCatalogExtensionXMLCatalog" type="c:FileType" 
-	     substitutionGroup="c:Artifact">
-      <annotation>
-	<documentation>An xml-catalog that identifies mpd-catalog extensions.
-	</documentation>
-      </annotation>
-    </element>
-
-    <element name="IEPSampleXMLDocument"    type="c:FileType" 
+    <element name="IEPSampleXMLDocument" type="c:FileType" 
 	     substitutionGroup="c:Artifact">
       <annotation>
 	<documentation>An example MPD instance XML document or IEP artifact.
@@ -209,7 +190,7 @@ Nonetheless, we appreciate your feedback.
       </annotation>
     </element>
 
-    <element name="BusinessRulesArtifact"   type="c:FileType" 
+    <element name="BusinessRulesArtifact" type="c:FileType" 
 	     substitutionGroup="c:Artifact">
       <annotation>
 	<documentation>An MPD artifact that contains business rules 
@@ -217,7 +198,7 @@ Nonetheless, we appreciate your feedback.
       </annotation>
     </element>
 
-    <element name="ExternalSchemaDocument"  type="c:FileType" 
+    <element name="ExternalSchemaDocument" type="c:FileType" 
 	     substitutionGroup="c:Artifact">
       <annotation>
 	<documentation>An MPD artifact that is a schema document external to NIEM.
@@ -241,7 +222,7 @@ Nonetheless, we appreciate your feedback.
       </annotation>
     </element>
 
-    <element name="SubsetSchemaDocument"    type="c:FileType" 
+    <element name="SubsetSchemaDocument" type="c:FileType" 
 	       substitutionGroup="c:Artifact">
       <annotation>
 	<documentation>An MPD artifact that is a subset schema document.
@@ -253,12 +234,6 @@ Nonetheless, we appreciate your feedback.
       <annotation>
 	<documentation>An MPD artifact that represents a NIEM schema subset 
 	and is used as an import or export for the NIEM SSGT.</documentation>
-      </annotation>
-    </element>
-
-    <element name="XMLCatalog" type="c:FileType" substitutionGroup="c:Artifact">
-      <annotation>
-        <documentation>An MPD artifact that is an OASIS XML catalog.</documentation>
       </annotation>
     </element>
 
@@ -289,9 +264,91 @@ Nonetheless, we appreciate your feedback.
     </element>
 
 
+<!-- For declaring file dependencies ============================================= -->
+
+    <element name="RequiredFile" type="c:FileType">
+      <annotation>
+	<documentation>An MPD file artifact that another artifact depends on
+	and should not be separated from.</documentation>
+      </annotation>
+    </element>
+
+
 <!-- Set Artifact Classifiers ==================================================== -->
 
-<!-- May no longer need BaseSchemaDocumentSet? -->
+    <complexType name="FileSetType">
+      <annotation>
+        <documentation>A datatype for an MPD file set artifact.</documentation>
+      </annotation>
+      <complexContent>
+        <extension base="structures:ObjectType">
+          <sequence>
+            <element ref="nc:DescriptionText" minOccurs="0"/>
+            <element ref="c:Artifact"         minOccurs="0" maxOccurs="unbounded"/>
+          </sequence>
+          <attribute ref="c:pathURI"     use="required"/>
+          <attribute ref="c:externalURI" use="optional"/>
+        </extension>
+      </complexContent>
+    </complexType>
+
+    <element name="SchemaDocumentSet"
+             type="c:SchemaDocumentSetType" substitutionGroup="c:Artifact">
+      <annotation>
+	<documentation>An MPD set artifact that may include schema document subsets,
+	extension and external schema documents, and other supporting artifacts.
+	</documentation>
+      </annotation>
+    </element>
+
+    <element name="ConstraintSchemaDocumentSet"
+             type="c:SchemaDocumentSetType" substitutionGroup="c:Artifact">
+      <annotation>
+	<documentation>An MPD set artifact that may include constraint schema 
+	document subsets, extension and external schema documents, and other 
+	supporting artifacts.</documentation>
+      </annotation>
+    </element>
+
+   <complexType name="SchemaDocumentSetType">
+      <annotation>
+	<documentation>A datatype for an MPD set artifact that may include a schema
+	document subset, as well as reference, extension, exchange, and external
+	schema documents.</documentation>
+      </annotation>
+      <complexContent>
+        <restriction base="c:FileSetType"/>
+ 	  <sequence>
+	    <element ref="nc:DescriptionText" minOccurs="0"/>
+	    <element ref="c:XMLCatalog"		     maxOccurs="unbounded"/>
+	    <element ref="c:Wantlist" minOccurs="0"/>
+	    <element ref="c:SubsetSchemaDocument"    minOccurs="0" 
+		    				     maxOccurs="unbounded"/>
+	    <element ref="c:ExtensionSchemaDocument" minOccurs="0" 
+						     maxOccurs="unbounded"/>
+	    <element ref="c:ExternalSchemaDocument"  minOccurs="0" 
+		    				     maxOccurs="unbounded"/>
+          </sequence>
+        </restriction>
+      </complexContent>
+    </complexType>
+
+    <complexType name="ReferenceSchemaDocumentSetType">
+      <annotation>
+	<documentation>A datatype for an MPD set artifact 
+	that is a reference schema document set.</documentation>
+      </annotation>
+      <complexContent>
+        <restriction base="c:FileSetType">
+          <sequence>
+            <element ref="c:ReferenceSchemaDocument" maxOccurs="unbounded"/>
+          </sequence>
+        </restriction>
+      </complexContent>
+    </complexType>
+
+    
+<!-- No longer required ... ########################################################
 
     <element name="BaseSchemaDocumentSet"
              type="c:BaseSchemaDocumentSetType"      substitutionGroup="c:Artifact">
@@ -317,12 +374,7 @@ Nonetheless, we appreciate your feedback.
 	</documentation>
       </annotation>
     </element>
-
-
-<!-- Artifact Classifier Types =================================================== -->
-
-<!-- May no longer need this? Caution! Also reused by ConstraintSchemaDocumentSet -->
-
+ 
     <complexType name="BaseSchemaDocumentSetType">
       <annotation>
 	<documentation>A datatype for an MPD set artifact that may include a schema
@@ -346,19 +398,7 @@ Nonetheless, we appreciate your feedback.
       </complexContent>
     </complexType>
 
-    <complexType name="ReferenceSchemaDocumentSetType">
-      <annotation>
-	<documentation>A datatype for an MPD set artifact 
-	that is a reference schema document set.</documentation>
-      </annotation>
-      <complexContent>
-        <restriction base="c:FileSetType">
-          <sequence>
-            <element ref="c:ReferenceSchemaDocument" maxOccurs="unbounded"/>
-          </sequence>
-        </restriction>
-      </complexContent>
-    </complexType>
+ -->
 
 
 <!-- Primitives ================================================================== -->
@@ -398,7 +438,8 @@ Nonetheless, we appreciate your feedback.
 
     <attribute name="pathURI" type="anyURI">
       <annotation>
-	<documentation>A URI for the relative pathname of an artifact.</documentation>
+      <documentation>A URI for the pathname of a local artifact relative to 
+      the MPD root directory.</documentation>
       </annotation>
     </attribute>
 
@@ -637,7 +678,7 @@ Nonetheless, we appreciate your feedback.
       <complexContent>
         <extension base="c:ValidationWithValidationRootType">
           <sequence>
-            <element ref="c:XMLCatalog" minOccurs="0"/>
+            <element ref="c:XMLCatalog"/>
           </sequence>
         </extension>
       </complexContent>
@@ -814,8 +855,8 @@ Nonetheless, we appreciate your feedback.
       <complexContent>
         <extension base="structures:ObjectType">
           <sequence>
-            <element ref="c:CreationDate"/>
-            <element ref="c:AuthoritativeSource"/>
+            <element ref="c:CreationDate"	 minoccurs="0"/>
+            <element ref="c:AuthoritativeSource" minoccurs="0"/>
             <element ref="c:LastRevisionDate"    minOccurs="0"/>
             <element ref="c:StatusText"          minOccurs="0"/>
             <element ref="c:Relationship"        minOccurs="0" maxOccurs="unbounded"/>
@@ -836,8 +877,9 @@ Nonetheless, we appreciate your feedback.
       </annotation>
     </element>
 
-<!-- These have been replaced by nc:EntityType which 
-    allows a Person or Organization as the Auth Src. 
+<!-- These have been replaced by nc:EntityType which allows
+     a Person or Organization as the Authoritative Source. 
+     Check to ensure nc:EntityType covers all required items.
 
     <element name="POC" type="c:POCType">
     <complexType name="POCType">
