@@ -1479,16 +1479,17 @@
 <!-- ############################################################## -->
 
 	<rule id="mpd-extension">
-		<p>MPD extension XML catalog:
-			MUST reside in the MPD root directory
-			MUST have filename = mpd-extension-xml-catalog.xml
-			MUST correctly resolve MPD catalog extension XSD namespace to its URI (location in MPD)
-		   MPD catalog extension XSD:
-			may have any filename
-			may reside anywhere within the MPD
-			MUST conform to both NDR and Conformance Spec
-			may have multiple extension XSDs
-		</p>
+<pre>MPD extension XML catalog:
+	MUST reside in the MPD root directory.
+	MUST have filename = mpd-extension-xml-catalog.xml.
+	MUST correctly resolve MPD catalog extension XSD namespace to its URI (location in MPD).
+
+MPD catalog extension XSD:
+	May have any filename.
+	May reside anywhere within the MPD.
+	MUST conform to both NDR and Conformance Spec.
+	May have multiple extension XSDs.
+</pre>
 	</rule>
 
 </section>
@@ -1503,11 +1504,35 @@
 	<p>[TBD]</p>
 
 	<definition term="Valid MPD">
-		<p>[TBD]</p>
+<pre>Valid MPD:
+	MUST be a Zip archive.
+	MUST contain an mpd-catalog.xml artifact in root directory.
+	mpd-catalog.xml MUST be Schema valid to mpd-catalog-3.0.xsd.
+	mpd-catalog.xml MUST contain a value for Catalog/MPD/@mpdURI (not required to resolve).
+	mpd-catalog.xml MUST contain a value for Catalog/MPD/@mpdClassCode
+	mpd-catalog.xml MUST contain a value for Catalog/MPD/@mpdName
+	mpd-catalog.xml MUST contain a value for Catalog/MPD/@mpdVersionID
+	mpd-catalog.xml MUST be Schematron valid to mpd-catalog.sch (mpd-catalog Schematron rules). (???)
+
+	ALL declarations of @pathURI within the mpd-catalog.xml MUST resolve to or reference local artifacts that exist.
+	ALL declarations of @pathURI in artifacts referenced/resolved by mpd-catalog.xml MUST resolve to or reference local artifacts that exist. 
+	Classifiers File, FileSet, Documentation, and ApplicationInfo
+
+	If metadata, ToC entries, or IEP conformance targets exist within mpd-catalog.xml, then:
+		File and FileSet (the general classifiers): pathURI MUST resolve to a local artifact; artifact will be ignored.
+		Classifier: @pathURI MUST resolve to a local artifact that is a member of the correct class for that classifier.
+			Changelog artifact MUST contain a creation date.
+			MPDCatalogExtensionXMLCatalog/@pathURI MUST resolve to a local artifact.
+			IEPSample MUST be WF'd and valid for all IEPConformanceTarget classes of which it is a member.
+			Any XML/XSD classified MUST be WF'd (e.g., SubsetDocument, ConstraintDocument, etc.)
+			
+	Artifacts that exist but are not referenced from the mpd-catalog.xml either directly or transitively do not impact validity and are ignored for the purpose of this definition.
+</pre>
 	</definition>
 
 	<definition term="Complete MPD">
-		<p>[TBD]</p>
+		<pre>Complete MPD:
+	ALL mandatory rules and requirements of the MPD Specification are satisfied. </pre>
 	</definition>
 
 </section>
