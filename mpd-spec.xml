@@ -1145,7 +1145,18 @@
 		<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/#extension/request4.xsd</code></p></li>
 	</ul>
 
-	<p>Here is one scenario for use of an artifact URI within the mpd-catalog.  Consider two different IEPDs with the following URIs:  (1) <code>http://example.gov/niem-iepd/pmix/3.0/</code> and (2) <code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code>.  The author of IEPD #1 has decided to reuse (as-is) the <code>extension/request1.xsd</code> artifact in IEPD #2.  He/she can optionally create an mpd-catalog <code>ExtensionSchemaDocument</code> entry for this artifact (since it is an extension schema document), and add the following attribute:  <code>externalURI="http://www.abc.org/niem-iepd/order/2.1.2rev3/#extension/request4.xsd"</code>.  Additional <code>externalURI</code> attributes can be optionally added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.</p> 
+	<p>Here is one simple scenario for use of an artifact URI within the mpd-catalog.  Consider two different IEPDs with the following URIs:</p>
+	<ol>
+		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/</code></p></li>
+		<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code></p></li>
+	</ol>
+	
+	<p>The author of IEPD (1) has decided to reuse (as-is) the <code>extension/request1.xsd</code> artifact in IEPD (2).  He/she can optionally create an mpd-catalog <code>ExtensionSchemaDocument</code> entry for this artifact (assuming it is an extension schema document), and add the attribute:</p> 
+	<blockquote>
+		<p><code>@externalURI="http://www.abc.org/niem-iepd/order/2.1.2rev3/#extension/request4.xsd"</code></p>
+	</blockquote>
+	
+	<p>Additional <code>@externalURI</code> attributes can be optionally added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.</p> 
 
 	<p>Note that a URI does not have the same meaning as namespace.  Do not rely on namespaces for artifact URIs.  Recall that the namespaces used in a schema document subset derived from a NIEM release are identical to the namespaces of the release itself.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  The non-uniqueness of NIEM namespaces implies that they cannot be used as URIs for MPD artifacts.</p>
 
