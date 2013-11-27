@@ -1545,14 +1545,16 @@
 		<ul>
 			<li><p>Is a valid Zip archive file.</p></li>
 			<li><p>Contains one and only one <code>mpd-catalog.xml</code> artifact in its <termRef>MPD root directory.</termRef></p></li>
-			<li><p>The <code>mpd-catalog.xml</code>:
+			<li><p>The <code>mpd-catalog.xml</code>:</p>
+				<ul>
 				<li><p>Contains a conformant value for <code>Catalog/MPD/@mpdURI</code> (though not required to resolve).</p></li>
 				<li><p>Contains a conformant value for <code>Catalog/MPD/@mpdClassCode</code>.</p></li>
 				<li><p>Contains a conformant value for <code>Catalog/MPD/@mpdName</code>.</p></li>
 				<li><p>Contains a conformant value for <code>Catalog/MPD/@mpdVersionID</code>.</p></li>
 				<li><p>Is XML Schema valid to the appropriate MPD catalog XSD schema (currently <ref idref="MPD-Catalog-XSD"/>).</p></li>
 				<li><p>Is Schematron valid to the appropriate MPD Schematron schema (currently <code>mpd-catalog-3.0.sch</code>).</p></li>	<!-- needed yet? -->
-			</p></li>
+				</ul>
+			</li>
 		</ul>
 	</definition>
 
@@ -1564,14 +1566,16 @@
 			<li><p>ALL declarations of <code>c:@pathURI</code> within the <code>mpd-catalog.xml</code> MUST resolve to or reference local artifacts that exist.</p></li>
 			<li><p>ALL declarations of <code>c:@pathURI</code> in artifacts referenced or resolved by <code>mpd-catalog.xml</code> MUST resolve to or reference local artifacts that exist. </p></li>
 			<li><p>Classifiers <code>c:File</code>, <code>c:FileSet</code>, <code>c:Documentation</code>, and <code>c:ApplicationInfo</code> artifacts are ignored as generic files and directories.</p></li>
-			<li><p>If metadata, table of contents entries, and/or IEP conformance targets exist within <code>mpd-catalog.xml</code>, then:
+			<li><p>If metadata, table of contents entries, and/or IEP conformance targets exist within <code>mpd-catalog.xml</code>, then:</p>
+				<ul>
 				<li><p><code>c:File/c:@pathURI</code> and <code>c:FileSet/c:@pathURI</code> (the general classifiers) MUST resolve to a local artifact; though the artifact itself will be ignored.</p></li>
 				<li><p>Classifier: <code>c:@pathURI</code> MUST resolve to a local artifact that is a member of the correct class for that classifier.</p></li>
 				<li><p><code>c:Changelog</code> artifact MUST contain a value for <code>c:CreationDate</code>.</p></li>
 				<li><p><code>c:MPDCatalogExtensionXMLCatalog/@pathURI</code> MUST resolve to a local artifact.</p></li>
 				<li><p>Any IEP sample XML document MUST be well-formed XML and valid for all <code>c:IEPConformanceTarget</code> classes of which it is a member.</p></li>
 				<li><p>Any XML/XSD document classified MUST be well-formed XML (e.g., SubsetSchemaDocument, ConstraintSchemaDocument, etc.)</p></li>
-			</p></li>
+				</ul>
+			</li>
 		</ul>
 		<p>Artifacts that exist but are not referenced from <code>mpd-catalog.xml</code> either directly or transitively do not impact validity and are therefore ignored for the purpose of this definition.</p>
 	</definition>
