@@ -1536,37 +1536,53 @@
 <section id="Valid-vs-Complete-MPD">
 	<title>Valid vs. Complete MPD</title>
 
-	<definition term="Valid MPD">
-<pre>Valid MPD:
-	MUST be a Zip archive.
-	MUST contain an mpd-catalog.xml artifact in <termRef>MPD root directory</termRef>.
-	mpd-catalog.xml MUST be Schema valid to mpd-catalog-3.0.xsd.
-	mpd-catalog.xml MUST contain a value for Catalog/MPD/@mpdURI (not required to resolve).
-	mpd-catalog.xml MUST contain a value for Catalog/MPD/@mpdClassCode
-	mpd-catalog.xml MUST contain a value for Catalog/MPD/@mpdName
-	mpd-catalog.xml MUST contain a value for Catalog/MPD/@mpdVersionID
-	mpd-catalog.xml MUST be Schematron valid to mpd-catalog.sch (mpd-catalog Schematron rules). (???)
+	<p>Some of the major advantages to this specification are the formalisms and consistency established that can help facilitate software tool assistance for working with, building, testing, registering, and implementing MPDs.  This is particularly important for IEPDs and EIEMs that are built by developers who are not necessarily familiar with the details of NIEM or this specification.  There exist many NIEM NDR rules, MPD Specification rules, and general conformance rules that must be considered and followed.  Tools that automatically assemble, disassemble, classify, register (into a repository), check quality, check conformance, etc. for MPDs (especially IEPDs) can be more useful if they are able to process MPDs in various partial stages of development.  This enables the application of iterative approaches.  Imagine working a week to build a relatively large, complex IEPD, running it through a conformance tool, and then receiving a report that indicates your IEPD archive is invalid and cannot be parsed.  To mitigate such issues, this section defines categories of MPD conformance that tools can take advantage of.</p>
 
-	ALL declarations of @pathURI within the mpd-catalog.xml MUST resolve to or reference local artifacts that exist.
-	ALL declarations of @pathURI in artifacts referenced/resolved by mpd-catalog.xml MUST resolve to or reference local artifacts that exist. 
-	Classifiers File, FileSet, Documentation, and ApplicationInfo
+	<p>There are a number of mandatory MPD requirements of this specification that may or may not be known in the early stages of development.  These unknowns should not prevent MPD processing and conformance checking for what is known.  The following statement defines what is essentially an empty or <em>minimal</em> MPD:</p>
 
-	If metadata, ToC entries, or IEP conformance targets exist within mpd-catalog.xml, then:
-		File and FileSet (the general classifiers): pathURI MUST resolve to a local artifact; artifact will be ignored.
-		Classifier: @pathURI MUST resolve to a local artifact that is a member of the correct class for that classifier.
-			Changelog artifact MUST contain a creation date.
-			MPDCatalogExtensionXMLCatalog/@pathURI MUST resolve to a local artifact.
-			IEPSample MUST be WF'd and valid for all IEPConformanceTarget classes of which it is a member.
-			Any XML/XSD classified MUST be WF'd (e.g., SubsetDocument, ConstraintDocument, etc.)
-			
-	Artifacts that exist but are not referenced from the mpd-catalog.xml either directly or transitively do not impact validity and are ignored for the purpose of this definition.
-</pre>
+	<definition term="minimal MPD">
+		<p>A <em>minimal MPD</em> has the following properties:</p>
+		<ul>
+			<li><p>Is a valid Zip archive file.</p></li>
+			<li><p>Contains one and only one <code>mpd-catalog.xml</code> artifact in its <termRef>MPD root directory.</termRef></p></li>
+			<li><p>The <code>mpd-catalog.xml</code>:
+				<li><p>Contains a conformant value for <code>Catalog/MPD/@mpdURI</code> (though not required to resolve).</p></li>
+				<li><p>Contains a conformant value for <code>Catalog/MPD/@mpdClassCode</code>.</p></li>
+				<li><p>Contains a conformant value for <code>Catalog/MPD/@mpdName</code>.</p></li>
+				<li><p>Contains a conformant value for <code>Catalog/MPD/@mpdVersionID</code>.</p></li>
+				<li><p>Is XML Schema valid to the appropriate MPD catalog XSD schema (currently <ref idref="MPD-Catalog-XSD"/>).</p></li>
+				<li><p>Is Schematron valid to the appropriate MPD Schematron schema (currently <code>mpd-catalog-3.0.sch</code>).</p></li>	<!-- needed yet? -->
+			</p></li>
+		</ul>
 	</definition>
 
-	<definition term="Complete MPD">
-		<pre>Complete MPD:
-	ALL mandatory rules and requirements of the MPD Specification are satisfied. </pre>
+	<p>Note that cardinality constraints in <ref idref="MPD-Catalog-XSD"/> are flexible enough to accomodate the above requirements.  However, an MPD is also required to satisfy special Schematron rules to pass higher levels of conformance.</p>
+
+	<definition term="valid MPD">
+		<ul>
+			<li><p>Is XML Schema valid to the appropriate MPD catalog XSD schema (currently <ref idref="MPD-Catalog-XSD"/>).</p></li>
+			<li><p>ALL declarations of <code>c:@pathURI</code> within the <code>mpd-catalog.xml</code> MUST resolve to or reference local artifacts that exist.</p></li>
+			<li><p>ALL declarations of <code>c:@pathURI</code> in artifacts referenced or resolved by <code>mpd-catalog.xml</code> MUST resolve to or reference local artifacts that exist. </p></li>
+			<li><p>Classifiers <code>c:File</code>, <code>c:FileSet</code>, <code>c:Documentation</code>, and <code>c:ApplicationInfo</code> artifacts are ignored as generic files and directories.</p></li>
+			<li><p>If metadata, table of contents entries, and/or IEP conformance targets exist within <code>mpd-catalog.xml</code>, then:
+				<li><p><code>c:File/c:@pathURI</code> and <code>c:FileSet/c:@pathURI</code> (the general classifiers) MUST resolve to a local artifact; though the artifact itself will be ignored.</p></li>
+				<li><p>Classifier: <code>c:@pathURI</code> MUST resolve to a local artifact that is a member of the correct class for that classifier.</p></li>
+				<li><p><code>c:Changelog</code> artifact MUST contain a value for <code>c:CreationDate</code>.</p></li>
+				<li><p><code>c:MPDCatalogExtensionXMLCatalog/@pathURI</code> MUST resolve to a local artifact.</p></li>
+				<li><p>Any IEP sample XML document MUST be well-formed XML and valid for all <code>c:IEPConformanceTarget</code> classes of which it is a member.</p></li>
+				<li><p>Any XML/XSD document classified MUST be well-formed XML (e.g., SubsetSchemaDocument, ConstraintSchemaDocument, etc.)</p></li>
+			</p></li>
+		</ul>
+		<p>Artifacts that exist but are not referenced from <code>mpd-catalog.xml</code> either directly or transitively do not impact validity and are therefore ignored for the purpose of this definition.</p>
 	</definition>
+
+	<p>Essentially, the rule above means that whatever the MPD's stage of development starting from a <termRef>minimal MPD</termRef>, the MPD will always be a <termRef>valid MPD</termRef> as long as it remains schema valid to the appropriate MPD catalog XML schema document and all references to local resources can be resolved (either directly or transitively).</p>  
+
+	<definition term="complete MPD">
+		<p>Complete MPD:  ALL mandatory rules and requirements of the MPD Specification are satisfied.</p>
+	</definition>
+
+	<p>Note that the rules in this section do not necessarily mandate that NIEM content is used.  See <ref idref="NIEM-Conformance"/> and <ref idref="NIEM-NDR"/> regarding higher level NIEM conformance.</p> 
 
 </section>
 
