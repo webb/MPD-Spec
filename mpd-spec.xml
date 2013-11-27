@@ -1499,34 +1499,42 @@
 <section id="Extending-IEPConformanceTarget">
 	<title>Extending IEPConformanceTarget</title>
 
-	<p>It is possible to extend the mpd-catalog.  This may be done to add new metadata, artifact classifiers, or validity constraints.  To extend the mpd-catalog, an MPD author must provide both an xml-catalog extension XML document and an MPD extension XSD (schema).  The xml-catalog extension identifies that an MPD catalog extension is present, and resolves its namespace to its local URI.  The MPD catalog extension is a schema that defines and declares the new data components for metadata, classifiers, and/or constraints.  Both general <ref idref="NIEM-Conformance"/> and specific <ref idref="NIEM-NDR"/> NIEM conformance rules apply to these components.  Both the xml-catalog extension XML document must reside in the <termRef>MPD root directory</termRef>.  The MPD extension XSD may have any file name and reside anywhere in the MPD because the xml-catalog is expected to resolve its URI.  MPD processing tools are expected to look for and recognize the xml-catalog that identifies the MPD catalog extension by its file name.  The following rule the specifies the process:</p>
+	<p>It is possible to extend an mpd-catalog.  This may be done to add new metadata, artifact classifiers, or validity constraints.  To extend the mpd-catalog, an MPD author must provide both an XML catalog extension document (XML) and one or more MPD extension schema documents (XSD).  The xml-catalog extension identifies that one or more MPD catalog extensions are present, and resolves their namespaces to local URIs.  The MPD catalog extension is a schema that defines and declares the new data components for metadata, classifiers, and/or constraints.  Both general <ref idref="NIEM-Conformance"/> and specific <ref idref="NIEM-NDR"/> NIEM conformance rules apply to these components.  The xml-catalog extension document must reside in the <termRef>MPD root directory</termRef>.  The MPD extension schema documents may bear any file name and reside anywhere in the MPD.  This is because the xml-catalog is expected to resolve all local URIs.  MPD processing tools are expected to look for and recognize the xml-catalog (that identifies MPD catalog extensions exist) by its file name.</p>
+
+	<p>The following rule specifies the requirements for mpd-catalog extension:</p>
+
+	<rule id="r-mpd-extension-xml-catalog">
+		<p>An MPD extension XML catalog document MUST:</p>
+		<ul>
+			<li><p>MUST reside in the <termRef>MPD root directory</termRef>.</p></li>
+			<li><p>MUST bear the file name (and type) <code>mpd-extension-xml-catalog.xml</code>.</p></li>
+			<li><p>MUST resolve all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.</p></li>
+		</ul>
+	</rule>
+
+	<p>So, when a processer identifies a file named <code>mpd-extension-xml-catalog.xml</code> in the <termRef>MPD root directory</termRef>, it can assume that it contains references to one or more MPD catalog extension schema documents.  These schema documents have the following requirements:
+
+	<rule id="r-mpd-extension-xsd">
+		<p>An MPD catalog extension schema document:<p>
+		<ul>
+			<li><p>MUST conform to both NDR and Conformance Spec.</p></li>
+			<li><p>MUST bear the file type of <code>.xsd</code></p></li>
+			<li><p>MAY have any file name.</p></li>
+			<li><p>MAY reside anywhere within the MPD (as long as the XML catalog can resolve its URI).</p></li>
+		</ul>
+	</rule>
+
+	<p>As implied above, there may exist multiple MPD catalog extension schema documents referenced by the extension XML catalog document.</p>
+
+</section>
+</section>
+</section>
+
 
 <!-- ############################################################## -->
 
-	<rule id="mpd-extension">
-<pre>MPD extension XML catalog:
-	MUST reside in the <termRef>MPD root directory</termRef>.
-	MUST have filename = mpd-extension-xml-catalog.xml.
-	MUST correctly resolve MPD catalog extension XSD namespace to its URI (location in MPD).
-
-MPD catalog extension XSD:
-	May have any filename.
-	May reside anywhere within the MPD.
-	MUST conform to both NDR and Conformance Spec.
-	May have multiple extension XSDs.
-</pre>
-	</rule>
-
-</section>
-</section>
-</section>
-
-
-
 <section id="Valid-vs-Complete-MPD">
 	<title>Valid vs. Complete MPD</title>
-
-	<p>[TBD]</p>
 
 	<definition term="Valid MPD">
 <pre>Valid MPD:
