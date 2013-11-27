@@ -399,7 +399,7 @@ Nonetheless, we appreciate your feedback.
 
 <!-- Primitives ================================================================== -->
 
-    <attribute name="mpdURI"       type="anyURI">
+    <attribute name="mpdURI" type="anyURI">
       <annotation>
         <documentation>A globally unique identifier (URI) for an MPD.</documentation>
       </annotation>
@@ -413,12 +413,16 @@ Nonetheless, we appreciate your feedback.
     </attribute>
 
 
-    <!-- mpdName cannot have spaces; only alphanumeric, underscore, dash; 
-    so, should this be type="token" instead of "string" ??? -->
+<!-- Is pattern for mpdName correct? ... begins with alpha; may be single alpha;
+may be followed by alphanums or "-" or "_"; but no double"-" or double"_" 
+and must end in alphanum. -->
 
-    <attribute name="mpdName"      type="string">
+    <attribute name="mpdName" type="string" 
+	    		      pattern="[a-z][a-z0-9]*([_][a-z0-9])*([-][a-z0-9])*">
       <annotation>
-        <documentation>A descriptive label or title for an MPD.</documentation>
+	<documentation>A descriptive label or title for an MPD.  Begins with alpha 
+	char; may be a single alpha; may be followed by alphanums or "-" or "_"; 
+	but no double "-" or doubl e"_" and must end in an alphanum.</documentation>
       </annotation>
     </attribute>
 
