@@ -977,7 +977,7 @@
 	</ul>
 
 	<rule id="r-mpd-catalog">
-		<p>An MPD MUST contain an XML mpd-catalog artifact that (1) validates with the NIEM MPD catalog schema (XSD) <ref idref="MPD-Catalog-XSD"/>, and (2) resides in the root directory of the MPD archive, and (3) bears the file name <code>mpd-catalog.xml</code>.</p>
+		<p>An MPD MUST contain an XML mpd-catalog artifact that (1) validates with the NIEM MPD catalog schema (XSD) <ref idref="MPD-Catalog-XSD"/>, and (2) resides in the <termRef>MPD root directory</termRef>, and (3) bears the file name <code>mpd-catalog.xml</code>.</p>
 </rule>
 
 <p>The mpd-catalog identifies basic metadata, key artifacts, and MPD and artifact relationships.  When needed, it also provides specific information for how to qualify and validate a candidate IEP for the given IEPD.  The mpd-catalog is important for generating a table of contents display, registration, search and discovery, and MPD and artifact lineage.  <ref idref="MPD-Catalog-XSD"/> defines the structure and semantics for a NIEM <code>mpd-catalog.xml</code> file.</p>
@@ -1023,16 +1023,12 @@
 <section id="Version-Numbering-Scheme">
 	<title>Version Numbering Scheme</title>
 
-	<p>Published MPDs will be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred.  A version number is actually part of the unique identification for an MPD (to be discussed in <ref idref="URI-Scheme-for-MPDs"/>).  For this reason:</p>
-
-	<rule id="r-mpd-version">
-		<p>Every MPD MUST be assigned a version number.</p>
-	</rule>
+	<p>Published MPDs will be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred.  A version number is actually part of the unique identification for an MPD (to be discussed in <ref idref="URI-Scheme-for-MPDs"/>).</p>
 
 	<p>In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices.  This is the same version numbering scheme that is used for NIEM releases.</p>
 
 	<rule id="r-mpd-vers-syntax">
-		<p>All NIEM version numbers adhere to the regular expression:</p>
+		<p>Every MPD MUST be assigned a version number that adheres to the regular expression:</p>
 	<pre>	version ::= digit+ ('.' digit+)* (status digit+)?
 	Where:	
 		digit   ::= [0-9]
@@ -1109,28 +1105,28 @@
 	<p>Here is a typical example of an http URI:  <code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code></p>
 
 	<p>Note that <ref idref="r-mpd-URI"/> explicitly states that a URI assigned to an MPD must be valid.  This means that the person or organization assigning the URI either is the registrant of the domain name, or has authority from the registrant to assign this URL as an MPD URI.  In the example above, <code>www.abc.org</code> is the domain name (between the second and third "/").  There is no requirement for a URL assigned to an MPD to resolve to any particular Internet resource or to resolve at all.  However, it is always good practice for such a URL to resolve to the resource it represents, the directory it resides in, or to documentation for that resource.  See <link>http://www.w3.org/Provider/Style/URI.html</link></p>
-
-	<p>The MPD version number is essential to its unique identification.  Incorporation of the version number within the MPD URI provides a simple visual (as well as machine readable) means of identifying one of the most fundamental relationships between MPDs, i.e., that one is a different version of another.  Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.</p>
+		
+	<p>The MPD version number (i.e., the value of the <code>mpdVersionID</code> in <ref idref="MPD-Catalog-XSD"/>) is essential to its unique identification.  Incorporation of the version number within the MPD URI provides a simple visual (as well as machine readable) means of identifying one of the most fundamental relationships between MPDs, i.e., that one is a different version of another.  Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.</p>
 
 	<rule id="r-mpd-uri-vers">
 		<p>The URI for an MPD MUST end in its version number concatenated with a forward slash character ("/").</p>
 	</rule>
 
-	<p>And finally, note that <code>mpd-catalog.xsd</code> defines a mandatory attribute for both the <code>mpdURI</code> and the <code>mpdVersionID</code>.  Since the ending substring of an MPD URI must be its version ID (and forward slash), then the mpd-catalog duplicates the MPD version ID in two locations.  By design, <ref idref="MPD-File-Name-Syntax"/> intentionally duplicates both the mpd-catalog <code>mpdName</code> and <code>mpdVersionID</code>.  There are two reasons for this design.  First, software tools are expected to build and process mpd-catalogs.  Instead of forcing tool developers to parse the URI just to retrieve name and version, the mpd-catalog provides a separate <code>mpdName</code> and <code>mpdVersionID</code> attribute.  Second, duplication of that key metadata in both the URI and the file name facilitates faster visual recognition of an MPD, rather than requiring that a user open the archive, open its <code>mpd-catalog.xml</code>, and scan its content just to locate <code>mpdName</code> or <code>mpdVersionID</code>.</p>
+	<p>And finally, note that <ref idref="MPD-Catalog-XSD"/> defines a mandatory attribute for the <code>mpdURI</code>, <code>mpdName</code>, <code>mpdClassCode</code>, and <code>mpdVersionID</code>.  Since the ending substring of an MPD URI must be its version ID (followed by forward slash), then the mpd-catalog duplicates the MPD version ID in two locations.  By design, <ref idref="MPD-File-Name-Syntax"/> intentionally duplicates these attribute values in the MPD file name.  There are two reasons for this design.  First, software tools are expected to build and process mpd-catalogs.  Instead of forcing tool developers to parse the URI just to retrieve name, version, and class, the mpd-catalog separates these data items as XML attributes.  Second, duplication of that key metadata in both the URI and the file name facilitates fast visual recognition of an MPD, rather than requiring that a user open the archive, open its <code>mpd-catalog.xml</code>, and scan XML content to locate the data.</p>
 
 </section>
 
 <section id="URI-Scheme-for-MPD-Artifacts">
 	<title>URI Scheme for MPD Artifacts</title>
 
-	<p>Given the URI for an MPD, a URI also exists for each artifact in that MPD.  Again, this specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to designate an artifact URI.  Each file artifact or set (directory) artifact is uniquely identified by its path name relative to the root directory of the MPD archive.  The URI for an MPD artifact is the concatenatation of (1) the MPD URI, (2) the "#" character, and (3) the path name of the artifact.</p>
+	<p>Given the URI for an MPD, a URI also exists for each artifact in that MPD.  Again, this specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to designate an artifact URI.  Each file artifact or set (directory) artifact is uniquely identified by its path name relative to the <termRef>MPD root directory</termRef>.  The URI for an MPD artifact is the concatenatation of (1) the MPD URI, (2) the "#" character, and (3) the path name of the artifact.</p>
 
 	<rule id="r-mpd-uri-syntax">
 		<p>The URI reference to an individual MPD artifact from another resource is the concatenation of</p>
 		<ul>
 			<li><p>The URI of the MPD that contains the artifact.</p></li>
 			<li><p>The crosshatch or pound character ("#").</p></li>
-			<li><p>A fragment identifier that is the locally unique path name (string) of the artifact relative to the root directory of the MPD archive.</p></li>
+			<li><p>A fragment identifier that is the locally unique path name (string) of the artifact relative to the <termRef>MPD root directory</termRef>.</p></li>
 		</ul>
 	</rule>
 
@@ -1194,7 +1190,7 @@
 			<li><p>Validates with the NIEM change log schemas <code>mpd-changelog.xsd</code> and <code>niem-model.xsd</code>.  (Note these are base filenames; actual filenames also contain a version number; for example, <code>mpd-changelog-1.0.xsd</code>.)</p></li>
 			<li><p>Records changes to previous reference schema documents that this MPD represents.</p></li>
 			<li><p>Bears the file name <code>changelog.xml</code>.</p></li>
-			<li><p>Resides in the root directory of the MPD archive.</p></li>
+			<li><p>Resides in the <termRef>MPD root directory</termRef>.</p></li>
 		</ul>
 	</rule>
 	
@@ -1221,7 +1217,7 @@
 		<ul>
 			<li><p>Records changes to previous IEPD or EIEM schemas that this MPD represents.</p></li>
 			<li><p>Has a file name that begins with the substring "changelog".</p></li>
-			<li><p>Resides in the root directory of the MPD archive.</p></li>
+			<li><p>Resides in the <termRef>MPD root directory</termRef>.</p></li>
 		</ul>
 	</rule>
 
@@ -1239,7 +1235,7 @@
 		<p>If an IEPD or EIEM contains more than one change log artifact, then each change log artifact MUST:</p>
 		<ul>
 			<li><p>Have a file name that begins with the substring <code>changelog</code>.</p></li>
-			<li><p>Reside in the root directory of the MPD archive.</p></li>
+			<li><p>Reside in the <termRef>MPD root directory</termRef>.</p></li>
 		</ul>
 	</rule>
 
@@ -1254,7 +1250,7 @@
 	<p>The <em>master document</em> is similar to a <code>readme</code> file.  It is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have fairly restrictive rules to obey, standard documentation for how to use them, and are centrally managed.</p>
 
 	<rule id="r-mpd-master">
-		<p>An IEPD or an EIEM MUST contain a master document located in the MPD root directory whose filename begins with the substring <code>master-document</code>.</p>
+		<p>An IEPD or an EIEM MUST contain a master document located in the <termRef>MPD root directory</termRef> whose filename begins with the substring <code>master-document</code>.</p>
 	</rule>
 
 	<p>The master document may replicate some of the metadata in the mpd-catalog.  However, the mpd-catalog is intentionally designed to be efficient, easily to parse, and minimal.  It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.</p>
@@ -1503,13 +1499,13 @@
 <section id="Extending-IEPConformanceTarget">
 	<title>Extending IEPConformanceTarget</title>
 
-	<p>It is possible to extend the mpd-catalog.  This may be done to add new metadata, artifact classifiers, or validity constraints.  To extend the mpd-catalog, an MPD author must provide both an xml-catalog extension XML document and an MPD extension XSD (schema).  The xml-catalog extension identifies that an MPD catalog extension is present, and resolves its namespace to its local URI.  The MPD catalog extension is a schema that defines and declares the new data components for metadata, classifiers, and/or constraints.  Both general <ref idref="NIEM-Conformance"/> and specific <ref idref="NIEM-NDR"/> NIEM conformance rules apply to these components.  Both the xml-catalog extension XML document must reside in the MPD root directory.  The MPD extension XSD may have any file name and reside anywhere in the MPD because the xml-catalog is expected to resolve its URI.  MPD processing tools are expected to look for and recognize the xml-catalog that identifies the MPD catalog extension by its file name.  The following rule the specifies the process:</p>
+	<p>It is possible to extend the mpd-catalog.  This may be done to add new metadata, artifact classifiers, or validity constraints.  To extend the mpd-catalog, an MPD author must provide both an xml-catalog extension XML document and an MPD extension XSD (schema).  The xml-catalog extension identifies that an MPD catalog extension is present, and resolves its namespace to its local URI.  The MPD catalog extension is a schema that defines and declares the new data components for metadata, classifiers, and/or constraints.  Both general <ref idref="NIEM-Conformance"/> and specific <ref idref="NIEM-NDR"/> NIEM conformance rules apply to these components.  Both the xml-catalog extension XML document must reside in the <termRef>MPD root directory</termRef>.  The MPD extension XSD may have any file name and reside anywhere in the MPD because the xml-catalog is expected to resolve its URI.  MPD processing tools are expected to look for and recognize the xml-catalog that identifies the MPD catalog extension by its file name.  The following rule the specifies the process:</p>
 
 <!-- ############################################################## -->
 
 	<rule id="mpd-extension">
 <pre>MPD extension XML catalog:
-	MUST reside in the MPD root directory.
+	MUST reside in the <termRef>MPD root directory</termRef>.
 	MUST have filename = mpd-extension-xml-catalog.xml.
 	MUST correctly resolve MPD catalog extension XSD namespace to its URI (location in MPD).
 
@@ -1535,7 +1531,7 @@ MPD catalog extension XSD:
 	<definition term="Valid MPD">
 <pre>Valid MPD:
 	MUST be a Zip archive.
-	MUST contain an mpd-catalog.xml artifact in root directory.
+	MUST contain an mpd-catalog.xml artifact in <termRef>MPD root directory</termRef>.
 	mpd-catalog.xml MUST be Schema valid to mpd-catalog-3.0.xsd.
 	mpd-catalog.xml MUST contain a value for Catalog/MPD/@mpdURI (not required to resolve).
 	mpd-catalog.xml MUST contain a value for Catalog/MPD/@mpdClassCode
@@ -1786,7 +1782,7 @@ MPD catalog extension XSD:
 
 	<p>The guidance above results in an IEPD directory structure that appears below.  Filenames within the <code>extension</code>, <code>external</code>, <code>exchange</code>, <code>schematron</code>, and <code>iep-sample</code> subdirectories are non-normative examples.  Authors are free to assign names for such files according to their own requirements (as long as they do not violate the rules in this specification for other files such as <code>xml-catalog.xml</code> or <code>mpd-catalog.xml</code>).</p>
 <pre>
-	/my_iepd-3.2rev4		(root directory of IEPD archive)
+	/my_iepd-3.2rev4	(root directory of IEPD archive)
 
 		mpd-catalog.xml
 		xml-catalog.xml
