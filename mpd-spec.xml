@@ -965,39 +965,43 @@
 <section id="MPD-Catalog">
 	<title>NIEM MPD Catalog</title>
 
-	<p>Every NIEM MPD describes itself through a mandatory <em>mpd-catalog</em> artifact.  An mpd-catalog is a multi-purpose XML file containing metadata that describes an MPD's</p>
+	<p>A NIEM MPD describes itself through a mandatory <em>mpd-catalog</em> artifact.  An mpd-catalog is a multi-purpose XML file containing metadata that describes an MPD's</p>
 	<ul>
 		<li><p>Unique identification</p></li>
-		<li><p>Basic descriptive characteristics</p></li>
-		<li><p>Key directory structure and key artifacts</p></li>
+		<li><p>Basic characteristics and properties</p></li>
+		<li><p>Key artifacts and directory structure</p></li>
 		<li><p>Lineage and relationships to other MPDs</p></li>
 	</ul>
 	
-	<p>This metadata is designed to be the minimal required that will facilitate human understanding, tool support, and machine processing.  The MPD uses and functions that the mpd-catalog is designed to support include (but are not limited to):</p>
+	<p>This metadata is designed to be the minimal required that will facilitate human understanding, tool support, and machine processing.  The catalog is designed to support a number of MPD uses and functions including (but not limited to):</p>
 	<ul>
 		<li><p>Identification of key artifacts</p></li>
-		<li><p>Conformance and validation</p></li>
-		<li><p>Generation of a hyperlinked display using XSLT</p></li>
+		<li><p>Generation of a hyperlinked content display using XSLT</p></li>
 		<li><p>Browsing and understanding of artifacts and their content</p></li>
-		<li><p>Automatic registration in a registry/repository</p></li>
-		<li><p>Search, discovery, retrieval of MPDs (through metadata)</p></li>
+		<li><p>Automatic registration into a registry/repository</p></li>
+		<li><p>Search, discovery, retrieval of MPDs (through metadata and relationships)</p></li>
 		<li><p>Reuse of MPDs and their artifacts</p></li>
 		<li><p>Reuse of BIECs and associated EIEMs</p></li>
 		<li><p>Tracing and analysis of MPD lineage</p></li>
+		<li><p>General conformance and validation of the MPD itself</p></li>
+		<li><p>Definition, identification, and validation of IEP conformance targets</p></li>
 	</ul>
 
 	<rule id="r-mpd-catalog">
-		<p>An MPD MUST contain an mpd-catalog XML document artifact that:</p>
+		<p>A <termRef text="valid">valid MPD</termRef> and <termRef>complete MPD</termRef> MUST contain an mpd-catalog XML document artifact that:</p>
 		<ul>
-			<li><p>validates with the appropriate NIEM MPD catalog schema <ref idref="MPD-Catalog-XSD"/>.</p></li>
+			<li><p>validates with the NIEM MPD catalog schema <ref idref="MPD-Catalog-XSD"/>.</p></li>
+			<li><p>validates with the NIEM MPD catalog Schematron rules.</p></li>
 			<li><p>resides in the <termRef>MPD root directory</termRef>.</p></li>
 			<li><p>bears the file name <code>mpd-catalog.xml</code>.</p></li>
 		</ul>
 </rule>
 
-<p>The mpd-catalog identifies basic metadata, key artifacts, and MPD and artifact relationships.  When needed, it also provides specific information for how to validate a candidate IEP with the given IEPD.  The MPD catalog is important for generating a table of contents display, registration, search and discovery, and for MPD and artifact lineage.  The MPD catalog schema document defines the structure and semantics for a NIEM <code>mpd-catalog.xml</code> file artifact.</p>
+<p>Note that the <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef>valid MPD</termRef> from a <termRef>complete MPD</termRef> during development.  This is explained in more detail in <ref idref="Valid-vs-Complete-MPD"/>.</p>
 
+<p>Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a <termRef>complete MPD</termRef>, Schematron rules must be applied to the catalog of a <termRef>valid MPD</termRef> to ensure completeness.</p>
 
+<!-- ############################## -->
 
 <section id="MPD-Catalog-TOC">
 	<title>MPD Catalog as a Table of Contents</title>
