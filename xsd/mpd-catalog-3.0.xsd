@@ -44,8 +44,7 @@ Nonetheless, we appreciate your feedback.
 	<term:LocalTerm term="ID"    literal="Identifier"/>
 	<term:LocalTerm term="IEP"   literal="Information Exchange Package" 
 				     definition="an instance XML document"/>
-	<term:LocalTerm term="IEPD"  literal="Information Exchange Package 
-				     		Documentation"/>
+	<term:LocalTerm term="IEPD"  literal="Information Exchange Package									Documentation"/>
 	<term:LocalTerm term="MIME"  literal="Multipurpose Internet Mail Extension"/>
 	<term:LocalTerm term="MPD"   literal="Model Package Description"/>
 	<term:LocalTerm term="OASIS" literal="Organization for the Advancement
@@ -158,6 +157,10 @@ Nonetheless, we appreciate your feedback.
         <documentation>An MPD artifact that is an OASIS XML catalog.</documentation>
       </annotation>
     </element>
+
+<!-- could design type for this element to restrict c:FileType to a fixed pathURI 
+	(i.e., "/mpd-catalog-extension-xml-catalog.xml") OR is this overkill?  
+	Eliminates a Schematron rule. -->
 
     <element name="MPDCatalogExtensionXMLCatalog" type="c:FileType" 
 	     substitutionGroup="c:Artifact">
@@ -601,9 +604,11 @@ and must end in alphanum. -->
       <complexContent>
 	<extension base="structures:ObjectType">
 	  <sequence>
-	    <element ref="nc:DescriptionText"   minOccurs="0"/>
-	    <element ref="c:ValidityConstraint" minOccurs="0" maxOccurs="unbounded"/>
-	    <element ref="c:IEPSampleDocument"  minOccurs="0" maxOccurs="unbounded"/>
+	    <element ref="nc:DescriptionText"     minOccurs="0"/>
+	    <element ref="c:ValidityConstraint"   minOccurs="0" 
+		    				  maxOccurs="unbounded"/>
+	    <element ref="c:IEPSampleXMLDocument" minOccurs="0" 
+		    				  maxOccurs="unbounded"/>
     	  </sequence>
 	</extension>
       </complexContent>
@@ -688,7 +693,7 @@ and must end in alphanum. -->
       </complexContent>
     </complexType>
 
-    <element name="ValidationRootXPath" type="c:XPathType">
+    <elementV name="ValidationRootXPath" type="c:XPathType">
       <annotation>
 	<documentation>An XPath expression that identfies a seqence of zero or more
 	validation root elements for a validity constraint on an XML document.
@@ -797,7 +802,7 @@ and must end in alphanum. -->
         </documentation>
       </annotation>
       <complexContent>
-        <extension base="structures:ObjectType">
+        <extecnsion base="structures:ObjectType">
           <sequence>
             <element ref="nc:DescriptionText" minOccurs="0"/>
           </sequence>
@@ -958,13 +963,14 @@ and must end in alphanum. -->
     <element name="ExchangePatternText" type="string">
       <annotation>
 	<documentation>A description of a transactional or design pattern used
-	for this IEPD (generally, applicable to IEPDs only).</documentation>
+	for this IEPD (generally, only applicable to IEPDs).</documentation>
       </annotation>
     </element>
 
     <element name="ExchangePartnerName" type="string">
       <annotation>
-	<documentation>A name of an entity or organization that uses this MPD.
+	<documentation>A name of an entity or organization that uses this MPD
+	(generally, only applicable to IEPDsP).
 	</documentation>
       </annotation>
     </element>
