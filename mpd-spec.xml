@@ -813,7 +813,7 @@
 <section id="Classes-of-MPDs-vs.-Classes-of-Schemas">
 	<title>Classes of MPDs vs. Classes of Schema Documents</title>
 
-	<p>The chart in <ref idref="classes-mpds-xsds"/> summarizes the types of schema documents that:  (1) can be contained in an instance of each MPD class, and (<em>minimum, maximum</em>) cardinalities of those schema document.  In some cases, certain types of schema documents are never contained in particular class of MPD.  These are labeled <q><em>not applicable</em></q>.</p>
+	<p>The chart in <ref idref="classes-mpds-xsds"/> summarizes the types of schema documents that:  (1) can be contained in an instance of each MPD class, and (2) the (<em>minimum, maximum</em>) cardinalities of those schema documents.  In some cases, certain types of schema documents are never contained in particular class of MPD.  These are labeled <q><em>not applicable</em></q>.</p>
 
 	<p>Notice that only NIEM releases, core updates, and domain updates contain reference schema document sets, while only IEPDs and EIEMs contain the user-developed schema document sets.  The pluses (+) indicate that a NIEM-conformant IEPD or EIEM must have at least one schema document that is either a NIEM reference schema document or a NIEM subset schema document derived from a NIEM reference schema document (See <ref idref="r-mpd-ref-sub"/>).</p>
 
@@ -967,7 +967,7 @@
 	<rule id="r-mpd-extension-xml-catalog">
 		<p>An MPD extension XML catalog document:</p>
 		<ul>
-			<li><p>MUST reside in the <termRef>MPD root directory</termRef>.</p></li>
+			<li><p>MUST reside in the same relative directory as the <code>mpd-catalog.xml</code> artifact (normally in the <termRef>MPD root directory</termRef>)</p></li>
 			<li><p>MUST bear the file name (and type) <code>mpd-extension-xml-catalog.xml</code>.</p></li>
 			<li><p>MUST resolve all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.</p></li>
 		</ul>
@@ -996,7 +996,7 @@
 		</ul>
 	</rule>
 
-	<p>Whether extending an MPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, <ref idref="MPD-Catalog-XSD"/> provides an abstract element as a substitution group head in each case.  The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group.  Whereever possible, the user should reuse types, elements, and attributes that are already defined/declared within the <ref idref="MPD-Catalog-XSD"/>.</p>
+	<p>Whether extending an MPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, <ref idref="MPD-Catalog-XSD"/> provides an abstract element as a substitution group head in each case.  The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group.  Whenever possible, the user should reuse types, elements, and attributes that are already defined/declared within the <ref idref="MPD-Catalog-XSD"/>.</p>
 
 </section>
 </section>
@@ -1505,9 +1505,9 @@
 <section id="Extending-IEPConformanceTarget">
 	<title>Extending IEPConformanceTarget</title>
 
-	<p>[TBD]</p>
+	<p>Refer to <ref idref="Extending-an-MPD-Catalog"/> for rules regarding the extension of the MPD catalog in general.  This section discusses adding new <code>IEPConformanceTarget</code> validity constraints.</p>
 
-	<p>Schemas or rules may be either standard or non-standard.  For example, an IEPD author may extend an MPD Catalog to employ a rule format associated with a specific software tool.</p>
+	<p>Validity constraints are schemas or rules may be either standard or non-standard.  For example, an IEPD author may extend an MPD Catalog to employ a rule format associated with a specific software tool.</p>
 
 </section>
 </section>
