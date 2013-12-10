@@ -157,9 +157,10 @@ Nonetheless, we appreciate your feedback.
       </annotation>
     </element>
 
-<!-- could design type for this element to restrict c:FileType to a fixed pathURI 
-	(i.e., "/mpd-catalog-extension-xml-catalog.xml") OR is this overkill?  
-	Eliminates a Schematron rule. -->
+<!-- Need rule in text for mpd-catalog extension:
+	File name:  mpd-catalog-extension-xml-catalog.xml
+	MUST reside in same directory as mpd-catalog.xml 
+	(i.e., its location must be relative to mpd-catalog.xml -->
 
     <element name="MPDCatalogExtensionXMLCatalog" type="c:FileType" 
 	     substitutionGroup="c:Artifact">
@@ -345,59 +346,6 @@ Nonetheless, we appreciate your feedback.
       </complexContent>
     </complexType>
 
-    
-<!-- No longer required ... ########################################################
-
-    <element name="BaseSchemaDocumentSet"
-             type="c:BaseSchemaDocumentSetType"      substitutionGroup="c:Artifact">
-      <annotation>
-	<documentation>An MPD set artifact that may include a schema document subset,
-	as well as reference, extension, exchange, and external schema documents.
-	</documentation>
-      </annotation>
-    </element>
-
-    <element name="ConstraintSchemaDocumentSet"
-             type="c:BaseSchemaDocumentSetType"      substitutionGroup="c:Artifact">
-      <annotation>
-	<documentation>An MPD set artifact that may contain one or more constraint 
-	schema documents.</documentation>
-      </annotation>
-    </element>
-  
-    <element name="ReferenceSchemaDocumentSet"
-             type="c:ReferenceSchemaDocumentSetType" substitutionGroup="c:Artifact">
-      <annotation>
-	<documentation>An MPD set artifact that is a reference schema document set.
-	</documentation>
-      </annotation>
-    </element>
- 
-    <complexType name="BaseSchemaDocumentSetType">
-      <annotation>
-	<documentation>A datatype for an MPD set artifact that may include a schema
-	document subset, as well as reference, extension, exchange, and external
-	schema documents.</documentation>
-      </annotation>
-      <complexContent>
-        <restriction base="c:FileSetType">
-          <sequence>
-	    <element ref="c:ExtensionSchemaDocument" minOccurs="0" 
-			  			     maxOccurs="unbounded"/>
-	    <element ref="c:SubsetSchemaDocument"    minOccurs="0" 
-						     maxOccurs="unbounded"/>
-	    <element ref="c:ExternalSchemaDocument"  minOccurs="0" 
-						     maxOccurs="unbounded"/>
-	    <element ref="c:ReferenceSchemaDocument" minOccurs="0" 
-						     maxOccurs="unbounded"/>
-            <element ref="c:Wantlist"                minOccurs="0"/>
-          </sequence>
-        </restriction>
-      </complexContent>
-    </complexType>
-
- -->
-
 
 <!-- Primitives ================================================================== -->
 
@@ -407,21 +355,10 @@ Nonetheless, we appreciate your feedback.
       </annotation>
     </attribute>
 
-    <attribute name="mpdClassCode" type="c:MPDClassCodeSimpleType">
-      <annotation>
-	<documentation>A classification for an MPD; values are drawn 
-	from the set {rel, cu, du, iepd, eiem}.</documentation>
-      </annotation>
-    </attribute>
-
-
-<!-- Check mpdName pattern ... begins with alpha; may be single alpha;
-may be followed by alphanums or "-" or "_"; but no double"-" or double"_" 
-and must end in alphanum. -->
 <!-- WR pattern something like this: [a-z]([-_]?[a-z0-9]+)* -->
-<!-- "  Begins with alpha 
-	char; may be a single alpha; may be followed by alphanums or "-" or "_"; 
-	but no double "-" or doubl e"_" and must end in an alphanum." -->
+<!-- "Begins w/ alpha char; may be a single alpha; may be followed 
+	by alphanums or "-" or "_"; but no double "-" or double"_" 
+	and must end in an alphanum." -->
 
     <attribute name="mpdName" type="string">
       <annotation>
@@ -436,39 +373,20 @@ and must end in alphanum. -->
       </annotation>
     </attribute>
 
-    <attribute name="externalURI" type="anyURI">
+    <simpleType name="MPDVersionIDSimpleType">
       <annotation>
-	<documentation>A globally unique identifier (URI) for an artifact 
-	in another MPD that is reused by this MPD.</documentation>
+	<documentation>A datatype for an identifier that distinguishes releases
+	of a given MPD.</documentation>
       </annotation>
-    </attribute>
+      <restriction base="token">
+        <pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
+      </restriction>
+    </simpleType>
 
-    <attribute name="pathURI" type="anyURI">
+    <attribute name="mpdClassCode" type="c:MPDClassCodeSimpleType">
       <annotation>
-      <documentation>A URI for the pathname of a local artifact relative to 
-      the MPD root directory.</documentation>
-      </annotation>
-    </attribute>
-
-    <attribute name="mimeMediaTypeText" type="string">
-      <annotation>
-	<documentation>A classification for an MPD file
-	artifact from the IANA MIME media classes: 
-	http://www.iana.org/assignments/media-types.</documentation>
-      </annotation>
-    </attribute>
-
-    <attribute name="resourceURI"   type="anyURI">
-      <annotation>
-	<documentation>A globally unique identifier (URI) for another 
-	MPD or document to which this MPD relates.</documentation>
-      </annotation>
-    </attribute>
-
-    <attribute name="relationshipCode" type="c:RelationshipCodeSimpleType">
-      <annotation>
-	<documentation>A classification or reason for the connectedness between
-	this MPD and the resource referenced in resourceURI.</documentation>
+	<documentation>A classification for an MPD; values are drawn 
+	from the set {rel, cu, du, iepd, eiem}.</documentation>
       </annotation>
     </attribute>
 
@@ -504,17 +422,59 @@ and must end in alphanum. -->
 		</annotation>
 	    </enumeration>
         </restriction>
-    </simpleType>
+</simpleType>
 
-    <simpleType name="MPDVersionIDSimpleType">
+    <attribute name="pathURI" type="anyURI">
       <annotation>
-	<documentation>A datatype for an identifier that distinguishes releases
-	of a given MPD.</documentation>
+      <documentation>A URI for the pathname of a local artifact relative to 
+      the MPD root directory.</documentation>
       </annotation>
-      <restriction base="token">
-        <pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
-      </restriction>
-    </simpleType>
+    </attribute>
+
+    <attribute name="externalURI" type="anyURI">
+      <annotation>
+	<documentation>A globally unique identifier (URI) for an artifact 
+	in another MPD that is reused by this MPD.</documentation>
+      </annotation>
+    </attribute>
+
+    <attribute name="mimeMediaTypeText" type="string">
+      <annotation>
+	<documentation>A classification for an MPD file
+	artifact from the IANA MIME media classes: 
+	http://www.iana.org/assignments/media-types.</documentation>
+      </annotation>
+    </attribute>
+
+    <complexType name="RelationshipType">
+      <annotation>
+	<documentation>A datatype for a reference to another MPD related to this MPD.
+	<documentation>
+      </annotation>
+      <complexContent>
+        <extension base="structures:ObjectType">
+          <sequence>
+            <element ref="nc:DescriptionText" minOccurs="0"/>
+          </sequence>
+          <attribute ref="c:relationshipCode" use="required"/>
+          <attribute ref="c:resourceURI"      use="required"/>
+        </extension>
+      </complexContent>
+    </complexType>
+
+    <attribute name="resourceURI"   type="anyURI">
+      <annotation>
+	<documentation>A globally unique identifier (URI) for another 
+	MPD or document to which this MPD relates.</documentation>
+      </annotation>
+    </attribute>
+
+    <attribute name="relationshipCode" type="c:RelationshipCodeSimpleType">
+      <annotation>
+	<documentation>A classification or reason for the connectedness between
+	this MPD and the resource referenced in resourceURI.</documentation>
+      </annotation>
+    </attribute>
 
     <simpleType name="RelationshipCodeSimpleType">
       <annotation>
@@ -903,7 +863,7 @@ and must end in alphanum. -->
             <element ref="c:POCEmail"     maxOccurs="unbounded"/>
             <element ref="c:POCTelephone" maxOccurs="unbounded"/>
     <element name="ASName" type="string">
-	<documentation>A name for the current MPD authoritative source; could be the
+	<documentation>A name for the current MPD authoritative source; could be
 	author, creator, sponsor, etc. (organization or person).</documentation>
     <element name="ASAddressText" type="string">
     <element name="ASWebSiteURL" type="anyURI">
@@ -974,22 +934,6 @@ and must end in alphanum. -->
 	</documentation>
       </annotation>
     </element>
-
-    <complexType name="RelationshipType">
-      <annotation>
-	<documentation>A datatype for a reference to another MPD related to this MPD.
-	<documentation>
-      </annotation>
-      <complexContent>
-        <extension base="structures:ObjectType">
-          <sequence>
-            <element ref="nc:DescriptionText" minOccurs="0"/>
-          </sequence>
-          <attribute ref="c:relationshipCode" use="required"/>
-          <attribute ref="c:resourceURI"      use="required"/>
-        </extension>
-      </complexContent>
-    </complexType>
 
 </schema>
 
