@@ -852,22 +852,22 @@ Nonetheless, we appreciate your feedback. -->
       </annotation>
     </element>
 
-<!-- These have been replaced by nc:EntityType which allows
-     a Person or Organization as the Authoritative Source. 
-     Check to ensure nc:EntityType covers all required items.
+<!-- c:AuthoritativeSource should use NIEM 3.0 as follows ...
 
-    <element name="POC" type="c:POCType">
-    <complexType name="POCType">
-            <element ref="c:POCName"/>
-            <element ref="c:POCEmail"     maxOccurs="unbounded"/>
-            <element ref="c:POCTelephone" maxOccurs="unbounded"/>
-    <element name="ASName" type="string">
-	<documentation>A name for the current MPD authoritative source; could be
-	author, creator, sponsor, etc. (organization or person).</documentation>
-    <element name="ASAddressText" type="string">
-    <element name="ASWebSiteURL" type="anyURI">
-    <element name="POCName" type="string">
-        <documentation>A name for a person, position, or title.</documentation>
+<c:AuthoritativeSource> (type="nc:EntityType")
+	<nc:EntityOrganization> (or <nc:EntityPerson> if appropriate)
+		<nc:OrganizationName> (type="nc:TextType")
+		<nc:OrganizationLocation>
+		  <nc:Address>
+		    <nc:AddressFullText> (type="TextType")
+		<nc:OrganizationPrimaryContactInformation>
+		  <nc:ContactResponder>
+		    <nc:PersonName>
+		      <nc:PersonFullName> (type="TextType")
+		  <nc:ContactEmailID> (type="string")
+		  <nc:ContactTelephoneNumber>
+		    <nc:TelephoneNumberRepresentation> (substitutionGroup)
+		  <nc:ContactWebsiteURI> (type="anyURI") 
 -->
 
     <element name="CreationDate" type="date">
