@@ -43,7 +43,7 @@
 <section id="Introduction">
 	<title>Introduction</title>
 
-	<p>This specification assumes familiarity with the National Information Exchange Model (NIEM), its basic concepts, architecture, processes, design rules, and general conformance rules.  For novices, the recommended reading list includes:</p>
+	<p>This specification assumes familiarity with the National Information Exchange Model (NIEM), its basic concepts, architecture, processes, design rules, and general conformance rules.  For novices to NIEM, the recommended reading list includes:</p>
 	<ul>
 		<li><p>Introduction to the National Information Exchange Model <ref idref="NIEM-Intro"/></p></li>
 		<li><p>NIEM Concept of Operations <ref idref="NIEM-ConOps"/></p></li>
@@ -60,7 +60,7 @@
 
 	<p>Those knowledgeable of NIEM should be familiar with the <ref idref="NIEM-NDR"/>, <ref idref="NIEM-HLVA"/>, <ref idref="NIEM-Conformance"/>, and <ref idref="NIEM-BIEC"/>.</p>
 
-	<p>This specification uses and is a peer to the NIEM Naming and Design Rules (NDR) <ref idref="NIEM-NDR"/> and supersedes IEPD guidance previously published in Requirements for a NIEM IEPD <ref idref="NIEM-IEPD"/> and the NIEM User Guide <ref idref="NIEM-UserGuide"/>.  The NIEM User Guide remains a good source for understanding the process of building Information Exchange Package Documentation (IEPD).</p>
+	<p>This MPS Specification v3.0 uses and is a peer to the NIEM Naming and Design Rules (NDR) <ref idref="NIEM-NDR"/>.  It supersedes IEPD guidance previously published in Requirements for a NIEM IEPD <ref idref="NIEM-IEPD"/> and the NIEM User Guide <ref idref="NIEM-UserGuide"/>.  The NIEM User Guide remains a good source for understanding the process of building Information Exchange Package Documentation (IEPD).  It also supersedes both MPD Specification v1.0 and v1.1.</p>
 
 <section id="Background">
 	<title>Background</title>
@@ -87,7 +87,7 @@
 
 	<p>An MPD is a normative specification for XML data components in the format of the World Wide Web Consortium (W3C) XML Schema Definition Language <ref idref="W3-XML-Schema-Datatypes"/>, <ref idref="W3-XML-Schema-Structures"/>.  MPD schema documents either (1) define the semantics and structure for NIEM reusable data components, or (2) define implementable NIEM exchange instance documents in W3C Extensible Markup Language (XML) <ref idref="W3-XML"/>.</p>
 
-	<p>An MPD is complete when it has been properly packaged with the schemas, documentation, and supplemental files needed to understand how to use and implement it.  MPD content design, development, and assembly may be difficult and time-consuming, especially if done manually.  Software tools have been shown to significantly reduce the complexity of designing, constructing, changing, and managing MPDs.  In order to reduce ambiguity and to facilitate interoperable and effective tool support, this baseline specification imposes some degree of consistency on the terminology, syntax, semantics, and composition of MPDs.</p>
+	<p>An MPD is ready to publish and use when it has been properly packaged with the schemas, documentation, and supplemental files needed to understand how to use and implement it.  MPD content design, development, and assembly may be difficult and time-consuming, especially if done manually.  Software tools have been shown to significantly reduce the complexity of designing, constructing, changing, and managing MPDs.  In order to reduce ambiguity and to facilitate interoperable and effective tool support, this baseline specification imposes some degree of consistency on the terminology, syntax, semantics, and composition of MPDs.</p>
 
 </section>
 
@@ -114,7 +114,7 @@
     
 	<p>In the future, as required, other types of MPDs may be added to this list.</p>
 		
-	<p>At any point in time, an incomplete MPD will be in some state of development.  This specification is applicable to such developing products in that it establishes standards for the final, published, production-quality state.  In turn, tool vendors can build, adapt, and/or integrate software tools that will assist in the development of MPDs from raw parts to finished product.</p>
+	<p>At any point in time, an incomplete MPD will be in some state of development.  This specification is applicable to such developing products in that it establishes validity standards for MPDs in progress, as well as completeness standards for MPDs that reach a final, published, production-quality state.  In turn, tool vendors should be able to build, adapt, and/or integrate software tools that will assist in MPD development and assembly from raw parts to finished product.</p>
 
 	<p>NIEM is a data layer for an information architecture.  Files in an MPD generally define XML Schema types and declare XML elements and attributes to use in payloads for information exchanges.  While an MPD may also contain files from layers beyond the data layer, this specification is not intended to define details of other architectural layers.  Such files are generally present only to provide additional context, understanding, or assistance for implementing the exchange of payloads.</p>
 	
@@ -130,7 +130,7 @@
 	<li><p>The NIEM release manager who is responsible to integrate and publish NIEM releases and core updates.</p></li>
 	<li><p>NIEM domain stewards and technical representatives who develop and publish domain updates.</p></li>
 	<li><p>NIEM IEPD developers and implementers.</p></li>
-	<li><p>NIEM tool developers and vendors.</p></li>
+	<li><p>NIEM-aware tool developers and vendors.</p></li>
 	<li><p>Organizations that intend to develop an EIEM.</p></li>	    
 	<li><p>Individuals or groups responsible to review and approve MPDs.</p></li>
 </ul>
@@ -174,14 +174,14 @@
 		<p>A collection of <termRef term="artifact">artifacts</termRef> logically grouped for a defined purpose.</p>
 	</definition>
 
-	<p>An MPD is itself a set of artifacts, the purpose for which is to define and document the intended use of the MPD.  While the kernel of an MPD is its XML schema document (XSD) artifacts, there are also other kinds of MPD artifacts.  These may include HTML (or XML converted to HTML for display), text, or graphic files used for human-readable documentation.  An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD.  For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts.  <ref idref="MPD-Artifacts"/> contains a listing of mandatory and common optional artifacts for the five types of MPDs.  The various types of artifacts are described in more detail in subsequent sections.</p>
+	<p>An MPD is itself a set of artifacts, the purpose for which is to define and document the intended use of the MPD.  While the kernel of an MPD is its XML schema document (XSD) artifacts, there are also other kinds of MPD artifacts.  These may include HTML (or XML converted to HTML for display), text, or graphic files used for human-readable documentation.  An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD.  For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts.  <ref idref="MPD-Artifacts"/> contains a listing of mandatory and common optional artifacts for the five types of MPDs.  Common types of artifacts are described in more detail in subsequent sections.</p>
 
 </section>
 
 <section id="Schema-Namespace-Correspondence-in-NIEM">
 	<title>Schema Document and Namespace Correspondence in NIEM</title>
 
-	<p>To simplify automatic schema processing and reduce the potential for confusion and error, <ref idref="NIEM-NDR"/> principles state that each NIEM-conformant namespace SHOULD be defined by exactly one reference schema document.  To support this concept, the <ref idref="NIEM-NDR"/> disallows the use of <code>xs:include</code>.  Furthermore, it mandates the use of the <code>xs:schema/@targetNamespace</code> attribute in NIEM-conformant schema documents.</p>
+	<p>To simplify automatic schema processing and reduce the potential for confusion and error, <ref idref="NIEM-NDR"/> principles state that each NIEM-conformant namespace SHOULD be defined by exactly one reference schema document.  To support this concept, the <ref idref="NIEM-NDR"/> disallows the use of <code>xs:include</code>, and mandates the use of the <code>xs:schema/@targetNamespace</code> attribute in NIEM-conformant schema documents.</p>
 
 	<p>So, (1) each NIEM namespace is defined by a single NIEM-conformant schema document, and (2) each NIEM-conformant schema document declares a target namespace.  NIEM does not permit schema documents without target namespaces, unless they are from sources outside of NIEM.</p>
 
@@ -203,7 +203,7 @@
 
 	<p>This specification often refers to the process of <em>XML validation</em>, that is, validation of XML schemas and instance XML documents.  Generally, this should occur periodically during and after design time to ensure the conformance and quality of an information exchange definition (i.e., XML schema documents or document sets) or instance XML documents.  However, local architecture or policy may dictate the need to validate more often, and in some cases may require runtime validation.</p>
 
-	<p>XML schema document sets that define a NIEM information exchange must be authoritative.  Application developers may use other schemas (e.g., constraint or Schematron schema documents) for various purposes, but for the purposes of determining NIEM conformance, the authoritative reference schema documents (NIEM releases) are relevant.  This does not mean that XML validation must be performed on all instance XML documents as they are served or consumed; only that the instance XML documents validate if and when XML validation is performed.  Therefore, even when validation is not performed, instance XML documents must be valid against the XML schema document sets that specify them.</p>
+	<p>XML schema document sets that define a NIEM information exchange must be authoritative.  Application developers may use other schemas (e.g., constraint or Schematron schema documents) for various purposes, but for the purposes of determining NIEM conformance, the authoritative reference schema documents (NIEM releases) are relevant.  This does not mean that XML validation must be performed on all instance XML documents as they are served or consumed; only that the instance XML documents validate if and when XML validation is performed.  Therefore, even when validation is not performed, instance XML documents must be valid against the XML schema that is assembled from XML schema document sets that specify these instance XML documents.</p>
 
 </section>
 
