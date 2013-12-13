@@ -16,11 +16,10 @@
 
 <!-- 
 This schema is work-in-progress.  Component names may exist that do not 
-necessarily conform to the NDR yet.  We are reusing NIEM 3.0 components 
-that require review to ensure they have all appropriate properties they 
-replaced.  For example, AuthoritativeSource is now type="nc:EntityType".  
-Nonetheless, we appreciate your feedback.
--->
+necessarily conform to the NDR, may yet require review and refinement 
+to ensure they have all appropriate properties they replaced.  
+For example, AuthoritativeSource is now type="nc:EntityType".  
+Nonetheless, we appreciate your feedback. -->
 
     <annotation>
 
@@ -43,11 +42,12 @@ Nonetheless, we appreciate your feedback.
 	<term:LocalTerm term="ID"    literal="Identifier"/>
 	<term:LocalTerm term="IEP"   literal="Information Exchange Package" 
 				     definition="an instance XML document"/>
-	<term:LocalTerm term="IEPD"  literal="Information Exchange Package									Documentation"/>
+	<term:LocalTerm term="IEPD"  literal="Information Exchange Package 
+				     		Documentation"/>
 	<term:LocalTerm term="MIME"  literal="Multipurpose Internet Mail Extension"/>
 	<term:LocalTerm term="MPD"   literal="Model Package Description"/>
 	<term:LocalTerm term="OASIS" literal="Organization for the Advancement
-					      of Structured Information Standards"/>
+						of Structured Information Standards"/>
 	<term:LocalTerm term="POC"   literal="Point of contact"/>
 	<term:LocalTerm term="SSGT"  literal="Schema Subset Generation Tool"/>
         <term:LocalTerm term="URI"   literal="Uniform Resource Identifier"/>
@@ -78,7 +78,7 @@ Nonetheless, we appreciate your feedback.
       </complexContent>
     </complexType>
 
-    <element name="MPD" type="c:MPDType">    
+    <element name="MPD" type="c:MPDType">
       <annotation>
         <documentation>A Model Package Description (MPD).</documentation>
       </annotation>
@@ -156,11 +156,6 @@ Nonetheless, we appreciate your feedback.
         <documentation>An MPD artifact that is an OASIS XML catalog.</documentation>
       </annotation>
     </element>
-
-<!-- Need rule in text for mpd-catalog extension:
-	File name:  mpd-catalog-extension-xml-catalog.xml
-	MUST reside in same directory as mpd-catalog.xml 
-	(i.e., its location must be relative to mpd-catalog.xml -->
 
     <element name="MPDCatalogExtensionXMLCatalog" type="c:FileType" 
 	     substitutionGroup="c:Artifact">
@@ -355,16 +350,20 @@ Nonetheless, we appreciate your feedback.
       </annotation>
     </attribute>
 
-<!-- WR pattern something like this: [a-z]([-_]?[a-z0-9]+)* -->
-<!-- "Begins w/ alpha char; may be a single alpha; may be followed 
-	by alphanums or "-" or "_"; but no double "-" or double"_" 
-	and must end in an alphanum." -->
-
-    <attribute name="mpdName" type="string">
+    <attribute name="mpdName" type="c:MPDNameSimpleType">
       <annotation>
 	<documentation>A descriptive label or title for an MPD.</documentation>
       </annotation>
     </attribute>
+
+    <simpleType name="MPDNameSimpleType">
+      <annotation>
+	<documentation>A datatype for an MPD name, label, or title.</documentation>
+      </annotation>
+      <restriction base="token">
+	<pattern value="[a-z]([-_]?[a-z0-9]+)*"/>
+      </restriction>
+    </simpleType>
 
     <attribute name="mpdVersionID" type="c:MPDVersionIDSimpleType">
       <annotation>
@@ -733,7 +732,7 @@ Nonetheless, we appreciate your feedback.
         </extension>
       </complexContent>
     </complexType>
-    
+
     <attribute name="qualifiedNameList" type="c:QualifiedNameListSimpleType">
       <annotation>
 	<documentation>A list of qualified names.</documentation>
@@ -809,7 +808,7 @@ Nonetheless, we appreciate your feedback.
 
 
 <!-- Metadata ==================================================================== -->
-    
+
     <element name="MPDInformation" type="c:MPDInformationType">
       <annotation>
         <documentation>A set of descriptive data about an MPD.</documentation>
