@@ -941,7 +941,7 @@
 
 	<p>One function of the MPD catalog is to serve as a table of contents that identifies, locates, and classifies key artifacts and artifact sets.  For that purposes <ref idref="MPD-Catalog-XSD"/> provides a number of classifier elements for most common artifacts in MPDs.  For other less common or generic artifacts two general classifiers exist:  <code>Documentation</code> and <code>ApplicationInfo</code>.  These elements loosely correspond to the meaning of the XML Schema <code>xs:annotation</code> child elements, <code>xs:documentation</code> and <code>xs:appInfo</code>.  General visual, audio, and textual explanatory documentation should be classified as <code>Documentation</code>, while tool-specific artifacts (such as imports, exports, executables, etc.) should be classified as <code>ApplicationInfo</code>.</p>
 
-	<p>The classifier elements are designed to identify, classify, and describe any artifact (including its path name, dependencies, and lineage).  Employing XSLT, <code>mpd-catalog.xml</code> can be transformed into an <code>index.html</code> artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.</p>
+	<p>The classifier elements are designed to identify, categorize, and describe any artifact (including its path name, dependencies, and lineage).  Employing XSLT, <code>mpd-catalog.xml</code> can be transformed into an <code>index.html</code> artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.</p>
 
 	<p>In general, only an IEPD or EIEM would contain <code>Documentation</code> and <code>ApplicationInfo</code> artifacts.  So, for an IEPD and EIEM, a best practice is to use the <code>master-document</code> artifact (required in the MPD directory root) to reference <code>Documentation</code> and <code>ApplicationInfo</code> artifacts whether they have been classified in the mpd catalog or not.</p>
 
@@ -1382,7 +1382,7 @@
 		<p>An <code>IEPConformanceTarget</code> MUST be assigned a locally unique NCName value for its <code>structures:id</code> attribute.</p>
 	</rule>
 
-	<p>An IEPD defines IEP conformance target classes by explicitly and formally declaring them within its mpd-catalog.  The rule above ensures that conformance target classes can be referenced between IEPDs and not only within an IEPD.</p>
+	<p>An IEPD defines IEP conformance targets by explicitly and formally declaring them within its mpd-catalog.  The rule above ensures that conformance targets can be referenced between IEPDs and not only within an IEPD.</p>
 
 	<p>The following subsections the concepts, artifacts, and procedures for declaring and identifying IEP conformance targets in IEPDs.</p>
 
@@ -1423,7 +1423,7 @@
 
 	<p><code>ValidToXPath</code> is the most generic of the constraints provided.  Its purpose is to ensure that some given condition is satisfied within an IEP.  The condition is defined by an XPath expression contained in the <code>xPathText</code> attribute.  If the XPath expression applied to a target instance XML document returns a Boolean value of TRUE, then the condition is satisfied by that XML document.</p>
 
-	<p>This validity constraint is useful for a variety of purposes.  For example, an IEPD author may require that a particular class of IEP (defined by an <code>IEPConformanceTarget</code>) must contain a particular element with a particular attribute whose value is an integer greater than some required minimum.  An XPath expression can validate this.</p>
+	<p>This validity constraint is useful for a variety of purposes.  For example, an IEPD author may require that a given <code>IEPConformanceTarget</code>) must contain a particular element with a particular attribute whose value is an integer greater than some required minimum.  An XPath expression can validate this.</p>
 
 	<p>Of course, <code>ValidToXPath</code> can also employ a simple XPath expression to validate that an IEP is rooted with an intended XML document element.  However, there are other validity constraints that can do this as well.  The IEPD author may choose the configuration.</p>
 
@@ -1447,7 +1447,7 @@
 <section id="HasDocumentElement">
 	<title>HasDocumentElement</title>
 
-	<p><code>HasDocumentElement</code> is a validity constraint that identifies all intended XML document elements for an IEP conformance class.  This constraint ensures that an IEP artifact is rooted by one XML document element that is a member of the list of elements in its <code>qualifiedNameList</code> attribute.  This is a common validity constraint employed by simple IEPDs that declare one or more intended XML document elements.</p>
+	<p><code>HasDocumentElement</code> is a validity constraint that identifies all intended XML document elements for an IEP conformance target.  This constraint ensures that an IEP artifact is rooted by one XML document element that is a member of the list of elements in its <code>qualifiedNameList</code> attribute.  This is a common validity constraint employed by simple IEPDs that declare one or more intended XML document elements.</p>
 
 	<p>Note that this validity constraint only declares XML document elements.  If an IEPD defines IEPs for payloads and envelopes (i.e., one IEP encapsulates another), then other validity constraints will be required (such as <code>ValidToXPath</code>) to validate conformance targets that are not necessarily XML document elements.</p>
 
@@ -1485,10 +1485,10 @@
 	<p>For these reasons, IEP samples are required for IEPDs:</p>
 
 	<rule id="r-iep-samples">
-		<p>An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared <code>IEPConformanceTarget</code> class.  If applicable and appropriate, one IEP sample MAY exemplify multiple classes.</p>
+		<p>An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared <code>IEPConformanceTarget</code>.  If applicable and appropriate, one IEP sample MAY exemplify multiple conformance targets.</p>
 	</rule>
 
-	<p>Note that this rule requires that each IEP conformance target class be covered by at least one IEP sample document instance.  This does not necessarily mandate a different IEP sample for each IEP conformance target.  It may be possible, and is therefore acceptable, for a given IEP sample to serve as an example of one or more IEP conformance target classes.</p>
+	<p>Note that this rule requires that each IEP conformance target be covered by at least one IEP sample document instance.  This does not necessarily mandate a different IEP sample for each IEP conformance target.  It may be possible, and is therefore acceptable, for a given IEP sample to serve as an example of one or more IEP conformance targets.</p>
 	
 	<p>The purpose of this rule is not to provide a test for all IEP permutations that might be possible given the schema definitions and validity constraint declarations; rather, it is to encourage IEPD authors to test their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  To the extent possible, IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges, and (2) exercise as many data components and validity constraints as possible.  Where it makes sense, an IEPD author should strive to provide enough sample IEPs to exercise all the XML document elements (or payload root elements).  If a single IEP cannot provide enough example coverage, an author may include multiple IEPs (but is not required to do so).</p>
 
