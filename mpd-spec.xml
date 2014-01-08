@@ -947,7 +947,7 @@
 
 	<p>Release, core update, and domain update catalogs are required to record all artifacts.  However, IEPD and EIEM MPD catalogs are not.  The IEPD or EIEM author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog.  The author may choose to include all, some, or no artifacts in the catalog.</p>
 
-	<p>Also note that use of the MPD catalog as a table of contents, frees an IEPD or EIEM author from having to use a standard directory structure.  Instead, the author can design his/her own or use guidance provided in <ref idref="Non-Normative-Guidance-Directories"/>.</p>
+	<p>Also note that use of the MPD catalog as a table of contents, frees an IEPD or EIEM author from having to use a standard directory structure.  Instead, the author can design his/her own or use guidance provided in <ref idref="Guidance-IEPD-Directories"/>.</p>
 
 </section>
 
@@ -1539,9 +1539,7 @@
 				<li><p>Each <code>@c:pathURI</code> value for a specific classifier MUST resolve to a correct type local artifact.  General classifiers <code>c:File</code>, <code>c:FileSet</code>, <code>c:Documentation</code>, and <code>c:ApplicationInfo</code> are exempt and MUST simply resolve.</p></li>
 				<li><p>Each <code>@c:externalURI</code> value SHOULD exist (cannot autocheck, and does not have to resolve).</p></li>
 				<li><p>Each <code>@c:resourceURI</code> value SHOULD exist (cannot autocheck, and does not have to resolve).</p></li>
-				<li><p>Each <code>@structures:id</code> value is unique and with QNAME syntax.</p></li>
-				<li><p>Each <code>@structures:ref</code> value is QNAME syntax for an existing structures:id value.</p></li>
-				<li><p>Each <code>@c:XPathText</code> value (i.e., XPath expression) MUST evaluate to an effective Boolean value <code>="true"</code> when applied to at least one IEP sample XML document.</p></li>
+				<li><p>Each <code>@c:XPathText</code> value (i.e., XPath expression) MUST evaluate to an effective Boolean value <code>="true"</code>.</p></li>
 				<li><p>Each <code>@c:qualifiedNameList</code> value MUST list QNames declared as XML document elements in existing extension schemas (IEP sample XML documents too? ... or is this completeness?).</p></li>
 				</ul>
 			</li>
@@ -1636,8 +1634,8 @@
 </section>
 
 
-<section id="Directory-Organization-Packaging-Other-Criteria">
-	<title>Directory Organization, Packaging, and Other Criteria</title>
+<section id="Organization-Packaging-Other-Criteria">
+	<title>Organization, Packaging, and Other Criteria</title>
 	
 	<p>An MPD is a logical set of electronic files aggregated and organized to fulfill a specific purpose in NIEM.  Directory organization and packaging of an MPD should be designed around major themes in NIEM:  reuse, sharing, interoperability, and efficiency.</p>
 
@@ -1774,10 +1772,32 @@
 	<p>Within an MPD, the replication of files or entire file sets should be avoided.  However, replication is allowed if a reasonable rationale exists.  In some cases, file replication may make it easier to use, validate, implement, or automatically process an MPD.  For example, multiple subsets may overlap with many identical schemas.  Yet, it may be easier or even necessary to allow this form of duplication to accommodate a validation tool, rather than removing duplicate schemas, and forcing the tool to search for them.  Use xml-catalogs whenever possible.</p> 
 
 </section>
+</section>
 
 
-<section id="Non-Normative-Guidance-Directories">
-	<title>Non-Normative Guidance for Directory Structures</title>
+
+<section id="MPD-Catalog-XSD" isAppendix="true">
+	<title>MPD Catalog XML Schema Document</title>
+	<pre><include-text href="xsd/mpd-catalog-3.0.xsd"/></pre>
+	<p><char name="nbsp"/></p>
+</section>
+
+<section id="MPD-Instance" isAppendix="true">
+	<title>Example Instance XML Document Catalog</title>
+	<p>[TBD]</p>
+	<pre><include-text href="xsd/sample.1/mpd-catalog.xml"/></pre>
+	<p><char name="nbsp"/></p>
+</section>
+
+
+<section id="MPD-Artifacts" isAppendix="true">
+	<title>MPD Artifacts</title>
+	<p>[TBD]</p>
+	<p><char name="nbsp"/></p>
+</section>
+
+<section id="Guidance-IEPD-Directories" isAppendix="true">
+	<title>Guidance for IEPD Directories (non-normative)</title>
 
 	<p>NIEM releases, core updates, and domain updates generally follow a consistent directory organization.  When employing release and updates within IEPDs and EIEMs whether as-is or as subsets, users are encouraged to maintain their original directory structures.  However, aside from applicable rules previously stated in the sections preceding sections, there are no normative rules for organizing directories within IEPDs or EIEMs.</p> 
 
@@ -1811,41 +1831,39 @@
 	/my_iepd-3.2rev4	(root directory of IEPD archive)
 
 		mpd-catalog.xml
-		xml-catalog.xml
 		mpd-catalog-extension-xml-catalog.xml
 		mpd-catalog-extension.xsd
 		changelog.*
 		master-document.*
 
-		/xsd-niem
-			/subset
-				/niem
-					/niem-core
-					/domains
-					/structures
-					...
-				wantlist.xml
-				xml-catalog.xml
-			/extension
-				query.xsd
-				response.xsd
-				extension1.xsd
-				extension2.xsd
-				xml-catalog.xml
-				...
-			/external
-				/gml
-				/icism
-				...
+		/niem
+			/niem-core
+			/domains
+			/structures
+			...
+			wantlist.xml
+			xml-catalog.xml
 
-		/xsd-constraint
-			/niem
-				/niem-core
-				/domains
-				/structures
-				wantlist.xml
-				xml-catalog.xml
-				...
+		/extension
+			query.xsd
+			response.xsd
+			extension1.xsd
+			extension2.xsd
+			xml-catalog.xml
+			...
+
+		/external
+			/stix
+			/icism
+			...
+
+		/niem-constraint
+			/niem-core
+			/domains
+			/structures
+			...
+			wantlist.xml
+			xml-catalog.xml
 
 		/schematron
 			business-rules1.sch
@@ -1864,29 +1882,6 @@
 			... (human readable documentation)
 </strong></pre>
 
-</section>
-</section>
-
-
-
-
-<section id="MPD-Catalog-XSD" isAppendix="true">
-	<title>MPD Catalog XML Schema Document</title>
-	<pre><include-text href="xsd/mpd-catalog-3.0.xsd"/></pre>
-	<p><char name="nbsp"/></p>
-</section>
-
-<section id="MPD-Instance" isAppendix="true">
-	<title>Example Instance XML Document Catalog</title>
-	<p>[TBD]</p>
-	<pre><include-text href="xsd/sample.1/mpd-catalog.xml"/></pre>
-	<p><char name="nbsp"/></p>
-</section>
-
-
-<section id="MPD-Artifacts" isAppendix="true">
-	<title>MPD Artifacts</title>
-	<p>[TBD]</p>
 	<p><char name="nbsp"/></p>
 </section>
 
