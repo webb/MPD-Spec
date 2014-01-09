@@ -1502,70 +1502,99 @@
 
 
 
-<section id="Valid-vs-Complete-MPD">
-	<title>Valid vs. Complete MPD</title>
+<section id="Valid-vs-Complete-IEPD">
+	<title>Valid vs. Complete IEPD</title>
 
-	<p>Some of the major advantages to this specification are the formalisms and consistency established that can help facilitate software tool assistance for working with, building, testing, registering, and implementing MPDs.  This is particularly important for IEPDs and EIEMs that are built by developers who are not necessarily familiar with the details of NIEM or this specification.  There exist many NIEM NDR rules, MPD Specification rules, and general conformance rules that must be considered and followed.  Tools that automatically assemble, disassemble, classify, register (into a repository), check quality, check conformance, etc. for MPDs (especially IEPDs) can be more useful if they are able to process MPDs in various partial stages of development.  This enables the application of iterative approaches.  Imagine working a week to build a relatively large, complex IEPD, running it through a conformance tool, and then receiving a report that indicates your IEPD archive is invalid and cannot be parsed.  To mitigate such issues, this section defines categories of MPD conformance that tools can take advantage of.</p>
+	<p>This section is only applicable to IEPDs and EIEMs.</p>
 
-	<p>There are a number of mandatory MPD requirements of this specification that may or may not be known in the early stages of development.  These unknowns should not prevent MPD processing and conformance checking for what is known.  The following statement defines what is essentially an empty or <em>minimal</em> MPD:</p>
+	<p>Some of the major advantages to this specification are the formalisms and consistency established that can help facilitate software tool assistance for working with, building, testing, registering, and implementing IEPDs and EIEMs authored by developers who are not necessarily familiar with the details of NIEM or this specification.  There exist many NIEM NDR rules, MPD Specification rules, and general conformance rules that must be considered and adhered to.  Tools that automatically assemble, disassemble, classify, register (into a repository), check quality, check conformance, etc. can be more useful if they are able to process IEPDs in various partial stages of development.  This facilitates easier application of iterative approaches.  The definitions and rules in this section ensure that an IEPD is in a consistent and testable state at every almost every stage of development.  This specification defines three categories of IEPD conformance.</p>
 
-	<definition term="minimal MPD">
-		<p>A <em>minimal MPD</em> has the following properties:</p>
+	<p>A number of mandatory MPD requirements of this specification may or may not be known in earlier stages of IEPD development.  This should not prevent or result in total failure of IEPD processing and conformance checking for what is known.  IEPD development tools should strive to maintain an IEPD in a <em>valid</em> state consistent with this definition: 
+
+	<definition term="valid IEPD">
+		<p>A <em>valid IEPD</em>:</p>
 		<ul>
-			<li><p>The MPD is a valid <ref idref="PKZIP"/> archive file.</p></li>
-			<li><p>The MPD contains one and only one <code>mpd-catalog.xml</code> artifact.</p></li>
-			<li><p><code>mpd-catalog.xml</code>artifact:</p>
-				<ul>
-					<li><p>resides in the <termRef>MPD root directory</termRef>.</p></li>
-					<li><p>Is XML Schema valid to the MPD catalog schema (<ref idref="MPD-Catalog-XSD"/>).</p></li>
-					<li><p>Is Schematron valid to the MPD Schematron rules.  [TBD]</p></li>
-				</ul>
-			</li>
+			<li><p>Is a valid <ref idref="PKZIP"/> archive file.</p></li>
+			<li><p>Contains one and only one <code>mpd-catalog.xml</code> artifact.</p></li>
+			<li><p>Its <code>mpd-catalog.xml</code> artifact resides in the <termRef>MPD root directory</termRef>.</p></li>
+			<li><p>Its <code>mpd-catalog.xml</code> artifact is XML Schema valid to <ref idref="MPD-Catalog-XSD"/>.</p></li>
+			<li><p>Adheres to the validity rules defined in <ref idref="Valid-vs-Complete-IEPD"/> (this section).</p></li>
 		</ul>
-
 	</definition>
 
-	<p>Cardinality constraints in <ref idref="MPD-Catalog-XSD"/> are flexible enough to accomodate the requirements for a minimally valid MPD above.  However,  to pass higher levels of conformance, an MPD is also required to satisfy special Schematron rules.</p>
-
-	<p>Note also that in order to be XML Schema valid to the MPD catalog schema, any <code>mpd-catalog.xml</code> artifact must have valid values for <code>Catalog/MPD/@mpdURI</code>, <code>@mpdClassCode</code>, <code>@mpdName</code>, and <code>mpdVersionID</code>.</p>
-
-	<definition term="valid MPD">
-		<p>A <em>valid MPD</em> has the following properties:</p>
-		<ul>
-			<li><p>The <code>mpd-catalog.xml</code> artifact is XML Schema valid to <ref idref="MPD-Catalog-XSD"/>.</p></li>
-			<li><p>Within the <code>mpd-catalog.xml</code> artifact:</p>
-				<ul>
-				<li><p>Each <code>@c:pathURI</code> value MUST resolve to a local artifact.</p></li>
-				<li><p>Each <code>@c:pathURI</code> value for a specific classifier MUST resolve to a correct type local artifact.  General classifiers <code>c:File</code>, <code>c:FileSet</code>, <code>c:Documentation</code>, and <code>c:ApplicationInfo</code> are exempt and MUST simply resolve.</p></li>
-				<li><p>Each <code>@c:externalURI</code> value SHOULD exist (cannot autocheck, and does not have to resolve).</p></li>
-				<li><p>Each <code>@c:resourceURI</code> value SHOULD exist (cannot autocheck, and does not have to resolve).</p></li>
-				<li><p>Each <code>@c:XPathText</code> value (i.e., XPath expression) MUST evaluate to an effective Boolean value <code>="true"</code>.</p></li>
-				<li><p>Each <code>@c:qualifiedNameList</code> value MUST list QNames declared as XML document elements in existing extension schemas (IEP sample XML documents too? ... or is this completeness?).</p></li>
-				</ul>
-			</li>
-			<li><p>An <code>xml-catalog.xml</code> artifact MUST be XML Schema valid to <ref idref="OASIS-XML-Catalogs"/>.</p></li>
-			<li><p>Within an <code>xml-catalog.xml</code> artifact each <code>URI/@name</code> (namespace) attribute value MUST exist within the MPD.</p></li>
-			<li><p>Within an <code>xml-catalog.xml</code> artifact each <code>URI/@uri</code> attribute value MUST resolve to a local artifact.</p></li>
-			<li><p>The <code>changelog*.*</code> artifact MUST contain a value for its creation date (Similar to <code>CreationDate</code> in <ref idref="MPD-Catalog-XSD"/>).</p></li>
-			<li><p>An IEP sample XML document classified in the <code>mpd-catalog.xml</code> artifact MUST be schema valid for all <code>c:IEPConformanceTarget</code> classes of which it is a member.</p></li>
-			<li><p>An XML document classified in the <code>mpd-catalog.xml</code> artifact MUST conform to <ref idref="W3-XML"/>.</p></li>
-			<li><p>An XSD schema document classified in the <code>mpd-catalog.xml</code> artifact MUST conform to <ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>.</p></li>
-			<li><p>The value of <code>c:MPDCatalogExtensionXMLCatalog/@pathURI</code> MUST be <code>="/mpd-catalog-extension-xml-catalog.xml"</code>.</p></li>
-		</ul>
-
-		<p>Artifacts that exist within the MPD archive but are not referenced from <code>mpd-catalog.xml</code> either directly or transitively do not impact MPD validity and are therefore ignored for the purpose of this definition.</p>
-	</definition>
-
-	<p>Essentially, the rule above means that whatever the MPD's stage of development starting from a valid <termRef>minimal MPD</termRef>, the MPD will always be a <termRef>valid MPD</termRef> as long as:</p>
+	<p>Essentially, this definition means that whatever the stage of IEPD development starting from a <ref idref="PKZIP"/> archive containing <code>mpd-catalog.xml</code>, an IEPD will always remain valid as long as:</p>
 	<ul>
-		<li><p>the <code>mpd-catalog.xml</code> remains schema valid to the MPD catalog XML schema <ref idref="MPD-Catalog-XSD"/>.</p></li>
-		<li><p>all references to local artifacts (i.e., attribute values for <code>@structures:id</code>, <code>@structures:ref</code> and <code>c:pathURI</code>) exposed within <code>mpd-catalog.xml</code> resolve to local resources.</p></li>
-		<li><p>all references to local artifacts transitively referenced by artifacts identified in <code>mpd-catalog.xml</code> (for example, multiple <code>xml-catalog.xml</code> artifacts that reference one another; or an IEP sample XML document that is schema valid to and therefore references a target namespace).</p></li>
+		<li><p>The <code>mpd-catalog.xml</code> remains schema valid to the MPD catalog XML schema <ref idref="MPD-Catalog-XSD"/>.</p></li>
+		<li><p>Each artifact referenced directly by <code>mpd-catalog.xml</code> resolves to the appropriate local resource.</p></li>
+		<li><p>Each artifact referenced transitively by <code>mpd-catalog.xml</code> (through another referenced artifact) resolves to the appropriate local resource.</p></li>
 	</ul>
 
-	<p>So, any artifact contained within the MPD archive that is not referenced/required by the MPD catalog or by another artifact referenced/required by the MPD catalog (transitive) canand should be ignored by tools for the purpose of <termRef term="valid MPD">MPD validity</termRef>.   In other words, a <termRef>valid MPD</termRef> is determined only by the local artifacts that can be traced directly or transitively from the MPD catalog.  All other artifacts are of no consequence.  The concept is important because a developer can build an IEPD or EIEM iteratively using tools that check only that the evolving IEPD or EIEM is a <termRef>valid MPD</termRef> without failing because it cannot find all mandatory artifacts and references.</p> 
+	<p>Note that this definition ignores artifacts that may exist within an IEPD archive but are not referenced by <code>mpd-catalog.xml</code> either directly or transitively through other artifacts.  Such <em>orphan</em> artifacts have no impact on IEPD validity and remain dormant.  These artifacts will only become active and significant to validity when they are referenced from, and therefore, link (directly or indirectly) to the MPD catalog.</p>
 
-	<p>At such time that a developer believes he/she has finished an IEPD or EIEM, then the following rule can be applied (by NIEM-aware tools):</p>
+	<p>For example, at some stage in early development, an IEPD contains a valid <code>mpd-catalog.xml</code> that contains only a single reference to an <code>xml-catalog.xml</code> artifact.  Thus, to be a valid IEPD, this reference must resolve to an existing local resource that is an XML catalog.  Assume this is the case.  This XML catalog is itself Schema valid to <ref idref="OASIS-XML-Catalogs"/>.   However, this XML catalog is designed to resolve several namespaces to local URIs.  For this IEPD to remain valid, the URIs within this XML catalog must correctly resolve to the appropriate target namespaced schemas identified.  In turn, any <code>xs:import</code></p> 
+
+	<rule id="vI1">
+		<p>Within <code>mpd-catalog.xml</code>, each <code>@c:pathURI</code> value MUST resolve to a local artifact.</p>
+	</rule>
+
+	<rule id="vI2">
+		<p>Each <code>@c:pathURI</code> value for a specific classifier MUST resolve to a correct type local artifact.  General classifiers <code>c:File</code>, <code>c:FileSet</code>, <code>c:Documentation</code>, and <code>c:ApplicationInfo</code> are exempt and MUST simply resolve.</p>
+	</rule>
+
+	<rule id="vI3">
+		<p>Each <code>@c:externalURI</code> value SHOULD exist (but is not required to resolve).</p>
+	</rule>
+
+	<rule id="vI4">
+		<p>Each <code>@c:resourceURI</code> value SHOULD exist (but is not required to resolve).</p>
+	</rule>
+
+	<rule id="vI5">
+		<p>Each <code>@c:XPathText</code> value (i.e., XPath expression) MUST evaluate to an effective Boolean value equal to <code>"true"</code>.</p>
+	</rule>
+
+	<rule id="vI6">
+		<p>Each <code>@c:qualifiedNameList</code> value MUST list QNames declared as XML document elements in existing extension schemas (IEP sample XML documents too? ... or is this completeness?).</p>
+	</rule>
+
+	<rule id="vI7">
+		<p>An <code>xml-catalog.xml</code> artifact MUST be XML Schema valid to <ref idref="OASIS-XML-Catalogs"/>.</p>
+	</rule>
+
+	<rule id="vI8">
+		<p>Within an XML catalog, each <code>URI/@name</code> (namespace) attribute value MUST exist within the MPD.</p>
+	</rule>
+
+	<rule id="vI9">
+		<p>Within an XML catalog, each <code>URI/@uri</code> attribute value MUST resolve to a local artifact.</p>
+	</rule>
+
+	<rule id="vI10">
+		<p><code>changelog*.*</code> MUST contain a value for its creation date (Similar to <code>CreationDate</code> in <ref idref="MPD-Catalog-XSD"/>).</p>
+	</rule>
+
+	<rule id"vI11">
+		<p>An IEP sample XML document classified in the <code>mpd-catalog.xml</code> artifact MUST be schema valid for all <code>c:IEPConformanceTarget</code> classes of which it is a member.</p>
+	</rule>
+
+	<rule id="vI12">
+		<p>An XML document classified in the <code>mpd-catalog.xml</code> artifact MUST conform to <ref idref="W3-XML"/>.</p>
+	</rule>
+
+	<rule id="vi13">
+		<p>An XSD schema document classified in the <code>mpd-catalog.xml</code> artifact MUST conform to <ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>.</p>
+	</rule>
+
+	<rule id="vI14">
+		<p>The value of <code>c:MPDCatalogExtensionXMLCatalog/@pathURI</code> MUST be <code>="/mpd-catalog-extension-xml-catalog.xml"</code>.</p>
+	</rule>
+
+	<rule id="vI15">
+		<p>Is Schematron valid to the MPD Schematron rules.  [TBD]</p>
+	</rule>
+
+	<p>So, any artifact contained within the IEPD archive that is not referenced/required by the MPD catalog or by another artifact referenced/required by the MPD catalog (transitive) can and should be ignored by tools for the purpose of <termRef term="valid IEPD">IEPD validity</termRef>.   In other words, a <termRef>valid IEPD</termRef> is determined only by the local artifacts that can be traced directly or transitively from the MPD catalog.  All other artifacts are of no consequence.  The concept is important because a developer can build an IEPD or EIEM iteratively using tools that check only that the evolving IEPD or EIEM is a <termRef>valid MPD</termRef> without failing because all mandatory artifacts and references are not present.</p> 
+	<p>When a developer believes he/she has finished an IEPD or EIEM, then the following rule can be applied (by NIEM-aware tools):</p>
 
 	<definition term="complete MPD">
 		<p>A <em>complete MPD</em> satisfies all rules and mandatory requirements of the following specifications:</p>
