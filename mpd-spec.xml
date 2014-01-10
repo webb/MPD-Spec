@@ -1534,27 +1534,27 @@
 	<p>For example, at some stage in early development, an IEPD contains a valid <code>mpd-catalog.xml</code> that contains only a single reference to an <code>xml-catalog.xml</code> artifact.  Thus, to be a valid IEPD, this reference must resolve to an existing local resource that is an XML catalog.  Assume this is the case.  This XML catalog is itself Schema valid to <ref idref="OASIS-XML-Catalogs"/>.   However, this XML catalog is designed to resolve several namespaces to local URIs.  For this IEPD to remain valid, the URIs within this XML catalog must correctly resolve to the appropriate target namespaced schemas identified.  In turn, any <code>xs:import</code></p> 
 
 	<rule id="vI1">
-		<p>Within <code>mpd-catalog.xml</code>, each <code>@c:pathURI</code> value MUST resolve to a local artifact.</p>
+		<p>Each <code>mpd-catalog.xml</code> <code>@c:pathURI</code> value MUST resolve to a local artifact.</p>
 	</rule>
 
 	<rule id="vI2">
-		<p>Each <code>@c:pathURI</code> value for a specific classifier MUST resolve to a correct type local artifact.  General classifiers <code>c:File</code>, <code>c:FileSet</code>, <code>c:Documentation</code>, and <code>c:ApplicationInfo</code> are exempt and MUST simply resolve.</p>
+		<p>Each <code>mpd-catalog.xml</code> <code>@c:pathURI</code> value for a specific classifier MUST resolve to a correct type local artifact.  General classifiers <code>c:File</code>, <code>c:FileSet</code>, <code>c:Documentation</code>, and <code>c:ApplicationInfo</code> are exempt and MUST simply resolve.  [TBD] need rule for each classifer. </p>
 	</rule>
 
 	<rule id="vI3">
-		<p>Each <code>@c:externalURI</code> value SHOULD exist (but is not required to resolve).</p>
+		<p>Each <code>mpd-catalog.xml</code> <code>mpd-catalog.xml</code> <code>@c:externalURI</code> value SHOULD exist (but is not required to resolve).</p>
 	</rule>
 
 	<rule id="vI4">
-		<p>Each <code>@c:resourceURI</code> value SHOULD exist (but is not required to resolve).</p>
+		<p>Each <code>mpd-catalog.xml</code> <code>@c:resourceURI</code> value SHOULD exist (but is not required to resolve).</p>
 	</rule>
 
 	<rule id="vI5">
-		<p>Each <code>@c:XPathText</code> value (i.e., XPath expression) MUST evaluate to an effective Boolean value equal to <code>"true"</code>.</p>
+		<p>Each <code>mpd-catalog.xml</code> <code>@c:XPathText</code> value (i.e., XPath expression) MUST evaluate to an effective Boolean value equal to <code>"true"</code> <ref idref="W3-XPath"/> <link>Specifically http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv</link>.</p>
 	</rule>
 
 	<rule id="vI6">
-		<p>Each <code>@c:qualifiedNameList</code> value MUST list QNames declared as XML document elements in existing extension schemas (IEP sample XML documents too? ... or is this completeness?).</p>
+		<p>Each <code>mpd-catalog.xml</code> <code>@c:qualifiedNameList</code> value MUST list QNames declared as XML document elements in existing extension schemas (IEP sample XML documents too? ... or is this completeness?).</p>
 	</rule>
 
 	<rule id="vI7">
@@ -1562,35 +1562,31 @@
 	</rule>
 
 	<rule id="vI8">
-		<p>Within an XML catalog, each <code>URI/@name</code> (namespace) attribute value MUST exist within the MPD.</p>
+		<p>Each XML catalog <code>URI/@name</code> (namespace) attribute value MUST exist within the MPD.</p>
 	</rule>
 
 	<rule id="vI9">
-		<p>Within an XML catalog, each <code>URI/@uri</code> attribute value MUST resolve to a local artifact.</p>
+		<p>Each XML catalog <code>URI/@uri</code> attribute value MUST resolve to a local artifact.</p>
 	</rule>
 
 	<rule id="vI10">
-		<p><code>changelog*.*</code> MUST contain a value for its creation date (Similar to <code>CreationDate</code> in <ref idref="MPD-Catalog-XSD"/>).</p>
-	</rule>
-
-	<rule id="vI11">
 		<p>An IEP sample XML document classified in the <code>mpd-catalog.xml</code> artifact MUST be schema valid for all <code>c:IEPConformanceTarget</code> classes of which it is a member.</p>
 	</rule>
 
-	<rule id="vI12">
+	<rule id="vI11">
 		<p>An XML document classified in the <code>mpd-catalog.xml</code> artifact MUST conform to <ref idref="W3-XML"/>.</p>
 	</rule>
 
-	<rule id="vI13">
+	<rule id="vI12">
 		<p>An XSD schema document classified in the <code>mpd-catalog.xml</code> artifact MUST conform to <ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>.</p>
 	</rule>
 
-	<rule id="vI14">
-		<p>The value of <code>c:MPDCatalogExtensionXMLCatalog/@pathURI</code> MUST be <code>="/mpd-catalog-extension-xml-catalog.xml"</code>.</p>
+	<rule id="vI13">
+		<p>The value of <code>c:MPDCatalogExtensionXMLCatalog/@pathURI</code> MUST be equal to <code>"/mpd-catalog-extension-xml-catalog.xml"</code>.</p>
 	</rule>
 
-	<rule id="vI15">
-		<p>Is Schematron valid to the MPD Schematron rules.  [TBD]</p>
+	<rule id="vI14">
+		<p>Schematron valid to the MPD Schematron rules.  [TBD]</p>
 	</rule>
 
 	<p>So, any artifact contained within the IEPD archive that is not referenced/required by the MPD catalog or by another artifact referenced/required by the MPD catalog (transitive) can and should be ignored by tools for the purpose of <termRef term="valid IEPD">IEPD validity</termRef>.   In other words, a <termRef>valid IEPD</termRef> is determined only by the local artifacts that can be traced directly or transitively from the MPD catalog.  All other artifacts are of no consequence.  The concept is important because a developer can build an IEPD or EIEM iteratively using tools that check only that the evolving IEPD or EIEM is a <termRef>valid IEPD</termRef> without failing because all mandatory artifacts and references are not present.</p> 
@@ -2094,6 +2090,10 @@
 
 <reference id="W3-XML-Schema-Structures" label="W3C XML Schema Structures">
 	<p><em>XML Schema Part 1: Structures</em>, Second Edition, W3C Recommendation 28 October 2004.  Available from <link>http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/</link>.</p>
+</reference>
+
+<reference id="W3-XPath" label="W3C XPath 2.0">
+	<p><em>XML Path Language (XPath) 2.0</em>, Second Edition, W3C Recommendation 14 December 2010.  Available from <link>http://www.w3.org/TR/2010/REC-xpath20-20101214/</link>.</p>
 </reference>
 
 <reference id="W3-XSLT" label="XSLT v1.0">
