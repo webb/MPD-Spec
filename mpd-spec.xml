@@ -1507,7 +1507,7 @@
 
 	<p>This section is only applicable to IEPDs and EIEMs.</p>
 
-	<p>Some of the major advantages to this specification are the formalisms and consistency established that can help facilitate software tool assistance for working with, building, testing, registering, and implementing IEPDs and EIEMs authored by developers who are not necessarily familiar with the details of NIEM or this specification.  There exist many NIEM NDR rules, MPD Specification rules, and general conformance rules that must be considered and adhered to.  Tools that automatically assemble, disassemble, classify, register (into a repository), check quality, check conformance, etc. can be more useful if they are able to process IEPDs in various partial stages of development.  This facilitates easier application of iterative approaches.  The definitions and rules in this section ensure that an IEPD is in a consistent and testable state at every almost every stage of development.  This specification defines three categories of IEPD conformance.</p>
+	<p>The major advantages to this specification are the formalisms and consistency established that can help facilitate software tool assistance for working with, building, testing, registering, and implementing IEPDs and EIEMs authored by developers who are not necessarily familiar with the details of NIEM or this specification.  There exist many NIEM NDR rules, MPD Specification rules, and general conformance rules that must be considered and adhered to.  Tools that automatically assemble, disassemble, classify, register (into a repository), check quality, check conformance, etc. can be more useful if they are able to process IEPDs in various partial stages of development.  This facilitates easier application of iterative approaches.  The definitions and rules in this section ensure that an IEPD is in a consistent and testable state at every almost every stage of development.  This specification defines three categories of IEPD conformance.</p>
 
 	<p>A number of mandatory MPD requirements of this specification may or may not be known in earlier stages of IEPD development.  This should not prevent or result in total failure of IEPD processing and conformance checking for what is known.  IEPD development tools should strive to maintain an IEPD in a <em>valid</em> state consistent with this definition:</p> 
 
@@ -1531,18 +1531,93 @@
 
 	<p>Note that this definition ignores artifacts that may exist within an IEPD archive but are not referenced by <code>mpd-catalog.xml</code> either directly or transitively through other artifacts.  Such <em>orphan</em> artifacts have no impact on IEPD validity and remain dormant.  These artifacts will only become active and significant to validity when they are referenced from, and therefore, link (directly or indirectly) to the MPD catalog.</p>
 
-	<p>For example, at some stage in early development, an IEPD contains a valid <code>mpd-catalog.xml</code> that contains only a single reference to an <code>xml-catalog.xml</code> artifact.  Thus, to be a valid IEPD, this reference must resolve to an existing local resource that is an XML catalog.  Assume this is the case.  This XML catalog is itself Schema valid to <ref idref="OASIS-XML-Catalogs"/>.   However, this XML catalog is designed to resolve several namespaces to local URIs.  For this IEPD to remain valid, the URIs within this XML catalog must correctly resolve to the appropriate target namespaced schemas identified.  In turn, any <code>xs:import</code></p> 
+	<p>For example, at some stage in early development, an IEPD contains a valid <code>mpd-catalog.xml</code> that contains only a single reference to an <code>xml-catalog.xml</code> artifact.  Thus, to be a valid IEPD, this reference must resolve to an existing local resource that is an XML catalog.  Assume this is the case.  This XML catalog is itself Schema valid to <ref idref="OASIS-XML-Catalogs"/>.   However, this XML catalog is designed to resolve several namespaces to local URIs.  For this IEPD to remain valid, the URIs within this XML catalog must correctly resolve to the appropriate target namespaced schemas identified.</p>
 
 	<rule id="vI1">
 		<p>Each <code>mpd-catalog.xml</code> <code>@c:pathURI</code> value MUST resolve to a local artifact.</p>
 	</rule>
 
 	<rule id="vI2">
-		<p>Each <code>mpd-catalog.xml</code> <code>@c:pathURI</code> value for a specific classifier MUST resolve to a correct type local artifact.  General classifiers <code>c:File</code>, <code>c:FileSet</code>, <code>c:Documentation</code>, and <code>c:ApplicationInfo</code> are exempt and MUST simply resolve.  [TBD] need rule for each classifer. </p>
+		<p>Each <code>mpd-catalog.xml</code> <code>@c:pathURI</code> value for a general classifier (including <code>c:File</code>, <code>c:FileSet</code>, <code>c:RequiredFile</code>, <code>c:Documentation</code>, and <code>c:ApplicationInfo</code>) MUST resolve to a local artifact.</p>
+
+	<rule id="vi2a">
+		<p>An <code>mpd-catalog.xml</code> <code>c:MPDCatalog/@c:pathURI</code> value MUST resolve to itself (i.e., <code>mpd-catalog.xml</code>).</p>
+	</rule>
+
+	<rule id="vi2b">	
+		<p>Each <code>mpd-catalog.xml</code> <code>MPDCatalogExtension/@c:pathURI</code> value MUST resolve to a local XML artifact.</p>
+	</rule>
+
+	<rule id="vi2c">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:XMLCatalog/@c:pathURI</code> value MUST resolve to a local XML artifact.</p>
+	</rule>
+
+	<rule id="vi2d">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:MPDCatalogExtensionXMLCatalog/@c:pathURI</code> value MUST resolve to a local XML artifact.</p>
+	</rule>
+
+	<rule id="vi2e">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:MPDChangeLog/@c:pathURI</code> value MUST resolve to a local change log artifact.</p>
+	</rule>
+
+	<rule id="vi2f">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:MasterDocument/@c:pathURI</code> value MUST resolve to a local master document artifact.</p>
+	</rule>
+
+	<rule id="vi2g">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:IEPSampleXMLDocument/@c:pathURI</code> value MUST resolve to a local XML artifact.</p>
+	</rule>
+
+	<rule id="vi2h">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:BusinessRulesArtifact/@c:pathURI</code> value MUST resolve to a local business rule artifact.</p>
+	</rule>
+
+	<rule id="vi2i">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:ExternalSchemaDocument/@c:pathURI</code> value MUST resolve to a local copy of an XML schema document artifact.</p>
+	</rule>
+
+	<rule id="vi2j">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:ReferenceSchemaDocument/@c:pathURI</code> value MUST resolve to NIEM reference schema document artifact.</p>
+	</rule>
+	
+	<rule id="vi2k">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:ExtensionSchemaDocument/@c:pathURI</code> value MUST resolve to a NIEM extension schema document artifact.</p>
+	</rule>
+	
+	<rule id="vi2l">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:SubsetSchemaDocument/@c:pathURI</code> value MUST resolve to subset schema document artifact.</p>
+	</rule>
+
+	<rule id="vi2m">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:Wantlist/@c:pathURI</code> value MUST resolve to a NIEM wantlist XML document artifact.</p>
+	</rule>
+	
+	<rule id="vi2n">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:SchematronSchema/@c:pathURI</code> value MUST resolve to a Schematron schema document artifact.</p>
+	</rule>
+
+	<rule id="vi2o">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:RelaxNGSchema/@c:pathURI</code> value MUST resolve to a RelaxNG schema document artifact.</p>
+	</rule>
+
+	<rule id="vi2p">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:RequiredFile/@c:pathURI</code> value MUST resolve to a local artifact.</p>
+	</rule>
+
+	<rule id="vi2q">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:SchemaDocumentSet/@c:pathURI</code> value MUST resolve to a XML schema document set (i.e., a directory of XML schema document artifacts).</p>
+	</rule>
+
+	<rule id="vi2r">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:ConstraintSchemaDocumentSet/@c:pathURI</code> value MUST resolve to a NIEM constraint schema document set artifact (i.e., a directory of XML schema document artifacts).</p>
+	</rule>
+
+	<rule id="vi2s">	
+		<p>Each <code>mpd-catalog.xml</code> <code>c:ReferenceSchemaDocumentSet/@c:pathURI</code> value MUST resolve to a NIEM reference schema document set artifact (i.e., a directory of XML schema document artifacts).</p>
 	</rule>
 
 	<rule id="vI3">
-		<p>Each <code>mpd-catalog.xml</code> <code>mpd-catalog.xml</code> <code>@c:externalURI</code> value SHOULD exist (but is not required to resolve).</p>
+		<p>Each <code>mpd-catalog.xml</code> <code>@c:externalURI</code> value SHOULD exist (but is not required to resolve).</p>
 	</rule>
 
 	<rule id="vI4">
@@ -1550,7 +1625,7 @@
 	</rule>
 
 	<rule id="vI5">
-		<p>Each <code>mpd-catalog.xml</code> <code>@c:XPathText</code> value (i.e., XPath expression) MUST evaluate to an effective Boolean value equal to <code>"true"</code> <ref idref="W3-XPath"/> <link>Specifically http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv</link>.</p>
+		<p>Each <code>mpd-catalog.xml</code> <code>@c:XPathText</code> value (i.e., XPath expression) MUST evaluate to an effective Boolean value equal to <code>"true"</code> <ref idref="W3-XPath"/> <link>Specifically, http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv</link>.</p>
 	</rule>
 
 	<rule id="vI6">
@@ -1582,7 +1657,7 @@
 	</rule>
 
 	<rule id="vI13">
-		<p>The value of <code>c:MPDCatalogExtensionXMLCatalog/@pathURI</code> MUST be equal to <code>"/mpd-catalog-extension-xml-catalog.xml"</code>.</p>
+		<p>The value of <code>c:MPDCatalogExtensionXMLCatalog/@pathURI</code> MUST be <code>"/mpd-catalog-extension-xml-catalog.xml"</code>.</p>
 	</rule>
 
 	<rule id="vI14">
