@@ -111,13 +111,13 @@
 		<li><p>Information Exchange Package Documentation (IEPD) that define NIEM data exchanges.</p></li>
 		<li><p>Enterprise Information Exchange Model (EIEM) from which one or more NIEM IEPDs can be built or based.</p></li>
 	</ul>
-    
+
 	<p>In the future, as required, other types of MPDs may be added to this list.</p>
-		
+
 	<p>At any point in time, an incomplete MPD will be in some state of development.  This specification is applicable to such developing products in that it establishes validity standards for MPDs in progress, as well as completeness standards for MPDs that reach a final, published, production-quality state.  In turn, tool vendors should be able to build, adapt, and/or integrate software tools that will assist in MPD development and assembly from raw parts to finished product.</p>
 
 	<p>NIEM is a data layer for an information architecture.  Files in an MPD generally define XML Schema types and declare XML elements and attributes to use in payloads for information exchanges.  While an MPD may also contain files from layers beyond the data layer, this speciication is not intended to define details of other architectural layers.  Such files are generally present only to provide additional context, understanding, or assistance for implementing the exchange of payloads.</p>
-	
+
 	<p>Authoritative sources are not required to revise MPDs that exist before this specification becomes effective.  However, they are always encouraged to consider revising MPDs to meet this specification, especially when making other significant changes.</p>
 
 </section>
@@ -198,10 +198,38 @@
 
 </section>
 
-<section id="Validation">
-	<title>Validation</title>
+<section id="XML=Validation">
+	<title>XML Validation</title>
 
-	<p>This specification often refers to the process of <em>XML validation</em>, that is, validation of XML schemas and instance XML documents.  Generally, this should occur periodically during and after design time to ensure the conformance and quality of an information exchange definition (i.e., XML schema documents or document sets) or instance XML documents.  However, local architecture or policy may dictate the need to validate more often, and in some cases may require runtime validation.</p>
+	<p>A discussion of XML validation requires a basic understanding of basic XML terminology.  The following definitions are necessary.</p>
+
+	<definition term="XML document">
+		<p>A document in XML format as defined by <ref idref="W3-XML"/>, <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#dt-xml-doc"><char name="sect"/>2</link>.</p>
+	</definition>
+
+        <definition term="schema component">
+		<p>A <em>schema component</em> is as defined by <ref idref="XMLSchema-1"/> <a href="http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#key-schema"><char name="sect"/>2.2, <q>XML Schema Abstract Data Model</q></a>, which states:</p>
+          <blockquote>
+		<p><strong>Schema component</strong> is the generic term for the building blocks that comprise the abstract data model of the schema.</p>
+          </blockquote>
+        </definition>
+
+        <definition term="XML Schema">
+		<p>An <em>XML Schema</em> is as defined by <ref idref="XMLSchema-1"/> <a href="http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#key-schema"><char name="sect"/>2.2, <q>XML Schema Abstract Data Model</q></a>, which states:</p>
+          <blockquote>
+		<p>An <strong>XML Schema</strong> is a set of schema components.</p>
+          </blockquote>
+        </definition>
+
+	<definition term="XML schema validation">
+		<p>The process of checking an <termRef>XML document</termRef> to confirm that it is both well-formed and <em>valid</em>, in that it follows the structure defined by an associated <termRef>XML Schema</termRef>.  A well-formed document follows the basic syntactic rules of XML, which are the same for all XML documents.</p>
+	</definition>
+
+	<definition term="XML schema document">
+		<p>A physical (file) representation of part or all of an <termRef>XML Schema</termRef>.  One or more <em>XML schema documents</em> are used to assemble <termRef term="schema component">schema components</termRef> into an <termRef>XML Schema</termRef>.</p>
+	</definition>
+
+	<p>This specification often refers to the process of <termRef>XML schema validation</termRef>, that is, validation of an instance XML document to confirm it adheres to the structure defined by a particular <termRef>XML schema</termRef>.  Generally, this should occur periodically during and after design time to ensure the conformance and quality of an information exchange definition (i.e., <termRef term="XML schema document">XML schema documents</termRef>) and associated instance XML documents.  However, local architecture or policy may dictate the need to validate more often, and in some cases may require runtime validation.</p>
 
 	<p>XML schema document sets that define a NIEM information exchange must be authoritative.  Application developers may use other schemas (e.g., constraint or Schematron schema documents) for various purposes, but for the purposes of determining NIEM conformance, the authoritative reference schema documents (NIEM releases) are relevant.  This does not mean that XML validation must be performed on all instance XML documents as they are served or consumed; only that the instance XML documents validate if and when XML validation is performed.  Therefore, even when validation is not performed, instance XML documents must be valid against the XML schema that is assembled from XML schema document sets that specify these instance XML documents.</p>
 
@@ -1574,19 +1602,19 @@
 	</rule>
 
 	<rule id="v1g">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ExternalSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to an XML schema document artifact.</p>
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ExternalSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to an XML schema document.
 	</rule>
 
 	<rule id="v1h">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ReferenceSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to NIEM reference schema document artifact.</p>
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ReferenceSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to NIEM <termRef>reference schema document</termRef>.</p>
 	</rule>
 	
 	<rule id="v1k">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ExtensionSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM extension schema document artifact.</p>
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ExtensionSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM <termRef>extension schema document</termRef>.</p>
 	</rule>
 	
 	<rule id="v1l">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SubsetSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to NIEM subset schema document artifact.</p>
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SubsetSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to NIEM <termRef>subset schema document</termRef>.</p>
 	</rule>
 
 	<rule id="v1m">
@@ -1634,11 +1662,11 @@
 	</rule>
 
 	<rule id="v8">
-		<p>Within an <termRef>XML catalog document</termRef> <code>URI</code>'s <code>name</code> (namespace) attribute value MUST exist within the MPD.</p>
+		<p>Within an <termRef>XML catalog document</termRef> <code>URI</code> element's <code>name</code> (namespace) attribute value MUST exist within the MPD.</p>
 	</rule>
 
 	<rule id="v9">
-		<p>Within an XML catalog <code>URI</code>'s <code>uri</code> attribute value MUST resolve to an XML schema document.</p>
+		<p>Within an XML catalog <code>URI</code> element's <code>uri</code> attribute value MUST resolve to an XML schema document.</p>
 	</rule>
 
 	<rule id="v10">
