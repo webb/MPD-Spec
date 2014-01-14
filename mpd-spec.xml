@@ -895,18 +895,20 @@
 <section id="MPD-Catalog">
 	<title>NIEM MPD Catalog</title>
 
-	<p>A NIEM MPD describes itself through a mandatory <em>mpd-catalog</em> artifact.  An mpd-catalog is a multi-purpose XML file containing metadata that describes an MPD's</p>
+	<definition term="MPD catalog document">
+		<p>An XML document that is Schema valid to <code>mpd-catalog-3.0.xsd</code> in <ref idref="MPD-Catalog-XSD"/>.  The <em>MPD catalog document</em> contains metadata that describes:</p>
 	<ul>
 		<li><p>Unique identification</p></li>
 		<li><p>Basic characteristics and properties</p></li>
 		<li><p>Key artifacts and directory structure</p></li>
-		<li><p>Lineage and relationships to other MPDs</p></li>
+		<li><p>Relationships to other MPDs and their artifacts</p></li>
 		<li><p><termRef term="IEP conformance target">IEP conformance targets</termRef></p></li>
 	</ul>
+	</definition>
 
-		<p>All MPDs require an <code>mpd-catalog.xml</code> artifact.  So, the MPD catalog is tailored to accommodate all MPD classes.  However, each MPD class has different catalog requirements.  The catalog metadata are formally defined and declared in a XML schema <ref idref="MPD-Catalog-XSD"/>.</p>
+	<p>All MPDs require an <code>mpd-catalog.xml</code> artifact.  So, the <termRef>MPD catalog document</termRef> is tailored to accommodate all MPD classes.  However, each MPD class has different catalog requirements.  The catalog metadata are formally defined and declared in an XML schema <ref idref="MPD-Catalog-XSD"/>.</p>
 
-	<p>This metadata is designed to be the minimal needed to facilitate human understanding, tool support, and machine processing.  The catalog metadata can support a number of MPD uses and functions including (but not limited to):</p>
+	<p>This metadata is designed to be the minimal needed to facilitate human understanding, tool support, and machine processing.  The metadata can support a number of MPD uses and functions including (but not limited to):</p>
 	<ul>
 		<li><p>Identification of key artifacts</p></li>
 		<li><p>Generation of a hyperlinked content display using XSLT</p></li>
@@ -1179,14 +1181,18 @@
 <section id="Change-Log-Releases-Core-Domain-Updates">
 	<title>Change Log for Releases and Core/Domain Updates</title>
 
-	<p>Although the version identifier is useful for a fast visual indication of the state of an MPD, it only provides a general indication that the MPD has changed.  There is no indication of the volume, complexity, or impact of changes applied since a previous version.  A change log provides a more specific accounting of changes from one version to another.</p>
+	<p>Although the version identifier is useful for a fast visual indication of the state of an MPD, it only provides a general indication that the MPD has changed.  There is no indication of the volume, complexity, or impact of changes applied since a previous version.  A <em>change log</em> provides a more specific accounting of changes from one version to another.</p>
+
+	<definition term="change log">
+		<p>A formal (for releases, core updates, domain updates) or informal (for IEPDs and EIEMs) artifact that accounts for changes applied to an MPD since its previous version (or versions).</p>
+	</definition>
 
 	<p>Once published, NIEM releases always exist.  This ensures that IEPDs and EIEMs built from a given release will always be usable, and may be updated to a new NIEM release only when convenient or absolutely necessary to take advantage of new or modified data components.  Though not encouraged, nothing prohibits a developer from building an IEPD based on a NIEM release that is older than the most current version.  There may be potential disadvantages related to interoperability levels achievable with others developing to the latest release.  Nonetheless, an older version might meet the business needs of a particular organization quite well.</p>
 
 	<p>In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change.  New versions of reference schema document sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs and EIEMs.  Developers must understand in detail how changes will affect their IEPD and EIEM products and the tools used to build them.  To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs.  A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users.  All of the foregoing reasons dictate that NIEM require a normative change log for reference schema document sets.</p>
 
 	<rule id="r-mpd-ref-changelog">
-		<p>Every MPD that is a reference schema document set (i.e., NIEM releases, core updates, and domain updates) MUST contain an XML change log artifact that:</p>
+		<p>Every MPD that is a reference schema document set (i.e., NIEM releases, core updates, and domain updates) MUST contain an XML change log document that:</p>
 		<ul>
 			<li><p>Validates with the NIEM change log schemas <code>mpd-changelog.xsd</code> and <code>niem-model.xsd</code>.  (Note these are base filenames; actual filenames also contain a version number; for example, <code>mpd-changelog-1.0.xsd</code>.)</p></li>
 			<li><p>Records changes to previous reference schema documents that this MPD represents.</p></li>
@@ -1195,12 +1201,12 @@
 		</ul>
 	</rule>
 	
-	<p>The current version of <code>mpd-changelog.xsd</code> is here:</p>
+	<p>The current version of <code>mpd-changelog.xsd</code> is available here:</p>
 	<blockquote>
 		<p><link>http://reference.niem.gov/niem/resource/mpd/changelog/</link></p>
 	</blockquote>
 
-	<p>The current version of <code>niem-model.xsd</code> which describes the NIEM conceptual model is here:</p>
+	<p>The current version of <code>niem-model.xsd</code> which describes the NIEM conceptual model is available here:</p>
 	<blockquote>
 		<p><link>http://reference.niem.gov/niem/resource/model/</link></p>
 	</blockquote>
@@ -1250,6 +1256,12 @@
 
 <section id="Master-Document">
 	<title>Master Document</title>
+
+	<p>This section is only applicable to IEPDs and EIEMs.</p>
+
+	<definition term="master document">
+		<p>An informal documentation artifact contained in an IEPD or EIEM that serves as the initial general source of human readable descriptive or instructional information.  A <em>master document</em> may index or reference other more specific documentation or other explanatory materials within the MPD.</p>
+	</definition>
 
 	<p>The <em>master document</em> is similar to a <code>readme</code> file.  It is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have fairly restrictive rules to obey, standard documentation for how to use them, and are centrally managed.</p>
 
@@ -1336,21 +1348,25 @@
 
 	<p>This section is applicable to all MPDs.  However, it is of particular importance to IEPDs and IEP validation (to be covered in more detail in <ref idref="Information-Exchange-Packages"/>.</p> 
 
-	<p><ref idref="OASIS-XML-Catalogs"/> are XML documents that describe a mapping between external entity references and locally-cached equivalents.  They are used to resolve XML schema document target namespaces to local URIs.  This is especially useful when assembling an XML schema from an XML schema document set.  Some validators (e.g., <link href="http://xerces.apache.org/xerces2-j/faq-xcatalogs.html">Xerces</link>) and other tools utilize xml-catalogs for this purpose.</p>
+	<p><ref idref="OASIS-XML-Catalogs"/> are XML documents that describe a mapping between external entity references and locally-cached equivalents.  They are used to resolve XML schema document target namespaces to local URIs.  This is especially useful when assembling an XML schema from an XML schema document set.  Some validators (e.g., <link href="http://xerces.apache.org/xerces2-j/faq-xcatalogs.html">Xerces</link>) and other tools utilize <em>XML catalogs</em> for this purpose.</p>
 
-	<p>The <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an <code>xml-catalog.xml</code> artifact to each schema document subset it generates.  The NIEM 3.0 release also includes an <code>xml-catalog.xml</code> artifact.  These xml-catalogs are provided simply for user convenience in the case these schema document sets must be assembled into a schema.</p>
+	<definition term="XML catalog document">
+		<p>An XML document defined by the semantics of <ref idref="OASIS-XML=Catalogs"/>.</p>
+	</definition>
 
-	<p>IEPD authors must employ xml-catalogs within IEPDs to facilitate validation of IEPs.</p>
+	<p>The <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an <code>xml-catalog.xml</code> artifact to each schema document subset it generates.  The NIEM 3.0 release also includes such an artifact.  These <termRef term="XML catalog document">XML catalog documents</termRef> are provided for user convenience in the case these schema document sets must be assembled into a schema.</p>
 
-	<p>Assembling a schema or building an xml-catalog from the XML schema documents of non-conformant external standards that contain <code>xs:include</code> statements can be problematic.  Be aware that if an xml-catalog (resulting from processing a set of external XML schema documents) contains any two <code>uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation.  It will have to be modified to ensure that each namespace resolves to one and only one unique xml-catalog <code>uri</code> attribute value.</p>
+	<p>IEPD authors must employ <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs to facilitate validation of IEPs.</p>
+
+	<p>Assembling a schema or building an <termRef term>XML catalog document</termRef> from the XML schema documents of non-conformant external standards that contain <code>xs:include</code> statements can be problematic.  Be aware that if an xml-catalog (resulting from processing a set of external XML schema documents) contains any two <code>uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation.  It will have to be modified to ensure that each namespace resolves to one and only one unique <termRef>XML catalog document</termRef> <code>uri</code> attribute value.</p>
 
 	<p>In order to support schema assembly for the purpose of XML validation, the following rule requires that the namespaces of all XML schema documents used within an IEPD resolve to a locally-unique artifact:</p>
 
 	<rule id="r-resolution">
-		<p>An IEPD MUST resolve each namespace it uses to a locally-unique URI through one or more (<ref idref="OASIS-XML-Catalogs"/>).</p>
+		<p>An IEPD MUST resolve each namespace it uses to a locally unique URI through one or more <termRef term="XML catalog document">XML catalog documents</termRef>.</p>
 	</rule>
 
-	<p>This rule implies that <code>NextCatalog</code> elements may be used within xml-catalogs to connect them and control their parsing sequence.  An IEPD must contain at least one xml-catalog because it is the only MPD that can specify an IEP <ref idref="IEP"/> and provide validation instructions that would require schema assembly from schema documents.  <ref idref="Information-Exchange-Packages"/> provides more specifics about using xml-catalogs in IEPDs.</p>
+	<p>This rule implies that <code>NextCatalog</code> elements may be used within <termRef term="XML catalog document">XML catalog documents<termRef> to connect them and control their parsing sequence.  An IEPD must contain at least one <termRef>XML catalog document</termRef> because it is the only MPD that can specify an IEP <ref idref="IEP"/> and provide validation instructions that would require schema assembly from XML schema documents.  <ref idref="Information-Exchange-Packages"/> provides more specifics about using <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs.</p>
 
 </section>
 
@@ -1533,135 +1549,111 @@
 
 	<p>For example, at some stage in early development, an IEPD contains a valid <code>mpd-catalog.xml</code> that contains only a single reference to an <code>xml-catalog.xml</code> artifact.  Thus, to be a valid IEPD, this reference must resolve to an existing local resource that is an XML catalog.  Assume this is the case.  This XML catalog is itself Schema valid to <ref idref="OASIS-XML-Catalogs"/>.   However, this XML catalog is designed to resolve several namespaces to local URIs.  For this IEPD to remain valid, the URIs within this XML catalog must correctly resolve to the appropriate target namespaced schemas identified.</p>
 
-	<rule id="vI1">
-		<p>Each <code>mpd-catalog.xml</code> <code>@c:pathURI</code> value MUST resolve to a local artifact.</p>
+	<rule id="v1a">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:pathURI</code> attribute value MUST resolve to an MPD artifact. [need to define resolve]</p>
 	</rule>
 
-	<rule id="vI2">
-		<p>Each <code>mpd-catalog.xml</code> <code>@c:pathURI</code> value for a general classifier (including <code>c:File</code>, <code>c:FileSet</code>, <code>c:RequiredFile</code>, <code>c:Documentation</code>, and <code>c:ApplicationInfo</code>) MUST resolve to a local artifact.</p>
+	<rule id="v1b">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:XMLCatalog</code>'s <code>c:pathURI</code> attribute value MUST resolve to an <termRef>XML catalog document</trmRef>.</p>
 	</rule>
 
-	<rule id="vi2a">
-		<p>An <code>mpd-catalog.xml</code> <code>c:MPDCatalog/@c:pathURI</code> value MUST resolve to itself (i.e., <code>mpd-catalog.xml</code>).</p>
+	<rule id="v1c">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:MPDChangeLog</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>change log</termRef>.</p>
 	</rule>
 
-	<rule id="vi2b">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:MPDCatalogExtension/@c:pathURI</code> value MUST resolve to a local XML artifact.</p>
+	<rule id="v1d">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:MasterDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>master document</termRef>.</p>
 	</rule>
 
-	<rule id="vi2c">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:XMLCatalog/@c:pathURI</code> value MUST resolve to a local XML artifact.</p>
+	<rule id="v1e">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:IEPSampleXMLDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to an XML document.</p>
 	</rule>
 
-	<rule id="vi2d">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:MPDCatalogExtensionXMLCatalog/@c:pathURI</code> value MUST resolve to a local XML artifact.</p>
+	<rule id="v1f">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:BusinessRulesArtifact</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
 	</rule>
 
-	<rule id="vi2e">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:MPDChangeLog/@c:pathURI</code> value MUST resolve to a local change log artifact.</p>
+	<rule id="v1g">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ExternalSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to an XML schema document artifact.</p>
 	</rule>
 
-	<rule id="vi2f">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:MasterDocument/@c:pathURI</code> value MUST resolve to a local master document artifact.</p>
-	</rule>
-
-	<rule id="vi2g">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:IEPSampleXMLDocument/@c:pathURI</code> value MUST resolve to a local XML artifact.</p>
-	</rule>
-
-	<rule id="vi2h">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:BusinessRulesArtifact/@c:pathURI</code> value MUST resolve to a local business rule artifact.</p>
-	</rule>
-
-	<rule id="vi2i">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:ExternalSchemaDocument/@c:pathURI</code> value MUST resolve to a local copy of an XML schema document artifact.</p>
-	</rule>
-
-	<rule id="vi2j">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:ReferenceSchemaDocument/@c:pathURI</code> value MUST resolve to NIEM reference schema document artifact.</p>
+	<rule id="v1h">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ReferenceSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to NIEM reference schema document artifact.</p>
 	</rule>
 	
-	<rule id="vi2k">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:ExtensionSchemaDocument/@c:pathURI</code> value MUST resolve to a NIEM extension schema document artifact.</p>
+	<rule id="v1k">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ExtensionSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM extension schema document artifact.</p>
 	</rule>
 	
-	<rule id="vi2l">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:SubsetSchemaDocument/@c:pathURI</code> value MUST resolve to subset schema document artifact.</p>
+	<rule id="v1l">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SubsetSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to NIEM subset schema document artifact.</p>
 	</rule>
 
-	<rule id="vi2m">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:Wantlist/@c:pathURI</code> value MUST resolve to a NIEM wantlist XML document artifact.</p>
+	<rule id="v1m">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:Wantlist</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>NIEM wantlist</termRef> XML document.</p>
 	</rule>
 	
-	<rule id="vi2n">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:SchematronSchema/@c:pathURI</code> value MUST resolve to a Schematron schema document artifact.</p>
+	<rule id="v1n">	
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SchematronSchema</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>Schematron schema</termRef>.</p>
 	</rule>
 
-	<rule id="vi2o">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:RelaxNGSchema/@c:pathURI</code> value MUST resolve to a RelaxNG schema document artifact.</p>
+	<rule id="v1o">	
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:RelaxNGSchema</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>RelaxNG schema</termRef>.</p>
 	</rule>
 
-	<rule id="vi2p">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:RequiredFile/@c:pathURI</code> value MUST resolve to a local artifact.</p>
+	<rule id="v1p">	
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:RequiredFile</code>'s <code>c:pathURI</code> attribute value MUST resolve to an artifact.</p>
 	</rule>
 
-	<rule id="vi2q">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:SchemaDocumentSet/@c:pathURI</code> value MUST resolve to a XML schema document set (i.e., a directory of XML schema document artifacts).</p>
+	<rule id="v1q">	
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SchemaDocumentSet</code>'s <code>c:pathURI</code> attribute value MUST resolve to a XML schema document set.</p>
 	</rule>
 
-	<rule id="vi2r">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:ConstraintSchemaDocumentSet/@c:pathURI</code> value MUST resolve to a NIEM constraint schema document set artifact (i.e., a directory of XML schema document artifacts).</p>
+	<rule id="v1r">	
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ConstraintSchemaDocumentSet</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM constraint schema document set.</p>
 	</rule>
 
-	<rule id="vi2s">	
-		<p>Each <code>mpd-catalog.xml</code> <code>c:ReferenceSchemaDocumentSet/@c:pathURI</code> value MUST resolve to a NIEM reference schema document set artifact (i.e., a directory of XML schema document artifacts).</p>
+	<rule id="v1s">	
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ReferenceSchemaDocumentSet</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM reference schema document set.</p>
 	</rule>
 
-	<rule id="vI3">
-		<p>Each <code>mpd-catalog.xml</code> <code>@c:externalURI</code> value SHOULD exist (but is not required to resolve).</p>
+	<rule id="v2">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:externalURI</code> attribute value SHOULD exist (but is not required to resolve).</p>
 	</rule>
 
-	<rule id="vI4">
-		<p>Each <code>mpd-catalog.xml</code> <code>@c:resourceURI</code> value SHOULD exist (but is not required to resolve).</p>
+	<rule id="v3">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:resourceURI</code> attribute value SHOULD exist (but is not required to resolve).</p>
 	</rule>
 
-	<rule id="vI5">
-		<p>Each <code>mpd-catalog.xml</code> <code>@c:XPathText</code> value (i.e., XPath expression) MUST evaluate to an effective Boolean value equal to <code>"true"</code> <ref idref="W3-XPath"/> <link>Specifically, http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv</link>.</p>
+	<rule id="v4">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>IEPConformanceTarget</code>'s <code>c:XPathText</code> attribute value applied to a candidate IEP (XML document) MUST evaluate to an effective Boolean value equal <code>"true"</code> if the candidate IEP satisfies the conformance target criteria; <code>"false, otherwise."</code> <ref idref="W3-XPath"/> <link>http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv</link></p>
 	</rule>
 
-	<rule id="vI6">
-		<p>Each <code>mpd-catalog.xml</code> <code>@c:qualifiedNameList</code> value MUST list QNames declared as XML document elements in existing extension schemas (IEP sample XML documents too? ... or is this completeness?).</p>
+	<rule id="v5">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:qualifiedNameList</code> attribute value MUST list QNames declared as XML document elements in existing extension schemas (IEP sample XML documents too? ... or is this completeness?).</p>
 	</rule>
 
-	<rule id="vI7">
-		<p>An <code>xml-catalog.xml</code> artifact MUST be XML Schema valid to <ref idref="OASIS-XML-Catalogs"/>.</p>
+	<rule id="v8">
+		<p>Within an <termRef>XML catalog <code>URI</code>'s <code>name</code> (namespace) attribute value MUST exist within the MPD.</p>
 	</rule>
 
-	<rule id="vI8">
-		<p>Each XML catalog <code>URI/@name</code> (namespace) attribute value MUST exist within the MPD.</p>
+	<rule id="v9">
+		<p>Within an XML catalog <code>URI</code>'s <code>uri</code> attribute value MUST resolve to an XML schema document.</p>
 	</rule>
 
-	<rule id="vI9">
-		<p>Each XML catalog <code>URI/@uri</code> attribute value MUST resolve to a local artifact.</p>
+	<rule id="v10">
+		<p>An IEP sample XML document classified in the <code>mpd-catalog.xml</code> MUST be schema valid for all <code>c:IEPConformanceTarget</code> classes of which it is a member.</p>
 	</rule>
 
-	<rule id="vI10">
-		<p>An IEP sample XML document classified in the <code>mpd-catalog.xml</code> artifact MUST be schema valid for all <code>c:IEPConformanceTarget</code> classes of which it is a member.</p>
-	</rule>
-
-	<rule id="vI11">
+	<rule id="v11">
 		<p>An XML document classified in the <code>mpd-catalog.xml</code> artifact MUST conform to <ref idref="W3-XML"/>.</p>
 	</rule>
 
-	<rule id="vI12">
+	<rule id="v12">
 		<p>An XSD schema document classified in the <code>mpd-catalog.xml</code> artifact MUST conform to <ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>.</p>
 	</rule>
 
-	<rule id="vI13">
-		<p>The value of <code>c:MPDCatalogExtensionXMLCatalog/@pathURI</code> MUST be <code>"/mpd-catalog-extension-xml-catalog.xml"</code>.</p>
-	</rule>
-
-	<rule id="vI14">
+	<rule id="v13">
 		<p>Schematron valid to the MPD Schematron rules.  [TBD]</p>
 	</rule>
 
@@ -1715,11 +1707,11 @@
 
 
 <section id="Wantlists">
-	<title>Wantlists</title>
+	<title>NIEM Wantlist</title>
 
 	<p>A NIEM schema document subset is often associated with a NIEM <em>wantlist</em>.  A <em>wantlist</em> is an abbreviated XML representation of a NIEM schema document subset, and identifies only the data components a user selected (as requirements) to build a schema document subset.  To reconstruct the complete schema document subset there are usually a number of additional data components that the user selections depend upon.  These must be computed from the appropriate NIEM reference model and added to reconstruct the complete schema document subset.  For example, a user may select <code>nc:Person</code> for the subset.  In this case, the wantlist will only contain that component, but the associated full subset must contain both <code>nc:Person</code> and <code>nc:PersonType</code>.  A software tool that understands how to process NIEM wantlists and schema document subsets (such as the NIEM Schema Subset Generator Tool <ref idref="NIEM-SSGT"/>) can rebuild an accurate schema document subset from a wantlist (and the reverse).</p>
 
-	<definition term="wantlist">
+	<definition term="NIEM wantlist">
 		<p>An XML document that represents a complete NIEM schema document subset.</p>
 	</definition>
 
@@ -1730,6 +1722,35 @@
 	<rule id="r-wantlist-base">
 		<p>A wantlist MUST be a member of the schema document set directory it is associated with.  This means it MUST reside with and at the root of the subdirectory that groups and defines its target schema document set.</p>
 	</rule>
+
+</section>
+
+
+
+<section id="Business-Rules">
+	<title>Business Rules</title>
+
+	<p>For simplicity and consistency, NIEM employs a profile of the XML Schema language <ref idref="W3-XML-Schema-Structures"/>, <ref idref="W3-XML-Schema-Datatypes"/>.  Thus, some constraints on NIEM XML documents cannot be enforced by NIEM.  <termRef>constraint schemas</termRef> provide a convenient technique for enforcing some additional constraints.  However, even the full XML Schema language cannot validate and enforce all possible constraints that may required on an XML document.</p>
+
+	<p>That said, NIEM allows (even encourages) the use of formal or informal <em>business rules</em> to supplement MPDs (in particular IEPDs).</p>
+
+	<definition term="business rules">
+		<p>Formal or informal statements that describe business policy or procedure, and in doing so define or constrain some aspect of a process or procedure in order to impose control.</p>
+	</definition>
+
+	<p><termRef term="business rules">Business rules<termRef> may be represented as informal English statements, or as formally coded machine-readable and processible statements.  For example, an IEPD may use a Schematron schema <ref idref="ISO-Schematron"/>, a RelaxNG schema <ref idref="ISO-RelaxNG"/>, or any other formal representation for <termRef>business rules</termRef>.</p>
+
+	<definition term="business rule schema">
+		<p>An artifact that contains <termRef>business rules</termRef> in a formal representation language with the intent to automatically process them on an XML document to enforce business constraints.</p>
+	</definition>
+
+	<definition term="Schematron schema">
+		<p>A <termRef>business rule schema</termRef> that adheres to <ref idref="ISO-Schematron"/>.</p>
+	</definition>
+
+	<definition term"RelaxNG schema">
+		<p>A <termRef>business rule schema</termRef> that adheres to <ref idref="ISO-RelaxNG"/>.</p>
+	</definition>
 
 </section>
 </section>
@@ -1912,7 +1933,7 @@
 	<li><p>If using a reference schema document set (such as a release), maintain as originally downloaded.  This will be organized the same as SSGT organizes a subset.</p></li>
 	<li><p>If derived from a schema subset, maintain a constraint schema set organized like the subset from which it was derived (for the same reason as above).</p></li>
 	<li><p>A NIEM subset will be contained in a <code>/niem</code> subdirectory.  Put this subdirectory into the <termRef>MPD root directory</termRef>.</p></li>
-	<li><p>If a <termRef>wantlist</termRef> exists for this subset, put it into the corresponding subdirectory (<code>/niem</code>) at the top level.</p></li>
+	<li><p>If a <termRef>NIEM wantlist</termRef> exists for this subset, put it into the corresponding subdirectory (<code>/niem</code>) at the top level.</p></li>
 	<li><p>Maintain extension schema documents in a subdirectory of the <termRef>MPD root directory</termRef> with a name that begins with the substring <code>extension</code>.</p></li>
 	<li><p>Maintain external standard schema documents that are not built into NIEM (and therefore are not in the subset under <code>/niem</code>) in a subdirectory with a name that begins with the substring <code>external</code>.</p></li>
 	<li><p>If used, maintain each constraint schema document set (or all constraint schema documents if appropriate) in a subdirectory with a name that begins with the substring <code>niem-constraint</code>.  If the constraint schema is derived from a schema subset, maintain the same subdirectory organization as the subset.</p></li>
