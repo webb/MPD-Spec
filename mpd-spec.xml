@@ -208,14 +208,14 @@
 	</definition>
 
         <definition term="schema component">
-		<p>A <em>schema component</em> is as defined by <ref idref="W3-XML-Schema-Structures"/> <a href="http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#key-schema"><char name="sect"/>2.2, <q>XML Schema Abstract Data Model</q></a>, which states:</p>
+		<p>A <em>schema component</em> is as defined by <ref idref="W3-XML-Schema-Structures"/> <link href="http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#key-schema"><char name="sect"/>2.2, <q>XML Schema Abstract Data Model</q></link>, which states:</p>
           <blockquote>
 		<p><strong>Schema component</strong> is the generic term for the building blocks that comprise the abstract data model of the schema.</p>
           </blockquote>
         </definition>
 
         <definition term="XML Schema">
-		<p>An <em>XML Schema</em> is as defined by <ref idref="W3-XML-Schema-Structures"/> <a href="http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#key-schema"><char name="sect"/>2.2, <q>XML Schema Abstract Data Model</q></a>, which states:</p>
+		<p>An <em>XML Schema</em> is as defined by <ref idref="W3-XML-Schema-Structures"/> <link href="http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#key-schema"><char name="sect"/>2.2, <q>XML Schema Abstract Data Model</q></link>, which states:</p>
           <blockquote>
 		<p>An <strong>XML Schema</strong> is a set of schema components.</p>
           </blockquote>
@@ -249,11 +249,11 @@
 			<li><p>It provides the authoritative definition of business semantics for components in its namespace.</p></li> 
 			<li><p>It is intended to serve as the basis for components in IEPD and EIEM schema documents, including subset, constraint, and extension schema documents.</p></li> 
 		</ul>
-		<p>See also <strong>reference schema document set</strong>.</p>
+		<p>See also <termRef>reference schema document set</termRef>.</p>
 	</definition>
 
 	<definition term="reference schema document set">
-		<p>A set of related reference schema documents, such as a NIEM release.  See also <strong>reference schema document</strong>.</p>
+		<p>A set of related reference schema documents, such as a NIEM release.  See also <termRef>reference schema document</termRef>.</p>
 	</definition>
 
 	<p>The <ref idref="NIEM-NDR"/> conformance rules for reference schema documents are generally stricter than those for other classes of NIEM-conformant schema documents.  For example, they are required to employ an <code>xs:annotation</code> with child elements <code>xs:documentation</code> and <code>xs:appinfo</code> that encapsulate semantic information for each XML element and attribute declaration, and type definition.</p>
@@ -1609,79 +1609,84 @@
 		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ReferenceSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to NIEM <termRef>reference schema document</termRef>.</p>
 	</rule>
 	
-	<rule id="v1k">
+	<rule id="v1i">
 		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ExtensionSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM <termRef>extension schema document</termRef>.</p>
 	</rule>
 	
-	<rule id="v1l">
+	<rule id="v1j">
 		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SubsetSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM <termRef>subset schema document</termRef>.</p>
 	</rule>
 
-	<rule id="v1m">
+	<rule id="v1k">
 		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:Wantlist</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>NIEM wantlist</termRef> XML document.</p>
 	</rule>
 	
-	<rule id="v1n">	
+	<rule id="v1l">	
 		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SchematronSchema</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>Schematron schema</termRef>.</p>
 	</rule>
 
-	<rule id="v1o">	
+	<rule id="v1m">	
 		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:RelaxNGSchema</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>RelaxNG schema</termRef>.</p>
 	</rule>
 
-	<rule id="v1p">	
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:RequiredFile</code>'s <code>c:pathURI</code> attribute value MUST resolve to a file artifact.</p>
-	</rule>
 
-	<rule id="v1q">	
+	<rule id="v1n">	
 		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SchemaDocumentSet</code>'s <code>c:pathURI</code> attribute value MUST resolve to an XML schema document set.</p>
 	</rule>
 
-	<rule id="v1r">	
+	<rule id="v1o">	
 		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ConstraintSchemaDocumentSet</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM constraint schema document set.</p>
 	</rule>
 
-	<rule id="v1s">	
+	<rule id="v1p">	
 		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ReferenceSchemaDocumentSet</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM reference schema document set.</p>
 	</rule>
 
 	<rule id="v2">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:externalURI</code> attribute value SHOULD exist (but is not required to resolve).</p>
-	</rule>
-
-	<rule id="v3">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:resourceURI</code> attribute value SHOULD exist (but is not required to resolve).</p>
-	</rule>
-
-	<rule id="v4">
 		<p>Within an <termRef>MPD catalog document</termRef> a <code>IEPConformanceTarget</code>'s <code>c:XPathText</code> attribute value applied to a candidate IEP (XML document) MUST evaluate to an effective Boolean value equal <code>"true"</code> if the candidate IEP satisfies the conformance target criteria; <code>"false, otherwise."</code> <ref idref="W3-XPath"/> <link>http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv</link></p>
 	</rule>
 
-	<rule id="v5">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:qualifiedNameList</code> attribute value MUST list QNames declared as XML document elements in existing extension schemas (IEP sample XML documents too? ... or is this completeness?).</p>
+	<rule id="v3a">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:HasDocumentElement</code>'s <code>c:qualifiedNameList</code> attribute value MUST list QNames of XML document elements declared within an existing <termRef>extension schema document</termRef>.</p>
+		</rule>
+		
+	<rule id="v3b">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:HasElement</code>'s <code>c:qualifiedNameList</code> attribute value MUST list QNames of XML elements declared within an existing <termRef>extension schema document</termRef>.</p>
 	</rule>
 
-	<rule id="v8">
+	<rule id="v4">
 		<p>Within an <termRef>XML catalog document</termRef> <code>URI</code> element's <code>name</code> (namespace) attribute value MUST exist within the MPD.</p>
 	</rule>
 
-	<rule id="v9">
+	<rule id="v5">
 		<p>Within an XML catalog <code>URI</code> element's <code>uri</code> attribute value MUST resolve to an <termRef>XML schema document</termRef>.</p>
 	</rule>
 
-	<rule id="v10">
+	<rule id="v6">
 		<p>An IEP sample XML document classified in the <code>mpd-catalog.xml</code> MUST be schema valid for all <code>c:IEPConformanceTarget</code> classes of which it is a member.</p>
 	</rule>
 
+	<rule id="v7">
+		<p>An <termRef>XML document<termRef> classified in the <code>mpd-catalog.xml</code> artifact MUST conform to <ref idref="W3-XML"/>.</p>
+	</rule>
+
+	<rule id="v8">
+		<p>An XML schema document (XSD) classified in the <code>mpd-catalog.xml</code> MUST conform to <ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>.</p>
+	</rule>
+
+	<rule id="v9">	
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:RequiredFile</code>'s <code>c:pathURI</code> attribute value MUST resolve to a file artifact.</p>
+	</rule>
+
+	<rule id="v10">
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:externalURI</code> attribute value SHOULD exist (but is not required to resolve).</p>
+	</rule>
+
 	<rule id="v11">
-		<p>An XML document classified in the <code>mpd-catalog.xml</code> artifact MUST conform to <ref idref="W3-XML"/>.</p>
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:resourceURI</code> attribute value SHOULD exist (but is not required to resolve).</p>
 	</rule>
 
 	<rule id="v12">
-		<p>An XSD schema document classified in the <code>mpd-catalog.xml</code> artifact MUST conform to <ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>.</p>
-	</rule>
-
-	<rule id="v13">
 		<p>Schematron valid to the MPD Schematron rules.  [TBD]</p>
 	</rule>
 
