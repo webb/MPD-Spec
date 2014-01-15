@@ -1654,32 +1654,32 @@
 
 	<rule id="v2">
 		<p>[IEP]</p>
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>IEPConformanceTarget</code>'s <code>c:XPathText</code> attribute value applied to a candidate IEP (XML document) MUST evaluate to an effective Boolean value equal <code>"true"</code> if the candidate IEP satisfies the conformance target criteria; <code>"false, otherwise."</code> <ref idref="W3-XPath"/> <link>http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv</link></p>
+		<p>Within an <termRef>MPD catalog document</termRef> a <code>IEPConformanceTarget</code>'s <code>c:XPathText</code> attribute value applied to a candidate IEP (an <termRef>XML document</termRef>) will evaluate to an effective Boolean value (EBV).  The candidate is a valid IEP <em>only if</em> that EBV equals <code>"true"</code>.  <ref idref="W3-XPath"/> <link>http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv</link></p>
 	</rule>
 
 	<rule id="v3">
 		<p>[IEP]</p>
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:HasDocumentElement</code>'s <code>c:qualifiedNameList</code> attribute value MUST list QNames of XML document elements declared within an existing <termRef>extension schema document</termRef>.</p>
+		<p>Given an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, <em>only if</em> its XML document element is also a member of that QName list.</p>
 		</rule>
 		
 	<rule id="v4">
 		<p>[IEP]</p>
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:HasElement</code>'s <code>c:qualifiedNameList</code> attribute value MUST list QNames of XML elements declared within an existing <termRef>extension schema document</termRef>.</p>
+		<p>Given an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasElement</code> element, a candidate IEP is a valid IEP, <em>only if</em> it contains an XML element that is also a member of that QName list.</p>
 	</rule>
-
+	
 	<rule id="v5">
-		<p>[XMLcat]</p>
-		<p>Within an <termRef>XML catalog document</termRef> <code>URI</code> element's <code>name</code> (namespace) attribute value MUST exist within the MPD.</p>
+		<p>[IEP]</p>
+		<p>Given a <code>c:IEPSampleXMLDocument</code> whose parent is <code>c:IEPConformanceTarget</code>, the artifact resolved by <code>c:pathURI</code> MUST be valid to the <code>c:IEPConformanceTarget</code> validity constraints.</p>
 	</rule>
 
 	<rule id="v6">
 		<p>[XMLcat]</p>
-		<p>Within an XML catalog <code>URI</code> element's <code>uri</code> attribute value MUST resolve to an <termRef>XML schema document</termRef>.</p>
+		<p>Within an <termRef>XML catalog document</termRef> <code>URI</code> element's <code>name</code> (namespace) attribute value MUST exist within the MPD.</p>
 	</rule>
 
 	<rule id="v7">
 		<p>[XMLcat]</p>
-		<p>An IEP sample XML document classified in the <code>mpd-catalog.xml</code> MUST be schema valid for all <code>c:IEPConformanceTarget</code> classes of which it is a member.</p>
+		<p>Within an <termRef>XML catalog document</termRef> <code>URI</code> element's <code>uri</code> attribute value MUST resolve to an <termRef>XML schema document</termRef>.</p>
 	</rule>
 
 	<rule id="v8">
