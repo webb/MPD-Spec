@@ -152,33 +152,9 @@ Nonetheless, we appreciate your feedback. --&gt;
       &lt;/complexContent&gt;
     &lt;/complexType&gt;
 
-    &lt;element name="MPDCatalog" type="c:FileType" substitutionGroup="c:Artifact"&gt;
-      &lt;annotation&gt;
-        &lt;documentation&gt;An mpd-catalog artifact.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-    &lt;/element&gt;
-
-    &lt;element name="MPDCatalogExtension" type="c:FileType" 
-	     substitutionGroup="c:Artifact"&gt;
-      &lt;annotation&gt;
-	&lt;documentation&gt;An MPD metadata artifact that adds optional author-defined
-	content (metadata, artifact classifiers, or IEPConformanceTargets).
-	&lt;/documentation&gt;
-      &lt;/annotation&gt;
-    &lt;/element&gt;
-
     &lt;element name="XMLCatalog" type="c:FileType" substitutionGroup="c:Artifact"&gt;
       &lt;annotation&gt;
         &lt;documentation&gt;An MPD artifact that is an OASIS XML catalog.&lt;/documentation&gt;
-      &lt;/annotation&gt;
-    &lt;/element&gt;
-
-    &lt;element name="MPDCatalogExtensionXMLCatalog" type="c:FileType" 
-	     substitutionGroup="c:Artifact"&gt;
-      &lt;annotation&gt;
-	&lt;documentation&gt;A specific xml-catalog in the MPD archive root directory
-	(mpd-catalog-extension-xml-catalog.xml)	that identifies mpd-catalog 
-	extensions.&lt;/documentation&gt;
       &lt;/annotation&gt;
     &lt;/element&gt;
 
@@ -341,6 +317,15 @@ Nonetheless, we appreciate your feedback. --&gt;
         &lt;/restriction&gt;
       &lt;/complexContent&gt;
     &lt;/complexType&gt;
+
+    &lt;element name="ReferenceSchemaDocumentSet"
+             type="c:ReferenceSchemaDocumentSetType" substitutionGroup="c:Artifact"&gt;
+      &lt;annotation&gt;
+	&lt;documentation&gt;An MPD set artifact that may include constraint schema 
+	document subsets, and associated extension and external schema documents, 
+	and other supporting artifacts.&lt;/documentation&gt;
+      &lt;/annotation&gt;
+    &lt;/element&gt;
 
     &lt;complexType name="ReferenceSchemaDocumentSetType"&gt;
       &lt;annotation&gt;
@@ -735,6 +720,15 @@ Nonetheless, we appreciate your feedback. --&gt;
       &lt;/annotation&gt;
     &lt;/element&gt;
 
+    &lt;element name="HasElement" type="c:QualifiedNamesType" 
+	substitutionGroup="c:ValidityConstraint"&gt;
+      &lt;annotation&gt;
+	&lt;documentation&gt;A validity constraint that indicates that an artifact
+	has an element with a name that is one of the given qualified names.
+	&lt;/documentation&gt;
+      &lt;/annotation&gt;
+    &lt;/element&gt;
+
     &lt;complexType name="QualifiedNamesType"&gt;
       &lt;annotation&gt;
 	&lt;documentation&gt;A datatype for a set of qualified names.&lt;/documentation&gt;
@@ -868,22 +862,22 @@ Nonetheless, we appreciate your feedback. --&gt;
       &lt;/annotation&gt;
     &lt;/element&gt;
 
-&lt;!-- c:AuthoritativeSource should use NIEM 3.0 as follows ...
+&lt;!-- c:AuthoritativeSource should use NIEM 3.0 schema components as follows ...
 
-&lt;c:AuthoritativeSource&gt; (type="nc:EntityType")
-	&lt;nc:EntityOrganization&gt; (or &lt;nc:EntityPerson&gt; if appropriate)
-		&lt;nc:OrganizationName&gt; (type="nc:TextType")
+&lt;c:AuthoritativeSource&gt;					(type="nc:EntityType")
+	&lt;nc:EntityOrganization&gt; 			(or &lt;nc:EntityPerson&gt;)
+		&lt;nc:OrganizationName&gt;			(type="nc:TextType")
 		&lt;nc:OrganizationLocation&gt;
-		  &lt;nc:Address&gt;
-		    &lt;nc:AddressFullText&gt; (type="TextType")
+			&lt;nc:Address&gt;
+			       &lt;nc:AddressFullText&gt;	(type="nc:TextType")
 		&lt;nc:OrganizationPrimaryContactInformation&gt;
-		  &lt;nc:ContactResponder&gt;
-		    &lt;nc:PersonName&gt;
-		      &lt;nc:PersonFullName&gt; (type="TextType")
-		  &lt;nc:ContactEmailID&gt; (type="string")
-		  &lt;nc:ContactTelephoneNumber&gt;
-		    &lt;nc:TelephoneNumberRepresentation&gt; (substitutionGroup)
-		  &lt;nc:ContactWebsiteURI&gt; (type="anyURI") 
+			&lt;nc:ContactResponder&gt;
+			&lt;nc:PersonName&gt;
+			       &lt;nc:PersonFullName&gt;	(type="nc:TextType")
+			&lt;nc:ContactEmailID&gt;		(type="xs:string")
+			&lt;nc:ContactTelephoneNumber&gt;
+			       &lt;nc:TelephoneNumberRepresentation&gt; (substitutionGroup)
+			&lt;nc:ContactWebsiteURI&gt;		(type="xs:anyURI") 
 --&gt;
 
     &lt;element name="CreationDate" type="date"&gt;
