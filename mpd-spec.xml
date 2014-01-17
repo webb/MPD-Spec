@@ -968,7 +968,7 @@
 	</ul>
 
 	<rule id="r-mpd-catalog">
-		<p>A <termRef term="valid IEPD">valid</termRef> and <termRef>complete IEPD</termRef> MUST contain an mpd-catalog XML document artifact that:</p>
+		<p>A <termRef term="well-formed MPD">well-formed</termRef> and <termRef>complete MPD</termRef> MUST contain an mpd-catalog XML document artifact that:</p>
 		<ul>
 			<li><p>validates with the NIEM MPD catalog schema contained in <ref idref="MPD-Catalog-XSD"/>.</p></li>
 			<li><p>validates with the NIEM MPD catalog Schematron rules [TBD].</p></li>
@@ -977,9 +977,9 @@
 		</ul>
 </rule>
 
-<p>Note that the <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML schema definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef term="valid IEPD">valid</termRef> from a <termRef>complete IEPD</termRef> during incremental stages of development.  This is explained in more detail in <ref idref="Valid-vs-Complete-IEPD"/>.</p>
+<p>Note that the <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML schema definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef term="well-formed MPD">well-formed</termRef> from a <termRef>complete MPD</termRef> during incremental stages of development.  This is explained in more detail in <ref idref="Well-Formed-vs-Complete-MPD"/>.</p>
 
-<p>Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a <termRef>complete IEPD</termRef>, special Schematron rules must also be applied to an MPD catalog to ensure its validity or completeness <ref idref="Valid-vs-Complete-IEPD"/>.</p>
+<p>Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a <termRef>complete MPD</termRef>, special Schematron rules must also be applied to an MPD catalog to ensure its validity or completeness <ref idref="Well-Formed-vs-Complete-MPD"/>.</p>
 
 
 
@@ -1568,97 +1568,105 @@
 
 	<p>NOTES for rules:</p>
 	<ul>
-		<li><p>[X] indicates conformance target "X".</p></li>
-		<li><p>"Resolve to" will required definitions (maybe more than one).</p></li>
+		<li><p>(X) indicates the conformance target "X".</p></li>
 		<li><p>Schema document sets are not yet well defined.</p></li>
 	</ul>
 
+	<definition term="resolve">
+		<p>
+			case1 - direct uri evaluation
+			case2 - indirect uri evaluation
+			case3 - 
+		</p>
+	</definition>
+
+
 	<rule id="v1a" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:pathURI</code> attribute value MUST resolve to an MPD artifact.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute MUST resolve to an MPD artifact.</p>
 	</rule>
 
 	<rule id="v1b" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:XMLCatalog</code> element MUST resolve to an <termRef>XML catalog document</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:XMLCatalog</code> element MUST resolve to an <termRef>XML catalog document</termRef>.</p>
 	</rule>
 
 	<rule id="v1c" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:MPDChangeLog</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>change log</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MPDChangeLog</code> element MUST resolve to a <termRef>change log</termRef>.</p>
 	</rule>
 
 	<rule id="v1d" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:MasterDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>master document</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MasterDocument</code> element MUST resolve to a <termRef>master document</termRef>.</p>
 	</rule>
 
 	<rule id="v1e" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:IEPSampleXMLDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to an <termRef>XML document</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code> element MUST resolve to an <termRef>XML document</termRef>.</p>
 	</rule>
 
 	<rule id="v1f" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:BusinessRulesArtifact</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:BusinessRulesArtifact</code> element MUST resolve to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
 	</rule>
 
 	<rule id="v1g" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ExternalSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to an <termRef>XML schema document</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExternalSchemaDocument</code> element MUST resolve to an <termRef>XML schema document</termRef>.</p>
 	</rule>
 
 	<rule id="v1h" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ReferenceSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to NIEM <termRef>reference schema document</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocument</code> element MUST resolve to NIEM <termRef>reference schema document</termRef>.</p>
 	</rule>
 	
 	<rule id="v1i" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ExtensionSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM <termRef>extension schema document</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExtensionSchemaDocument</code> element MUST resolve to a NIEM <termRef>extension schema document</termRef>.</p>
 	</rule>
 	
 	<rule id="v1j" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SubsetSchemaDocument</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM <termRef>subset schema document</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SubsetSchemaDocument</code> element MUST resolve to a NIEM <termRef>subset schema document</termRef>.</p>
 	</rule>
 
 	<rule id="v1k" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:Wantlist</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>NIEM wantlist</termRef> XML document.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:Wantlist</code> element MUST resolve to a <termRef>NIEM wantlist</termRef> XML document.</p>
 	</rule>
 	
 	<rule id="v1l" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SchematronSchema</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>Schematron schema</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST resolve to a <termRef>Schematron schema</termRef>.</p>
 	</rule>
 
 	<rule id="v1m" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:RelaxNGSchema</code>'s <code>c:pathURI</code> attribute value MUST resolve to a <termRef>RelaxNG schema</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST resolve to a <termRef>RelaxNG schema</termRef>.</p>
 	</rule>
 
 	<rule id="v1n" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SchemaDocumentSet</code>'s <code>c:pathURI</code> attribute value MUST resolve to an <termRef>XML schema document</termRef> set.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchemaDocumentSet</code> element MUST resolve to an <termRef>XML schema document</termRef> set.</p>
 	</rule>
 
 	<rule id="v1o" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ConstraintSchemaDocumentSet</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM <termRef>constraint schema document set</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ConstraintSchemaDocumentSet</code> element MUST resolve to a NIEM <termRef>constraint schema document set</termRef>.</p>
 	</rule>
 
 	<rule id="v1p" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:ReferenceSchemaDocumentSet</code>'s <code>c:pathURI</code> attribute value MUST resolve to a NIEM <termRef>reference schema document set</termRef>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocumentSet</code> element MUST resolve to a NIEM <termRef>reference schema document set</termRef>.</p>
 	</rule>
 
 	<rule id="v1q" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:SchematronSchema</code>'s <code>c:pathURI</code> attribute value MUST resolve to an <termRef>Schematron schema</termRef> .</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST resolve to an <termRef>Schematron schema</termRef> .</p>
 	</rule>
 
 	<rule id="v1r" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:RelaxNGSchema</code>'s <code>c:pathURI</code> attribute value MUST resolve to an <termRef>RelaxNG schema</termRef> .</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST resolve to an <termRef>RelaxNG schema</termRef> .</p>
 	</rule>
 
 	<rule id="v1s" applicability="MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:RequiredFile</code>'s <code>c:pathURI</code> attribute value MUST resolve to a file artifact.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RequiredFile</code> element MUST resolve to a file artifact.</p>
 	</rule>
 
 	<rule id="v2" applicability="IEP">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>IEPConformanceTarget</code>'s <code>c:XPathText</code> attribute value applied to a candidate IEP (an <termRef>XML document</termRef>) will evaluate to an effective Boolean value (EBV).  The candidate is a valid IEP <em>only if</em> that EBV equals <code>"true"</code>.  <ref idref="W3-XPath"/> <link>http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv</link></p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:XPathText</code> attribute owned by a <code>c:IEPConformanceTarget</code> applied to a candidate IEP (an <termRef>XML document</termRef>) will evaluate to an effective Boolean value (EBV).  The candidate is a valid IEP <em>only if</em> that EBV equals <code>"true"</code>.  <ref idref="W3-XPath"/> <link>http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv</link></p>
 	</rule>
 
 	<rule id="v3" applicability="IEP">
-		<p>Given an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, <em>only if</em> its XML document element is also a member of that QName list.</p>
+		<p>Given an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, <em>only if</em> its XML document element is a member of that list of <em>QNames</em>.</p>
 		</rule>
 		
 	<rule id="v4" applicability="IEP">
-		<p>Given an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasElement</code> element, a candidate IEP is a valid IEP, <em>only if</em> it contains an XML element that is also a member of that QName list.</p>
+		<p>Given an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasElement</code> element, a candidate IEP is a valid IEP, <em>only if</em> it contains an XML element that is a member of that list of <em>QNames</em>.</p>
 	</rule>
 	
 	<rule id="v5" applicability="IEP">
@@ -1666,38 +1674,38 @@
 	</rule>
 
 	<rule id="v6" applicability="XML-Catalog">
-		<p>Within an <termRef>XML catalog document</termRef> the value of the <code>uri</code> attribute owned by the <code>URI</code> element MUST resolve to an <termRef>XML schema document</termRef>.</p>
+		<p>Within an <termRef>XML catalog document</termRef> the value of the <code>er:uri</code> attribute owned by the <code>er:URI</code> element MUST resolve to an <termRef>XML schema document</termRef>.</p>
 	</rule>
 
 	<rule id="v7" applicability="XML-Catalog">
-		<p>Within an <termRef>XML catalog document</termRef>, given the <termRef>XML schema document</termRef> resolved by the value of the <code>uri</code> attribute owned by the <code>URI</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>name</code> (namespace) attribute owned by the <code>URI</code> element.</p> 
+		<p>Within an <termRef>XML catalog document</termRef>, given the <termRef>XML schema document</termRef> resolved by the value of the <code>er:uri</code> attribute owned by the <code>er:URI</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>er:name</code> (a namespace string) attribute owned by the <code>er:URI</code> element.</p> 
 	</rule>
 
 	<rule id="v8" applicability="Full-NIEM">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:externalURI</code> attribute value MUST resolve to a resource.</p>
+		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:externalURI</code> attribute owned by an element that is a <code>c:FileType</code> MUST resolve to a resource.</p>
 	</rule>
 
 	<rule id="v9" applicability="Full-NIEM">
-		<p>Within an <termRef>MPD catalog document</termRef> a <code>c:resourceURI</code> attribute value MUST resolve to a resource.</p>
+		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:resourceURI</code> attribute owned by a <code>c:Relationship</code> element MUST resolve to a resource.</p>
 	</rule>
 
 
 
 	<p>Potential rule classifications defined:</p>
 
-	<definition term="valid IEPD">
-		<p>A <em>well-formed IEPD</em>:</p>
+	<definition term="well-formed MPD">
+		<p>A <em>well-formed MPD</em>:</p>
 		<ul>
 			<li><p>Is a valid <ref idref="PKZIP"/> archive file.</p></li>
 			<li><p>Contains one and only one <code>mpd-catalog.xml</code> artifact.</p></li>
 			<li><p>Its <code>mpd-catalog.xml</code> artifact resides in the <termRef>MPD root directory</termRef>.</p></li>
 			<li><p>Its <code>mpd-catalog.xml</code> artifact is XML Schema valid to <ref idref="MPD-Catalog-XSD"/>.</p></li>
-			<li><p>Adheres to the validity rules defined in <ref idref="Valid-vs-Complete-IEPD"/> (this section).</p></li>
+			<li><p>Adheres to the validity rules defined in <ref idref="Well-Formed-vs-Complete-MPD"/> (this section).</p></li>
 		</ul>
 	</definition>
 
-	<definition term="complete IEPD">
-		<p>A <em>complete IEPD</em> satisfies all rules and mandatory requirements of the following specifications:</p>
+	<definition term="complete MPD">
+		<p>A <em>complete MPD</em> satisfies all rules and mandatory requirements of the following specifications:</p>
 		<ul>
 			<li><p>this NIEM MPD Specification (<ref idref="NIEM-MPD"/>)</p></li>
 			<li><p><ref idref="NIEM-NDR"/></p></li>
@@ -2073,6 +2081,7 @@
 	<tr><td>PDF  </td><td>Portable Document Format</td></tr>
 	<tr><td>PMO  </td><td>Program Management Office</td></tr>
 	<tr><td>PNG  </td><td>Portable Network Graphic</td></tr>
+	<tr><td>QName</td><td>Qualified Name (XML Schema: qualified by a namespace prefix)</td></tr>
 	<tr><td>RAR  </td><td>Roshal Archive; a compressed archive file format 
 				named for its developer, Eugene Roshal</td></tr>
 	<tr><td>SSGT </td><td>Schema Subset Generation Tool</td></tr>
