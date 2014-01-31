@@ -290,23 +290,23 @@
 		<p>A schema document set is coherent when it has the following properties:  (1) the set does not refer to a schema document outside the set (i.e., the set is closed), and (2) the set does not include two different versions of the same component in an incompatible way.</p>
 	</definition>
 
-	<p>Consider the following simple example of incoherence in the figures below.  Consider <ref idref="incoherent-not-closed"/> in which Justice domain has published a new schema document (version 4.1).  Note the descendant relationships between the old and new data components.  A schema document set consisting of Screening 1.1 and Justice 4.1 is incoherent because it refers to the old Justice 4.0 schema document outside the set, and therefore, violates the first criterion (the set must be closed).  To <termRef term="resolve URI">resolve</termRef> this we could incorporate the older 4.0 version into this set.  <ref idref="incoherent-incompatible"/> indicates that adding Justice 4.0 violates the second criterion because multiple versions of the same component will exist that are incompatible.  To make a coherent schema document set, either the Screening domain must be adjusted to use the new Justice 4.1 component or the schema document set must be revised to use the Screening domain with Justice 4.0 and not Justice 4.1.</p>
+	<p>Consider the following simple example of incoherence in the figures below.  Consider <ref idref="incoherence-not-closed"/> in which Justice domain has published a new schema document (version 4.1).  Note the descendant relationships between the old and new data components.  A schema document set consisting of Screening 1.1 and Justice 4.1 is incoherent because it refers to the old Justice 4.0 schema document outside the set, and therefore, violates the first criterion (the set must be closed).  To <termRef term="resolve URI">resolve</termRef> this we could incorporate the older 4.0 version into this set.  <ref idref="incoherence-closed-dups"/> indicates that adding Justice 4.0 violates the second criterion because multiple versions of the same component will exist that are incompatible.  To make a coherent schema document set, either the Screening domain must be adjusted to use the new Justice 4.1 component or the schema document set must be revised to use the Screening domain with Justice 4.0 and not Justice 4.1.</p>
 
-	<figure id="incoherent-not-closed">
-		<title>Incoherent schema set - not closed</title>
-		<image src="img/incoherent-not-closed.png"/>
+	<figure id="incoherence-not-closed">
+		<title>Incoherent schema set because it is NOT closed</title>
+		<image src="img/incoherence-not-closed.png"/>
 	</figure>
 
 	<p><char name="nbsp"/></p>
 
-	<figure id="incoherent-incompatible">
-		<title>Incoherent schema set - incompatible data components</title>
-		<image src="img/incoherent-incompatible.png"/>
+	<figure id="incoherence-closed-dups">
+		<title>Incoherent schema set because incompatible, duplicate data components exist within the set</title>
+		<image src="img/incoherence-closed-dups.png"/>
 	</figure>
 
 	<p>In general, two or more versions of a data component are incompatible when a type or element in one version of a schema has been copied to or redefined/redeclared in another, and both versions must exist in the same set because of cross referencing (as in the figure above).  Note that even if all data components have not changed within two versions of the same schema document, a set that contains both schema documents will still be incoherent because the mere duplication of a data component in a new namespace is considered redefinition (and, of course, duplication).</p>
 
-	<p>However, two versions of a data component can also exist in a compatible way.  The compatibility of two different versions of a data component depends on the way the ancestor component was changed to obtain the descendant.  In <ref idref="incoherent-incompatible"/> Justice 4.1 and 4.0 <code>Arrest</code> elements are incompatible because the 4.1 version of <code>Arrest</code> was simply given an additional property (<code>NewElement</code>) and is essentially a redeclaration of the 4.0 version.  This results in two semantically identical elements.  In fact, as already mentioned, even if the <code>ArrestType</code> had remained the same across both versions, the 4.1 version is considered a redefinition and duplication of the 4.0 version.</p>
+	<p>However, two versions of a data component can also exist in a compatible way.  The compatibility of two different versions of a data component depends on the way the ancestor component was changed to obtain the descendant.  In <ref idref="incoherence-closed-dups"/> Justice 4.1 and 4.0 <code>Arrest</code> elements are incompatible because the 4.1 version of <code>Arrest</code> was simply given an additional property (<code>NewElement</code>) and is essentially a redeclaration of the 4.0 version.  This results in two semantically identical elements.  In fact, as already mentioned, even if the <code>ArrestType</code> had remained the same across both versions, the 4.1 version is considered a redefinition and duplication of the 4.0 version.</p>
 
 	<p>On the other hand, if the 4.1 <code>ArrestType</code> had been derived (through type derivation) from the 4.0 version, and the 4.1 <code>Arrest element</code> had been made substitutable for the 4.0 version, then these components would be compatible.  The difference is that these components have a clear relationship to their ancestors that is defined through XML mechanisms, whereas the former components do not.  Furthermore, the substitutability property makes these components easily usable together (i.e., compatible).</p>
 	
