@@ -22,27 +22,25 @@ Status
 
    Email comments on this specification to niem-comments@lists.gatech.edu.
 
-Remaining work
+Remaining work / issues
 
-      1.  Schematron rules for MPD Catalog (associated resource tool kit?)
+      1. Lineage vs relationship?
 
-      2.  Place conformance target notation on all rules.
+      2. Schematron rules for MPD Catalog (associated resource tool kit?)
 
-      3.  Design to consolidate HasElement, HasDocumentElement, etc. in MPD catalog XSD.
+      3. Identify conformance target(s) (CT) for each rule.
 
-      4.  Identify convenient classification of rules based on conformance targets.
+      4. Identify convenient classification of rules based on CTs.
 
-      5.  Definition(s) for "resolve".
+      5. Improve definitions for schema sets.
 
-      6.  Better definitions for schema sets.
+      6. Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent)
 
-      7.  Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent)
+      7. Appendix for Example IEP (from Cursor on Target)
 
-      8.  Appendix for Example IEP (from Cursor on Target)
+      8. QA and validity checks on MPD catalog schema (Appendix A)
 
-      9.  QA and validity checks on MPD catalog schema (Appendix A)
-
-      10. Recheck acronymns/abbreviations
+      9. Recheck acronymns/abbreviations
 
    NOTE: Search on "TBD" to find incomplete items.
 
@@ -258,21 +256,21 @@ Remaining work
 
       A schema document set is coherent when it has the following properties: (1) the set does not refer to a schema document outside the set (i.e., the set is closed), and (2) the set does not include two different versions of the same component in an incompatible way.
 
-   Consider the following simple example of incoherence in the figures below. Consider Figure 2-1, Incoherent schema set - not closed, below, in which Justice domain has published a new schema document (version 4.1). Note the descendant relationships between the old and new data components. A schema document set consisting of Screening 1.1 and Justice 4.1 is incoherent because it refers to the old Justice 4.0 schema document outside the set, and therefore, violates the first criterion (the set must be closed). To [resolve] this we could incorporate the older 4.0 version into this set. Figure 2-2, Incoherent schema set - incompatible data components, below, indicates that adding Justice 4.0 violates the second criterion because multiple versions of the same component will exist that are incompatible. To make a coherent schema document set, either the Screening domain must be adjusted to use the new Justice 4.1 component or the schema document set must be revised to use the Screening domain with Justice 4.0 and not Justice 4.1.
+   Consider the following simple example of incoherence in the figures below. Consider Figure 2-1, Incoherent schema set because it is NOT closed, below, in which Justice domain has published a new schema document (version 4.1). Note the descendant relationships between the old and new data components. A schema document set consisting of Screening 1.1 and Justice 4.1 is incoherent because it refers to the old Justice 4.0 schema document outside the set, and therefore, violates the first criterion (the set must be closed). To resolve this we could incorporate the older 4.0 version into this set. Figure 2-2, Incoherent schema set because incompatible, duplicate data components exist within the set, below, indicates that adding Justice 4.0 violates the second criterion because multiple versions of the same component will exist that are incompatible. To make a coherent schema document set, either the Screening domain must be adjusted to use the new Justice 4.1 component or the schema document set must be revised to use the Screening domain with Justice 4.0 and not Justice 4.1.
 
-   Figure 2-1: Incoherent schema set - not closed
+   Figure 2-1: Incoherent schema set because it is NOT closed
 
       Images are omitted from this edition.
 
     
 
-   Figure 2-2: Incoherent schema set - incompatible data components
+   Figure 2-2: Incoherent schema set because incompatible, duplicate data components exist within the set
 
       Images are omitted from this edition.
 
    In general, two or more versions of a data component are incompatible when a type or element in one version of a schema has been copied to or redefined/redeclared in another, and both versions must exist in the same set because of cross referencing (as in the figure above). Note that even if all data components have not changed within two versions of the same schema document, a set that contains both schema documents will still be incoherent because the mere duplication of a data component in a new namespace is considered redefinition (and, of course, duplication).
 
-   However, two versions of a data component can also exist in a compatible way. The compatibility of two different versions of a data component depends on the way the ancestor component was changed to obtain the descendant. In Figure 2-2, Incoherent schema set - incompatible data components, above, Justice 4.1 and 4.0 Arrest elements are incompatible because the 4.1 version of Arrest was simply given an additional property (NewElement) and is essentially a redeclaration of the 4.0 version. This results in two semantically identical elements. In fact, as already mentioned, even if the ArrestType had remained the same across both versions, the 4.1 version is considered a redefinition and duplication of the 4.0 version.
+   However, two versions of a data component can also exist in a compatible way. The compatibility of two different versions of a data component depends on the way the ancestor component was changed to obtain the descendant. In Figure 2-2, Incoherent schema set because incompatible, duplicate data components exist within the set, above, Justice 4.1 and 4.0 Arrest elements are incompatible because the 4.1 version of Arrest was simply given an additional property (NewElement) and is essentially a redeclaration of the 4.0 version. This results in two semantically identical elements. In fact, as already mentioned, even if the ArrestType had remained the same across both versions, the 4.1 version is considered a redefinition and duplication of the 4.0 version.
 
    On the other hand, if the 4.1 ArrestType had been derived (through type derivation) from the 4.0 version, and the 4.1 Arrest element had been made substitutable for the 4.0 version, then these components would be compatible. The difference is that these components have a clear relationship to their ancestors that is defined through XML mechanisms, whereas the former components do not. Furthermore, the substitutability property makes these components easily usable together (i.e., compatible).
 
@@ -544,7 +542,7 @@ Remaining work
 
       2.  Remove an xs:annotation (includes xs:documentation and xs:appinfo).
 
-      3.  Increase the value of an xs:element/@minOccurs attribute (must be less than or equal to maxOccurs value).
+      3.  Increase the value of an xs:element/@minOccurs attribute (must be less than or equal to @maxOccurs value).
 
       4.  Decrease the value of an xs:element/@maxOccurs attribute (must be greater than or equal to @minOccurs value).
 
@@ -568,7 +566,7 @@ Remaining work
 
       14. Change a concrete xs:/schema/xs:element declaration to @abstract="true".
 
-      15. Change an element from nillable="true" to nillable="false".
+      15. Change an element from @nillable="true" to @nillable="false".
 
       16. Substitute an xs:element/@substitutionGroup member for its associated substitution head.
 
@@ -756,11 +754,11 @@ Remaining work
 
 4.1.1. MPD Catalog as a Table of Contents
 
-   One function of the MPD catalog is to serve as a table of contents that identifies, locates, and classifies key artifacts and artifact sets. For that purposes Appendix A, MPD Catalog XML Schema Document, below, provides a number of classifier elements for most common artifacts in MPDs. For other less common or generic artifacts two general classifiers exist: Documentation and ApplicationInfo. These elements loosely correspond to the meaning of the XML Schema xs:annotation child elements, xs:documentation and xs:appInfo. General visual, audio, and textual explanatory documentation should be classified as Documentation, while tool-specific artifacts (such as imports, exports, executables, etc.) should be classified as ApplicationInfo.
+   One function of the MPD catalog is to serve as a table of contents that identifies, locates, and classifies key artifacts and artifact sets. For that purposes Appendix A, MPD Catalog XML Schema Document, below, provides a number of classifier elements for most common artifacts in MPDs. For other less common or generic artifacts two general classifiers exist: c:Documentation and c:ApplicationInfo. These elements loosely correspond to the meaning of the XML Schema xs:annotation child elements, xs:documentation and xs:appInfo. General visual, audio, and textual explanatory documentation should be classified as c:Documentation, while tool-specific artifacts (such as imports, exports, executables, etc.) should be classified as c:ApplicationInfo.
 
    The classifier elements are designed to identify, categorize, and describe any artifact (including its path name, dependencies, and lineage). Employing XSLT, mpd-catalog.xml can be transformed into an index.html artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.
 
-   In general, only an IEPD or EIEM would contain Documentation and ApplicationInfo artifacts. So, for an IEPD and EIEM, a best practice is to use the master-document artifact (i.e., the [master document] required in the [MPD root directory]) to reference Documentation and ApplicationInfo artifacts whether they have been classified in the mpd catalog or not.
+   In general, only an IEPD or EIEM would contain c:Documentation and c:ApplicationInfo artifacts. So, for an IEPD and EIEM, a best practice is to use the master-document artifact (i.e., the [master document] required in the [MPD root directory]) to reference c:Documentation and c:ApplicationInfo artifacts whether they have been classified in the mpd catalog or not.
 
    Release, core update, and domain update catalogs are required to record all artifacts. However, IEPD and EIEM MPD catalogs are not. The IEPD or EIEM author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog. The author may choose to include all, some, or no artifacts in the catalog.
 
@@ -909,13 +907,13 @@ Remaining work
 
    Note that [Rule 4-7], above, explicitly states that a URI assigned to an MPD must be valid. This means that the person or organization assigning the URI either is the registrant of the domain name, or has authority from the registrant to assign this URL as an MPD URI. In the example above, www.abc.org is the domain name (between the second and third "/"). There is no requirement for a URL assigned to an MPD to [resolve] to any particular Internet resource or to [resolve] at all. However, it is always good practice for such a URL to [resolve] to the resource it represents, the directory it resides in, or to documentation for that resource. See http://www.w3.org/Provider/Style/URI.html
 
-   The MPD version number (i.e., the value of the mpdVersionID in Appendix A, MPD Catalog XML Schema Document, below) is essential to its unique identification. Incorporation of the version number within the MPD URI provides a simple visual (as well as machine readable) means of identifying one of the most fundamental relationships between MPDs, i.e., that one is a different version of another. Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.
+   The MPD version number (i.e., the value of the c:mpdVersionID in Appendix A, MPD Catalog XML Schema Document, below) is essential to its unique identification. Incorporation of the version number within the MPD URI provides a simple visual (as well as machine readable) means of identifying one of the most fundamental relationships between MPDs, i.e., that one is a different version of another. Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.
 
    [Rule 4-8]
 
       The URI for an MPD MUST end in its version number concatenated with a forward slash character ("/").
 
-   And finally, note that Appendix A, MPD Catalog XML Schema Document, below, defines a mandatory attribute for the mpdURI, mpdName, mpdClassCode, and mpdVersionID. Since the ending substring of an MPD URI must be its version ID (followed by forward slash), then the mpd-catalog duplicates the MPD version ID in two locations. By design, Section 7.1, MPD File Name Syntax, below, intentionally duplicates these attribute values in the MPD file name. There are two reasons for this design. First, software tools are expected to build and process mpd-catalogs. Instead of forcing tool developers to parse the URI just to retrieve name, version, and class, the mpd-catalog separates these data items as XML attributes. Second, duplication of that key metadata in both the URI and the file name facilitates fast visual recognition of an MPD, rather than requiring that a user open the archive, open its mpd-catalog.xml, and scan XML content to locate the data.
+   And finally, note that Appendix A, MPD Catalog XML Schema Document, below, defines a mandatory attribute for the c:mpdURI, c:mpdName, c:mpdClassCode, and c:mpdVersionID. Since the ending substring of an MPD URI must be its version ID (followed by forward slash), then the mpd-catalog duplicates the MPD version ID in two locations. By design, Section 7.1, MPD File Name Syntax, below, intentionally duplicates these attribute values in the MPD file name. There are two reasons for this design. First, software tools are expected to build and process mpd-catalogs. Instead of forcing tool developers to parse the URI just to retrieve name, version, and class, the mpd-catalog separates these data items as XML attributes. Second, duplication of that key metadata in both the URI and the file name facilitates fast visual recognition of an MPD, rather than requiring that a user open the archive, open its mpd-catalog.xml, and scan XML content to locate the data.
 
 4.2.3. URI Scheme for MPD Artifacts
 
@@ -951,11 +949,11 @@ Remaining work
 
       2. http://www.abc.org/niem-iepd/order/2.1.2rev3/
 
-   The author of IEPD (1) has decided to reuse (as-is) the extension/request1.xsd artifact in IEPD (2). He/she can optionally create an mpd-catalog ExtensionSchemaDocument entry for this artifact (assuming it is an extension schema document), and add the attribute:
+   The author of IEPD (1) has decided to reuse (as-is) the extension/request1.xsd artifact in IEPD (2). He/she can optionally create an mpd-catalog c:ExtensionSchemaDocument entry for this artifact (assuming it is an extension schema document), and add the attribute:
 
-      @externalURI="http://www.abc.org/niem-iepd/order/2.1.2rev3/#extension/request4.xsd"
+      c:externalURI="http://www.abc.org/niem-iepd/order/2.1.2rev3/#extension/request4.xsd"
 
-   Additional @externalURI attributes can be optionally added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.
+   Additional c:externalURI attributes can be optionally added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.
 
    Note that a URI does not have the same meaning as namespace. Do not rely on namespaces for artifact URIs. Recall that the namespaces used in a schema document subset derived from a NIEM release are identical to the namespaces of the release itself. Furthermore, an IEPD or an EIEM may contain multiple subsets. The non-uniqueness of NIEM namespaces implies that they cannot be used as URIs for MPD artifacts.
 
@@ -969,9 +967,9 @@ Remaining work
 
    An important MPD business requirement is transparency of lineage. MPDs internally facilitate identification of the relationships that may exist among their artifacts, families, versions, adaptations, specializations, generalizations, etc. The URI scheme for MPDs and artifacts as well as the mpd-catalog make this possible.
 
-   The mpd-catalog provides a Relationship element with three attributes (resourceURI, relationshipCode, and descriptionText) to identify the pedigree of an MPD. There are many ways that one MPD may relate to another. This makes it extremely difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional descriptionText attribute is provided to further explain the nature of any of the eight relationshipCode values available {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of relationshipCode may be generic enough to require a more detailed explanation in descriptionText (for example, if its value is adapts).
+   The mpd-catalog provides a c:Relationship element with three attributes (c:resourceURI, c:relationshipCode, and c:descriptionText) to identify the pedigree of an MPD. There are many ways that one MPD may relate to another. This makes it extremely difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional c:descriptionText attribute is provided to further explain the nature of any of the eight c:relationshipCode values available {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in c:descriptionText (for example, if its value is adapts).
 
-   The mpd-catalog also enables an author to record a fine-grained pedigree between MPDs when reusing artifacts from other MPDs. By default each artifact identified in an mpd-catalog has a globally unique URI (using a fragment reference) that can refer to it. An MPD author signifies reuse of a given artifact by entering the URI for that artifact in the optional externalURI attribute within the appropriate FileType or FileSetType elements.
+   The mpd-catalog also enables an author to record a fine-grained pedigree between MPDs when reusing artifacts from other MPDs. By default each artifact identified in an mpd-catalog has a globally unique URI (using a fragment reference) that can refer to it. An MPD author signifies reuse of a given artifact by entering the URI for that artifact in the optional c:externalURI attribute within the appropriate c:FileType or c:FileSetType elements.
 
    Some MPDs are designed for more extensive reuse than others. For example, families of IEPDs are expected to reuse a given EIEM. In such cases, the mpd-catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references. This is expected. The mpd-catalog can contain many references to and semantics for artifacts and MPDs. Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.
 
@@ -1157,7 +1155,7 @@ Remaining work
 
    IEPD authors must employ [XML catalog documents] within IEPDs to facilitate validation of IEPs.
 
-   Assembling a schema or building an [XML catalog document] from the XML schema documents of non-conformant external standards that contain xs:include statements can be problematic. Be aware that if an xml-catalog (resulting from processing a set of external XML schema documents) contains any two uri element entries with identical namespaces, then that xml-catalog cannot be used for XML validation. It will have to be modified to ensure that each namespace resolves to one and only one unique [XML catalog document] uri attribute value.
+   Assembling a schema or building an [XML catalog document] from the XML schema documents of non-conformant external standards that contain xs:include statements can be problematic. Be aware that if an xml-catalog (resulting from processing a set of external XML schema documents) contains any two er:uri element entries with identical namespaces, then that xml-catalog cannot be used for XML validation. It will have to be modified to ensure that each namespace resolves to one and only one unique [XML catalog document] er:uri attribute value.
 
    In order to support schema assembly for the purpose of XML validation, the following rule requires that the namespaces of all XML schema documents used within an IEPD [resolve] to a locally-unique artifact:
 
@@ -1165,7 +1163,7 @@ Remaining work
 
       An IEPD MUST [resolve] each namespace it uses to a locally unique URI through one or more [XML catalog documents].
 
-   This rule implies that NextCatalog elements may be used within [XML catalog documents] to connect them and control their parsing sequence. An IEPD must contain at least one [XML catalog document] because it is the only MPD that can specify an IEP [Definition: Information Exchange Package (IEP)], above, and provide validation instructions that would require schema assembly from XML schema documents. Section 4.6, Information Exchange Packages, below, provides more specifics about using [XML catalog documents] within IEPDs.
+   This rule implies that er:NextCatalog elements may be used within [XML catalog documents] to connect them and control their parsing sequence. An IEPD must contain at least one [XML catalog document] because it is the only MPD that can specify an IEP [Definition: Information Exchange Package (IEP)], above, and provide validation instructions that would require schema assembly from XML schema documents. Section 4.6, Information Exchange Packages, below, provides more specifics about using [XML catalog documents] within IEPDs.
 
 4.6. Information Exchange Packages
 
@@ -1191,7 +1189,7 @@ Remaining work
 
    [Rule 4-18]
 
-      An IEPConformanceTarget MUST be assigned a locally unique NCName value for its structures:id attribute.
+      A c:IEPConformanceTarget MUST be assigned a locally unique NCName value for its structures:id attribute.
 
    An IEPD defines IEP conformance targets by explicitly and formally declaring them within its mpd-catalog. The rule above ensures that conformance targets can be referenced between IEPDs and not only within an IEPD.
 
@@ -1207,53 +1205,55 @@ Remaining work
 
 4.6.2. Declaring Validity Constraints
 
-   Explicit declaration of validity constraints is far more flexible than relying on convention. Declaring validity constraints in the mpd-catalog, frees an IEPD author from having to follow conventional IEPD organization. Many standard validity constraints can be controlled from IEPConformanceTarget elements within the mpd-catalog without the need to standardize IEPD directory structure or hunt for validation artifacts. Instead, the IEPConformanceTarget element identifies the conformance target, the type of validation, and the location of the necessary validation artifact(s). It can also identify IEP samples known to satisfy the validity constraints.
+   Explicit declaration of validity constraints is far more flexible and precise than relying on conventions that can easily be misinterpreted. The c:IEPConformanceTarget element within the [MPD catalog document] can apply several common constraints by explicitly declaring the information required for a given constraint. This information may include the conformance target, context, type of validation, location of validation artifact(s), a specific tests to perform. It can also identify IEP samples known to satisfy the validity constraints.
 
    [Rule 4-19]
 
-      An IEPD MUST explicitly declare all intended validity constraints by employing the IEPConformanceTarget element in its mpd-catalog.xml artifact.
+      An IEPD MUST explicitly declare all intended validity constraints by employing the c:IEPConformanceTarget element in its [MPD catalog document].
 
-   Appendix A, MPD Catalog XML Schema Document, below, provides XML elements for various validity constraints. Each element is in the substitutionGroup for the abstract element ValidityConstraint. Note that there may exist multiple ways to declare the same validity constraint with these elements. This rule only requires that validity constraints be declared once in a single form. For example, it may be possible to use the HasDocumentElement and the ValidToXPath elements to declare the same XML document elements. However, it is only required that an IEPD author use one or the other.
+   Appendix A, MPD Catalog XML Schema Document, below, provides XML elements for various validity constraints. Each element is in the substitutionGroup for the abstract element c:ValidityConstraint. Note that there may exist multiple ways to declare the same validity constraint with these elements. This rule only requires that validity constraints be declared once in a single form. For example, it may be possible to use the c:HasDocumentElement and the c:ValidToXPath elements to declare the same XML document elements. However, it is only required that an IEPD author use one or the other.
 
-   Recall that this section is not applicable to an MPD that is an EIEM, because it does not define an information exchange. That said, there may be good rationales for an EIEM author to provide validity constraints with an EIEM. However, this is not a required for an EIEM.
+   Recall that this section is not applicable to an MPD that is an EIEM, because it does not define an information exchange. That said, an EIEM author may have good rationales for providing validity constraints with an EIEM. However, this is not required for an EIEM.
 
-   The following subsections explain in more detail the purpose and use of each IEPConformanceTarget validity constraint.
+   The following subsections explain in more detail the purpose and use of each c:IEPConformanceTarget validity constraint.
 
-4.6.2.1. ValidToXPath
+4.6.2.1. c:ValidToXPath
 
-   ValidToXPath is the most generic of the constraints provided. Its purpose is to ensure that some given condition is satisfied within an IEP. The condition is defined by an XPath expression contained in the xPathText attribute. If the XPath expression applied to a target instance XML document returns a Boolean value of TRUE, then the condition is satisfied by that XML document.
+   c:ValidToXPath is the most generic of the constraints provided. Its purpose is to ensure that some given condition is satisfied within an IEP. The condition is defined by an XPath expression contained in the c:xPathText attribute. If the XPath expression applied to a target instance XML document returns a Boolean value of TRUE, then the condition is satisfied by that XML document.
 
-   This validity constraint is useful for a variety of purposes. For example, an IEPD author may require that a given IEPConformanceTarget) must contain a particular element with a particular attribute whose value is an integer greater than some required minimum. An XPath expression can validate this.
+   This validity constraint is useful for a variety of purposes. For example, an IEPD author may require that a given c:IEPConformanceTarget) must contain a particular element with a particular attribute whose value is an integer greater than some required minimum. An XPath expression can validate this.
 
-   Of course, ValidToXPath can also employ a simple XPath expression to validate that an IEP is rooted with an intended XML document element. However, there are other validity constraints that can do this as well. The IEPD author may choose the configuration.
+   Of course, c:ValidToXPath can also employ a simple XPath expression to validate that an IEP is rooted with an intended XML document element. However, other validity constraints can do this as well; the IEPD author may choose the constraint representation.
 
-4.6.2.2. XMLSchemaValid
+   c:ValidityContext says where to check. c:ValidToXPath shows what test to execute. For example, the context provided by c:ValidityContext might be //my:speedingTicket, while the c:ValidToXPath might require that a test for exists(nc:DriverPerson) be true.
 
-   Because NIEM is based on XML Schema, then XMLSchemaValid will likely be employed by almost all IEPDs. This constraint simply ensures that an IEP artifact is schema valid to an XML schema described by and assembled with an XML Catalog. The starting XML Catalog artifact is identified by the XMLCatalog element.
+4.6.2.2. c:XMLSchemaValid
 
-4.6.2.3. SchematronValid
+   Because NIEM is based on XML Schema, then c:XMLSchemaValid will likely be employed by almost all IEPDs. This constraint simply ensures that an IEP artifact is schema valid to an XML schema described by and assembled with an XML Catalog. The starting XML Catalog artifact is identified by the c:XMLCatalog element.
 
-   SchematronValid is similar to XMLSchemaValid, but uses a SchematronSchema element to identify the Schematron rule file that applies to the IEP.
+4.6.2.3. c:SchematronValid
 
-4.6.2.4. RelaxNGValid
+   c:SchematronValid is similar to c:XMLSchemaValid, but uses a c:SchematronSchema element to identify the Schematron rule file that applies to the IEP.
 
-   RelaxNGValid is similar to the previous two validity constraints, but uses a RelaxNGSchema element to identify the RelaxNG schema file to which the IEP must validate.
+4.6.2.4. c:RelaxNGValid
 
-4.6.2.5. HasDocumentElement
+   c:RelaxNGValid is similar to the previous two validity constraints, but uses a c:RelaxNGSchema element to identify the RelaxNG schema file to which the IEP must validate.
 
-   HasDocumentElement is a validity constraint that identifies all intended XML document elements for an IEP conformance target. This constraint ensures that an IEP artifact is rooted by one XML document element that is a member of the list of elements in its qualifiedNameList attribute. This is a common validity constraint employed by simple IEPDs that declare one or more intended XML document elements.
+4.6.2.5. c:HasDocumentElement
 
-   Note that this validity constraint only declares XML document elements. If an IEPD defines IEPs for payloads and envelopes (i.e., one IEP encapsulates another), then other validity constraints will be required (such as ValidToXPath) to validate conformance targets that are not necessarily XML document elements.
+   c:HasDocumentElement is a validity constraint that identifies all intended XML document elements for an IEP conformance target. This constraint ensures that an IEP artifact is rooted by one XML document element that is a member of the list of elements in its c:qualifiedNameList attribute. This is a common validity constraint employed by simple IEPDs that declare one or more intended XML document elements.
 
-4.6.2.6. ConformsToConformanceTarget
+   Note that this validity constraint only declares XML document elements. If an IEPD defines IEPs for payloads and envelopes (i.e., one IEP encapsulates another), then other validity constraints will be required (such as c:ValidToXPath) to validate conformance targets that are not necessarily XML document elements.
 
-   ConformsToConformanceTarget enables an IEPD author to effectively subclass and relate conformance target classes. For example, using this constraint, a given conformance target class defined by an IEPConformanceTarget structures:id="A2" can be required to also conform to another class structures:id="A1". This creates an IS-A relationship. We say that A2 is an A1, or that A2 is a specialization of A1.
+4.6.2.6. c:ConformsToConformanceTarget
 
-   Conformance target classes are related through the ConformsToConformanceTarget/conformanceTargetURI attribute. Recall in [Definition: IEP conformance target URI], above, that this URI is formed by the concatenation of the URI of the IEPD (mpdURI) itself, the pound character ("#"), and the value of the conformance class structures:id.
+   c:ConformsToConformanceTarget enables an IEPD author to effectively subclass and relate conformance target classes. For example, using this constraint, a given conformance target class defined by a c:IEPConformanceTarget structures:id="A2" can be required to also conform to another class structures:id="A1". This creates an IS-A relationship. We say that A2 is-an A1, or that A2 is-a specialization of A1.
 
-4.6.2.7. ConformsToRule
+   Conformance target classes are related through the c:conformanceTargetURI attribute owned by c:ConformsToConformanceTarget. Recall in [Definition: IEP conformance target URI], above, that this URI is formed by the concatenation of the URI of the IEPD (c:mpdURI) itself, the pound character ("#"), and the value of the conformance class structures:id.
 
-   Sometimes it is not possible to formally declare an executable validity constraint. For example, we can mandate that a data component definition must be present, must be in English, and must follow [ISO 11179-4]. Validating that text is present is easy, and validating that is in English is more difficult, but validating that it obeys [ISO 11179-4] is intractable. Thus, ConformsToRule provides an IEPD author with English text representation as an alternative when it is not possible or not easy to define more formal validation rules or validity constraints.
+4.6.2.7. c:ConformsToRule
+
+   Sometimes it is not possible to formally declare an executable validity constraint. For example, we can mandate that a data component definition must be present, must be in English, and must follow [ISO 11179-4]. Validating that text is present is easy, and validating that is in English is more difficult, but validating that it obeys [ISO 11179-4] is intractable. Thus, c:ConformsToRule provides an IEPD author with English text representation as an alternative when it is not possible or not easy to define more formal validation rules or validity constraints.
 
 4.6.3. IEP Sample XML Instance Documents
 
@@ -1269,7 +1269,7 @@ Remaining work
 
    [Rule 4-20]
 
-      An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared IEPConformanceTarget. If applicable and appropriate, one IEP sample MAY exemplify multiple conformance targets.
+      An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared c:IEPConformanceTarget. If applicable and appropriate, one IEP sample MAY exemplify multiple conformance targets.
 
    Note that this rule requires that each IEP conformance target be covered by at least one IEP sample document instance. This does not necessarily mandate a different IEP sample for each IEP conformance target. It may be possible, and is therefore acceptable, for a given IEP sample to serve as an example of one or more IEP conformance targets.
 
@@ -1584,7 +1584,7 @@ Remaining work
 
    [Rule 7-5]
 
-      For an MPD, the file name substrings for name, version, and class MUST match exactly the mpd-catalog.xml attribute values for mpdName, mpdVersionID, and mpdClassCode respectively.
+      For an MPD, the file name substrings for name, version, and class MUST match exactly the mpd-catalog.xml attribute values for c:mpdName, c:mpdVersionID, and c:mpdClassCode respectively.
 
    In HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.
 
@@ -1618,11 +1618,11 @@ Remaining work
 
    Refer to [Rule 7-6], above, for Internet representation of IEPDs or EIEMs.
 
-   The [NIEM NDR] explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant. Other standards may use xs:import without requiring schemaLocation attributes (instead, relying only on the namespace value). These standards may also use xs:include. This XML Schema construct is disallowed by NIEM. When standards external to NIEM are required within MPDs, the following rule applies:
+   The [NIEM NDR] explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant. Other standards may use xs:import without requiring xs:schemaLocation attributes (instead, relying only on the namespace value). These standards may also use xs:include. This XML Schema construct is disallowed by NIEM. When standards external to NIEM are required within MPDs, the following rule applies:
 
    [Rule 7-10]
 
-      Within an MPD, if non-conformant external schema documents are used, then any references from these schema documents to other namespaces MUST [resolve] to local URIs. schemaLocation attributes or XML catalogs can be used to ensure resolution.
+      Within an MPD, if non-conformant external schema documents are used, then any references from these schema documents to other namespaces MUST [resolve] to local URIs. xs:schemaLocation attributes or XML catalogs can be used to ensure resolution.
 
    For the case of non-NIEM-conformant schemas, this rule ensures that all schemas (or corresponding artifacts and namespaces) from external standards required for definition, validation, and use of the MPD are present within the archive.
 
@@ -1810,6 +1810,15 @@ Appendix A. MPD Catalog XML Schema Document
          <annotation>
    	<documentation>An MPD artifact that contains business rules 
    	and constraints on exchange content.</documentation>
+         </annotation>
+       </element>
+   
+       <element name="XMLSchemaDocument" type="c:FileType" 
+   	     substitutionGroup="c:Artifact">
+         <annotation>
+   	<documentation>An MPD artifact that is a an XML schema document (i.e., an
+   	XSD that is not necessarily a NIEM subset, extension, or reference schema).
+   	</documentation>
          </annotation>
        </element>
    
@@ -2190,32 +2199,67 @@ Appendix A. MPD Catalog XML Schema Document
          <complexContent>
    	<extension base="structures:ObjectType">
    	  <sequence>
-   	    <element ref="nc:DescriptionText"     minOccurs="0"/>
-   	    <element ref="c:ValidityConstraint"   minOccurs="0" 
-   		    				  maxOccurs="unbounded"/>
-   	    <element ref="c:IEPSampleXMLDocument" minOccurs="0" 
-   		    				  maxOccurs="unbounded"/>
+   	    <element ref="nc:DescriptionText"     	minOccurs="0"/>
+   	    <element ref="c:ValidityConstraintWithContext" minOccurs="0" 
+   		    				  	maxOccurs="unbounded"/>
+   	    <element ref="c:IEPSampleXMLDocument" 	minOccurs="0" 
+   		    				  	maxOccurs="unbounded"/>
        	  </sequence>
    	</extension>
          </complexContent>
        </complexType>
+       
+       <element name="ValidityConstraintWithContext" abstract="true">
+         <annotation>
+           <documentation>A rule or instructions for validating an IEP candidate
+           (XML document) using some context within that XML document. 
+   	</documentation>
+         </annotation>
+       </element>
    
-       <element name="ValidityConstraint" abstract="true">
+       <element name="ValidityConstraint" abstract="true" 
+   	     substitutionGroup="c:ValidityConstraintWithContext">
          <annotation>
    	<documentation>A rule or instructions for validating an IEP candidate.
    	</documentation>
          </annotation>
        </element>
    
+       <element name="ValidityContext" type="c:ValidityContextType"
+   	     substitutionGroup="c:ValidityConstraintWithContext">
+         <annotation>
+   	<documentation>A rule or instructions for validating an IEP candidate
+   	within context defined by an XPath expression.
+   	</documentation>
+         </annotation>
+       </element>
+   
+       <complexType name="ValidityContextType">
+         <annotation>
+   	<documentation>A data type for a rule or instructions for validating  
+   	an IEP candidate within context defined by an XPath expression.
+   	</documentation>
+         </annotation>
+         <complexContent>
+           <extension base="structures:ObjectType">
+             <sequence>
+   	    <element ref="nc:DescriptionText" minOccurs="0"/>
+   	    <element ref="c:ValidityConstraint" maxOccurs="unbounded"/>
+             </sequence>
+             <attribute ref="c:xPathText" use="required"/>
+           </extension>
+         </complexContent>
+       </complexType>
+    
    
    <!-- Validity Constraints ======================================================== -->
    
        <element name="ValidToXPath" type="c:XPathType"
    	    substitutionGroup="c:ValidityConstraint">
          <annotation>
-   	<documentation>A validity constraint that indicates that the given XPath 
-   	expression, evaluated against an artifact, has an effective boolean value 
-   	of TRUE.</documentation>
+   	<documentation>A validity constraint that has a an XPath expression that 
+   	MUST have an effective Boolean value of "TRUE" when applied to a valid IEP. 
+   	</documentation>
          </annotation>
        </element>
    
@@ -2249,21 +2293,6 @@ Appendix A. MPD Catalog XML Schema Document
          </annotation>
        </element>
    
-       <complexType name="ValidationWithValidationRootType">
-         <annotation>
-   	<documentation>A datatype for a base for a validation that may start with 
-   	a validation root.</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-             <sequence>
-               <element ref="nc:DescriptionText"    minOccurs="0"/>
-               <element ref="c:ValidationRootXPath" minOccurs="0"/>
-             </sequence>
-           </extension>
-         </complexContent>
-       </complexType>
-   
        <complexType name="XMLSchemaValidationType">
          <annotation>
    	<documentation>A datatype for an XML Schema validation constraint, indicating
@@ -2271,21 +2300,14 @@ Appendix A. MPD Catalog XML Schema Document
    	description of validation roots for assessment of validity.</documentation>
          </annotation>
          <complexContent>
-           <extension base="c:ValidationWithValidationRootType">
-             <sequence>
+           <extension base="structures:ObjectType">
+   	  <sequence>
+   	    <element ref="nc:DescriptionText" minOccurs="0"/>
                <element ref="c:XMLCatalog"/>
              </sequence>
            </extension>
          </complexContent>
        </complexType>
-   
-       <element name="ValidationRootXPath" type="c:XPathType">
-         <annotation>
-   	<documentation>An XPath expression that identifies a seqence of zero or more
-   	validation root elements for a validity constraint on an XML document.
-   	</documentation>
-         </annotation>
-       </element>
    
        <element name="SchematronValid" 
                 type="c:SchematronValidationType"
@@ -2305,8 +2327,9 @@ Appendix A. MPD Catalog XML Schema Document
    	</documentation>
          </annotation>
          <complexContent>
-           <extension base="c:ValidationWithValidationRootType">
-             <sequence>
+           <extension base="structures:ObjectType">
+   	  <sequence>
+   	    <element ref="nc:DescriptionText" minOccurs="0"/>
                <element ref="c:SchematronSchema"/>
              </sequence>
            </extension>
@@ -2314,7 +2337,7 @@ Appendix A. MPD Catalog XML Schema Document
        </complexType>
    
        <element name="RelaxNGValid" type="c:RelaxNGValidationType"
-   	substitutionGroup="c:ValidityConstraint">
+   	     substitutionGroup="c:ValidityConstraint">
          <annotation>
    	<documentation>A validity constraint that indicates that an artifact must
    	be valid against the rules carried by a RelaxNG schema.</documentation>
@@ -2329,28 +2352,20 @@ Appendix A. MPD Catalog XML Schema Document
    	</documentation>
          </annotation>
          <complexContent>
-           <extension base="c:ValidationWithValidationRootType">
+           <extension base="structures:ObjectType">
              <sequence>
-               <element ref="c:RelaxNGSchema"/>
+   	    <element ref="nc:DescriptionText" minOccurs="0"/>
+   	    <element ref="c:RelaxNGSchema"/>
              </sequence>
            </extension>
          </complexContent>
        </complexType>
    
        <element name="HasDocumentElement" type="c:QualifiedNamesType" 
-   	substitutionGroup="c:ValidityConstraint">
+   	     substitutionGroup="c:ValidityConstraintWithContext">
          <annotation>
    	<documentation>A validity constraint that indicates that an artifact has
    	a document element with a name that is one of the given qualified names.
-   	</documentation>
-         </annotation>
-       </element>
-   
-       <element name="HasElement" type="c:QualifiedNamesType" 
-   	substitutionGroup="c:ValidityConstraint">
-         <annotation>
-   	<documentation>A validity constraint that indicates that an artifact
-   	has an element with a name that is one of the given qualified names.
    	</documentation>
          </annotation>
        </element>
@@ -2589,24 +2604,24 @@ Appendix B. Example Instance XML Document Catalog
      <c:MPD 
         c:mpdURI="http://example.org/myIEPD/"
         c:mpdClassCode="iepd"
-        c:mpdName="Speeding Ticket"
+        c:mpdName="speeding-ticket"
         c:mpdVersionID="1.0"
         >
-       <c:Metadata>
-         <c:CreationDate>2013-09-18</c:CreationDate>
+       <c:MPDInformation>
          <c:AuthoritativeSource>
          </c:AuthoritativeSource>
-       </c:Metadata>
+         <c:CreationDate>2013-09-18</c:CreationDate>
+       </c:MPDInformation>
        <c:IEPConformanceTarget structures:id="message">
+        <c:ValidityContext c:xPathText="//ns:ParkingTicket">
          <c:XMLSchemaValid>
            <nc:DescriptionText>MUST be valid to this XML Schema.</nc:DescriptionText>
-           <c:ValidationRootXPath c:xPathText="//ns:ParkingTicket"/>
            <c:XMLCatalog c:pathURI="xml-catalog.xml"/>
          </c:XMLSchemaValid>
          <c:SchematronValid>
            <c:SchematronSchema c:pathURI="rules.sch"/>
          </c:SchematronValid>
-         <c:ValidToXPath c:xPathText="//xml-catalog.xml"/>
+        </c:ValidityContext>
        </c:IEPConformanceTarget>
        <c:MasterDocument
           c:pathURI="master-document.html">
@@ -2659,7 +2674,7 @@ Appendix D. Guidance for IEPD Directories (non-normative)
 
       *  Maintain tool-specific artifacts (inputs, outputs, imports, exports, etc.) in a subdirectory with a name that begins with the substring application-info.
 
-   Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD or EIEM. Regardless of directory organization and file naming, an IEPD or EIEM author should always configure all IEP conformance targets using the MPD catalog IEPConformanceTarget element and the appropriate validation artifacts (such as XML catalogs, Schematron schemas, RelaxNG schemas, etc.).
+   Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD or EIEM. Regardless of directory organization and file naming, an IEPD or EIEM author should always configure all IEP conformance targets using the MPD catalog c:IEPConformanceTarget element and the appropriate validation artifacts (such as XML catalogs, Schematron schemas, RelaxNG schemas, etc.).
 
    The guidance above results in an IEPD directory structure that appears below. Filenames within the extension, external, exchange, schematron, and iep-sample subdirectories are non-normative examples. Authors are free to assign names for such files according to their own requirements (if they do not violate the rules in this specification for files such as mpd-catalog.xml or changelog.*).
 
