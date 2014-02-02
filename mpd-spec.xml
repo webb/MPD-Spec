@@ -1464,19 +1464,17 @@
 <section id="Declaring-Validity-Constraints">
 	<title>Declaring Validity Constraints</title>
 
-	<p>Explicit declaration of validity constraints is far more flexible than relying on convention.  Declaring validity constraints in the mpd-catalog, frees an IEPD author from having to follow conventional IEPD organization.  Many standard validity constraints can be controlled from <code>c:IEPConformanceTarget</code> elements within the mpd-catalog without the need to standardize IEPD directory structure or hunt for validation artifacts.  Instead, the <code>c:IEPConformanceTarget</code> element identifies the conformance target, the type of validation, and the location of the necessary validation artifact(s).  It can also identify IEP samples known to satisfy the validity constraints.</p>
+	<p>Explicit declaration of validity constraints is far more flexible and precise than relying on conventions that can easily be misinterpreted.  The <code>c:IEPConformanceTarget</code> element within the <termRef>MPD catalog document</termRef> can apply several common constraints by explicitly declaring the information required for a given constraint.  This information may include the conformance target, context, type of validation, location of validation artifact(s), a specific tests to perform.  It can also identify IEP samples known to satisfy the validity constraints.</p>
 
 	<rule id="validity-constraints">
-		<p>An IEPD MUST explicitly declare all intended validity constraints by employing the <code>c:IEPConformanceTarget</code> element in its <code>mpd-catalog.xml</code> artifact.</p>
+		<p>An IEPD MUST explicitly declare all intended validity constraints by employing the <code>c:IEPConformanceTarget</code> element in its <termRef>MPD catalog document</termRef>.</p>
 	</rule>
 
 	<p><ref idref="MPD-Catalog-XSD"/> provides XML elements for various validity constraints.  Each element is in the <code>substitutionGroup</code> for the abstract element <code>c:ValidityConstraint</code>.  Note that there may exist multiple ways to declare the same validity constraint with these elements.  This rule only requires that validity constraints be declared once in a single form.  For example, it may be possible to use the <code>c:HasDocumentElement</code> and the <code>c:ValidToXPath</code> elements to declare the same XML document elements.  However, it is only required that an IEPD author use one or the other.</p> 
 
-	<p>Recall that this section is not applicable to an MPD that is an EIEM, because it does not define an information exchange.  That said, there may be good rationales for an EIEM author to provide validity constraints with an EIEM.  However, this is not a required for an EIEM.</p>
+	<p>Recall that this section is not applicable to an MPD that is an EIEM, because it does not define an information exchange.  That said, an EIEM author may have good rationales for providing validity constraints with an EIEM.  However, this is not required for an EIEM.</p>
 
-	<p>The following subsections explain in more detail the purpose and use of each <code>c:IEPConformanceTarget</code> validity constraint.</p>	
-
-
+	<p>The following subsections explain in more detail the purpose and use of each <code>c:IEPConformanceTarget</code> validity constraint.</p>
 
 <section id="ValidToXPath">
 	<title>c:ValidToXPath</title>
@@ -1485,7 +1483,9 @@
 
 	<p>This validity constraint is useful for a variety of purposes.  For example, an IEPD author may require that a given <code>c:IEPConformanceTarget</code>) must contain a particular element with a particular attribute whose value is an integer greater than some required minimum.  An XPath expression can validate this.</p>
 
-	<p>Of course, <code>c:ValidToXPath</code> can also employ a simple XPath expression to validate that an IEP is rooted with an intended XML document element.  However, there are other validity constraints that can do this as well.  The IEPD author may choose the configuration.</p>
+	<p>Of course, <code>c:ValidToXPath</code> can also employ a simple XPath expression to validate that an IEP is rooted with an intended XML document element.  However, other validity constraints can do this as well; the IEPD author may choose the constraint representation.</p>
+
+	<p><code>c:ValidityContext</code> says <em>where</em> to check.  <code>c:ValidToXPath</code> shows <em>what test</em> to execute.  For example, the context provided by <code>c:ValidityContext</code> might be <code>//my:speedingTicket</code>, while the <code>c:ValidToXPath</code> might require that a test for <code>exists(nc:DriverPerson)</code> be true.</p>
 
 </section>
 
