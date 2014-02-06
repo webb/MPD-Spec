@@ -1471,10 +1471,9 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 		<p>An IEPD MUST explicitly declare all intended validity constraints by employing the <code>c:IEPConformanceTarget</code> element in its <termRef>MPD catalog document</termRef>.</p>
 	</rule>
 
-	<p><ref idref="MPD-Catalog-XSD"/> provides XML elements for various validity constraints.  
-		<code>c:ValidityConstraintWithContext</code> is an abstract element for which either of <code>c:ValidityConstraint</code> or <code>c:ValidityContext</code> may be substituted.  <code>
-		
-		Each element is in the <code>substitutionGroup</code> for the abstract element <code>c:ValidityConstraint</code>.  Note that there may exist multiple ways to declare the same validity constraint with these elements.  This rule only requires that validity constraints be declared once in a single form.  For example, it may be possible to use the <code>c:HasDocumentElement</code> and the <code>c:ValidToXPath</code> elements to declare the same XML document elements.  However, it is only required that an IEPD author use one or the other.</p> 
+	<p><ref idref="MPD-Catalog-XSD"/> provides XML elements for various validity constraints.  These constraints are employed by element substitution using two abstract elements, <code>c:ValidityConstraintWithContext</code> and <code>c:ValidityConstraint</code>.  <ref idref="MPD-Catalog-XSD"/> normatively specifies how this works.</p>
+
+	<p>Note that there may exist multiple ways to declare the same validity constraint with these elements.  This rule only requires that each required validity constraint be declared once in a single form.  For example, it may be possible to use either <code>c:HasDocumentElement</code> and <code>c:ValidToXPath</code> to declare the same XML document elements.  However, it is only required that an IEPD author use one or the other.</p> 
 
 	<p>Recall that this section is not applicable to an MPD that is an EIEM, because it does not define an information exchange.  That said, an EIEM author may have good rationales for providing validity constraints with an EIEM.  However, this is not required for an EIEM.</p>
 
@@ -1738,7 +1737,7 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 	</rule>
 
 	<rule id="v2" applicability="IEP">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:XPathText</code> attribute owned by a <code>c:ValidToXPath</code> element applied to a candidate IEP (an <termRef>XML document</termRef>) will evaluate to an effective Boolean value (EBV) as defined in <ref idref="W3-XPath"/> <a href http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv><char name="sect"> 2.4.3 <q>Effective Boolean Value</q></a>.  The candidate is a valid IEP <em>only if</em> the EBV evaluates to <code>"true"</code>.</p>
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:XPathText</code> attribute owned by a <code>c:ValidToXPath</code> element applied to a candidate IEP (an <termRef>XML document</termRef>) will evaluate to an effective Boolean value (EBV) as defined in <ref idref="W3-XPath"/> <a href="http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv"><char name="sect"> 2.4.3 <q>Effective Boolean Value</q></a>.  The candidate is a valid IEP <em>only if</em> the EBV evaluates to <code>"true"</code>.</p>
 	</rule>
 
 	<rule id="v3" applicability="IEP">
