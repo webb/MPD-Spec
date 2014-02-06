@@ -748,9 +748,9 @@ Remaining work / issues
 
          *  bears the file name mpd-catalog.xml.
 
-   Note that the Appendix A, MPD Catalog XML Schema Document, below, is a fairly relaxed XML schema definition with very few mandatory properties. The reason for this is to support tools that must identify and distiguish a [well-formed] from a [complete MPD] during incremental stages of development. This is explained in more detail in Section 6.1, Well Formed MPD, below.
+   Note that the Appendix A, MPD Catalog XML Schema Document, below, is a fairly relaxed XML schema definition with very few mandatory properties. The reason for this is to support tools that must identify and distiguish a [well-formed] from a [complete MPD] during incremental stages of development. This is explained in more detail in Section 5.1, Well Formed MPD, below.
 
-   Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a [complete MPD], special Schematron rules must also be applied to an MPD catalog to ensure its validity or completeness Section 6.1, Well Formed MPD, below.
+   Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a [complete MPD], special Schematron rules must also be applied to an MPD catalog to ensure its validity or completeness Section 5.1, Well Formed MPD, below.
 
 4.1.1. MPD Catalog as a Table of Contents
 
@@ -913,7 +913,7 @@ Remaining work / issues
 
       The URI for an MPD MUST end in its version number concatenated with a forward slash character ("/").
 
-   And finally, note that Appendix A, MPD Catalog XML Schema Document, below, defines a mandatory attribute for the c:mpdURI, c:mpdName, c:mpdClassCode, and c:mpdVersionID. Since the ending substring of an MPD URI must be its version ID (followed by forward slash), then the mpd-catalog duplicates the MPD version ID in two locations. By design, Section 8.1, MPD File Name Syntax, below, intentionally duplicates these attribute values in the MPD file name. There are two reasons for this design. First, software tools are expected to build and process mpd-catalogs. Instead of forcing tool developers to parse the URI just to retrieve name, version, and class, the mpd-catalog separates these data items as XML attributes. Second, duplication of that key metadata in both the URI and the file name facilitates fast visual recognition of an MPD, rather than requiring that a user open the archive, open its mpd-catalog.xml, and scan XML content to locate the data.
+   And finally, note that Appendix A, MPD Catalog XML Schema Document, below, defines a mandatory attribute for the c:mpdURI, c:mpdName, c:mpdClassCode, and c:mpdVersionID. Since the ending substring of an MPD URI must be its version ID (followed by forward slash), then the mpd-catalog duplicates the MPD version ID in two locations. By design, Section 7.1, MPD File Name Syntax, below, intentionally duplicates these attribute values in the MPD file name. There are two reasons for this design. First, software tools are expected to build and process mpd-catalogs. Instead of forcing tool developers to parse the URI just to retrieve name, version, and class, the mpd-catalog separates these data items as XML attributes. Second, duplication of that key metadata in both the URI and the file name facilitates fast visual recognition of an MPD, rather than requiring that a user open the archive, open its mpd-catalog.xml, and scan XML content to locate the data.
 
 4.2.3. URI Scheme for MPD Artifacts
 
@@ -1333,9 +1333,7 @@ Remaining work / issues
 
    The conformance targets that follow do not equate to levels of conformance, although it may be possible to sequence them as such. These conformance targets represent sets of rules, grouped and labeled because they are related. Each group of rules can be applied independently of the other groups. The label provides an easy way to refer to them and to an MPD that has passed that set of rules.
 
-6. MPD Conformance Targets
-
-6.1. Well Formed MPD
+5.1. Well Formed MPD
 
    [Definition: well-formed MPD]
 
@@ -1349,7 +1347,7 @@ Remaining work / issues
 
          *  Its mpd-catalog.xml artifact is XML Schema valid to Appendix A, MPD Catalog XML Schema Document, below.
 
-         *  Adheres to the validity rules defined in Section 6.1, Well Formed MPD, above, (i.e., this section).
+         *  Adheres to the validity rules defined in Section 5.1, Well Formed MPD, above, (i.e., this section).
 
    All MPDs use URIs to identify, find, or acquire artifacts and other resources. As such, the following definition for resolving URIs will be useful to validation rules.
 
@@ -1367,111 +1365,111 @@ Remaining work / issues
 
    Regarding the rules that follow, (X) to the right of the rule number indicates the applicable conformance target "X".
 
-   [Rule 6-1] (MPD)
+   [Rule 5-1] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute MUST [resolve] to an MPD artifact.
 
-   [Rule 6-2] (MPD)
+   [Rule 5-2] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:XMLCatalog element MUST [resolve] to an [XML catalog document].
 
-   [Rule 6-3] (MPD)
+   [Rule 5-3] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:MPDChangeLog element MUST [resolve] to a [change log].
 
-   [Rule 6-4] (MPD)
+   [Rule 5-4] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:MasterDocument element MUST [resolve] to a [master document].
 
-   [Rule 6-5] (MPD)
+   [Rule 5-5] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:IEPSampleXMLDocument element MUST [resolve] to an [XML document].
 
-   [Rule 6-6] (MPD)
+   [Rule 5-6] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:BusinessRulesArtifact element MUST [resolve] to a [business rule schema] or [business rules] artifact.
 
-   [Rule 6-7] (MPD)
+   [Rule 5-7] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ExternalSchemaDocument element MUST [resolve] to an [XML schema document].
 
-   [Rule 6-8] (MPD)
+   [Rule 5-8] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ReferenceSchemaDocument element MUST [resolve] to NIEM [reference schema document].
 
-   [Rule 6-9] (MPD)
+   [Rule 5-9] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ExtensionSchemaDocument element MUST [resolve] to a NIEM [extension schema document].
 
-   [Rule 6-10] (MPD)
+   [Rule 5-10] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:SubsetSchemaDocument element MUST [resolve] to a NIEM [subset schema document].
 
-   [Rule 6-11] (MPD)
+   [Rule 5-11] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:Wantlist element MUST [resolve] to a [NIEM wantlist] XML document.
 
-   [Rule 6-12] (MPD)
+   [Rule 5-12] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:SchematronSchema element MUST [resolve] to a [Schematron schema].
 
-   [Rule 6-13] (MPD)
+   [Rule 5-13] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:RelaxNGSchema element MUST [resolve] to a [RelaxNG schema].
 
-   [Rule 6-14] (MPD)
+   [Rule 5-14] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:SchemaDocumentSet element MUST [resolve] to an [XML schema document] set.
 
-   [Rule 6-15] (MPD)
+   [Rule 5-15] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ConstraintSchemaDocumentSet element MUST [resolve] to a NIEM [constraint schema document set].
 
-   [Rule 6-16] (MPD)
+   [Rule 5-16] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ReferenceSchemaDocumentSet element MUST [resolve] to a NIEM [reference schema document set].
 
-   [Rule 6-17] (MPD)
+   [Rule 5-17] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:SchematronSchema element MUST [resolve] to an [Schematron schema] .
 
-   [Rule 6-18] (MPD)
+   [Rule 5-18] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:RelaxNGSchema element MUST [resolve] to an [RelaxNG schema] .
 
-   [Rule 6-19] (MPD)
+   [Rule 5-19] (MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:RequiredFile element MUST [resolve] to a file artifact.
 
-   [Rule 6-20] (IEP)
+   [Rule 5-20] (IEP)
 
       Within the [MPD catalog document] the value of a c:XPathText attribute owned by a c:ValidToXPath element applied to a candidate IEP (an [XML document]) will evaluate to an effective Boolean value (EBV) as defined in [W3C XPath 2.0] section  2.4.3 "Effective Boolean Value". The candidate is a valid IEP only if the EBV evaluates to true.
 
-   [Rule 6-21] (IEP)
+   [Rule 5-21] (IEP)
 
       Given an [MPD catalog document] with a c:qualifiedNameList attribute owned by a c:HasDocumentElement element, a candidate IEP is a valid IEP, only if its XML document element is a member of that list of QNames.
 
-   [Rule 6-22] (IEP)
+   [Rule 5-22] (IEP)
 
       Given a c:IEPSampleXMLDocument whose parent is c:IEPConformanceTarget, the artifact resolved by c:pathURI MUST be valid to the c:IEPConformanceTarget validity constraints.
 
-   [Rule 6-23] (XML-Catalog)
+   [Rule 5-23] (XML-Catalog)
 
       Within an [XML catalog document] the value of the er:uri attribute owned by the er:URI element MUST [resolve] to an [XML schema document].
 
-   [Rule 6-24] (XML-Catalog)
+   [Rule 5-24] (XML-Catalog)
 
       Within an [XML catalog document], given the [XML schema document] resolved by the value of the er:uri attribute owned by the er:URI element, the [XML schema document] target namespace MUST equal the value of the er:name (a namespace string) attribute owned by the er:URI element.
 
-   [Rule 6-25] (Full-NIEM)
+   [Rule 5-25] (Full-NIEM)
 
       Within an [MPD catalog document] the value of a c:externalURI attribute owned by an element that is a c:FileType (or a type derived from it) MUST [resolve] to a resource.
 
-   [Rule 6-26] (Full-NIEM)
+   [Rule 5-26] (Full-NIEM)
 
       Within an [MPD catalog document] the value of a c:resourceURI attribute owned by a c:Relationship element MUST [resolve] to a resource.
 
-6.2. Complete MPD
+5.2. Complete MPD
 
    [Definition: complete MPD]
 
@@ -1483,7 +1481,7 @@ Remaining work / issues
 
          *  [NIEM Conformance]
 
-6.3. Full NIEM IEP
+5.3. Full NIEM IEP
 
    [Definition: full NIEM IEP]
 
@@ -1493,13 +1491,13 @@ Remaining work / issues
 
    This is an XML document with an XML document element that is defined by a NIEM reference schema or NIEM extension schema.
 
-6.4. NIEM IEPD
+5.4. NIEM IEPD
 
    [Definition: NIEM IEPD]
 
       A special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more c:IEPConformanceTarget elements.
 
-7. Optional MPD Artifacts
+6. Optional MPD Artifacts
 
    Aside from the required artifacts, MPD content is relatively flexible. A variety of other optional documentation files may be incorporated into an MPD. When applicable, these may include (but are not limited to) files that describe or explain:
 
@@ -1525,7 +1523,7 @@ Remaining work / issues
 
    In particular, this specification does not discourage use of Microsoft file formats for documentation and other optional artifacts. Microsoft Office products are in common use, and free viewers are available for many of them (See http://office.microsoft.com/en-us/downloads/office-online-file-converters-and-viewers-HA001044981.aspx).
 
-7.1. NIEM Wantlist
+6.1. NIEM Wantlist
 
    A NIEM schema document subset is often associated with a NIEM wantlist. A wantlist is an abbreviated XML representation of a NIEM schema document subset, and identifies only the data components a user selected (as requirements) to build a schema document subset. To reconstruct the complete schema document subset there are usually a number of additional data components that the user selections depend upon. These must be computed from the appropriate NIEM reference model and added to reconstruct the complete schema document subset. For example, a user may select nc:Person for the subset. In this case, the wantlist will only contain that component, but the associated full subset must contain both nc:Person and nc:PersonType. A software tool that understands how to process NIEM wantlists and schema document subsets (such as the NIEM Schema Subset Generator Tool [NIEM SSGT]) can rebuild an accurate schema document subset from a wantlist (and the reverse).
 
@@ -1537,11 +1535,11 @@ Remaining work / issues
 
    A wantlist is always associated with a schema document subset. A wantlist may also be associated with a constraint schema document set, because constraint schema documents are often built from a schema document subset. For a simple IEPD, it can sometimes be trivial to identify a single schema document subset. However, this MPD Specification does not prohibit building complex IEPDs that contain schema document sets supported by multiple schema document subsets and associated wantlists. As with other complex cases, the IEPD author is responsible to clearly document the associations between wantlists and schema document sets. In order to maintain a minimal degree of consistency for placement of a wantlist within an IEPD or EIEM:
 
-   [Rule 7-1]
+   [Rule 6-1]
 
       A wantlist MUST be a member of the schema document set directory it is associated with. This means it MUST reside with and at the root of the subdirectory that groups and defines its target schema document set.
 
-7.2. Business Rules
+6.2. Business Rules
 
    For simplicity and consistency, NIEM employs a profile of the XML Schema language [W3C XML Schema Structures], [W3C XML Schema Datatypes]. Thus, some constraints on NIEM XML documents cannot be enforced by NIEM. [Constraint schema documents] provide a convenient technique for enforcing some additional constraints. However, even the full XML Schema language cannot validate and enforce all possible constraints that may required on an XML document.
 
@@ -1565,19 +1563,19 @@ Remaining work / issues
 
       A [business rule schema] that adheres to [ISO RelaxNG].
 
-8. Organization, Packaging, and Other Criteria
+7. Organization, Packaging, and Other Criteria
 
    An MPD is a logical set of electronic files aggregated and organized to fulfill a specific purpose in NIEM. Directory organization and packaging of an MPD should be designed around major themes in NIEM: reuse, sharing, interoperability, and efficiency.
 
    This rule is also applicable to all MPDs:
 
-   [Rule 8-1]
+   [Rule 7-1]
 
       An MPD is packaged as a single compressed archive of files that represents a sub-tree of a file system in standard [PKZIP] format. This archive MUST preserve and store the logical directory structure intended by its author.
 
    MPD NIEM schema artifacts must be valid for both XML Schema and NIEM:
 
-   [Rule 8-2]
+   [Rule 7-2]
 
       Within an MPD archive, all XSD and XML artifacts MUST be valid against and follow all rules for their respective [NIEM NDR] conformance targets; this includes being well-formed and valid XML Schema documents.
 
@@ -1587,7 +1585,7 @@ Remaining work / issues
 
       The top level file directory relative to all MPD artifacts and subdirectories.
 
-   [Rule 8-3]
+   [Rule 7-3]
 
       An MPD archive MUST uncompress (unzip) to a one and only one [MPD root directory].
 
@@ -1599,11 +1597,11 @@ Remaining work / issues
 
       *  mpd-catalog and change log artifacts will always be found in the [MPD root directory] (as a result of [Rule 4-1], above, and [Rule 4-11], above).
 
-8.1. MPD File Name Syntax
+7.1. MPD File Name Syntax
 
    As previously stated, the MPD Specification is intended to help facilitate tool support for processing MPDs. Given a tool must process an MPD, providing it basic information about the MPD as early as possible will help to reduce processing time and complexity. So, if the MPD class and version can be easily identified by its file name, then a tool would not have to open the archive and parse the mpd-catalog just to determine this information. Of course, ultimately, to do anything useful, a tool will have to open the MPD archive. However, a standard file name syntax would allow a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each. The following rules apply:
 
-   [Rule 8-4]
+   [Rule 7-4]
 
       An MPD archive file MUST use file name syntax defined by the regular expression:
 
@@ -1640,13 +1638,13 @@ Remaining work / issues
 
    Checking this Appendix you will find that this example also adheres to the following rule:
 
-   [Rule 8-5]
+   [Rule 7-5]
 
       For an MPD, the file name substrings for name, version, and class MUST match exactly the mpd-catalog.xml attribute values for c:mpdName, c:mpdVersionID, and c:mpdClassCode respectively.
 
    In HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.
 
-   [Rule 8-6]
+   [Rule 7-6]
 
       When represented on the Internet, an MPD archive SHOULD use the following MIME Type:
 
@@ -1656,29 +1654,29 @@ Remaining work / issues
 
       Use of the generic Zip MIME type application/zip is allowed, but discouraged. No other MIME types are allowed when representing MPD archives.
 
-8.2. Artifact Links to Other Resources
+7.2. Artifact Links to Other Resources
 
    The [NIEM NDR] requires that all namespace references within schema documents can be resolved to the correct local schema document. Recall that there are several approaches to this that may incorporate the mpd-catalog, xml-catalogs, and/or xs:import schemaLocation attributes. It is important to understand that the URI scheme defined in Section 4.2.3, URI Scheme for MPD Artifacts, above, can only be used only to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM NDR], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed. When absolute references to Internet resources are required:
 
-   [Rule 8-7]
+   [Rule 7-7]
 
       Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST [resolve] (If applicable, documentation that describes how to [resolve] with security, account, and/or password issues MUST be included).
 
    Releases, core updates, and domain updates must adhere to packaging rules primarily to enable development tools to process them consistently and efficiently. The NIEM PMO controls the format and documentation for these MPDs and publishes them at http://release.niem.gov/niem/. However, many different organizations author IEPDs and EIEMs. As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others. Furthermore, EIEMs are the basis for families of IEPDs. Therefore, it is important that both of these MPD classes are well documented for understanding and use.
 
-   [Rule 8-8]
+   [Rule 7-8]
 
       A published IEPD MUST contain all documents necessary to understand it and facilitate its correct implementation.
 
-   [Rule 8-9]
+   [Rule 7-9]
 
       A published IEPD MUST link (through its mpd-catalog) to any EIEM it is based on.
 
-   Refer to [Rule 8-6], above, for Internet representation of IEPDs or EIEMs.
+   Refer to [Rule 7-6], above, for Internet representation of IEPDs or EIEMs.
 
    The [NIEM NDR] explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant. Other standards may use xs:import without requiring xs:schemaLocation attributes (instead, relying only on the namespace value). These standards may also use xs:include. This XML Schema construct is disallowed by NIEM. When standards external to NIEM are required within MPDs, the following rule applies:
 
-   [Rule 8-10]
+   [Rule 7-10]
 
       Within an MPD, if non-conformant external schema documents are used, then any references from these schema documents to other namespaces MUST [resolve] to local URIs. xs:schemaLocation attributes or XML catalogs can be used to ensure resolution.
 
@@ -1686,13 +1684,13 @@ Remaining work / issues
 
    XML schemas are the heart of MPDs since they formally specify normative structure and semantics for data components. However, in general, an MPD is a closed set of artifacts. This means that all hyperlink references within artifacts should [resolve] to the appropriate artifact.
 
-   [Rule 8-11]
+   [Rule 7-11]
 
       Within any artifact of an MPD archive, any direct reference to another resource (i.e., another artifact such as an image, schema, stylesheet, etc.) that is required to process or display an artifact SHOULD exist within the archive at the location specified by that reference.
 
    This means that MPD artifacts, including documentation artifacts, should be complete. For example, if an HTML document contains a hyperlink reference (href) to a schema (xsd) or stylesheet (xsl) that is part of the MPD, then the schema file associated with that hyperlink should be present within the MPD; likewise for a sourced (src) image. Authors should exercise good judgment with this rule. For example, it does not require an MPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents. The key operating words in this rule are: "another resource is required to process or display an artifact SHOULD exist within the archive."
 
-8.3. Duplication of Artifacts
+7.3. Duplication of Artifacts
 
    Within an MPD, the replication of files or entire file sets should be avoided. However, replication is allowed if a reasonable rationale exists. In some cases, file replication may make it easier to use, validate, implement, or automatically process an MPD. For example, multiple subsets may overlap with many identical schemas. Yet, it may be easier or even necessary to allow this form of duplication to accommodate a validation tool, rather than removing duplicate schemas, and forcing the tool to search for them. Use xml-catalogs whenever possible.
 
