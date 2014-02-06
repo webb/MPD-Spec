@@ -1593,16 +1593,57 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 </section>
 </section>
 
+<section id="Conformance-Targets">
+	<title>Conformance Targets</title>
+	
+	<p>There are numerous use cases for the use of MPDs and IEPDs. These use cases, and the rules associated with each, directs the list of conformance targets specified by the MPD Specification.  The MPD Specification is an architecture that accounts for MPDs, including releases, core and domain updates, IEPDs, and EIEMs.  From a conformance target perspective, IEPDs, releases, and EIEMs are special kinds of MPDs, and this establishes an <em>is-a</em> relationship.</p>
 
+	<p>There are several purposes for defining conformance targets in NIEM specifications.  A conformance target establishes a class of artifact.  A class of artifact identified by a conformance target has a set of corresponding rules.  Based on these rules, tools and operations may be developed.  However, a conformance target also provides purposes outside the environment of rules and tools.</p>
 
-<section id="Well-Formed-vs-Complete-MPD">
-	<title>MPD Resolution, Existence, and Validation Rules</title>
+	<p>Conformance targets satisfy a need to ensure developers do not conform to NIEM in name only.  Once committed to using NIEM, developers and organizations need well-defined rules and conformance targets to know exactly how to conform to NIEM.  Funding agencies need conformance targets corresponding to interoperability goals.  An agency funding development of a set of systems will need to ensure it funds development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs.  Tools and system developers need conformance targets that identify real world needs corresponding to their use cases and tool capabilities.  Many of these tools are not yet developed.  And so, this specification attempts to cover a broad set of general use cases.</p>
 
-	<p>NOTES for rules:</p>
+	<p>This MPD Specification covers known use cases, tool needs, and programmatic needs.  Current conformance targets include:</p>
 	<ul>
-		<li><p>(X) to the right of the rule number indicates the applicable conformance target "X".</p></li>
-		<li><p>Schema document sets can be defined by directory, list, or xml-catalog.</p></li>
+		<li><p>A well-formed MPD.  This satisfies the need for a <ref idref="PKZIP"/> file with an MPD catalog which follows a base set of rules:  MPD catalog links to XML catalogs and identifies NDR classes of schema documents.  IEPDs, EIEMs, releases, and their associated core and domains updates will conform to (e.g., <em>is-a</em>) this conformance target.</p></li>
+		<li><p>A Full NIEM IEP.  This is an XML document with an XML document element that is defined by a NIEM reference schema or NIEM extension schema.</p></li>
+		<li><p>A NIEM IEPD.  This is a special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more <code>c:IEPConformanceTarget</code> elements). </p></li>
+		<li><p>An IEP.  This is an XML document that conforms to a conformance target defined by a NIEM IEPD.</p></li>
+		<li><p>Additional conformance targets internal to the MPD specification, including the MPD catalog and XML catalogs.</p></li>
 	</ul>
+
+	<p>This MPD Specification currently supports a variety of use cases:</p>
+	<ul>
+		<li><p>An XML document that has a NIEM-defined XML document (root) element.</p></li>
+		<li><p>An XML document that has a NIEM-defined document wrapped in a non-NIEM element (e.g. an envelope, which includes SOAP, LEXS, ULEX, Trusted Data Format, OGC Web Services, etc.).</p></li>
+		<li><p>Use of multiple NIEM-defined payloads together, in an envelope, or as a composite package.</p></li>
+		<li><p>Use of NIEM-defined data annotating / providing details to a non-NIEM format, such as OGC.</p></li>
+		<li><p>Use of a non-NIEM format, where NIEM annotations / details may or may not occur depending on usage (e.g., NIEM details are provided on hospitals, but this message does not have any hospitals within it).</p></li>
+		<li><p>The use of non-NIEM data annotating / providing details on NIEM data.</p></li>
+	</ul>
+
+	<p>The conformance targets that follow do not equate to levels of conformance, although it may be possible to sequence them as such.  These conformance targets represent sets of rules, grouped and labeled because they are related.  Each group of rules can be applied independently of the other groups.  The label provides an easy way to refer to them and to an MPD that has passed that set of rules.</p>
+
+</section>
+
+
+
+<section id="MPD-Conformance-Targets">
+	<title>MPD Conformance Targets</title>
+
+
+<section id="Well-Formed-MPD">
+	<title>Well Formed MPD</title>
+
+	<definition term="well-formed MPD">
+		<p>Satisfies the following criteria:</p>
+		<ul>
+			<li><p>Is a valid <ref idref="PKZIP"/> archive file.</p></li>
+			<li><p>Contains one and only one <code>mpd-catalog.xml</code> artifact.</p></li>
+			<li><p>Its <code>mpd-catalog.xml</code> artifact resides in the <termRef>MPD root directory</termRef>.</p></li>
+			<li><p>Its <code>mpd-catalog.xml</code> artifact is XML Schema valid to <ref idref="MPD-Catalog-XSD"/>.</p></li>
+			<li><p>Adheres to the validity rules defined in <ref idref="Well-Formed-MPD"/> (i.e., this section).</p></li>
+		</ul>
+	</definition>
 
 	<p>All MPDs use URIs to identify, find, or acquire artifacts and other resources.  As such, the following definition for resolving URIs will be useful to validation rules.</p>
 
@@ -1617,6 +1658,8 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 	</definition>
 
 	<p>The <termRef>MPD catalog document</termRef> reuses NIEM and so it conforms to NIEM.  This means that an author may use one or more <termRef term="reference element">reference elements</termRef> from various locations to refer to a single content bearing instance of the same element (with a unique <code>structures:id</code>).  The definition of <termRef>resolve URI</termRef> and the conformance target rules that follow assume content bearing elements.  Therefore, if a rule applies to a conformance target with a URI attribute whose owning element is in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form referenced.</p>
+
+	<p>Regarding the rules that follow, (X) to the right of the rule number indicates the applicable conformance target "X".</p>
 
 	<rule id="v1a" applicability="MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute MUST <termRef term="resolve URI">resolve</termRef> to an MPD artifact.</p>
@@ -1722,20 +1765,12 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:resourceURI</code> attribute owned by a <code>c:Relationship</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
 	</rule>
 
+</section>
 
 
-	<p>Potential rule classifications defined:</p>
 
-	<definition term="well-formed MPD">
-		<p>Satisfies the following criteria:</p>
-		<ul>
-			<li><p>Is a valid <ref idref="PKZIP"/> archive file.</p></li>
-			<li><p>Contains one and only one <code>mpd-catalog.xml</code> artifact.</p></li>
-			<li><p>Its <code>mpd-catalog.xml</code> artifact resides in the <termRef>MPD root directory</termRef>.</p></li>
-			<li><p>Its <code>mpd-catalog.xml</code> artifact is XML Schema valid to <ref idref="MPD-Catalog-XSD"/>.</p></li>
-			<li><p>Adheres to the validity rules defined in <ref idref="Well-Formed-vs-Complete-MPD"/> (this section).</p></li>
-		</ul>
-	</definition>
+<section id="Complete-MPD">
+		<title>Complete MPD</title>
 
 	<definition term="complete MPD">
 		<p>Satisfies all rules and mandatory requirements for:</p>
@@ -1746,12 +1781,34 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 		</ul>
 	</definition>
 
-	<definition term="full NIEM MPD">
-		<p>Satisfies the following criteria:</p>
+</section>
+
+
+
+<section id="Full-NIEM-IEP">
+	<title>Full NIEM IEP</title>
+
+	<definition term="full NIEM IEP">
+	<p>Satisfies the following criteria:</p>
 		<ul>
-			<li><p>   </p></li>
+			<li><p>[TBD]</p></li>
 		</ul>
 	</definition>
+
+	<p>This is an XML document with an XML document element that is defined by a NIEM reference schema or NIEM extension schema.</p>
+
+</section>
+
+
+<section id="NIEM-IEPD">
+	<title>NIEM IEPD</title>
+
+	<definition term="NIEM IEPD">
+		<p>A special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more <code>c:IEPConformanceTarget</code> elements.</p>
+	</definition>
+
+</section>
+
 
 </section>
 
