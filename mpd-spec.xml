@@ -17,8 +17,8 @@
    xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/">
  
    <title>National Information Exchange Model Model Package Description Specification</title>
-   <version>3.0alpha7</version>
-   <date>2014-02-05</date>
+   <version>3.0alpha8</version>
+   <date>2014-02-26</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
  
   <subsection>
@@ -279,51 +279,16 @@
 </section>
 
 
-<section id="Coherence-of-Schema-Sets">
-	<title>Coherence of Schema Document Sets</title>
-
-	<p>A NIEM release is always a <em>coherent</em> set of reference schema documents in which multiple versions of semantically identical types or properties do not exist; and all types and properties are uniquely defined and declared.  Each numbered release has been harmonized, tested, and carefully reviewed by NIEM governance committees in order to eliminate semantic duplication.  
-		The <ref idref="NIEM-HLVA"/> defines a <em>coherent schema document set</em> as one that has the following properties:</p>
-
-	<definition term="schema document set coherence">
-		<p>A schema document set is coherent when it has the following properties:  (1) the set does not refer to a schema document outside the set (i.e., the set is closed), and (2) the set does not include two different versions of the same component in an incompatible way.</p>
-	</definition>
-
-	<p>Consider the following simple example of incoherence in the figures below.  Consider <ref idref="incoherence-not-closed"/> in which Justice domain has published a new schema document (version 4.1).  Note the descendant relationships between the old and new data components.  A schema document set consisting of Screening 1.1 and Justice 4.1 is incoherent because it refers to the old Justice 4.0 schema document outside the set, and therefore, violates the first criterion (the set must be closed).  To  resolve this we could incorporate the older 4.0 version into this set.  <ref idref="incoherence-closed-dups"/> indicates that adding Justice 4.0 violates the second criterion because multiple versions of the same component will exist that are incompatible.  To make a coherent schema document set, either the Screening domain must be adjusted to use the new Justice 4.1 component or the schema document set must be revised to use the Screening domain with Justice 4.0 and not Justice 4.1.</p>
-
-	<figure id="incoherence-not-closed">
-		<title>Incoherent schema set because it is NOT closed</title>
-		<image src="img/incoherence-not-closed.png"/>
-	</figure>
-
-	<p><char name="nbsp"/></p>
-
-	<figure id="incoherence-closed-dups">
-		<title>Incoherent schema set because incompatible, duplicate data components exist within the set</title>
-		<image src="img/incoherence-closed-dups.png"/>
-	</figure>
-
-	<p>In general, two or more versions of a data component are incompatible when a type or element in one version of a schema has been copied to or redefined/redeclared in another, and both versions must exist in the same set because of cross referencing (as in the figure above).  Note that even if all data components have not changed within two versions of the same schema document, a set that contains both schema documents will still be incoherent because the mere duplication of a data component in a new namespace is considered redefinition (and, of course, duplication).</p>
-
-	<p>However, two versions of a data component can also exist in a compatible way.  The compatibility of two different versions of a data component depends on the way the ancestor component was changed to obtain the descendant.  In <ref idref="incoherence-closed-dups"/> Justice 4.1 and 4.0 <code>Arrest</code> elements are incompatible because the 4.1 version of <code>Arrest</code> was simply given an additional property (<code>NewElement</code>) and is essentially a redeclaration of the 4.0 version.  This results in two semantically identical elements.  In fact, as already mentioned, even if the <code>ArrestType</code> had remained the same across both versions, the 4.1 version is considered a redefinition and duplication of the 4.0 version.</p>
-
-	<p>On the other hand, if the 4.1 <code>ArrestType</code> had been derived (through type derivation) from the 4.0 version, and the 4.1 <code>Arrest element</code> had been made substitutable for the 4.0 version, then these components would be compatible.  The difference is that these components have a clear relationship to their ancestors that is defined through XML mechanisms, whereas the former components do not.  Furthermore, the substitutability property makes these components easily usable together (i.e., compatible).</p>
-	
-	<p>The need to be a coherent schema document set is only required by official NIEM releases (major, minor, and micro).  A core update is not absolutely required to be coherent with the core it applies to.  However, except in rare cases, it will be crafted to be coherent.  In order to provide flexibility to domains, a domain update schema document set is not required to be coherent.  Whether or not a domain update is coherent with a given release depends on the content changes it applies as recorded in its change log.</p>
-
-</section>
-
 
 <section id="MPD-Types">
 	<title>MPD Types</title>
 
 	<p>This section details the five classes of MPDs currently defined in NIEM.</p>
 
-
 <section id="NIEM-Release">
 	<title>NIEM Release</title>
 
-	<p>A NIEM <em>release</em> is an MPD containing a full set of harmonized reference schema documents that coherently define and declare all content within a single version of NIEM.  NIEM releases include major, minor, and micro releases (as defined in the <ref idref="NIEM-HLVA"/>).</p>
+	<p>A NIEM <em>release</em> is an MPD containing a full set of harmonized reference schema documents that define and declare all content within a single version of NIEM.  NIEM releases include major, minor, and micro releases (as defined in the <ref idref="NIEM-HLVA"/>).</p>
 
 	<definition term="release">
 		<p>A reference schema document set published by the NIEM Program Management Office (PMO) at <link>http://release.niem.gov/</link> and assigned a unique version number.  Each schema document in the set defines data components for use in NIEM information exchanges.  Each release is independent of other releases, although a schema document may occur in multiple releases.  A release is of high quality, and has been vetted by NIEM governance bodies.  A numbered release may be a major, minor, or micro release.</p>
@@ -345,7 +310,7 @@
 			
 	<p>A micro release is a NIEM release that adds new data components to the Core, domains, or both without removing or modifying existing Core and domain schemas or content.  <ref idref="f-examples-niem-releases"/> illustrates both real (v1.0, v2.0, v2.1, and v3.0) and fictitious (v2.1.1 and v2.1.2) examples of major, minor, and micro release composition.</p>
 
-	<p>Note that a given NIEM reference schema document (target namespace) can exist in multiple numbered releases.  For example, as illustrated in <ref idref="f-examples-niem-releases"/> both NIEM 2.0 and 2.1 contain (and reuse) the same NIEM Core 2.0 schema document.  Reuse of schema documents among releases is carefully coordinated to ensure coherence is maintained within each release.  The <ref idref="NIEM-HLVA"/> defines the processes for numbering releases and identifying the schema documents that compose these sets.  Later, this specification will outline a similar version numbering scheme for MPDs and their artifacts.</p>
+	<p>Note that a given NIEM reference schema document (target namespace) can exist in multiple numbered releases.  For example, as illustrated in <ref idref="f-examples-niem-releases"/> both NIEM 2.0 and 2.1 contain (and reuse) the same NIEM Core 2.0 schema document.  The <ref idref="NIEM-HLVA"/> defines the processes for numbering releases and identifying the schema documents that compose these sets.  This specification outlines a similar version numbering scheme for MPDs and their artifacts <ref idref="Version-Numbering-Scheme"/>.</p>
 
 	<figure id="f-examples-niem-releases">
 		<title>Examples of NIEM numbered releases</title>
@@ -661,8 +626,8 @@
 
 	<p>This section generally applies to NIEM releases, core updates, and domain updates.  Though not common, it is also valid to use a reference schema document or document set within an IEPD or EIEM.  Reference schema document and reference schema document set were defined earlier in <ref idref="Reference-Schema-Document"/>.</p>
 
-	<p>A NIEM reference schema document is intended to be the authoritative definition schema document for a NIEM target namespace, therefore, all NIEM releases, core updates, and domain updates are composed of a reference schema document set and associated namespaces.   As a standalone artifact, a reference schema document set is always coherent and harmonized such that all types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within the set).</p>
-	
+	<p>A NIEM reference schema document is intended to be the authoritative definition schema document for a NIEM target namespace, therefore, all NIEM releases, core updates, and domain updates are composed of a reference schema document set and associated namespaces.   As a standalone artifact, a reference schema document set is always harmonized such that all types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within the set).</p>
+
 	<p>As authoritative definitions, NIEM reference schema document sets satisfy more rigorous documentation requirements.  The <ref idref="NIEM-NDR"/> requires that each type definition, and element and attribute declaration in a reference schema document contain an <code>xs:annotation</code> element that defines its semantic meaning.  As will be explained later, extension schema documents are also authoritative definitions, but in a local sense.  They are authoritative within a given IEPD or EIEM, and therefore, must also satisfy the same rigorous documentation rules as reference schema documents.</p>
 
 	<p>Typically reference schema documents contain data components with the most relaxed cardinality (<code>0</code> to <code>unbounded</code>).  However, this is not an absolute requirement.  Cardinality in reference schema documents may be constrained if necessary to model reality.  For example, one might claim that NIEM releases should restrict <code>PersonType</code> to a single occurrence of the element <code>PersonBirthDate</code>.  Every person has one and only one birth date.  Unfortunately, also in reality, criminal persons often present multiple identities with multiple birth dates; and so the capability to represent such is an important data requirement for NIEM.</p>
@@ -680,7 +645,7 @@
 
 <section id="Basic-Subset-Concepts">
 	<title>Basic Subset Concepts</title>
-	
+
 	<p>A NIEM <em>schema document subset</em> is a set of XML schema documents that constitutes a reduced set of components derived from a NIEM reference schema document or document set associated with a given numbered release or domain update.  Any given XML schema document within a schema document subset is referred to as a <em>subset schema document</em> (terms reversed).</p>
 
 	<definition term="subset schema document">
@@ -730,7 +695,7 @@
 		<li><p>Remove an <code>xs:attribute</code> (if <code>@use="optional"</code>) from an <code>xs:complexType</code>.</p></li>
 		<li><p>Change an <code>xs:attribute/@use="optional"</code> to <code>@use="prohibited"</code>.</p></li>
 		<li><p>Change an <code>xs:attribute/@use="optional"</code> to <code>@use="required"</code>.</p></li>
-		<li><p>Remove an <code>xs:schema/xs:element</code> declaration (if not supporting an element use).</p></li>
+		<li><p>Remove an <code>xs:element</code> declaration (if not supporting an element use).</p></li>
 		<li><p>Remove an <code>xs:enumeration</code> from an <code>xs:simpleType</code> (unless it is the only remaining <code>xs:enumeration</code>).</p></li>
 		<li><p>Add or apply a constraining facet to an <code>xs:simpleType</code>.</p></li>
 		<li><p>Remove an <code>xs:import</code> and its associated schema document (if the schema document is not used within the document set).</p></li>
@@ -764,7 +729,7 @@
 	
 	<p>Previous sections defined a single schema subset derived from a reference schema document set.  In general, an IEPD or EIEM contains a single cohesive schema subset (which may be a rather large set of files) based on one numbered NIEM release or domain update.</p>
 	
-	<p>However, this specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM.  Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM.  However, exercising this degree of flexibility makes it critically important that developers understand the potential consequences. NIEM subsets represent a delicate compromise between flexibility and interoperability.  On the one hand, a set of IEPDs based on the same subset and numbered release use identical data components, thereby enhancing interoperability.  On the other hand, mixing dissimilar subsets from the same numbered release or mixing subsets derived from various numbered releases has the potential to negatively impact interoperability through incoherence and ambiguity.</p>
+	<p>However, this specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM.  Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM.  However, exercising this degree of flexibility makes it critically important that developers understand the potential consequences. NIEM subsets represent a delicate compromise between flexibility and interoperability.  On the one hand, a set of IEPDs based on the same subset and numbered release use identical data components, thereby enhancing interoperability.  On the other hand, mixing dissimilar subsets from the same numbered release or mixing subsets derived from various numbered releases has the potential to introduce semantic duplication and subtle ambiguity.  This, in turn, can have a negatively impact on interoperability.</p>
 
 	<p>The NIEM mandate that every schema have a unique target namespace prevents name conflicts between reference schema document sets and between two subsets derived from different reference sets.  In spite of namespace distinction, mixing subsets of multiple reference schema document sets can still introduce multiple versions of semantically equivalent data components, a potentially ambiguous situation.  Even employing multiple subsets together that have been derived from the same reference set has the potential to create a similar result. Above all, it is the developer's responsibility to ensure that, if mixing subsets from one or more numbered releases within a single IEPD or EIEM, these artifacts are carefully coordinated and clearly documented to ensure the various versions of semantically equivalent data components and different schemas with the same namespaces will not cause conflicts, confusion, and/or failure during validation or exchange implementation.</p>
 
@@ -1727,27 +1692,27 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 	</rule>
 
 	<rule id="v1s" applicability="MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RequiredFile</code> element MUST <termRef term="resolve URI">resolve</termRef> to a file artifact.</p>
+		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RequiredFile</code> element MUST <termRef term="resolve URI">resolve</termRef> to a file artifact.</p>
 	</rule>
 
 	<rule id="v2" applicability="IEP">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:XPathText</code> attribute owned by a <code>c:ValidToXPath</code> element applied to a candidate IEP (an <termRef>XML document</termRef>) will evaluate to an effective Boolean value (EBV) as defined in <ref idref="W3-XPath"/> <a href="http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv"><char name="sect"/> 2.4.3 <q>Effective Boolean Value</q></a>.  The candidate is a valid IEP <em>only if</em> the EBV evaluates to <code>true</code>.</p>
+		<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:XPathText</code> attribute owned by a <code>c:ValidToXPath</code> element, a candidate IEP is a valid IEP, ONLY IF the value of <code>c:ValidToXPath</code> applied to the candidate IEP (an <termRef>XML document</termRef>) has an effective Boolean value (EBV) equal to <code>true</code>.  EBV is defined by <ref idref="W3-XPath"/> <a href="http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv"><char name="sect"/> 2.4.3 <q>Effective Boolean Value</q></a>.</p>
 	</rule>
 
 	<rule id="v3" applicability="IEP">
-		<p>Given an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, <em>only if</em> its XML document element is a member of that list of <em>QNames</em>.</p>
+		<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, ONLY IF its XML document element is a member of that list of <em>QNames</em>.</p>
 		</rule>
 		
 	<rule id="v4" applicability="IEP">
-		<p>Given a <code>c:IEPSampleXMLDocument</code> whose parent is <code>c:IEPConformanceTarget</code>, the artifact resolved by <code>c:pathURI</code> MUST be valid to the <code>c:IEPConformanceTarget</code> validity constraints.</p>
+		<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code>, the artifact resolved by the value of <code>c:pathURI</code> MUST be valid for the validity constraints of the <code>c:IEPConformanceTarget</code> parent of <code>c:IEPSampleXMLDocument</code>.</p>
 	</rule>
 
 	<rule id="v5" applicability="XML-Catalog">
-		<p>Within an <termRef>XML catalog document</termRef> the value of the <code>er:uri</code> attribute owned by the <code>er:URI</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
+		<p>Within an <termRef>XML catalog document</termRef> the value of an <code>er:uri</code> attribute owned by a <code>er:URI</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
 	</rule>
 
 	<rule id="v6" applicability="XML-Catalog">
-		<p>Within an <termRef>XML catalog document</termRef>, given the <termRef>XML schema document</termRef> resolved by the value of the <code>er:uri</code> attribute owned by the <code>er:URI</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>er:name</code> (a namespace string) attribute owned by the <code>er:URI</code> element.</p> 
+		<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of an <code>er:uri</code> attribute owned by a <code>er:URI</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>er:name</code> (a namespace string) attribute owned by the <code>er:URI</code> element.</p> 
 	</rule>
 
 	<rule id="v7" applicability="Full-NIEM">
