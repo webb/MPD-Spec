@@ -291,16 +291,19 @@
 
           <p>Rules state specific requirements on artifacts or on the interpretation of artifacts. The classes of
             artifacts are identified by <termRef term="conformance target">conformance targets</termRef> that are
-            enumerated by this document in <ref idref="Conformance-Targets"/>. The rules are normative.</p>
+            enumerated by this document in <ref idref="Conformance-Target-Concepts"/>. The rules are normative.</p>
 
           <bogusRule section="&lt;section&gt;" number="&lt;number&gt;" applicability="&lt;applicability&gt;">
             <p>An enforceable rule for NIEM.</p>
           </bogusRule>
 
-	  <p>Each rule has a list of one or more conformance targets to which the rule applies. 
-	    Each entry in the list is a code from <ref idref="Conformance-Target-Codes"/>.  If a code appears 
-	    in the applicability list for a rule, then the rule applies to the corresponding conformance target. 
-	    The conformance targets are defined in <ref idref="Conformance-Targets"/>.</p>
+	  <p>Each rule has a list of one or more <termRef="conformance target">conformance targets<termRef> 
+	    to which the rule applies. 
+	    Each entry in the list is a code from <ref idref="conformance-target-codes"/>.  Each code in the 
+	    applicability list for a rule indicates that the rule applies to the corresponding conformance target. 
+	    The conformance targets for this specification are summarized and coded in 
+	    <ref idref="Conformance-Target-Concepts"/> in order to support rules defined throughout this specification.  
+	    <ref idref="Conformance-Targets"/> provides additional discussion and rules for conformance targets.</p>
 
           <p>Rules are numbered according to the section in which they appear and the order in which they appear
             within that section.  For example, Rule 6-1 is the first rule in Section 6.</p>
@@ -314,9 +317,9 @@
 <section id="Conformance-Target-Concepts">
 	<title>Conformance Target Concepts</title>
 
-	<p>This section introduces the concept of <em>conformance targets</em>, a concept that is fundamental to understanding the normative rules defined in this specification.  Later, <ref idref="Conformance-Targets"/> will establish and discuss the rules for specific <termRef term="conformance target">conformance targets</termRef> defined for MPDs.</p>
+	<p>This section introduces the concept of <em>conformance targets</em>, a concept that is fundamental to understanding the normative rules defined in this specification.  Many rules throughout this specification apply to conformance targets.  <ref idref="Conformance-Targets"/> defines and discusses rules for specific <termRef term="conformance target">conformance targets</termRef> established for MPDs.</p>
 
-	<p>There are numerous use cases for the use of MPDs, and in particular, IEPDs.  These use cases, and the rules associated with each, direct the list of conformance targets specified by this MPD Specification.  From a conformance target perspective, releases, Core and domain updates, IEPDs, and EIEMs are special kinds of MPDs, and this establishes an <em>IS-A</em> relationship.</p>
+	<p>There are numerous use cases for MPDs, and in particular, IEPDs.  These use cases, and the rules associated with each, direct the list of conformance targets specified by this MPD Specification.  From a conformance target perspective, releases, Core and domain updates, IEPDs, and EIEMs are special kinds of MPDs, and this establishes an <em>IS-A</em> relationship.</p>
 
 	<p>There are several purposes for defining conformance targets in NIEM specifications.  A conformance target establishes a class of artifact.  A class of artifact identified by a conformance target is associated with a set of rules.  Based on these rules, tools and operations may be developed.  However, a conformance target also provides purposes outside the environment of rules and tools.</p>
 
@@ -812,7 +815,7 @@
 	<p>A schema document subset is essentially a reference schema document set (i.e., a numbered release) that has been modified by applying the foregoing subset operations to support business requirements represented in an IEPD or EIEM.  A subset derived from a reference schema document set may differ from that reference set only in that its content has been reduced and/or constrained.  For this reason, each subset schema document adopts the target namespace of its corresponding reference schema document.</p>
 
 	<rule id="r-subset-ns">
-		<p>Each subset schema document in a schema document subset derived from a reference schema document set bears the same target namespace as the schema in the reference schema document set on which it is based.</p>
+		<p>A subset schema document in a schema document subset derived from a reference schema document set MUST bear the same target namespace as the schema document in the reference schema document set on which it is based.</p>
 	</rule>
 
 </section>
