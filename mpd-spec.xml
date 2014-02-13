@@ -286,16 +286,43 @@
 <!-- ################################################## -->
 
 
+<section id="Rules">
+	<title>Rules</title>
+
+          <p>Rules state specific requirements on artifacts or on the interpretation of artifacts. The classes of
+            artifacts are identified by <termRef term="conformance target">conformance targets</termRef> that are
+            enumerated by this document in <ref idref="Conformance-Targets"/>. The rules are normative.</p>
+
+          <bogusRule section="&lt;section&gt;" number="&lt;number&gt;" applicability="&lt;applicability&gt;">
+            <p>An enforceable rule for NIEM.</p>
+          </bogusRule>
+
+	  <p>Each rule has a list of one or more conformance targets to which the rule applies. 
+	    Each entry in the list is a code from <ref idref="Conformance-Target-Codes" />.  If a code appears 
+	    in the applicability list for a rule, then the rule applies to the corresponding conformance target. 
+	    The conformance targets are defined in <ref idref="Conformance-Targets"/>.</p>
+
+          <p>Rules are numbered according to the section in which they appear and the order in which they appear
+            within that section.  For example, Rule 6-1 is the first rule in Section 6.</p>
+
+</section>
+
+
+<!-- ################################################## -->
+
+
 <section id="Conformance-Target-Concepts">
 	<title>Conformance Target Concepts</title>
-	
+
+	<p>This section introduces the concept of <em>conformance targets</em>, a concept that is fundamental to understanding the normative rules defined in this specification.  Later, <ref idref="conformance-targets"/> will establish and discuss the rules for specific <termRef term="conformance target">conformance targets</termRef> defined for MPDs.</p>
+
 	<p>There are numerous use cases for the use of MPDs, and in particular, IEPDs.  These use cases, and the rules associated with each, direct the list of conformance targets specified by this MPD Specification.  From a conformance target perspective, releases, Core and domain updates, IEPDs, and EIEMs are special kinds of MPDs, and this establishes an <em>IS-A</em> relationship.</p>
 
 	<p>There are several purposes for defining conformance targets in NIEM specifications.  A conformance target establishes a class of artifact.  A class of artifact identified by a conformance target is associated with a set of rules.  Based on these rules, tools and operations may be developed.  However, a conformance target also provides purposes outside the environment of rules and tools.</p>
 
 	<p>Conformance targets satisfy a need to ensure developers do not conform to NIEM in name only.  Once committed to using NIEM, developers and organizations need well-defined conformance targets and rules to know exactly how to conform to NIEM.  Funding agencies require conformance targets that correspond to interoperability goals.  An agency funding development of a set of systems will need to ensure it funds development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs.  Tools and system developers need conformance targets that identify real world requirements corresponding to their use cases and tool capabilities.  Many of these tools are not yet developed.  And so, this specification attempts to cover a broad range of general use cases.</p>
 
-	<p>Current MPD Specification conformance targets include:</p>
+	<p><ref idref="Conformance-Targets"/> defines MPD Specification conformance targets and associated rules in more detail.  However, the following is a brief summary of conformance targets:</p>
 	<ul>
 		<li><p>A well-formed MPD.  This satisfies the need for a <ref idref="PKZIP"/> file with an MPD catalog which follows a base set of rules:  MPD catalog links to XML catalogs and identifies NDR classes of schema documents.  IEPDs, EIEMs, releases, and their associated core and domains updates will conform to (e.g., <em>is-a</em>) this conformance target.</p></li>
 		<li><p>A Full NIEM IEP.  This is an XML document with an XML document element that is defined by a NIEM reference schema or NIEM extension schema.</p></li>
@@ -304,7 +331,7 @@
 		<li><p>Additional conformance targets internal to the MPD specification, including the MPD catalog and XML catalogs.</p></li>
 	</ul>
 
-	<p>The aforementioned conformance targets support a variety of use cases:</p>
+	<p>The conformance targets above support a variety of use cases:</p>
 	<ul>
 		<li><p>An XML document that has a NIEM-defined XML document (root) element.</p></li>
 		<li><p>An XML document that has a NIEM-defined document wrapped in a non-NIEM element (e.g. an envelope, which includes SOAP, LEXS, ULEX, Trusted Data Format, OGC Web Services, etc.).</p></li>
@@ -316,7 +343,9 @@
 
 </section>
 
+
 <!-- ################################################## -->
+
 
 <section id="MPD-Types">
 	<title>MPD Types</title>
