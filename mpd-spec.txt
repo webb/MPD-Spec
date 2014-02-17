@@ -248,15 +248,53 @@ Remaining work / issues
 
    NIEM reference schemas are very uniform in their structure. As they are the primary definitions for data components, they do not need to restrict other data definitions, and they are not allowed to use XML Schema's complex type restriction mechanisms.
 
-2.8. Conformance Target Concepts
+2.8. Rules
 
-   There are numerous use cases for the use of MPDs, and in particular, IEPDs. These use cases, and the rules associated with each, direct the list of conformance targets specified by this MPD Specification. From a conformance target perspective, releases, Core and domain updates, IEPDs, and EIEMs are special kinds of MPDs, and this establishes an IS-A relationship.
+   Rules state specific requirements on artifacts or on the interpretation of artifacts. The classes of artifacts are identified by [conformance targets] that are enumerated by this document in Section 2.9, Conformance Target Concepts, below. The rules are normative.
+
+   [Rule <section>-<number>] (<applicability>)
+
+      An enforceable rule for NIEM.
+
+   Each rule has a list of one or more [conformance targets] to which the rule applies. Each entry in the list is a code from Table Table 2-1, Conformance Target Codes, below. Each code in the applicability list for a rule indicates that the rule applies to the corresponding conformance target. The conformance targets for this specification are summarized and coded in Section 2.9, Conformance Target Concepts, below, in order to support rules defined throughout this specification. Section 5, Conformance Targets, below, provides additional discussion and rules for conformance targets.
+
+   Rules are numbered according to the section in which they appear and the order in which they appear within that section. For example, Rule 6-1 is the first rule in Section 6.
+
+2.9. Conformance Target Concepts
+
+   This section introduces the concept of [conformance target], a concept that is fundamental to understanding the normative rules defined in this specification. Many rules throughout this specification apply to one or more conformance targets. Furthermore, Section 5, Conformance Targets, below, defines and discusses rules for specific [conformance targets] established for MPDs.
+
+2.9.1. Conformance Targets Attribute Specification terminology
+
+   [NIEM Conformance Target Attribute Specification] defines several terms used normatively within this specification.
+
+   [Definition: conformance target]
+
+      The term "conformance target" is as defined by [NIEM Conformance Target Attribute Specification], which states:
+
+         A conformance target is a class of artifact, such as an interface, protocol, document, platform, process or service, that is the subject of conformance clauses and normative statements. There may be several conformance targets defined within a specification, and these targets may be diverse so as to reflect different aspects of a specification. For example, a protocol message and a protocol engine may be different conformance targets.
+
+   [Definition: conformance target identifier]
+
+      The term "conformance target identifier" is as defined by [NIEM Conformance Target Attribute Specification], which states:
+
+         A conformance target identifier is an internationalized resource identifier that uniquely identifies a conformance target.
+
+   [Definition: effective conformance target identifier]
+
+      The term "effective conformance target identifier" is as defined by [NIEM Conformance Target Attribute Specification], which states:
+
+         An effective conformance target identifier of a conformant document is an internationalized resource identifier reference that occurs in the document's effective conformance targets attribute.
+
+2.9.2. Conformance Targets for MPDs
+
+   There are numerous use cases for MPDs, and in particular, IEPDs. These use cases, and the rules associated with each, direct the list of conformance targets specified by this MPD Specification. From a conformance target perspective, releases, Core and domain updates, IEPDs, and EIEMs are special kinds of MPDs, and this establishes an IS-A relationship.
 
    There are several purposes for defining conformance targets in NIEM specifications. A conformance target establishes a class of artifact. A class of artifact identified by a conformance target is associated with a set of rules. Based on these rules, tools and operations may be developed. However, a conformance target also provides purposes outside the environment of rules and tools.
 
    Conformance targets satisfy a need to ensure developers do not conform to NIEM in name only. Once committed to using NIEM, developers and organizations need well-defined conformance targets and rules to know exactly how to conform to NIEM. Funding agencies require conformance targets that correspond to interoperability goals. An agency funding development of a set of systems will need to ensure it funds development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs. Tools and system developers need conformance targets that identify real world requirements corresponding to their use cases and tool capabilities. Many of these tools are not yet developed. And so, this specification attempts to cover a broad range of general use cases.
 
-   Current MPD Specification conformance targets include:
+   Section 5, Conformance Targets, below, defines MPD Specification conformance targets and associated rules in more detail. However, the following is a brief summary of conformance targets:
 
       *  A well-formed MPD. This satisfies the need for a [PKZIP] file with an MPD catalog which follows a base set of rules: MPD catalog links to XML catalogs and identifies NDR classes of schema documents. IEPDs, EIEMs, releases, and their associated core and domains updates will conform to (e.g., is-a) this conformance target.
 
@@ -268,7 +306,7 @@ Remaining work / issues
 
       *  Additional conformance targets internal to the MPD specification, including the MPD catalog and XML catalogs.
 
-   The aforementioned conformance targets support a variety of use cases:
+   The conformance targets above support a variety of use cases:
 
       *  An XML document that has a NIEM-defined XML document (root) element.
 
@@ -282,11 +320,27 @@ Remaining work / issues
 
       *  The use of non-NIEM data annotating / providing details on NIEM data.
 
-2.9. MPD Types
+   Table 2-1: Conformance Target Codes
+
+      Conformance Target|Code
+
+      Well-formed MPD|W-f-MPD
+
+      Full NIEM IEP|F-N-IEP
+
+      NIEM IEPD|N-IEPD
+
+      IEP|IEP
+
+      MPD catalog|M-cat
+
+      XML catalog|X-cat
+
+2.10. MPD Types
 
    This section details the five classes of MPDs currently defined in NIEM.
 
-2.9.1. NIEM Release
+2.10.1. NIEM Release
 
    A NIEM release is an MPD containing a full set of harmonized reference schema documents that define and declare all content within a single version of NIEM. NIEM releases include major, minor, and micro releases (as defined in the [NIEM High-Level Version Architecture]).
 
@@ -316,7 +370,7 @@ Remaining work / issues
 
       Images are omitted from this edition.
 
-2.9.2. Domain Update
+2.10.2. Domain Update
 
    A domain update (DU) is an MPD containing a reference schema document or document set and a change log that represent changes to NIEM domains. The [NIEM High-Level Version Architecture] defines a domain update as both a process and a NIEM product. Through use and analysis of NIEM releases and published content, domain users will identify issues and new data requirements for domains and sometimes Core. NIEM domains use these issues as the basis for incremental improvements, extensions, and proposed changes to future NIEM releases. Both the process and product of the process are referred to as domain update. This MPD Specification is applicable to a domain update product.
 
@@ -328,7 +382,7 @@ Remaining work / issues
 
    A domain update may apply to one or more domain namespaces within a single NIEM major, minor, or micro release. A domain steward uses a domain update to: (1) make new or changed domain content immediately available to NIEM data exchange developers between NIEM releases, and (2) request that new or changed content be harmonized into a future NIEM release. (See [NIEM Domain Update Specification] which provides normative details about domain updates and the associated processes.)
 
-2.9.3. Core Update
+2.10.3. Core Update
 
    When necessary, the NIEM PMO can publish a core update (CU). This is essentially identical to a domain update in terms of structure and use, with two important exceptions. First, a core update records changes that apply to a particular NIEM core version or another core update. This also means it is applicable to all NIEM releases using that same core version. Second, a core update is never published to replace a NIEM core. It is intended to add new schemas, new data components, new code values, etc. to a core without waiting for the next major release. In some cases, minor modifications to existing data components are possible.
 
@@ -338,7 +392,7 @@ Remaining work / issues
 
    As with domain updates, all core updates are published to the NIEM Publications Area, their changes are immediately available for use in IEPDs, and they will be harmonized and integrated into the next major NIEM release.
 
-2.9.4. Information Exchange Package Documentation (IEPD)
+2.10.4. Information Exchange Package Documentation (IEPD)
 
    NIEM Information Exchange Package Documentation (IEPD) is an MPD that defines a class of instance XML documents that represent a recurring XML data exchange.
 
@@ -366,7 +420,7 @@ Remaining work / issues
 
    Note that NIEM conformance does not require that an IEP be native XML on the transmission medium. A NIEM-conformant IEP may be encrypted, compressed (e.g., using [PKZIP], [RAR], [W3-EXI], etc.), or wrapped within an envelope mechanism, as long as its original native XML form can be retrieved by the receiver.
 
-2.9.5. Enterprise Information Exchange Model (EIEM)
+2.10.5. Enterprise Information Exchange Model (EIEM)
 
    As an organization develops IEPDs, it may realize that many of its IEPDs have similar business content. A collection of closely related business data could be organized at an object level and defined as extension data components. In NIEM, these extension components are referred to as Business Information Exchange Components (BIECs), because they are either specific to an organization's business or they represent a more general line of business that crosses organizational lines. Often they are business data components developed and used by multiple organizations within the same community of interest. So, instead of an organization, it is more appropriate and provides better context if we use the term information sharing enterprise.
 
@@ -410,7 +464,7 @@ Remaining work / issues
 
       Images are omitted from this edition.
 
-2.10. Similarities and Differences of MPD Classes
+2.11. Similarities and Differences of MPD Classes
 
    It will be helpful to summarize the foregoing discussions by listing the primary similarities and differences among the various types of MPDs. This will help highlight the nature of this specification as a baseline and point of leverage for all five classes of MPDs: NIEM release, core update (CU), domain update (DU), IEPD, and EIEM. Note that these lists are not all inclusive.
 
@@ -440,9 +494,9 @@ Remaining work / issues
 
       *  IEPDs, EIEMs, and NIEM releases are independently complete. A core update can be issued as a new complete standalone reference schema document to be used with a NIEM core.
 
-   Table Table 2-1, Comparison of MPD classes, below, summarizes the similarities and differences of MPD classes by indicating the characteristics for each:
+   Table Table 2-2, Comparison of MPD classes, below, summarizes the similarities and differences of MPD classes by indicating the characteristics for each:
 
-   Table 2-1: Comparison of MPD classes
+   Table 2-2: Comparison of MPD classes
 
       Characteristics of MPD Classes|Release|CU|DU|IEPD|EIEM
 
@@ -586,7 +640,7 @@ Remaining work / issues
 
    [Rule 3-2]
 
-      Each subset schema document in a schema document subset derived from a reference schema document set bears the same target namespace as the schema in the reference schema document set on which it is based.
+      A subset schema document in a schema document subset derived from a reference schema document set MUST bear the same target namespace as the schema document in the reference schema document set on which it is based.
 
 3.2.4. Multiple Schema Document Subsets in a Single IEPD or EIEM
 
@@ -618,7 +672,7 @@ Remaining work / issues
 
    A NIEM extension schema document may contain data components built from both options above. Employment of extension schema documents in an IEPD is entirely optional.
 
-   Multiple extension schema documents are allowed in a single IEPD. Developers will likely want to reuse many of their extension schema documents in other IEPDs. Therefore, the best practice for extension is to group all data components designed to reuse into one extension schema document or document set, and group IEPD-specific data components into another. Then the reusable extension components can be more easily redeployed in other IEPDs as needed. Also, recall that Section 2.9.5, Enterprise Information Exchange Model (EIEM), above, discusses EIEM employment for larger scale reuse of NIEM data components in multiple IEPDs.
+   Multiple extension schema documents are allowed in a single IEPD. Developers will likely want to reuse many of their extension schema documents in other IEPDs. Therefore, the best practice for extension is to group all data components designed to reuse into one extension schema document or document set, and group IEPD-specific data components into another. Then the reusable extension components can be more easily redeployed in other IEPDs as needed. Also, recall that Section 2.10.5, Enterprise Information Exchange Model (EIEM), above, discusses EIEM employment for larger scale reuse of NIEM data components in multiple IEPDs.
 
    Extension schema documents generally contain new data component declarations that may (though not necessarily) be derived from or reference existing NIEM data components. This being the case, reference schema documents do not exist for new data components found within extension schema documents. Therefore, extension schema documents must satisfy the more rigorous documentation requirements of reference schema documents. Per the [NIEM NDR], the definition or declaration of each new data component in an extension schema document must include an xs:annotation element that provides its semantics and NIEM-specific relationships.
 
@@ -2871,7 +2925,7 @@ Appendix F. References
 
    [NIEM Conformance]: NIEM Conformance, Version 1.0, NIEM Technical Architecture Committee (NTAC), 15 September 2008. Available from http://reference.niem.gov/niem/specification/conformance/1.0/.
 
-   [NIEM Conformance Target Specification]: NIEM Conformance Target Specification, Version 1.0, NIEM Technical Architecture Committee (NTAC), 15 January 2013. Available from http://reference.niem.gov/niem/specification/conformance-target/1.0/.
+   [NIEM Conformance Target Attribute Specification]: NIEM Conformance Target Attribute Specification, Version 1.0, NIEM Technical Architecture Committee (NTAC), 15 January 2013. Available from http://reference.niem.gov/niem/specification/conformance-target-attribute/1.0/.
 
    [NIEM Concept of Operations]: NIEM Concept of Operations, Version 0.5, NIEM Program Management Office, 9 January 2007. Available from http://reference.niem.gov/niem/guidance/concept-of-operations/.
 
