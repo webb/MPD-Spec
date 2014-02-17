@@ -39,17 +39,29 @@
 	</subsection>
 
   <subsection>
-	  <title>Remaining work / issues</title>
+	<title>Major changes in this draft (related to last)</title>
 	<ol>
-		<li><p>Lineage/pedigree vs relationship?  Are terms "lineage" and "pedigree" correct?  or just relationships?</p></li>
-		<li><p>Schematron rules for MPD Catalog (associated resource tool kit?)</p></li>
+		<li><p>New Section 9 Conformance Target Concepts.</p></li>
+		<li><p>New Section MPD artifacts Conformance Report; require for an IEPD.</p></li>
+		<li><p>Modified section on MPD Lineage.  Removed term "pedigree" (even though it's equivalent to "lineage".  Added reference to discussion in <em>Principles of Data Integration</em> (book) that describes one view of provenance (aka lineage) as a graph of relationships.  MPD Spec adapts this view through URIs to MPDs and their artifacts.</p></li>
+		<li><p>.</p></li>
+		<li><p>.</p></li>
+	</ol>
+
+  </subsection>
+
+  <subsection>
+	<title>Remaining work and issues</title>
+	<ol>
 		<li><p>Identify conformance target(s) (CT) for each rule.</p></li>
-		<li><p>Identify convenient classification of rules based on CTs.</p></li>
 		<li><p>Improve definitions for schema sets.</p></li>
-		<li><p>Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent)</p></li>
-		<li><p>Appendix for Example IEP (from Cursor on Target)</p></li>
-		<li><p>QA and validity checks on MPD catalog schema (Appendix A)</p></li>
-		<li><p>Final check acronyms, abbreviations, spelling, punctuation, and consistency.</p></li>
+		<li><p>Missing CTs?  Fork any?  Classify rules based on CTs.  Should a CT for NIEM EIEM exist?</p></li>
+		<li><p>Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent).</p></li>
+		<li><p>Appendix for Schematron rules for MPD Catalog.</p></li>
+		<li><p>Assemble resource tool kit:  MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.</p></li>
+		<li><p>Appendix for Example IEP (from Cursor on Target).</p></li>
+		<li><p>QA and validity checks on MPD catalog schema (Appendix A).</p></li>
+		<li><p>Final check:  typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.</p></li>
 	</ol>
 	<p>NOTE:  Search on "TBD" to find incomplete items.</p>
   </subsection>
@@ -417,6 +429,8 @@
 	    <td>X-cat</td>
         </tr>
 </table>
+
+<p>[TBD] [What other conformance targets are needed?]</p>
 
 </section>
 </section>
@@ -1028,7 +1042,7 @@
 
 	<p><char name="nbsp"/></p>
 
-	<rule id="r-mpd-ref-sub">
+	<rule id="r-mpd-ref-sub" applicability="N-IEPD">
 		<p>A NIEM-conformant IEPD or EIEM MUST contain at least one schema document that is either a NIEM reference schema document or a subset schema document derived from a NIEM reference schema document.</p>
 	</rule>
 
@@ -1044,7 +1058,7 @@
 	
 	<p>XML schema documents (and the schemas that result from them) are the essence of a NIEM MPD.  All other artifacts are considered documentation.</p>
 
-	<p>A variety of documentation files may be incorporated into a NIEM MPD.  However, in addition to XML schema documents, there are only two mandatory documentation artifacts required by every MPD:  the <em>mpd-catalog</em> and the <em>change log</em>.  An mpd-catalog (<code>mpd-catalog.xml</code>) contains basic metadata, relationship and lineage data, and validation information.  The change log provides a history of modifications.</p>
+	<p>A variety of documentation files may be incorporated into a NIEM MPD.  However, in addition to XML schema documents, there are only two mandatory documentation artifacts required by every MPD:  the <em>mpd-catalog</em> and the <em>change log</em>.  An MPD catalog (<code>mpd-catalog.xml</code>) contains basic metadata, relationship and lineage data, and validation information.  The change log provides a history of modifications.</p>
 
 	<p>A <em>master document</em> is mandatory for IEPDs and EIEMs.  These MPD classes may be built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM master document is the primary source and starting point for human readable documentation (similar to a <code>readme</code> file), and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.</p>
 
@@ -1083,7 +1097,7 @@
 	</ul>
 
 	<rule id="r-mpd-catalog">
-		<p>A <termRef term="well-formed MPD">well-formed</termRef> and <termRef>complete MPD</termRef> MUST contain an mpd-catalog XML document artifact that:</p>
+		<p>A <termRef term="well-formed MPD">well-formed</termRef> and <termRef>complete MPD</termRef> MUST contain an MPD catalog XML document artifact that:</p>
 		<ul>
 			<li><p>validates with the NIEM MPD catalog schema contained in <ref idref="MPD-Catalog-XSD"/>.</p></li>
 			<li><p>validates with the NIEM MPD catalog Schematron rules [TBD].</p></li>
@@ -1120,9 +1134,9 @@
 
 	<p>An MPD Catalog may be extended to accommodate new or additional metadata, artifact classifiers, or validity constraints that are not already defined in <ref idref="MPD-Catalog-XSD"/>.</p>
 
-	<p>To extend the mpd-catalog, an MPD author must provide both an XML catalog extension document (XML) and one or more MPD extension schema documents (XSD).  The xml-catalog extension identifies that one or more MPD catalog extensions are present, and resolves their namespaces to local URIs.  The MPD catalog extension is a schema that defines and declares the new data components for metadata, classifiers, and/or constraints.  Both general <ref idref="NIEM-Conformance"/> and specific <ref idref="NIEM-NDR"/> NIEM conformance rules apply to these components.  The xml-catalog extension document must reside in the <termRef>MPD root directory</termRef>.  The MPD extension schema documents may bear any file name and reside anywhere in the MPD.  This is because the xml-catalog is expected to <termRef term="resolve URI">resolve</termRef> all local URIs.  MPD processing tools are expected to look for and recognize the xml-catalog (that identifies MPD catalog extensions exist) by its file name.</p>
+	<p>To extend the MPD catalog, an MPD author must provide both an XML catalog extension document (XML) and one or more MPD extension schema documents (XSD).  The xml-catalog extension identifies that one or more MPD catalog extensions are present, and resolves their namespaces to local URIs.  The MPD catalog extension is a schema that defines and declares the new data components for metadata, classifiers, and/or constraints.  Both general <ref idref="NIEM-Conformance"/> and specific <ref idref="NIEM-NDR"/> NIEM conformance rules apply to these components.  The xml-catalog extension document must reside in the <termRef>MPD root directory</termRef>.  The MPD extension schema documents may bear any file name and reside anywhere in the MPD.  This is because the xml-catalog is expected to <termRef term="resolve URI">resolve</termRef> all local URIs.  MPD processing tools are expected to look for and recognize the xml-catalog (that identifies MPD catalog extensions exist) by its file name.</p>
 
-	<p>The following rule specifies the requirements for an mpd-catalog extension XML catalog document:</p>
+	<p>The following rule specifies the requirements for an MPD catalog extension XML catalog document:</p>
 
 	<rule id="r-mpd-extension-xml-catalog">
 		<p>An MPD extension XML catalog document:</p>
@@ -1166,7 +1180,7 @@
 <section id="Metadata-Concepts">
 	<title>Metadata Concepts</title>
 
-	<p>The mpd-catalog also contains both required and optional metadata for the MPD and its artifacts.  The following subsections specify the syntax, formats, and semantics for that metadata.</p>
+	<p>The MPD catalog also contains both required and optional metadata for the MPD and its artifacts.  The following subsections specify the syntax, formats, and semantics for that metadata.</p>
 
 
 
@@ -1264,7 +1278,7 @@
 		<p>The URI for an MPD MUST end in its version number concatenated with a forward slash character ("/").</p>
 	</rule>
 
-	<p>And finally, note that <ref idref="MPD-Catalog-XSD"/> defines a mandatory attribute for the <code>c:mpdURI</code>, <code>c:mpdName</code>, <code>c:mpdClassCode</code>, and <code>c:mpdVersionID</code>.  Since the ending substring of an MPD URI must be its version ID (followed by forward slash), then the mpd-catalog duplicates the MPD version ID in two locations.  By design, <ref idref="MPD-File-Name-Syntax"/> intentionally duplicates these attribute values in the MPD file name.  There are two reasons for this design.  First, software tools are expected to build and process mpd-catalogs.  Instead of forcing tool developers to parse the URI just to retrieve name, version, and class, the mpd-catalog separates these data items as XML attributes.  Second, duplication of that key metadata in both the URI and the file name facilitates fast visual recognition of an MPD, rather than requiring that a user open the archive, open its <code>mpd-catalog.xml</code>, and scan XML content to locate the data.</p>
+	<p>And finally, note that <ref idref="MPD-Catalog-XSD"/> defines a mandatory attribute for the <code>c:mpdURI</code>, <code>c:mpdName</code>, <code>c:mpdClassCode</code>, and <code>c:mpdVersionID</code>.  Since the ending substring of an MPD URI must be its version ID (followed by forward slash), then the MPD catalog duplicates the MPD version ID in two locations.  By design, <ref idref="MPD-File-Name-Syntax"/> intentionally duplicates these attribute values in the MPD file name.  There are two reasons for this design.  First, software tools are expected to build and process MPD catalogs.  Instead of forcing tool developers to parse the URI just to retrieve name, version, and class, the MPD catalog separates these data items as XML attributes.  Second, duplication of that key metadata in both the URI and the file name facilitates fast visual recognition of an MPD, rather than requiring that a user open the archive, open its <code>mpd-catalog.xml</code>, and scan XML content to locate the data.</p>
 
 </section>
 
@@ -1294,13 +1308,13 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 		<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/#extension/request4.xsd</code></p></li>
 	</ul>
 
-	<p>Here is one simple scenario for use of an artifact URI within the mpd-catalog.  Consider two different IEPDs with the following URIs:</p>
+	<p>Here is one simple scenario for use of an artifact URI within the MPD catalog.  Consider two different IEPDs with the following URIs:</p>
 	<ol>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/</code></p></li>
 		<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code></p></li>
 	</ol>
 	
-	<p>The author of IEPD (1) has decided to reuse (as-is) the <code>extension/request1.xsd</code> artifact in IEPD (2).  He/she can optionally create an mpd-catalog <code>c:ExtensionSchemaDocument</code> entry for this artifact (assuming it is an extension schema document), and add the attribute:</p> 
+	<p>The author of IEPD (1) has decided to reuse (as-is) the <code>extension/request1.xsd</code> artifact in IEPD (2).  He/she can optionally create an MPD catalog <code>c:ExtensionSchemaDocument</code> entry for this artifact (assuming it is an extension schema document), and add the attribute:</p> 
 	<blockquote>
 		<p><code>c:externalURI="http://www.abc.org/niem-iepd/order/2.1.2rev3/#extension/request4.xsd"</code></p>
 	</blockquote>
@@ -1319,16 +1333,18 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 
 
 
-<section id="MPD-Artifact-Lineage">
-	<title>MPD Artifact Lineage</title>
+<section id="MPD-Lineage">
+	<title>MPD and MPD Artifact Lineage</title>
 
-	<p>An important MPD business requirement is transparency of lineage.  MPDs internally facilitate identification of the relationships that may exist among their artifacts, families, versions, adaptations, specializations, generalizations, etc.  The URI scheme for MPDs and artifacts as well as the mpd-catalog make this possible.</p>
+	<p>An important business requirement is transparency of MPD lineage.  Data lineage is also referred to as <em>data provenance</em>, how data are derived or where it came from.  There are two basic views of data provenance:  (1) as data annotations; and (2) as a graph of data relationships <ref id="Principles-of-Data-Integration"/>, Chapter 14 <q>Data Provenance</q>.</p>
 
-	<p>The mpd-catalog provides a <code>c:Relationship</code> element with three attributes (<code>c:resourceURI</code>, <code>c:relationshipCode</code>, and <code>c:descriptionText</code>) to identify the pedigree of an MPD.  There are many ways that one MPD may relate to another.  This makes it extremely difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>c:descriptionText</code> attribute is provided to further explain the nature of any of the eight <code>c:relationshipCode</code> values available {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>c:relationshipCode</code> may be generic enough to require a more detailed explanation in <code>c:descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
+	<p>The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an MPD catalog.  The URI scheme for MPDs and their artifacts enables a graph of relationships.  An MPD may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.</p>
 
-	<p>The mpd-catalog also enables an author to record a fine-grained pedigree between MPDs when reusing artifacts from other MPDs.  By default each artifact identified in an mpd-catalog has a globally unique URI (using a fragment reference) that can refer to it.  An MPD author signifies reuse of a given artifact by entering the URI for that artifact in the optional <code>c:externalURI</code> attribute within the appropriate <code>c:FileType</code> or <code>c:FileSetType</code> elements.</p>
+	<p>The MPD catalog provides a <code>c:Relationship</code> element with three attributes (<code>c:resourceURI</code>, <code>c:relationshipCode</code>, and <code>c:descriptionText</code>) to identify ancestry and other relationships to other MPDs.  There are many ways that one MPD may relate to another.  This makes it extremely difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>c:descriptionText</code> attribute is provided to further explain the nature of any of the eight <code>c:relationshipCode</code> values available.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>c:relationshipCode</code> may be generic enough to require a more detailed explanation in <code>c:descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
 
-	<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse a given EIEM.  In such cases, the mpd-catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The mpd-catalog can contain many references to and semantics for artifacts and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.</p>
+	<p>The MPD catalog also enables an author to record more fine-grained ancestry between MPDs.  An MPD catalog can explicitly declare that it reuses an artifact from one or more other MPDs.  By default each artifact identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it <ref idref="URI-Scheme-for-MPD-Artifacts"/>.  An MPD author signifies reuse of a given artifact by entering the URI for that artifact in the optional <code>c:externalURI</code> attribute within the appropriate <code>c:FileType</code> or <code>c:FileSetType</code> elements.</p>
+
+	<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse a given EIEM.  In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The MPD catalog can contain many references to and semantics for artifacts and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.</p>
 
 </section>
 </section>
@@ -1430,7 +1446,7 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 		<p>An IEPD or an EIEM MUST contain a master document located in the <termRef>MPD root directory</termRef> whose filename begins with the substring <code>master-document</code>.</p>
 	</rule>
 
-	<p>The master document may replicate some of the metadata in the mpd-catalog.  However, the mpd-catalog is intentionally designed to be efficient, easily to parse, and minimal.  It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.</p>
+	<p>The master document may replicate some of the metadata in the MPD catalog.  However, the MPD catalog is intentionally designed to be efficient, easily to parse, and minimal.  It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.</p>
 
 	<p>The primary purposes of the master document include:</p>
 		<ul>
@@ -1504,6 +1520,23 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 
 
 
+<section id="Conformance-Report">
+	<title>Conformance Report</title>
+
+	<p>An important artifact required for an IEPD is a conformance report or other evidence of quality and conformance to NIEM.  Though not all NIEM rules cann be confirmed through automatic means and therefore must be asserted manually by the author, the inclusion of this report increases confidence that a NIEM IEPD has been checked and reviewed for conformance to NIEM.  In the future, as NIEM matures its processes and tools, a corresponding formal certificate of conformance may become a required artifact as well.  However, for now, only a report generated by the NIEM Conformance Tool (also known as the Conformance Testing Assistant or ConTesA) is neccessary to confirm conformance.</p>
+
+	<p>A NIEM conformance report is a spreadsheet output by the NIEM Conformance Tool that provides detailed results for applying NIEM conformance rules to one or more NIEM schemas or to an MPD.  This report provides a <code>pass/fail</code> result for each NDR and/or MPD rule that could be checked automatically.  It also indicates the rules that could not be checked automatically, and therefore, must be checked and validated manually.  For each manual rule, the user should:  (1) review its application to the conformance target, (2) assess the resulting value as a <code>pass</code> or <code>fail</code>, and (3) change the result value in the spreadsheet from its default (<code>manual</code>) to <code>pass</code> or <code>fail</code> as appropriate.</p>
+
+	<rule id="conformance-report" applicability="N-IEPD">
+		<p>A NIEM IEPD MUST contain a NIEM conformance report generated from NIEM-aware conformance toolthat indicates a value of <code>pass</code> for each rule, whether checked automatically or checked manually by its author.</p>
+	</rule>
+
+	<p>In the absence of a formal conformance certification process, the inclusion of a passing conformance report is an implied assertion that the IEPD author checked (either automatically or manually) all relevant rules for all relevant conformance targets and the IEPD passes all rules.</p>
+
+</section>
+
+
+
 <section id="XML-Catalogs">
 	<title>XML Catalogs</title>
 
@@ -1559,7 +1592,7 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 		<p>A <code>c:IEPConformanceTarget</code> MUST be assigned a locally unique NCName value for its <code>structures:id</code> attribute.</p>
 	</rule>
 
-	<p>An IEPD defines IEP conformance targets by explicitly and formally declaring them within its mpd-catalog.  The rule above ensures that conformance targets can be referenced between IEPDs and not only within an IEPD.</p>
+	<p>An IEPD defines IEP conformance targets by explicitly and formally declaring them within its MPD catalog.  The rule above ensures that conformance targets can be referenced between IEPDs and not only within an IEPD.</p>
 
 	<p>The following subsections the concepts, artifacts, and procedures for declaring and identifying IEP conformance targets in IEPDs.</p>
 
@@ -1720,7 +1753,7 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 <section id="Well-Formed-MPD">
 	<title>Well Formed MPD</title>
 
-	<definition term="well-formed MPD">
+	<definition term="well-formed MPD (or W-F-MPD)">
 		<p>Satisfies the following criteria:</p>
 		<ul>
 			<li><p>Is a valid <ref idref="PKZIP"/> archive file.</p></li>
@@ -1747,79 +1780,79 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 
 	<p>Regarding the rules that follow, (X) to the right of the rule number indicates the applicable conformance target "X".</p>
 
-	<rule id="v1a" applicability="MPD">
+	<rule id="v1a" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute MUST <termRef term="resolve URI">resolve</termRef> to an MPD artifact.</p>
 	</rule>
 
-	<rule id="v1b" applicability="MPD">
+	<rule id="v1b" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:XMLCatalog</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML catalog document</termRef>.</p>
 	</rule>
 
-	<rule id="v1c" applicability="MPD">
+	<rule id="v1c" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MPDChangeLog</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>change log</termRef>.</p>
 	</rule>
 
-	<rule id="v1d" applicability="MPD">
+	<rule id="v1d" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MasterDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>master document</termRef>.</p>
 	</rule>
 
-	<rule id="v1e" applicability="MPD">
+	<rule id="v1e" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML document</termRef>.</p>
 	</rule>
 
-	<rule id="v1f" applicability="MPD">
+	<rule id="v1f" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:BusinessRulesArtifact</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
 	</rule>
 
-	<rule id="v1g" applicability="MPD">
+	<rule id="v1g" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExternalSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
 	</rule>
 
-	<rule id="v1h" applicability="MPD">
+	<rule id="v1h" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to NIEM <termRef>reference schema document</termRef>.</p>
 	</rule>
 	
-	<rule id="v1i" applicability="MPD">
+	<rule id="v1i" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExtensionSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>extension schema document</termRef>.</p>
 	</rule>
 	
-	<rule id="v1j" applicability="MPD">
+	<rule id="v1j" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SubsetSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>subset schema document</termRef>.</p>
 	</rule>
 
-	<rule id="v1k" applicability="MPD">
+	<rule id="v1k" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:Wantlist</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>NIEM wantlist</termRef> XML document.</p>
 	</rule>
 	
-	<rule id="v1l" applicability="MPD">
+	<rule id="v1l" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>Schematron schema</termRef>.</p>
 	</rule>
 
-	<rule id="v1m" applicability="MPD">
+	<rule id="v1m" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>RelaxNG schema</termRef>.</p>
 	</rule>
 
-	<rule id="v1n" applicability="MPD">
+	<rule id="v1n" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef> set.</p>
 	</rule>
 
-	<rule id="v1o" applicability="MPD">
+	<rule id="v1o" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ConstraintSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>constraint schema document set</termRef>.</p>
 	</rule>
 
-	<rule id="v1p" applicability="MPD">
+	<rule id="v1p" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document set</termRef>.</p>
 	</rule>
 
-	<rule id="v1q" applicability="MPD">
+	<rule id="v1q" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>Schematron schema</termRef> .</p>
 	</rule>
 
-	<rule id="v1r" applicability="MPD">
+	<rule id="v1r" applicability="W-F-MPD">
 		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>RelaxNG schema</termRef> .</p>
 	</rule>
 
-	<rule id="v1s" applicability="MPD">
+	<rule id="v1s" applicability="W-F-MPD">
 		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RequiredFile</code> element MUST <termRef term="resolve URI">resolve</termRef> to a file artifact.</p>
 	</rule>
 
@@ -1835,19 +1868,19 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 		<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code>, the artifact resolved by the value of <code>c:pathURI</code> MUST be valid for the validity constraints of the <code>c:IEPConformanceTarget</code> parent of <code>c:IEPSampleXMLDocument</code>.</p>
 	</rule>
 
-	<rule id="v5" applicability="XML-Catalog">
+	<rule id="v5" applicability="XML-Cat">
 		<p>Within an <termRef>XML catalog document</termRef> the value of an <code>er:uri</code> attribute owned by a <code>er:URI</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
 	</rule>
 
-	<rule id="v6" applicability="XML-Catalog">
+	<rule id="v6" applicability="XML-Cat">
 		<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of an <code>er:uri</code> attribute owned by a <code>er:URI</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>er:name</code> (a namespace string) attribute owned by the <code>er:URI</code> element.</p> 
 	</rule>
 
-	<rule id="v7" applicability="Full-NIEM">
+	<rule id="v7" applicability="F-NIEM-IEP">
 		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:externalURI</code> attribute owned by an element that is a <code>c:FileType</code> (or a type derived from it) MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
 	</rule>
 
-	<rule id="v8" applicability="Full-NIEM">
+	<rule id="v8" applicability="F-NIEM-IEP">
 		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:resourceURI</code> attribute owned by a <code>c:Relationship</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
 	</rule>
 
@@ -1855,28 +1888,10 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 
 
 
-<section id="Complete-MPD">
-		<title>Complete MPD</title>
-
-	<definition term="complete MPD">
-		<p>Satisfies all rules and mandatory requirements for:</p>
-		<ul>
-			<li><p>this NIEM MPD Specification (<ref idref="NIEM-MPD"/>)</p></li>
-			<li><p><ref idref="NIEM-NDR"/></p></li>
-			<li><p><ref idref="NIEM-Conformance"/></p></li>
-		</ul>
-	</definition>
-
-	<p>[TBD]</p>
-
-</section>
-
-
-
 <section id="Full-NIEM-IEP">
-	<title>Full NIEM IEP</title>
+	<title>Full NIEM IEP (F-N-IEP)</title>
 
-	<definition term="full NIEM IEP">
+	<definition term="full NIEM IEP (F-N-IEP)">
 	<p>Satisfies the following criteria:</p>
 		<ul>
 			<li><p>[TBD]</p></li>
@@ -1888,11 +1903,17 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 </section>
 
 
-<section id="NIEM-IEPD2">
-	<title>NIEM IEPD</title>
 
-	<definition term="NIEM IEPD">
-		<p>A special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more <code>c:IEPConformanceTarget</code> elements.</p>
+<section id="NIEM-IEPD2">
+	<title>NIEM IEPD (N-IEPD)</title>
+
+	<definition term="NIEM IEPD (N-IEPD)">
+		<p>A special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more <code>c:IEPConformanceTarget</code> elements.  Furthermore, satisfies all rules and mandatory requirements for:</p>
+		<ul>
+			<li><p><ref idref="NIEM-MPD"/> (i.e., This MPD Specification)</p></li>
+			<li><p><ref idref="NIEM-NDR"/></p></li>
+			<li><p><ref idref="NIEM-Conformance"/></p></li>
+		</ul>
 	</definition>
 
 	<p>[TBD]</p>
@@ -1917,8 +1938,6 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 </ul>
 
 	<p>In addition to documentation artifacts, a variety of other optional files can be added to an MPD to facilitate tool support and make reuse, adaptation, and/or implementation easier.  These are often files that are inputs to or outputs from software tools.  Examples include content diagrams, content models in tool-specific formats, and business rules (either formal or informal representations).</p>
-
-	<p>Another optional artifact that is encouraged, especially for IEPDs, is a conformance report or other evidence of quality.  In the future, as NIEM processes and tools mature, conformance and quality reports and a corresponding certificate may become required artifacts.  For now, inclusion of a conformance report is at the discretion of the author or sponsor.  Though clearly, such reports can only increase confidence in MPDs that contain them.</p>
 
 	<p>An MPD author may include any files believed to be useful to understand, implement, reuse, and/or adapt an MPD.</p>
 
@@ -2022,7 +2041,7 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 <section id="MPD-File-Name-Syntax">
 	<title>MPD File Name Syntax</title>
 
-	<p>As previously stated, the MPD Specification is intended to help facilitate tool support for processing MPDs.  Given a tool must process an MPD, providing it basic information about the MPD as early as possible will help to reduce processing time and complexity.  So, if the MPD class and version can be easily identified by its file name, then a tool would not have to open the archive and parse the mpd-catalog just to determine this information.  Of course, ultimately, to do anything useful, a tool will have to open the MPD archive.  However, a standard file name syntax would allow a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each.  The following rules apply:</p>
+	<p>As previously stated, the MPD Specification is intended to help facilitate tool support for processing MPDs.  Given a tool must process an MPD, providing it basic information about the MPD as early as possible will help to reduce processing time and complexity.  So, if the MPD class and version can be easily identified by its file name, then a tool would not have to open the archive and parse the MPD catalog just to determine this information.  Of course, ultimately, to do anything useful, a tool will have to open the MPD archive.  However, a standard file name syntax would allow a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each.  The following rules apply:</p>
 
 	<rule id="r-name-syntax">
 		<p>An MPD archive file MUST use file name syntax defined by the regular expression:</p>
@@ -2078,7 +2097,7 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 <section id="Artifact-Links-to-Other-Resources">
 	<title>Artifact Links to Other Resources</title>
 
-	<p>The <ref idref="NIEM-NDR"/> requires that all namespace references within schema documents can be resolved to the correct local schema document.  Recall that there are several approaches to this that may incorporate the mpd-catalog, xml-catalogs, and/or <code>xs:import schemaLocation</code> attributes.  It is important to understand that the URI scheme defined in <ref idref="URI-Scheme-for-MPD-Artifacts"/> can only be used only to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD.  In accordance with the <ref idref="NIEM-NDR"/>, if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed.  When absolute references to Internet resources are required:</p>
+	<p>The <ref idref="NIEM-NDR"/> requires that all namespace references within schema documents can be resolved to the correct local schema document.  Recall that there are several approaches to this that may incorporate the MPD catalog, xml-catalogs, and/or <code>xs:import schemaLocation</code> attributes.  It is important to understand that the URI scheme defined in <ref idref="URI-Scheme-for-MPD-Artifacts"/> can only be used only to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD.  In accordance with the <ref idref="NIEM-NDR"/>, if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed.  When absolute references to Internet resources are required:</p>
 
 	<rule id="r-mpd-protocol">
 		<p>Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST <termRef term="resolve URI">resolve</termRef> (If applicable, documentation that describes how to <termRef term="resolve URI">resolve</termRef> with security, account, and/or password issues MUST be included).</p>
@@ -2091,7 +2110,7 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 	</rule>
 
 	<rule id="r-mpd-link-eiem">
-		<p>A published IEPD MUST link (through its mpd-catalog) to any EIEM it is based on.</p>
+		<p>A published IEPD MUST link (through its MPD catalog) to any EIEM it is based on.</p>
 	</rule>
 
 	<p>Refer to <ref idref="r-mpd-mime"/> for Internet representation of IEPDs or EIEMs.</p>
@@ -2186,6 +2205,7 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 		mpd-catalog-extension.xsd
 		changelog.*
 		master-document.*
+		conformance-report.xslx
 
 		/niem
 			/adaptors
@@ -2387,6 +2407,10 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 
 <reference id="OASIS-XML-Catalogs" label="XML Catalogs">
 	<p><em>XML Catalogs</em>, Organization for the Advancement of Structured Information Standards (OASIS) Standard v1.1, 7 October 2005.  Available from <link>https://www.oasis-open.org/committees/download.php/14809/std-entity-xml-catalogs-1.1.html</link>.</p>
+</reference>
+
+<reference id="Principles-of-Data-Integration" label="Principles of Data Integration">
+	<p><em>Principles of Data Integration</em>, AnHai Doan, Alon Halevy, and Xachary Ives, Morgan Kaufmann, 25 June 2012.</p>
 </reference>
 
 <reference id="RAR" label="RAR">
