@@ -24,35 +24,41 @@ Status
 
 Major changes in this draft (related to last)
 
-      1. New Section 9 Conformance Target Concepts.
+      1. New Section 9 (Conformance Target Concepts).
 
-      2. New Section MPD artifacts Conformance Report; require for an IEPD.
+      2. New Section 4.5 (Conformance Report); now required for an IEPD.
 
-      3. Modified section on MPD Lineage. Removed term "pedigree" (even though it's equivalent to "lineage". Added reference to discussion in Principles of Data Integration (book) that describes one view of provenance (aka lineage) as a graph of relationships. MPD Spec adapts this view through URIs to MPDs and their artifacts.
+      3. Modified section on MPD Lineage. Removed "pedigree" (even though equivalent to "lineage").
 
-      4. .
+      4. Added reference to Principles of Data Integration (book); supports lineage discussion.
 
-      5. .
+      5. Entered a initial conformance target for each rule; will need refinements.
+
+      6. .
 
 Remaining work and issues
 
-      1. Identify conformance target(s) (CT) for each rule.
+      1.  Bring in Webb's text for classification of rules as constraint or interpretation of process.
 
-      2. Improve definitions for schema sets.
+      2.  Improve definitions for schema sets.
 
-      3. Missing CTs? Fork any? Classify rules based on CTs. Should a CT for NIEM EIEM exist?
+      3.  Missing CTs? Fork any? (e,g., MPD, Chg-Log, NIEM-EIEM, Full-NIEM-EIEM ???)
 
-      4. Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent).
+      4.  Classify rules based on CTs.
 
-      5. Appendix for Schematron rules for MPD Catalog.
+      5.  Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent).
 
-      6. Assemble resource tool kit: MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.
+      6.  Appendix for Schematron rules for MPD Catalog.
 
-      7. Appendix for Example IEP (from Cursor on Target).
+      7.  Assemble resource tool kit: MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.
 
-      8. QA and validity checks on MPD catalog schema (Appendix A).
+      8.  Appendix for Example IEP (from Cursor on Target).
 
-      9. Final check: typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.
+      9.  QA and validity checks on MPD catalog schema (Appendix A).
+
+      10. Final check: typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.
+
+      11. .
 
    NOTE: Search on "TBD" to find incomplete items.
 
@@ -1223,11 +1229,13 @@ Remaining work and issues
 
    A NIEM conformance report is a spreadsheet output by the NIEM Conformance Tool that provides detailed results for applying NIEM conformance rules to one or more NIEM schemas or to an MPD. This report provides a pass/fail result for each NDR and/or MPD rule that could be checked automatically. It also indicates the rules that could not be checked automatically, and therefore, must be checked and validated manually. For each manual rule, the user should: (1) review its application to the conformance target, (2) assess the resulting value as a pass or fail, and (3) change the result value in the spreadsheet from its default (manual) to pass or fail as appropriate.
 
+   A passing conformance report carries a value of pass for each rule, whether checked automatically or checked manually by its author.
+
    [Rule 4-17] (N-IEPD)
 
-      A NIEM IEPD MUST contain a NIEM conformance report generated from NIEM-aware conformance toolthat indicates a value of pass for each rule, whether checked automatically or checked manually by its author.
+      A NIEM IEPD MUST contain a passing NIEM conformance report in its [MPD root directory].
 
-   In the absence of a formal conformance certification process, the inclusion of a passing conformance report is an implied assertion that the IEPD author checked (either automatically or manually) all relevant rules for all relevant conformance targets and the IEPD passes all rules.
+   In the absence of a formal conformance certification process, the inclusion of a passing conformance report represents an assertion that the IEPD author checked (either automatically or manually) all rules for all relevant conformance targets, and the IEPD passes all rules.
 
 4.6. XML Catalogs
 
@@ -2780,7 +2788,7 @@ Appendix D. Guidance for IEPD Directories (non-normative)
 
       *  Maintain tool-specific artifacts (inputs, outputs, imports, exports, etc.) in a subdirectory with a name that begins with the substring application-info.
 
-   Obviously, there are many other ways to organize for more complex business requirements in which multiple releases, subsets, constraint sets, core updates, and domain updates are employed in a single IEPD or EIEM. Regardless of directory organization and file naming, an IEPD or EIEM author should always configure all IEP conformance targets using the MPD catalog c:IEPConformanceTarget element and the appropriate validation artifacts (such as XML catalogs, Schematron schemas, RelaxNG schemas, etc.).
+   Obviously, there are many other ways to organize for more complex business requirements in which a single IEPD or EIEM employs multiple releases, subsets, constraint sets, core updates, and domain updates. Regardless of directory organization and file naming, an IEPD or EIEM author must always configure all IEP conformance targets using the MPD catalog c:IEPConformanceTarget element and the appropriate validation artifacts (such as XML catalogs, Schematron schemas, RelaxNG schemas, etc.).
 
    The guidance above results in an IEPD directory structure that appears below. Filenames within the extension, external, exchange, schematron, and iep-sample subdirectories are non-normative examples. Authors are free to assign names for such files according to their own requirements (if they do not violate the rules in this specification for files such as mpd-catalog.xml or changelog.*).
 
