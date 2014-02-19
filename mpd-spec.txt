@@ -616,21 +616,21 @@ Remaining work and issues
 
    NIEM subset operations are essentially reduction operations that remove or constrain portions of a reference schema document set, thereby building a profile of the set. They do not expand the scope (i.e., relax constraints) or change the semantics of reference schema document set content.
 
-   The following describe valid operations that will produce a [schema document subset]:
+   The following describe valid operations that, if applied to a schema document set will result in a corresponding [schema document subset]:
 
-      1.  Remove an XML comment statement.
+      1.  Remove an XML comment.
 
-      2.  Remove an xs:annotation (includes xs:documentation and xs:appinfo).
+      2.  Remove an xs:annotation and its children xs:documentation and xs:appinfo.
 
-      3.  Increase the value of an xs:element/@minOccurs attribute (must be less than or equal to @maxOccurs value).
+      3.  Increase the value of an xs:element/@minOccurs as long as it remains less than or equal to its corresponding @maxOccurs value).
 
-      4.  Decrease the value of an xs:element/@maxOccurs attribute (must be greater than or equal to @minOccurs value).
+      4.  Decrease the value of an xs:element/@maxOccurs as long as it remains greater than or equal to its corresponding @minOccurs value.
 
-      5.  Remove an xs:element if @minOccurs="0".
+      5.  Remove an xs:element if its @minOccurs="0".
 
-      6.  Remove an xs:complexType or xs:simpleType (if not supporting an element or attribute).
+      6.  Remove an xs:complexType or xs:simpleType if not supporting an xs:element or xs:attribute declaration.
 
-      7.  Remove an xs:attribute (if @use="optional") from an xs:complexType.
+      7.  Remove an xs:attribute whose @use="optional" from an xs:complexType.
 
       8.  Change an xs:attribute/@use="optional" to @use="prohibited".
 
@@ -638,17 +638,17 @@ Remaining work and issues
 
       10. Remove an xs:element declaration (if not supporting an element use).
 
-      11. Remove an xs:enumeration from an xs:simpleType (unless it is the only remaining xs:enumeration).
+      11. Remove an xs:enumeration from an xs:simpleType as long as it is not the only remaining xs:enumeration.
 
       12. Add or apply a constraining facet to an xs:simpleType.
 
       13. Remove an xs:import and its associated schema document (if the schema document is not used within the document set).
 
-      14. Change a concrete xs:/schema/xs:element declaration to @abstract="true".
+      14. Change a concrete xs:element declaration to @abstract="true".
 
-      15. Change an element from @nillable="true" to @nillable="false".
+      15. Change an xs:element/@nillable="true" to @nillable="false".
 
-      16. Substitute an xs:element/@substitutionGroup member for its associated substitution head.
+      16. Substitute an xs:element/@substitutionGroup member for its associated substitution group head.
 
       17. Substitute a composition of xs:element/@substitutionGroup members for their associated substitution head (subject to cardinality and unique particle attribution (UPA) constraints). The composition is an ordered sequence of the @substitutionGroup member elements. Each substitute element may bound its cardinality such that the total cardinality sum is within the bounds of the @substitutionGroup head cardinality. Order and cardinality of the replacement sequence must conform to XML Schema UPA constraints.
 
