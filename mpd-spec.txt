@@ -274,9 +274,19 @@ Remaining work and issues
 
       An enforceable rule for NIEM.
 
+   Each rule has a classification, which is either Constraint or Interpretation. If the classification is Constraint, then the rule is a [constraint rule]. If the classification is Interpretation, then the rule is an [interpretation rule].
+
+   [Definition: constraint rule]
+
+      A rule that sets a requirement on an artifact with respect to its conformance to a [conformance target].
+
+   [Definition: interpretation rule]
+
+      A rule that sets the methodology, pattern, or procedure for understanding or using some aspect of an instance of a conformance target.
+
    Each rule has a list of one or more [conformance targets] to which the rule applies. Each entry in the list is a code from Table Table 2-1, Conformance Target Codes, below. Each code in the applicability list for a rule indicates that the rule applies to the corresponding conformance target. The conformance targets for this specification are summarized and coded in Section 2.9, Conformance Target Concepts, below, in order to support rules defined throughout this specification. Section 5, Conformance Targets, below, provides additional discussion and rules for conformance targets.
 
-   Rules are numbered according to the section in which they appear and the order in which they appear within that section. For example, Rule 6-1 is the first rule in Section 6.
+   Rules are numbered according to the section in which they appear and the order in which they appear within that section. For example, Rule 4-1 is the first rule in Section 4.
 
 2.9. Conformance Target Concepts
 
@@ -380,7 +390,7 @@ Remaining work and issues
 
    [Definition: micro release]
 
-      A NIEM release in which neither the NIEM Core nor the domain reference schema documents have changed from the previous major or minor release, but one or more new reference schema documents have been added (without impact to domain or Core schemas). A third digit greater than zero in the version number indicates a micro release (for example, v2.1.1 note that this release does not exist as of this date).
+      A NIEM release in which neither the NIEM Core nor the domain reference schema documents have changed from the previous major or minor release, but one or more new reference schema documents have been added (without impact to domain or Core schemas). A third digit greater than zero in the version number indicates a micro release (for example, v2.1.1; note that this release does not currently exist).
 
    A micro release is a NIEM release that adds new data components to the Core, domains, or both without removing or modifying existing Core and domain schemas or content. Figure 2-1, Examples of NIEM numbered releases, below, illustrates both real (v1.0, v2.0, v2.1, and v3.0) and fictitious (v2.1.1 and v2.1.2) examples of major, minor, and micro release composition.
 
@@ -900,7 +910,7 @@ Remaining work and issues
 
    In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices. This is the same version numbering scheme that is used for NIEM releases.
 
-   [Rule 4-5] (MPD)
+   [Rule 4-5] (W-F-MPD)
 
       An MPD MUST be assigned a version number that adheres to the regular expression:
 
@@ -965,7 +975,7 @@ Remaining work and issues
 
    This specification places no further restrictions or meaning (implied or otherwise) on a version number. Authors have the option to use integers between dots to indicate degree of compatibility or other relationships between versions as needed. For example, for a given MPD, the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2. Such a claim is acceptable. However, this specification does not imply any such relationships. Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the MPD.
 
-   [Rule 4-6] (MPD)
+   [Rule 4-6] (W-F-MPD)
 
       MPD version numbers within a version series do NOT imply compatibility between versions. Compatibility between or among MPD versions MUST be explicitly stated in documentation.
 
@@ -977,7 +987,7 @@ Remaining work and issues
 
    To facilitate MPD sharing and reuse the assignment of a URI (Uniform Resource Identifier) to each MPD is essential.
 
-   [Rule 4-7] (MPD)
+   [Rule 4-7] (W-F-MPD)
 
       An MPD MUST be assigned a valid http URI.
 
@@ -989,7 +999,7 @@ Remaining work and issues
 
    The MPD version number (i.e., the value of the c:mpdVersionID in Appendix A, MPD Catalog XML Schema Document, below) is essential to its unique identification. Incorporation of the version number within the MPD URI provides a simple visual (as well as machine readable) means of identifying one of the most fundamental relationships between MPDs, i.e., that one is a different version of another. Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.
 
-   [Rule 4-8] (MPD)
+   [Rule 4-8] (W-F-MPD)
 
       A URI for an MPD MUST end in its version number concatenated with a forward slash character ("/").
 
@@ -999,7 +1009,7 @@ Remaining work and issues
 
    Given the URI for an MPD, a URI also exists for each artifact in that MPD. Again, this specification follows [RFC3986 URI] and employs a fragment identifier to designate an artifact URI. Each file artifact or set (directory) artifact is uniquely identified by its path name relative to the [MPD root directory]. The URI for an MPD artifact is the concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name of the artifact.
 
-   [Rule 4-9] (MPD)
+   [Rule 4-9] (W-F-MPD)
 
       A URI reference to an individual MPD artifact from another resource is the concatenation of
 
@@ -1037,7 +1047,7 @@ Remaining work and issues
 
    Note that a URI does not have the same meaning as namespace. Do not rely on namespaces for artifact URIs. Recall that the namespaces used in a schema document subset derived from a NIEM release are identical to the namespaces of the release itself. Furthermore, an IEPD or an EIEM may contain multiple subsets. The non-uniqueness of NIEM namespaces implies that they cannot be used as URIs for MPD artifacts.
 
-   [Rule 4-10] (MPD)
+   [Rule 4-10] (W-F-MPD)
 
       NIEM namespaces MUST NOT be used as URIs for MPD artifacts.
 
@@ -1069,9 +1079,9 @@ Remaining work and issues
 
    In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change. New versions of reference schema document sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs and EIEMs. Developers must understand in detail how changes will affect their IEPD and EIEM products and the tools used to build them. To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs. A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users. All of the foregoing reasons dictate that NIEM require a normative change log for reference schema document sets.
 
-   [Rule 4-11] (MPD)
+   [Rule 4-11] (W-F-MPD)
 
-      An MPD that is a reference schema document set (i.e., NIEM releases, core updates, and domain updates) MUST contain an XML change log document that:
+      An MPD that is a NIEM release, core update, or domain update MUST contain an XML change log document that:
 
          *  Validates with the NIEM change log schemas mpd-changelog.xsd and niem-model.xsd. (Note these are base filenames; actual filenames also contain a version number; for example, mpd-changelog-1.0.xsd.)
 
@@ -1095,7 +1105,7 @@ Remaining work and issues
 
    IEPD and EIEM change log requirements are less strict and are not required to conform to the naming and XML schema specifications in [Rule 4-11], above. However, a change log is still required.
 
-   [Rule 4-12] (N-IEPD,, N-EIEM)
+   [Rule 4-12] (N-IEPD, N-EIEM)
 
       An MPD that is an IEPD or EIEM MUST contain a change log artifact that:
 
@@ -1133,9 +1143,9 @@ Remaining work and issues
 
    The master document is similar to a readme file. It is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed. On the other hand, releases and domain updates have fairly restrictive rules to obey, standard documentation for how to use them, and are centrally managed.
 
-   [Rule 4-15] (N-IEPD,, N-EIEM)
+   [Rule 4-15] (N-IEPD, N-EIEM)
 
-      An IEPD or an EIEM MUST contain a master document located in the [MPD root directory] whose filename begins with the substring master-document.
+      An MPD that is an IEPD or an EIEM MUST contain a master document in the [MPD root directory] whose filename begins with the substring master-document.
 
    The master document may replicate some of the metadata in the MPD catalog. However, the MPD catalog is intentionally designed to be efficient, easily to parse, and minimal. It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.
 
@@ -1175,7 +1185,7 @@ Remaining work and issues
 
    Many document formats (e.g., Microsoft Word) can display hot links to local files within the MPD archive as well as URLs to files on the Internet. Employing such a format is highly recommended but not mandatory.
 
-   [Rule 4-16] (N-IEPD,, N-EIEM)
+   [Rule 4-16] (N-IEPD, N-EIEM)
 
       A NIEM IEPD or EIEM master document SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.
 
@@ -1381,7 +1391,7 @@ Remaining work and issues
 
    For these reasons, IEP samples are required for IEPDs:
 
-   [Rule 4-21] (IEP,, N-F-IEP)
+   [Rule 4-21] (IEP, N-F-IEP)
 
       An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared c:IEPConformanceTarget. If applicable and appropriate, one IEP sample MAY exemplify multiple conformance targets.
 
@@ -1702,7 +1712,7 @@ Remaining work and issues
 
    In HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.
 
-   [Rule 7-6] (MPD)
+   [Rule 7-6] (W-F-MPD)
 
       When represented on the Internet, an MPD archive SHOULD use the following MIME Type:
 
@@ -1771,25 +1781,23 @@ Appendix A. MPD Catalog XML Schema Document
        <import namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
    
    <!-- 
-   This schema is work-in-progress.  Component names may exist that do not 
-   necessarily conform to the NDR, may yet require review and refinement 
-   to ensure they have all appropriate properties they replaced.  
-   For example, AuthoritativeSource is now type="nc:EntityType".  
-   Nonetheless, we appreciate your feedback. -->
+   This schema is work-in-progress and subject to change 
+   before publication as an approved NIEM specfication.
+   -->
    
        <annotation>
    
          <documentation>
              Model Package Description (MPD) Catalog. 
-             This schema defines a mpd-catalog.xml artifact 
+             This schema defines an mpd-catalog.xml artifact 
              for NIEM Model Package Descriptions (MPD):
-                NIEM releases, core updates, domain updates, 
+                NIEM releases, Core updates, domain updates, 
                 NIEM Information Exchange Package Documentation (IEPD), 
                 and NIEM Enterprise Information Exchange Models (EIEM). 
-             The purpose of this schema is to facilitate consistent declaration of
-   	  MPD content, metadata, and lineage to process, display, review, register,
-   	  search, and discover MPDs efficiently. For IEPDs, the mpd-catalog also 
-   	  provides instructions for validating IEPs to schemas. 
+   	  The purpose of this schema is to facilitate consistent declaration 
+   	  of MPD content, metadata, and lineage to process, display, review, 
+   	  register, search, and discover MPDs efficiently. For IEPDs, the
+   	  mpd-catalog provides instructions for validating IEPs to schemas. 
          </documentation>
    
          <appinfo>
@@ -2322,7 +2330,7 @@ Appendix A. MPD Catalog XML Schema Document
    	</extension>
          </complexContent>
        </complexType>
-       
+    
        <element name="ValidityConstraintWithContext" abstract="true">
          <annotation>
            <documentation>A rule or instructions for validating an IEP candidate
@@ -2617,7 +2625,8 @@ Appendix A. MPD Catalog XML Schema Document
          </annotation>
        </element>
    
-   <!-- c:AuthoritativeSource should use NIEM 3.0 schema components as follows ...
+   <!-- This XML Schema document is supported by a subset of the niem-core v3.0.
+        c:AuthoritativeSource should use NIEM 3.0 schema components as follows ...
    
    <c:AuthoritativeSource>					(type="nc:EntityType")
    	<nc:EntityOrganization> 			(or <nc:EntityPerson>)
@@ -2978,7 +2987,7 @@ Appendix F. References
 
    [XML Catalogs]: XML Catalogs, Organization for the Advancement of Structured Information Standards (OASIS) Standard v1.1, 7 October 2005. Available from https://www.oasis-open.org/committees/download.php/14809/std-entity-xml-catalogs-1.1.html.
 
-   [Principles of Data Integration]: Principles of Data Integration, AnHai Doan, Alon Halevy, and Xachary Ives, Morgan Kaufmann, 25 June 2012.
+   [Principles of Data Integration]: Doan, A., Halevy, A., and Ives, X. (2012), Principles of Data Integration, New York, NY: Morgan Kaufmann.
 
    [RAR]: http://win-rar.com
 
