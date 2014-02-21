@@ -44,8 +44,8 @@
 		<li><p>New Section 9 (Conformance Target Concepts).</p></li>
 		<li><p>New Section 4.5 (Conformance Report); now required for an IEPD.</p></li>
 		<li><p>Modified section on MPD Lineage.  Removed "pedigree" (even though equivalent to "lineage").</p></li>
-		<li><p>Added reference to <em>Principles of Data Integration</em> (book); supports lineage discussion.</p></li>
-		<li><p>Entered a initial conformance target for each rule; will need refinements.</p></li>
+		<li><p>Added reference: <em>Principles of Data Integration</em> (book) to support "lineage" discussion.</p></li>
+		<li><p>Entered initial conformance target, applicability, and class for each rule; will need to refine.</p></li>
 		<li><p>.</p></li>
 	</ol>
 
@@ -630,7 +630,7 @@
 		<li><p>IEPDs, EIEMs, and NIEM releases are independently complete.  A core update can be issued as a new complete standalone reference schema document to be used with a NIEM core.</p></li>
 	</ul>
 
-	<p><ref idref="compare-mpd-classes"/> summarizes the similarities and differences of MPD classes by indicating the characteristics for each:</p>
+	<p><ref idref="compare-mpd-classes"/> summarizes many of the similarities and differences of MPD classes by indicating characteristics for each:</p>
 
 <table id="compare-mpd-classes">
 	<title>Comparison of MPD classes</title>
@@ -728,14 +728,6 @@
 	    <td>   </td>
 	    <td>   </td>
 	    <td> X </td>
-	    <td>   </td>
-	</tr>
-	<tr>
-            <td>Contains subset, extension, or external schema documents; optionally constraint schema document sets</td>
-	    <td>   </td>
-	    <td>   </td>
-	    <td>   </td>
-	    <td> X </td>
 	    <td> X </td>
 	</tr>
 	<tr>
@@ -747,7 +739,7 @@
 	    <td>   </td>
 	</tr>
 	<tr>
-		<td>Must declare at least one or more <termRef term="IEP conformance target">IEP conformance targets</termRef></td>
+	    <td>Must declare at least one or more <termRef term="IEP conformance target">IEP conformance targets</termRef></td>
 	    <td>   </td>
 	    <td>   </td>
 	    <td>   </td>
@@ -770,22 +762,6 @@
 	    <td> X </td>
 	    <td> X </td>
 	</tr>
-	<tr>
-            <td>May be independently standalone XML schema document set</td>
-	    <td>   </td>
-	    <td> X </td>
-	    <td> X </td>
-	    <td>   </td>
-	    <td>   </td>
-	</tr>
-	<tr>
-	<td>May supersede other published XML schema documents (target namespaces)</td>
-	    <td>   </td>
-	    <td>   </td>
-	    <td> X </td>
-	    <td>   </td>
-	    <td>   </td>
-	</tr>
 </table>
 
 </section>
@@ -798,7 +774,7 @@
 <section id="MPD-XML-Schema-Artifacts">
 	<title>MPD XML Schema Document Artifacts</title>
 
-	<p>XML schema document artifacts are the essential content of MPDs because they normatively define and declare data components.  The purpose of an MPD is determined by the XML schema document or document set(s) it contains; furthermore, each schema document may have a different purpose.  The <ref idref="NIEM-NDR"/> addresses some schema documents as conformance targets including reference schema documents, extension schema documents, and schema document sets.  Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules.  Consult the <ref idref="NIEM-NDR"/> for these rules.  NIEM also employs a special technique that relies on constraint schema documents and document sets.</p>
+	<p><termRef>XML schema document</termRef> artifacts are the essential content of MPDs because they normatively define and declare data components.  The purpose of an MPD is determined by the XML schema document or document set(s) it contains; furthermore, each schema document may have a different purpose.  The <ref idref="NIEM-NDR"/> addresses some schema documents as conformance targets including reference schema documents, extension schema documents, and schema document sets.  Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules.  Consult the <ref idref="NIEM-NDR"/> for these rules.  NIEM also employs a special technique that relies on constraint schema documents and document sets.</p>
 
 	<p>The following subsections will define each type of NIEM schema document and document set, and will identify the types of MPDs that may or must contain them.  The last subsection discusses sample instance XML documents (IEPs) that validate with IEPD schema document sets, and when such instance XML documents are mandatory.</p>
 
@@ -806,9 +782,9 @@
 <section id="Reference-Schemas">
 	<title>Reference Schema Documents</title>
 
-	<p>This section generally applies to NIEM releases, core updates, and domain updates.  Though not common, it is also valid to use a reference schema document or document set within an IEPD or EIEM.  Reference schema document and reference schema document set were defined earlier in <ref idref="Reference-Schema-Document"/>.</p>
+	<p>This section generally applies to NIEM releases, core updates, and domain updates.  Though not common, it is also valid to use a <termRef>reference schema document</termRef> or document set within an IEPD or EIEM.  <termRef>Reference schema document</termRef> and <termRef>reference schema document set</termRef> were defined earlier in <ref idref="Reference-Schema-Document"/>.</p>
 
-	<p>A NIEM reference schema document is intended to be the authoritative definition schema document for a NIEM target namespace, therefore, all NIEM releases, core updates, and domain updates are composed of a reference schema document set and associated namespaces.   As a standalone artifact, a reference schema document set is always harmonized such that all types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within the set).</p>
+	<p>A NIEM <termRef>reference schema document</termRef> is intended to be the authoritative definition schema document for a NIEM target namespace, therefore, all NIEM releases, core updates, and domain updates are composed of a reference schema document set and associated namespaces.   As a standalone artifact, a reference schema document set is always harmonized such that all types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within the set).</p>
 
 	<p>As authoritative definitions, NIEM reference schema document sets satisfy more rigorous documentation requirements.  The <ref idref="NIEM-NDR"/> requires that each type definition, and element and attribute declaration in a reference schema document contain an <code>xs:annotation</code> element that defines its semantic meaning.  As will be explained later, extension schema documents are also authoritative definitions, but in a local sense.  They are authoritative within a given IEPD or EIEM, and therefore, must also satisfy the same rigorous documentation rules as reference schema documents.</p>
 
@@ -853,7 +829,7 @@
 
 	<p>The fundamental rule for a valid schema document subset is as follows:</p>
 
-	<rule id="fundamental-subset" applicability="Subset" class="Constraint">
+	<rule id="r-subset" applicability="Subset" class="Constraint">
 		<p>A subset schema assembled from a <termRef>schema document subset</termRef> derived from a NIEM <termRef>reference schema document set</termRef> is a valid subset schema, if and only if any instance XML document that validates with the schema subset also validates with the reference schema assembled from the <termRef>reference schema document set</termRef>.</p>
 	</rule>
 
@@ -897,8 +873,8 @@
 
 	<p>A schema document subset is essentially a reference schema document set (i.e., a numbered release) that has been modified by applying the foregoing subset operations to support business requirements represented in an IEPD or EIEM.  A subset derived from a reference schema document set may differ from that reference set only in that its content has been reduced and/or constrained.  For this reason, each subset schema document adopts the target namespace of its corresponding reference schema document.</p>
 
-	<rule id="r-subset-ns">
-		<p>A subset schema document in a schema document subset derived from a reference schema document set MUST have the same target namespace as the schema document in the reference schema document set on which it is based.</p>
+	<rule id="r-subset-tgt-ns" applicability="Subset" class="Constraint">
+		<p>A <termRef>subset schema document</termRef> in a <termRef>schema document subset</termRef> derived from a <termRef>reference schema document set</termRef> MUST have the same target namespace as the schema document in the <termRef>reference schema document set</termRef> on which it is based.</p>
 	</rule>
 
 </section>
@@ -986,15 +962,15 @@
 
 	<p>Constraint schema documents are generally designed and employed in sets, similar to reference schema document set or schema document subsets.  A common practice for creating an IEPD or EIEM constraint schema document set is to start with a valid NIEM schema document subset and modify it to further restrict the class of instance XML documents (IEPs) that will validate with this constraint schema set.  However, an extension schema document can also be used to derive a constraint schema document.  The namespace of a constraint schema document is established the same way the namespace of a subset schema document is established, by reusing the target namespace of the schema document from which it is derived.</p>
 
-	<rule id="r-mpd-tgtns">
-		<p>A constraint schema document MUST have a target namespace that has been previously assigned to a reference or extension schema document, or is a constraint schema document intended to support another constraint schema document that has such a target namespace.</p>
+	<rule id="r-constraint-tgt-ns" applicability="Constraint" class="Constraint">
+		<p>A <termRef>constraint schema document</termRef> MUST have a target namespace that has been previously assigned to a <termRef term="reference schema document">reference</termRef> or <termRef>extension schema document</termRef>, or is a <termRef>constraint schema document</termRef> intended to support another <termRef>constraint schema document</termRef> that has such a target namespace.</p>
 	</rule>
 
-	<p>To use a constraint schema document set to tighten constraints on IEPs, a two-pass validation technique is employed.  In the first pass, an IEP is validated against the schema document subset and extension schema documents.  This pass ensures that IEP semantics and structure conform to the NIEM model and NDR.  In the second pass, an IEP is checked against a constraint schema document set, which may contain constrained versions of the subset schema documents and extension schema documents.  This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate).</p>
+	<p>To use a <termRef>constraint schema document set</termRef> to tighten constraints on IEPs, a two-pass validation technique is employed.  In the first pass, an IEP is validated against the schema document subset and extension schema documents.  This pass ensures that IEP semantics and structure conform to the NIEM model and NDR.  In the second pass, an IEP is checked against a constraint schema document set, which may contain constrained versions of the <termRef term="subset schema document">subset schema documents</termRef> and <termRef term="extension schema document">extension schema documents</termRef>.  This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate).</p>
 
 	<p>There is no restriction on the number of constraint schema document sets that an IEPD or EIEM can employ.  As in other advanced situations, developers must clearly document their intentions for and use of multiple constraint schema document sets.</p>
 
-	<p>In general, constraint schema documents have far fewer requirements than other classes of NIEM schema documents.  Since they work in tandem with NIEM normative schema documents, constraint schema documents are allowed to use the XML Schema Definition language in any way necessary to express business rules.  This means that to constrain instance XML documents, constraint schema documents can employ XML Schema constructs that are not allowed in other classes of NIEM schema documents.</p>
+	<p>In general, <termRef term="constraint schema document">constraint schema documents</termRef> have far fewer requirements than other classes of NIEM schema documents.  Since they work in tandem with NIEM normative schema documents, constraint schema documents are allowed to use the XML Schema Definition language in any way necessary to express business rules.  This means that to constrain instance XML documents, constraint schema documents can employ XML Schema constructs that are not allowed in other classes of NIEM schema documents.</p>
 
 	<p>BIECs in particular may have additional business rules in constraint schema documents.  A normative NIEM BIEC Specification (not available at the time of the publication of this MPD Specification), will supplement or obviate constraint schema documents with consistent and formal techniques for representing business rules within NIEM components.  However, as already mentioned, the MPD Specification does not prohibit or restrict the application of formal business rule techniques (such as <ref idref="ISO-Schematron"/>) to MPDs now.</p>
 
@@ -1007,7 +983,7 @@
 
 	<p>The chart in <ref idref="classes-mpds-xsds"/> summarizes the types of schema documents that:  (1) can be contained in an instance of each MPD class, and (2) the (<em>minimum, maximum</em>) cardinalities of those schema documents.  In some cases, certain types of schema documents are never contained in particular class of MPD.  These are labeled <q><em>not applicable</em></q>.</p>
 
-	<p>Notice that only NIEM releases, core updates, and domain updates contain reference schema document sets, while only IEPDs and EIEMs contain the user-developed schema document sets.  The pluses (+) indicate that a NIEM-conformant IEPD or EIEM must have at least one schema document that is either a NIEM reference schema document or a NIEM subset schema document derived from a NIEM reference schema document (See <ref idref="r-mpd-ref-sub"/>).</p>
+	<p>Notice that only NIEM releases, core updates, and domain updates contain reference schema document sets, while only IEPDs and EIEMs contain the user-developed schema document sets.  Plus (+) indicates that a NIEM-conformant IEPD or EIEM should contain and use at least one schema document that is either a NIEM <termRef>reference schema document</termRef> or a NIEM <termRef>subset schema document</termRef> from such.</p>
 
 <table id="classes-mpds-xsds">
 	<title>Schema document classes vs. MPD classes</title>
@@ -1063,10 +1039,6 @@
 
 	<p><char name="nbsp"/></p>
 
-	<rule id="r-mpd-ref-sub" applicability="N-IEPD">
-		<p>A NIEM-conformant IEPD or EIEM MUST contain at least one schema document that is either a NIEM reference schema document or a subset schema document derived from a NIEM reference schema document.</p>
-	</rule>
-
 </section>
 </section>
 
@@ -1117,20 +1089,30 @@
 		<li><p>Definition, identification, and validation of IEP conformance targets</p></li>
 	</ul>
 
-	<rule id="r-mpd-catalog" applicability="MPD-Cat">
-		<p>A <termRef term="well-formed MPD">well-formed</termRef> and <termRef>NIEM IEPD</termRef> MUST contain an MPD catalog XML document artifact that:</p>
-		<ul>
-			<li><p>validates with the NIEM MPD catalog schema contained in <ref idref="MPD-Catalog-XSD"/>.</p></li>
-			<li><p>validates with the NIEM MPD catalog Schematron rules [TBD].</p></li>
-			<li><p>resides in the <termRef>MPD root directory</termRef>.</p></li>
-			<li><p>bears the file name <code>mpd-catalog.xml</code>.</p></li>
-		</ul>
-</rule>
+	<rule id="r-mpd-cat1" applicability="MPD-Cat" class="Constraint">
+		<p>An <termRef>MPD catalog document</termRef> MUST have the file name <code>mpd-catalog.xml</code>.</p>
+	</rule>
 
-<p>Note that the <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML schema definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef term="well-formed MPD">well-formed</termRef> from a <termRef>NIEM IEPD</termRef> during incremental stages of development.  This is explained in more detail in <ref idref="Well-Formed-MPD"/>.</p>
+	<rule id="r-mpd-cat2" applicability="MPD-Cat" class="Constraint">
+		<p>An <termRef>MPD catalog document</termRef> MUST be valid to <code>mpd-catalog-3.0.xsd</code> <ref idref="MPD-Catalog-XSD"/>.</p>
+	</rule>
 
-<p>Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a <termRef>NIEM IEPD</termRef>, special Schematron rules must also be applied to an MPD catalog to ensure its validity or completeness <ref idref="Well-Formed-MPD"/>.</p>
+	<rule id="r-mpd-cat3" applicability="MPD-Cat" class="Constraint">
+		<p>An <termRef>MPD catalog document</termRef> MUST be valid to the NIEM MPD catalog Schematron rules [TBD].</p></li>
+	</rule>
 
+<p>Note that <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML schema definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef term="well-formed MPD">well-formed</termRef> from a <termRef>NIEM IEPD</termRef> during incremental stages of development.  This is explained in more detail in <ref idref="Well-Formed-MPD"/>.</p>
+
+<p>Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a <termRef>NIEM IEPD</termRef>, special Schematron rules also apply to an MPD catalog to ensure its validity or completeness.</p>
+
+
+
+<section>
+	<title>NIEM Core Schema Document Subset that Supports MPD Catalog</title>
+
+	<p><ref idref="MPD-Catalog-XSD"/> is a NIEM-conformant schema document.  It reuses portions of the NIEM 3.0 Core <ref idref="NIEM-Core-Subset-XSD"/>.</p>
+
+</section>
 
 
 <section id="MPD-Catalog-TOC">
@@ -1771,141 +1753,138 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 <section id="Conformance-Targets">
 	<title>Conformance Targets</title>
 
-	<p>The conformance targets that follow do not equate to levels of conformance, although it may be possible to sequence them as such.  These conformance targets represent sets of rules, grouped and labeled because they are related.  Each group of rules can be applied independently of the other groups.  The label provides an easy way to refer to them and to an MPD that has passed or failed that set of rules.</p>
+	<p>The conformance targets that follow do not equate to levels of conformance, although it may be possible to sequence them as such.  These conformance targets represent sets of rules.  Each set can be applied to its respective conformance target independently of other rule sets.</p>
+
 
 <section id="Well-Formed-MPD">
 	<title>Well Formed MPD (W-F-MPD)</title>
 
-	<definition term="well-formed MPD">
-		<p>Satisfies the following criteria:</p>
-		<ul>
-			<li><p>Is a valid <ref idref="PKZIP"/> archive file.</p></li>
-			<li><p>Contains one and only one <code>mpd-catalog.xml</code> artifact.</p></li>
-			<li><p>Its <code>mpd-catalog.xml</code> artifact resides in the <termRef>MPD root directory</termRef>.</p></li>
-			<li><p>Its <code>mpd-catalog.xml</code> artifact is XML Schema valid to <ref idref="MPD-Catalog-XSD"/>.</p></li>
-			<li><p>Adheres to the validity rules defined in <ref idref="Well-Formed-MPD"/> (i.e., this section).</p></li>
-		</ul>
-	</definition>
+<definition term="well-formed MPD">
+	<p>A valid <ref idref="PKZIP"/> archive file that adheres to the rules defined for the well-formed MPD <termRef>conformance target</termRef> in this MPD specification.</p> 
+</definition>
 
-	<p>All MPDs use URIs to identify, find, or acquire artifacts and other resources.  As such, the following definition for resolving URIs will be useful to validation rules.</p>
+<p>All MPDs use URIs to identify, find, or acquire artifacts and other resources.  As such, the following definition for resolving URIs will be useful to the validation rules to be defined.</p>
 
-	<definition term="resolve URI">
-		<p>An function (or action) that takes a URI string of the form <code>xs:anyURI</code> and returns the resource it identifies.  If the resource does not exist, then this function fails.  If a resource is remote (e.g., a URL on the Internet or a URN of an unknown location), then this function (or action) may require human intervention to complete.</p>
-	</definition>
+<definition term="resolve URI">
+	<p>An function (or action) that takes a URI string of the form <code>xs:anyURI</code> and returns the resource it identifies.  If the resource does not exist, then this function fails.  If a resource is remote (e.g., a URL on the Internet or a URN of an unknown location), then this function (or action) may require human intervention to complete.</p>
+</definition>
 
-	<p><ref idref="NIEM-NDR"/>, <link href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha6/NIEM-NDR-3.0alpha6-2013-12-11.html#section_15.3.6.1"><char name="sect"/>15.3.6.1 Reference Elements</link> defines a <termRef>reference element</termRef> as follows:</p>
+<p><ref idref="NIEM-NDR"/>, <link href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha6/NIEM-NDR-3.0alpha6-2013-12-11.html#section_15.3.6.1"><char name="sect"/>15.3.6.1 Reference Elements</link> defines a <termRef>reference element</termRef> as follows:</p>
 
-	<definition term="reference element">
-		<p>An XML element that refers to its value by a reference attribute instead of carrying it as content</p>
-	</definition>
+<definition term="reference element">
+	<p>An XML element that refers to its value by a reference attribute instead of carrying it as content</p>
+</definition>
 
-	<p>The <termRef>MPD catalog document</termRef> reuses NIEM and so it conforms to NIEM.  This means that an author may use one or more <termRef term="reference element">reference elements</termRef> from various locations to refer to a single content bearing instance of the same element (with a unique <code>structures:id</code>).  The definition of <termRef>resolve URI</termRef> and the conformance target rules that follow assume content bearing elements.  Therefore, if a rule applies to a conformance target with a URI attribute whose owning element is in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form referenced.</p>
+<p>The <termRef>MPD catalog document</termRef> reuses NIEM and so it conforms to NIEM.  This means that an author may use one or more <termRef term="reference element">reference elements</termRef> from various locations to refer to a single content bearing instance of the same element (with a unique <code>structures:id</code>).  The definition of <termRef>resolve URI</termRef> and the conformance target rules that follow assume content bearing elements.  Therefore, if a rule applies to a conformance target with a URI attribute whose owning element is in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form referenced.</p>
 
-	<p>Regarding the rules that follow, (X) to the right of the rule number indicates the applicable conformance target "X".</p>
+<p>The following rules apply to a <termRef>well-formed MPD</termRef>:</p>
 
-	<rule id="v1a" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute MUST <termRef term="resolve URI">resolve</termRef> to an MPD artifact.</p>
-	</rule>
+<rule id="v0" applicability="W-F-MPD" class="Constraint">
+	<p>An <termRef>MPD catalog document</termRef> contains one and only one <code>mpd-catalog.xml</code> artifact in its <termRef term="MPD root directory">root directory</termRef>.</p>
+</rule>
 
-	<rule id="v1b" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:XMLCatalog</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML catalog document</termRef>.</p>
-	</rule>
+<rule id="v1a" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute MUST <termRef term="resolve URI">resolve</termRef> to an MPD artifact.</p>
+</rule>
 
-	<rule id="v1c" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MPDChangeLog</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>change log</termRef>.</p>
-	</rule>
+<rule id="v1b" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:XMLCatalog</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML catalog document</termRef>.</p>
+</rule>
 
-	<rule id="v1d" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MasterDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>master document</termRef>.</p>
-	</rule>
+<rule id="v1c" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MPDChangeLog</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>change log</termRef>.</p>
+</rule>
 
-	<rule id="v1e" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML document</termRef>.</p>
-	</rule>
+<rule id="v1d" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MasterDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>master document</termRef>.</p>
+</rule>
 
-	<rule id="v1f" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:BusinessRulesArtifact</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
-	</rule>
+<rule id="v1e" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML document</termRef>.</p>
+</rule>
 
-	<rule id="v1g" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExternalSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
-	</rule>
+<rule id="v1f" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:BusinessRulesArtifact</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
+</rule>
 
-	<rule id="v1h" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to NIEM <termRef>reference schema document</termRef>.</p>
+<rule id="v1g" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExternalSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
+</rule>
+
+<rule id="v1h" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to NIEM <termRef>reference schema document</termRef>.</p>
+</rule>
+
+<rule id="v1i" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExtensionSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>extension schema document</termRef>.</p>
+</rule>
+
+<rule id="v1j" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SubsetSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>subset schema document</termRef>.</p>
+</rule>
+
+<rule id="v1k" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:Wantlist</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>NIEM wantlist</termRef> XML document.</p>
+</rule>
+
+<rule id="v1l" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>Schematron schema</termRef>.</p>
+</rule>
+
+<rule id="v1m" applicability="W-F-MPD">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>RelaxNG schema</termRef>.</p>
+</rule>
+
+<rule id="v1n" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef> set.</p>
+</rule>
+
+<rule id="v1o" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ConstraintSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>constraint schema document set</termRef>.</p>
+</rule>
+
+<rule id="v1p" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document set</termRef>.</p>
+</rule>
+
+<rule id="v1q" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>Schematron schema</termRef> .</p>
+</rule>
+
+<rule id="v1r" applicability="W-F-MPD" class="Constraint">
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>RelaxNG schema</termRef> .</p>
+</rule>
+
+<rule id="v1s" applicability="W-F-MPD" class="Constraint">
+	<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RequiredFile</code> element MUST <termRef term="resolve URI">resolve</termRef> to a file artifact.</p>
+</rule>
+
+<rule id="v5" applicability="XML-Cat" class="Constraint">
+	<p>Within an <termRef>XML catalog document</termRef> the value of an <code>er:uri</code> attribute owned by a <code>er:URI</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
+</rule>
+
+<rule id="v6" applicability="XML-Cat" class="Constraint">
+	<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of an <code>er:uri</code> attribute owned by a <code>er:URI</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>er:name</code> (a namespace string) attribute owned by the <code>er:URI</code> element.</p> 
+</rule>
+
+</section>
+
+
+
+<section id="IEP">
+<title>IEP</title>
+
+<rule id="v2" applicability="IEP" class="Constraint">
+	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:XPathText</code> attribute owned by a <code>c:ValidToXPath</code> element, a candidate IEP is a valid IEP, ONLY IF the value of <code>c:ValidToXPath</code> applied to the candidate IEP (an <termRef>XML document</termRef>) has an effective Boolean value (EBV) equal to <code>true</code>.  EBV is defined by <ref idref="W3-XPath"/> <a href="http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv"><char name="sect"/> 2.4.3 <q>Effective Boolean Value</q></a>.</p>
+</rule>
+
+<rule id="v3" applicability="IEP" class="Constraint">
+	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, ONLY IF its XML document element is a member of that list of <em>QNames</em>.</p>
 	</rule>
 	
-	<rule id="v1i" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExtensionSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>extension schema document</termRef>.</p>
-	</rule>
-	
-	<rule id="v1j" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SubsetSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>subset schema document</termRef>.</p>
-	</rule>
-
-	<rule id="v1k" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:Wantlist</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>NIEM wantlist</termRef> XML document.</p>
-	</rule>
-	
-	<rule id="v1l" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>Schematron schema</termRef>.</p>
-	</rule>
-
-	<rule id="v1m" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>RelaxNG schema</termRef>.</p>
-	</rule>
-
-	<rule id="v1n" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef> set.</p>
-	</rule>
-
-	<rule id="v1o" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ConstraintSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>constraint schema document set</termRef>.</p>
-	</rule>
-
-	<rule id="v1p" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document set</termRef>.</p>
-	</rule>
-
-	<rule id="v1q" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>Schematron schema</termRef> .</p>
-	</rule>
-
-	<rule id="v1r" applicability="W-F-MPD">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>RelaxNG schema</termRef> .</p>
-	</rule>
-
-	<rule id="v1s" applicability="W-F-MPD">
-		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RequiredFile</code> element MUST <termRef term="resolve URI">resolve</termRef> to a file artifact.</p>
-	</rule>
-
-	<rule id="v2" applicability="IEP">
-		<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:XPathText</code> attribute owned by a <code>c:ValidToXPath</code> element, a candidate IEP is a valid IEP, ONLY IF the value of <code>c:ValidToXPath</code> applied to the candidate IEP (an <termRef>XML document</termRef>) has an effective Boolean value (EBV) equal to <code>true</code>.  EBV is defined by <ref idref="W3-XPath"/> <a href="http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv"><char name="sect"/> 2.4.3 <q>Effective Boolean Value</q></a>.</p>
-	</rule>
-
-	<rule id="v3" applicability="IEP">
-		<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, ONLY IF its XML document element is a member of that list of <em>QNames</em>.</p>
-		</rule>
-		
-	<rule id="v4" applicability="IEP">
-		<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code>, the artifact resolved by the value of <code>c:pathURI</code> MUST be valid for the validity constraints of the <code>c:IEPConformanceTarget</code> parent of <code>c:IEPSampleXMLDocument</code>.</p>
-	</rule>
-
-	<rule id="v5" applicability="XML-Cat">
-		<p>Within an <termRef>XML catalog document</termRef> the value of an <code>er:uri</code> attribute owned by a <code>er:URI</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
-	</rule>
-
-	<rule id="v6" applicability="XML-Cat">
-		<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of an <code>er:uri</code> attribute owned by a <code>er:URI</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>er:name</code> (a namespace string) attribute owned by the <code>er:URI</code> element.</p> 
-	</rule>
-
-	<rule id="v7" applicability="F-NIEM-IEP">
-		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:externalURI</code> attribute owned by an element that is a <code>c:FileType</code> (or a type derived from it) MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
-	</rule>
-
-	<rule id="v8" applicability="F-NIEM-IEP">
-		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:resourceURI</code> attribute owned by a <code>c:Relationship</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
-	</rule>
+<rule id="v4" applicability="IEP" class="Constraint">
+	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code>, the artifact resolved by the value of <code>c:pathURI</code> MUST be valid for the validity constraints of the <code>c:IEPConformanceTarget</code> parent of <code>c:IEPSampleXMLDocument</code>.</p>
+</rule>
 
 </section>
 
@@ -1915,13 +1894,18 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 	<title>Full NIEM IEP (F-N-IEP)</title>
 
 	<definition term="full NIEM IEP">
-	<p>Satisfies the following criteria:</p>
-		<ul>
-			<li><p>[TBD]</p></li>
-		</ul>
+		<p>An XML document with an XML document element that is defined by a NIEM reference schema or NIEM extension schema.</p>
 	</definition>
 
-	<p>This is an XML document with an XML document element that is defined by a NIEM reference schema or NIEM extension schema.</p>
+	<p>The following rules apply to a <termRef>full NIEM IEP</termRef>:</p>
+
+	<rule id="v7" applicability="F-NIEM-IEP" class="Constraint">
+		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:externalURI</code> attribute owned by an element that is a <code>c:FileType</code> (or a type derived from it) MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+	</rule>
+
+	<rule id="v8" applicability="F-NIEM-IEP" class="Constraint">
+		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:resourceURI</code> attribute owned by a <code>c:Relationship</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+	</rule>
 
 </section>
 
@@ -1942,6 +1926,7 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 	<p>[TBD]</p>
 
 </section>
+
 </section>
 
 
@@ -2176,10 +2161,25 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 	<p><char name="nbsp"/></p>
 </section>
 
+
 <section id="MPD-Instance" isAppendix="true">
 	<title>Example Instance XML Document Catalog</title>
 	<p>[TBD]</p>
 	<pre><include-text href="xsd/sample.1/mpd-catalog.xml"/></pre>
+	<p><char name="nbsp"/></p>
+</section>
+
+
+<section id="NIEM-Core-Subset-XSD" isAppendix="true">
+	<title>NIEM Core Subset for MPD Catalog Schema</title>
+	<pre>[TBD]</pre>
+	<p><char name="nbsp"/></p>
+</section>
+
+
+<section id="MPD-Schematron-Rules" isAppendix="true">
+	<title>Schematron Rules for the MPD Catalog</title>
+	<pre>[TBD]</pre>
 	<p><char name="nbsp"/></p>
 </section>
 
@@ -2189,6 +2189,7 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 	<p>[TBD]</p>
 	<p><char name="nbsp"/></p>
 </section>
+
 
 <section id="Guidance-IEPD-Directories" isAppendix="true">
 	<title>Guidance for IEPD Directories (non-normative)</title>
