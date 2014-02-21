@@ -234,6 +234,8 @@ Remaining work and issues
 
       A physical (file) representation of part or all of an [XML Schema]. One or more XML schema documents are used to assemble [schema components] into an [XML Schema].
 
+   So, in other words, an [XML Schema] is the result of processing a set of [XML schema documents] into a single entity. That entity is most commonly an electronic image in the memory of a computer.
+
    This specification often refers to the process of [XML schema validation], that is, validation of an instance XML document to confirm it adheres to the structure defined by a particular [XML Schema]. Generally, this should occur periodically during and after design time to ensure the conformance and quality of an information exchange definition (i.e., [XML schema documents]) and associated instance XML documents. However, local architecture or policy may dictate the need to validate more often, and in some cases may require runtime validation.
 
    XML schema document sets that define a NIEM information exchange must be authoritative. Application developers may use other schemas (e.g., constraint or Schematron schema documents) for various purposes, but for the purposes of determining NIEM conformance, the authoritative reference schema documents (NIEM releases) are relevant. This does not mean that XML validation must be performed on all instance XML documents as they are served or consumed; only that the instance XML documents validate if and when XML validation is performed. Therefore, even when validation is not performed, instance XML documents must be valid against the XML schema that is assembled from XML schema document sets that specify these instance XML documents.
@@ -618,9 +620,9 @@ Remaining work and issues
 
    The fundamental rule for a valid schema document subset is as follows:
 
-   [Rule 3-1]
+   [Rule 3-1] (Subset)
 
-      Any instance XML document that validates against a NIEM schema document subset will validate against the NIEM reference schema document set from which that schema document subset was derived.
+      A subset schema assembled from a [schema document subset] derived from a NIEM [reference schema document set] is a valid subset schema, if and only if any instance XML document that validates with the schema subset also validates with the reference schema assembled from the [reference schema document set].
 
 3.2.2. Subset Operations
 
@@ -638,7 +640,7 @@ Remaining work and issues
 
       5.  Remove an xs:element if its @minOccurs="0".
 
-      6.  Remove an xs:complexType or xs:simpleType if not supporting an xs:element or xs:attribute declaration.
+      6.  Remove an xs:complexType or xs:simpleType if not supporting an xs:element or xs:attribute declaration, or another xs:complexType or xs:simpleType definition.
 
       7.  Remove an xs:attribute whose @use="optional" from an xs:complexType.
 
@@ -646,23 +648,25 @@ Remaining work and issues
 
       9.  Change an xs:attribute/@use="optional" to @use="required".
 
-      10. Remove an xs:element declaration (if not supporting an element use).
+      10. Remove an xs:element declaration if it is not supporting an element use.
 
       11. Remove an xs:enumeration from an xs:simpleType as long as it is not the only remaining xs:enumeration.
 
-      12. Add or apply a constraining facet to an xs:simpleType.
+      12. Remove an element with representation term AugmentationPoint if it is not being used for element substitution.
 
-      13. Remove an xs:import and its associated schema document (if the schema document is not used within the document set).
+      13. Add or apply a constraining facet to an xs:simpleType.
 
-      14. Change a concrete xs:element declaration to @abstract="true".
+      14. Remove an xs:import and its associated schema document (if the schema document is not used within the document set).
 
-      15. Change an xs:element/@nillable="true" to @nillable="false".
+      15. Change a concrete xs:element declaration to @abstract="true".
 
-      16. Substitute an xs:element/@substitutionGroup member for its associated substitution group head.
+      16. Change an xs:element/@nillable="true" to @nillable="false".
 
-      17. Substitute a composition of xs:element/@substitutionGroup members for their associated substitution head (subject to cardinality and unique particle attribution (UPA) constraints). The composition is an ordered sequence of the @substitutionGroup member elements. Each substitute element may bound its cardinality such that the total cardinality sum is within the bounds of the @substitutionGroup head cardinality. Order and cardinality of the replacement sequence must conform to XML Schema UPA constraints.
+      17. Substitute an xs:element/@substitutionGroup member for its associated substitution group head.
 
-      18. Replace a wildcard (subject to cardinality, UPA, and namespace constraints) with a composition, i.e., an ordered sequence of elements. Each element may further bound cardinality within the bounds of the wildcard. Order and cardinality of replacement sequence must conform to XML Schema UPA constraints. The namespace of each element must conform with namespace constraints specified by the wildcard (if any).
+      18. Substitute a composition of xs:element/@substitutionGroup members for their associated substitution head (subject to cardinality and unique particle attribution (UPA) constraints). The composition is an ordered sequence of the @substitutionGroup member elements. Each substitute element may bound its cardinality such that the total cardinality sum is within the bounds of the @substitutionGroup head cardinality. Order and cardinality of the replacement sequence must conform to XML Schema UPA constraints.
+
+      19. Replace a wildcard (subject to cardinality, UPA, and namespace constraints) with a composition, i.e., an ordered sequence of elements. Each element may further bound cardinality within the bounds of the wildcard. Order and cardinality of replacement sequence must conform to XML Schema UPA constraints. The namespace of each element must conform with namespace constraints specified by the wildcard (if any).
 
 3.2.3. Subset Schema Document Namespaces
 
