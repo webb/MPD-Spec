@@ -898,7 +898,7 @@
 	<p>A schema document subset is essentially a reference schema document set (i.e., a numbered release) that has been modified by applying the foregoing subset operations to support business requirements represented in an IEPD or EIEM.  A subset derived from a reference schema document set may differ from that reference set only in that its content has been reduced and/or constrained.  For this reason, each subset schema document adopts the target namespace of its corresponding reference schema document.</p>
 
 	<rule id="r-subset-ns">
-		<p>A subset schema document in a schema document subset derived from a reference schema document set MUST bear the same target namespace as the schema document in the reference schema document set on which it is based.</p>
+		<p>A subset schema document in a schema document subset derived from a reference schema document set MUST have the same target namespace as the schema document in the reference schema document set on which it is based.</p>
 	</rule>
 
 </section>
@@ -987,7 +987,7 @@
 	<p>Constraint schema documents are generally designed and employed in sets, similar to reference schema document set or schema document subsets.  A common practice for creating an IEPD or EIEM constraint schema document set is to start with a valid NIEM schema document subset and modify it to further restrict the class of instance XML documents (IEPs) that will validate with this constraint schema set.  However, an extension schema document can also be used to derive a constraint schema document.  The namespace of a constraint schema document is established the same way the namespace of a subset schema document is established, by reusing the target namespace of the schema document from which it is derived.</p>
 
 	<rule id="r-mpd-tgtns">
-		<p>A constraint schema document MUST bear a target namespace that has been previously assigned to a reference or extension schema document, or is a constraint schema document intended to support another constraint schema document that has such a target namespace.</p>
+		<p>A constraint schema document MUST have a target namespace that has been previously assigned to a reference or extension schema document, or is a constraint schema document intended to support another constraint schema document that has such a target namespace.</p>
 	</rule>
 
 	<p>To use a constraint schema document set to tighten constraints on IEPs, a two-pass validation technique is employed.  In the first pass, an IEP is validated against the schema document subset and extension schema documents.  This pass ensures that IEP semantics and structure conform to the NIEM model and NDR.  In the second pass, an IEP is checked against a constraint schema document set, which may contain constrained versions of the subset schema documents and extension schema documents.  This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate).</p>
