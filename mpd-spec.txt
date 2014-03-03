@@ -192,7 +192,7 @@ Remaining work and issues
 
       A collection of [artifacts] logically grouped for a defined purpose.
 
-   An MPD is itself a set of artifacts, the purpose for which is to define and document the intended use of the MPD. While the key MPD artifacts are its [XML schema document] artifacts, there are also other kinds of MPD artifacts. These may include (but are not limited to) HTML, XSLT, text, or graphic files used for human-readable documentation. An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD. For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts. Appendix E, MPD Artifacts, below, contains a listing of mandatory and common optional artifacts for the five types of MPDs. Common types of artifacts are described in more detail in subsequent sections.
+   An MPD is itself a set of artifacts, the purpose for which is to define and document the intended use of the MPD. While the key MPD artifacts are its [XML schema document] artifacts, there are also other kinds of MPD artifacts. These may include (but are not limited to) HTML, XSLT, text, or graphic files used for human-readable documentation. An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD. For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts. Appendix E, MPD Artifacts, below, contains a listing of mandatory and common optional artifacts for the five types of MPDs. Common types of artifacts are described in more detail in subsequent sections. Section 7.1, Artifact Sets, below, discusses the different methods for grouping MPD artifacts into sets.
 
 2.4. Schema Document and Namespace Correspondence in NIEM
 
@@ -1641,7 +1641,7 @@ Remaining work and issues
 
    [Rule 7-3] (WF-MPD)
 
-      An MPD archive MUST uncompress (unzip) to a one and only one [MPD root directory].
+      An MPD archive MUST uncompress (unzip) to one and only one [MPD root directory].
 
    The foregoing rule ensures that:
 
@@ -1651,7 +1651,13 @@ Remaining work and issues
 
       *  mpd-catalog and change log artifacts will always be found in the [MPD root directory].
 
-7.1. MPD File Name Syntax
+7.1. Artifact Sets
+
+   At this point, it is appropriate to discuss the different ways MPD artifacts can be grouped into [sets].
+
+   [TBD]
+
+7.2. MPD File Name Syntax
 
    As previously stated, the MPD Specification is intended to help facilitate tool support for processing MPDs. Given a tool must process an MPD, providing it basic information about the MPD as early as possible will help to reduce processing time and complexity. So, if the MPD class and version can be easily identified by its file name, then a tool would not have to open the archive and parse the MPD catalog just to determine this information. Of course, ultimately, to do anything useful, a tool will have to open the MPD archive. However, a standard file name syntax would allow a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each. The following rules apply:
 
@@ -1708,13 +1714,13 @@ Remaining work and issues
 
       Use of the generic Zip MIME type application/zip is allowed, but discouraged. No other MIME types are allowed when representing MPD archives.
 
-7.2. Artifact Links to Other Resources
+7.3. Artifact Links to Other Resources
 
    The [NIEM NDR] requires that all namespace references within schema documents can be resolved to the correct local schema document. Recall that there are several approaches to this that may incorporate the MPD catalog, xml-catalogs, and/or xs:import schemaLocation attributes. It is important to understand that the URI scheme defined in Section 4.2.3, URI Scheme for MPD Artifacts, above, can only be used only to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM NDR], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed. When absolute references to Internet resources are required:
 
    [Rule 7-7] (WF-MPD)
 
-      Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST [resolve] (If applicable, documentation that describes how to [resolve] with security, account, and/or password issues MUST be included).
+      Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST [resolve] (If applicable, documentation SHOULD describe how to [resolve] with security, account, and/or password issues).
 
    Releases, core updates, and domain updates must adhere to packaging rules primarily to enable development tools to process them consistently and efficiently. The NIEM PMO controls the format and documentation for these MPDs and publishes them at http://release.niem.gov/niem/. However, many different organizations author IEPDs and EIEMs. As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others. Furthermore, EIEMs are the basis for families of IEPDs. Therefore, it is important that both of these MPD classes are well documented for understanding and use.
 
@@ -1742,9 +1748,11 @@ Remaining work and issues
 
       Within any artifact of an MPD archive, any direct reference to another resource (i.e., another artifact such as an image, schema, stylesheet, etc.) that is required to process or display an artifact SHOULD exist within the archive at the location specified by that reference.
 
-   This means that MPD artifacts, including documentation artifacts, should be complete. For example, if an HTML document contains a hyperlink reference (href) to a schema (xsd) or stylesheet (xsl) that is part of the MPD, then the schema file associated with that hyperlink should be present within the MPD; likewise for a sourced (src) image. Authors should exercise good judgment with this rule. For example, it does not require an MPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents. The key operating words in this rule are: "another resource is required to process or display an artifact SHOULD exist within the archive."
+   This means that MPD artifacts, including documentation artifacts, should be complete. For example, if an HTML document contains a hyperlink reference (href) to a schema (XSD) or stylesheet (XSLT) that is part of the MPD, then the schema file associated with that hyperlink should be present within the MPD; likewise for a sourced (src) image. Authors should exercise good judgment with this rule. For example, it does not require an MPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents. The key operating words in this rule are: "another resource is required to process or display an artifact SHOULD exist within the archive."
 
-7.3. Duplication of Artifacts
+   In some cases, it may not be possible to include all artifacts, even schemas, in an MPD without violating laws, regulations, or policies. For example, an IEPD may require use of a schema document that is not publicly accessible; it might be classified or sensitive but unclassified (SBU). This is a valid reason for exception to [Rule 7-11], above. If the IEPD is placed in the public domain, the author should omit the non-public schema document, and if appropriate, document the omission, and explain where and/or how the missing schema document can be obtained.
+
+7.4. Duplication of Artifacts
 
    Within an MPD, the replication of files or entire file sets should be avoided. However, replication is allowed if a reasonable rationale exists. In some cases, file replication may make it easier to use, validate, implement, or automatically process an MPD. For example, multiple subsets may overlap with many identical schemas. Yet, it may be easier or even necessary to allow this form of duplication to accommodate a validation tool, rather than removing duplicate schemas, and forcing the tool to search for them. Use xml-catalogs whenever possible.
 
