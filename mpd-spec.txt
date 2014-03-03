@@ -1,8 +1,8 @@
 National Information Exchange Model Model Package Description Specification
 
-Version 3.0alpha8
+Version 3.0alpha9
 
-February 26, 2014
+March 19, 2014
 
 NIEM Technical Architecture Committee (NTAC)
 
@@ -38,25 +38,29 @@ Major changes in this draft (related to last)
 
 Remaining work and issues
 
-      1.  Improve definitions for schema sets.
+      1.  Relax the rules for URIs to include URL or URN (xs:anyURI).
 
-      2.  Missing any CTs? Fork any? (e,g., MPD, Chg-Log, NIEM-EIEM, Full-NIEM-EIEM ???)
+      2.  Relax change log requirements for IEPDs/EIEMs.
 
-      3.  Classify rules based on CTs.
+      3.  Improve definitions for schema sets.
 
-      4.  Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent).
+      4.  Missing any CTs? Fork any? (e,g., MPD, Chg-Log, NIEM-EIEM, Full-NIEM-EIEM ???)
 
-      5.  Appendix for Schematron rules for MPD Catalog.
+      5.  Classify rules based on CTs.
 
-      6.  Assemble resource tool kit: MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.
+      6.  Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent).
 
-      7.  Appendix for Example IEP (from Cursor on Target).
+      7.  Appendix for Schematron rules for MPD Catalog.
 
-      8.  QA and validity checks on MPD catalog schema (Appendix A).
+      8.  Assemble resource tool kit: MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.
 
-      9.  Final check: typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.
+      9.  Appendix for Example IEP (from Cursor on Target).
 
-      10. .
+      10. QA and validity checks on MPD catalog schema (Appendix A).
+
+      11. Final check: typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.
+
+      12. .
 
    NOTE: Search on "TBD" to find incomplete items.
 
@@ -991,25 +995,21 @@ Remaining work and issues
 
 4.2.2. URI Scheme for MPDs
 
-   To facilitate MPD sharing and reuse the assignment of a URI (Uniform Resource Identifier) to each MPD is essential.
+   To facilitate MPD sharing and reuse the assignment of a URI (Uniform Resource Identifier) to each MPD is essential. This is enforced by the MPD catalog schema document Appendix A, MPD Catalog XML Schema Document, below. However, it is also important that 
 
    [Rule 4-9] (WF-MPD)
 
-      An MPD MUST be assigned a valid http URI.
+      The value of the any xs:attribute whose type is xs:anyURI MUST match the production <absolute-URI> as defined by [RFC3986 URI].
 
-   This specification follows [RFC3986 URI] which defines the syntax and format for a URI. However, this specification also restricts an MPD URI to a URL and does not allow a URN (Uniform Resource Name) to be assigned to an MPD.
+   [Rule 4-9], above, essentially states that a URI (URL or URN) assigned to an MPD must be valid. Furthermore, the person or organization assigning the MPD URI either (1) is the registrant of the domain name (for a URL) or NID (for a URN), or (2) has authority from the registrant to assign this URI. Although, there is no requirement for a URL assigned to an MPD to [resolve], nonetheless, it is good practice for a URL to [resolve] to the resource it represents, the directory it resides in, or to documentation for that resource. See http://www.w3.org/Provider/Style/URI.html
 
-   Here is a typical example of an http URI: http://www.abc.org/niem-iepd/order/2.1.2rev3/
-
-   Note that [Rule 4-9], above, explicitly states that a URI assigned to an MPD must be valid. This means that the person or organization assigning the URI either is the registrant of the domain name, or has authority from the registrant to assign this URL as an MPD URI. In the example above, www.abc.org is the domain name (between the second and third "/"). There is no requirement for a URL assigned to an MPD to [resolve] to any particular Internet resource or to [resolve] at all. However, it is always good practice for such a URL to [resolve] to the resource it represents, the directory it resides in, or to documentation for that resource. See http://www.w3.org/Provider/Style/URI.html
-
-   The MPD version number (i.e., the value of the c:mpdVersionID in Appendix A, MPD Catalog XML Schema Document, below) is essential to its unique identification. Incorporation of the version number within the MPD URI provides a simple visual (as well as machine readable) means of identifying one of the most fundamental relationships between MPDs, i.e., that one is a different version of another. Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.
+   The MPD version number (i.e., the value of c:mpdVersionID defined in Appendix A, MPD Catalog XML Schema Document, below) is essential to its unique identification. Incorporation of the version number within the MPD URI provides a simple visual (as well as machine readable) means of identifying one of the most fundamental relationships between MPDs, i.e., that one is a different version of another. Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.
 
    [Rule 4-10] (WF-MPD)
 
-      A URI for an MPD MUST end in its version number concatenated with a forward slash character ("/").
+      Given an MPD c:mpdVersionID value equal $version, a URI for the MPD MUST terminate with substring /$version/.
 
-   And finally, note that Appendix A, MPD Catalog XML Schema Document, below, defines a mandatory attribute for the c:mpdURI, c:mpdName, c:mpdClassCode, and c:mpdVersionID. Since the ending substring of an MPD URI must be its version ID (followed by forward slash), then the MPD catalog duplicates the MPD version ID in two locations. By design, Section 7.1, MPD File Name Syntax, below, intentionally duplicates these attribute values in the MPD file name. There are two reasons for this design. First, software tools are expected to build and process MPD catalogs. Instead of forcing tool developers to parse the URI just to retrieve name, version, and class, the MPD catalog separates these data items as XML attributes. Second, duplication of that key metadata in both the URI and the file name facilitates fast visual recognition of an MPD, rather than requiring that a user open the archive, open its mpd-catalog.xml, and scan XML content to locate the data.
+   And finally, note that Appendix A, MPD Catalog XML Schema Document, below, defines a mandatory attribute for the c:mpdURI, c:mpdName, c:mpdClassCode, and c:mpdVersionID. Since the ending substring of an MPD URI must be the value of its version ID (enclosed by forward slashes), then the MPD catalog duplicates the MPD version ID in two locations. This is by intentional design, and there are two reasons. First, software tools are expected to build and process MPD catalogs. Instead of forcing tool developers to parse the URI just to retrieve name, version, and class, the MPD catalog separates these data items as XML attributes. Second, duplication of this key metadata in both the URI and the file name facilitates fast visual recognition, rather than requiring a user open the MPD archive, open its mpd-catalog.xml, and scan XML content to locate the data.
 
 4.2.3. URI Scheme for MPD Artifacts
 
@@ -1051,13 +1051,9 @@ Remaining work and issues
 
    Additional c:externalURI attributes can be optionally added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.
 
-   Note that a URI does not have the same meaning as namespace. Do not rely on namespaces for artifact URIs. Recall that the namespaces used in a schema document subset derived from a NIEM release are identical to the namespaces of the release itself. Furthermore, an IEPD or an EIEM may contain multiple subsets. The non-uniqueness of NIEM namespaces implies that they cannot be used as URIs for MPD artifacts.
+   Note that a URI does not have the same meaning as namespace. Do not rely on NIEM namespaces for artifact URIs. Recall that the namespaces used in a schema document subset derived from a NIEM release are identical to the namespaces of the release itself. Furthermore, an IEPD or an EIEM may contain multiple subsets. The non-uniqueness of NIEM namespaces implies that they cannot be used as URIs for MPD artifacts.
 
-   [Rule 4-12] (WF-MPD)
-
-      NIEM namespaces MUST NOT be used as URIs for MPD artifacts.
-
-   Later in Section 4.6, XML Catalogs, below, we will describe the use of [XML Catalogs] to correlate and [resolve] namespaces to their corresponding local URIs.
+   Later, Section 4.6, XML Catalogs, below, will describe the use of [XML Catalogs] to correlate and [resolve] namespaces to their corresponding local URIs.
 
 4.2.4. MPD and MPD Artifact Lineage
 
@@ -1085,7 +1081,7 @@ Remaining work and issues
 
    In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change. New versions of reference schema document sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs and EIEMs. Developers must understand in detail how changes will affect their IEPD and EIEM products and the tools used to build them. To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs. A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users. All of the foregoing reasons dictate that NIEM require a normative change log for reference schema document sets.
 
-   [Rule 4-13] (WF-MPD)
+   [Rule 4-12] (WF-MPD)
 
       An MPD that is a NIEM release, core update, or domain update MUST contain an XML change log document that:
 
@@ -1109,9 +1105,9 @@ Remaining work and issues
 
 4.3.2. Change Log for IEPDs and EIEMs
 
-   IEPD and EIEM change log requirements are less strict and are not required to conform to the naming and XML schema specifications in [Rule 4-13], above. However, a change log is still required.
+   IEPD and EIEM change log requirements are less strict and are not required to conform to the naming and XML schema specifications in [Rule 4-12], above. However, a change log is still required.
 
-   [Rule 4-14] (N-IEPD, N-EIEM)
+   [Rule 4-13] (N-IEPD, N-EIEM)
 
       An MPD that is an IEPD or EIEM MUST contain a change log artifact that:
 
@@ -1125,19 +1121,9 @@ Remaining work and issues
 
    The initial version of an IEPD or EIEM would not normally require a change log. However, for consistency of validation and to help facilitate automatic processing of IEPDs and EIEMs by tools:
 
-   [Rule 4-15] (Chg-Log)
+   [Rule 4-14] (Chg-Log)
 
       The initial version of an IEPD or EIEM MUST contain a change log artifact with at least one entry for its creation date.
-
-   Finally, if the mpd-changelog.xsd specification is used for IEPD/EIEM schema changes, then it is potentially possible that such an MPD will need a second change log if the author wants to accommodate documentation or other changes not related to schemas (since mpd-changelog.xsd cannot be extended to accommodate such changes). If this is the case, then the following rule applies:
-
-   [Rule 4-16] (Chg-Log)
-
-      If an IEPD or EIEM contains more than one change log artifact, then each change log artifact MUST:
-
-         *  Have a file name that begins with the substring changelog.
-
-         *  Reside in the [MPD root directory].
 
 4.4. Master Document
 
@@ -1149,7 +1135,7 @@ Remaining work and issues
 
    The master document is similar to a readme file. It is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed. On the other hand, releases and domain updates have fairly restrictive rules to obey, standard documentation for how to use them, and are centrally managed.
 
-   [Rule 4-17] (N-IEPD, N-EIEM)
+   [Rule 4-15] (N-IEPD, N-EIEM)
 
       An MPD that is an IEPD or an EIEM MUST contain a master document in the [MPD root directory] whose filename begins with the substring master-document.
 
@@ -1191,7 +1177,7 @@ Remaining work and issues
 
    Many document formats (e.g., Microsoft Word) can display hot links to local files within the MPD archive as well as URLs to files on the Internet. Employing such a format is highly recommended but not mandatory.
 
-   [Rule 4-18] (N-IEPD, N-EIEM)
+   [Rule 4-16] (N-IEPD, N-EIEM)
 
       A NIEM IEPD or EIEM master document SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.
 
@@ -1247,7 +1233,7 @@ Remaining work and issues
 
    A passing conformance report carries a value of pass for each rule, whether checked automatically or checked manually by its author.
 
-   [Rule 4-19] (N-IEPD)
+   [Rule 4-17] (N-IEPD)
 
       A NIEM IEPD MUST contain a passing NIEM conformance report in its [MPD root directory].
 
@@ -1271,7 +1257,7 @@ Remaining work and issues
 
    In order to support schema assembly for the purpose of XML validation, the following rule requires that the namespaces of all XML schema documents used within an IEPD [resolve] to a locally-unique artifact:
 
-   [Rule 4-20] (N-IEPD)
+   [Rule 4-18] (N-IEPD)
 
       An IEPD MUST [resolve] each namespace it uses to a locally unique URI through one or more [XML catalog documents].
 
@@ -1299,7 +1285,7 @@ Remaining work and issues
 
    The foregoing definition requires that an IEP conformance target class have a URI. As a result, the following rule is also required:
 
-   [Rule 4-21] (MPD-Cat)
+   [Rule 4-19] (MPD-Cat)
 
       A c:IEPConformanceTarget MUST be assigned a locally unique NCName value for its structures:id attribute.
 
@@ -1319,7 +1305,7 @@ Remaining work and issues
 
    Explicit declaration of validity constraints is far more flexible and precise than relying on conventions that can easily be misinterpreted. The c:IEPConformanceTarget element within the [MPD catalog document] can apply several common constraints by explicitly declaring the information required for a given constraint. This information may include the conformance target, context, type of validation, location of validation artifact(s), a specific tests to perform. It can also identify IEP samples known to satisfy the validity constraints.
 
-   [Rule 4-22] (MPD-Cat)
+   [Rule 4-20] (MPD-Cat)
 
       An IEPD MUST explicitly declare all intended validity constraints by employing the c:IEPConformanceTarget element in its [MPD catalog document].
 
@@ -1397,7 +1383,7 @@ Remaining work and issues
 
    For these reasons, IEP samples are required for IEPDs:
 
-   [Rule 4-23] (IEP, N-F-IEP)
+   [Rule 4-21] (IEP, N-F-IEP)
 
       An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared c:IEPConformanceTarget. If applicable and appropriate, one IEP sample MAY exemplify multiple conformance targets.
 
@@ -1429,7 +1415,7 @@ Remaining work and issues
 
    [Definition: reference element]
 
-      An XML element that refers to its value by a reference attribute instead of carrying it as content
+      An XML element that refers to its value by a reference attribute instead of carrying it as content.
 
    The [MPD catalog document] reuses NIEM and so it conforms to NIEM. This means that an author may use one or more [reference elements] from various locations to refer to a single content bearing instance of the same element (with a unique structures:id). The definition of [resolve URI] and the conformance target rules that follow assume content bearing elements. Therefore, if a rule applies to a conformance target with a URI attribute whose owning element is in [reference element] form, then URI resolution will be applied at the site of the content-bearing element form referenced.
 
@@ -1671,7 +1657,7 @@ Remaining work and issues
 
    [Rule 7-4] (WF-MPD)
 
-      An MPD archive file MUST use file name syntax defined by the regular expression:
+      An MPD archive file name MUST adhere to the syntax defined by the regular expression:
 
       
       	mpd-filename ::= name '-' version '.' class '.zip'       
