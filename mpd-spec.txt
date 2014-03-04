@@ -1577,7 +1577,39 @@ Remaining work and issues
 
    In particular, this specification does not discourage use of Microsoft file formats for documentation and other optional artifacts. Microsoft Office products are in common use, and free viewers are available for many of them (See http://office.microsoft.com/en-us/downloads/office-online-file-converters-and-viewers-HA001044981.aspx).
 
-6.1. NIEM Wantlist
+6.1. Conformance Assertion
+
+   This section is applicable to IEPDs and EIEMs.
+
+   Independent authors build NIEM IEPDs and EIEMs from NIEM [reference schema document sets]. Presently, a formal NIEM conformance certification process for IEPDs does not exist. Therefore, it is a good practice to publish an IEPD with an artifact that asserts some degree of NIEM conformance.
+
+   [Definition: conformance assertion]
+
+      An artifact that provides a formal or informal declaration that a NIEM IEPD or EIEM conforms to [NIEM Conformance], [NIEM NDR], and this NIEM MPD Specification.
+
+   A [conformance assertion] is an optional artifact that is highly encouraged for IEPDs and EIEMs. A conformance assertion presents information to increase the level of confidence that an IEPD or EIEM was checked for NIEM conformance and quality. It does NOT constitute a guarantee or contract. In fact, a conformance assertion can be a self-asserted.
+
+   Clearly, in the absence of a formal NIEM certification process, both weak and strong conformance assertions will exist. A IEPD/EIEM user or implementer (who is not the author) must decide his/her level of confidence in the assertion. A self-signed artifact that simply claims an IEPD is NIEM-conformant may be considered weak. On the other hand, a strong self-signed conformance assertion would provide information that may include (but is not limited to):
+
+      *  Author credentials (name, organization, background, etc.).
+
+      *  What was verified (artifacts, rules, etc.)?
+
+      *  Against what [conformance targets]?
+
+      *  When? (date)
+
+      *  How? (e.g., manually or automatically)
+
+      *  Employing what tool(s)?
+
+      *  What were the results? (e.g., what passed, failed, warnings, issues?)
+
+   Inclusion of a conformance assertion made by a reputable independent entity (person or organization) would likely increase confidence in conformance. Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact.
+
+   In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts. A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and IEPD identity (i.e., that the IEPD is an unaltered copy of the original). For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discretion of the author or sponsor.
+
+6.2. NIEM Wantlist
 
    A NIEM schema document subset is often associated with a NIEM wantlist. A wantlist is an abbreviated XML representation of a NIEM schema document subset, and identifies only the data components a user selected (as requirements) to build a schema document subset. To reconstruct the complete schema document subset there are usually a number of additional data components that the user selections depend upon. These must be computed from the appropriate NIEM reference model and added to reconstruct the complete schema document subset. For example, a user may select nc:Person for the subset. In this case, the wantlist will only contain that component, but the associated full subset must contain both nc:Person and nc:PersonType. A software tool that understands how to process NIEM wantlists and schema document subsets (such as the NIEM Schema Subset Generator Tool [NIEM SSGT]) can rebuild an accurate schema document subset from a wantlist (and the reverse).
 
@@ -1593,7 +1625,7 @@ Remaining work and issues
 
       A wantlist MUST be a member of the schema document set directory it is associated with. This means it MUST reside with and at the root of the subdirectory that groups and defines its target schema document set.
 
-6.2. Business Rules
+6.3. Business Rules
 
    For simplicity and consistency, NIEM employs a profile of the XML Schema language [W3C XML Schema Structures], [W3C XML Schema Datatypes]. Thus, some constraints on NIEM XML documents cannot be enforced by NIEM. [Constraint schema documents] provide a convenient technique for enforcing some additional constraints. However, even the full XML Schema language cannot validate and enforce all possible constraints that may required on an XML document.
 
