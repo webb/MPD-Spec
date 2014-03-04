@@ -272,9 +272,16 @@ This XSD is work-in-progress and subject to change before approval as a NIEM spe
 
 <!-- Artifact Set Classifiers ==================================================== -->
 
+    <element name="FileSet" type="c:FileSetType" substitutionGroup="c:Artifact">
+      <annotation>
+	<documentation>A generic MPD artifact set; used to group artifacts that are
+	not accounted for by other set classifiers.</documentation>
+      </annotation>
+    </element>
+
     <complexType name="FileSetType">
       <annotation>
-        <documentation>A datatype for an MPD file set artifact.</documentation>
+        <documentation>A datatype for an MPD file artifact set.</documentation>
       </annotation>
       <complexContent>
         <extension base="structures:ObjectType">
@@ -291,7 +298,7 @@ This XSD is work-in-progress and subject to change before approval as a NIEM spe
     <element name="SchemaDocumentSet"
              type="c:SchemaDocumentSetType" substitutionGroup="c:Artifact">
       <annotation>
-	<documentation>An MPD set artifact that may include schema document subsets,
+	<documentation>An MPD artifact set that may include subset schema documents,
 	extension and external schema documents, and other supporting artifacts.
 	</documentation>
       </annotation>
@@ -300,16 +307,16 @@ This XSD is work-in-progress and subject to change before approval as a NIEM spe
     <element name="ConstraintSchemaDocumentSet"
              type="c:SchemaDocumentSetType" substitutionGroup="c:Artifact">
       <annotation>
-	<documentation>An MPD set artifact that may include constraint schema 
-	document subsets, and associated extension and external schema documents, 
-	and other supporting artifacts.</documentation>
+	<documentation>An MPD artifact set of constraint schema documents and other
+	supporting artifacts.</documentation>
       </annotation>
     </element>
 
    <complexType name="SchemaDocumentSetType">
       <annotation>
-	<documentation>A datatype for an MPD set artifact that may include schema
-	document subsets, extension schema documents, and external schema documents.
+	<documentation>A datatype for an MPD artifact set that may include subset
+	schema documents, extension schema documents, and external schema documents
+	or constraint schema documents.
 	</documentation>
       </annotation>
       <complexContent>
@@ -328,16 +335,15 @@ This XSD is work-in-progress and subject to change before approval as a NIEM spe
     <element name="ReferenceSchemaDocumentSet"
              type="c:ReferenceSchemaDocumentSetType" substitutionGroup="c:Artifact">
       <annotation>
-	<documentation>An MPD set artifact that may include constraint schema 
-	document subsets, and associated extension and external schema documents, 
-	and other supporting artifacts.</documentation>
+	<documentation>An MPD artifact set of reference schema documents and other
+	supporting artifacts.</documentation>
       </annotation>
     </element>
 
     <complexType name="ReferenceSchemaDocumentSetType">
       <annotation>
-	<documentation>A datatype for an MPD set artifact 
-	that is a reference schema document set.</documentation>
+	<documentation>A datatype for an MPD artifact set that is a reference schema
+	document set.</documentation>
       </annotation>
       <complexContent>
         <restriction base="c:FileSetType">
