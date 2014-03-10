@@ -41,7 +41,9 @@
   <subsection>
 	<title>Major changes in this draft (related to last)</title>
 	<ol>
-		<li><p>Replaced Sec 4.5 (Conformance Report) with more relaxed Sec 6.1 (Conformance Assertion) <ref idref="Conformance-Assertion"/>.</p></li>
+		<li><p>Removed section that mandated a Conformance Report.</p></li> 
+		<li><p>Added new section for optional <em>conformance assertion</em> artifact: <ref idref="Conformance-Assertion"/>.</p></li>
+		<li><p>Added new section to describe schema sets: <ref idref="Artifact-Sets"/>.</p></li>
 		<li><p></p></li>
 		<li><p></p></li>
 	</ol>
@@ -52,19 +54,23 @@
 	<title>Remaining work and issues</title>
 	<ol>
 		<li><p>Relax the rules for URIs to include URL or URN (xs:anyURI).</p></li>
-		<li><p>Relax change log requirements for IEPDs/EIEMs.</p></li>
-		<li><p>Improve definitions for schema sets.</p></li>
-		<li><p>Missing any CTs?  Fork any?  (e,g., MPD, Chg-Log, NIEM-EIEM, Full-NIEM-EIEM ???)</p></li>
-		<li><p>Classify rules based on CTs.</p></li>
+		<li><p>Conformance targets (CT):
+		   <ul>
+			<li><p>Missing?  Should be forked?  (e.g., MPD, Chg-Log, NIEM-EIEM, FN-EIEM?)</p></li>  
+			<li><p>Classifications?</p></li>
+			<li><p>Classify rules based on CTs.</p></li>
+		   </ul>
+		</p></li>
+   		<li><p>Remaining TBDs?  (Search on "TBD" to find incomplete items.)</p></p></li>
 		<li><p>Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent).</p></li>
 		<li><p>Appendix for Schematron rules for MPD Catalog.</p></li>
-		<li><p>Assemble resource tool kit:  MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.</p></li>
 		<li><p>Appendix for Example IEP (from Cursor on Target).</p></li>
+		<li><p>Assemble resource tool kit:  MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.</p></li>
 		<li><p>QA and validity checks on MPD catalog schema (Appendix A).</p></li>
 		<li><p>Final check:  typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.</p></li>
 		<li><p></p></li>
 	</ol>
-	<p>NOTE:  Search on "TBD" to find incomplete items.</p>
+
   </subsection>
 
 
@@ -2042,7 +2048,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="Artifact-Sets">
 	<title>Artifact Sets</title>
 
-	<p>This sprecification defines different ways to group MPD artifacts into <termRef term="artifact set">sets</termRef>.  In general, all sets are established through an <termRef>XML catalog document</termRef> or the <termRef>MPD catalog document</termRef>.</p>
+	<p>This specification defines different ways to group MPD artifacts into <termRef term="artifact set">sets</termRef>.  In general, all sets are established through an <termRef>XML catalog document</termRef> or the <termRef>MPD catalog document</termRef>.</p>
 
 	<p><ref idref="XML-Catalogs"/> describes how NIEM employs an <termRef>XML catalog document</termRef> to assemble an <termRef>XML Schema</termRef> from <termRef term="XML schema document">XML schema documents</termRef>.  This is one important method for grouping XML schema documents into sets.  In fact, this is the required standard technique for grouping schema documents for assembling them into a schema.  For user convenience, this method is now used in each <termRef>release</termRef>, <termRef>core update</termRef>, and <termRef>domain update</termRef>.  Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).</p>
 
@@ -2054,7 +2060,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>Note that the <code>c:pathURI</code> value for an artifact is its operating system relative directory path name and file name.  The <code>c:pathURI</code> value for an artifact set is its operating system relative directory path name.</p>
 
-	<p>Another way the MPD catalog schema can group artifacts is through the use of the <code>c:RequiredFile</code> element.  Use this construct to signify there are strong dependencies among artifacts.  For example, documentation may be prepared as a set of hyperlinked HTML files.  These HTML files may also incorporate separate GIF or JPG images.  Regardless of file location within the MPD, these files depend on one another through hyperlinks and they tend to operate as a single file.  This set of artifacts should be identified and grouped using <code>c:RequiredFile</code>.</p>
+	<p>Another way the MPD catalog schema can group artifacts is through the use of the <code>c:RequiredFile</code> element.  Use this construct to signify there are strong dependencies among artifacts.  For example, documentation may be prepared as a set of hyperlinked HTML files.  These HTML files may also incorporate separate GIF or JPG images.  Regardless of file location within the MPD, these files depend on one another through hyperlinks.  As a result, they tend operate as a single artifact; removal of a file will cause one or more broken links within the set.  This set of artifacts should be grouped using <code>c:RequiredFile</code>.  If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the <code>c:File</code> element while all others are <code>c:RequiredFile</code> child elements).</p>
 
 </section>
 
