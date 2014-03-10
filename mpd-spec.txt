@@ -24,39 +24,43 @@ Status
 
 Major changes in this draft (related to last)
 
-      1. Replaced Sec 4.5 (Conformance Report) with more relaxed Sec 6.1 (Conformance Assertion) Section 6.1, Conformance Assertion, below.
+      1. Removed section that mandated a Conformance Report.
 
-      2. 
+      2. Added new section for optional conformance assertion artifact: Section 6.1, Conformance Assertion, below.
 
-      3. 
+      3. Added new section to describe schema sets: Section 7.1, Artifact Sets, below.
+
+      4. 
+
+      5. 
 
 Remaining work and issues
 
       1.  Relax the rules for URIs to include URL or URN (xs:anyURI).
 
-      2.  Relax change log requirements for IEPDs/EIEMs.
+      2.  Conformance targets (CT):
 
-      3.  Improve definitions for schema sets.
+             *  Missing? Should be forked? (e.g., MPD, Chg-Log, NIEM-EIEM, FN-EIEM?)
 
-      4.  Missing any CTs? Fork any? (e,g., MPD, Chg-Log, NIEM-EIEM, Full-NIEM-EIEM ???)
+             *  Classifications?
 
-      5.  Classify rules based on CTs.
+             *  Classify rules based on CTs.
 
-      6.  Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent).
+      3.  Remaining TBDs? (Search on "TBD" to find incomplete items.)
 
-      7.  Appendix for Schematron rules for MPD Catalog.
+      4.  Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent).
 
-      8.  Assemble resource tool kit: MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.
+      5.  Appendix for Schematron rules for MPD Catalog.
 
-      9.  Appendix for Example IEP (from Cursor on Target).
+      6.  Appendix for Example IEP (from Cursor on Target).
 
-      10. QA and validity checks on MPD catalog schema (Appendix A).
+      7.  Assemble resource tool kit: MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.
 
-      11. Final check: typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.
+      8.  QA and validity checks on MPD catalog schema (Appendix A).
 
-      12. 
+      9.  Final check: typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.
 
-   NOTE: Search on "TBD" to find incomplete items.
+      10. 
 
 1. Introduction
 
@@ -923,15 +927,15 @@ Remaining work and issues
       		digit   ::= [0-9]
       		status  ::= 'alpha' | 'beta' | 'rc' | 'rev'
 
-   The meaning of status value options are as follows:
+      The meaning of the status values are as follows:
 
-      *  alpha indicates early development; changing significantly.
+         *  alpha indicates early development; changing significantly.
 
-      *  beta indicates late development; but changing or incomplete.
+         *  beta indicates late development; but changing or incomplete.
 
-      *  rc indicates release candidate; complete but not approved as operational.
+         *  rc indicates release candidate; complete but not approved as operational.
 
-      *  rev indicates very minor revision that does not impact schema validation.
+         *  rev indicates very minor revision that does not impact schema validation.
 
    The regular expression notation used above is from [W3-XML] #sec-notation.
 
@@ -1665,19 +1669,19 @@ Remaining work and issues
 
 7.1. Artifact Sets
 
-   This sprecification defines different ways MPD artifacts can be grouped into [sets]. In general, all groupings are established through an [XML catalog document] or the [MPD catalog document].
+   This specification defines different ways to group MPD artifacts into [sets]. In general, all sets are established through an [XML catalog document] or the [MPD catalog document].
 
-   Section 4.5, XML Catalogs, above, describes how NIEM employs an [XML catalog document] to assemble an [XML Schema] from [XML schema documents]. This is one important method for grouping XML schema documents into sets. In fact, this is the required standard technique for grouping schema documents for assembling them into a schema. For user convenience, this method is now used in each [release], [core update], and [domain update]. Note also that this method is applicable to all the various kinds of NIEM XML schema documents (reference, subset, extension, constraint, and even external).
+   Section 4.5, XML Catalogs, above, describes how NIEM employs an [XML catalog document] to assemble an [XML Schema] from [XML schema documents]. This is one important method for grouping XML schema documents into sets. In fact, this is the required standard technique for grouping schema documents for assembling them into a schema. For user convenience, this method is now used in each [release], [core update], and [domain update]. Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).
 
-   Another reason for grouping artifacts into sets is a common need for humans to identify and navigate the artifacts of an IEPD (particularly, if it's complicated). An [XML catalog document] has a relatively focused purpose, to select and assemble a set of XML schema documents into a schema. It does not classify or describe artifacts, and it is not intended to index artifacts other than XML schema documents with assigned target namespaces.
+   Another reason for grouping artifacts into sets is a common need for humans to review, identify, and navigate the artifacts of an IEPD (particularly, if it's complicated). An [XML catalog document] has a relatively focused purpose, to select and assemble a set of XML schema documents into an [XML Schema]. It is not intended to index artifacts in general (other than XML schema documents to assigned target namespaces). So, it does not classify or describe the artifacts it identifies.
 
-   On the other hand, the [MPD catalog document] is designed to record, index, classify, and describe (as needed) any or all MPD artifacts (not just schema documents). The MPD catalog provides a generic and more flexible method for grouping all artifacts.
+   On the other hand, the [MPD catalog document] is designed to record, index, classify, and describe (as needed) any or all MPD artifacts (not just schema documents). The MPD catalog provides a more flexible method for grouping all artifacts.
 
-   The MPD catalog schema Appendix A, MPD Catalog XML Schema Document, below, defines a large set of common artifact classifiers and a smaller set of artifact set classifiers. In summary, per Appendix A, MPD Catalog XML Schema Document, below, define sets by substituting the appropriate artifact classifier (of type c:FileType) into abstract element c:Artifact, within the appropriate artifact set classifier (of type c:FileSetType). Use the most specific classifiers available for artifacts and artifact sets. Otherwise, as needed, use generic c:File and c:FileSet classifiers with nc:DescriptionText.
+   The MPD catalog schema Appendix A, MPD Catalog XML Schema Document, below, defines a large set of common artifact classifiers and a smaller set of artifact set classifiers. In summary, per Appendix A, MPD Catalog XML Schema Document, below, define sets by substituting the appropriate artifact classifier (of type c:FileType) into the abstract element c:Artifact, within the appropriate artifact set classifier (of type c:FileSetType). Use the most specific classifiers available for your artifacts and artifact sets. Otherwise, as needed, use generic c:File and c:FileSet classifiers with nc:DescriptionText.
 
    Note that the c:pathURI value for an artifact is its operating system relative directory path name and file name. The c:pathURI value for an artifact set is its operating system relative directory path name.
 
-   c:RequiredFile
+   Another way the MPD catalog schema can group artifacts is through the use of the c:RequiredFile element. Use this construct to signify there are strong dependencies among artifacts. For example, documentation may be prepared as a set of hyperlinked HTML files. These HTML files may also incorporate separate GIF or JPG images. Regardless of file location within the MPD, these files depend on one another through hyperlinks. As a result, they tend operate as a single artifact; removal of a file will cause one or more broken links within the set. This set of artifacts should be grouped using c:RequiredFile. If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the c:File element while all others are c:RequiredFile child elements).
 
 7.2. MPD File Name Syntax
 
@@ -1698,25 +1702,25 @@ Remaining work and issues
       		status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
       		class    ::= 'rel' | 'cu' | 'du' | 'iepd' | 'eiem'
 
+      The status values are as defined in [Rule 4-7].
+
+      The class values are defined as follows:
+
+         *  rel = release
+
+         *  cu = core update
+
+         *  du = domain update
+
+         *  iepd = information exchange package documentation
+
+         *  eiem = enterprise information exchange model
+
    The regular expression notation used in the rule above is from [W3-XML] #sec-notation.
 
-   Alphabetic characters are lower case to reduce the risk of complications across various file systems.
+   Alphabetic characters are lower case to reduce complications across various file systems.
 
-   The status value options are as defined beneath [Rule 4-7], above.
-
-   The class value options are defined as follows:
-
-      *  rel = release
-
-      *  cu = core update
-
-      *  du = domain update
-
-      *  iepd = information exchange package documentation
-
-      *  eiem = enterprise information exchange model
-
-   A valid IEPD file name corresponding to the example in Appendix B, Example Instance XML Document Catalog, below, would be: Planning_Order-1.0.3rev2.iepd.zip
+   A valid IEPD file name would be: Planning_Order-1.0.3rev2.iepd.zip
 
    Checking this Appendix you will find that this example also adheres to the following rule:
 
@@ -3009,9 +3013,9 @@ Appendix H. References
 
    [NIEM BIEC]: Business Information Exchange Components (BIEC), Version 1.0, NIEM Technical Architecture Committee (NTAC), March 2011. Available from http://reference.niem.gov/niem/guidance/business-information-exchange-components/1.0/.
 
-   [NIEM Conformance]: NIEM Conformance, Version 1.0, NIEM Technical Architecture Committee (NTAC), 15 September 2008. Available from http://reference.niem.gov/niem/specification/conformance/1.0/.
+   [NIEM Conformance]: NIEM Conformance, Version 3.0, NIEM Technical Architecture Committee (NTAC), [day month TBD] 2014. Available from http://reference.niem.gov/niem/specification/conformance/3.0/.
 
-   [NIEM Conformance Target Attribute Specification]: NIEM Conformance Target Attribute Specification, Version 1.0, NIEM Technical Architecture Committee (NTAC), 15 January 2013. Available from http://reference.niem.gov/niem/specification/conformance-target-attribute/1.0/.
+   [NIEM Conformance Target Attribute Specification]: NIEM Conformance Target Attribute Specification, Version 1.0, NIEM Technical Architecture Committee (NTAC), [day month TBD] 2014. Available from http://reference.niem.gov/niem/specification/conformance-target-attribute/1.0/.
 
    [NIEM Concept of Operations]: NIEM Concept of Operations, Version 0.5, NIEM Program Management Office, 9 January 2007. Available from http://reference.niem.gov/niem/guidance/concept-of-operations/.
 
@@ -3027,9 +3031,9 @@ Appendix H. References
 
    [NIEM Introduction]: Introduction to the National Information Exchange Model (NIEM), Version 0.3, NIEM Program Management Office, 12 February 2007. Available from http://reference.niem.gov/niem/guidance/introduction/.
 
-   [NIEM MPD Specification]: NIEM Model Package Description (MPD) Specification, Version 3.0, NIEM Technical Architecture Committee (NTAC), day month [TBD] 2014. Available from http://reference.niem.gov/niem/specification/model-package-description/3.0/.
+   [NIEM MPD Specification]: NIEM Model Package Description (MPD) Specification, Version 3.0, NIEM Technical Architecture Committee (NTAC), [day month TBD] 2014. Available from http://reference.niem.gov/niem/specification/model-package-description/3.0/.
 
-   [NIEM NDR]: NIEM Naming and Design Rules (NDR), Version 3.0, NIEM Technical Architecture Committee (NTAC), 31 October 2008. Available from http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/.
+   [NIEM NDR]: NIEM Naming and Design Rules (NDR), Version 3.0, NIEM Technical Architecture Committee (NTAC), [day month TBD] 2014. Available from http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/.
 
    [NIEM SSGT]: NIEM Schema Subset Generation Tool (SSGT). Available from http://tools.niem.gov/niemtools/ssgt/index.iepd.
 
