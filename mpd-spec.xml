@@ -54,15 +54,16 @@
 	<title>Remaining work and issues</title>
 	<ol>
 		<li><p>Relax the rules for URIs to include URL or URN (xs:anyURI).</p></li>
+		<li><p>Divide rules with multiple constraints into multiple rules with simple constraints.</p></li>
 		<li><p>Conformance targets (CT):</p>
 		   <ul>
 			<li><p>Missing?  Should be forked?  (e.g., MPD, Chg-Log, NIEM-EIEM, FN-EIEM?)</p></li>  
-			<li><p>Classifications?</p></li>
+			<li><p>Are classes correct?</p></li>
 			<li><p>Classify rules based on CTs.</p></li>
 		   </ul>
-		</li>
+	        </li>
+	   	<li><p>Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent).</p></li>
    		<li><p>Remaining TBDs?  (Search on "TBD" to find incomplete items.)</p></li>
-		<li><p>Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent).</p></li>
 		<li><p>Appendix for Schematron rules for MPD Catalog.</p></li>
 		<li><p>Appendix for Example IEP (from Cursor on Target).</p></li>
 		<li><p>Assemble resource tool kit:  MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.</p></li>
@@ -1251,13 +1252,11 @@
 
 	<p>This specification places no further restrictions or meaning (implied or otherwise) on a version number.  Authors have the option to use integers between dots to indicate degree of compatibility or other relationships between versions as needed.  For example, for a given MPD, the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2.  Such a claim is acceptable.  However, this specification does not imply any such relationships.  Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the MPD.</p>
 
-	<rule id="r-vers-compatability" applicability="WF-MPD" class="Interpretation">
-		<p>MPD version numbers within a version series do NOT imply compatibility between versions.  Compatibility between or among MPD versions MUST be explicitly stated in documentation.</p>
-	</rule>
+	<p>MPD version numbers within a version series do NOT imply compatibility between versions.  Compatibility between or among MPD versions MUST be explicitly stated in documentation.</p>
 
 	<p>Note that an author who updates an existing MPD to a new version may choose the version number based on its previous version number or not, as long as it follows the version number syntax. </p>
 
-	<p>Version number syntax applies to MPDs only; there is no mandate to apply this syntax to artifact versioning.  To do so is optional.</p>  
+	<p>Version number syntax applies to MPDs only; there is no requirement to apply this syntax to artifact versioning.</p>  
 
 </section>
 
@@ -1406,12 +1405,12 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 		</ul>
 	</rule>
 
-<p>This rule does not specify the format for an IEPD or EIEM change log.  This is left to the discretion of the author.  While use of <code>mpd-changelog.xsd</code> is encouraged for IEPD and EIEM schemas, it is not required.  Relaxing the change log format encourages and facilitates easier and more rapid development.  IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  A consistent standard change log would be very difficult to specify.</p>
+<p>This rule does not specify a format for an IEPD or EIEM change log.  This is left to the discretion of the author.  While use of <code>mpd-changelog.xsd</code> is encouraged for IEPD and EIEM schemas, it is not required.  Relaxing the change log format encourages and facilitates easier and more rapid development.  IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  A consistent standard change log would be very difficult to specify.</p>
 
 	<p>The initial version of an IEPD or EIEM would not normally require a change log.  However, for consistency of validation and to help facilitate automatic processing of IEPDs and EIEMs by tools:</p>
 
 	<rule id="r-mpd-initial-changelog" applicability="Chg-Log" class="Constraint">
-		<p>The initial version of an IEPD or EIEM MUST contain a change log artifact with at least one entry for its creation date.</p>
+		<p>The change log artifact of an initial version of an IEPD or EIEM MUST contain at least one entry for its creation date.</p>
 	</rule>
 
 </section>
@@ -1422,7 +1421,7 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 <section id="Master-Document">
 	<title>Master Document</title>
 
-	<p>This section is only applicable to IEPDs and EIEMs.</p>
+	<p>This section is applicable to IEPDs and EIEMs.</p>
 
 	<definition term="master document">
 		<p>An informal documentation artifact contained in an IEPD or EIEM that serves as the initial general source of human readable descriptive or instructional information.  A <em>master document</em> may index or reference other more specific documentation or other explanatory materials within the MPD.</p>
@@ -1451,6 +1450,8 @@ concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name o
 
 <section id="Master-Document-Content">
 	<title>Master Document Content</title>
+
+	<p>This section is non-normative and applies to IEPDs and EIEMs.</p>
 
 	<p>This section is neither a cookbook nor a normative specification for a master document.  It simply suggests typical topics that a master document should or might address, and provides some non-normative guidance.</p>
 
