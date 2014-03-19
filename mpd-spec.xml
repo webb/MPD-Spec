@@ -1265,11 +1265,11 @@
 
 	<p>To facilitate MPD sharing and reuse the assignment of a URI (Uniform Resource Identifier) to each MPD is essential.  This is enforced by the MPD catalog schema document <ref idref="MPD-Catalog-XSD"/>.  However, it is also important to ensure that an MPD URI is absolute.</p>
 
-	<rule id="r-URI" applicability="WF-MPD" class="Constraint">
+	<rule id="r-uri" applicability="WF-MPD" class="Constraint">
 		<p>The value of any <code>xs:attribute</code> of type <code>xs:anyURI</code> MUST match the production &lt;absolute-URI&gt; as defined by <ref idref="RFC3986-URI"/>, <a href="http://tools.ietf.org/html/rfc3986#page-27"><char name="sect"/>4.3, Absolute URI</a>.</p>
 	</rule>
 
-	<p><ref idref="r-URI"/> implies that a URI assigned to an MPD must be valid.  Furthermore, the entity (person or organization) assigning the MPD URI either (1) <em>is</em> the registrant of the domain name or namespace identifier, or (2) <em>has</em> authority from the registrant to assign this URI.</p>
+	<p><ref idref="r-uri"/> implies that a URI assigned to an MPD must be valid.  Furthermore, the entity (person or organization) assigning the MPD URI either (1) <em>is</em> the registrant of the domain name or namespace identifier, or (2) <em>has</em> authority from the registrant to assign this URI.</p>
 
 	<p>Examples of MPD URIs:</p>
 	<ul>
@@ -1289,11 +1289,11 @@
 
 		<p>Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (reuse) and one aspect of lineage.  To support this concept, the following MPD URI rules are necessary:</p>
 
-	<rule id="r-URI-frag">
+	<rule id="r-uri-frag">
 		<p>A valid MPD URI MUST support the inclusion of a <em>fragment identifier</em> (as a suffix) <ref idref="RFC3986-URI"/>.</p>
 	</rule>
 
-	<rule id="r-URI-nofrag">
+	<rule id="r-uri-nofrag">
 		<p>A valid MPD URI MUST NOT contain a <em>fragment identifier</em> <ref idref="RFC3986-URI"/>.</p>
 	</rule>
 
@@ -1308,7 +1308,7 @@
 		</ul>
 	</rule>
 
-	<p>You should now understand the rationale for <ref idref="r-URI-frag"/>.  If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because <ref idref="RFC3986-URI"/> allows only a single fragment identifier.</p> 
+	<p>You should now understand the rationale for <ref idref="r-uri-frag"/>.  If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because <ref idref="RFC3986-URI"/> allows only a single fragment identifier.</p> 
 
 	<p>The following are examples of MPD artifact URIs:</p>
 
@@ -1319,7 +1319,7 @@
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query/</code> (a set artifact)</p></li>
 	</ul>
 
-	<p>Note that <ref idref="RFC2141-URN-Syntax"/> appears to preclude the use of a URN as an MPD URI.  URN syntax violates <ref idref="r-mpd-uri-frag"/> because it does not support fragment identifiers.</p>
+	<p>Note that <ref idref="RFC2141-URN-Syntax"/> appears to preclude the use of a URN as an MPD URI.  URN syntax violates <ref idref="r-uri-frag"/> because it does not support fragment identifiers.</p>
 
 	<p>Here is one simple scenario for using an artifact URI within the MPD catalog.  Consider two different IEPDs with the following URIs:</p>
 	<ol>
