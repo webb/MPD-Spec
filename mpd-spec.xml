@@ -42,10 +42,10 @@
 	<title>Major changes in this draft (related to last)</title>
 	<ol>
 		<li><p>Removed section that mandated a Conformance Report.</p></li> 
-		<li><p>Added new section for optional <em>conformance assertion</em> artifact: <ref idref="Conformance-Assertion"/>.</p></li>
-		<li><p>Added new section to describe schema sets: <ref idref="Artifact-Sets"/>.</p></li>
-		<li><p></p></li>
-		<li><p></p></li>
+		<li><p>New section for optional <em>conformance assertion</em> artifact: <ref idref="Conformance-Assertion"/>.</p></li>
+		<li><p>New section to describe schema sets: <ref idref="Artifact-Sets"/>.</p></li>
+		<li><p>Major revision to <ref idref="URI-Scheme-for-MPDs"/></p></li>
+		<li><p>Major revision to <ref idref="URI-Scheme-for-MPD-Artifacts"/></p></li>
 	</ol>
 
   </subsection>
@@ -53,7 +53,6 @@
   <subsection>
 	<title>Remaining work and issues</title>
 	<ol>
-		<li><p>Relax the rules for URIs to include URL or URN (xs:anyURI).</p></li>
 		<li><p>Divide rules with multiple constraints into multiple rules with simple constraints.</p></li>
 		<li><p>Conformance targets (CT):</p>
 		   <ul>
@@ -69,7 +68,6 @@
 		<li><p>Assemble resource tool kit:  MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.</p></li>
 		<li><p>QA and validity checks on MPD catalog schema (Appendix A).</p></li>
 		<li><p>Final check:  typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.</p></li>
-		<li><p></p></li>
 	</ol>
 
   </subsection>
@@ -1265,57 +1263,65 @@
 <section id="URI-Scheme-for-MPDs">
 	<title>URI Scheme for MPDs</title>
 
-	<p>To facilitate MPD sharing and reuse the assignment of a URI (Uniform Resource Identifier) to each MPD is essential.  This is enforced by the MPD catalog schema document <ref idref="MPD-Catalog-XSD"/>.  However, it is also important to ensure that an MPD URI is absolute </p>
+	<p>To facilitate MPD sharing and reuse the assignment of a URI (Uniform Resource Identifier) to each MPD is essential.  This is enforced by the MPD catalog schema document <ref idref="MPD-Catalog-XSD"/>.  However, it is also important to ensure that an MPD URI is absolute.</p>
 
 	<rule id="r-URI" applicability="WF-MPD" class="Constraint">
 		<p>The value of any <code>xs:attribute</code> of type <code>xs:anyURI</code> MUST match the production &lt;absolute-URI&gt; as defined by <ref idref="RFC3986-URI"/>, <a href="http://tools.ietf.org/html/rfc3986#page-27">.</p>
 	</rule>
 
-<!--
-	<rule id="r-URI" applicability="WF-MPD" class="Constraint">
-		<p>The value of any <code>xs:attribute</code> whose type is <code>xs:anyURI</code> MUST match the production &lt;relative-URI&gt; as defined by <ref idref="RFC3986-URI"/>.</p>
-	</rule>
--->
+	<p><ref idref="r-URI"/> implies that a URI assigned to an MPD must be valid.  Furthermore, the entity (person or organization) assigning the MPD URI either (1) <em>is</em> the registrant of the domain name or namespace identifier, or (2) <em>has</em> authority from the registrant to assign this URI.</p>
 
-	<p><ref idref="r-URI"/> essentially states that a URI (URL or URN) assigned to an MPD must be valid.  Furthermore, the person or organization assigning the MPD URI either (1) is the registrant of the domain name (for a URL) or namespace identifier (NID; for a URN), or (2) has authority from the registrant to assign this URI.  Although, there is no requirement for a URL assigned to an MPD to <termRef term="resolve URI">resolve</termRef>, nonetheless, it is good practice for a URL to <termRef term="resolve URI">resolve</termRef> to the resource it represents, the directory it resides in, or to documentation for that resource.  See <link>http://www.w3.org/Provider/Style/URI.html</link></p>
+	<p>Examples of MPD URIs:</p>
+	<ul>
+		<li><p><code>http://example.gov/niem-iepd/prescription-monitoring-info-exchange/3.0/</code></p></li>
+		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/</code></p>
+		<li><p><code>http://example.gov/niem-eiem/cyfs/4.0beta3/</code></p></li>
+	</ul>
 
-	<p>The MPD version number (i.e., the value of <code>c:mpdVersionID</code> defined in <ref idref="MPD-Catalog-XSD"/>) is essential to its unique identification.  Incorporation of the version number within the MPD URI provides a simple visual (as well as machine readable) means of identifying one of the most fundamental relationships between MPDs, i.e., that one is a different version of another.  Another advantage to this technique is that different versions of an MPD will generally group together in a standard sorted ordering.</p>
-	
-<!--
-	<p>And finally, note that <ref idref="MPD-Catalog-XSD"/> defines a mandatory attribute for the <code>c:mpdURI</code>, <code>c:mpdName</code>, <code>c:mpdClassCode</code>, and <code>c:mpdVersionID</code>.  Since the ending substring of an MPD URI must be the value of its version ID (enclosed by forward slashes), then the MPD catalog duplicates the MPD version ID in two locations.  This is by intentional design, and there are two reasons.  First, software tools are expected to build and process MPD catalogs.  Instead of forcing tool developers to parse the URI just to retrieve name, version, and class, the MPD catalog separates these data items as XML attributes.  Second, duplication of this key metadata in both the URI and the file name facilitates fast visual recognition, rather than requiring a user open the MPD archive, open its <code>mpd-catalog.xml</code>, and scan XML content to locate the data.</p>
--->
+	<p>This specification does not mandate that basic MPD catalog metadata be designed into an MPD URI.  However, including such can obviously provide for convenient visual recognition of an MPD.  That said, an author should ensure any metadata embedded in the URI accurately reflect the MPD catalog metadata (in particular, the values of <code>c:mpdURI, c:mpdName, c:mpdVersionID, </code>and<code> c:mpdClass</code> defined in <ref idref="MPD-Catalog-XSD"/>).</p>
+
+
 
 </section>
 
 <section id="URI-Scheme-for-MPD-Artifacts">
 	<title>URI Scheme for MPD Artifacts</title>
 
-	<p>Given the URI for an MPD, a URI also exists for each artifact in that MPD.  Again, this specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to designate an artifact URI.  Each file artifact or set (directory) artifact is uniquely identified by its path name relative to the <termRef>MPD root directory</termRef>.  The URI for an MPD artifact is the concatenation of (1) the MPD URI, (2) the "#" character, and (3) the path name of the artifact.</p>
+		<p>Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (reuse) and one aspect of lineage.  To support this concept, the following MPD URI rules are necessary:</p>
+
+	<rule id="r-URI-frag">
+		<p>A valid MPD URI MUST support the inclusion of a <em>fragment identifier</em> (as a suffix) <ref idref="RFC3986-URI"/>.</p>
+	</rule>
+
+	<rule id="r-URI-nofrag">
+		<p>A valid MPD URI MUST NOT contain a <em>fragment identifier</em> <ref idref="RFC3986-URI">.</p>
+	</rule>
+
+	<p><ref idref="r-URI-frag"/> is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD).  This specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to construct a URI for an artifact within an MPD.  By the following rule, each file artifact or set artifact is uniquely identified by its path name relative to the <termRef>MPD root directory</termRef>.</p>
 
 	<rule id="r-mpd-uri-syntax" applicability="WF-MPD" class="Constraint">
 		<p>A URI reference to an individual MPD artifact from another resource is the concatenation of</p>
 		<ul>
 			<li><p>The URI of the MPD that contains the artifact.</p></li>
 			<li><p>The pound-sign character ("#") (also known as the hashtag character).</p></li>
-			<li><p>A fragment identifier <ref idref="RFC3986-URI"/> that is the artifact's locally unique path name (directory path and file name) relative to the <termRef>MPD root directory</termRef>.</p></li>
+			<li><p>A fragment identifier <ref idref="RFC3986-URI"/> that is the artifact's locally unique path name (that includes directory path and file name) relative to the <termRef>MPD root directory</termRef>.</p></li>
 		</ul>
 	</rule>
 
-	<p>Thus, each MPD artifact (file or set) has a globally unique URI that can be referenced from other external resources as needed.  Example artifact URIs include:</p>
+	<p>You should now understand the rationale for <ref idref="r-URI-frag"/>.  If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because <ref idref"RFC3986-URI"/> allows only a single fragment identifier. 
+
+	<p>The following are examples of MPD artifact URIs:</p>
 
 	<ul>
-		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#subset/niem-core.xsd</code></p></li>
-		<li><p><code>http://example.gov/niem-iepd/pmix/3.0beta2/#extension/ext-1.1.xsd</code></p></li>
-		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#documentation/user-manual.docx</code></p></li>
+		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#subset/niem-core.xsd</code></p> (a file artifact)</li>
+		<li><p><code>http://example.gov/niem-iepd/pmix/3.0beta2/#extension/ext-1.1.xsd</code> (a file artifact)</p></li>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#application-info/</code> (a set artifact)</p></li>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query/</code> (a set artifact)</p></li>
-		<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/#extension/request4.xsd</code></p></li>
-		<li><p><code>URN:oasis:niem-iepd:em:hospital:2.0:%23application-info/document1.docx</code></p></li>
 	</ul>
 
-	<p>Reference the last example above that uses a URN.  Note that fragment identifier syntax is defined for a URL <ref idref="RFC3986-URI"/>.  However, URN syntax has no concept of fragments.  Within a URN, the pound-sign character ("#") is a reserved and may not be used.  Therefore, to use a URN and a fragment identifier for an MPD artifact, you must use the hexadecimal form of pound-sign (<code>%23</code>) <ref idref="RFC2119-URN"/>.
+	<p>Note that <ref idref="FPC2141-URN-syntax"/> appears to preclude the use of a URN as an MPD URI.  URN syntax violates <ref idref"r-mpd-uri-frag"/> because it does not support fragment identifiers.</p>  
 
-	<p>Here is one simple scenario for use of an artifact URI within the MPD catalog.  Consider two different IEPDs with the following URIs:</p>
+	<p>Here is one simple scenario for using an artifact URI within the MPD catalog.  Consider two different IEPDs with the following URIs:</p>
 	<ol>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/</code></p></li>
 		<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code></p></li>
@@ -1328,7 +1334,7 @@
 	
 	<p>Additional <code>c:externalURI</code> attributes can be optionally added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.</p> 
 
-	<p>Note that a URI does not have the same meaning as namespace.  Do not rely on NIEM namespaces for artifact URIs.  Recall that the namespaces used in a schema document subset derived from a NIEM release are identical to the namespaces of the release itself.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  The non-uniqueness of NIEM namespaces implies that they cannot be used as URIs for MPD artifacts.</p>
+	<p>Note that a URI does not have the same meaning as namespace.  NIEM namespaces cannot be used as artifact URIs.  Recall that the namespaces used in a schema document subset derived from a NIEM release are identical to the namespaces of the release itself.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  NIEM namespaces are not necessarily unique to an artifact within an MPD.</p>
 
 	<p>Later, <ref idref="XML-Catalogs"/> will describe the use of <ref idref="OASIS-XML-Catalogs"/> to correlate and <termRef term="resolve URI">resolve</termRef> namespaces to their corresponding local URIs.</p>
 
