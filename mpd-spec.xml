@@ -44,8 +44,9 @@
 		<li><p>Removed section that mandated a Conformance Report.</p></li> 
 		<li><p>New section for optional <em>conformance assertion</em> artifact: <ref idref="Conformance-Assertion"/>.</p></li>
 		<li><p>New section to describe schema sets: <ref idref="Artifact-Sets"/>.</p></li>
-		<li><p>Major revision to <ref idref="URI-Scheme-for-MPDs"/></p></li>
-		<li><p>Major revision to <ref idref="URI-Scheme-for-MPD-Artifacts"/></p></li>
+		<li><p>Major revision to <ref idref="URI-Scheme-for-MPDs"/>.</p></li>
+		<li><p>Major revision to <ref idref="URI-Scheme-for-MPD-Artifacts"/>.</p></li>
+		<li><p>Minor revisions to <ref idref="MPD-File-Name-Syntax"/>.  Rescoped as normative for releases, CUs, and DUs; non-normative for IEPDs and EIEMs.</p></li>
 	</ol>
 
   </subsection>
@@ -56,13 +57,13 @@
 		<li><p>Divide rules with multiple constraints into multiple rules with simple constraints.</p></li>
 		<li><p>Conformance targets (CT):</p>
 		   <ul>
-			<li><p>Missing?  Should be forked?  (e.g., MPD, Chg-Log, NIEM-EIEM, FN-EIEM?)</p></li>  
+			<li><p>Missing? Should be forked? (e.g., MPD, Chg-Log, NIEM-EIEM, FN-EIEM?)</p></li>  
 			<li><p>Are classes correct?</p></li>
 			<li><p>Classify rules based on CTs.</p></li>
 		   </ul>
 	        </li>
 	   	<li><p>Mandatory ToC entries in mpd-catalog.xml (release, CU, DU, IEPD, EIEM dependent).</p></li>
-   		<li><p>Remaining TBDs?  (Search on "TBD" to find incomplete items.)</p></li>
+   		<li><p>Remaining TBDs (Search on "TBD" to find incomplete items.)</p></li>
 		<li><p>Appendix for Schematron rules for MPD Catalog.</p></li>
 		<li><p>Appendix for Example IEP (from Cursor on Target).</p></li>
 		<li><p>Assemble resource tool kit:  MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.</p></li>
@@ -2082,10 +2083,14 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="MPD-File-Name-Syntax">
 	<title>MPD File Name Syntax</title>
 
-	<p>As previously stated, the MPD Specification is intended to help facilitate tool support for processing MPDs.  Given a tool must process an MPD, providing it basic information about the MPD as early as possible will help to reduce processing time and complexity.  So, if the MPD class and version can be easily identified by its file name, then a tool would not have to open the archive and parse the MPD catalog just to determine this information.  Of course, ultimately, to do anything useful, a tool will have to open the MPD archive.  However, a standard file name syntax would allow a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each.  The following rules apply:</p>
+	<p>This section is applicable to all MPDs.  However, it is only normative for releases, core updates, and domain updates.  For IEPDs and EIEMs, this section describes non-normative guidance that is highly recommended, but not mandatory.</p>
+
+	<p>The MPD Specification is intended to help facilitate tool support for processing MPDs.  Providing tools and search mechanisms basic information about an MPD as early as possible will help reduce processing time and complexity.  So, if the MPD name, version, and class can be identified from its file name, then a tool would not have to open the archive and parse the MPD catalog to determine such.  Of course, ultimately, to do anything useful, a tool will have to open the MPD archive.  However, standard file name syntax allows a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each.  File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.</p> 
+
+	<p>The following three rules apply to releases, core updates, and domain updates:</p>
 
 	<rule id="r-name-syntax" applicability="WF-MPD" class="Constraint">
-		<p>An MPD archive file name MUST adhere to the syntax defined by the regular expression:</p>
+		<p>Given an MPD whose <code>c:mdpClass</code> value is in the set <code>{rel, cu, du}</code>, its file name MUST adhere to the syntax defined by the regular expression:</p>
 	<pre>
 	mpd-filename ::= name '-' version '.' class '.zip'       
 	Where: 
@@ -2109,19 +2114,19 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 		   </ul>
 	</rule>
 
-	<p>The regular expression notation used in the rule above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>.</p>
+	<p>The regular expression notation in the rule above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>.</p>
 
 	<p>Alphabetic characters are lower case to reduce complications across various file systems.</p>
 
-	<p>A valid IEPD file name would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code></p>
+	<p>An example of an IEPD file name that follows these rules would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code></p>
 
-	<p>Checking this Appendix you will find that this example also adheres to the following rule:</p>
+	<p>MPD file names for releases, core updates, and domain updates also adhere to the following rule:</p>
 
 	<rule id="r-mpd-match" applicability="WF-MPD" class="Constraint">
-		<p>For an MPD, the file name substrings for <code>name</code>, <code>version</code>, and <code>class</code> MUST match exactly the mpd-catalog.xml attribute values for <code>c:mpdName</code>, <code>c:mpdVersionID</code>, and <code>c:mpdClassCode</code> respectively.</p>
+		<p>Given an MPD whose <code>c:mdpClass</code> value is in the set <code>{rel, cu, du}</code>, its file name substrings for <code>name</code>, <code>version</code>, and <code>class</code> (as defined in <ref idref="r-name-syntax"/> MUST exactly match its MPD catalog values for <code>c:MPD</code> attributes <code>c:mpdName</code>, <code>c:mpdVersionID</code>, and <code>c:mpdClassCode</code> respectively.</p>
 	</rule>
 
-	<p>In HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.</p>
+	<p>And finally, in HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.</p>
 
 	<rule id="r-mpd-mime" applicability="WF-MPD" class="Interpretation">
 		<p>When represented on the Internet, an MPD archive SHOULD use the following MIME Type:</p>
