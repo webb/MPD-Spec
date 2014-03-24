@@ -396,12 +396,40 @@ This XSD is work-in-progress and subject to change before approval as a NIEM spe
       </restriction>
     </simpleType>
 
-    <attribute name="mpdClassCode" type="c:MPDClassCodeSimpleType">
+<!-- =========================================================================== -->
+
+    <attribute name="mpdClassCode" type="c:MPDClassListSimpleType">
       <annotation>
-	<documentation>A classification for an MPD; values are drawn 
+	<documentation>A classification for an MPD; values drawn 
 	from the set {rel, cu, du, iepd, eiem}.</documentation>
       </annotation>
     </attribute>
+
+    <simpleType name="MPDClassListSimpleType">
+	<annotation>
+	    <documentation>A data type that ensures at least one class 
+	    is identified for an MPD.</documentation>
+	</annotation>
+	<restriction base="c:ClassListSimpleType">
+	    <minLength value="1"/>
+	</restriction>
+    </simpleType>
+
+    <simpleType name="ClassListSimpleType">
+	<annotation>
+	    <documentation>A data type for one or more codes or URIs 
+	    for MPD classes.</documentation>
+	</annotation>
+        <list itemType="c:ClassUnionSimpleType"/>
+    </simpleType>
+
+    <simpleType name="ClassUnionSimpleType">
+	<annotation>
+	    <documentation>A data type for one of five MPD classes 
+	    or a new class identified by URI.</documentation>
+	</annotation>
+        <union memberTypes="c:MPDClassCodeSimpleType xs:anyURI"/>
+    </simpleType>
 
     <simpleType name="MPDClassCodeSimpleType">
       <annotation>
@@ -435,33 +463,9 @@ This XSD is work-in-progress and subject to change before approval as a NIEM spe
 		</annotation>
 	    </enumeration>
         </restriction>
-</simpleType>
+    </simpleType>
 
-<simpleType name="ClassUnionSimpleType">
-	<annotation>
-	    <documentation>A data type for one of five MPD classes 
-		or a new class identified by URI.</documentation>
-	</annotation>
-    <union memberTypes="c:ClassCodeSimpleType xs:anyURI"/>
-</simpleType>
-
-<simpleType name="ClassListSimpleType">
-	<annotation>
-	    <documentation>A data type for one or more codes or URIs 
-		for MPD classes.</documentation>
-	</annotation>
-    <list itemType="c:ClassUnionSimpleType"/>
-</simpleType>
-
-<simpleType name="MPDClassListSimpleType">
-	<annotation>
-	    <documentation>A data type that ensures at least one class 
-		is identified for an MPD.</documentation>
-	</annotation>
-	<restriction base="c:ClassListSimpleType">
-	    <minLength value="1"/>
-	</restriction>
-</simpleType>
+<!-- =========================================================================== -->
 
     <attribute name="pathURI" type="anyURI">
       <annotation>
