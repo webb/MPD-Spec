@@ -1,4 +1,4 @@
-National Information Exchange Model Model Package Description Specification
+National Information Exchange Model -- Model Package Description Specification
 
 Version 3.0alpha10
 
@@ -852,15 +852,15 @@ Remaining work and issues
 
 4.1.2. MPD Catalog as a Table of Contents
 
-   One function of the MPD catalog is to serve as a table of contents that identifies, locates, and classifies key artifacts and artifact sets. For that purposes Appendix A, MPD Catalog XML Schema Document, below, provides a number of classifier elements for most common artifacts in MPDs. For other less common or generic artifacts two general classifiers exist: c:Documentation and c:ApplicationInfo. These elements loosely correspond to the meaning of the XML Schema xs:annotation child elements, xs:documentation and xs:appInfo. General visual, audio, and textual explanatory documentation should be classified as c:Documentation, while tool-specific artifacts (such as imports, exports, executables, etc.) should be classified as c:ApplicationInfo.
+   One function of the MPD catalog is to serve as a table of contents that identifies, locates, and classifies key artifacts and artifact sets. For that purpose Appendix A, MPD Catalog XML Schema Document, below, provides a number of classifier elements for most common artifacts in MPDs. For other less common or generic artifacts two general classifiers exist: c:Documentation and c:ApplicationInfo. These elements loosely correspond to the meaning of the XML Schema xs:annotation child elements, xs:documentation and xs:appInfo. General visual, audio, and textual explanatory documentation should be classified as c:Documentation, while tool-specific artifacts (such as imports, exports, executables, etc.) should be classified as c:ApplicationInfo.
 
    The classifier elements are designed to identify, categorize, and describe any artifact (including its path name, dependencies, and lineage). Employing XSLT, mpd-catalog.xml can be transformed into an index.html artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.
 
-   In general, only an IEPD or EIEM would contain c:Documentation and c:ApplicationInfo artifacts. So, for an IEPD and EIEM, a best practice is to use the master-document artifact (i.e., the [master document] required in the [MPD root directory]) to reference c:Documentation and c:ApplicationInfo artifacts whether they have been classified in the mpd catalog or not.
+   In general, only an IEPD or EIEM would contain c:Documentation and c:ApplicationInfo artifacts. So, for an IEPD and EIEM, a best practice is to use the master-document artifact (i.e., the [master document] required in the [MPD root directory]) to reference c:Documentation and c:ApplicationInfo artifacts whether or not they have been classified in the MPD catalog.
 
-   Release, core update, and domain update catalogs are required to record all artifacts. However, IEPD and EIEM MPD catalogs are not. The IEPD or EIEM author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog. The author may choose to include all, some, or no artifacts in the catalog.
+   Release, core update, and domain update catalogs are required to record all artifacts. However, IEPD and EIEM MPD catalogs are not. The IEPD or EIEM author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog. The author may choose to classify all, some, or no artifacts in the catalog.
 
-   Also note that use of the MPD catalog as a table of contents, frees an IEPD or EIEM author from having to use a standard directory structure. Instead, the author can design his/her own or use guidance provided in Appendix F, Guidance for IEPD Directories (non-normative), below.
+   The MPD catalog provides a supplement or an alternative to organizing MPD artifacts with a standard file directory. An author can use it to identify, classify, and describe particular artifacts, instead of having to do so with only file names and directory structure. An author can also employ the guidance in Appendix F, Guidance for IEPD Directories (non-normative), below.
 
 4.1.3. Extending an MPD Catalog
 
@@ -2198,12 +2198,40 @@ Appendix A. MPD Catalog XML Schema Document
          </restriction>
        </simpleType>
    
-       <attribute name="mpdClassCode" type="c:MPDClassCodeSimpleType">
+   <!-- =========================================================================== -->
+   
+       <attribute name="mpdClassCode" type="c:MPDClassListSimpleType">
          <annotation>
-   	<documentation>A classification for an MPD; values are drawn 
+   	<documentation>A classification for an MPD; values drawn 
    	from the set {rel, cu, du, iepd, eiem}.</documentation>
          </annotation>
        </attribute>
+   
+       <simpleType name="MPDClassListSimpleType">
+   	<annotation>
+   	    <documentation>A data type that ensures at least one class 
+   	    is identified for an MPD.</documentation>
+   	</annotation>
+   	<restriction base="c:ClassListSimpleType">
+   	    <minLength value="1"/>
+   	</restriction>
+       </simpleType>
+   
+       <simpleType name="ClassListSimpleType">
+   	<annotation>
+   	    <documentation>A data type for one or more codes or URIs 
+   	    for MPD classes.</documentation>
+   	</annotation>
+           <list itemType="c:ClassUnionSimpleType"/>
+       </simpleType>
+   
+       <simpleType name="ClassUnionSimpleType">
+   	<annotation>
+   	    <documentation>A data type for one of five MPD classes 
+   	    or a new class identified by URI.</documentation>
+   	</annotation>
+           <union memberTypes="c:MPDClassCodeSimpleType anyURI"/>
+       </simpleType>
    
        <simpleType name="MPDClassCodeSimpleType">
          <annotation>
@@ -2237,7 +2265,9 @@ Appendix A. MPD Catalog XML Schema Document
    		</annotation>
    	    </enumeration>
            </restriction>
-   </simpleType>
+       </simpleType>
+   
+   <!-- =========================================================================== -->
    
        <attribute name="pathURI" type="anyURI">
          <annotation>
@@ -2784,7 +2814,7 @@ Appendix B. Example Instance XML Document Catalog
       xmlns:ns="http://example.org/namespace">
      <c:MPD 
         c:mpdURI="http://example.org/myIEPD/"
-        c:mpdClassCode="iepd"
+        c:mpdClassCode="iepd http://example.com/new_MPD_class/4.0/"
         c:mpdName="speeding-ticket"
         c:mpdVersionID="1.0"
         >
