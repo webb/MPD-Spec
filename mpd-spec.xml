@@ -51,6 +51,8 @@
 	</ol>
 	<p>Alpha 10</p>
 	<ol>
+		<li><p>Revised rules in <ref idref="Extending-an-MPD-Catalog"/>.</p></li>
+		<li><p>Revised rules in <ref idref="URI-Scheme-for-MPDs"/>.</p></li>
 		<li><p>Rename master-document* to read-me.*</p></li>
 		<li><p>Keep MPD root directory clear of artifacts that can be located in logically named sub-directories.</p></li>
 		<li><p>MPD catalog ToC entries are optional.  xml-catalogs cover schema documents and schema document sets.
@@ -1148,40 +1150,27 @@
 
 	<p>An MPD Catalog may be extended to accommodate new or additional metadata, artifact classifiers, or validity constraints that are not already defined in <ref idref="MPD-Catalog-XSD"/>.</p>
 
-	<p>To extend the MPD catalog, an MPD author must provide both an XML catalog extension document (XML) and one or more MPD extension schema documents (XSD).  The xml-catalog extension identifies that one or more MPD catalog extensions are present, and resolves their namespaces to local URIs.  The MPD catalog extension is a schema that defines and declares the new data components for metadata, classifiers, and/or constraints.  Both general <ref idref="NIEM-Conformance"/> and specific <ref idref="NIEM-NDR"/> NIEM conformance rules apply to these components.  The xml-catalog extension document must reside in the <termRef>MPD root directory</termRef>.  The MPD extension schema documents may bear any file name and reside anywhere in the MPD.  This is because the xml-catalog is expected to <termRef term="resolve URI">resolve</termRef> all local URIs.  MPD processing tools are expected to look for and recognize the xml-catalog (that identifies MPD catalog extensions exist) by its file name.</p>
+	<p>To extend the MPD catalog, an MPD author must provide both an XML catalog extension document (XML) and one or more MPD extension schema documents (XSD).  The XML catalog extension identifies that one or more MPD catalog extensions are present, and resolves their namespaces to local URIs.  The MPD catalog extension is a schema that defines and declares the new data components for metadata, classifiers, and/or constraints.  Both general <ref idref="NIEM-Conformance"/> and specific <ref idref="NIEM-NDR"/> conformance rules apply to these components.  The XML catalog extension document must reside in the <termRef>MPD root directory</termRef>.  The MPD extension schema documents may bear any file name and reside anywhere in the MPD.  This is because the XML catalog is expected to <termRef term="resolve URI">resolve</termRef> all local URIs.  MPD processing tools are expected to look for and recognize the XML catalog (that identifies MPD catalog extensions exist) by its file name.</p>
 
-	<p>The following rule specifies the requirements for an MPD catalog extension XML catalog document:</p>
+	<p>The following rules specify the requirements for an MPD catalog extension XML catalog document:</p>
 
-	<rule id="r-mpd-extension-xml-catalog" applicability="MPD-Cat">
-		<p>An MPD extension XML catalog document:</p>
-		<ul>
-			<li><p>MUST reside in the same relative directory as the <code>mpd-catalog.xml</code> artifact (normally in the <termRef>MPD root directory</termRef>)</p></li>
-			<li><p>MUST bear the file name (and type) <code>mpd-extension-xml-catalog.xml</code>.</p></li>
-			<li><p>MUST <termRef term="resolve URI">resolve</termRef> all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.</p></li>
+	<rule id="r1-mpd-extension-xml-catalog" applicability="MPD-Cat" class="Constraint">
+		<p>An MPD extension XML catalog document MUST reside in the same relative directory as the <code>mpd-catalog.xml</code> artifact (normally in the <termRef>MPD root directory</termRef>)</p>
+	</rule>
+
+	<rule id="r2-mpd-extension-xml-catalog" applicability="MPD-Cat" class="Constraint">
+		<p>An MPD extension XML catalog document MUST bear the file name (and type) <code>mpd-extension-xml-catalog.xml</code>.</p>
 		</ul>
 	</rule>
 
-	<p>So, when a processor identifies a file named <code>mpd-extension-xml-catalog.xml</code> in the <termRef>MPD root directory</termRef>, it can assume that it contains references to one or more MPD catalog extension schema documents.  These schema documents have the following requirements:</p>
+	<rule id="r3-mpd-extension-xml-catalog" applicability="MPD-Cat">
+		<p>An MPD extension XML catalog document MUST <termRef term="resolve URI">resolve</termRef> all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.</p>
+	</rule>
+
+	<p>So, when a processor identifies a file named <code>mpd-extension-xml-catalog.xml</code> in the <termRef>MPD root directory</termRef>, it can assume that it contains references to one or more MPD catalog extension schema documents that adhere to the following rule:</p>
 
 	<rule id="r-mpd-extension-xsd" applicability="MPD-Cat">
-		<p>An MPD catalog extension schema document:</p>
-		<ul>
-			<li><p>MUST conform to the <ref idref="NIEM-NDR"/>, specifically the extension schema conformance target rules.</p></li>
-			<li><p>MUST bear the file type of <code>.xsd</code></p></li>
-			<li><p>MAY have any file name.</p></li>
-			<li><p>MAY reside anywhere within the MPD (the XML catalog MUST <termRef term="resolve URI">resolve</termRef> its URI).</p></li>
-		</ul>
-	</rule>
-
-	<p>The new data components defined/declared within an MPD catalog extension schema document must adhere to the following rule:</p>
-
-	<rule id="r-mpd-extension-components" applicability="MPD-Cat">
-		<p>An MPD-catalog-extension-schema-document-data-component:</p>
-		<ul>
-			<li><p>MUST conform to the <ref idref="NIEM-Conformance"/> Specification.</p></li>
-			<li><p>MUST conform to the <ref idref="NIEM-NDR"/> (extension schema document conformance target).</p></li>
-			<li><p>MUST employ XSD type derivation (<code>xs:extension</code> or <code>xs:restriction</code>) and/or element substitution.</p></li>
-		</ul>
+		<p>An MPD catalog extension schema document MUST conform to the <ref idref="NIEM-NDR"/> schema set conformance target rules.</p>
 	</rule>
 
 	<p>Whether extending an MPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, <ref idref="MPD-Catalog-XSD"/> provides an abstract element as a substitution group head in each case.  The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group.  Whenever possible, the user should reuse types, elements, and attributes that are already defined/declared within the <ref idref="MPD-Catalog-XSD"/>.</p>
@@ -1225,7 +1214,7 @@
 
 	<p>Note that the absence of a <code>status</code> string in the version number indicates that the version has been baselined and published.</p>
 
-	<p>The regular expression in <ref idref="r-mpd-vers-syntax"/> allows the following example version numbers:</p>
+	<p>The regular expression in <ref idref="r-mpd-vers-syntax"/> is enforced by the MPD catalog schema document <ref idref="MPD-Catalog-XSD"/>.  The following examples are valid MPD version numbers:</p>
 		<ul>
 			<li><p><code>1</code></p></li>
 			<li><p><code>1.2</code></p></li>
@@ -1280,7 +1269,7 @@
 
 	<p><ref idref="r-uri"/> implies that a URI assigned to an MPD must be valid.  Furthermore, the entity (person or organization) assigning the MPD URI either (1) <em>is</em> the registrant of the domain name or namespace identifier, or (2) <em>has</em> authority from the registrant to assign this URI.</p>
 
-	<p>Examples of MPD URIs:</p>
+	<p>Examples of valid MPD URIs:</p>
 	<ul>
 		<li><p><code>http://example.gov/niem-iepd/prescription-monitoring-info-exchange/3.0/</code></p></li>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/</code></p></li>
@@ -1298,28 +1287,28 @@
 
 		<p>Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (reuse) and one aspect of lineage.  To support this concept, the following MPD URI rules are necessary:</p>
 
-	<rule id="r-uri-frag">
+	<rule id="r-uri-frag" applicability="WF-MPD" class="Interpretation">
 		<p>A valid MPD URI MUST support the inclusion of a <em>fragment identifier</em> (as a suffix) <ref idref="RFC3986-URI"/>.</p>
 	</rule>
 
-	<rule id="r-uri-nofrag">
+	<rule id="r-uri-nofrag" applicability="WF-MPD" class="Constraint">
 		<p>A valid MPD URI MUST NOT contain a <em>fragment identifier</em> <ref idref="RFC3986-URI"/>.</p>
 	</rule>
 
 	<p><ref idref="r-uri-frag"/> is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD).  This specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to construct a URI for an artifact within an MPD.  By the following rule, each file artifact or set artifact is uniquely identified by its path name relative to the <termRef>MPD root directory</termRef>.</p>
 
 	<rule id="r-mpd-uri-syntax" applicability="WF-MPD" class="Constraint">
-		<p>A URI reference to an individual MPD artifact from another resource is the concatenation of</p>
+		<p>Within an MPD a URI reference to an artifact in another external MPD is the concatenation of</p>
 		<ul>
 			<li><p>The URI of the MPD that contains the artifact.</p></li>
 			<li><p>The pound-sign character ("#") (also known as the hashtag character).</p></li>
-			<li><p>A fragment identifier <ref idref="RFC3986-URI"/> that is the artifact's locally unique path name (that includes directory path and file name) relative to the <termRef>MPD root directory</termRef>.</p></li>
+			<li><p>An identifier that is the artifact's locally unique path name relative to the <termRef>MPD root directory</termRef>.</p></li>
 		</ul>
 	</rule>
 
-	<p>You should now understand the rationale for <ref idref="r-uri-frag"/>.  If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because <ref idref="RFC3986-URI"/> allows only a single fragment identifier.</p> 
+	<p>You should now understand the rationale for <ref idref="r-uri-nofrag"/>.  If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because <ref idref="RFC3986-URI"/> allows only a single fragment identifier.</p> 
 
-	<p>The following are examples of MPD artifact URIs:</p>
+	<p>The following are examples of valid MPD artifact URIs:</p>
 
 	<ul>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#subset/niem-core.xsd</code> (a file artifact)</p></li>
@@ -1336,11 +1325,11 @@
 		<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code></p></li>
 	</ol>
 	
-	<p>The author of IEPD (1) has decided to reuse (as-is) the <code>extension/request1.xsd</code> artifact in IEPD (2).  He/she can optionally create an MPD catalog <code>c:ExtensionSchemaDocument</code> entry for this artifact (assuming it is an extension schema document), and add the attribute:</p> 
+	<p>The author of IEPD (2) has decided to reuse (as-is) the <code>extension/req1.xsd</code> artifact in IEPD (1).  He/she can optionally create an MPD catalog <code>c:ExtensionSchemaDocument</code> entry for this artifact (assuming it is an extension schema document), and add the attribute:</p> 
 	<blockquote>
-		<p><code>c:externalURI="http://www.abc.org/niem-iepd/order/2.1.2rev3/#extension/request1.xsd"</code></p>
+		<p><code>c:externalURI="http://example.org/niem-iepd/pmix/3.0/#extension/req1.xsd"</code></p>
 	</blockquote>
-	
+
 	<p>Additional <code>c:externalURI</code> attributes can be optionally added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.</p> 
 
 	<p>Note that a URI does not have the same meaning as namespace.  NIEM namespaces cannot be used as artifact URIs.  Recall that the namespaces used in a schema document subset derived from a NIEM release are identical to the namespaces of the release itself.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  NIEM namespaces are not necessarily unique to an artifact within an MPD.</p>
