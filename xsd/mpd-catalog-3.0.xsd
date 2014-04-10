@@ -14,10 +14,6 @@
     <import namespace="http://release.niem.gov/niem/structures/3.0/"/>
     <import namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
 
-<!-- 
-This XSD is work-in-progress and subject to change before approval as a NIEM spec.
--->
-
     <annotation>
 
       <documentation>
@@ -31,6 +27,24 @@ This XSD is work-in-progress and subject to change before approval as a NIEM spe
 	  of MPD content, metadata, and lineage to process, display, review, 
 	  register, search, and discover MPDs efficiently. For IEPDs, the
 	  mpd-catalog provides instructions for validating IEPs to schemas. 
+	  
+	  This XML Schema document is supported by a subset of niem-core v3.0.
+          c:AuthoritativeSource should use NIEM 3.0 schema components as follows:
+
+	  c:AuthoritativeSource			(type="nc:EntityType")
+	     nc:EntityOrganization 		(or nc:EntityPerson)
+		nc:OrganizationName		(type="nc:TextType")
+		nc:OrganizationLocation
+		   nc:Address
+		      nc:AddressFullText	(type="nc:TextType")
+		nc:OrganizationPrimaryContactInformation
+		   nc:ContactResponder
+		   nc:PersonName
+		      nc:PersonFullName		(type="nc:TextType")
+		nc:ContactEmailID		(type="xs:string")
+		nc:ContactTelephoneNumber
+		   nc:TelephoneNumberRepresentation (substitutionGroup)
+		nc:ContactWebsiteURI		(type="xs:anyURI") 
       </documentation>
 
       <appinfo>
@@ -712,15 +726,16 @@ This XSD is work-in-progress and subject to change before approval as a NIEM spe
     <complexType name="XMLSchemaType">
       <annotation>
 	<documentation>A data type for an XML Schema, indicating
-		an XML Schema against which an artifact may be validated, 
-		or which can be used for other purposes.</documentation>
+	an XML Schema against which an artifact may be validated, 
+	or which can be used for other purposes.  c:XMLSchemaDocument 
+	identifies the root or starting XML schema document.
+	</documentation>
       </annotation>
       <complexContent>
         <extension base="structures:ObjectType">
 	  <sequence>
 	    <element ref="nc:DescriptionText" minOccurs="0"/>
 	    <element ref="c:XMLCatalog"/>
-	     <!-- Designates the root or starting XML schema document: -->
 	    <element ref="c:XMLSchemaDocument"/> 
           </sequence>
         </extension>
@@ -921,25 +936,6 @@ This XSD is work-in-progress and subject to change before approval as a NIEM spe
 	      organization responsible for an MPD.</documentation>
       </annotation>
     </element>
-
-<!-- This XML Schema document is supported by a subset of the niem-core v3.0.
-     c:AuthoritativeSource should use NIEM 3.0 schema components as follows ...
-
-<c:AuthoritativeSource>					(type="nc:EntityType")
-	<nc:EntityOrganization> 			(or <nc:EntityPerson>)
-		<nc:OrganizationName>			(type="nc:TextType")
-		<nc:OrganizationLocation>
-			<nc:Address>
-			       <nc:AddressFullText>	(type="nc:TextType")
-		<nc:OrganizationPrimaryContactInformation>
-			<nc:ContactResponder>
-			<nc:PersonName>
-			       <nc:PersonFullName>	(type="nc:TextType")
-			<nc:ContactEmailID>		(type="xs:string")
-			<nc:ContactTelephoneNumber>
-			       <nc:TelephoneNumberRepresentation> (substitutionGroup)
-			<nc:ContactWebsiteURI>		(type="xs:anyURI") 
--->
 
     <element name="CreationDate" type="date">
       <annotation>
