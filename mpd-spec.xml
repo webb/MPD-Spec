@@ -1829,11 +1829,11 @@
 </rule>
 
 <rule id="xc1" applicability="XML-Cat" class="Constraint">
-	<p>Within an <termRef>XML catalog document</termRef> the value of an <code>er:uri</code> attribute owned by a <code>er:URI</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
+	<p>Within an <termRef>XML catalog document</termRef> the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
 </rule>
 
 <rule id="xc2" applicability="XML-Cat" class="Constraint">
-	<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of an <code>er:uri</code> attribute owned by a <code>er:URI</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>er:name</code> (a namespace string) attribute owned by the <code>er:URI</code> element.</p> 
+	<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>name</code> (a namespace string) attribute owned by the <code>er:uri</code> element.</p> 
 </rule>
 
 </section>
@@ -1844,11 +1844,11 @@
 <title>IEP</title>
 
 <rule id="i1" applicability="IEP" class="Constraint">
-	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:XPathText</code> attribute owned by a <code>c:ValidToXPath</code> element, a candidate IEP is a valid IEP, ONLY IF the value of <code>c:ValidToXPath</code> applied to the candidate IEP (an <termRef>XML document</termRef>) has an effective Boolean value (EBV) equal to <code>true</code>.  EBV is defined by <ref idref="W3-XPath"/> <a href="http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv"><char name="sect"/> 2.4.3 <q>Effective Boolean Value</q></a>.</p>
+	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:xPathText</code> attribute owned by a <code>c:ValidToXPath</code> element, a candidate IEP is a valid IEP, ONLY IF the value of <code>c:ValidToXPath</code> applied to the candidate IEP (an <termRef>XML document</termRef>) has an effective Boolean value (EBV) equal to <code>true</code>.  EBV is defined by <ref idref="W3-XPath"/> <a href="http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv"><char name="sect"/> 2.4.3 <q>Effective Boolean Value</q></a>.</p>
 </rule>
 
 <rule id="i2" applicability="IEP" class="Constraint">
-	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, ONLY IF its XML document element is a member of that list of <em>QNames</em>.</p>
+	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, ONLY IF its XML document element's name is a member of that list of <em>QNames</em>.</p>
 	</rule>
 	
 <rule id="i3" applicability="IEP" class="Constraint">
@@ -1873,6 +1873,10 @@
 	</rule>
 
 	<rule id="fni2" applicability="FN-IEP" class="Constraint">
+		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:externalURI</code> attribute owned by an element that is a <code>c:FileSetType</code> (or a type derived from it) MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+	</rule>
+
+	<rule id="fni3" applicability="FN-IEP" class="Constraint">
 		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:resourceURI</code> attribute owned by a <code>c:Relationship</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
 	</rule>
 
@@ -1938,7 +1942,7 @@
 </definition> 
 
 	<rule id="r1-conform-assert" applicability="WF-MPD" class="Constraint">
-		<p>An MPD whose <code>c:mpdClass</code> attribute value list contains <code>iepd</code> or <code>eiem</code> MUST have a <termRef>conformance assertion</termRef> artifact in its <termRef>MPD root directory</termRef>.</p>
+		<p>An MPD whose <code>c:mpdClassCode</code> attribute value list contains <code>iepd</code> or <code>eiem</code> MUST have a <termRef>conformance assertion</termRef> artifact in its <termRef>MPD root directory</termRef>.</p>
 	</rule>
 
 	<rule id="r2-conform-assert" applicability="WF-MPD" class="Constraint">
@@ -2087,7 +2091,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<p>The following three rules apply to releases, core updates, and domain updates:</p>
 
 	<rule id="r-name-syntax" applicability="WF-MPD" class="Constraint">
-		<p>Given an MPD whose <code>c:mdpClass</code> value is in the set <code>{rel, cu, du}</code>, its file name MUST adhere to the syntax defined by the regular expression:</p>
+		<p>Given an MPD whose <code>c:mpdClassCode</code> value is in the set <code>{rel, cu, du}</code>, its file name MUST adhere to the syntax defined by the regular expression:</p>
 	<pre>
 	mpd-filename ::= name '-' version '.' class '.zip'       
 	Where: 
@@ -2115,12 +2119,12 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>Alphabetic characters are lower case to reduce complications across various file systems.</p>
 
-	<p>An example of an IEPD file name that follows these rules would be:  <code>Planning_Order-1.0.3rev2.iepd.zip</code></p>
+	<p>An example of an IEPD file name that follows these rules would be:  <code>planning_order-1.0.3rev2.iepd.zip</code></p>
 
 	<p>MPD file names for releases, core updates, and domain updates also adhere to the following rule:</p>
 
 	<rule id="r-mpd-match" applicability="WF-MPD" class="Constraint">
-		<p>Given an MPD whose <code>c:mdpClass</code> value is in the set <code>{rel, cu, du}</code>, its file name substrings for <code>name</code>, <code>version</code>, and <code>class</code> (as defined in <ref idref="r-name-syntax"/> MUST exactly match its MPD catalog values for <code>c:MPD</code> attributes <code>c:mpdName</code>, <code>c:mpdVersionID</code>, and <code>c:mpdClassCode</code> respectively.</p>
+		<p>Given an MPD whose <code>c:mpdClassCode</code> value is in the set <code>{rel, cu, du}</code>, its file name substrings for <code>name</code>, <code>version</code>, and <code>class</code> (as defined in <ref idref="r-name-syntax"/> MUST exactly match its MPD catalog values for <code>c:MPD</code> attributes <code>c:mpdName</code>, <code>c:mpdVersionID</code>, and <code>c:mpdClassCode</code> respectively.</p>
 	</rule>
 
 	<p>And finally, in HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.</p>
@@ -2158,10 +2162,10 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>Refer to <ref idref="r-mpd-mime"/> for Internet representation of IEPDs or EIEMs.</p>
 
-	<p>The <ref idref="NIEM-NDR"/> explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant.  Other standards may use <code>xs:import</code> without requiring <code>xs:schemaLocation</code> attributes (instead, relying only on the namespace value).  These standards may also use <code>xs:include</code>.  This XML Schema construct is disallowed by NIEM.  When standards external to NIEM are required within MPDs, the following rule applies:</p>
+	<p>The <ref idref="NIEM-NDR"/> explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant.  Other standards may use <code>xs:import</code> without requiring <code>schemaLocation</code> attributes (instead, relying only on the namespace value).  These standards may also use <code>xs:include</code>.  This XML Schema construct is disallowed by NIEM.  When standards external to NIEM are required within MPDs, the following rule applies:</p>
 
 	<rule id="r-mpd-other-stds" applicability="WF-MPD" class="Constraint">
-		<p>Within an MPD, if non-conformant external schema documents are used, then any references from these schema documents to other namespaces MUST <termRef term="resolve URI">resolve</termRef> to local URIs.  <code>xs:schemaLocation</code> attributes or XML catalogs can be used to ensure resolution.</p>
+		<p>Within an MPD, if non-conformant external schema documents are used, then any references from these schema documents to other other schema documents and/or namespaces MUST <termRef term="resolve URI">resolve</termRef> to local URIs.  <code>schemaLocation</code> attributes or XML catalogs can be used to ensure resolution.</p>
 	</rule>
 
 	<p>For the case of non-NIEM-conformant schemas, this rule ensures that all schemas (or corresponding artifacts and namespaces) from external standards required for definition, validation, and use of the MPD are present within the archive.</p>
@@ -2172,7 +2176,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 		<p>Within any artifact of an MPD archive, any direct reference to another resource (i.e., another artifact such as an image, schema, stylesheet, etc.) that is required to process or display an artifact SHOULD exist within the archive at the location specified by that reference.</p>
 	</rule>
 
-	<p>This means that MPD artifacts, including documentation artifacts, should be complete.  For example, if an HTML document contains a hyperlink reference (<code>href</code>) to a schema (XSD) or stylesheet (XSLT) that is part of the MPD, then the schema file associated with that hyperlink should be present within the MPD; likewise for a sourced (<code>src</code>) image.  Authors should exercise good judgment with this rule.  For example, it does not require an MPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents.  The key operating words in this rule are:  "another resource is required to process or display an artifact SHOULD exist within the archive."</p>
+	<p>This means that MPD artifacts, including documentation artifacts, should be complete.  For example, if an HTML document within an MPD contains a hyperlink reference (<code>href</code>) to an artifact that is part of or used by the MPD, then the file associated with that hyperlink should be present in the MPD; likewise for a sourced (<code>src</code>) image.  Authors should exercise good judgment with this rule.  For example, it does not require an MPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents.  The key operating words in this rule are:  "another resource is required to process or display an artifact SHOULD exist within the archive."</p>
 
 	<p>In some cases, it may not be possible to include all artifacts, even schemas, in an MPD without violating laws, regulations, or policies.  For example, an IEPD may require use of a schema document that is not publicly accessible; it might be classified or sensitive but unclassified (SBU).  This is a valid reason for exception to <ref idref="r-mpd-resources"/>.  If the IEPD is placed in the public domain, the author should omit the non-public schema document, and if appropriate, document the omission, and explain where and/or how the missing schema document can be obtained.</p>
 
@@ -2233,14 +2237,14 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>NIEM releases, core updates, and domain updates generally follow a consistent directory organization.  When employing release and updates within IEPDs and EIEMs whether as-is or as subsets, users are encouraged to maintain their original directory structures.  However, aside from applicable rules previously stated in the preceding sections, there are no normative rules for organizing directories within IEPDs or EIEMs.</p> 
 
-	<p>Guidance for directory structuring may be useful to authors, especially in the case of a relatively simple IEPD or EIEM with a single schema document subset, and a few extension, exchange, and external schema documents.  The following has been common non-normative practice for IEPD directories:</p>
+	<p>Guidance for directory structuring may be useful to authors, especially in the case of a relatively simple IEPD or EIEM with a single schema document subset, and a few extension and external schema documents.  The following has been common non-normative practice for IEPD directories:</p>
 
 <ul>
 	<li><p>Create a root directory for the IEPD from the name and version identifier of the IEPD.  For example <code>my_iepd-3.2rev4</code>.</p></li>
 	<li><p>The <code>mpd-catalog.xml</code> and the change log must reside in <termRef>MPD root directory</termRef>.</p></li>
-	<li><p>If extending the <termRef>MPD catalog document</termRef>, then per <ref idref="r1-mpd-extension-xml-catalog"/> <code>mpd-catalog-extension-xml-catalog.xml</code> MUST reside in the same directory as the <code>mpd-catalog.xml</code> it supports.  <code>mpd-catalog-extension.xsd</code> can be anywhere in the MPD because <code>mpd-catalog-extension-xml-catalog.xml</code> will locate it.  However, recommend all these files be co-located in the <termRef>MPD root directory</termRef> for visibility.</p></li>
+	<li><p>If extending the <termRef>MPD catalog document</termRef>, then per <ref idref="r1-mpd-extension-xml-catalog"/> <code>mpd-extension-xml-catalog.xml</code> MUST reside in the same directory as the <code>mpd-catalog.xml</code> it supports.  <code>mpd-catalog-extension.xsd</code> can be anywhere in the MPD because <code>mpd-extension-xml-catalog.xml</code> will locate it.  However, recommend all these files be co-located in the <termRef>MPD root directory</termRef> for visibility.</p></li>
 
-	<li><p>Maintain a NIEM schema subset organized as generated by the Schema Subset Generation Tool (SSGT).  The reason is that SSGT generates an <termRef>XML catalog document</termRef> that correctly correlates each schema document namespace to its corresponding relative pathname (local URI).  SSGT also provides the correct <code>xs:schemaLocation</code> attribute values for each <code>xs:import</code> element.</p></li>
+	<li><p>Maintain a NIEM schema subset organized as generated by the Schema Subset Generation Tool (SSGT).  The reason is that SSGT generates an <termRef>XML catalog document</termRef> that correctly correlates each schema document namespace to its corresponding relative pathname (local URI).  SSGT also provides the correct <code>schemaLocation</code> attribute values for each <code>xs:import</code> element.</p></li>
 	<li><p>As generated by SSGT, a NIEM subset will be contained in a <code>/niem</code> subdirectory.  Put this subdirectory into the <termRef>MPD root directory</termRef>.</p></li>
 	<li><p>If a <termRef>NIEM wantlist</termRef> exists for a subset, put it into the <code>/niem</code> subdirectory to maintain its association with its subset.</p></li>
 	<li><p>If using a <termRef>reference schema document</termRef> set (such as a release), maintain as originally downloaded.  This will be the same as SSGT organizes a subset.</p></li>
@@ -2248,7 +2252,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<li><p>Maintain extension schema documents in a subdirectory of the <termRef>MPD root directory</termRef> with a name that begins with the substring <code>extension</code>.</p></li>
 	<li><p>Maintain external standard schema documents that are not built into NIEM (and therefore are not in the subset under <code>/niem</code>) in a subdirectory with a name that begins with the substring <code>external</code>.</p></li>
-	<li><p>Maintain each constraint schema document set (or all constraint schema documents if appropriate) in a subdirectory with a name that begins with the substring <code>niem-constraint</code>.  If the constraint schema is derived from a schema subset, maintain the same subdirectory organization as the subset.</p></li>
+	<li><p>Maintain each constraint schema document set (or all constraint schema documents if appropriate) in a subdirectory with a name that begins with the substring <code>constraint</code>.  If the constraint schema is derived from a schema subset, maintain the same subdirectory organization as the subset.</p></li>
 	<li><p>Maintain Schematron schema documents in a subdirectory with a name that begins with the substring <code>schematron</code>.</p></li>
 	<li><p>Maintain sample IEPs in a subdirectory with a name that begins with the substring <code>iep-sample</code>.  This subdirectory should also contain any XML stylesheets (XSL) used with the sample instances.</p></li>
 	<li><p>Maintain documentation in a subdirectory with a name that begins with the substring <code>documentation</code>.  Create additional documentation subdirectories inside this one as needed.</p></li>
@@ -2257,16 +2261,16 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>Obviously, there are many other ways to organize for more complex business requirements in which a single IEPD or EIEM employs multiple releases, subsets, constraint sets, core updates, and domain updates.  Regardless of directory organization and file naming, an IEPD or EIEM author must always configure all IEP conformance targets using the MPD catalog <code>c:IEPConformanceTarget</code> element and the appropriate validation artifacts (such as XML catalogs, Schematron schemas, RelaxNG schemas, etc.).</p>
 
-	<p>The guidance above results in an IEPD directory structure that appears below.  Filenames within the <code>extension</code>, <code>external</code>, <code>exchange</code>, <code>schematron</code>, and <code>iep-sample</code> subdirectories are non-normative examples.  Authors are free to assign names for such files according to their own requirements (if they do not violate the rules in this specification for files such as <code>mpd-catalog.xml</code> or <code>changelog.*</code>).</p>
+	<p>The guidance above results in an IEPD directory structure that appears below.  Notes are in parentheses.  Filenames within the <code>extension</code>, <code>external</code>, <code>schematron</code>, and <code>iep-sample</code> subdirectories are non-normative examples.  Authors are free to assign names for such files according to their own requirements (if they do not violate the rules in this specification for files such as <code>mpd-catalog.xml</code> or <code>changelog.*</code>).</p>
 <pre><strong>
 	/my_iepd-3.2rev4	(root directory of IEPD archive)
 
 		mpd-catalog.xml
-		mpd-catalog-extension-xml-catalog.xml
+		mpd-extension-xml-catalog.xml
 		mpd-catalog-extension.xsd
 		changelog.*
 		master-document.*
-		conformance-report.xslx
+		conformance-assertion.*
 
 		/niem
 			/adaptors
@@ -2296,15 +2300,19 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 			...
 			xml-catalog.xml
 
-		/niem-constraint
-			/adaptors
-			/appinfo
-			/codes
-			/conformanceTargets
-			...
-			wantlist.xml
-			xml-catalog.xml
-
+		/constraint		(use of constraint schema documents)
+			/niem			(constraints on subset)
+				/adaptors
+				/appinfo
+				/codes
+				/conformanceTargets
+				...
+				wantlist.xml
+				xml-catalog.xml
+			/extension		(constraints on extensions)
+				query.xsd
+				extension1.xsd
+				xml-catalog.xml
 		/schematron
 			business-rules1.sch
 			business-rules2.sch
