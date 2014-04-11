@@ -496,15 +496,15 @@ Remaining work and issues
 
       *  One standard NIEM schema document subset (or reference schema document set).
 
-      *  One or more NIEM extension schema documents that extend existing NIEM data components or establish new NIEM-conformant data components.
+      *  Optionally, one or more NIEM extension schema documents that extend existing NIEM data components or establish new NIEM-conformant data components.
 
-      *  Optionally, as needed, one or more NIEM constraint schema document sets (usually based on a schema document subset).
+      *  Optionally, one or more NIEM constraint schema document sets (usually based on a schema document subset).
 
-      *  Optionally, as needed, one or more XML schema documents for non-NIEM (i.e., non-conformant) standards with associated extension schema documents that contain adapter types for the data components that will be used from those non-NIEM XML schema documents (per [NIEM NDR]).
+      *  Optionally, one or more XML schema documents for non-NIEM (i.e., non-conformant) standards with associated extension schema documents that contain adapter types for the data components that will be used from those non-NIEM XML schema documents (per [NIEM NDR]).
 
    [Definition: Enterprise Information Exchange Model (EIEM)]
 
-      An MPD that contains a NIEM-conformant schema document set that defines and declares data components to be consistently reused in the IEPDs of an enterprise. An EIEM is a collection of BIECs organized into a schema document subset and one or more extension schema documents. Constraint schema documents and non-NIEM-conformant external standards schema documents with type adapters are optional.
+      An MPD that contains a NIEM-conformant schema document set that defines and declares data components to be consistently reused in the IEPDs of an enterprise. An EIEM is a collection of BIECs organized into a schema document subset. As options, an EIEM can include extension, constraint, and external(non-NIEM) XML schema documents.
 
    An information sharing enterprise that creates and maintains an EIEM authors IEPDs by reusing its EIEM content instead of (re)subsetting reference schema documents sets and (re)creating extensions. An EIEM may also contain business rules or constraint schema document sets tailored to enterprise requirements and designed to restrict variability in use of NIEM data components. This not only saves time, but it also ensures that enterprise IEPDs reuse NIEM and associated extensions consistently. (XML schema document subsets, extension schema documents, and constraint schema document sets will be defined and discussed in more detail later in this document). Figure 2-2, BIECs, EIEM, and a small family of IEPDs., below, generally illustrates how BIECs, an EIEM, and an IEPD family relate (Constraint schema document sets are optional and not depicted in this figure).
 
@@ -584,7 +584,7 @@ Remaining work and issues
 
    This section generally applies to NIEM releases, core updates, and domain updates. Though not common, it is also valid to use a [reference schema document] or document set within an IEPD or EIEM. The [reference schema document] and [reference schema document set] were defined earlier in Section 2.7, Reference Schema Documents, above.
 
-   A NIEM [reference schema document] is intended to be the authoritative definition schema document for a NIEM target namespace, therefore, all NIEM releases, core updates, and domain updates are composed of a reference schema document set and associated namespaces. As a standalone artifact, a reference schema document set is always harmonized such that all types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within the set).
+   A NIEM [reference schema document] is intended to be the authoritative definition schema document for a NIEM target namespace, therefore, all NIEM releases, core updates, and domain updates are composed of a reference schema document set and associated namespaces. As a standalone artifact set, a reference schema document set is always harmonized such that all types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within the set).
 
    As authoritative definitions, NIEM reference schema document sets satisfy more rigorous documentation requirements. The [NIEM NDR] requires that each type definition, and element and attribute declaration in a reference schema document contain an xs:annotation element that defines its semantic meaning. As will be explained later, [extension schema documents] are also authoritative definitions, but in a local sense. They are authoritative within a given IEPD or EIEM, and therefore, must also satisfy the same rigorous documentation rules as reference schema documents.
 
@@ -866,15 +866,15 @@ Remaining work and issues
 
 4.1.2. MPD Catalog as a Table of Contents
 
-   One function of the MPD catalog is to serve as a table of contents that identifies, locates, and classifies key artifacts and artifact sets. For that purpose Appendix A, MPD Catalog XML Schema Document, below, provides a number of classifier elements for most common artifacts in MPDs. For other less common or generic artifacts two general classifiers exist: c:Documentation and c:ApplicationInfo. These elements loosely correspond to the meaning of the XML Schema xs:annotation child elements, xs:documentation and xs:appinfo. General visual, audio, and textual explanatory documentation should be classified as c:Documentation, while tool-specific artifacts (such as imports, exports, executables, etc.) should be classified as c:ApplicationInfo.
+   One function of the MPD catalog is to serve as a table of contents that identifies, locates, and classifies key artifacts and artifact sets. For that purpose Appendix A, MPD Catalog XML Schema Document, below, provides a number of classifier elements for most common artifacts and artifact sets in MPDs. For other less common or generic artifacts two general classifiers exist: c:Documentation and c:ApplicationInfo. These elements loosely correspond to the meaning of the XML Schema xs:annotation child elements, xs:documentation and xs:appinfo. General visual, audio, and textual explanatory documentation should be classified as c:Documentation, while tool-specific artifacts (such as imports, exports, executables, etc.) should be classified as c:ApplicationInfo.
 
-   The classifier elements are designed to identify, categorize, and describe any artifact (including its path name, dependencies, and lineage). Employing XSLT, mpd-catalog.xml can be transformed into an index.html artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.
+   The classifier elements are designed to identify, categorize, and describe any artifacts and artifact sets (including its path name, dependencies, and lineage). Employing XSLT, mpd-catalog.xml can be transformed into an index.html artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.
 
    In general, only an IEPD or EIEM would contain c:Documentation and c:ApplicationInfo artifacts. So, for an IEPD and EIEM, a best practice is to use the master-document artifact (i.e., the [master document] required in the [MPD root directory]) to reference c:Documentation and c:ApplicationInfo artifacts whether or not they have been classified in the MPD catalog.
 
-   Release, core update, and domain update catalogs are required to record all artifacts. However, IEPD and EIEM MPD catalogs are not. The IEPD or EIEM author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog. The author may choose to classify all, some, or no artifacts in the catalog.
+   Release, core update, and domain update catalogs are required to record all artifacts. However, IEPD and EIEM MPD catalogs are not. The IEPD or EIEM author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog. The author may choose to classify all, some, or none in the catalog.
 
-   The MPD catalog provides a supplement or an alternative to organizing MPD artifacts with a standard file directory. An author can use it to identify, classify, and describe particular artifacts, instead of having to do so with only file names and directory structure. An author can also employ the guidance in Appendix F, Guidance for IEPD Directories (non-normative), below.
+   The MPD catalog provides a supplement or an alternative to organizing MPD artifacts and sets with a standard file directory. An author can use it to identify, classify, and describe particular artifacts or sets, instead of having to do so with only file names and directory structure. An author can also employ the guidance in Appendix F, Guidance for IEPD Directories (non-normative), below.
 
 4.1.3. Extending an MPD Catalog
 
@@ -906,7 +906,7 @@ Remaining work and issues
 
 4.2. Metadata Concepts
 
-   The MPD catalog also contains both required and optional metadata for the MPD and its artifacts. The following subsections specify the syntax, formats, and semantics for that metadata.
+   The MPD catalog also contains both required and optional metadata for the MPD and its artifacts and artifact sets. The following subsections specify the syntax, formats, and semantics for that metadata.
 
 4.2.1. Version Numbering Scheme
 
@@ -1015,7 +1015,7 @@ Remaining work and issues
 
       A valid MPD URI MUST NOT contain a fragment identifier [RFC 3986 URI].
 
-   [Rule 4-10], above, is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD). This specification follows [RFC 3986 URI] and employs a fragment identifier to construct a URI for an artifact within an MPD. By the following rule, each file artifact or set artifact is uniquely identified by its path name relative to the [MPD root directory].
+   [Rule 4-10], above, is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD). This specification follows [RFC 3986 URI] and employs a fragment identifier to construct a URI for an artifact within an MPD. By the following rule, each file artifact or artifact set is uniquely identified by its path name relative to the [MPD root directory].
 
    [Rule 4-12] (WF-MPD)
 
@@ -1026,6 +1026,8 @@ Remaining work and issues
          *  The pound-sign character ("#") (also known as the hashtag character).
 
          *  An identifier that is the artifact's locally unique path name relative to the [MPD root directory].
+
+   An artifact always has a locally unique path name that terminates in (and includes) its file name; an artifact set always has a locally unique path name (that terminates in and includes a slash character -- "/").
 
    You should now understand the rationale for [Rule 4-11], above. If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because [RFC 3986 URI] allows only a single fragment identifier.
 
@@ -1061,13 +1063,13 @@ Remaining work and issues
 
    An important business requirement is transparency of MPD lineage. Data lineage is also referred to as data provenance, how data are derived or where it came from. There are two basic views of data provenance: (1) as data annotations; and (2) as a graph of data relationships [Principles of Data Integration], Chapter 14 "Data Provenance".
 
-   The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an MPD catalog. The URI scheme for MPDs and their artifacts enables a graph of relationships. An MPD may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.
+   The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an MPD catalog. The URI scheme for MPDs and their artifacts and sets enables a graph of relationships. An MPD may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.
 
    The MPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:descriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one MPD may relate to another. This makes it extremely difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:descriptionText element is provided to further explain the nature of any of the eight c:relationshipCode values available. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:descriptionText (for example, if its value is adapts).
 
-   The MPD catalog also enables an author to record more fine-grained ancestry between MPDs. An MPD catalog can explicitly declare that it reuses an artifact from one or more other MPDs. By default each artifact identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it Section 4.2.3, URI Scheme for MPD Artifacts, above. An MPD author signifies reuse of a given artifact by entering the URI for that artifact in the optional c:externalURI attribute within the appropriate c:FileType or c:FileSetType elements.
+   The MPD catalog also enables an author to record more fine-grained ancestry between MPDs. An MPD catalog can explicitly declare that it reuses an artifact or artifact set from one or more other MPDs. By default each artifact and artifact set identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it Section 4.2.3, URI Scheme for MPD Artifacts, above. An MPD author signifies reuse by entering the URI for the artifact or artifact set in the optional c:externalURI attribute within the appropriate c:FileType or c:FileSetType elements.
 
-   Some MPDs are designed for more extensive reuse than others. For example, families of IEPDs are expected to reuse a given EIEM. In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references. This is expected. The MPD catalog can contain many references to and semantics for artifacts and MPDs. Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.
+   Some MPDs are designed for more extensive reuse than others. For example, families of IEPDs are expected to reuse a given EIEM. In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references. This is expected. The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs. Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.
 
 4.3. Change Log
 
@@ -3075,7 +3077,7 @@ Appendix H. References
 
    [NIEM IEPD Requirements]: Requirements for a National Information Exchange Model (NIEM) Information Exchange Package Documentation (IEPD) Specification, Version 2.1, June 2006. Available from http://reference.niem.gov/niem/guidance/iepd-requirements/2.1/.
 
-   [NIEM Implementation Guidance]: "NIEM Implementation Guide", NIEM Program Management Office. Available from https://www.niem.gov/program-managers/Pages/implementation-guide.aspx.
+   [NIEM Implementation Guidance]: "NIEM Implementation Guide", NIEM Program Management Office. Available from https://www.niem.gov/aboutniem/grant-funding/Pages/implementation-guide.aspx.
 
    [NIEM Introduction]: Introduction to the National Information Exchange Model (NIEM), Version 0.3, NIEM Program Management Office, 12 February 2007. Available from http://reference.niem.gov/niem/guidance/introduction/.
 
