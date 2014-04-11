@@ -2,6 +2,8 @@ ifeq ($(IEAD_TOOLS_ROOT),)
 $(error variable IEAD_TOOLS_ROOT is unset)
 endif
 
+SHELL = /bin/bash
+
 MPDS = $(wildcard sample.*)
 
 MPD_CATALOGS = $(MPDS:%=%/mpd-catalog.xml)
