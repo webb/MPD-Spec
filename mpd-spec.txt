@@ -1801,7 +1801,7 @@ Remaining work and issues
 Appendix A. MPD Catalog XML Schema Document
 
    <?xml version="1.0" encoding="US-ASCII"?>
-   <schema
+   <xs:schema
        ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ExtensionSchemaDocument"
        targetNamespace="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
        version="3.0"
@@ -1811,18 +1811,14 @@ Appendix A. MPD Catalog XML Schema Document
        xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
        xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
        xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/"
-       xmlns="http://www.w3.org/2001/XMLSchema">
+       xmlns:xs="http://www.w3.org/2001/XMLSchema">
    
-       <import namespace="http://release.niem.gov/niem/structures/3.0/"/>
-       <import namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
+       <xs:import namespace="http://release.niem.gov/niem/structures/3.0/"/>
+       <xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
    
-   <!-- 
-   This XSD is work-in-progress and subject to change before approval as a NIEM spec.
-   -->
+       <xs:annotation>
    
-       <annotation>
-   
-         <documentation>
+         <xs:documentation>
              Model Package Description (MPD) Catalog. 
              This schema defines an mpd-catalog.xml artifact 
              for NIEM Model Package Descriptions (MPD):
@@ -1833,10 +1829,29 @@ Appendix A. MPD Catalog XML Schema Document
    	  of MPD content, metadata, and lineage to process, display, review, 
    	  register, search, and discover MPDs efficiently. For IEPDs, the
    	  mpd-catalog provides instructions for validating IEPs to schemas. 
-         </documentation>
+   	  
+   	  This XML Schema document is supported by a subset of niem-core v3.0.
+             c:AuthoritativeSource should use NIEM 3.0 schema components as follows:
    
-         <appinfo>
+   	  c:AuthoritativeSource			(type="nc:EntityType")
+   	     nc:EntityOrganization 		(or nc:EntityPerson)
+   		nc:OrganizationName		(type="nc:TextType")
+   		nc:OrganizationLocation
+   		   nc:Address
+   		      nc:AddressFullText	(type="nc:TextType")
+   		nc:OrganizationPrimaryContactInformation
+   		   nc:ContactResponder
+   		   nc:PersonName
+   		      nc:PersonFullName		(type="nc:TextType")
+   		nc:ContactEmailID		(type="xs:string")
+   		nc:ContactTelephoneNumber
+   		   nc:TelephoneNumberRepresentation (substitutionGroup)
+   		nc:ContactWebsiteURI		(type="xs:anyURI") 
+         </xs:documentation>
+   
+         <xs:appinfo>
    	<term:LocalTerm term="EIEM"  literal="Enterprise Information Exchange Model"/>
+   	<term:LocalTerm term="EXI"   literal="Efficient XML Interchange"/>
    	<term:LocalTerm term="IANA"  literal="Internet Assigned Numbers Authority"/>
    	<term:LocalTerm term="ID"    literal="Identifier"/>
    	<term:LocalTerm term="IEP"   literal="Information Exchange Package" 
@@ -1847,954 +1862,969 @@ Appendix A. MPD Catalog XML Schema Document
    	<term:LocalTerm term="MPD"   literal="Model Package Description"/>
    	<term:LocalTerm term="OASIS" literal="Organization for the Advancement
    						of Structured Information Standards"/>
-   	<term:LocalTerm term="POC"   literal="Point of contact"/>
    	<term:LocalTerm term="SSGT"  literal="Schema Subset Generation Tool"/>
            <term:LocalTerm term="URI"   literal="Uniform Resource Identifier"/>
    	<term:LocalTerm term="Wantlist" definition="An XML file that represents a NIEM
    			schema document subset; used by NIEM Schema Subset Generation
    			Tool to input/output a schema document subset"/>
-         </appinfo> 
+         </xs:appinfo> 
    
-       </annotation>
+       </xs:annotation>
    
-       <element name="Catalog" type="c:CatalogType">
-         <annotation>
-   	<documentation>An MPD catalog that describes MPD artifacts and metadata.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="Catalog" type="c:CatalogType">
+         <xs:annotation>
+   	<xs:documentation>An MPD catalog that describes MPD artifacts and metadata.
+   	</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="CatalogType">
-         <annotation>
-   	<documentation>A datatype for an MPD catalog.</documentation>
-         </annotation>
-         <complexContent>
-   	<extension base="structures:ObjectType">
-             <sequence>
-               <element ref="c:MPD"/>
-       	  </sequence>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="CatalogType">
+         <xs:annotation>
+   	<xs:documentation>A data type for an MPD catalog.</xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+   	<xs:extension base="structures:ObjectType">
+             <xs:sequence>
+               <xs:element ref="c:MPD"/>
+       	  </xs:sequence>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <element name="MPD" type="c:MPDType">
-         <annotation>
-           <documentation>A Model Package Description (MPD).</documentation>
-         </annotation>
-       </element>
+       <xs:element name="MPD" type="c:MPDType">
+         <xs:annotation>
+           <xs:documentation>A Model Package Description (MPD).</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="MPDType">
-         <annotation>
-           <documentation>A datatype for an MPD.</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-             <sequence>
-              <element ref="nc:DescriptionText"	 minOccurs="0"/>
-   	   <element ref="c:MPDInformation"   	 minOccurs="0"/>
-   	   <element ref="c:IEPConformanceTarget" minOccurs="0" maxOccurs="unbounded"/>
-              <element ref="c:Artifact" 		 minOccurs="0" maxOccurs="unbounded"/>
-             </sequence>
-             <attribute ref="c:mpdURI"       use="required"/>
-             <attribute ref="c:mpdClassCode" use="required"/>
-             <attribute ref="c:mpdName"      use="required"/>
-             <attribute ref="c:mpdVersionID" use="required"/>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="MPDType">
+         <xs:annotation>
+           <xs:documentation>A data type for an MPD.</xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+             <xs:sequence>
+              <xs:element ref="nc:DescriptionText"	minOccurs="0"/>
+   	   <xs:element ref="c:MPDInformation"   minOccurs="0"/>
+   	   <xs:element ref="c:IEPConformanceTarget" minOccurs="0" maxOccurs="unbounded"/>
+              <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
+             </xs:sequence>
+             <xs:attribute ref="c:mpdURI"       use="required"/>
+             <xs:attribute ref="c:mpdClassCode" use="required"/>
+             <xs:attribute ref="c:mpdName"      use="required"/>
+             <xs:attribute ref="c:mpdVersionID" use="required"/>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <element name="Artifact" abstract="true">
-         <annotation>
-           <documentation>An file or file set in an MPD.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ArtifactOrArtifactSet" abstract="true">
+         <xs:annotation>
+   	      <xs:documentation>
+   		 A concept for a file or file set in an MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
    <!-- File artifact classifiers for a table of contents =========================== -->
    
-       <element name="File" type="c:FileType" substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>A generic electronic file artifact in an MPD; 
-   	a file stored on a computer system.</documentation>
-         </annotation>
-         </element>
+       <xs:element name="File" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		 A generic electronic file artifact in an MPD; a file stored
+   	         on a computer system.
+   	      </xs:documentation>
+         </xs:annotation>
+         </xs:element>
    
-       <complexType name="FileType">
-         <annotation>
-           <documentation>A datatype for an MPD file artifact.</documentation>
-         </annotation>
-         <complexContent> 
-           <extension base="structures:ObjectType">
-             <sequence>
-               <element ref="c:RequiredFile"     minOccurs="0" maxOccurs="unbounded"/>
-               <element ref="nc:DescriptionText" minOccurs="0"/>
-             </sequence>
-             <attribute ref="c:pathURI"           use="required"/>
-             <attribute ref="c:mimeMediaTypeText" use="optional"/>
-             <attribute ref="c:externalURI"       use="optional"/>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="FileType">
+         <xs:annotation>
+           <xs:documentation>A data type for an MPD file artifact.</xs:documentation>
+         </xs:annotation>
+         <xs:complexContent> 
+           <xs:extension base="structures:ObjectType">
+             <xs:sequence>
+               <xs:element ref="c:RequiredFile"     minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+             </xs:sequence>
+             <xs:attribute ref="c:pathURI"           use="required"/>
+             <xs:attribute ref="c:mimeMediaTypeText" use="optional"/>
+             <xs:attribute ref="c:externalURI"       use="optional"/>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <element name="XMLCatalog" type="c:FileType" substitutionGroup="c:Artifact">
-         <annotation>
-           <documentation>An MPD artifact that is an OASIS XML catalog.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="XMLCatalog" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		 An MPD artifact that is an OASIS XML catalog.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="MPDChangeLog" type="c:FileType" substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact that contains a record of the MPD changes.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="MPDChangeLog" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		 An MPD artifact that contains a record of the MPD changes.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="MasterDocument" type="c:FileType" substitutionGroup="c:Artifact">
-         <annotation>
-           <documentation>An MPD master document (readme) artifact.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="MasterDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		 An MPD master document (readme) artifact.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="IEPSampleXMLDocument" type="c:FileType" 
-   	     substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An example MPD instance XML document or IEP artifact.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="IEPSampleXMLDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		 An example MPD instance XML document or IEP artifact.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="BusinessRulesArtifact" type="c:FileType" 
-   	     substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact that contains business rules 
-   	and constraints on exchange content.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="BusinessRulesArtifact" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		 An MPD artifact that contains business rules 
+   		 and constraints on exchange content.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="XMLSchemaDocument" type="c:FileType" 
-   	     substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact that is a an XML schema document (i.e., an
-   	XSD that is not necessarily a NIEM subset, extension, or reference schema).
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="XMLSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		 An MPD artifact that is a an XML schema document (i.e., an XSD that
+   		 is not necessarily a NIEM subset, extension, or reference schema).
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="ExternalSchemaDocument" type="c:FileType" 
-   	     substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact that is a schema document external to NIEM.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ExternalSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		 An MPD artifact that is a schema document external to NIEM.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="ReferenceSchemaDocument" type="c:FileType" 
-   	     substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact that is a NIEM reference schema document.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ReferenceSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		 An MPD artifact that is a NIEM reference schema document.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="ExtensionSchemaDocument" type="c:FileType" 
-   	     substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact that is a NIEM extension schema document.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ExtensionSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	<xs:documentation>An MPD artifact that is a NIEM extension schema document.
+   	</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="SubsetSchemaDocument" type="c:FileType" 
-   	       substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact that is a subset schema document.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="SubsetSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	<xs:documentation>An MPD artifact that is a subset schema document.
+   	</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="Wantlist" type="c:FileType" substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact that represents a NIEM schema subset 
-   	and is used as an import or export for the NIEM SSGT.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="Wantlist" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	<xs:documentation>An MPD artifact that represents a NIEM schema subset 
+   	and is used as an import or export for the NIEM SSGT.</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="ConformanceAssertion" type="c:FileType" 
-   	     substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact that is a signed declaration 
-   	that a NIEM IEPD or EIEM is NIEM-conformant.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ConformanceAssertion" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	<xs:documentation>An MPD artifact that is a signed declaration 
+   	that a NIEM IEPD or EIEM is NIEM-conformant.</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="ConformanceReport" type="c:FileType"
-   	     substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact auto-generated by a NIEM-aware software tool 
-   	that checks NIEM conformance and/or quality and renders a detailed report
-   	of results.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ConformanceReport" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	<xs:documentation>
+   	   An MPD artifact auto-generated by a NIEM-aware software tool that checks
+   	   NIEM conformance and/or quality and renders a detailed report of results.
+   	</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="SchematronSchema" type="c:FileType" substitutionGroup="c:Artifact">
-         <annotation>
-           <documentation>A Schematron schema document.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="SchematronSchema" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+           <xs:documentation>A Schematron schema document.</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="RelaxNGSchema" type="c:FileType" substitutionGroup="c:Artifact">
-         <annotation>
-           <documentation>A RelaxNG schema.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="RelaxNGSchema" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+           <xs:documentation>A RelaxNG schema.</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="Documentation" type="c:FileType" substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact that is a form of explanatory documentation.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="Documentation" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	 <xs:documentation>
+   	    An MPD artifact that is a form of explanatory documentation.
+   	 </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="ApplicationInfo" type="c:FileType" substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact that is used by a software tool
-   	(e.g., import, export, input, output, etc.).</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ApplicationInfo" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      An MPD artifact that is used by a software tool (e.g., import, export, input, output, etc.).
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
    
    <!-- For declaring file dependencies ============================================= -->
    
-       <element name="RequiredFile" type="c:FileType">
-         <annotation>
-   	<documentation>An MPD file artifact that another artifact depends on
-   	and should not be separated from.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="RequiredFile" type="c:FileType">
+         <xs:annotation>
+   	<xs:documentation>An MPD file artifact that another artifact depends on
+   	and should not be separated from.</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
    
    <!-- Artifact Set Classifiers ==================================================== -->
    
-       <element name="FileSet" type="c:FileSetType" substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>A generic MPD artifact set; used to group artifacts that are
-   	not accounted for by other set classifiers.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="FileSet" type="c:FileSetType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A generic MPD artifact set; used to group artifacts that are not accounted for by other set classifiers.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="FileSetType">
-         <annotation>
-           <documentation>A datatype for an MPD file artifact set.</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-             <sequence>
-               <element ref="nc:DescriptionText" minOccurs="0"/>
-               <element ref="c:Artifact"         minOccurs="0" maxOccurs="unbounded"/>
-             </sequence>
-             <attribute ref="c:pathURI"     use="required"/>
-             <attribute ref="c:externalURI" use="optional"/>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="FileSetType">
+         <xs:annotation>
+           <xs:documentation>A data type for an MPD file artifact set.</xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+             <xs:sequence>
+               <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+               <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
+             </xs:sequence>
+             <xs:attribute ref="c:pathURI"     use="required"/>
+             <xs:attribute ref="c:externalURI" use="optional"/>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <element name="SchemaDocumentSet"
-                type="c:SchemaDocumentSetType" substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact set that may include subset schema documents,
-   	extension and external schema documents, and other supporting artifacts.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="SchemaDocumentSet"
+                type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      An MPD artifact set that may include subset schema documents, extension and external schema documents, and other supporting artifacts.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="ConstraintSchemaDocumentSet"
-                type="c:SchemaDocumentSetType" substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact set of constraint schema documents and other
-   	supporting artifacts.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ConstraintSchemaDocumentSet"
+                type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      An MPD artifact set of constraint schema documents and other supporting artifacts.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-      <complexType name="SchemaDocumentSetType">
-         <annotation>
-   	<documentation>A datatype for an MPD artifact set that may include subset
-   	schema documents, extension schema documents, and external schema documents
-   	or constraint schema documents.
-   	</documentation>
-         </annotation>
-         <complexContent>
-           <restriction base="c:FileSetType">
-   	  <sequence>
-   	    <element ref="nc:DescriptionText"  minOccurs="0"/>
-   	    <element ref="c:XMLCatalog"/>
-   	    <element ref="c:Wantlist"          minOccurs="0"/>
-   	    <element ref="c:XMLSchemaDocument" minOccurs="0"
+      <xs:complexType name="SchemaDocumentSetType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for an MPD artifact set that may include subset schema documents, extension schema documents, and external schema documents or constraint schema documents.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:restriction base="c:FileSetType">
+   	  <xs:sequence>
+   	    <xs:element ref="nc:DescriptionText"  minOccurs="0"/>
+   	    <xs:element ref="c:XMLCatalog"/>
+   	    <xs:element ref="c:Wantlist"          minOccurs="0"/>
+   	    <xs:element ref="c:XMLSchemaDocument" minOccurs="0"
    		                               maxOccurs="unbounded"/>
-             </sequence>
-           </restriction>
-         </complexContent>
-       </complexType>
+             </xs:sequence>
+           </xs:restriction>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <element name="ReferenceSchemaDocumentSet"
-                type="c:ReferenceSchemaDocumentSetType" substitutionGroup="c:Artifact">
-         <annotation>
-   	<documentation>An MPD artifact set of reference schema documents and other
-   	supporting artifacts.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ReferenceSchemaDocumentSet" type="c:ReferenceSchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      An MPD artifact set of reference schema documents and other supporting artifacts.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="ReferenceSchemaDocumentSetType">
-         <annotation>
-   	<documentation>A datatype for an MPD artifact set that is a reference schema
-   	document set.</documentation>
-         </annotation>
-         <complexContent>
-           <restriction base="c:FileSetType">
-   	  <sequence>
-   	    <element ref="nc:DescriptionText" minOccurs="0"/>
-               <element ref="c:ReferenceSchemaDocument" maxOccurs="unbounded"/>
-             </sequence>
-           </restriction>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="ReferenceSchemaDocumentSetType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for an MPD artifact set that is a reference schema document set.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:restriction base="c:FileSetType">
+   	  <xs:sequence>
+   	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+               <xs:element ref="c:ReferenceSchemaDocument" maxOccurs="unbounded"/>
+             </xs:sequence>
+           </xs:restriction>
+         </xs:complexContent>
+       </xs:complexType>
    
    
    <!-- Primitives ================================================================== -->
    
-       <attribute name="mpdURI" type="anyURI">
-         <annotation>
-           <documentation>A globally unique identifier (URI) for an MPD.</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="mpdURI" type="anyURI">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A globally unique identifier (URI) for an MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <attribute name="mpdName" type="c:MPDNameSimpleType">
-         <annotation>
-   	<documentation>A descriptive label or title for an MPD.</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="mpdName" type="c:MPDNameSimpleType">
+         <xs:annotation>
+   	<xs:documentation>A descriptive label or title for an MPD.</xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <simpleType name="MPDNameSimpleType">
-         <annotation>
-   	<documentation>A datatype for an MPD name, label, or title.</documentation>
-         </annotation>
-         <restriction base="token">
+       <xs:simpleType name="MPDNameSimpleType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for an MPD name, label, or title.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:restriction base="xs:token">
    	<pattern value="[a-z]([-_]?[a-z0-9]+)*"/>
-         </restriction>
-       </simpleType>
+         </xs:restriction>
+       </xs:simpleType>
    
-       <attribute name="mpdVersionID" type="c:MPDVersionIDSimpleType">
-         <annotation>
-   	<documentation>An identifier that distinguishes releases of a given MPD.
-   	</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="mpdVersionID" type="c:MPDVersionIDSimpleType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      An identifier that distinguishes releases of a given MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <simpleType name="MPDVersionIDSimpleType">
-         <annotation>
-   	<documentation>A datatype for an identifier that distinguishes releases
-   	of a given MPD.</documentation>
-         </annotation>
-         <restriction base="token">
+       <xs:simpleType name="MPDVersionIDSimpleType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for an identifier that distinguishes releases of a given MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:restriction base="xs:token">
            <pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
-         </restriction>
-       </simpleType>
+         </xs:restriction>
+       </xs:simpleType>
    
    <!-- =========================================================================== -->
    
-       <attribute name="mpdClassCode" type="c:MPDClassListSimpleType">
-         <annotation>
-   	<documentation>A classification for an MPD; values drawn 
-   	from the set {rel, cu, du, iepd, eiem}.</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="mpdClassCode" type="c:MPDClassListSimpleType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A classification for an MPD; values drawn from the set {rel, cu, du, iepd, eiem}.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <simpleType name="MPDClassListSimpleType">
-   	<annotation>
-   	    <documentation>A data type that ensures at least one class 
-   	    is identified for an MPD.</documentation>
-   	</annotation>
-   	<restriction base="c:ClassListSimpleType">
+       <xs:simpleType name="MPDClassListSimpleType">
+   	<xs:annotation>
+   		<xs:documentation>
+   			A data type that ensures at least one class is identified for an MPD.
+   		</xs:documentation>
+   	</xs:annotation>
+   	<xs:restriction base="c:ClassListSimpleType">
    	    <minLength value="1"/>
-   	</restriction>
-       </simpleType>
+   	</xs:restriction>
+       </xs:simpleType>
    
-       <simpleType name="ClassListSimpleType">
-   	<annotation>
-   	    <documentation>A data type for one or more codes or URIs 
-   	    for MPD classes.</documentation>
-   	</annotation>
+       <xs:simpleType name="ClassListSimpleType">
+   	<xs:annotation>
+   		<xs:documentation>
+   			A data type for one or more codes or URIs for MPD classes.
+   		</xs:documentation>
+   	</xs:annotation>
            <list itemType="c:ClassUnionSimpleType"/>
-       </simpleType>
+       </xs:simpleType>
    
-       <simpleType name="ClassUnionSimpleType">
-   	<annotation>
-   	    <documentation>A data type for one of five MPD classes 
-   	    or a new class identified by URI.</documentation>
-   	</annotation>
+       <xs:simpleType name="ClassUnionSimpleType">
+   	<xs:annotation>
+   		<xs:documentation>
+   			A data type for one of five MPD classes or a new class identified by URI.
+   		</xs:documentation>
+   	</xs:annotation>
            <union memberTypes="c:MPDClassCodeSimpleType anyURI"/>
-       </simpleType>
+       </xs:simpleType>
    
-       <simpleType name="MPDClassCodeSimpleType">
-         <annotation>
-           <documentation>A datatype for the classification of an MPD.</documentation>
-         </annotation>
-           <restriction base="token">
-               <enumeration value="rel">
-   		<annotation>
-   		  <documentation>release</documentation>
-   		</annotation>
-   	    </enumeration>
-               <enumeration value="cu">
-   		<annotation>
-   		  <documentation>core update</documentation>
-   		</annotation>
-   	    </enumeration>
-               <enumeration value="du">
-   		<annotation>
-   		  <documentation>domain update</documentation>
-   		</annotation>
-   	    </enumeration>
-               <enumeration value="iepd">
-   		<annotation>
-   		  <documentation>information exchange package documentation
-   		  </documentation>
-   		</annotation>
-   	    </enumeration>
-               <enumeration value="eiem">
-   		<annotation>
-   		  <documentation>enterprise information exchange model</documentation>
-   		</annotation>
-   	    </enumeration>
-           </restriction>
-       </simpleType>
+       <xs:simpleType name="MPDClassCodeSimpleType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for the classification of an MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+           <xs:restriction base="xs:token">
+               <xs:enumeration value="rel">
+   		<xs:annotation>
+   		  <xs:documentation>release</xs:documentation>
+   		</xs:annotation>
+   	    </xs:enumeration>
+               <xs:enumeration value="cu">
+   		<xs:annotation>
+   		  <xs:documentation>core update</xs:documentation>
+   		</xs:annotation>
+   	    </xs:enumeration>
+               <xs:enumeration value="du">
+   		<xs:annotation>
+   		  <xs:documentation>domain update</xs:documentation>
+   		</xs:annotation>
+   	    </xs:enumeration>
+               <xs:enumeration value="iepd">
+   		<xs:annotation>
+   		  <xs:documentation>information exchange package documentation
+   		  </xs:documentation>
+   		</xs:annotation>
+   	    </xs:enumeration>
+               <xs:enumeration value="eiem">
+   		<xs:annotation>
+   		  <xs:documentation>enterprise information exchange model</xs:documentation>
+   		</xs:annotation>
+   	    </xs:enumeration>
+           </xs:restriction>
+       </xs:simpleType>
    
    <!-- =========================================================================== -->
    
-       <attribute name="pathURI" type="anyURI">
-         <annotation>
-         <documentation>A URI for the pathname of a local artifact relative to 
-         the MPD root directory.</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="pathURI" type="anyURI">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A URI for the pathname of a local artifact relative to the MPD root directory.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <attribute name="externalURI" type="anyURI">
-         <annotation>
-   	<documentation>A globally unique identifier (URI) for an artifact 
-   	in another MPD that is reused by this MPD.</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="externalURI" type="anyURI">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A globally unique identifier (URI) for an artifact in another MPD that is reused by this MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <attribute name="mimeMediaTypeText" type="string">
-         <annotation>
-   	<documentation>A classification for an MPD file
-   	artifact from the IANA MIME media classes: 
-   	http://www.iana.org/assignments/media-types.</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="mimeMediaTypeText" type="string">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A classification for an MPD file artifact from the IANA MIME media classes: http://www.iana.org/assignments/media-types.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <complexType name="RelationshipType">
-         <annotation>
-   	<documentation>A datatype for a reference to another MPD related to this MPD.
-   	</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-             <sequence>
-               <element ref="nc:DescriptionText" minOccurs="0"/>
-             </sequence>
-             <attribute ref="c:relationshipCode" use="required"/>
-             <attribute ref="c:resourceURI"      use="required"/>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="RelationshipType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for a reference to another MPD related to this MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+             <xs:sequence>
+               <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+             </xs:sequence>
+             <xs:attribute ref="c:relationshipCode" use="required"/>
+             <xs:attribute ref="c:resourceURI"      use="required"/>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <attribute name="resourceURI"   type="anyURI">
-         <annotation>
-   	<documentation>A globally unique identifier (URI) for another 
-   	MPD or document to which this MPD relates.</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="resourceURI" type="anyURI">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A globally unique identifier (URI) for another MPD or document to which this MPD relates.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <attribute name="relationshipCode" type="c:RelationshipCodeSimpleType">
-         <annotation>
-   	<documentation>A classification or reason for the connectedness between
-   	this MPD and the resource referenced in resourceURI.</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="relationshipCode" type="c:RelationshipCodeSimpleType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A classification or reason for the connectedness between this MPD and the resource referenced in resourceURI.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <simpleType name="RelationshipCodeSimpleType">
-         <annotation>
-   	<documentation>A datatype for a classification  
-   	of the relationship between MPDs.</documentation>
-         </annotation>
-           <restriction base="token">
-   	    <enumeration value="version_of">
-   	      <annotation>
-   		<documentation>A relationshipCode value for indicating that this MPD
-   		is a different version of the MPD referenced in resourceURI.  This
-   		code value is only needed in cases where significant name changes
-   		might obscure the relationship to the previous version.  For example,
-   		NIEM Justice 4.1 is a version of GJXDM 3.0.3.</documentation>
-   	        </annotation>
-   	    </enumeration>
-   	    <enumeration value="specializes">
-   	      <annotation>
-   		<documentation>A relationshipCode value for indicating that this
-   		MPD is a generalization of the MPD referenced in resourceURI.
-   		This value is the inverse of specializes.</documentation>
-   	      </annotation>
-   	    </enumeration>
-               <enumeration value="generalizes">
-   	      <annotation>
-   		<documentation>A relationshipCode value for indicating that this MPD
-   		is a generalization of the MPD referenced in resourceURI.  This
-   		value is the inverse of specializes.</documentation>
-   		</annotation>
-   	    </enumeration>
-               <enumeration value="supersedes">
-   		<annotation>
-   		  <documentation>A relationshipCode value for indicating that this
-   		  MPD replaces the MPD referenced in resourceURI.</documentation>
-   		</annotation>
-   	    </enumeration>
-               <enumeration value="deprecates">
-   		<annotation>
-   		  <documentation>A relationshipCode value for indicating that content
-   		  in this MPD is preferred over content in the MPD referenced in
-   		  resourceURI; and at some time in the future will supersede the
-   		  MPD referenced in resourceURI.</documentation>
-   		</annotation>
-   	    </enumeration>
-               <enumeration value="adapts">
-   		<annotation>
-   		  <documentation>A relationshipCode value for indicating that this
-   		  MPD is an adaptation of the MPD referenced in resourceURI.
-   		  </documentation>
-   		</annotation>
-   	    </enumeration>
-               <enumeration value="updates">
-   		<annotation>
-   		  <documentation>A relationshipCode value for indicating that
-   		  this MPD is an incremental update to the resource referenced in
-   		  resourceURI.  Used by a core or domain update to identify the
-   		  domain schema in a NIEM release being incrementally updated
-   		  (not replaced).</documentation>
-   		</annotation>
-   	    </enumeration>
-               <enumeration value="conforms_to">
-   		<annotation>
-   		  <documentation>A relationshipCode value for indicating that this
-   		  MPD conforms to the specification or standard referenced in
-   		  resourceURI.</documentation>
-   		</annotation>
-   	    </enumeration>
-           </restriction>
-       </simpleType>
+       <xs:simpleType name="RelationshipCodeSimpleType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for a classification of the relationship between MPDs.
+   	      </xs:documentation>
+         </xs:annotation>
+           <xs:restriction base="xs:token">
+   	    <xs:enumeration value="version_of">
+   	      <xs:annotation>
+   		      <xs:documentation>
+   			      A relationshipCode value for indicating that this MPD is a different version of the MPD referenced in resourceURI.  This code value is only needed in cases where significant name changes might obscure the relationship to the previous version.  For example, NIEM Justice 4.1 is a version of GJXDM 3.0.3.
+   	</xs:documentation>
+   	        </xs:annotation>
+   	    </xs:enumeration>
+   	    <xs:enumeration value="specializes">
+   	      <xs:annotation>
+   		      <xs:documentation>
+   			      A relationshipCode value for indicating that this MPD is a generalization of the MPD referenced in resourceURI.  This value is the inverse of specializes.
+   		      </xs:documentation>
+   	      </xs:annotation>
+   	    </xs:enumeration>
+               <xs:enumeration value="generalizes">
+   	      <xs:annotation>
+   		      <xs:documentation>
+   			      A relationshipCode value for indicating that this MPD is a generalization of the MPD referenced in resourceURI.  This value is the inverse of specializes.
+   		      </xs:documentation>
+   		</xs:annotation>
+   	    </xs:enumeration>
+               <xs:enumeration value="supersedes">
+   	      <xs:annotation>
+   		      <xs:documentation>
+   			      A relationshipCode value for indicating that this MPD replaces the MPD referenced in resourceURI.
+   		      </xs:documentation>
+   	      </xs:annotation>
+   	    </xs:enumeration>
+               <xs:enumeration value="deprecates">
+   	      <xs:annotation>
+   		      <xs:documentation>
+   			      A relationshipCode value for indicating that content in this MPD is preferred over content in the MPD referenced in resourceURI; and at some time in the future will supersede the MPD referenced in resourceURI.
+   		      </xs:documentation>
+   	      </xs:annotation>
+   	    </xs:enumeration>
+               <xs:enumeration value="adapts">
+   	      <xs:annotation>
+   		      <xs:documentation>
+   			      A relationshipCode value for indicating that this MPD is an adaptation of the MPD referenced in resourceURI.
+   		      </xs:documentation>
+   	      </xs:annotation>
+   	    </xs:enumeration>
+               <xs:enumeration value="updates">
+   	      <xs:annotation>
+   		      <xs:documentation>
+   			      A relationshipCode value for indicating that this MPD is an incremental update to the resource referenced in resourceURI.  Used by a core or domain update to identify the domain schema in a NIEM release being incrementally updated (not replaced).
+   		      </xs:documentation>
+   	      </xs:annotation>
+   	    </xs:enumeration>
+               <xs:enumeration value="conforms_to">
+   	      <xs:annotation>
+   		      <xs:documentation>
+   			      A relationshipCode value for indicating that this MPD conforms to the specification or standard referenced in resourceURI.
+   		      </xs:documentation>
+   	      </xs:annotation>
+   	    </xs:enumeration>
+           </xs:restriction>
+       </xs:simpleType>
    
    
    <!-- IEP Conformance Targets ==================================================== -->
    
-       <element name="IEPConformanceTarget" type="c:IEPConformanceTargetType">
-         <annotation>
-   	<documentation>A class or category of IEPs which has a set of validity 
-   	constraints and a unique identifier. Every IEP is an instance of one or
-   	more IEP Conformance Targets.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="IEPConformanceTarget" type="c:IEPConformanceTargetType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A class or category of IEPs which has a set of validity constraints and a unique identifier. Every IEP is an instance of one or more IEP Conformance Targets.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="IEPConformanceTargetType">
-         <annotation>
-   	<documentation>A datatype for a class or category of IEP, which
-   	has a set of validity constraints and a unique identifier.</documentation>
-         </annotation>
-         <complexContent>
-   	<extension base="structures:ObjectType">
-   	  <sequence>
-   	    <element ref="nc:DescriptionText"     	minOccurs="0"/>
-   	    <element ref="c:ValidityConstraintWithContext" minOccurs="0" 
-   		    				  	maxOccurs="unbounded"/>
-   	    <element ref="c:IEPSampleXMLDocument" 	minOccurs="0" 
-   		    				  	maxOccurs="unbounded"/>
-       	  </sequence>
-   	</extension>
-         </complexContent>
-       </complexType>
-    
-       <element name="ValidityConstraintWithContext" abstract="true">
-         <annotation>
-           <documentation>A rule or instructions for validating an IEP candidate
-           (XML document) using some context within that XML document. 
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:complexType name="IEPConformanceTargetType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for a class or category of IEP, which has a set of validity constraints and a unique identifier.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+   	<xs:extension base="structures:ObjectType">
+   	  <xs:sequence>
+   	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+   	    <xs:element ref="c:ValidityConstraintWithContext" minOccurs="0" maxOccurs="unbounded"/>
+   	    <xs:element ref="c:IEPSampleXMLDocument" minOccurs="0" maxOccurs="unbounded"/>
+   	    <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
+       	  </xs:sequence>
+   	</xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <element name="ValidityConstraint" abstract="true" 
-   	     substitutionGroup="c:ValidityConstraintWithContext">
-         <annotation>
-   	<documentation>A rule or instructions for validating an IEP candidate.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="EXIXMLSchema" type="c:XMLSchemaType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	<xs:documentation>An XML Schema to be used for EXI serialization 
+   	of an IEP Class.</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="ValidityContext" type="c:ValidityContextType"
-   	     substitutionGroup="c:ValidityConstraintWithContext">
-         <annotation>
-   	<documentation>A rule or instructions for validating an IEP candidate
-   	within context defined by an XPath expression.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ValidityConstraintWithContext" abstract="true">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data concept for a rule or instructions for validating an IEP candidate (XML document) using some context within that XML document.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="ValidityContextType">
-         <annotation>
-   	<documentation>A data type for a rule or instructions for validating  
-   	an IEP candidate within context defined by an XPath expression.
-   	</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-             <sequence>
-   	    <element ref="nc:DescriptionText" minOccurs="0"/>
-   	    <element ref="c:ValidityConstraint" maxOccurs="unbounded"/>
-             </sequence>
-             <attribute ref="c:xPathText" use="required"/>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:element name="ValidityConstraint" abstract="true" substitutionGroup="c:ValidityConstraintWithContext">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data concept for a rule or instructions for validating an IEP candidate.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
+   
+       <xs:element name="ValidityContext" type="c:ValidityContextType" substitutionGroup="c:ValidityConstraintWithContext">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A rule or instructions for validating an IEP candidate within context defined by an XPath expression.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
+   
+       <xs:complexType name="ValidityContextType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for a rule or instructions for validating an IEP candidate within context defined by an XPath expression.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+             <xs:sequence>
+   	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+   	    <xs:element ref="c:ValidityConstraint" maxOccurs="unbounded"/>
+             </xs:sequence>
+             <xs:attribute ref="c:xPathText" use="required"/>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
     
    
    <!-- Validity Constraints ======================================================== -->
    
-       <element name="ValidToXPath" type="c:XPathType"
-   	    substitutionGroup="c:ValidityConstraint">
-         <annotation>
-   	<documentation>A validity constraint that has a an XPath expression that 
-   	MUST have an effective Boolean value of "TRUE" when applied to a valid IEP. 
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ValidToXPath" type="c:XPathType" substitutionGroup="c:ValidityConstraint">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A validity constraint that has a an XPath expression that MUST have an effective Boolean value of "TRUE" when applied to a valid IEP. 
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="XPathType">
-         <annotation>
-   	<documentation>A datatype for an XPath expression.</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-             <sequence>
-               <element ref="nc:DescriptionText" minOccurs="0"/>
-             </sequence>
-             <attribute ref="c:xPathText" use="required"/>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="XPathType">
+         <xs:annotation>
+   	<xs:documentation>A data type for an XPath expression.</xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+             <xs:sequence>
+               <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+             </xs:sequence>
+             <xs:attribute ref="c:xPathText" use="required"/>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <attribute name="xPathText" type="string">
-         <annotation>
-   	<documentation>An XPath expression.</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="xPathText" type="string">
+         <xs:annotation>
+   	<xs:documentation>An XPath expression.</xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <element name="XMLSchemaValid" 
-                type="c:XMLSchemaValidationType"
-   	     substitutionGroup="c:ValidityConstraint">
-         <annotation>
-   	<documentation>A validity constraint that indicates that an artifact must
-   	be locally XML Schema valid against an XML schema described by an XML Catalog
-   	file, starting with a given validation root.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="XMLSchemaValid" type="c:XMLSchemaType" substitutionGroup="c:ValidityConstraint">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A validity constraint that indicates that an artifact must be locally XML Schema valid against an XML schema described by an XML Catalog file, starting with a given validation root.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="XMLSchemaValidationType">
-         <annotation>
-   	<documentation>A datatype for an XML Schema validation constraint, indicating
-   	an XML Schema against which an artifact may be validated, as well as a 
-   	description of validation roots for assessment of validity.</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-   	  <sequence>
-   	    <element ref="nc:DescriptionText" minOccurs="0"/>
-               <element ref="c:XMLCatalog"/>
-             </sequence>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="XMLSchemaType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for an XML Schema, indicating an XML Schema against which an artifact may be validated, or which can be used for other purposes.  c:XMLSchemaDocument identifies the root or starting XML schema document.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+   	  <xs:sequence>
+   	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+   	    <xs:element ref="c:XMLCatalog"/>
+   	    <xs:element ref="c:XMLSchemaDocument"/> 
+             </xs:sequence>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <element name="SchematronValid" 
-                type="c:SchematronValidationType"
-   	     substitutionGroup="c:ValidityConstraint">
-         <annotation>
-   	<documentation>A validity constraint that indicates that an artifact must
-   	be valid against the rules carried by a Schematron file, starting with 
-   	the identified validation roots.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="SchematronValid" type="c:SchematronValidationType" substitutionGroup="c:ValidityConstraint">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A validity constraint that indicates that an artifact must be valid against the rules carried by a Schematron file, starting with the identified validation roots.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="SchematronValidationType">
-         <annotation>
-   	<documentation>A datatype for a Schematron validation constraint, indicating
-   	a Schematron schema document against which an artifact may be validated
-   	as well as a description of the validation roots for assessment of validity.
-   	</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-   	  <sequence>
-   	    <element ref="nc:DescriptionText" minOccurs="0"/>
-               <element ref="c:SchematronSchema"/>
-             </sequence>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="SchematronValidationType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for a Schematron validation constraint, indicating a Schematron schema document against which an artifact may be validated as well as a description of the validation roots for assessment of validity.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+   	  <xs:sequence>
+   	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+               <xs:element ref="c:SchematronSchema"/>
+             </xs:sequence>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <element name="RelaxNGValid" type="c:RelaxNGValidationType"
-   	     substitutionGroup="c:ValidityConstraint">
-         <annotation>
-   	<documentation>A validity constraint that indicates that an artifact must
-   	be valid against the rules carried by a RelaxNG schema.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="RelaxNGValid" type="c:RelaxNGValidationType" substitutionGroup="c:ValidityConstraint">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A validity constraint that indicates that an artifact must be valid against the rules carried by a RelaxNG schema.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="RelaxNGValidationType">
-         <annotation>
-   	<documentation>A datatype for a RelaxNG validation constraint, indicating a
-   	RelaxNG schema document against which an artifact may be validated, as well
-   	as a description of the validation roots for assessment of validity.
-   	</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-             <sequence>
-   	    <element ref="nc:DescriptionText" minOccurs="0"/>
-   	    <element ref="c:RelaxNGSchema"/>
-             </sequence>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="RelaxNGValidationType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for a RelaxNG validation constraint, indicating a RelaxNG schema document against which an artifact may be validated, as well as a description of the validation roots for assessment of validity.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+             <xs:sequence>
+   	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+   	    <xs:element ref="c:RelaxNGSchema"/>
+             </xs:sequence>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <element name="HasDocumentElement" type="c:QualifiedNamesType" 
-   	     substitutionGroup="c:ValidityConstraintWithContext">
-         <annotation>
-   	<documentation>A validity constraint that indicates that an artifact has
-   	a document element with a name that is one of the given qualified names.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="HasDocumentElement" type="c:QualifiedNamesType" substitutionGroup="c:ValidityConstraintWithContext">
+         <xs:annotation>
+   	      <xs:documentation>
+   		     A validity constraint that indicates that an artifact has a document element with a name that is one of the given qualified names.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="QualifiedNamesType">
-         <annotation>
-   	<documentation>A datatype for a set of qualified names.</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-             <sequence>
-               <element ref="nc:DescriptionText" minOccurs="0"/>
-             </sequence>
-             <attribute ref="c:qualifiedNameList" use="required"/>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="QualifiedNamesType">
+         <xs:annotation>
+   	<xs:documentation>A data type for a set of qualified names.</xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+             <xs:sequence>
+               <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+             </xs:sequence>
+             <xs:attribute ref="c:qualifiedNameList" use="required"/>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <attribute name="qualifiedNameList" type="c:QualifiedNameListSimpleType">
-         <annotation>
-   	<documentation>A list of qualified names.</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="qualifiedNameList" type="c:QualifiedNameListSimpleType">
+         <xs:annotation>
+   	<xs:documentation>A list of qualified names.</xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <simpleType name="QualifiedNameListSimpleType">
-         <annotation>
-   	<documentation>A simple datatype denoting a list of qualified names.
-   	</documentation>
-         </annotation>
+       <xs:simpleType name="QualifiedNameListSimpleType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A simple data type denoting a list of qualified names.
+   	      </xs:documentation>
+         </xs:annotation>
          <list itemType="QName"/>
-       </simpleType>
+       </xs:simpleType>
    
-       <element name="ConformsToConformanceTarget" type="c:ConformanceTargetType"
-   	     substitutionGroup="c:ValidityConstraint">
-         <annotation>
-   	<documentation>A validity constraint that indicates that an artifact
-   	must conform to the given conformance target.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ConformsToConformanceTarget" type="c:ConformanceTargetType" substitutionGroup="c:ValidityConstraint">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A validity constraint that indicates that an artifact must conform to the given conformance target.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="ConformanceTargetType">
-         <annotation>
-           <documentation>A datatype for identifying and describing a conformance target.
-           </documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-             <sequence>
-               <element ref="nc:DescriptionText" minOccurs="0"/>
-             </sequence>
-             <attribute ref="c:conformanceTargetURI" use="required"/>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="ConformanceTargetType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for identifying and describing a conformance target.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+             <xs:sequence>
+               <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+             </xs:sequence>
+             <xs:attribute ref="c:conformanceTargetURI" use="required"/>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <attribute name="conformanceTargetURI" type="anyURI">
-         <annotation>
-           <documentation>A URI for a conformance target.</documentation>
-         </annotation>
-       </attribute>
+       <xs:attribute name="conformanceTargetURI" type="anyURI">
+         <xs:annotation>
+           <xs:documentation>A URI for a conformance target.</xs:documentation>
+         </xs:annotation>
+       </xs:attribute>
    
-       <element name="ConformsToRule" type="c:TextRuleType" 
-   	substitutionGroup="c:ValidityConstraint">
-         <annotation>
-   	<documentation>A validity constraint that indicates that an artifact
-   	must conform to the given text rule, drafted in a human language.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ConformsToRule" type="c:TextRuleType" substitutionGroup="c:ValidityConstraint">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A validity constraint that indicates that an artifact must conform to the given text rule, drafted in a human language.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="TextRuleType">
-         <annotation>
-   	<documentation>A datatype for a rule drafted 
-   	in a human language.</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-   	  <sequence>
-               <element ref="nc:DescriptionText" minOccurs="0"/>
-   	    <element ref="c:RuleText"/>
-   	  </sequence>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="TextRuleType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for a rule drafted in a human language.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+   	  <xs:sequence>
+               <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+   	    <xs:element ref="c:RuleText"/>
+   	  </xs:sequence>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <element name="RuleText" type="nc:TextType"> 
-         <annotation>
-   	<documentation>A rule written in a human language.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="RuleText" type="nc:TextType"> 
+         <xs:annotation>
+   	<xs:documentation>A rule written in a human language.</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
    
    <!-- Metadata ==================================================================== -->
    
-       <element name="MPDInformation" type="c:MPDInformationType">
-         <annotation>
-           <documentation>A set of descriptive data about an MPD.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="MPDInformation" type="c:MPDInformationType">
+         <xs:annotation>
+           <xs:documentation>A set of descriptive data about an MPD.</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <complexType name="MPDInformationType">
-         <annotation>
-   	<documentation>A datatype for a set of descriptive data about an MPD.
-   	</documentation>
-         </annotation>
-         <complexContent>
-           <extension base="structures:ObjectType">
-   	  <sequence>
-   	    <element ref="c:AuthoritativeSource" minOccurs="0"/>
-               <element ref="c:CreationDate"	 minOccurs="0"/>
-               <element ref="c:LastRevisionDate"    minOccurs="0"/>
-               <element ref="c:StatusText"          minOccurs="0"/>
-               <element ref="c:Relationship"        minOccurs="0" maxOccurs="unbounded"/>
-               <element ref="c:KeywordText"         minOccurs="0" maxOccurs="unbounded"/>
-               <element ref="c:DomainText"          minOccurs="0" maxOccurs="unbounded"/>
-               <element ref="c:PurposeText"         minOccurs="0" maxOccurs="unbounded"/>
-               <element ref="c:ExchangePatternText" minOccurs="0" maxOccurs="unbounded"/>
-   	    <element ref="c:ExchangePartnerName" minOccurs="0" maxOccurs="unbounded"/>
-   	    <element ref="c:ExtendedInformation" minOccurs="0" maxOccurs="unbounded"/>
-             </sequence>
-           </extension>
-         </complexContent>
-       </complexType>
+       <xs:complexType name="MPDInformationType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data type for a set of descriptive data about an MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+         <xs:complexContent>
+           <xs:extension base="structures:ObjectType">
+   	  <xs:sequence>
+   	    <xs:element ref="c:AuthoritativeSource" minOccurs="0"/>
+               <xs:element ref="c:CreationDate" minOccurs="0"/>
+               <xs:element ref="c:LastRevisionDate" minOccurs="0"/>
+               <xs:element ref="c:StatusText" minOccurs="0"/>
+               <xs:element ref="c:Relationship" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="c:KeywordText" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="c:DomainText" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="c:PurposeText" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="c:ExchangePatternText" minOccurs="0" maxOccurs="unbounded"/>
+   	    <xs:element ref="c:ExchangePartnerName" minOccurs="0" maxOccurs="unbounded"/>
+   	    <xs:element ref="c:ExtendedInformation" minOccurs="0" maxOccurs="unbounded"/>
+             </xs:sequence>
+           </xs:extension>
+         </xs:complexContent>
+       </xs:complexType>
    
-       <element name="ExtendedInformation" abstract="true">
-         <annotation>
-           <documentation>User-defined descriptive data about an MPD.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ExtendedInformation" abstract="true">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A data concept for a user-defined descriptive data about an MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="AuthoritativeSource" type="nc:EntityType">
-         <annotation>
-   	      <documentation>An official sponsoring or authoring 
-   	      organization responsible for an MPD.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="AuthoritativeSource" type="nc:EntityType">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      An official sponsoring or authoring organization responsible for an MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-   <!-- This XML Schema document is supported by a subset of the niem-core v3.0.
-        c:AuthoritativeSource should use NIEM 3.0 schema components as follows ...
+       <xs:element name="CreationDate" type="date">
+         <xs:annotation>
+   	<xs:documentation>A date this MPD was published.</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-   <c:AuthoritativeSource>					(type="nc:EntityType")
-   	<nc:EntityOrganization> 			(or <nc:EntityPerson>)
-   		<nc:OrganizationName>			(type="nc:TextType")
-   		<nc:OrganizationLocation>
-   			<nc:Address>
-   			       <nc:AddressFullText>	(type="nc:TextType")
-   		<nc:OrganizationPrimaryContactInformation>
-   			<nc:ContactResponder>
-   			<nc:PersonName>
-   			       <nc:PersonFullName>	(type="nc:TextType")
-   			<nc:ContactEmailID>		(type="xs:string")
-   			<nc:ContactTelephoneNumber>
-   			       <nc:TelephoneNumberRepresentation> (substitutionGroup)
-   			<nc:ContactWebsiteURI>		(type="xs:anyURI") 
-   -->
+       <xs:element name="LastRevisionDate" type="date">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A date the latest changes to an MPD were published (i.e., CreationDate of previous version).
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="CreationDate" type="date">
-         <annotation>
-   	<documentation>A date this MPD was published.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="StatusText"   type="string">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A description of the current state of this MPD in development; may also project future plans for the MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="LastRevisionDate" type="date">
-         <annotation>
-   	<documentation>A date the latest changes to an MPD were published
-   	(i.e., CreationDate of previous version).</documentation>
-         </annotation>
-       </element>
+       <xs:element name="Relationship" type="c:RelationshipType">
+         <xs:annotation>
+   	<xs:documentation>A reference to another MPD related to this MPD.
+   	</xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="StatusText"   type="string">
-         <annotation>
-   	 <documentation>A description of the current state of this MPD 
-   	 in development; may also project future plans for the MPD.
-   	 </documentation>
-         </annotation>
-       </element>
+       <xs:element name="KeywordText"  type="string">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A common alias, term, or phrase that would help to facilitate search and discovery of this MPD.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="Relationship" type="c:RelationshipType">
-         <annotation>
-   	<documentation>A reference to another MPD related to this MPD.
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="DomainText"   type="string">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A description of the environment or NIEM Domain in which this MPD is applicable or used.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="KeywordText"  type="string">
-         <annotation>
-   	<documentation>A common alias, term, or phrase that would help 
-   	to facilitate search and discovery of this MPD.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="PurposeText"  type="string">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A description of the intended usage and reason for which an MPD exists.
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="DomainText"   type="string">
-         <annotation>
-   	<documentation>A description of the environment or NIEM Domain 
-   	in which this MPD is applicable or used.</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ExchangePatternText" type="string">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A description of a transactional or design pattern used for this IEPD (generally, only applicable to IEPDs).
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
-       <element name="PurposeText"  type="string">
-         <annotation>
-   	<documentation>A description of the intended usage and reason 
-   	for which an MPD exists.</documentation>
-         </annotation>
-       </element>
-   
-       <element name="ExchangePatternText" type="string">
-         <annotation>
-   	<documentation>A description of a transactional or design pattern used
-   	for this IEPD (generally, only applicable to IEPDs).</documentation>
-         </annotation>
-       </element>
-   
-       <element name="ExchangePartnerName" type="string">
-         <annotation>
-   	<documentation>A name of an entity or organization that uses this MPD
-   	(generally, only applicable to IEPDsP).
-   	</documentation>
-         </annotation>
-       </element>
+       <xs:element name="ExchangePartnerName" type="string">
+         <xs:annotation>
+   	      <xs:documentation>
+   		      A name of an entity or organization that uses this MPD (generally, only applicable to IEPDsP).
+   	      </xs:documentation>
+         </xs:annotation>
+       </xs:element>
    
    </schema>
    
