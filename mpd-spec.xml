@@ -17,8 +17,8 @@
    xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/">
  
    <title>National Information Exchange Model <char name="mdash"/> Model Package Description Specification</title>
-   <version>3.0alpha10</version>
-   <date>2014-04-02</date>
+   <version>3.0alpha11</version>
+   <date>2014-04-16</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
  
   <subsection>
@@ -62,12 +62,20 @@
 				Read-me should reference or hyperlink to other documentation.</p></li>
 		<li><p>non-normative guidance for /niem-custom</p></li>
 	</ol>
-
+	<p>Alpha 11</p>
+	<ol>
+		<li><p>Moved "Conformance Assertion" section to mandatory artifacts.</p></li>
+		<li><p>Inserted proxy types (and namespace) into mpd-catalog-3.0.xsd Appendix A.</p></li>
+		<li><p>Appendix F, the recommended file structure has a "niem-constraint" directory that is a sibling of niem, extension, etc.  In my experience, people using IEPDs tend to take an entire directory of schemas and import them into a tool.  If they use all of these schemas together (constraint and non-constraint) they will have duplicate definitions.  I realize the catalog can be used to identify what should be used for individual validation passes, and the directory structure shouldn't have any official meaning.  But it is a lot more convenient if all the schemas intended for one validation pass are separated into one directory (that contains the subdirectories niem, extension, etc.).  I would recommend having a directory that is parallel to the constraint directory.  Can't think of a great name, but maybe "base" (a la our previous concept of a base schema set) or "unconstrained".</p></li>
+	</ol>
   </subsection>
 
   <subsection>
 	<title>Remaining work and issues</title>
 	<ol>
+		<li><p>Fix App F guidance per bullet 2 above.</p></li>
+		<li><p>niem-core subset for mpd-catalog-3.0.xsd</p></li>
+		<li><p>simple example of minimal conformance-assertion</p></li>
 		<li><p>Divide rules with multiple constraints into multiple rules with simple constraints.</p></li>
 		<li><p>Conformance targets (CT):</p>
 		   <ul>
@@ -1723,6 +1731,47 @@
 
 </section>
 </section>
+
+
+
+<section id="Conformance-Assertion">
+	<title>Conformance Assertion</title>
+
+	<p>This section is applicable to IEPDs and EIEMs.</p>
+
+	<p>Independent authors build NIEM IEPDs and EIEMs from NIEM <termRef term="reference schema document set">reference schema document sets</termRef>.  Presently, a formal NIEM conformance certification process for IEPDs does not exist.  Therefore, this specification recommends that an IEPD or EIEM contain an artifact that asserts some degree of NIEM conformance.</p>
+
+<definition term="conformance assertion">
+	<p>An artifact that provides a formal or informal declaration that a NIEM IEPD or EIEM conforms to <ref idref="NIEM-Conformance"/>, <ref idref="NIEM-NDR"/>, and <ref idref="NIEM-MPD"/> (this NIEM MPD Specification).</p>
+</definition> 
+
+	<rule id="r1-conform-assert" applicability="WF-MPD" class="Constraint">
+		<p>An MPD whose <code>c:mpdClassCode</code> attribute value list contains <code>iepd</code> or <code>eiem</code> MUST have a <termRef>conformance assertion</termRef> artifact in its <termRef>MPD root directory</termRef>.</p>
+	</rule>
+
+	<rule id="r2-conform-assert" applicability="WF-MPD" class="Constraint">
+		<p>The file name of an MPD <termRef>conformance assertion</termRef> MUST be of the form <code>conformance-assertion.*</code>.</p>
+	</rule>
+
+	<p>A <termRef>conformance assertion</termRef> presents information to increase the level of confidence that an IEPD or EIEM was checked for NIEM conformance and quality.  It does NOT constitute a guarantee or contract.  In fact, a conformance assertion can be self-asserted.</p>
+
+	<p>In the absence of a formal NIEM certification process, both weak and strong conformance assertions will exist.  A IEPD/EIEM user or implementer (who is not the author) must decide his/her level of confidence in the assertion.  A self-signed artifact that simply claims an IEPD is NIEM-conformant may be considered weak.  On the other hand, a strong self-signed conformance assertion would provide information that may include (but is not limited to):</p>
+	<ul>
+		<li><p>Author credentials (name of author, organization, or sponsoring entity; background, experience, etc.).</p></li>
+		<li><p>What was verified (artifacts, rules, etc.)?</p></li>
+		<li><p>Against what <termRef term="conformance target">conformance targets</termRef>?</p></li>
+		<li><p>When? (date)</p></li>
+		<li><p>How? (e.g., what was automatically checked, manually checked?)</p></li>
+		<li><p>Employing what tool(s)?</p></li>
+		<li><p>What were the results? (e.g., what passed, failed, warnings, issues?)</p></li>
+	</ul>
+
+	<p>Inclusion of a conformance assertion made by a reputable, independent, trusted entity (person or organization) would likely increase confidence in conformance.  Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact.</p>
+
+	<p>In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts.  A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and IEPD identity (i.e., that the IEPD is an unaltered copy of the original).  
+For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discretion of the author or sponsor.</p>
+
+</section>
 </section>
 
 
@@ -1748,7 +1797,7 @@
 	<p>An function (or action) that takes a URI string of the form <code>xs:anyURI</code> and returns the resource it identifies.  If the resource does not exist, then this function fails.  If a resource is remote (e.g., a URL on the Internet or a URN of an unknown location), then this function (or action) may require human intervention to complete.</p>
 </definition>
 
-<p><ref idref="NIEM-NDR"/>, <link href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha6/NIEM-NDR-3.0alpha6-2013-12-11.html#section_15.3.6.1"><char name="sect"/>15.3.6.1 Reference Elements</link> defines a <termRef>reference element</termRef> as follows:</p>
+<p><ref idref="NIEM-NDR"/>, <link href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha9/NIEM-NDR-3.0alpha9-2014-04-02.html#definition_reference_element"><char name="sect"/>12.3 Reference Elements</link> defines a <termRef>reference element</termRef> as follows:</p>
 
 <definition term="reference element">
 	<p>An XML element that refers to its value by a reference attribute instead of carrying it as content.</p>
@@ -1932,45 +1981,6 @@
 
 
 
-<section id="Conformance-Assertion">
-	<title>Conformance Assertion</title>
-
-	<p>This section is applicable to IEPDs and EIEMs.</p>
-
-	<p>Independent authors build NIEM IEPDs and EIEMs from NIEM <termRef term="reference schema document set">reference schema document sets</termRef>.  Presently, a formal NIEM conformance certification process for IEPDs does not exist.  Therefore, this specification recommends that an IEPD or EIEM contain an artifact that asserts some degree of NIEM conformance.</p>
-
-<definition term="conformance assertion">
-	<p>An artifact that provides a formal or informal declaration that a NIEM IEPD or EIEM conforms to <ref idref="NIEM-Conformance"/>, <ref idref="NIEM-NDR"/>, and <ref idref="NIEM-MPD"/> (this NIEM MPD Specification).</p>
-</definition> 
-
-	<rule id="r1-conform-assert" applicability="WF-MPD" class="Constraint">
-		<p>An MPD whose <code>c:mpdClassCode</code> attribute value list contains <code>iepd</code> or <code>eiem</code> MUST have a <termRef>conformance assertion</termRef> artifact in its <termRef>MPD root directory</termRef>.</p>
-	</rule>
-
-	<rule id="r2-conform-assert" applicability="WF-MPD" class="Constraint">
-		<p>The file name of an MPD <termRef>conformance assertion</termRef> MUST be of the form <code>conformance-assertion.*</code>.</p>
-	</rule>
-
-	<p>A <termRef>conformance assertion</termRef> presents information to increase the level of confidence that an IEPD or EIEM was checked for NIEM conformance and quality.  It does NOT constitute a guarantee or contract.  In fact, a conformance assertion can be self-asserted.</p>
-
-	<p>In the absence of a formal NIEM certification process, both weak and strong conformance assertions will exist.  A IEPD/EIEM user or implementer (who is not the author) must decide his/her level of confidence in the assertion.  A self-signed artifact that simply claims an IEPD is NIEM-conformant may be considered weak.  On the other hand, a strong self-signed conformance assertion would provide information that may include (but is not limited to):</p>
-	<ul>
-		<li><p>Author credentials (name of author, organization, or sponsoring entity; background, experience, etc.).</p></li>
-		<li><p>What was verified (artifacts, rules, etc.)?</p></li>
-		<li><p>Against what <termRef term="conformance target">conformance targets</termRef>?</p></li>
-		<li><p>When? (date)</p></li>
-		<li><p>How? (e.g., what was automatically checked, manually checked?)</p></li>
-		<li><p>Employing what tool(s)?</p></li>
-		<li><p>What were the results? (e.g., what passed, failed, warnings, issues?)</p></li>
-	</ul>
-
-	<p>Inclusion of a conformance assertion made by a reputable, independent, trusted entity (person or organization) would likely increase confidence in conformance.  Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact.</p>
-
-	<p>In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts.  A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and IEPD identity (i.e., that the IEPD is an unaltered copy of the original).  
-For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discretion of the author or sponsor.</p>
-
-</section>
-	
 
 
 <section id="Wantlists">
@@ -2167,7 +2177,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<p>The <ref idref="NIEM-NDR"/> explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant.  Other standards may use <code>xs:import</code> without requiring <code>schemaLocation</code> attributes (instead, relying only on the namespace value).  These standards may also use <code>xs:include</code>.  This XML Schema construct is disallowed by NIEM.  When standards external to NIEM are required within MPDs, the following rule applies:</p>
 
 	<rule id="r-mpd-other-stds" applicability="WF-MPD" class="Constraint">
-		<p>Within an MPD, if non-conformant external schema documents are used, then any references from these schema documents to other other schema documents and/or namespaces MUST <termRef term="resolve URI">resolve</termRef> to local URIs.  <code>schemaLocation</code> attributes or XML catalogs can be used to ensure resolution.</p>
+		<p>Within an MPD, if non-conformant external schema documents are used, then any references from these schema documents to other schema documents and/or namespaces MUST <termRef term="resolve URI">resolve</termRef> to local URIs.  <code>schemaLocation</code> attributes or XML catalogs can be used to ensure resolution.</p>
 	</rule>
 
 	<p>For the case of non-NIEM-conformant schemas, this rule ensures that all schemas (or corresponding artifacts and namespaces) from external standards required for definition, validation, and use of the MPD are present within the archive.</p>
