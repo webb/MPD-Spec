@@ -54,7 +54,6 @@
 		<li><p>Revised rules in <ref idref="Extending-an-MPD-Catalog"/>.</p></li>
 		<li><p>Revised rules in <ref idref="URI-Scheme-for-MPDs"/>.</p></li>
 		<li><p>Added 2 rules for <ref idref="Conformance-Assertion"/>.</p></li>
-		<li><p>Rename master-document* to read-me.*</p></li>
 		<li><p>Keep MPD root directory clear of artifacts that can be located in logically named sub-directories.</p></li>
 		<li><p>MPD catalog ToC entries are optional.  xml-catalogs cover schema documents and schema document sets.
 				Key docs have consistent names and reside in root directory.  
@@ -66,6 +65,7 @@
 	<ol>
 		<li><p>Moved "Conformance Assertion" section to mandatory artifacts.</p></li>
 		<li><p>Inserted proxy types (and namespace) into mpd-catalog-3.0.xsd Appendix A.</p></li>
+		<li><p>Renamed master-document* to read-me.*</p></li>
 		<li><p>Appendix F, the recommended file structure has a "niem-constraint" directory that is a sibling of niem, extension, etc.  In my experience, people using IEPDs tend to take an entire directory of schemas and import them into a tool.  If they use all of these schemas together (constraint and non-constraint) they will have duplicate definitions.  I realize the catalog can be used to identify what should be used for individual validation passes, and the directory structure shouldn't have any official meaning.  But it is a lot more convenient if all the schemas intended for one validation pass are separated into one directory (that contains the subdirectories niem, extension, etc.).  I would recommend having a directory that is parallel to the constraint directory.  Can't think of a great name, but maybe "base" (a la our previous concept of a base schema set) or "unconstrained".</p></li>
 	</ol>
   </subsection>
@@ -73,13 +73,15 @@
   <subsection>
 	<title>Remaining work and issues</title>
 	<ol>
-		<li><p>Fix App F guidance per bullet 2 above.</p></li>
+		<li><p>local URIs do not have to satisfy absolute constraint</p></li>
+		<li><p>must fix rules 5.2, 5.3 conformance targets are incorrect</p></li>
+		<li><p>Fix App F constraint schema directory guidance per bullet 2 above.</p></li>
 		<li><p>niem-core subset for mpd-catalog-3.0.xsd</p></li>
 		<li><p>simple example of minimal conformance-assertion</p></li>
 		<li><p>Divide rules with multiple constraints into multiple rules with simple constraints.</p></li>
 		<li><p>Conformance targets (CT):</p>
 		   <ul>
-			<li><p>Missing? Should be forked? (e.g., MPD, Chg-Log, NIEM-EIEM, FN-EIEM?)</p></li>  
+			<li><p>Missing? Should be forked? (e.g., MPD, NIEM-EIEM, FN-EIEM?)</p></li>  
 			<li><p>Correct classes?  Interpretation or Constraint?</p></li>
 			<li><p>Correct CTs?</p></li>
 		   </ul>
@@ -467,10 +469,14 @@
 	    </tr><tr>
 	    <td>MPD catalog</td>
 	    <td>M-Cat</td>
+	</tr><tr>
+	    <td>MPD changelog</td>
+	    <td>M-Chg-Log</td>
         </tr><tr>
 	    <td>XML catalog</td>
 	    <td>X-Cat</td>
         </tr>
+
 </table>
 
 <p>[TBD] [What other conformance targets are needed?]</p>
@@ -713,7 +719,7 @@
 	    <td>   </td>
 	</tr>
 	<tr>
-            <td>Requires a master document</td>
+            <td>Requires a read-me artifact</td>
 	    <td>   </td>
 	    <td>   </td>
 	    <td>   </td>
@@ -1075,7 +1081,7 @@
 
 	<p>A variety of documentation files may be incorporated into a NIEM MPD.  However, in addition to XML schema documents, there are only two mandatory documentation artifacts required by every MPD:  the <em>mpd-catalog</em> and the <em>change log</em>.  An MPD catalog (<code>mpd-catalog.xml</code>) contains basic metadata, relationship and lineage data, and validation information.  The change log provides a history of modifications.</p>
 
-	<p>A <em>master document</em> is mandatory for IEPDs and EIEMs.  These MPD classes may be built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM master document is the primary source and starting point for human readable documentation (similar to a <code>readme</code> file), and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.</p>
+	<p>A <termRef>read-me artifact</termRef> (formerly known as a <em>master document</em>) is mandatory for IEPDs and EIEMs.  These MPD classes may be built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM read-me file is the primary source and starting point for human readable documentation, and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.</p>
 
 	<p>The following subsections will address these artifacts and the concepts, metadata, and content each supports.</p>
 
@@ -1111,15 +1117,15 @@
 		<li><p>Definition, identification, and validation of IEP conformance targets</p></li>
 	</ul>
 
-	<rule id="r-mpd-cat1" applicability="MPD-Cat" class="Constraint">
+	<rule id="r1-mpd-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An <termRef>MPD catalog document</termRef> MUST have the file name <code>mpd-catalog.xml</code>.</p>
 	</rule>
 
-	<rule id="r-mpd-cat2" applicability="MPD-Cat" class="Constraint">
+	<rule id="r2-mpd-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An <termRef>MPD catalog document</termRef> MUST be valid to <code>mpd-catalog-3.0.xsd</code> <ref idref="MPD-Catalog-XSD"/>.</p>
 	</rule>
 
-	<rule id="r-mpd-cat3" applicability="MPD-Cat" class="Constraint">
+	<rule id="r3-mpd-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An <termRef>MPD catalog document</termRef> MUST be valid to the NIEM MPD catalog Schematron rules [TBD].</p>
 	</rule>
 
@@ -1144,7 +1150,7 @@
 
 	<p>The classifier elements are designed to identify, categorize, and describe any artifacts and artifact sets (including its path name, dependencies, and lineage).  Employing XSLT, <code>mpd-catalog.xml</code> can be transformed into an <code>index.html</code> artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.</p>
 
-	<p>In general, only an IEPD or EIEM would contain <code>c:Documentation</code> and <code>c:ApplicationInfo</code> artifacts.  So, for an IEPD and EIEM, a best practice is to use the <code>master-document</code> artifact (i.e., the <termRef>master document</termRef> required in the <termRef>MPD root directory</termRef>) to reference <code>c:Documentation</code> and <code>c:ApplicationInfo</code> artifacts whether or not they have been classified in the MPD catalog.</p>
+	<p>In general, only an IEPD or EIEM would contain <code>c:Documentation</code> and <code>c:ApplicationInfo</code> artifacts.  So, for an IEPD and EIEM, a best practice is to use the <code>read-me</code> artifact (i.e., the <termRef>read-me artifact</termRef> required in the <termRef>MPD root directory</termRef>) to reference <code>c:Documentation</code> and <code>c:ApplicationInfo</code> artifacts whether or not they have been classified in the MPD catalog.</p>
 
 	<p>Release, core update, and domain update catalogs are required to record all artifacts.  However, IEPD and EIEM MPD catalogs are not.  The IEPD or EIEM author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog.  The author may choose to classify all, some, or none in the catalog.</p>
 
@@ -1163,22 +1169,26 @@
 
 	<p>The following rules specify the requirements for an MPD catalog extension XML catalog document:</p>
 
-	<rule id="r1-mpd-extension-xml-catalog" applicability="MPD-Cat" class="Constraint">
+	<rule id="r1-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An MPD extension XML catalog document MUST reside in the same relative directory as the <code>mpd-catalog.xml</code> artifact (normally in the <termRef>MPD root directory</termRef>)</p>
 	</rule>
 
-	<rule id="r2-mpd-extension-xml-catalog" applicability="MPD-Cat" class="Constraint">
+	<rule id="r2-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An MPD extension XML catalog document MUST bear the file name (and type) <code>mpd-extension-xml-catalog.xml</code>.</p>
 	</rule>
 
-	<rule id="r3-mpd-extension-xml-catalog" applicability="MPD-Cat">
+	<rule id="r3-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An MPD extension XML catalog document MUST <termRef term="resolve URI">resolve</termRef> all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.</p>
 	</rule>
 
-	<p>So, when a processor identifies a file named <code>mpd-extension-xml-catalog.xml</code> in the <termRef>MPD root directory</termRef>, it can assume that it contains references to one or more MPD catalog extension schema documents that adhere to the following rule:</p>
+	<p>So, when a processor identifies a file named <code>mpd-extension-xml-catalog.xml</code> in the <termRef>MPD root directory</termRef>, it can assume that it contains references to one or more MPD catalog extension schema documents that adhere to the following rules:</p>
 
-	<rule id="r-mpd-extension-xsd" applicability="MPD-Cat">
-		<p>An MPD catalog extension schema document MUST conform to the <ref idref="NIEM-NDR"/> schema set conformance target rules.</p>
+	<rule id="r1-mpd-cat-ext-xsd" applicability="MPD-Cat" class="Constraint">
+		<p>An MPD catalog extension schema document MUST conform to the <ref idref="NIEM-NDR"/> extension schema conformance target rules.</p>
+	</rule>
+
+	<rule id="r2-mpd-cat-ext-xsd" applicability="MPD-Cat" class="Constraint">
+		<p>Within an MPD, the schema set formed by <code>mpd-catalog-3.0.xsd</code> and all MPD catalog extension schema documents MUST conform to the <ref idref="NIEM-NDR"/> schema set conformance target rules.</p>
 	</rule>
 
 	<p>Whether extending an MPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, <ref idref="MPD-Catalog-XSD"/> provides an abstract element as a substitution group head in each case.  The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group.  Whenever possible, the user should reuse types, elements, and attributes that are already defined/declared within the <ref idref="MPD-Catalog-XSD"/>.</p>
@@ -1384,22 +1394,15 @@
 	<p>In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change.  New versions of reference schema document sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs and EIEMs.  Developers must understand in detail how changes will affect their IEPD and EIEM products and the tools used to build them.  To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs.  A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users.  All of the foregoing reasons dictate that NIEM require a normative change log for reference schema document sets.</p>
 
 	<rule id="r-mpd-ref-changelog" applicability="WF-MPD" class="Constraint">
-		<p>An MPD that is a NIEM release, core update, or domain update MUST contain an XML change log document that:</p>
-		<ul>
-			<li><p>Validates with the NIEM change log schemas <code>mpd-changelog.xsd</code> and <code>niem-model.xsd</code>.  (Note these are base filenames; actual filenames also contain a version number; for example, <code>mpd-changelog-1.0.xsd</code>.)</p></li>
-			<li><p>Records changes to previous reference schema documents that this MPD represents.</p></li>
-			<li><p>Bears the file name <code>changelog.xml</code>.</p></li>
-			<li><p>Resides in the <termRef>MPD root directory</termRef>.</p></li>
-		</ul>
+		<p>An MPD assigned an <code>c:mpdClassCode</code> attribute value drawn from the set <code>{rel, cu, du}</code> MUST contain a <code>changelog.xml</code> artifact in its <termRef>MPD root directory</termRef>.</p>
+
+	<rule id="r-changelog-ref" applicability="M-Chg-Log" class="Constraint">
+		<p>A <code>changelog.xml</code> artifact for an MPD assigned an <code>c:mpdClassCode</code> attribute value drawn from the set <code>{rel, cu, du}</code> MUST validate with the NIEM change log schemas <code>mpd-changelog-1.0.xsd</code> and <code>niem-model-1.0.xsd</code>.</p>
 	</rule>
 	
-	<p>The current version of <code>mpd-changelog.xsd</code> is available here:</p>
+	<p>The most current versions of the resources referenced in <ref idref="r-changelog-ref"/> are available here:
 	<blockquote>
 		<p><link>http://reference.niem.gov/niem/resource/mpd/changelog/</link></p>
-	</blockquote>
-
-	<p>The current version of <code>niem-model.xsd</code> which describes the NIEM conceptual model is available here:</p>
-	<blockquote>
 		<p><link>http://reference.niem.gov/niem/resource/model/</link></p>
 	</blockquote>
 
@@ -1409,26 +1412,21 @@
 
 
 
-<section id="Change-Log-IEPDs-EIEMs">
+<section id="Change-Log-IEPD-EIEM">
 	<title>Change Log for IEPDs and EIEMs</title>
 
 	<p>IEPD and EIEM change log requirements are less strict and are not required to conform to the naming and XML schema specifications in <ref idref="r-mpd-ref-changelog"/>.  However, a change log is still required.</p>
 
-	<rule id="r-mpd-change-log" applicability="N-IEPD N-EIEM" class="Constraint">
-		<p>An MPD that is an IEPD or EIEM MUST contain a change log artifact that:</p>
-		<ul>
-			<li><p>Records changes to previous IEPD or EIEM schemas that this MPD represents.</p></li>
-			<li><p>Has a file name that begins with the substring "changelog".</p></li>
-			<li><p>Resides in the <termRef>MPD root directory</termRef>.</p></li>
-		</ul>
+	<rule id="r-mpd-changelog-iepd" applicability="WF-MPD" class="Constraint">
+		<p>An MPD assigned an <code>c:mpdClassCode</code> attribute value drawn from the set <code>{iepd, eiem}</code> MUST contain a <code>changelog.*</code> artifact in its <termRef>MPD root directory</termRef></p>
 	</rule>
 
-<p>This rule does not specify a format for an IEPD or EIEM change log.  This is left to the discretion of the author.  While use of <code>mpd-changelog.xsd</code> is encouraged for IEPD and EIEM schemas, it is not required.  Relaxing the change log format encourages and facilitates easier and more rapid development.  IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  A consistent standard change log would be very difficult to specify.</p>
+	<p>The format of an IEPD or EIEM change log is left to the discretion of the author.  The use of <code>mpd-changelog-1.0.xsd</code> for IEPD and EIEM schemas is not required.  Relaxing the change log format encourages and facilitates easier and more rapid development.  IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  A consistent standard change log would be very difficult to specify.</p>
 
 	<p>The initial version of an IEPD or EIEM would not normally require a change log.  However, for consistency of validation and to help facilitate automatic processing of IEPDs and EIEMs by tools:</p>
 
-	<rule id="r-mpd-initial-changelog" applicability="Chg-Log" class="Constraint">
-		<p>The change log artifact of an initial version of an IEPD or EIEM MUST contain at least one entry for its creation date.</p>
+	<rule id="r-mpd-changelog-initial" applicability="M-Chg-Log" class="Constraint">
+		<p>The <code>changelog.*</code> artifact of the initial version of an IEPD or EIEM MUST contain at least one entry for its creation date.</p>
 	</rule>
 
 </section>
@@ -1436,46 +1434,46 @@
 
 
 
-<section id="Master-Document">
-	<title>Master Document</title>
+<section id="Read-Me-Artifact">
+	<title>Read-Me Artifact</title>
 
 	<p>This section is applicable to IEPDs and EIEMs.</p>
 
-	<definition term="master document">
-		<p>An informal documentation artifact contained in an IEPD or EIEM that serves as the initial general source of human readable descriptive or instructional information.  A <em>master document</em> may index or reference other more specific documentation or other explanatory materials within the MPD.</p>
+	<definition term="read-me artifact">
+		<p>An informal documentation artifact contained in an IEPD or EIEM that serves as the initial general source of human readable descriptive or instructional information.  A <em>read-me</em> artifact or file (formerly known as a <em>master document</em>) may index or reference other more specific documentation or other explanatory materials within the MPD.</p>
 	</definition>
 
-	<p>The <em>master document</em> is similar to a <code>readme</code> file.  It is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have fairly restrictive rules to obey, standard documentation for how to use them, and are centrally managed.</p>
+	<p>A <code>read-me</code> artifact is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.</p>
 
-	<rule id="r-mpd-master" applicability="N-IEPD N-EIEM" class="Constraint">
-		<p>An MPD that is an IEPD or an EIEM MUST contain a master document in the <termRef>MPD root directory</termRef> whose filename begins with the substring <code>master-document</code>.</p>
+	<rule id="r-mpd-read-me" applicability="WF-MPD" class="Constraint">
+		<p>An MPD whose <code>c:mpdClassCode</code> attribute value list contains <code>iepd</code> or <code>eiem</code> MUST contain a <code>read-me.*</code> file artifact in its <termRef>MPD root directory</termRef>.</p>
 	</rule>
 
-	<p>The master document may replicate some of the metadata in the MPD catalog.  However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal.  It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.</p>
+	<p>The read-me artifact may replicate some of the metadata in the MPD catalog.  However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal.  It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.</p>
 
-	<p>The primary purposes of the master document include:</p>
+	<p>The primary purposes of the <termRef>read-me artifact</termRef> include:</p>
 		<ul>
 		<li><p>To help facilitate understanding and reuse of IEPDs and EIEMs.</p></li>
 		<li><p>To ensure that fundamental and detailed business-level information about an IEPD or EIEM are documented for human understanding.</p></li>
 		<li><p>To ensure the IEPD or EIEM author has considered and conveys such fundamental information.</p></li>
-		<li><p>To provide an initial source within an IEPD or EIEM for human consumable documentation (similar to a <code>readme</code> file) and/or references to other business or technical documentation needed for understanding.</p></li>
+		<li><p>To provide an initial source within an IEPD or EIEM for human consumable documentation and/or references to other business or technical documentation needed for understanding.</p></li>
 		</ul>
 
-		<p>The master document is not intended to be the only source of written documentation for an MPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference.  Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize master document format or layout.  Only the file name and relative path within the MPD archive are strictly specified.  The following section will generally describe minimal content that should be in the master document.  This guidance is non-normative, so adherence is a subjective judgment by the author.
+		<p>The read-me artifact is not intended to be the only source of written documentation for an MPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference.  Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize read-me format or layout.  Only the file name and relative path within the MPD archive are strictly specified.  The following section will generally describe minimal content that should be in the read-me artifact.  This guidance is non-normative, so adherence is a subjective judgment by the author.
 </p>
 
 
 
-<section id="Master-Document-Content">
-	<title>Master Document Content</title>
+<section id="Read-Me-Content">
+	<title>Read-me Content</title>
 
 	<p>This section is non-normative and applies to IEPDs and EIEMs.</p>
 
-	<p>This section is neither a cookbook nor a normative specification for a master document.  It simply suggests typical topics that a master document should or might address, and provides some non-normative guidance.</p>
+	<p>This section is neither a cookbook nor a normative specification for a read-me artifact.  It simply suggests typical topics that a read-me artifact should or might address, and provides some non-normative guidance.</p>
 
-	<p>The master document should help another user or developer to understand the content and use of an IEPD or EIEM, as well as determine potential for reuse or adaptation.  It should describe what implementers need to understand and what the author considers is important to understanding an IEPD or EIEM.  There is no limit or constraint on its content.</p>
+	<p>The read-me file should help another user or developer to understand the content and use of an IEPD or EIEM, as well as determine potential for reuse or adaptation.  It should describe what implementers need to understand and what the author considers is important to understanding an IEPD or EIEM.  There is no limit or constraint on its content.</p>
 
-	<p>At a minimum, the master document should contain several fundamental elements of information about the MPD:</p>
+	<p>At a minimum, the read-me file should contain several fundamental elements of information about the MPD:</p>
 	<ul>
 	<li><p>Purpose of this MPD.</p></li>
 	<li><p>Scope of its deployment, usage, and information content.</p></li>
@@ -1488,14 +1486,14 @@
 
 	<p>Many document formats (e.g., HTML, PDF) can display hot links to local files within the MPD archive as well as URLs to files on the Internet.  Employing such a format is highly recommended but not mandatory.</p> 
 
-	<rule id="r-mpd-master-purpose" applicability="N-IEPD N-EIEM" class="Interpretation">
-		<p>A NIEM IEPD or EIEM master document SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.</p>
+	<rule id="r-mpd-read-me-purpose" applicability="WF-MPD" class="Interpretation">
+		<p>A NIEM IEPD or EIEM read-me artifact SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.</p>
 	</rule>
 
-	<p>MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the master document.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the master document (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the master document:</p>
+	<p>MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the <termRef>read-me artifact</termRef>.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the read-me artifact (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the read-me artifact:</p>
 
 <ul>
-	<li><p>Executive summary (especially for lengthy master documents></p></li>
+	<li><p>Executive summary (especially for a lengthy read-me artifact></p></li>
 	<li><p>Use cases</p></li>
 	<li><p>Business processes</p></li>
 	<li><p>Business requirements</p></li>
@@ -1546,8 +1544,8 @@
 
 	<p>In order to support schema assembly for the purpose of XML validation, the following rule requires that the namespaces of all XML schema documents used within an IEPD <termRef term="resolve URI">resolve</termRef> to a locally-unique artifact:</p>
 
-	<rule id="r-resolution" applicability="N-IEPD" class="Constraint">
-		<p>An IEPD MUST <termRef term="resolve URI">resolve</termRef> each namespace it uses to a locally unique URI through one or more <termRef term="XML catalog document">XML catalog documents</termRef>.</p>
+	<rule id="r-resolution" applicability="WF-MPD" class="Constraint">
+		<p>An MPD whose <code>c:mpdClassCode</code> attribute value list contains <code>iepd</code> or <code>eiem</code> MUST <termRef term="resolve URI">resolve</termRef> each namespace it uses to a locally unique URI through one or more <termRef term="XML catalog document">XML catalog documents</termRef>.</p>
 	</rule>
 
 	<p>This rule implies that <code>er:NextCatalog</code> elements may be used within <termRef term="XML catalog document">XML catalog documents</termRef> to connect them and control their parsing sequence.  An IEPD must contain at least one <termRef>XML catalog document</termRef> because it is the only MPD that can specify an IEP <ref idref="IEP"/> and provide validation instructions that would require schema assembly from XML schema documents.  <ref idref="Information-Exchange-Packages"/> provides more specifics about using <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs.</p>
@@ -1565,33 +1563,33 @@
 		<p>A class or category of IEPs which has a set of one or more validity constraints and a unique identifier.  Every IEP is an instance of one or more IEP conformance targets.</p>
 	</definition>
 
-	<p>This definition requires that a IEP conformance target be associated with a unique identifier, a <em>Conformance Target URI</em> that distinguishes it from all other IEP conformance targets.  Similar to a URI for an MPD artifact, construct a <em>conformance target URI</em> by concatenating the IEPD's http URI, the pound character (<code>#</code>), and a locally unique (within the IEPD) <link href="http://www.w3.org/TR/xmlschema-2/#NCName">NCName</link> <ref idref="W3-XML-Schema-Structures"/>.</p>
+	<p>This definition requires that a IEP conformance target be assigned a unique identifier, a <em>Conformance Target URI</em> that distinguishes it from all other IEP conformance targets.  Similar to a URI for an MPD artifact, construct a <em>conformance target URI</em> by concatenating the IEPD's URI, the pound sign character (<code>#</code>), and a locally unique (within the IEPD) <link href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NCName">NCName</link> (non-colonized name) as defined by <ref idref="W3-XML-Schema-Structures"/><char name="sect"/>3.3.7 NCName.</p>
 
 	<definition term="IEP conformance target URI" id="iep-conformance-target-uri">
 		<p>A globally unique identifier for an IEP conformance target declared in an IEPD, formed by concatenating:</p>
 		<ol>
 			<li><p>the IEPD URI</p></li>
-			<li><p>the pound character (<code>#</code>) and</p></li>
-			<li><p>a locally unique <link href="http://www.w3.org/TR/xmlschema-2/#NCName">NCName</link> per <ref idref="W3-XML-Schema-Structures"/></p></li>
+			<li><p>the pound sign character (<code>#</code>) and</p></li>
+			<li><p>a locally unique <link href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NCName">NCName</link> (non-colonized name).</p></li>
 		</ol>
 	</definition>	
 
-	<p>The foregoing definition requires that an IEP conformance target class have a URI.  As a result, the following rule is also required:</p>
+	<p>The foregoing definition requires that an IEP conformance target class have a URI.  As a result, the following rule is also required for an <termRef>MPD Catalog document</termRef>:</p>
 
 	<rule id="iep-conformance-target-id" applicability="MPD-Cat" class="Constraint">
-		<p>A <code>c:IEPConformanceTarget</code> MUST be assigned a locally unique NCName value for its <code>structures:id</code> attribute.</p>
+		<p>A <code>c:IEPConformanceTarget</code> MUST be assigned a locally unique <code>NCName</code> (non-colonized name) value for its <code>structures:id</code> attribute.</p>
 	</rule>
 
 	<p>An IEPD defines IEP conformance targets by explicitly and formally declaring them within its MPD catalog.  The rule above ensures that conformance targets can be referenced between IEPDs and not only within an IEPD.</p>
 
-	<p>The following subsections the concepts, artifacts, and procedures for declaring and identifying IEP conformance targets in IEPDs.</p>
+	<p>The following subsections detail the concepts, artifacts, and procedures for declaring and identifying IEP conformance targets in IEPDs.</p>
 
 
 
 <section id="Schema-Validation">
 	<title>Schema Validation</title>
 
-	<p>NIEM employs the W3C XML Schema Definition (XSD) Language (<ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>), one of several XML schema definition languages designed to define an instance XML document and enable its validation.  In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema (<ref idref="W3-XML-Schema-Structures"/> <link href="http://www.w3.org/TR/xmlschema11-1/#sec-schema-validity-and-docs">2.5 Schema-validity and documents</link>).</p>
+	<p>NIEM employs the W3C XML Schema Definition (XSD) Language (<ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>), one of several XML schema definition languages designed to define an instance XML document and enable its validation.  In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema (<ref idref="W3-XML-Schema-Structures"/> <link href="http://www.w3.org/TR/xmlschema11-1/#sec-schema-validity-and-docs"> <char name="sect"/>2.5 Schema-validity and documents</link>).</p>
 
 	<p>So, a NIEM IEPD is an MPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing XML catalogs to <termRef>resolve URI</termRef> values in namespace attributes owned by <code>xs:import</code> elements and similar XML Schema constructs).  In turn, the resulting XML schema can be used to validate one or more instance <termRef term="XML document">XML documents</termRef> (i.e., NIEM IEPs <ref idref="IEP"/>) for NIEM conformance.</p>
 
@@ -1606,7 +1604,7 @@
 
 	<p>Explicit declaration of validity constraints is far more flexible and precise than relying on conventions that can easily be misinterpreted.  The <code>c:IEPConformanceTarget</code> element within the <termRef>MPD catalog document</termRef> can apply several common constraints by explicitly declaring the information required for a given constraint.  This information may include the conformance target, context, type of validation, location of validation artifact(s), a specific tests to perform.  It can also identify IEP samples known to satisfy the validity constraints.</p>
 
-	<rule id="validity-constraints" applicability="MPD-Cat" class="Constraint">
+	<rule id="validity-constraints" applicability="MPD-Cat" class="Interpretation">
 		<p>An IEPD MUST explicitly declare all intended validity constraints by employing the <code>c:IEPConformanceTarget</code> element in its <termRef>MPD catalog document</termRef>.</p>
 	</rule>
 
@@ -1717,8 +1715,8 @@
 
 	<p>For these reasons, IEP samples are required for IEPDs:</p>
 
-	<rule id="r-iep-samples" applicability="IEP N-F-IEP" class="Constraint">
-		<p>An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared <code>c:IEPConformanceTarget</code>.  If applicable and appropriate, one IEP sample MAY exemplify multiple conformance targets.</p>
+	<rule id="r-iep-samples" applicability="IEP NF-IEP" class="Interpretation">
+		<p>An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared <code>c:IEPConformanceTarget</code>.  If applicable, a single IEP sample MAY exemplify multiple conformance targets.</p>
 	</rule>
 
 	<p>Note that this rule requires that each IEP conformance target be covered by at least one IEP sample document instance.  This does not necessarily mandate a different IEP sample for each IEP conformance target.  It may be possible, and is therefore acceptable, for a given IEP sample to serve as an example of one or more IEP conformance targets.</p>
@@ -1824,7 +1822,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 </rule>
 
 <rule id="wfm5" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MasterDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>master document</termRef>.</p>
+	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MasterDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>read-me artifact</termRef>.</p>
 </rule>
 
 <rule id="wfm6" applicability="WF-MPD" class="Constraint">
@@ -2281,7 +2279,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 		mpd-extension-xml-catalog.xml
 		mpd-catalog-extension.xsd
 		changelog.*
-		master-document.*
+		read-me.*
 		conformance-assertion.*
 
 		/niem
