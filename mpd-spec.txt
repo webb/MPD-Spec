@@ -1,8 +1,8 @@
 National Information Exchange Model -- Model Package Description Specification
 
-Version 3.0alpha10
+Version 3.0alpha11
 
-April 2, 2014
+April 16, 2014
 
 NIEM Technical Architecture Committee (NTAC)
 
@@ -28,7 +28,7 @@ Major changes in this draft relative to last
 
       1. Removed section mandatory Conformance Report.
 
-      2. New section Section 6.1, Conformance Assertion, below.
+      2. New section Section 4.7, Conformance Assertion, below.
 
       3. New section Section 7.1, Artifact Sets, below.
 
@@ -44,39 +44,57 @@ Major changes in this draft relative to last
 
       2. Revised rules in Section 4.2.2, URI Scheme for MPDs, below.
 
-      3. Added 2 rules for Section 6.1, Conformance Assertion, below.
+      3. Added 2 rules for Section 4.7, Conformance Assertion, below.
 
-      4. Rename master-document* to read-me.*
+      4. Keep MPD root directory clear of artifacts that can be located in logically named sub-directories.
 
-      5. Keep MPD root directory clear of artifacts that can be located in logically named sub-directories.
+      5. MPD catalog ToC entries are optional. xml-catalogs cover schema documents and schema document sets. Key docs have consistent names and reside in root directory. IEP samples are identified in IEPConformanceTarget. Read-me should reference or hyperlink to other documentation.
 
-      6. MPD catalog ToC entries are optional. xml-catalogs cover schema documents and schema document sets. Key docs have consistent names and reside in root directory. IEP samples are identified in IEPConformanceTarget. Read-me should reference or hyperlink to other documentation.
+      6. non-normative guidance for /niem-custom
 
-      7. non-normative guidance for /niem-custom
+   Alpha 11
+
+      1. Moved "Conformance Assertion" section to mandatory artifacts.
+
+      2. Inserted proxy types (and namespace) into mpd-catalog-3.0.xsd Appendix A.
+
+      3. Renamed master-document* to read-me.*
+
+      4. Appendix F, the recommended file structure has a "niem-constraint" directory that is a sibling of niem, extension, etc. In my experience, people using IEPDs tend to take an entire directory of schemas and import them into a tool. If they use all of these schemas together (constraint and non-constraint) they will have duplicate definitions. I realize the catalog can be used to identify what should be used for individual validation passes, and the directory structure shouldn't have any official meaning. But it is a lot more convenient if all the schemas intended for one validation pass are separated into one directory (that contains the subdirectories niem, extension, etc.). I would recommend having a directory that is parallel to the constraint directory. Can't think of a great name, but maybe "base" (a la our previous concept of a base schema set) or "unconstrained".
 
 Remaining work and issues
 
-      1. Divide rules with multiple constraints into multiple rules with simple constraints.
+      1.  local URIs do not have to satisfy absolute constraint
 
-      2. Conformance targets (CT):
+      2.  must fix rules 5.2, 5.3 conformance targets are incorrect
 
-            *  Missing? Should be forked? (e.g., MPD, Chg-Log, NIEM-EIEM, FN-EIEM?)
+      3.  Fix App F constraint schema directory guidance per bullet 2 above.
 
-            *  Correct classes? Interpretation or Constraint?
+      4.  niem-core subset for mpd-catalog-3.0.xsd
 
-            *  Correct CTs?
+      5.  simple example of minimal conformance-assertion
 
-      3. Remaining TBDs (Search on "TBD" to find incomplete items.)
+      6.  Divide rules with multiple constraints into multiple rules with simple constraints.
 
-      4. Appendix for Schematron rules for MPD Catalog.
+      7.  Conformance targets (CT):
 
-      5. Appendix for Example IEP (from Cursor on Target).
+             *  Missing? Should be forked? (e.g., MPD, NIEM-EIEM, FN-EIEM?)
 
-      6. Assemble resource tool kit: MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.
+             *  Correct classes? Interpretation or Constraint?
 
-      7. QA and validity checks: MPD catalog schema, etc. (Appendices).
+             *  Correct CTs?
 
-      8. Final checks: typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.
+      8.  Remaining TBDs (Search on "TBD" to find incomplete items.)
+
+      9.  Appendix for Schematron rules for MPD Catalog.
+
+      10. Appendix for Example IEP (from Cursor on Target).
+
+      11. Assemble resource tool kit: MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.
+
+      12. QA and validity checks: MPD catalog schema, etc. (Appendices).
+
+      13. Final checks: typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.
 
 1. Introduction
 
@@ -380,6 +398,8 @@ Remaining work and issues
 
       MPD catalog|M-Cat
 
+      MPD changelog|M-Chg-Log
+
       XML catalog|X-Cat
 
    [TBD] [What other conformance targets are needed?]
@@ -558,7 +578,7 @@ Remaining work and issues
 
       Requires a formal XML change log (specified by XSD)| X | X | X | | 
 
-      Requires a master document| | | | X | X 
+      Requires a read-me artifact| | | | X | X 
 
       Its XML schema document set defines reusable data components| X | X | X | | X 
 
@@ -800,7 +820,7 @@ Remaining work and issues
 
    A variety of documentation files may be incorporated into a NIEM MPD. However, in addition to XML schema documents, there are only two mandatory documentation artifacts required by every MPD: the mpd-catalog and the change log. An MPD catalog (mpd-catalog.xml) contains basic metadata, relationship and lineage data, and validation information. The change log provides a history of modifications.
 
-   A master document is mandatory for IEPDs and EIEMs. These MPD classes may be built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary. An IEPD or EIEM master document is the primary source and starting point for human readable documentation (similar to a readme file), and should reference (and describe) any other separate documentation artifacts. This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.
+   A [read-me artifact] (formerly known as a master document) is mandatory for IEPDs and EIEMs. These MPD classes may be built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary. An IEPD or EIEM read-me file is the primary source and starting point for human readable documentation, and should reference (and describe) any other separate documentation artifacts. This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.
 
    The following subsections will address these artifacts and the concepts, metadata, and content each supports.
 
@@ -870,7 +890,7 @@ Remaining work and issues
 
    The classifier elements are designed to identify, categorize, and describe any artifacts and artifact sets (including its path name, dependencies, and lineage). Employing XSLT, mpd-catalog.xml can be transformed into an index.html artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.
 
-   In general, only an IEPD or EIEM would contain c:Documentation and c:ApplicationInfo artifacts. So, for an IEPD and EIEM, a best practice is to use the master-document artifact (i.e., the [master document] required in the [MPD root directory]) to reference c:Documentation and c:ApplicationInfo artifacts whether or not they have been classified in the MPD catalog.
+   In general, only an IEPD or EIEM would contain c:Documentation and c:ApplicationInfo artifacts. So, for an IEPD and EIEM, a best practice is to use the read-me artifact (i.e., the [read-me artifact] required in the [MPD root directory]) to reference c:Documentation and c:ApplicationInfo artifacts whether or not they have been classified in the MPD catalog.
 
    Release, core update, and domain update catalogs are required to record all artifacts. However, IEPD and EIEM MPD catalogs are not. The IEPD or EIEM author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog. The author may choose to classify all, some, or none in the catalog.
 
@@ -896,11 +916,15 @@ Remaining work and issues
 
       An MPD extension XML catalog document MUST [resolve] all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.
 
-   So, when a processor identifies a file named mpd-extension-xml-catalog.xml in the [MPD root directory], it can assume that it contains references to one or more MPD catalog extension schema documents that adhere to the following rule:
+   So, when a processor identifies a file named mpd-extension-xml-catalog.xml in the [MPD root directory], it can assume that it contains references to one or more MPD catalog extension schema documents that adhere to the following rules:
 
    [Rule 4-7] (MPD-Cat)
 
-      An MPD catalog extension schema document MUST conform to the [NIEM NDR] schema set conformance target rules.
+      An MPD catalog extension schema document MUST conform to the [NIEM NDR] extension schema conformance target rules.
+
+   [Rule 4-8] (MPD-Cat)
+
+      Within an MPD, the schema set formed by mpd-catalog-3.0.xsd and all MPD catalog extension schema documents MUST conform to the [NIEM NDR] schema set conformance target rules.
 
    Whether extending an MPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, Appendix A, MPD Catalog XML Schema Document, below, provides an abstract element as a substitution group head in each case. The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group. Whenever possible, the user should reuse types, elements, and attributes that are already defined/declared within the Appendix A, MPD Catalog XML Schema Document, below.
 
@@ -912,7 +936,7 @@ Remaining work and issues
 
    Published MPDs may be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred. In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices. This is the same version numbering scheme that is used for NIEM releases.
 
-   [Rule 4-8] (WF-MPD)
+   [Rule 4-9] (WF-MPD)
 
       An MPD MUST be assigned a version number that adheres to the regular expression:
 
@@ -935,7 +959,7 @@ Remaining work and issues
 
    Note that the absence of a status string in the version number indicates that the version has been baselined and published.
 
-   The regular expression in [Rule 4-8], above, is enforced by the MPD catalog schema document Appendix A, MPD Catalog XML Schema Document, below. The following examples are valid MPD version numbers:
+   The regular expression in [Rule 4-9], above, is enforced by the MPD catalog schema document Appendix A, MPD Catalog XML Schema Document, below. The following examples are valid MPD version numbers:
 
       *  1
 
@@ -947,9 +971,9 @@ Remaining work and issues
 
       *  199.88.15rev6
 
-   There are two implications in [Rule 4-8], above. The first is that in some cases this version scheme implies and confirms a chronology of releases. For example, a given product labeled version 2.3 must have been released before the same product labeled 2.3.1. Therefore, version 2.3.1 is more current than version 2.3.
+   There are two implications in [Rule 4-9], above. The first is that in some cases this version scheme implies and confirms a chronology of releases. For example, a given product labeled version 2.3 must have been released before the same product labeled 2.3.1. Therefore, version 2.3.1 is more current than version 2.3.
 
-   However, this is a multi-series version scheme, and chronological relationships exist only within a given series. So, for example, nothing can be said about a chronological relationship between versions 2.2.4 and 2.3. This is because version 2.2.4 is in a different series (i.e., 2.2) and could actually have been released after 2.3. Figure 4-1, Example versioning system, below, illustrates a system of versions that uses the numbering scheme of [Rule 4-8], above.
+   However, this is a multi-series version scheme, and chronological relationships exist only within a given series. So, for example, nothing can be said about a chronological relationship between versions 2.2.4 and 2.3. This is because version 2.2.4 is in a different series (i.e., 2.2) and could actually have been released after 2.3. Figure 4-1, Example versioning system, below, illustrates a system of versions that uses the numbering scheme of [Rule 4-9], above.
 
    Figure 4-1: Example versioning system
 
@@ -973,7 +997,7 @@ Remaining work and issues
 
       *  Series 3.2 is {3.2(.0), 3.2.1, 3.2.2}
 
-   The second implication of [Rule 4-8], above, is that pre-releases are easily identified by the strings alpha, beta, and rc. These strings are simple visible indicators of MPD status or stage of development.
+   The second implication of [Rule 4-9], above, is that pre-releases are easily identified by the strings alpha, beta, and rc. These strings are simple visible indicators of MPD status or stage of development.
 
    This specification places no further restrictions or meaning (implied or otherwise) on a version number. Authors have the option to use integers between dots to indicate degree of compatibility or other relationships between versions as needed. For example, for a given MPD, the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2. Such a claim is acceptable. However, this specification does not imply any such relationships. Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the MPD.
 
@@ -987,11 +1011,11 @@ Remaining work and issues
 
    To facilitate MPD sharing and reuse the assignment of a URI (Uniform Resource Identifier) to each MPD is essential. This is enforced by the MPD catalog schema document Appendix A, MPD Catalog XML Schema Document, below. However, it is also important to ensure that an MPD URI is absolute.
 
-   [Rule 4-9] (WF-MPD)
+   [Rule 4-10] (WF-MPD)
 
       The value of any xs:attribute of type xs:anyURI MUST match the production <absolute-URI> as defined by [RFC 3986 URI], section 4.3, Absolute URI.
 
-   [Rule 4-9], above, implies that a URI assigned to an MPD must be valid. Furthermore, the entity (person or organization) assigning the MPD URI either (1) is the registrant of the domain name or namespace identifier, or (2) has authority from the registrant to assign this URI.
+   [Rule 4-10], above, implies that a URI assigned to an MPD must be valid. Furthermore, the entity (person or organization) assigning the MPD URI either (1) is the registrant of the domain name or namespace identifier, or (2) has authority from the registrant to assign this URI.
 
    Examples of valid MPD URIs:
 
@@ -1007,17 +1031,17 @@ Remaining work and issues
 
    Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (reuse) and one aspect of lineage. To support this concept, the following MPD URI rules are necessary:
 
-   [Rule 4-10] (WF-MPD)
+   [Rule 4-11] (WF-MPD)
 
       A valid MPD URI MUST support the inclusion of a fragment identifier (as a suffix) [RFC 3986 URI].
 
-   [Rule 4-11] (WF-MPD)
+   [Rule 4-12] (WF-MPD)
 
       A valid MPD URI MUST NOT contain a fragment identifier [RFC 3986 URI].
 
-   [Rule 4-10], above, is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD). This specification follows [RFC 3986 URI] and employs a fragment identifier to construct a URI for an artifact within an MPD. By the following rule, each file artifact or artifact set is uniquely identified by its path name relative to the [MPD root directory].
+   [Rule 4-11], above, is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD). This specification follows [RFC 3986 URI] and employs a fragment identifier to construct a URI for an artifact within an MPD. By the following rule, each file artifact or artifact set is uniquely identified by its path name relative to the [MPD root directory].
 
-   [Rule 4-12] (WF-MPD)
+   [Rule 4-13] (WF-MPD)
 
       Within an MPD a URI reference to an artifact in another external MPD is the concatenation of
 
@@ -1029,7 +1053,7 @@ Remaining work and issues
 
    An artifact always has a locally unique path name that terminates in (and includes) its file name; an artifact set always has a locally unique path name (that terminates in and includes a slash character -- "/").
 
-   You should now understand the rationale for [Rule 4-11], above. If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because [RFC 3986 URI] allows only a single fragment identifier.
+   You should now understand the rationale for [Rule 4-12], above. If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because [RFC 3986 URI] allows only a single fragment identifier.
 
    The following are examples of valid MPD artifact URIs:
 
@@ -1041,7 +1065,7 @@ Remaining work and issues
 
       *  http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query/ (a set artifact)
 
-   Note that [RFC 2141 URN Syntax] appears to preclude the use of a URN as an MPD URI. URN syntax violates [Rule 4-10], above, because it does not support fragment identifiers.
+   Note that [RFC 2141 URN Syntax] appears to preclude the use of a URN as an MPD URI. URN syntax violates [Rule 4-11], above, because it does not support fragment identifiers.
 
    Here is one simple scenario for using an artifact URI within the MPD catalog. Consider two different IEPDs with the following URIs:
 
@@ -1085,23 +1109,17 @@ Remaining work and issues
 
    In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change. New versions of reference schema document sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs and EIEMs. Developers must understand in detail how changes will affect their IEPD and EIEM products and the tools used to build them. To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs. A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users. All of the foregoing reasons dictate that NIEM require a normative change log for reference schema document sets.
 
-   [Rule 4-13] (WF-MPD)
+   [Rule 4-14] (WF-MPD)
 
-      An MPD that is a NIEM release, core update, or domain update MUST contain an XML change log document that:
+      An MPD assigned an c:mpdClassCode attribute value drawn from the set {rel, cu, du} MUST contain a changelog.xml artifact in its [MPD root directory].
 
-         *  Validates with the NIEM change log schemas mpd-changelog.xsd and niem-model.xsd. (Note these are base filenames; actual filenames also contain a version number; for example, mpd-changelog-1.0.xsd.)
+   [Rule 4-15] (M-Chg-Log)
 
-         *  Records changes to previous reference schema documents that this MPD represents.
+      A changelog.xml artifact for an MPD assigned an c:mpdClassCode attribute value drawn from the set {rel, cu, du} MUST validate with the NIEM change log schemas mpd-changelog-1.0.xsd and niem-model-1.0.xsd.
 
-         *  Bears the file name changelog.xml.
-
-         *  Resides in the [MPD root directory].
-
-   The current version of mpd-changelog.xsd is available here:
+   The most current versions of the resources referenced in [Rule 4-15], above, are available here:
 
       http://reference.niem.gov/niem/resource/mpd/changelog/
-
-   The current version of niem-model.xsd which describes the NIEM conceptual model is available here:
 
       http://reference.niem.gov/niem/resource/model/
 
@@ -1109,43 +1127,37 @@ Remaining work and issues
 
 4.3.2. Change Log for IEPDs and EIEMs
 
-   IEPD and EIEM change log requirements are less strict and are not required to conform to the naming and XML schema specifications in [Rule 4-13], above. However, a change log is still required.
+   IEPD and EIEM change log requirements are less strict and are not required to conform to the naming and XML schema specifications in [Rule 4-14], above. However, a change log is still required.
 
-   [Rule 4-14] (N-IEPD, N-EIEM)
+   [Rule 4-16] (WF-MPD)
 
-      An MPD that is an IEPD or EIEM MUST contain a change log artifact that:
+      An MPD assigned an c:mpdClassCode attribute value drawn from the set {iepd, eiem} MUST contain a changelog.* artifact in its [MPD root directory]
 
-         *  Records changes to previous IEPD or EIEM schemas that this MPD represents.
-
-         *  Has a file name that begins with the substring "changelog".
-
-         *  Resides in the [MPD root directory].
-
-   This rule does not specify a format for an IEPD or EIEM change log. This is left to the discretion of the author. While use of mpd-changelog.xsd is encouraged for IEPD and EIEM schemas, it is not required. Relaxing the change log format encourages and facilitates easier and more rapid development. IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges. As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats. A consistent standard change log would be very difficult to specify.
+   The format of an IEPD or EIEM change log is left to the discretion of the author. The use of mpd-changelog-1.0.xsd for IEPD and EIEM schemas is not required. Relaxing the change log format encourages and facilitates easier and more rapid development. IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges. As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats. A consistent standard change log would be very difficult to specify.
 
    The initial version of an IEPD or EIEM would not normally require a change log. However, for consistency of validation and to help facilitate automatic processing of IEPDs and EIEMs by tools:
 
-   [Rule 4-15] (Chg-Log)
+   [Rule 4-17] (M-Chg-Log)
 
-      The change log artifact of an initial version of an IEPD or EIEM MUST contain at least one entry for its creation date.
+      The changelog.* artifact of the initial version of an IEPD or EIEM MUST contain at least one entry for its creation date.
 
-4.4. Master Document
+4.4. Read-Me Artifact
 
    This section is applicable to IEPDs and EIEMs.
 
-   [Definition: master document]
+   [Definition: read-me artifact]
 
-      An informal documentation artifact contained in an IEPD or EIEM that serves as the initial general source of human readable descriptive or instructional information. A master document may index or reference other more specific documentation or other explanatory materials within the MPD.
+      An informal documentation artifact contained in an IEPD or EIEM that serves as the initial general source of human readable descriptive or instructional information. A read-me artifact or file (formerly known as a master document) may index or reference other more specific documentation or other explanatory materials within the MPD.
 
-   The master document is similar to a readme file. It is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed. On the other hand, releases and domain updates have fairly restrictive rules to obey, standard documentation for how to use them, and are centrally managed.
+   A read-me artifact is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed. On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.
 
-   [Rule 4-16] (N-IEPD, N-EIEM)
+   [Rule 4-18] (WF-MPD)
 
-      An MPD that is an IEPD or an EIEM MUST contain a master document in the [MPD root directory] whose filename begins with the substring master-document.
+      An MPD whose c:mpdClassCode attribute value list contains iepd or eiem MUST contain a read-me.* file artifact in its [MPD root directory].
 
-   The master document may replicate some of the metadata in the MPD catalog. However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal. It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.
+   The read-me artifact may replicate some of the metadata in the MPD catalog. However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal. It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.
 
-   The primary purposes of the master document include:
+   The primary purposes of the [read-me artifact] include:
 
       *  To help facilitate understanding and reuse of IEPDs and EIEMs.
 
@@ -1153,19 +1165,19 @@ Remaining work and issues
 
       *  To ensure the IEPD or EIEM author has considered and conveys such fundamental information.
 
-      *  To provide an initial source within an IEPD or EIEM for human consumable documentation (similar to a readme file) and/or references to other business or technical documentation needed for understanding.
+      *  To provide an initial source within an IEPD or EIEM for human consumable documentation and/or references to other business or technical documentation needed for understanding.
 
-   The master document is not intended to be the only source of written documentation for an MPD (though it can be). It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference. Many organizations have their own customized formats and operating procedures for documenting their work and products. This specification does not attempt to standardize master document format or layout. Only the file name and relative path within the MPD archive are strictly specified. The following section will generally describe minimal content that should be in the master document. This guidance is non-normative, so adherence is a subjective judgment by the author. 
+   The read-me artifact is not intended to be the only source of written documentation for an MPD (though it can be). It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference. Many organizations have their own customized formats and operating procedures for documenting their work and products. This specification does not attempt to standardize read-me format or layout. Only the file name and relative path within the MPD archive are strictly specified. The following section will generally describe minimal content that should be in the read-me artifact. This guidance is non-normative, so adherence is a subjective judgment by the author. 
 
-4.4.1. Master Document Content
+4.4.1. Read-me Content
 
    This section is non-normative and applies to IEPDs and EIEMs.
 
-   This section is neither a cookbook nor a normative specification for a master document. It simply suggests typical topics that a master document should or might address, and provides some non-normative guidance.
+   This section is neither a cookbook nor a normative specification for a read-me artifact. It simply suggests typical topics that a read-me artifact should or might address, and provides some non-normative guidance.
 
-   The master document should help another user or developer to understand the content and use of an IEPD or EIEM, as well as determine potential for reuse or adaptation. It should describe what implementers need to understand and what the author considers is important to understanding an IEPD or EIEM. There is no limit or constraint on its content.
+   The read-me file should help another user or developer to understand the content and use of an IEPD or EIEM, as well as determine potential for reuse or adaptation. It should describe what implementers need to understand and what the author considers is important to understanding an IEPD or EIEM. There is no limit or constraint on its content.
 
-   At a minimum, the master document should contain several fundamental elements of information about the MPD:
+   At a minimum, the read-me file should contain several fundamental elements of information about the MPD:
 
       *  Purpose of this MPD.
 
@@ -1183,13 +1195,13 @@ Remaining work and issues
 
    Many document formats (e.g., HTML, PDF) can display hot links to local files within the MPD archive as well as URLs to files on the Internet. Employing such a format is highly recommended but not mandatory.
 
-   [Rule 4-17] (N-IEPD, N-EIEM)
+   [Rule 4-19] (WF-MPD)
 
-      A NIEM IEPD or EIEM master document SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.
+      A NIEM IEPD or EIEM read-me artifact SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.
 
-   MPD documentation types and formats will vary with the methodologies and tools used to develop them. Most of this documentation will likely be typical of that generated for data-oriented software projects. Some documentation may only require sections in the master document. Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the master document (such as diagrams, large tables, data dictionaries, test results/reports, etc.). The following are some common examples of sections in or separate artifacts associated with the master document:
+   MPD documentation types and formats will vary with the methodologies and tools used to develop them. Most of this documentation will likely be typical of that generated for data-oriented software projects. Some documentation may only require sections in the [read-me artifact]. Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the read-me artifact (such as diagrams, large tables, data dictionaries, test results/reports, etc.). The following are some common examples of sections in or separate artifacts associated with the read-me artifact:
 
-      *  Executive summary (especially for lengthy master documents>
+      *  Executive summary (especially for a lengthy read-me artifact>
 
       *  Use cases
 
@@ -1249,9 +1261,9 @@ Remaining work and issues
 
    In order to support schema assembly for the purpose of XML validation, the following rule requires that the namespaces of all XML schema documents used within an IEPD [resolve] to a locally-unique artifact:
 
-   [Rule 4-18] (N-IEPD)
+   [Rule 4-20] (WF-MPD)
 
-      An IEPD MUST [resolve] each namespace it uses to a locally unique URI through one or more [XML catalog documents].
+      An MPD whose c:mpdClassCode attribute value list contains iepd or eiem MUST [resolve] each namespace it uses to a locally unique URI through one or more [XML catalog documents].
 
    This rule implies that er:NextCatalog elements may be used within [XML catalog documents] to connect them and control their parsing sequence. An IEPD must contain at least one [XML catalog document] because it is the only MPD that can specify an IEP [Definition: Information Exchange Package (IEP)], above, and provide validation instructions that would require schema assembly from XML schema documents. Section 4.6, Information Exchange Packages, below, provides more specifics about using [XML catalog documents] within IEPDs.
 
@@ -1263,7 +1275,7 @@ Remaining work and issues
 
       A class or category of IEPs which has a set of one or more validity constraints and a unique identifier. Every IEP is an instance of one or more IEP conformance targets.
 
-   This definition requires that a IEP conformance target be associated with a unique identifier, a Conformance Target URI that distinguishes it from all other IEP conformance targets. Similar to a URI for an MPD artifact, construct a conformance target URI by concatenating the IEPD's http URI, the pound character (#), and a locally unique (within the IEPD) NCName [W3C XML Schema Structures].
+   This definition requires that a IEP conformance target be assigned a unique identifier, a Conformance Target URI that distinguishes it from all other IEP conformance targets. Similar to a URI for an MPD artifact, construct a conformance target URI by concatenating the IEPD's URI, the pound sign character (#), and a locally unique (within the IEPD) NCName (non-colonized name) as defined by [W3C XML Schema Structures]section 3.3.7 NCName.
 
    [Definition: IEP conformance target URI]
 
@@ -1271,23 +1283,23 @@ Remaining work and issues
 
          1. the IEPD URI
 
-         2. the pound character (#) and
+         2. the pound sign character (#) and
 
-         3. a locally unique NCName per [W3C XML Schema Structures]
+         3. a locally unique NCName (non-colonized name).
 
-   The foregoing definition requires that an IEP conformance target class have a URI. As a result, the following rule is also required:
+   The foregoing definition requires that an IEP conformance target class have a URI. As a result, the following rule is also required for an [MPD catalog document]:
 
-   [Rule 4-19] (MPD-Cat)
+   [Rule 4-21] (MPD-Cat)
 
-      A c:IEPConformanceTarget MUST be assigned a locally unique NCName value for its structures:id attribute.
+      A c:IEPConformanceTarget MUST be assigned a locally unique NCName (non-colonized name) value for its structures:id attribute.
 
    An IEPD defines IEP conformance targets by explicitly and formally declaring them within its MPD catalog. The rule above ensures that conformance targets can be referenced between IEPDs and not only within an IEPD.
 
-   The following subsections the concepts, artifacts, and procedures for declaring and identifying IEP conformance targets in IEPDs.
+   The following subsections detail the concepts, artifacts, and procedures for declaring and identifying IEP conformance targets in IEPDs.
 
 4.6.1. Schema Validation
 
-   NIEM employs the W3C XML Schema Definition (XSD) Language ([W3C XML Schema Structures] and [W3C XML Schema Datatypes]), one of several XML schema definition languages designed to define an instance XML document and enable its validation. In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema ([W3C XML Schema Structures] 2.5 Schema-validity and documents).
+   NIEM employs the W3C XML Schema Definition (XSD) Language ([W3C XML Schema Structures] and [W3C XML Schema Datatypes]), one of several XML schema definition languages designed to define an instance XML document and enable its validation. In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema ([W3C XML Schema Structures]  section 2.5 Schema-validity and documents).
 
    So, a NIEM IEPD is an MPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing XML catalogs to [resolve URI] values in namespace attributes owned by xs:import elements and similar XML Schema constructs). In turn, the resulting XML schema can be used to validate one or more instance [XML documents] (i.e., NIEM IEPs [Definition: Information Exchange Package (IEP)], above) for NIEM conformance.
 
@@ -1297,7 +1309,7 @@ Remaining work and issues
 
    Explicit declaration of validity constraints is far more flexible and precise than relying on conventions that can easily be misinterpreted. The c:IEPConformanceTarget element within the [MPD catalog document] can apply several common constraints by explicitly declaring the information required for a given constraint. This information may include the conformance target, context, type of validation, location of validation artifact(s), a specific tests to perform. It can also identify IEP samples known to satisfy the validity constraints.
 
-   [Rule 4-20] (MPD-Cat)
+   [Rule 4-22] (MPD-Cat)
 
       An IEPD MUST explicitly declare all intended validity constraints by employing the c:IEPConformanceTarget element in its [MPD catalog document].
 
@@ -1375,9 +1387,9 @@ Remaining work and issues
 
    For these reasons, IEP samples are required for IEPDs:
 
-   [Rule 4-21] (IEP, N-F-IEP)
+   [Rule 4-23] (IEP, NF-IEP)
 
-      An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared c:IEPConformanceTarget. If applicable and appropriate, one IEP sample MAY exemplify multiple conformance targets.
+      An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared c:IEPConformanceTarget. If applicable, a single IEP sample MAY exemplify multiple conformance targets.
 
    Note that this rule requires that each IEP conformance target be covered by at least one IEP sample document instance. This does not necessarily mandate a different IEP sample for each IEP conformance target. It may be possible, and is therefore acceptable, for a given IEP sample to serve as an example of one or more IEP conformance targets.
 
@@ -1386,6 +1398,46 @@ Remaining work and issues
    Each sample IEP usually illustrates a single view of the data based on a chosen set of conditions. Other views based on different conditions likely exist. An implementer will likely still need to review the IEPD documentation to ensure understanding of all potential conditions. Therefore, as appropriate, the author should not rely exclusively on sample IEPs to convey implementation understanding, since they will not likely account for all possible permutations.
 
    This specification also encourages (but does not mandate) inclusion of sample IEPs in other MPDs such as EIEMs and domain updates; these can sometimes provide valuable insight into the intent and usage of new, extended, or changed data components.
+
+4.7. Conformance Assertion
+
+   This section is applicable to IEPDs and EIEMs.
+
+   Independent authors build NIEM IEPDs and EIEMs from NIEM [reference schema document sets]. Presently, a formal NIEM conformance certification process for IEPDs does not exist. Therefore, this specification recommends that an IEPD or EIEM contain an artifact that asserts some degree of NIEM conformance.
+
+   [Definition: conformance assertion]
+
+      An artifact that provides a formal or informal declaration that a NIEM IEPD or EIEM conforms to [NIEM Conformance], [NIEM NDR], and [NIEM MPD Specification] (this NIEM MPD Specification).
+
+   [Rule 4-24] (WF-MPD)
+
+      An MPD whose c:mpdClassCode attribute value list contains iepd or eiem MUST have a [conformance assertion] artifact in its [MPD root directory].
+
+   [Rule 4-25] (WF-MPD)
+
+      The file name of an MPD [conformance assertion] MUST be of the form conformance-assertion.*.
+
+   A [conformance assertion] presents information to increase the level of confidence that an IEPD or EIEM was checked for NIEM conformance and quality. It does NOT constitute a guarantee or contract. In fact, a conformance assertion can be self-asserted.
+
+   In the absence of a formal NIEM certification process, both weak and strong conformance assertions will exist. A IEPD/EIEM user or implementer (who is not the author) must decide his/her level of confidence in the assertion. A self-signed artifact that simply claims an IEPD is NIEM-conformant may be considered weak. On the other hand, a strong self-signed conformance assertion would provide information that may include (but is not limited to):
+
+      *  Author credentials (name of author, organization, or sponsoring entity; background, experience, etc.).
+
+      *  What was verified (artifacts, rules, etc.)?
+
+      *  Against what [conformance targets]?
+
+      *  When? (date)
+
+      *  How? (e.g., what was automatically checked, manually checked?)
+
+      *  Employing what tool(s)?
+
+      *  What were the results? (e.g., what passed, failed, warnings, issues?)
+
+   Inclusion of a conformance assertion made by a reputable, independent, trusted entity (person or organization) would likely increase confidence in conformance. Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact.
+
+   In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts. A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and IEPD identity (i.e., that the IEPD is an unaltered copy of the original). For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discretion of the author or sponsor.
 
 5. Conformance Targets
 
@@ -1403,7 +1455,7 @@ Remaining work and issues
 
       An function (or action) that takes a URI string of the form xs:anyURI and returns the resource it identifies. If the resource does not exist, then this function fails. If a resource is remote (e.g., a URL on the Internet or a URN of an unknown location), then this function (or action) may require human intervention to complete.
 
-   [NIEM NDR], section 15.3.6.1 Reference Elements defines a [reference element] as follows:
+   [NIEM NDR], section 12.3 Reference Elements defines a [reference element] as follows:
 
    [Definition: reference element]
 
@@ -1431,7 +1483,7 @@ Remaining work and issues
 
    [Rule 5-5] (WF-MPD)
 
-      Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:MasterDocument element MUST [resolve] to a [master document].
+      Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:MasterDocument element MUST [resolve] to a [read-me artifact].
 
    [Rule 5-6] (WF-MPD)
 
@@ -1565,47 +1617,7 @@ Remaining work and issues
 
    In particular, this specification does not discourage use of Microsoft file formats for documentation and other optional artifacts. Microsoft Office products are in common use, and free viewers are available for many of them (See http://office.microsoft.com/en-us/downloads/office-online-file-converters-and-viewers-HA001044981.aspx).
 
-6.1. Conformance Assertion
-
-   This section is applicable to IEPDs and EIEMs.
-
-   Independent authors build NIEM IEPDs and EIEMs from NIEM [reference schema document sets]. Presently, a formal NIEM conformance certification process for IEPDs does not exist. Therefore, this specification recommends that an IEPD or EIEM contain an artifact that asserts some degree of NIEM conformance.
-
-   [Definition: conformance assertion]
-
-      An artifact that provides a formal or informal declaration that a NIEM IEPD or EIEM conforms to [NIEM Conformance], [NIEM NDR], and [NIEM MPD Specification] (this NIEM MPD Specification).
-
-   [Rule 6-1] (WF-MPD)
-
-      An MPD whose c:mpdClassCode attribute value list contains iepd or eiem MUST have a [conformance assertion] artifact in its [MPD root directory].
-
-   [Rule 6-2] (WF-MPD)
-
-      The file name of an MPD [conformance assertion] MUST be of the form conformance-assertion.*.
-
-   A [conformance assertion] presents information to increase the level of confidence that an IEPD or EIEM was checked for NIEM conformance and quality. It does NOT constitute a guarantee or contract. In fact, a conformance assertion can be self-asserted.
-
-   In the absence of a formal NIEM certification process, both weak and strong conformance assertions will exist. A IEPD/EIEM user or implementer (who is not the author) must decide his/her level of confidence in the assertion. A self-signed artifact that simply claims an IEPD is NIEM-conformant may be considered weak. On the other hand, a strong self-signed conformance assertion would provide information that may include (but is not limited to):
-
-      *  Author credentials (name of author, organization, or sponsoring entity; background, experience, etc.).
-
-      *  What was verified (artifacts, rules, etc.)?
-
-      *  Against what [conformance targets]?
-
-      *  When? (date)
-
-      *  How? (e.g., what was automatically checked, manually checked?)
-
-      *  Employing what tool(s)?
-
-      *  What were the results? (e.g., what passed, failed, warnings, issues?)
-
-   Inclusion of a conformance assertion made by a reputable, independent, trusted entity (person or organization) would likely increase confidence in conformance. Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact.
-
-   In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts. A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and IEPD identity (i.e., that the IEPD is an unaltered copy of the original). For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discretion of the author or sponsor.
-
-6.2. NIEM Wantlist
+6.1. NIEM Wantlist
 
    A NIEM schema document subset is often associated with a NIEM wantlist. A wantlist is an abbreviated XML representation of a NIEM schema document subset, and identifies only the data components a user selected (as requirements) to build a schema document subset. To reconstruct the complete schema document subset there are usually a number of additional data components that the user selections depend upon. These must be computed from the appropriate NIEM reference model and added to reconstruct the complete schema document subset. For example, a user may select nc:Person for the subset. In this case, the wantlist will only contain that component, but the associated full subset must contain both nc:Person and nc:PersonType. A software tool that understands how to process NIEM wantlists and schema document subsets (such as the NIEM Schema Subset Generator Tool [NIEM SSGT]) can rebuild an accurate schema document subset from a wantlist (and the reverse).
 
@@ -1617,11 +1629,11 @@ Remaining work and issues
 
    A wantlist is always associated with a schema document subset. A wantlist may also be associated with a constraint schema document set, because constraint schema documents are often built from a schema document subset. For a simple IEPD, it can sometimes be trivial to identify a single schema document subset. However, this MPD Specification does not prohibit building complex IEPDs that contain schema document sets supported by multiple schema document subsets and associated wantlists. As with other complex cases, the IEPD author is responsible to clearly document the associations between wantlists and schema document sets. In order to maintain a minimal degree of consistency for placement of a wantlist within an IEPD or EIEM:
 
-   [Rule 6-3] (WF-MPD)
+   [Rule 6-1] (WF-MPD)
 
       A wantlist MUST be a member of the schema document set directory it is associated with. This means it MUST reside with and at the root of the subdirectory that groups and defines its target schema document set.
 
-6.3. Business Rules
+6.2. Business Rules
 
    For simplicity and consistency, NIEM employs a profile of the XML Schema language [W3C XML Schema Structures], [W3C XML Schema Datatypes]. Thus, some constraints on NIEM XML documents cannot be enforced by NIEM. [Constraint schema documents] provide a convenient technique for enforcing some additional constraints. However, even the full XML Schema language cannot validate and enforce all possible constraints that may required on an XML document.
 
@@ -1718,7 +1730,7 @@ Remaining work and issues
       		status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
       		class    ::= 'rel' | 'cu' | 'du' | 'iepd' | 'eiem'
 
-      The status values are as defined in [Rule 4-8].
+      The status values are as defined in [Rule 4-9].
 
       The class values are defined as follows:
 
@@ -1780,7 +1792,7 @@ Remaining work and issues
 
    [Rule 7-10] (WF-MPD)
 
-      Within an MPD, if non-conformant external schema documents are used, then any references from these schema documents to other other schema documents and/or namespaces MUST [resolve] to local URIs. schemaLocation attributes or XML catalogs can be used to ensure resolution.
+      Within an MPD, if non-conformant external schema documents are used, then any references from these schema documents to other schema documents and/or namespaces MUST [resolve] to local URIs. schemaLocation attributes or XML catalogs can be used to ensure resolution.
 
    For the case of non-NIEM-conformant schemas, this rule ensures that all schemas (or corresponding artifacts and namespaces) from external standards required for definition, validation, and use of the MPD are present within the archive.
 
@@ -2938,7 +2950,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
    		mpd-extension-xml-catalog.xml
    		mpd-catalog-extension.xsd
    		changelog.*
-   		master-document.*
+   		read-me.*
    		conformance-assertion.*
    
    		/niem
