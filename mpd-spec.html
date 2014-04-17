@@ -25,10 +25,12 @@
     xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
     xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
     xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/"
+    xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
 
     &lt;xs:import namespace="http://release.niem.gov/niem/structures/3.0/"/&gt;
     &lt;xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/"/&gt;
+    &lt;xs:import namespace="http://release.niem.gov/niem/proxy/3.0/"/&gt;
 
     &lt;xs:annotation&gt;
 
@@ -57,10 +59,10 @@
 		   nc:ContactResponder
 		   nc:PersonName
 		      nc:PersonFullName		(type="nc:TextType")
-		nc:ContactEmailID		(type="xs:string")
+		nc:ContactEmailID		(type="niem-xs:string")
 		nc:ContactTelephoneNumber
 		   nc:TelephoneNumberRepresentation (substitutionGroup)
-		nc:ContactWebsiteURI		(type="xs:anyURI") 
+		nc:ContactWebsiteURI		(type="niem-xs:anyURI")
       &lt;/xs:documentation&gt;
 
       &lt;xs:appinfo&gt;
@@ -183,11 +185,11 @@
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
-    &lt;xs:element name="MasterDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet"&gt;
+    &lt;xs:element name="ReadMe" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
-		 An MPD master document (readme) artifact.
-	      &lt;/xs:documentation&gt;
+		 An MPD read-me artifact.
+	 &lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
@@ -399,7 +401,7 @@
 
 &lt;!-- Primitives ================================================================== --&gt;
 
-    &lt;xs:attribute name="mpdURI" type="anyURI"&gt;
+    &lt;xs:attribute name="mpdURI" type="niem-xs:anyURI"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A globally unique identifier (URI) for an MPD.
@@ -520,7 +522,7 @@
 
 &lt;!-- =========================================================================== --&gt;
 
-    &lt;xs:attribute name="pathURI" type="anyURI"&gt;
+    &lt;xs:attribute name="pathURI" type="niem-xs:anyURI"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A URI for the pathname of a local artifact relative to the MPD root directory.
@@ -528,7 +530,7 @@
       &lt;/xs:annotation&gt;
     &lt;/xs:attribute&gt;
 
-    &lt;xs:attribute name="externalURI" type="anyURI"&gt;
+    &lt;xs:attribute name="externalURI" type="niem-xs:anyURI"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A globally unique identifier (URI) for an artifact in another MPD that is reused by this MPD.
@@ -536,7 +538,7 @@
       &lt;/xs:annotation&gt;
     &lt;/xs:attribute&gt;
 
-    &lt;xs:attribute name="mimeMediaTypeText" type="string"&gt;
+    &lt;xs:attribute name="mimeMediaTypeText" type="niem-xs:string"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A classification for an MPD file artifact from the IANA MIME media classes: http://www.iana.org/assignments/media-types.
@@ -561,7 +563,7 @@
       &lt;/xs:complexContent&gt;
     &lt;/xs:complexType&gt;
 
-    &lt;xs:attribute name="resourceURI" type="anyURI"&gt;
+    &lt;xs:attribute name="resourceURI" type="niem-xs:anyURI"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A globally unique identifier (URI) for another MPD or document to which this MPD relates.
@@ -745,7 +747,7 @@
       &lt;/xs:complexContent&gt;
     &lt;/xs:complexType&gt;
 
-    &lt;xs:attribute name="xPathText" type="string"&gt;
+    &lt;xs:attribute name="xPathText" type="niem-xs:string"&gt;
       &lt;xs:annotation&gt;
 	&lt;xs:documentation&gt;An XPath expression.&lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
@@ -885,7 +887,7 @@
       &lt;/xs:complexContent&gt;
     &lt;/xs:complexType&gt;
 
-    &lt;xs:attribute name="conformanceTargetURI" type="anyURI"&gt;
+    &lt;xs:attribute name="conformanceTargetURI" type="niem-xs:anyURI"&gt;
       &lt;xs:annotation&gt;
         &lt;xs:documentation&gt;A URI for a conformance target.&lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
@@ -971,13 +973,13 @@
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
-    &lt;xs:element name="CreationDate" type="date"&gt;
+    &lt;xs:element name="CreationDate" type="niem-xs:date"&gt;
       &lt;xs:annotation&gt;
 	&lt;xs:documentation&gt;A date this MPD was published.&lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
-    &lt;xs:element name="LastRevisionDate" type="date"&gt;
+    &lt;xs:element name="LastRevisionDate" type="niem-xs:date"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A date the latest changes to an MPD were published (i.e., CreationDate of previous version).
@@ -985,7 +987,7 @@
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
-    &lt;xs:element name="StatusText"   type="string"&gt;
+    &lt;xs:element name="StatusText"   type="niem-xs:string"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A description of the current state of this MPD in development; may also project future plans for the MPD.
@@ -1000,7 +1002,7 @@
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
-    &lt;xs:element name="KeywordText"  type="string"&gt;
+    &lt;xs:element name="KeywordText"  type="niem-xs:string"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A common alias, term, or phrase that would help to facilitate search and discovery of this MPD.
@@ -1008,7 +1010,7 @@
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
-    &lt;xs:element name="DomainText"   type="string"&gt;
+    &lt;xs:element name="DomainText"   type="niem-xs:string"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A description of the environment or NIEM Domain in which this MPD is applicable or used.
@@ -1016,7 +1018,7 @@
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
-    &lt;xs:element name="PurposeText"  type="string"&gt;
+    &lt;xs:element name="PurposeText"  type="niem-xs:string"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A description of the intended usage and reason for which an MPD exists.
@@ -1024,7 +1026,7 @@
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
-    &lt;xs:element name="ExchangePatternText" type="string"&gt;
+    &lt;xs:element name="ExchangePatternText" type="niem-xs:string"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A description of a transactional or design pattern used for this IEPD (generally, only applicable to IEPDs).
@@ -1032,7 +1034,7 @@
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
-    &lt;xs:element name="ExchangePartnerName" type="string"&gt;
+    &lt;xs:element name="ExchangePartnerName" type="niem-xs:string"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
 		      A name of an entity or organization that uses this MPD (generally, only applicable to IEPDsP).
@@ -1040,7 +1042,7 @@
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
-&lt;/schema&gt;
+&lt;/xs:schema&gt;
 
 </pre><p>&nbsp;</p></div><div class="section"><a name="appendix_B"></a><div class="heading">Appendix B. Example Instance XML Document Catalog</div><p>[TBD]</p><pre>&lt;?xml version="1.0" encoding="US-ASCII"?&gt;
 &lt;c:Catalog 
