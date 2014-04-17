@@ -38,7 +38,7 @@ $(TOKENS_DIR)/mpd-catalog-xml--xsd-valid/%: % xml-catalog.xml $(XSDS)
 		then EXTCAT="-catalog $$EXT"; \
 		else EXTCAT=""; \
 	fi; \
-	$(IEAD_TOOLS_ROOT)/bin/xsdvalid -catalog xml-catalog.xml $$EXTCAT $<
+	$(IEAD_TOOLS_ROOT)/bin/xsdvalid -catalog mpd-xml-catalog.xml $$EXTCAT $<
 	@ mkdir -p $(dir $@)
 	@ touch $@
 
