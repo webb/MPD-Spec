@@ -18,7 +18,7 @@
 
 <pattern>
   <rule context="c:MPD">
-    <assert test="c:MasterDocument">A c:MPD MUST have a c:MasterDocument.</assert>
+    <assert test="c:ReadMe">A c:MPD MUST have a c:ReadMe.</assert>
   </rule>
   <rule context="c:MPD">
     <assert test="c:MPDChangeLog">A c:MPD MUST have a c:MPDChangeLog.</assert>
