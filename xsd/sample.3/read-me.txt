@@ -1,0 +1,42 @@
+CoT-NIEM is a NIEM 3.0-conformant Information Exchange Package
+Description (IEPD) designed to be an equivalent representation of the
+information in a CoT 2.0 message. The design goals, in priority order
+are:
+
+1. Support lossless round-trip translation from CoT 2.0 to CoT-NIEM
+   and vice versa
+2. Use GML components for geospatial information
+3. Reuse components from the NIEM core and domains
+4. Design geospatial components we wish we had found in the NIEM
+   MilOps domain
+
+The IEPD includes components for CoT 2.0 core, plus all stable
+subschemas. Of the stable subschemas:
+
+   * Shape     is captured in nc:LocationArea
+   * Track     is mof:EventMotion
+   * Spatial   is mof:RelativeOrientation
+   * Remarks   is mof:EventComment
+   * UID       is cot:EventExternalIDList
+   * Link      is cot:EventLink
+   * Image     is cot:EventImage
+   * Sensor    is cot:EventSensor
+   * Contact   is cot:EventContact
+   * Request   is cot:EventRequest
+   * Flowtag   is cot:EventMessageFlowtag
+
+The IEPD includes a "milops-future" subset schema This schema defines
+elements and types to be proposed for NIEM MilOps, connected with the
+general-purpose Event element and the Cursor-on-Target-equivalent
+version of that element.  This schema document is a subset schema with
+cardinality established for the NIEM-CoT IEPD.  When these components
+are defined for real in a reference schema, most element references will
+include the particles minOccurs="0" and maxOccurs="unbounded". For
+development purposes it is convenient to develop the subset schema in
+stages. The reference schema may be created later, once the definitions
+become stable, and it is time to propose changes to MilOps.
+
+The CoT-NIEM <event> element is derived from the milops-future <event>.
+Other similar what-where-when loose-coupler messages may also be derived
+from the milops-future <event>; for example, messages in the emergency
+responder domain.
