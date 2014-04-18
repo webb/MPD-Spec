@@ -2930,19 +2930,19 @@ Appendix F. Guidance for IEPD Directories (non-normative)
 
              *  mpd-extension-xml-catalog.xml
 
-      4.  Create the following subdirectories in the [MPD root directory]:
+      4.  Create the following directories within the [MPD root directory]:
 
-             *  base-xsd will contain the NIEM subset and its associated extension, external, and custom NIEM schema documents. These are the NIEM XML schema documents used to validate conformance of an instance XML document. Organize these schema documents within subdirectories of base-xsd. Subdirectories may include:
+             *  base-xsd -- will contain the NIEM subset and its associated extension, external, and custom NIEM schema documents. These are the NIEM XML schema documents used to validate conformance of an instance XML document. Subdirectories under base-xsd may include:
 
                    *  niem -- a NIEM schema subset organized exactly as the SSGT generates it (including its wantlist.xml and xml-catalog.xml).
 
-                   *  extension -- NIEM extension schema documents.
+                   *  extension -- for NIEM extension schema documents.
 
-                   *  external -- non-NIEM standards used by the IEPD.
+                   *  external -- for non-NIEM standards used by the IEPD.
 
-                   *  niem-custom -- NIEM schema documents that may be customized (extended or restricted) such as structures.xsd.
+                   *  niem-custom -- for NIEM schema documents that may be customized (extended or restricted) such as structures.xsd.
 
-             *  constraint-xsd will contain constraint schema documents organized as necessary. Usually this schema document set will be organized similarly to schema documents in base-xsd because it is customary to start with the base schema set and constrain them as necessary.
+             *  constraint-xsd -- will contain constraint schema documents organized as necessary. Usually this schema document set will be organized similarly to schema documents in base-xsd because it is customary to start with the base schema set and constrain them as necessary.
 
       5.  Create a schematron subdirectory for any Schematron schemas (or create the appropriate subdirectory name for any other kinds of business rule artifacts).
 
@@ -2954,9 +2954,11 @@ Appendix F. Guidance for IEPD Directories (non-normative)
 
       9.  Maintain a [NIEM wantlist] within the same subdirectory as the subset it generates.
 
-      10. If using a [reference schema document] set (such as a release), maintain it as originally downloaded. This will be the same as SSGT organizes a subset.
+      10. Maintain an xml-catalog.xml closest to the XML schema document set it relates to. Use nextCatalog elements as needed to help maintain this proximity.
 
-      11. Finally, if it becomes necessary to maintain multiple constraint-xsd or extension subdirectories (or any other subdirectories) together in the same directory, then simply suffix each directory name with a distinct character string (for example, extension1, extension2, etc.; or extension-abc, extension-zyx, etc.)
+      11. If using a [reference schema document] set (such as a release), maintain it as originally downloaded. This will be the same as SSGT organizes a subset.
+
+      12. Finally, if it becomes necessary to maintain multiple constraint-xsd or extension subdirectories (or any other subdirectories) together in the same directory, then simply suffix each directory name with a distinct character string (for example, extension1, extension2, etc.; or extension-abc, extension-zyx, etc.)
 
    Obviously, there are many other ways to organize for more complex business requirements in which a single IEPD or EIEM employs multiple releases, subsets, constraint sets, core updates, and domain updates. Regardless of directory organization and file naming, an IEPD or EIEM author must always configure all IEP conformance targets using the MPD catalog c:IEPConformanceTarget element and the appropriate validation artifacts (such as XML catalogs, Schematron schemas, RelaxNG schemas, etc.).
 
