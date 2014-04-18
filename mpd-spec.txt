@@ -48,7 +48,7 @@ Major changes in this draft relative to last
 
       4. Keep MPD root directory clear of artifacts that can be located in logically named sub-directories.
 
-      5. MPD catalog ToC entries are optional. xml-catalogs cover schema documents and schema document sets. Key docs have consistent names and reside in root directory. IEP samples are identified in IEPConformanceTarget. Read-me should reference or hyperlink to other documentation.
+      5. All MPD catalog ToC entries are optional. XML catalogs index all schema documents. Key docs have consistent names and reside in root directory. IEP samples are identified in IEPConformanceTarget. Read-me should reference (hyperlink) other documentation.
 
       6. non-normative guidance for /niem-custom
 
@@ -56,45 +56,43 @@ Major changes in this draft relative to last
 
       1. Moved "Conformance Assertion" section to mandatory artifacts.
 
-      2. Inserted proxy types (and namespace) into mpd-catalog-3.0.xsd Appendix A.
+      2. Added NIEM subset that supplements mpd-catalog-3.0.xsd.
 
-      3. Renamed master-document* to read-me.*
+      3. Inserted proxy types (and namespace) into mpd-catalog-3.0.xsd Appendix A.
 
-      4. Appendix F, the recommended file structure has a "niem-constraint" directory that is a sibling of niem, extension, etc. In my experience, people using IEPDs tend to take an entire directory of schemas and import them into a tool. If they use all of these schemas together (constraint and non-constraint) they will have duplicate definitions. I realize the catalog can be used to identify what should be used for individual validation passes, and the directory structure shouldn't have any official meaning. But it is a lot more convenient if all the schemas intended for one validation pass are separated into one directory (that contains the subdirectories niem, extension, etc.). I would recommend having a directory that is parallel to the constraint directory. Can't think of a great name, but maybe "base" (a la our previous concept of a base schema set) or "unconstrained".
+      4. Renamed master-document* to read-me.*
+
+      5. App F guidance: add base-xsd and constraint-xsd directories; move /niem-custom into base-xsd.
+
+      6. Validated CoT and all other samples.
 
 Remaining work and issues
 
-      1.  local URIs do not have to satisfy absolute constraint
+      1.  Local URIs do not have to satisfy absolute constraint.
 
-      2.  must fix rules 5.2, 5.3 conformance targets are incorrect
+      2.  Fix rules 5.2, 5.3 conformance targets are incorrect.
 
-      3.  Fix App F constraint schema directory guidance per bullet 2 above.
+      3.  Simple example of minimal conformance-assertion.
 
-      4.  niem-core subset for mpd-catalog-3.0.xsd
+      4.  Conformance targets (CT):
 
-      5.  simple example of minimal conformance-assertion
+             *  Missing any? Should be forked?
 
-      6.  Divide rules with multiple constraints into multiple rules with simple constraints.
-
-      7.  Conformance targets (CT):
-
-             *  Missing? Should be forked? (e.g., MPD, NIEM-EIEM, FN-EIEM?)
-
-             *  Correct classes? Interpretation or Constraint?
+             *  Correct class: Interpretation or Constraint?
 
              *  Correct CTs?
 
-      8.  Remaining TBDs (Search on "TBD" to find incomplete items.)
+      5.  Remaining TBDs (Search on "TBD" to find).
 
-      9.  Appendix for Schematron rules for MPD Catalog.
+      6.  Appendix for Schematron rules for MPD Catalog.
 
-      10. Appendix for Example IEP (from Cursor on Target).
+      7.  Appendix for Example IEP (from Cursor on Target).
 
-      11. Assemble resource tool kit: MPD catalog XSD, niem-core support subset, Schematron rules, example CoT IEP.
+      8.  Resource tool kit: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules, example CoT IEP.
 
-      12. QA and validity checks: MPD catalog schema, etc. (Appendices).
+      9.  QA and validity checks: MPD catalog schema, appendices, etc.
 
-      13. Final checks: typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.
+      10. Final checks: typos, acronyms/abbrevs, spelling, punctuation, missing refs or termRefs, consistency.
 
 1. Introduction
 
@@ -118,9 +116,11 @@ Remaining work and issues
 
       *  NIEM Implementation Guidelines [NIEM Implementation Guidance]
 
-   The foregoing NIEM documents are available at http://reference.niem.gov/niem/. See [NIEM Implementation Guidance] for NIEM Implementation Guidelines.
+      *  NIEM Conformance Target Attribute Specification [NIEM Conformance Target Attribute Specification]
 
-   Those knowledgeable of NIEM should be familiar with the [NIEM NDR], [NIEM High-Level Version Architecture], [NIEM Conformance], and [NIEM BIEC].
+   The foregoing NIEM documents are available at http://reference.niem.gov/niem/. See [NIEM Implementation Guidance] for NIEM Implementation Guidelines. Note that a few of these documents are relatively old, in particular the Concept of Operations and the User Guide. These documents are listed because they still provide a great deal of useful information for understanding NIEM. Just realize that some of the techniques and processes in these documents have changed since they were drafted.
+
+   Those knowledgeable of NIEM should be familiar with the [NIEM NDR], [NIEM High-Level Version Architecture], [NIEM Conformance], [NIEM Conformance Target Attribute Specification], and [NIEM BIEC].
 
    This MPD Specification v3.0 uses and is a peer to the NIEM Naming and Design Rules (NDR) [NIEM NDR]. It supersedes IEPD guidance previously published in Requirements for a NIEM IEPD [NIEM IEPD Requirements] and the NIEM User Guide [NIEM User Guide]. The NIEM User Guide remains a good source for understanding the process of building Information Exchange Package Documentation (IEPD). It also supersedes both MPD Specification v1.0 and v1.1.
 
@@ -1828,7 +1828,7 @@ Appendix A. MPD Catalog XML Schema Document
    
        <xs:import namespace="http://release.niem.gov/niem/structures/3.0/"/>
        <xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
-       <xs:import namespace="http://release.niem.gov/niem/proxy/3.0/"/>
+       <xs:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
    
        <xs:annotation>
    
@@ -2199,7 +2199,7 @@ Appendix A. MPD Catalog XML Schema Document
    
    <!-- Primitives ================================================================== -->
    
-       <xs:attribute name="mpdURI" type="niem-xs:anyURI">
+       <xs:attribute name="mpdURI" type="xs:anyURI">
          <xs:annotation>
    	      <xs:documentation>
    		      A globally unique identifier (URI) for an MPD.
@@ -2220,7 +2220,7 @@ Appendix A. MPD Catalog XML Schema Document
    	      </xs:documentation>
          </xs:annotation>
          <xs:restriction base="xs:token">
-   	<pattern value="[a-z]([-_]?[a-z0-9]+)*"/>
+   	<xs:pattern value="[a-z]([-_]?[a-z0-9]+)*"/>
          </xs:restriction>
        </xs:simpleType>
    
@@ -2239,7 +2239,7 @@ Appendix A. MPD Catalog XML Schema Document
    	      </xs:documentation>
          </xs:annotation>
          <xs:restriction base="xs:token">
-           <pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
+           <xs:pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
          </xs:restriction>
        </xs:simpleType>
    
@@ -2260,7 +2260,7 @@ Appendix A. MPD Catalog XML Schema Document
    		</xs:documentation>
    	</xs:annotation>
    	<xs:restriction base="c:ClassListSimpleType">
-   	    <minLength value="1"/>
+   	    <xs:minLength value="1"/>
    	</xs:restriction>
        </xs:simpleType>
    
@@ -2270,7 +2270,7 @@ Appendix A. MPD Catalog XML Schema Document
    			A data type for one or more codes or URIs for MPD classes.
    		</xs:documentation>
    	</xs:annotation>
-           <list itemType="c:ClassUnionSimpleType"/>
+           <xs:list itemType="c:ClassUnionSimpleType"/>
        </xs:simpleType>
    
        <xs:simpleType name="ClassUnionSimpleType">
@@ -2279,7 +2279,7 @@ Appendix A. MPD Catalog XML Schema Document
    			A data type for one of five MPD classes or a new class identified by URI.
    		</xs:documentation>
    	</xs:annotation>
-           <union memberTypes="c:MPDClassCodeSimpleType anyURI"/>
+           <xs:union memberTypes="c:MPDClassCodeSimpleType xs:anyURI"/>
        </xs:simpleType>
    
        <xs:simpleType name="MPDClassCodeSimpleType">
@@ -2320,7 +2320,7 @@ Appendix A. MPD Catalog XML Schema Document
    
    <!-- =========================================================================== -->
    
-       <xs:attribute name="pathURI" type="niem-xs:anyURI">
+       <xs:attribute name="pathURI" type="xs:anyURI">
          <xs:annotation>
    	      <xs:documentation>
    		      A URI for the pathname of a local artifact relative to the MPD root directory.
@@ -2328,7 +2328,7 @@ Appendix A. MPD Catalog XML Schema Document
          </xs:annotation>
        </xs:attribute>
    
-       <xs:attribute name="externalURI" type="niem-xs:anyURI">
+       <xs:attribute name="externalURI" type="xs:anyURI">
          <xs:annotation>
    	      <xs:documentation>
    		      A globally unique identifier (URI) for an artifact in another MPD that is reused by this MPD.
@@ -2336,7 +2336,7 @@ Appendix A. MPD Catalog XML Schema Document
          </xs:annotation>
        </xs:attribute>
    
-       <xs:attribute name="mimeMediaTypeText" type="niem-xs:string">
+       <xs:attribute name="mimeMediaTypeText" type="xs:string">
          <xs:annotation>
    	      <xs:documentation>
    		      A classification for an MPD file artifact from the IANA MIME media classes: http://www.iana.org/assignments/media-types.
@@ -2361,7 +2361,7 @@ Appendix A. MPD Catalog XML Schema Document
          </xs:complexContent>
        </xs:complexType>
    
-       <xs:attribute name="resourceURI" type="niem-xs:anyURI">
+       <xs:attribute name="resourceURI" type="xs:anyURI">
          <xs:annotation>
    	      <xs:documentation>
    		      A globally unique identifier (URI) for another MPD or document to which this MPD relates.
@@ -2545,7 +2545,7 @@ Appendix A. MPD Catalog XML Schema Document
          </xs:complexContent>
        </xs:complexType>
    
-       <xs:attribute name="xPathText" type="niem-xs:string">
+       <xs:attribute name="xPathText" type="xs:string">
          <xs:annotation>
    	<xs:documentation>An XPath expression.</xs:documentation>
          </xs:annotation>
@@ -2658,7 +2658,7 @@ Appendix A. MPD Catalog XML Schema Document
    		      A simple data type denoting a list of qualified names.
    	      </xs:documentation>
          </xs:annotation>
-         <list itemType="QName"/>
+         <xs:list itemType="xs:QName"/>
        </xs:simpleType>
    
        <xs:element name="ConformsToConformanceTarget" type="c:ConformanceTargetType" substitutionGroup="c:ValidityConstraint">
@@ -2685,7 +2685,7 @@ Appendix A. MPD Catalog XML Schema Document
          </xs:complexContent>
        </xs:complexType>
    
-       <xs:attribute name="conformanceTargetURI" type="niem-xs:anyURI">
+       <xs:attribute name="conformanceTargetURI" type="xs:anyURI">
          <xs:annotation>
            <xs:documentation>A URI for a conformance target.</xs:documentation>
          </xs:annotation>
@@ -2871,16 +2871,17 @@ Appendix B. Example Instance XML Document Catalog
         <c:ValidityContext c:xPathText="//ns:ParkingTicket">
          <c:XMLSchemaValid>
            <nc:DescriptionText>MUST be valid to this XML Schema.</nc:DescriptionText>
-           <c:XMLCatalog c:pathURI="xml-catalog.xml"/>
+   	<c:XMLCatalog c:pathURI="xml-catalog.xml"/>
+   	<c:XMLSchemaDocument c:pathURI="parking.xsd"/>
          </c:XMLSchemaValid>
          <c:SchematronValid>
            <c:SchematronSchema c:pathURI="rules.sch"/>
          </c:SchematronValid>
         </c:ValidityContext>
        </c:IEPConformanceTarget>
-       <c:MasterDocument
-          c:pathURI="master-document.html">
-       </c:MasterDocument>
+       <c:ReadMe
+          c:pathURI="read-me.html">
+       </c:ReadMe>
      </c:MPD>
    </c:Catalog>
    
@@ -2949,41 +2950,45 @@ Appendix F. Guidance for IEPD Directories (non-normative)
    	/my_iepd-3.2rev4	(root directory of IEPD archive)
    
    		mpd-catalog.xml
-   		mpd-extension-xml-catalog.xml
    		mpd-catalog-extension.xsd
+   		mpd-extension-xml-catalog.xml
    		changelog.*
-   		read-me.*
    		conformance-assertion.*
+   		read-me.*
    
-   		/niem
-   			/adaptors
-   			/appinfo
-   			/codes
-   			/conformanceTargets
-   			/domains
+   		/base-xsd
+   			/niem			(subset)
+   				/adaptors
+   				/appinfo
+   				/codes
+   				/conformanceTargets
+   				/domains
+   				/external
+   				/localTerminology
+   				/niem-core
+   				/proxy
+   				/structures
+   				wantlist.xml
+   				xml-catalog.xml
+   
+   			/niem-custom		(extension/restriction of structures)
+   				structures.xsd
+   
+   			/extension
+   				query.xsd
+   				response.xsd
+   				extension1.xsd
+   				extension2.xsd
+   				...
+   				xml-catalog.xml
+   
    			/external
-   			/localTerminology
-   			/niem-core
-   			/proxy
-   			/structures
-   			wantlist.xml
-   			xml-catalog.xml
+   				/stix
+   				/icism
+   				...
+   				xml-catalog.xml
    
-   		/extension
-   			query.xsd
-   			response.xsd
-   			extension1.xsd
-   			extension2.xsd
-   			...
-   			xml-catalog.xml
-   
-   		/external
-   			/stix
-   			/icism
-   			...
-   			xml-catalog.xml
-   
-   		/constraint		(use of constraint schema documents)
+   		/constraint-xsd			(constraint schema documents)
    			/niem			(constraints on subset)
    				/adaptors
    				/appinfo
@@ -2996,6 +3001,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
    				query.xsd
    				extension1.xsd
    				xml-catalog.xml
+   
    		/schematron
    			business-rules1.sch
    			business-rules2.sch
