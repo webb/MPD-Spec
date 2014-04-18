@@ -2265,21 +2265,21 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<li><p>If extending the <termRef>MPD catalog document</termRef>, then per <ref idref="r1-mpd-cat-ext-xml-cat"/> <code>mpd-extension-xml-catalog.xml</code> MUST reside in the same relative directory as the <code>mpd-catalog.xml</code> it supports - the <termRef>MPD root directory</termRef>.  <code>mpd-catalog-extension.xsd</code> can be anywhere in the MPD because <code>mpd-extension-xml-catalog.xml</code> must correlate its namespace to its URI.   However, we recommend all these files be co-located in the MPD root directory for visibility:</p>
 		<ul>
-			<li><p>mpd-catalog-extension.xsd</p></li>
-			<li><p>mpd-extension-xml-catalog.xml</p></li>
+			<li><p><code>mpd-catalog-extension.xsd</code></p></li>
+			<li><p><code>mpd-extension-xml-catalog.xml</code></p></li>
 		</ul></li>
 
-	<li><p>Create the following subdirectories in the <termRef>MPD root directory</termRef>:</p>
+	<li><p>Create the following directories within the <termRef>MPD root directory</termRef>:</p>
 		<ul>
-			<li><p><code>base-xsd</code> will contain the NIEM subset and its associated extension, external, and custom NIEM schema documents.  These are the NIEM XML schema documents used to validate conformance of an instance XML document.  Organize these schema documents within subdirectories of <code>base-xsd</code>.  Subdirectories may include:</p>
+			<li><p><code>base-xsd</code> <char name="mdash"/> will contain the NIEM subset and its associated extension, external, and custom NIEM schema documents.  These are the NIEM XML schema documents used to validate conformance of an instance XML document.  Subdirectories under <code>base-xsd</code> may include:</p>
 				<ul>
 					<li><p><code>niem</code> <char name="mdash"/> a NIEM schema subset organized exactly as the SSGT generates it (including its <code>wantlist.xml</code> and <code>xml-catalog.xml</code>).</p></li>
-					<li><p><code>extension</code> <char name="mdash"/> NIEM extension schema documents.</p></li>
-					<li><p><code>external</code> <char name="mdash"/> non-NIEM standards used by the IEPD.</p></li>
-					<li><p><code>niem-custom</code> <char name="mdash"/> NIEM schema documents that may be customized (extended or restricted) such as <code>structures.xsd</code>.</p></li>
+					<li><p><code>extension</code> <char name="mdash"/> for NIEM extension schema documents.</p></li>
+					<li><p><code>external</code> <char name="mdash"/> for non-NIEM standards used by the IEPD.</p></li>
+					<li><p><code>niem-custom</code> <char name="mdash"/> for NIEM schema documents that may be customized (extended or restricted) such as <code>structures.xsd</code>.</p></li>
 				</ul></li>
 
-			<li><p><code>constraint-xsd</code> will contain constraint schema documents organized as necessary.  Usually this schema document set will be organized similarly to schema documents in <code>base-xsd</code> because it is customary to start with the base schema set and constrain them as necessary.</p></li>
+				<li><p><code>constraint-xsd</code> <char name="mdash"/> will contain constraint schema documents organized as necessary.  Usually this schema document set will be organized similarly to schema documents in <code>base-xsd</code> because it is customary to start with the base schema set and constrain them as necessary.</p></li>
 		</ul></li>
 
 	<li><p>Create a <code>schematron</code> subdirectory for any Schematron schemas (or create the appropriate subdirectory name for any other kinds of business rule artifacts).</p></li>
@@ -2291,6 +2291,8 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<li><p>Create an <code>application-info</code> subdirectory for tool-specific artifacts (inputs, outputs, imports, exports, etc.).  Again, use additional subdirectories if needed to organize many artifacts of this nature.</p></li>
 
 	<li><p>Maintain a <termRef>NIEM wantlist</termRef> within the same subdirectory as the subset it generates.</p></li>
+
+	<li><p>Maintain an <code>xml-catalog.xml</code> closest to the XML schema document set it relates to.  Use <code>nextCatalog</code> elements as needed to help maintain this proximity.</p></li>
 
 	<li><p>If using a <termRef>reference schema document</termRef> set (such as a release), maintain it as originally downloaded.  This will be the same as SSGT organizes a subset.</p></li>
 
