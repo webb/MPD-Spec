@@ -1117,20 +1117,24 @@
 		<p>An <termRef>MPD catalog document</termRef> MUST be valid to <code>mpd-catalog-3.0.xsd</code> <ref idref="MPD-Catalog-XSD"/>.</p>
 	</rule>
 
+	<p>This rule only requires validation with <code>mpd-catalog-3.0.xsd</code> and does not require that this schema document be contained in an MPD.  Tools that validate <code>mpd-catalog.xml</code> will all access the same schema document to perform such.</p>
+
 	<rule id="r3-mpd-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An <termRef>MPD catalog document</termRef> MUST be valid to the NIEM MPD catalog Schematron rules [TBD].</p>
 	</rule>
 
-<p>Note that <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML schema definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef term="well-formed MPD">well-formed</termRef> from a <termRef>NIEM IEPD</termRef> during incremental stages of development.  This is explained in more detail in <ref idref="Well-Formed-MPD"/>.</p>
+	<p>Note that <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML schema definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef term="well-formed MPD">well-formed</termRef> from a <termRef>NIEM IEPD</termRef> during incremental stages of development.  This is explained in more detail in <ref idref="Well-Formed-MPD"/>.</p>
 
-<p>Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a <termRef>NIEM IEPD</termRef>, special Schematron rules also apply to an MPD catalog to ensure its validity or completeness.</p>
+	<p>Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a <termRef>NIEM IEPD</termRef>, special Schematron rules also apply to an MPD catalog to ensure its validity or completeness.</p>
 
 
 
 <section>
 	<title>NIEM Core Schema Document Subset that Supports MPD Catalog</title>
 
-	<p><ref idref="MPD-Catalog-XSD"/> is a NIEM-conformant schema document.  It reuses portions of the NIEM 3.0 Core (See <ref idref="NIEM-Core-Subset-XSD"/>).</p>
+	<p><ref idref="MPD-Catalog-XSD"/> is a NIEM-conformant schema document.  It reuses a schema document subset of NIEM 3.0 (primarily from NIEM Core).  <ref idref="NIEM-Core-Subset-XSD"/> is a listing of each schema document in this set.</p>
+
+	<p>As is the case with <code>mpd-catalog-3.0.xsd</code>, MPDs are not required to contain this schema document subset since it is always available here:  <link>http://reference.niem.gov/niem/specification/model-package-description/3.0/</link></p>
 
 </section>
 
@@ -2169,6 +2173,8 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<rule id="r-mpd-documents" applicability="N-IEPD" class="Constraint">
 		<p>A published IEPD SHOULD contain all documents necessary to understand it and facilitate its correct implementation.</p>
 	</rule>
+
+	<p><ref idref="r-mpd-documents"/>
 
 	<rule id="r-mpd-link-eiem" applicability="N-IEPD" class="Constraint">
 		<p>A published IEPD MUST link (through its MPD catalog) to any EIEM it is based on.</p>
