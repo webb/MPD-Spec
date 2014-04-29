@@ -52,39 +52,39 @@ Major changes:
 
       5. Revised Section 5, Conformance Targets, below.
 
-      6. .
+      6. Added Section 7.4, IEPD Completeness, below.
+
+      7. Added .
+
+      8. .
 
 Remaining work and issues
 
-      1.  Add back lower level cardinality constraints?
+      1.  Local URIs do not have to satisfy absolute constraint.
 
-      2.  Oxygen schema validation errors
+      2.  MPD must define schema assembly practical reality of schema assembly: procedures are loose; (1) XML catalog; (2) xs:import@schemaLocation
 
-      3.  Appendix for Schematron Rules: statement re Schematron rules TBD
+      3.  Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? 
 
-      4.  Do not include standard schemas: XS, XSI
+      4.  Add back lower level cardinality constraints?
 
-      5.  Do not include mpd-catalog-3.0.xsd or standard subset for unless extending mpd catalog schema and super subset is needed
+      5.  Oxygen schema validation errors
 
-      6.  MPD must define schema assembly practical reality of schema assembly: procedures are loose; (1) XML catalog; (2) xs:import@schemaLocation
+      6.  Appendix for Schematron Rules: statement re Schematron rules TBD
 
-      7.  Local URIs do not have to satisfy absolute constraint.
+      7.  Simple example of minimal conformance-assertion.
 
-      8.  Simple example of minimal conformance-assertion.
+      8.  Remaining TBDs (Search "TBD").
 
-      9.  Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? 
+      9.  Appendix for Schematron rules for MPD Catalog.
 
-      10. Remaining TBDs (Search "TBD").
+      10. Appendix for example IEP from Cursor on Target.
 
-      11. Appendix for Schematron rules for MPD Catalog.
+      11. Resource tool kit: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules, example CoT IEP.
 
-      12. Appendix for example IEP from Cursor on Target.
+      12. QA and validity checks: MPD catalog schema, appendices, etc.
 
-      13. Resource tool kit: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules, example CoT IEP.
-
-      14. QA and validity checks: MPD catalog schema, appendices, etc.
-
-      15. Final checks: typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
+      13. Final checks: typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
 
 1. Introduction
 
@@ -902,15 +902,15 @@ Remaining work and issues
 
    [Rule 4-4] (MPD-Cat)
 
-      An MPD extension XML catalog document MUST reside in the same relative directory as the mpd-catalog.xml artifact (normally in the [MPD root directory])
+      An MPD catalog extension XML catalog document MUST reside in the same relative directory as the mpd-catalog.xml artifact (normally in the [MPD root directory])
 
    [Rule 4-5] (MPD-Cat)
 
-      An MPD extension XML catalog document MUST bear the file name (and type) mpd-catalog-extension-xml-catalog.xml.
+      An MPD catalog extension XML catalog document MUST bear the file name (and type) mpd-catalog-extension-xml-catalog.xml.
 
    [Rule 4-6] (MPD-Cat)
 
-      An MPD extension XML catalog document MUST [resolve] all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.
+      An MPD catalog extension XML catalog document MUST [resolve] all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.
 
    So, when a processor identifies a file named mpd-catalog-extension-xml-catalog.xml in the [MPD root directory], it can assume that it contains references to one or more MPD catalog extension schema documents that adhere to the following rules:
 
@@ -1780,9 +1780,19 @@ Remaining work and issues
 
    Releases, core updates, and domain updates must adhere to packaging rules primarily to enable development tools to process them consistently and efficiently. The NIEM PMO controls the format and documentation for these MPDs and publishes them at http://release.niem.gov/niem/. However, many different organizations author IEPDs and EIEMs. As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others. Furthermore, EIEMs are the basis for families of IEPDs. Therefore, it is important that both of these MPD classes are well documented for understanding and use.
 
+7.4. IEPD Completeness
+
+   Since an IEPD defines an information exchange and is often implemented by persons other than the original author, it is important to ensure that they are relatively complete and provide all artifacts needed to use the IEPD.
+
    [Rule 7-8] (N-IEPD)
 
-      A published IEPD SHOULD contain all documents necessary to understand it and facilitate its correct implementation.
+      A published IEPD SHOULD contain all artifacts needed to understand it and facilitate its correct implementation.
+
+   The rule above means that an IEPD implementer should not be forced to search for or track down specialized schema documents, documentation, or other artifacts required to validate and implement exchanges defined by an IEPD. Specialized artifacts refer to those designed and built by an IEPD author, not artifacts that are standards and publicly available to all implementers. For example, this rule does not imply that an IEPD should contain a schema document that defines the XML schema component vocabulary identified by the namespace name http://www.w3.org/2001/XMLSchema (i.e., XS), or http://www.w3.org/2001/XMLSchema-instance (i.e., XSI). All schema processors have appropriate declarations for these built in. Likewise, an IEPD is not required to contain mpd-catalog-3.0.xsd or the standard NIEM subset that supports it.
+
+   On the other hand, an IEPD whose author has extended the MPD catalog schema is clearly required to contain the catalog extension schema document, since this is a specialized customization created by the author. If a different NIEM schema subset is also used, then the IEPD must also contain its superset (i.e., a complete subset that incorporates both the original subset with additional NIEM components used to extend the catalog schema document; see [Rule 4-9], above.)
+
+   Another rationale for relaxing [Rule 7-8], above, to "SHOULD" relates to issues of security. Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validition and implementation, instead of circulating them within a public IEPD. Implementers would then be expected to know how and where to obtain the required documents.
 
    [Rule 7-9] (N-IEPD)
 
@@ -1808,7 +1818,7 @@ Remaining work and issues
 
    In some cases, it may not be possible to include all artifacts, even schemas, in an MPD without violating laws, regulations, or policies. For example, an IEPD may require use of a schema document that is not publicly accessible; it might be classified or controlled unclassified information (CUI). This is a valid reason for exception to [Rule 7-11], above. If the IEPD is placed in the public domain, the author should omit the non-public schema document, and if appropriate, document the omission, and explain where and/or how the missing schema document can be obtained.
 
-7.4. Duplication of Artifacts
+7.5. Duplication of Artifacts
 
    Within an MPD, the replication of files or entire file sets should be avoided. However, replication is allowed if a reasonable rationale exists. In some cases, file replication may make it easier to use, validate, implement, or automatically process an MPD. For example, multiple subsets and/or constraint sets may overlap in many identical schema documents. Yet, allowing this duplication may be easier or necessary to accommodate a validation tool, rather than removing duplicate schema documents, and forcing the tool to search for them. Whenever possible, use XML catalogs to coordinate schema assembly.
 
