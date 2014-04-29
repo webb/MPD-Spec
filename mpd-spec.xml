@@ -25,7 +25,7 @@
   	<title>Contents</title>
   	<tableOfContents/>
   </subsection>
-
+  
   <subsection>
 	<title>Abstract</title>
 	<p>This document specifies normative rules and non-normative guidance for building Model Package Descriptions (MPDs) that conform to the National Information Exchange Model (NIEM) version 3.0.</p>
@@ -61,6 +61,8 @@
 		<li><p>Changed <ref idref="r-mpd-documents"/> from MUST to SHOULD.</p></li>
 		<li><p>Lots of minor corrections to <ref idref="Guidance-IEPD-Directories"/>.</p></li>
 		<li><p>Revised <ref idref="Conformance-Targets"/>.</p></li>
+		<li><p>Added <ref idref="IEPD-Completeness"/>.</p></li>
+		<li><p>Added .</p></li>
 		<li><p>.</p></li>
 	</ol>
 
@@ -68,15 +70,13 @@
 
 	<title>Remaining work and issues</title>
 	<ol>
+		<li><p>Local URIs do not have to satisfy absolute constraint.</p></li>
+		<li><p>MPD must define schema assembly practical reality of schema assembly: procedures are loose; (1) XML catalog; (2) xs:import@schemaLocation</p></li>
+		<li><p>Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? </p></li>
 		<li><p>Add back lower level cardinality constraints?</p></li>
 		<li><p>Oxygen schema validation errors</p></li>
 		<li><p>Appendix for Schematron Rules:  statement re Schematron rules TBD</p></li>
-		<li><p>Do not include standard schemas:  XS, XSI</p></li>
-		<li><p>Do not include mpd-catalog-3.0.xsd or standard subset for unless extending mpd catalog schema and super subset is needed</p></li>
-		<li><p>MPD must define schema assembly practical reality of schema assembly: procedures are loose; (1) XML catalog; (2) xs:import@schemaLocation</p></li>
-		<li><p>Local URIs do not have to satisfy absolute constraint.</p></li>
 		<li><p>Simple example of minimal conformance-assertion.</p></li>
-		<li><p>Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? </p></li>
    		<li><p>Remaining TBDs (Search "TBD").</p></li>
 		<li><p>Appendix for Schematron rules for MPD Catalog.</p></li>
 		<li><p>Appendix for example IEP from Cursor on Target.</p></li>
@@ -1167,15 +1167,15 @@
 	<p>The following rules specify the requirements for an MPD catalog extension XML catalog document:</p>
 
 	<rule id="r1-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
-		<p>An MPD extension XML catalog document MUST reside in the same relative directory as the <code>mpd-catalog.xml</code> artifact (normally in the <termRef>MPD root directory</termRef>)</p>
+		<p>An MPD catalog extension XML catalog document MUST reside in the same relative directory as the <code>mpd-catalog.xml</code> artifact (normally in the <termRef>MPD root directory</termRef>)</p>
 	</rule>
 
 	<rule id="r2-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
-		<p>An MPD extension XML catalog document MUST bear the file name (and type) <code>mpd-catalog-extension-xml-catalog.xml</code>.</p>
+		<p>An MPD catalog extension XML catalog document MUST bear the file name (and type) <code>mpd-catalog-extension-xml-catalog.xml</code>.</p>
 	</rule>
 
 	<rule id="r3-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
-		<p>An MPD extension XML catalog document MUST <termRef term="resolve URI">resolve</termRef> all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.</p>
+		<p>An MPD catalog extension XML catalog document MUST <termRef term="resolve URI">resolve</termRef> all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.</p>
 	</rule>
 
 	<p>So, when a processor identifies a file named <code>mpd-catalog-extension-xml-catalog.xml</code> in the <termRef>MPD root directory</termRef>, it can assume that it contains references to one or more MPD catalog extension schema documents that adhere to the following rules:</p>
@@ -2170,9 +2170,25 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>Releases, core updates, and domain updates must adhere to packaging rules primarily to enable development tools to process them consistently and efficiently.  The NIEM PMO controls the format and documentation for these MPDs and publishes them at <link>http://release.niem.gov/niem/</link>.  However, many different organizations author IEPDs and EIEMs.  As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others.  Furthermore, EIEMs are the basis for families of IEPDs.  Therefore, it is important that both of these MPD classes are well documented for understanding and use.</p>
 
+
+</section>
+
+
+
+<section id="IEPD-Completeness">
+	<title="IEPD Completeness"/>
+
+	<p>Since an IEPD defines an information exchange and is often implemented by persons other than the original author, it is important to ensure that they are relatively complete and provide all artifacts needed to use the IEPD.</p>
+
 	<rule id="r-mpd-documents" applicability="N-IEPD" class="Constraint">
-		<p>A published IEPD SHOULD contain all documents necessary to understand it and facilitate its correct implementation.</p>
+		<p>A published IEPD SHOULD contain all artifacts needed to understand it and facilitate its correct implementation.</p>
 	</rule>
+
+	<p>The rule above means that an IEPD implementer should not be forced to search for or track down specialized schema documents, documentation, or other artifacts required to validate and implement exchanges defined by an IEPD.  Specialized artifacts refer to those designed and built by an IEPD author, not artifacts that are standards and publicly available to all implementers.  For example, this rule does not imply that an IEPD should contain a schema document that defines the XML schema component vocabulary identified by the namespace name <code>http://www.w3.org/2001/XMLSchema</code> (i.e., XS), or <code>http://www.w3.org/2001/XMLSchema-instance</code> (i.e., XSI).  All schema processors have appropriate declarations for these built in.  Likewise, an IEPD is not required to contain <code>mpd-catalog-3.0.xsd</code> or the standard NIEM subset that supports it.</p>
+
+	<p>On the other hand, an IEPD whose author has extended the MPD catalog schema is clearly required to contain the catalog extension schema document, since this is a specialized customization created by the author.  If a different NIEM schema subset is also used, then the IEPD must also contain its superset (i.e., a complete subset that incorporates both the original subset with additional NIEM components used to extend the catalog schema document; see <ref idref="r3-mpd-cat-ext-xsd"/>.)</p>
+
+	<p>Another rationale for relaxing <ref idref="r-mpd-documents"/> to "SHOULD" relates to issues of security.  Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose.  In such cases, it may be necessary to simply refer to schema documents that are required for validition and implementation, instead of circulating them within a public IEPD.  Implementers would then be expected to know how and where to obtain the required documents.</p>
 
 	<rule id="r-mpd-link-eiem" applicability="N-IEPD" class="Constraint">
 		<p>A published IEPD MUST link (through its MPD catalog) to any EIEM it is based on.</p>
