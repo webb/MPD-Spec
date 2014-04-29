@@ -70,6 +70,7 @@
 
 	<title>Remaining work and issues</title>
 	<ol>
+		<li><p>rewrite rule to use elements that can be represented in XPath for Schematron <ref idref="r-mpd-link-eiem"/>.</p></li>
 		<li><p>Local URIs do not have to satisfy absolute constraint.</p></li>
 		<li><p>MPD must define schema assembly practical reality of schema assembly: procedures are loose; (1) XML catalog; (2) xs:import@schemaLocation</p></li>
 		<li><p>Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? </p></li>
@@ -2181,7 +2182,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<p>Since an IEPD defines an information exchange and is often implemented by persons other than the original author, it is important to ensure that they are relatively complete and provide all artifacts needed to use the IEPD.</p>
 
 	<rule id="r-mpd-documents" applicability="N-IEPD" class="Constraint">
-		<p>A published IEPD SHOULD contain all artifacts needed to understand it and facilitate its correct implementation.</p>
+		<p>An IEPD SHOULD contain all artifacts needed to understand it and facilitate its correct implementation.</p>
 	</rule>
 
 	<p>The rule above means that an IEPD implementer should not be forced to search for or track down specialized schema documents, documentation, or other artifacts required to validate and implement exchanges defined by an IEPD.  Specialized artifacts refer to those designed and built by an IEPD author, not artifacts that are standards and publicly available to all implementers.  For example, this rule does not imply that an IEPD should contain a schema document that defines the XML schema component vocabulary identified by the namespace name <code>http://www.w3.org/2001/XMLSchema</code> (i.e., XS), or <code>http://www.w3.org/2001/XMLSchema-instance</code> (i.e., XSI).  All schema processors have appropriate declarations for these built in.  Likewise, an IEPD is not required to contain <code>mpd-catalog-3.0.xsd</code> or the standard NIEM subset that supports it.</p>
@@ -2191,7 +2192,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<p>Another rationale for relaxing <ref idref="r-mpd-documents"/> to "SHOULD" relates to issues of security.  Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose.  In such cases, it may be necessary to simply refer to schema documents that are required for validition and implementation, instead of circulating them within a public IEPD.  Implementers would then be expected to know how and where to obtain the required documents.</p>
 
 	<rule id="r-mpd-link-eiem" applicability="N-IEPD" class="Constraint">
-		<p>A published IEPD MUST link (through its MPD catalog) to any EIEM it is based on.</p>
+		<p>An IEPD MUST link (through its MPD catalog) to any EIEM it is based on.</p>
 	</rule>
 
 	<p>Refer to <ref idref="r-mpd-mime"/> for Internet representation of IEPDs or EIEMs.</p>
