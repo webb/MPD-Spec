@@ -54,9 +54,9 @@ Major changes:
 
       6. Added Section 7.4, IEPD Completeness, below.
 
-      7. Added .
+      7. Added definition for [XML schema assembly].
 
-      8. .
+      8. Added statement that the MPD method for [XML schema assembly] is use of XML catalogs.
 
 Remaining work and issues
 
@@ -64,29 +64,25 @@ Remaining work and issues
 
       2.  Local URIs do not have to satisfy absolute constraint.
 
-      3.  MPD must define schema assembly practical reality of schema assembly: procedures are loose; (1) XML catalog; (2) xs:import@schemaLocation
+      3.  Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? 
 
-      4.  Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? 
+      4.  Add back lower level cardinality constraints?
 
-      5.  Add back lower level cardinality constraints?
+      5.  Oxygen schema validation errors
 
-      6.  Oxygen schema validation errors
+      6.  Simple example of minimal conformance-assertion.
 
-      7.  Appendix for Schematron Rules: statement re Schematron rules TBD
+      7.  Remaining TBDs (Search "TBD").
 
-      8.  Simple example of minimal conformance-assertion.
+      8.  Appendix for Schematron rules for all CTs; MPD Catalog, etc.
 
-      9.  Remaining TBDs (Search "TBD").
+      9.  Appendix for example IEP from Cursor on Target.
 
-      10. Appendix for Schematron rules for MPD Catalog.
+      10. Resource tool kit: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules, example CoT IEP, conform-assert.
 
-      11. Appendix for example IEP from Cursor on Target.
+      11. QA and validity checks: MPD catalog schema, appendices, etc.
 
-      12. Resource tool kit: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules, example CoT IEP.
-
-      13. QA and validity checks: MPD catalog schema, appendices, etc.
-
-      14. Final checks: typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
+      12. Final checks: typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
 
 1. Introduction
 
@@ -262,7 +258,11 @@ Remaining work and issues
 
       A physical (file) representation of part or all of an [XML Schema]. One or more XML schema documents are used to assemble [schema components] into an [XML Schema].
 
-   So, in other words, an [XML Schema] is the result of processing a set of one or more [XML schema documents] into a single entity. That entity is most commonly an electronic image in the memory of a computer.
+   [Definition: XML schema assembly]
+
+      A process that uses [XML schema documents] to identify the constituent [schema components] for an [XML Schema], and correctly sequences and structures these components to construct a single entity, the [XML Schema].
+
+   In other words, an [XML Schema] is the result of [XML schema assembly], processing a set of one or more [XML schema documents] into a single entity. That entity is most commonly an electronic image in the memory of a computer.
 
    This specification often refers to the process of [XML schema validation], that is, validation of an instance XML document to confirm it adheres to the structure defined by a particular [XML Schema]. Generally, this should occur periodically during and after design time to ensure the conformance and quality of an information exchange definition (i.e., [XML schema documents]) and associated instance XML documents. However, local architecture or policy may dictate the need to validate more often, and in some cases may require runtime validation.
 
@@ -1257,13 +1257,15 @@ Remaining work and issues
 
    Assembling a schema or building an [XML catalog document] from the XML schema documents of non-conformant external standards that contain xs:include statements can be problematic. Be aware that if an xml-catalog (resulting from processing a set of external XML schema documents) contains any two er:uri element entries with identical namespaces, then that xml-catalog cannot be used for XML validation. It will have to be modified to ensure that each namespace resolves to one and only one unique [XML catalog document] er:uri attribute value.
 
-   In order to support schema assembly for the purpose of XML validation, the following rule requires that the namespaces of all XML schema documents used within an IEPD [resolve] to a locally-unique artifact:
+   In order to support [XML schema assembly] for the purpose of [XML schema validation], the following rule requires that the namespaces of all XML schema documents used within an IEPD [resolve] to a locally-unique artifact:
 
    [Rule 4-20] (WF-MPD)
 
       An MPD whose c:mpdClassCode attribute value list contains iepd or eiem MUST [resolve] each namespace it uses to a locally unique URI through one or more [XML catalog documents].
 
    This rule implies that er:NextCatalog elements may be used within [XML catalog documents] to connect them and control their parsing sequence. An IEPD must contain at least one [XML catalog document] because it is the only MPD that can specify an IEP [Definition: Information Exchange Package (IEP)], above, and provide validation instructions that would require schema assembly from XML schema documents. Section 4.6, Information Exchange Packages, below, provides more specifics about using [XML catalog documents] within IEPDs.
+
+   The practical reality of [XML schema assembly] is that the process is based on several methods for identifying the correct [XML schema documents], and these methods may be applied in no particular order. For the purpose of this MPD Specification, the first and primary method for MPDs is the use of XML catalogs, even though NIEM schema documents often have valid URIs in schemaLocation attributes.
 
 4.6. Information Exchange Packages
 
