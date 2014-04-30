@@ -1542,7 +1542,7 @@
 
 	<p>Assembling a schema or building an <termRef>XML catalog document</termRef> from the XML schema documents of non-conformant external standards that contain <code>xs:include</code> statements can be problematic.  Be aware that if an xml-catalog (resulting from processing a set of external XML schema documents) contains any two <code>er:uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation.  It will have to be modified to ensure that each namespace resolves to one and only one unique <termRef>XML catalog document</termRef> <code>er:uri</code> attribute value.</p>
 
-	<p>In order to support <termRef>XML schema assembly</termRef> for the purpose of <termRef>XML validation</termRef>, the following rule requires that the namespaces of all XML schema documents used within an IEPD <termRef term="resolve URI">resolve</termRef> to a locally-unique artifact:</p>
+	<p>In order to support <termRef>XML schema assembly</termRef> for the purpose of <termRef>XML schema validation</termRef>, the following rule requires that the namespaces of all XML schema documents used within an IEPD <termRef term="resolve URI">resolve</termRef> to a locally-unique artifact:</p>
 
 	<rule id="r-xml-cat-resolution" applicability="WF-MPD" class="Constraint">
 		<p>An MPD whose <code>c:mpdClassCode</code> attribute value list contains <code>iepd</code> or <code>eiem</code> MUST <termRef term="resolve URI">resolve</termRef> each namespace it uses to a locally unique URI through one or more <termRef term="XML catalog document">XML catalog documents</termRef>.</p>
@@ -1550,7 +1550,7 @@
 
 	<p>This rule implies that <code>er:NextCatalog</code> elements may be used within <termRef term="XML catalog document">XML catalog documents</termRef> to connect them and control their parsing sequence.  An IEPD must contain at least one <termRef>XML catalog document</termRef> because it is the only MPD that can specify an IEP <ref idref="IEP"/> and provide validation instructions that would require schema assembly from XML schema documents.  <ref idref="Information-Exchange-Packages"/> provides more specifics about using <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs.</p>
 
-	<p>The practical reality of <termRef>XML schema assembly</termRef> is that the process is based on several methods for identifying the correct <termRef>schema documents</termRef>, and these methods may be applied in no particular order.  For the purpose of this MPD Specification, the first and primary method for MPDs is the use of XML catalogs, even though NIEM schema documents often have valid URIs in <code>schemaLocation</code> attributes.</p>
+	<p>The practical reality of <termRef>XML schema assembly</termRef> is that the process is based on several methods for identifying the correct <termRef>XML schema documents</termRef>, and these methods may be applied in no particular order.  For the purpose of this MPD Specification, the first and primary method for MPDs is the use of XML catalogs, even though NIEM schema documents often have valid URIs in <code>schemaLocation</code> attributes.</p>
 
 </section>
 
