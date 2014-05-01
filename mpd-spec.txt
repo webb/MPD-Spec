@@ -42,49 +42,51 @@ Major changes:
 
    Beta 1
 
-      1. Added Rule 4-9, below, and text above it.
+      1.  Added Rule 4-9, below, and text above it.
 
-      2. Removed first two sentences of first paragraph of Section 7.3, Artifact Links to Other Resources, below.
+      2.  Removed first two sentences of first paragraph of Section 7.3, Artifact Links to Other Resources, below.
 
-      3. Changed Rule 7-8, below, from MUST to SHOULD.
+      3.  Changed Rule 7-9, below, from MUST to SHOULD.
 
-      4. Lots of minor corrections to Appendix G, Guidance for IEPD Directories (non-normative), below.
+      4.  Lots of minor corrections to Appendix G, Guidance for IEPD Directories (non-normative), below.
 
-      5. Revised Section 5, Conformance Targets, below.
+      5.  Revised Section 5, Conformance Targets, below.
 
-      6. Added Section 7.4, IEPD Completeness, below.
+      6.  Added Section 7.4, IEPD Completeness, below.
 
-      7. Added definition for [XML schema assembly].
+      7.  Added definition for [XML schema assembly].
 
-      8. Added statement that the MPD method for [XML schema assembly] is use of XML catalogs.
+      8.  Added statement that the MPD method for [XML schema assembly] is use of XML catalogs.
 
-      9. Added Appendix for Appendix E, Common MPD Artifacts, below.
+      9.  Added Appendix for Appendix E, Common MPD Artifacts, below.
+
+      10. Revised wording of Rule 7-8, below, for Schematron.
+
+      11. Added "derives_from" to mpd-catalog-3.0.xsd to support revision to Rule 7-8, below.
 
 Remaining work and issues
 
-      1.  rewrite rule to use elements that can be represented in XPath for Schematron Rule 7-9, below.
+      1.  Local URIs do not have to satisfy absolute constraint.
 
-      2.  Local URIs do not have to satisfy absolute constraint.
+      2.  Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? 
 
-      3.  Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? 
+      3.  Add back lower level cardinality constraints?
 
-      4.  Add back lower level cardinality constraints?
+      4.  Oxygen schema validation errors
 
-      5.  Oxygen schema validation errors
+      5.  Simple example of minimal conformance-assertion.
 
-      6.  Simple example of minimal conformance-assertion.
+      6.  Remaining TBDs (Search "TBD").
 
-      7.  Remaining TBDs (Search "TBD").
+      7.  Appendix for Schematron rules for all CTs; MPD Catalog, etc.
 
-      8.  Appendix for Schematron rules for all CTs; MPD Catalog, etc.
+      8.  Appendix for example IEP from Cursor on Target.
 
-      9.  Appendix for example IEP from Cursor on Target.
+      9.  Resource tool kit: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules, example CoT IEP, conform-assert.
 
-      10. Resource tool kit: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules, example CoT IEP, conform-assert.
+      10. QA and validity checks: MPD catalog schema, appendices, etc.
 
-      11. QA and validity checks: MPD catalog schema, appendices, etc.
-
-      12. Final checks: typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
+      11. Final checks: typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
 
 1. Introduction
 
@@ -1778,13 +1780,17 @@ Remaining work and issues
 
       Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST [resolve] (If applicable, documentation SHOULD describe how to [resolve] with security, account, and/or password issues).
 
-   Releases, core updates, and domain updates must adhere to packaging rules primarily to enable development tools to process them consistently and efficiently. The NIEM PMO controls the format and documentation for these MPDs and publishes them at http://release.niem.gov/niem/. However, many different organizations author IEPDs and EIEMs. As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others. Furthermore, EIEMs are the basis for families of IEPDs. Therefore, it is important that both of these MPD classes are well documented for understanding and use.
+   Releases, core updates, and domain updates must adhere to packaging rules primarily to enable development tools to process them consistently and efficiently. The NIEM PMO controls the format and documentation for these MPDs and publishes them at http://release.niem.gov/niem/. However, many different organizations author IEPDs and EIEMs. As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others. Furthermore, EIEMs are the basis for families of IEPDs. Therefore, it is important that both of these MPD classes are well documented for understanding and use. An IEPD that has been derived from an EIEM should identify that relationship through its MPD catalog.
+
+   [Rule 7-8] (N-IEPD)
+
+      The [MPD catalog document] for an IEPD that belongs to a family of IEPDs derived from an EIEM, MUST have a c:MPDInformation/c:Relationship that owns a c:RelationshipCode="derived_from" attribute and a c:resourceURI attribute whose value [resolves] to an EIEM resource.
 
 7.4. IEPD Completeness
 
    Since an IEPD defines an information exchange and is often implemented by persons other than the original author, it is important to ensure that they are relatively complete and provide all artifacts needed to use the IEPD.
 
-   [Rule 7-8] (N-IEPD)
+   [Rule 7-9] (N-IEPD)
 
       An IEPD SHOULD contain all artifacts needed to understand it and facilitate its correct implementation.
 
@@ -1792,13 +1798,7 @@ Remaining work and issues
 
    On the other hand, an IEPD whose author has extended the MPD catalog schema is clearly required to contain the catalog extension schema document, since this is a specialized customization created by the author. If a different NIEM schema subset is also used, then the IEPD must also contain its superset (i.e., a complete subset that incorporates both the original subset with additional NIEM components used to extend the catalog schema document; see Rule 4-9, above.)
 
-   Another rationale for relaxing Rule 7-8, above, to "SHOULD" relates to issues of security. Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validition and implementation, instead of circulating them within a public IEPD. Implementers would then be expected to know how and where to obtain the required documents.
-
-   [Rule 7-9] (N-IEPD)
-
-      An IEPD MUST link (through its MPD catalog) to any EIEM it is based on.
-
-   Refer to Rule 7-6, above, for Internet representation of IEPDs or EIEMs.
+   The rationale for "SHOULD" in Rule 7-9, above, relates to issues of security. Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validition and implementation, instead of circulating them within a public IEPD. Implementers would then be expected to know how and where to obtain the required documents.
 
    The [NIEM NDR] explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant. Other standards may use xs:import without requiring schemaLocation attributes (instead, relying only on the namespace value). These standards may also use xs:include. This XML Schema construct is disallowed by NIEM. When standards external to NIEM are required within MPDs, the following rule applies:
 
@@ -2916,9 +2916,11 @@ Appendix E. Common MPD Artifacts
 
    Notes:
 
-      *  (R) with name indicates a required artifact for every MPD.
+      *  (R) in artifact name indicates a required artifact for every MPD.
 
       *  (ref) in definition indicates name is hotlinked to a definition in specification text.
+
+      *  * in filename syntax indicates wildcard.
 
       Artifact name|Filename syntax|Definition
 
@@ -3321,7 +3323,7 @@ Appendix K. Index of Rules
    Rule 7-5: Section 7.2, MPD File Name Syntax
    Rule 7-6: Section 7.2, MPD File Name Syntax
    Rule 7-7: Section 7.3, Artifact Links to Other Resources
-   Rule 7-8: Section 7.4, IEPD Completeness
+   Rule 7-8: Section 7.3, Artifact Links to Other Resources
    Rule 7-9: Section 7.4, IEPD Completeness
    Rule 7-10: Section 7.4, IEPD Completeness
    Rule 7-11: Section 7.4, IEPD Completeness
