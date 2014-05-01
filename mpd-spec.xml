@@ -65,6 +65,7 @@
 		<li><p>Added definition for <termRef>XML schema assembly</termRef>.</p></li>
 		<li><p>Added statement that the MPD method for <termRef>XML schema assembly</termRef> is use of XML catalogs.</p></li>
 		<li><p>Added Appendix for <ref idref="MPD-Artifacts"/>.</p></li>
+		<li><p>Revised wording of <ref idref="r-mpd-link-eiem"/> for Schematron.</p></li>
 	</ol>
 
 </subsection>
@@ -73,7 +74,6 @@
 
 	<title>Remaining work and issues</title>
 	<ol>
-		<li><p>rewrite rule to use elements that can be represented in XPath for Schematron <ref idref="r-mpd-link-eiem"/>.</p></li>
 		<li><p>Local URIs do not have to satisfy absolute constraint.</p></li>
 		<li><p>Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? </p></li>
 		<li><p>Add back lower level cardinality constraints?</p></li>
@@ -2169,8 +2169,11 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 		<p>Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST <termRef term="resolve URI">resolve</termRef> (If applicable, documentation SHOULD describe how to <termRef term="resolve URI">resolve</termRef> with security, account, and/or password issues).</p>
 	</rule>
 
-	<p>Releases, core updates, and domain updates must adhere to packaging rules primarily to enable development tools to process them consistently and efficiently.  The NIEM PMO controls the format and documentation for these MPDs and publishes them at <link>http://release.niem.gov/niem/</link>.  However, many different organizations author IEPDs and EIEMs.  As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others.  Furthermore, EIEMs are the basis for families of IEPDs.  Therefore, it is important that both of these MPD classes are well documented for understanding and use.</p>
+	<p>Releases, core updates, and domain updates must adhere to packaging rules primarily to enable development tools to process them consistently and efficiently.  The NIEM PMO controls the format and documentation for these MPDs and publishes them at <link>http://release.niem.gov/niem/</link>.  However, many different organizations author IEPDs and EIEMs.  As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others.  Furthermore, EIEMs are the basis for families of IEPDs.  Therefore, it is important that both of these MPD classes are well documented for understanding and use.  An IEPD that has been derived from an EIEM should identify that relationship through its MPD catalog.</p>
 
+	<rule id="r-mpd-link-eiem" applicability="N-IEPD" class="Constraint">
+		<p>The <termRef>MPD catalog document</termRef> for an IEPD that belongs to a family of IEPDs derived from an EIEM, MUST have a <code>c:MPDInformation/c:Relationship</code> that owns a <code>c:RelationshipCode="derived_from"</code> attribute and a <code>c:resourceURI</code> attribute whose value <termRef term="resolve URI">resolves</termRef> to an EIEM resource.</p>
+	</rule>
 
 </section>
 
@@ -2189,13 +2192,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>On the other hand, an IEPD whose author has extended the MPD catalog schema is clearly required to contain the catalog extension schema document, since this is a specialized customization created by the author.  If a different NIEM schema subset is also used, then the IEPD must also contain its superset (i.e., a complete subset that incorporates both the original subset with additional NIEM components used to extend the catalog schema document; see <ref idref="r3-mpd-cat-ext-xsd"/>.)</p>
 
-	<p>Another rationale for relaxing <ref idref="r-mpd-documents"/> to "SHOULD" relates to issues of security.  Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose.  In such cases, it may be necessary to simply refer to schema documents that are required for validition and implementation, instead of circulating them within a public IEPD.  Implementers would then be expected to know how and where to obtain the required documents.</p>
-
-	<rule id="r-mpd-link-eiem" applicability="N-IEPD" class="Constraint">
-		<p>An IEPD MUST link (through its MPD catalog) to any EIEM it is based on.</p>
-	</rule>
-
-	<p>Refer to <ref idref="r-mpd-mime"/> for Internet representation of IEPDs or EIEMs.</p>
+	<p>The rationale for "SHOULD" in <ref idref="r-mpd-documents"/> relates to issues of security.  Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose.  In such cases, it may be necessary to simply refer to schema documents that are required for validition and implementation, instead of circulating them within a public IEPD.  Implementers would then be expected to know how and where to obtain the required documents.</p>
 
 	<p>The <ref idref="NIEM-NDR"/> explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant.  Other standards may use <code>xs:import</code> without requiring <code>schemaLocation</code> attributes (instead, relying only on the namespace value).  These standards may also use <code>xs:include</code>.  This XML Schema construct is disallowed by NIEM.  When standards external to NIEM are required within MPDs, the following rule applies:</p>
 
@@ -2265,8 +2262,9 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>Notes:</p>
 	<ul>
-		<li><p>(R) with name indicates a required artifact for every MPD.</p></li>
+		<li><p>(R) in artifact name indicates a required artifact for every MPD.</p></li>
 		<li><p>(ref) in definition indicates name is hotlinked to a definition in specification text.</p></li>
+		<li><p>* in filename syntax indicates wildcard.</p></li>
 	</ul>
 
 <table id="mpd-artifacts">
