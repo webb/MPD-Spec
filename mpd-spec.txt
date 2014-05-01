@@ -64,6 +64,8 @@ Major changes:
 
       11. Added "derives_from" to mpd-catalog-3.0.xsd to support revision to Rule 7-8, below.
 
+      12. Added EXI subdirectory to non-normative guidance.
+
 Remaining work and issues
 
       1.  Local URIs do not have to satisfy absolute constraint.
@@ -2997,17 +2999,19 @@ Appendix G. Guidance for IEPD Directories (non-normative)
 
       5.  If using Schematron, create a schematron subdirectory for any Schematron schemas (or create the appropriate subdirectory name for any other kinds of business rule artifacts).
 
-      6.  Create an iep-sample subdirectory for sample IEPs (Rule 4-23, above).
+      6.  If using EXI schema documents, create a exi-xsd subdirectory for these.
 
-      7.  If more documentation artifacts (e.g., text, graphics, media) are necessary, create a documentation subdirectory for miscellaneous explanatory documentation. As needed, create additional subdirectories within this one to organize documentation artifacts. The read-me.* artifact in the [MPD root directory] should refer to or index documentation in this subdirectory.
+      7.  Create an iep-sample subdirectory for sample IEPs (Rule 4-23, above).
 
-      8.  If necessary, create an application-info subdirectory for tool-specific artifacts (inputs, outputs, imports, exports, models, etc.). Again, as needed, use additional subdirectories to organize artifacts of this nature. read-me.* can and should also refer to or index artifacts in this subdirectory.
+      8.  If more documentation artifacts (e.g., text, graphics, media) are necessary, create a documentation subdirectory for miscellaneous explanatory documentation. As needed, create additional subdirectories within this one to organize documentation artifacts. The read-me.* artifact in the [MPD root directory] should refer to or index documentation in this subdirectory.
 
-      9.  Maintain a [NIEM wantlist] within the same subdirectory as the subset it generates (Rule 6-1, above).
+      9.  If necessary, create an application-info subdirectory for tool-specific artifacts (inputs, outputs, imports, exports, models, etc.). Again, as needed, use additional subdirectories to organize artifacts of this nature. read-me.* can and should also refer to or index artifacts in this subdirectory.
 
-      10. Maintain an xml-catalog.xml closest to the XML schema document set it relates to. Use nextCatalog elements as needed to help maintain this proximity (Rule 4-20, above).
+      10. Maintain a [NIEM wantlist] within the same subdirectory as the subset it generates (Rule 6-1, above).
 
-      11. Finally, if it becomes necessary to maintain multiple constraint-xsd or extension subdirectories (or any other subdirectories) together in the same directory, then simply suffix each directory name with a distinct character string (for example, extension1, extension2, etc.; or extension-abc, extension-zyx, etc.)
+      11. Maintain an xml-catalog.xml closest to the XML schema document set it relates to. Use nextCatalog elements as needed to help maintain this proximity (Rule 4-20, above).
+
+      12. Finally, if it becomes necessary to maintain multiple constraint-xsd or extension subdirectories (or any other subdirectories) together in the same directory, then simply suffix each directory name with a distinct character string (for example, extension1, extension2, etc.; or extension-abc, extension-zyx, etc.)
 
    Obviously, there are many other ways to organize for more complex business requirements in which a single IEPD or EIEM employs multiple releases, subsets, constraint sets, core updates, and domain updates. Regardless of directory organization and file naming, an IEPD or EIEM author must always configure all IEP conformance targets using the MPD catalog c:IEPConformanceTarget element and the appropriate validation artifacts (such as XML catalogs, Schematron schemas, RelaxNG schemas, etc.).
 
@@ -3068,6 +3072,11 @@ Appendix G. Guidance for IEPD Directories (non-normative)
    				query.xsd
    				extension1.xsd
    				xml-catalog.xml
+   
+   		/exi-xsd
+   			gml.xsd
+   			xs.xsd
+   			...
    
    		/schematron
    			business-rules1.sch
