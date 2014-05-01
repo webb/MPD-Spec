@@ -47,22 +47,7 @@
 	  mpd-catalog provides instructions for validating IEPs to schemas. 
 	  
 	  This XML Schema document is supported by a subset of niem-core v3.0.
-          c:AuthoritativeSource should use NIEM 3.0 schema components as follows:
-
-	  c:AuthoritativeSource			(type="nc:EntityType")
-	     nc:EntityOrganization 		(or nc:EntityPerson)
-		nc:OrganizationName		(type="nc:TextType")
-		nc:OrganizationLocation
-		   nc:Address
-		      nc:AddressFullText	(type="nc:TextType")
-		nc:OrganizationPrimaryContactInformation
-		   nc:ContactResponder
-		   nc:PersonName
-		      nc:PersonFullName		(type="nc:TextType")
-		nc:ContactEmailID		(type="niem-xs:string")
-		nc:ContactTelephoneNumber
-		   nc:TelephoneNumberRepresentation (substitutionGroup)
-		nc:ContactWebsiteURI		(type="niem-xs:anyURI")
+          c:AuthoritativeSource should use NIEM 3.0 schema components.
       &lt;/xs:documentation&gt;
 
       &lt;xs:appinfo&gt;
@@ -146,8 +131,7 @@
     &lt;xs:element name="File" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet"&gt;
       &lt;xs:annotation&gt;
 	      &lt;xs:documentation&gt;
-		 A generic electronic file artifact in an MPD; a file stored
-	         on a computer system.
+		 A generic electronic file artifact in an MPD; a file stored on a computer system.
 	      &lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
       &lt;/xs:element&gt;
@@ -287,7 +271,7 @@
     &lt;xs:element name="Documentation" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet"&gt;
       &lt;xs:annotation&gt;
 	 &lt;xs:documentation&gt;
-	    An MPD artifact that is a form of explanatory documentation.
+		An MPD artifact that is a form of explanatory documentation.
 	 &lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
@@ -305,8 +289,9 @@
 
     &lt;xs:element name="RequiredFile" type="c:FileType"&gt;
       &lt;xs:annotation&gt;
-	&lt;xs:documentation&gt;An MPD file artifact that another artifact depends on
-	and should not be separated from.&lt;/xs:documentation&gt;
+	      &lt;xs:documentation&gt;
+		      An MPD file artifact that another artifact depends on and should not be separated from.
+	      &lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
@@ -417,9 +402,9 @@
 
     &lt;xs:simpleType name="MPDNameSimpleType"&gt;
       &lt;xs:annotation&gt;
-	      &lt;xs:documentation&gt;
-		      A data type for an MPD name, label, or title.
-	      &lt;/xs:documentation&gt;
+		&lt;xs:documentation&gt;
+			A data type for an MPD name, label, or title.
+		&lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
       &lt;xs:restriction base="xs:token"&gt;
 	&lt;xs:pattern value="[a-z]([-_]?[a-z0-9]+)*"/&gt;
@@ -428,17 +413,17 @@
 
     &lt;xs:attribute name="mpdVersionID" type="c:MPDVersionIDSimpleType"&gt;
       &lt;xs:annotation&gt;
-	      &lt;xs:documentation&gt;
-		      An identifier that distinguishes releases of a given MPD.
-	      &lt;/xs:documentation&gt;
+		&lt;xs:documentation&gt;
+			An identifier that distinguishes releases of a given MPD.
+		&lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
     &lt;/xs:attribute&gt;
 
     &lt;xs:simpleType name="MPDVersionIDSimpleType"&gt;
       &lt;xs:annotation&gt;
-	      &lt;xs:documentation&gt;
-		      A data type for an identifier that distinguishes releases of a given MPD.
-	      &lt;/xs:documentation&gt;
+		&lt;xs:documentation&gt;
+			A data type for an identifier that distinguishes releases of a given MPD.
+		&lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
       &lt;xs:restriction base="xs:token"&gt;
         &lt;xs:pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/&gt;
@@ -449,17 +434,17 @@
 
     &lt;xs:attribute name="mpdClassCode" type="c:MPDClassListSimpleType"&gt;
       &lt;xs:annotation&gt;
-	      &lt;xs:documentation&gt;
-		      A classification for an MPD; values drawn from the set {rel, cu, du, iepd, eiem}.
-	      &lt;/xs:documentation&gt;
+		&lt;xs:documentation&gt;
+			A classification for an MPD; values drawn from the set {rel, cu, du, iepd, eiem}.
+		&lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
     &lt;/xs:attribute&gt;
 
     &lt;xs:simpleType name="MPDClassListSimpleType"&gt;
 	&lt;xs:annotation&gt;
-		&lt;xs:documentation&gt;
+	  	&lt;xs:documentation&gt;
 			A data type that ensures at least one class is identified for an MPD.
-		&lt;/xs:documentation&gt;
+	  	&lt;/xs:documentation&gt;
 	&lt;/xs:annotation&gt;
 	&lt;xs:restriction base="c:ClassListSimpleType"&gt;
 	    &lt;xs:minLength value="1"/&gt;
@@ -486,9 +471,7 @@
 
     &lt;xs:simpleType name="MPDClassCodeSimpleType"&gt;
       &lt;xs:annotation&gt;
-	      &lt;xs:documentation&gt;
-		      A data type for the classification of an MPD.
-	      &lt;/xs:documentation&gt;
+	 &lt;xs:documentation&gt;A data type for the classification of an MPD.&lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
         &lt;xs:restriction base="xs:token"&gt;
             &lt;xs:enumeration value="rel"&gt;
@@ -596,7 +579,7 @@
 	    &lt;xs:enumeration value="specializes"&gt;
 	      &lt;xs:annotation&gt;
 		      &lt;xs:documentation&gt;
-			      A relationshipCode value for indicating that this MPD is a generalization of the MPD referenced in resourceURI.  This value is the inverse of specializes.
+			      A relationshipCode value for indicating that this MPD is a specialization of the MPD referenced in resourceURI.  This value is the inverse of generalizes.
 		      &lt;/xs:documentation&gt;
 	      &lt;/xs:annotation&gt;
 	    &lt;/xs:enumeration&gt;
@@ -644,7 +627,15 @@
 	    &lt;/xs:enumeration&gt;
         &lt;/xs:restriction&gt;
     &lt;/xs:simpleType&gt;
-
+            &lt;xs:enumeration value="derives_from"&gt;
+	      &lt;xs:annotation&gt;
+		      &lt;xs:documentation&gt;
+			      A relationshipCode value for indicating that this MPD has been derived from another; used to indicate an IEPD is derived from an EIEM (may have other uses as well).
+		      &lt;/xs:documentation&gt;
+	      &lt;/xs:annotation&gt;
+	    &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
 
 &lt;!-- IEP Conformance Targets ==================================================== --&gt;
 
@@ -667,7 +658,7 @@
 	  &lt;xs:sequence&gt;
 	    &lt;xs:element ref="nc:DescriptionText" minOccurs="0"/&gt;
 	    &lt;xs:element ref="c:ValidityConstraintWithContext" minOccurs="0" maxOccurs="unbounded"/&gt;
-	    &lt;xs:element ref="c:IEPSampleXMLDocument" minOccurs="0" maxOccurs="unbounded"/&gt;
+&lt;!--	    &lt;xs:element ref="c:IEPSampleXMLDocument" minOccurs="1" maxOccurs="unbounded"/&gt; MUST have min one for each IEP CT --&gt;
 	    &lt;xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/&gt;
     	  &lt;/xs:sequence&gt;
 	&lt;/xs:extension&gt;
@@ -676,8 +667,9 @@
 
     &lt;xs:element name="EXIXMLSchema" type="c:XMLSchemaType" substitutionGroup="c:ArtifactOrArtifactSet"&gt;
       &lt;xs:annotation&gt;
-	&lt;xs:documentation&gt;An XML Schema to be used for EXI serialization 
-	of an IEP Class.&lt;/xs:documentation&gt;
+	      &lt;xs:documentation&gt;
+		      An XML Schema to be used for EXI serialization of an IEP Class.
+	      &lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
@@ -997,8 +989,7 @@
 
     &lt;xs:element name="Relationship" type="c:RelationshipType"&gt;
       &lt;xs:annotation&gt;
-	&lt;xs:documentation&gt;A reference to another MPD related to this MPD.
-	&lt;/xs:documentation&gt;
+	&lt;xs:documentation&gt;A reference to another MPD related to this MPD.&lt;/xs:documentation&gt;
       &lt;/xs:annotation&gt;
     &lt;/xs:element&gt;
 
