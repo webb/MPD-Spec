@@ -44,9 +44,9 @@
 	<p>Alpha 11</p>
 	<ol>
 		<li><p>Moved <ref idref="Conformance-Assertion"/> section to mandatory artifacts.</p></li>
-		<li><p>Added NIEM subset that supplements mpd-catalog-3.0.xsd.</p></li>
+		<li><p>Added NIEM subset that supplements <code>mpd-catalog-3.0.xsd</code>.</p></li>
 		<li><p>Inserted proxy types (and namespace) into <code>mpd-catalog-3.0.xsd</code>.</p></li>
-		<li><p>Renamed master-document* to read-me.*</p></li>
+		<li><p>Renamed <code>master-document</code> to <code>read-me.*</code></p></li>
 		<li><p>Revised <ref idref="Guidance-IEPD-Directories"/> per feedback and discussions.</p></li>
 		<li><p>Validated CoT and all other simpler IEP samples.</p></li>
 		<li><p>Provided initial cut <code>niem-core</code> subset for <code>mpd-catalog-3.0.xsd</code>.</p></li>
@@ -64,6 +64,7 @@
 		<li><p>Added <ref idref="IEPD-Completeness"/>.</p></li>
 		<li><p>Added definition for <termRef>XML schema assembly</termRef>.</p></li>
 		<li><p>Added statement that the MPD method for <termRef>XML schema assembly</termRef> is use of XML catalogs.</p></li>
+		<li><p>Added Appendix for <ref idref="MPD-Artifacts"/>.
 	</ol>
 
 </subsection><subsection>
@@ -1579,10 +1580,10 @@
 	<p>The foregoing definition requires that an IEP conformance target class have a URI.  As a result, the following rule is also required for an <termRef>MPD catalog document</termRef>:</p>
 
 	<rule id="iep-conformance-target-id" applicability="MPD-Cat" class="Constraint">
-		<p>A <code>c:IEPConformanceTarget</code> MUST be assigned a locally unique <code>NCName</code> (non-colonized name) value for its <code>structures:id</code> attribute.</p>
+		<p>A <code>c:IEPConformanceTarget</code> MUST own a <code>structures:id</code> attribute.</p>
 	</rule>
 
-	<p>An IEPD defines IEP conformance targets by explicitly and formally declaring them within its MPD catalog.  The rule above ensures that conformance targets can be referenced between IEPDs and not only within an IEPD.</p>
+	<p>An IEPD defines IEP conformance targets by explicitly declaring them within its MPD catalog.  The rule above ensures that conformance targets can be referenced between IEPDs (not just within an IEPD).</p>
 
 	<p>The following subsections detail the concepts, artifacts, and procedures for declaring and identifying IEP conformance targets in IEPDs.</p>
 
@@ -2259,8 +2260,38 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 <section id="MPD-Artifacts" isAppendix="true">
 	<title>MPD Artifacts</title>
-	<p>[TBD]</p>
-	<p><char name="nbsp"/></p>
+
+<table id="mpd-artifacts">
+
+	<p>(R) indicates a required artifact for every MPD.</p>
+
+        <theadr>
+		<th>Artifact</th>
+		<th>Filename syntax</th>
+		<th>Reference</th>
+	</theadr>
+	<tr><td>(R) <termRef>MPD catalog document</termRef></td><td>mpd-catalog.xml</td><td>
+	<tr><td>(R) <termRef>Read me</termRef></td><td>read-me.*</td></tr>
+	<tr><td>(R) <termRef>MPD change log</termRef></td><td>changelog.*</td></tr>
+	<tr><td>(R) <termRef>conformance assertion</termRef></td><td>conformance-assertion.*</td></tr>
+	<tr><td><termRef>XML catalog</termRef></td><td>xml-catalog.xml</td></tr>
+	<tr><td>Conformance report</td><td>conformance-report.*</td></tr>
+	<tr><td>MPD catalog extension XML catalog</td><td>mpd-catalog-extension-xml-catalog.xml</td></tr>
+	<tr><td>MPD catalog extension schema document</td><td>mpd-catalog-extension.xsd</td></tr>
+	<tr><td>Subset schema document</td><td>*.xsd</td></tr>
+	<tr><td>Wantlist</td><td>wantlist.xml</td></tr>
+	<tr><td>Extension schema document</td><td>*.xsd</td></tr>
+	<tr><td>External schema document</td><td>*.xsd</td></tr>
+	<tr><td>Reference schema document</td><td>*.xsd</td></tr>
+	<tr><td>IEP sample XML document</td><td>*.xml</td></tr>
+	<tr><td>Schematron schema document</td><td>*.sch</td></tr>
+	<tr><td>RelaxNG schema document</td><td>*.rng</td></tr>
+	<tr><td>Documentation (general)</td><td>*.*</td></tr>
+	<tr><td>Application information (tool-specific artifact)</td><td>*.*</td></tr>
+	<tr><td></td><td></td></tr>
+
+</table>
+
 </section>
 
 
@@ -2419,7 +2450,8 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<tr><td>BIEC </td><td>Business Information Exchange Component</td></tr>
 	<tr><td>CSV  </td><td>Comma Separated Value (file format)</td></tr>
 	<tr><td>CU   </td><td>Core update</td></tr>
-	<tr><td>DU   </td><td>Domain updater</td></tr>
+	<tr><td>CUI  </td><td>Controlled Unclassified Information</td></tr>
+	<tr><td>DU   </td><td>Domain update</td></tr>
 	<tr><td>EBV  </td><td>Effective Boolean Value</td></tr>
 	<tr><td>EIEM </td><td>Enterprise Information Exchange Model</td></tr>
 	<tr><td>GIF  </td><td>Graphic Interchange Format</td></tr>
@@ -2439,6 +2471,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<tr><td>QName</td><td>Qualified Name (XML Schema: qualified by a namespace prefix)</td></tr>
 	<tr><td>RAR  </td><td>Roshal Archive; a compressed archive file format 
 				named for its developer, Eugene Roshal</td></tr>
+	<tr><td>Rel  </td><td>Release (NIEM)</td></tr>
 	<tr><td>SSGT </td><td>Schema Subset Generation Tool</td></tr>
 	<tr><td>UML  </td><td>Unified Modeling Language</td></tr>
 	<tr><td>UPA  </td><td>Unique Particle Attribution</td></tr>
@@ -2448,7 +2481,9 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<tr><td>W3C  </td><td>World Wide Web Consortium</td></tr>
 	<tr><td>XMI  </td><td>XML Metadata Interchange</td></tr>
 	<tr><td>XML  </td><td>Extensible Markup Language</td></tr>
+	<tr><td>XS   </td><td>XML Schema (namespace prefix)</td></tr>
 	<tr><td>XSD  </td><td>XML Schema Definition</td></tr>
+	<tr><td>XSI  </td><td>XML Schema Instance (namespace prefix)</td></tr>
 	<tr><td>XSLT </td><td>Extensible Stylesheet Language Transformation</td></tr>
 </table>
 
