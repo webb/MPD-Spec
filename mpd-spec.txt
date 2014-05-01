@@ -58,7 +58,7 @@ Major changes:
 
       8. Added statement that the MPD method for [XML schema assembly] is use of XML catalogs.
 
-      9. Added Appendix for Appendix E, MPD Artifacts, below.
+      9. Added Appendix for Appendix E, Common MPD Artifacts, below.
 
 Remaining work and issues
 
@@ -216,7 +216,7 @@ Remaining work and issues
 
       A collection of [artifacts] logically grouped for a defined purpose.
 
-   An MPD is itself a set of artifacts, the purpose for which is to define and document the intended use of the MPD. While the key MPD artifacts are its [XML schema document] artifacts, there are also other kinds of MPD artifacts. These may include (but are not limited to) HTML, XSLT, text, or graphic files used for human-readable documentation. An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD. For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts. Appendix E, MPD Artifacts, below, contains a listing of mandatory and common optional artifacts for the five types of MPDs. Common types of artifacts are described in more detail in subsequent sections. Section 7.1, Artifact Sets, below, discusses the different methods for grouping MPD artifacts into sets.
+   An MPD is itself a set of artifacts, the purpose for which is to define and document the intended use of the MPD. While the key MPD artifacts are its [XML schema document] artifacts, there are also other kinds of MPD artifacts. These may include (but are not limited to) HTML, XSLT, text, or graphic files used for human-readable documentation. An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD. For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts. Appendix E, Common MPD Artifacts, below, contains a listing of mandatory and common optional artifacts for the five types of MPDs. Common types of artifacts are described in more detail in subsequent sections. Section 7.1, Artifact Sets, below, discusses the different methods for grouping MPD artifacts into sets.
 
 2.4. Schema Document and Namespace Correspondence in NIEM
 
@@ -744,7 +744,7 @@ Remaining work and issues
 
    In all MPD classes NIEM allows the use of external schema documents that do not conform to NIEM. Data components declared and defined in external schema documents require NIEM adapter types to identify the fact they do not conform to NIEM.
 
-   [Definition: external schema documents]
+   [Definition: external schema document]
 
       Any XML schema document that is not a NIEM-supporting schema and that is not NIEM-conformant.
 
@@ -1613,7 +1613,7 @@ Remaining work and issues
 
    An MPD author may include any files believed to be useful to understand, implement, reuse, and/or adapt an MPD.
 
-   An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it. (See Appendix E, MPD Artifacts, below, for a listing of the mandatory and common optional artifacts for each type of MPD.)
+   An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it. (See Appendix E, Common MPD Artifacts, below, for a listing of the mandatory and common optional artifacts for each type of MPD.)
 
    Files vary widely in format and are often specific to the tools an author uses to parse, consume, or output them. Therefore, if tool-specific files are included in an MPD, it is also a good practice to include copies of those files in formats that display with standard Web browsers or other cost-free, publicly available viewing tools (e.g., ASCII text, PDF, CSV, HTML, JPG, GIF, PNG). This guidance is intended to encourage and facilitate maximal sharing and distribution of MPDs; it does not prohibit and is not intended to discourage the inclusion of other file formats.
 
@@ -2912,47 +2912,51 @@ Appendix D. Schematron Rules for MPDs
 
     
 
-Appendix E. MPD Artifacts
+Appendix E. Common MPD Artifacts
 
-   (R) indicates a required artifact for every MPD.
+   Notes:
 
-      Artifact|Filename syntax|Reference
+      *  (R) with name indicates a required artifact for every MPD.
 
-      (R) [MPD catalog document]|mpd-catalog.xml
+      *  (ref) in definition indicates name is hotlinked to a definition in specification text.
 
-      (R) [read-me artifact]|read-me.*
+      Artifact name|Filename syntax|Definition
 
-      (R) [change log]|changelog.*
+      (R) [MPD catalog document]|mpd-catalog.xml|(ref)
 
-      (R) [conformance assertion]|conformance-assertion.*
+      (R) [read-me artifact]|read-me.*|(ref)
 
-      [XML catalog document]|xml-catalog.xml
+      (R) [change log]|changelog.*|(ref)
 
-      Conformance report|conformance-report.*
+      (R) [conformance assertion]|conformance-assertion.*|(ref)
 
-      MPD catalog extension XML catalog|mpd-catalog-extension-xml-catalog.xml
+      [XML catalog document]|xml-catalog.xml|(ref)
 
-      MPD catalog extension schema document|mpd-catalog-extension.xsd
+      conformance report|conformance-report.*|a formal report on conformance generated by a NIEM-aware tool
 
-      Subset schema document|*.xsd
+      MPD catalog extension [XML catalog document]|mpd-catalog-extension-xml-catalog.xml|an XML catalog that identifies an MPD catalog extension schema document (ref)
 
-      Wantlist|wantlist.xml
+      MPD catalog [extension schema document]|mpd-catalog-extension.xsd|a XML schema document that extends an MPD catalog schema (ref)
 
-      Extension schema document|*.xsd
+      [subset schema document]|*.xsd|(ref)
 
-      External schema document|*.xsd
+      [NIEM wantlist]|wantlist.xml|(ref)
 
-      Reference schema document|*.xsd
+      [extension schema document]|*.xsd|(ref)
 
-      IEP sample XML document|*.xml
+      [external schema document]|*.xsd|(ref)
 
-      Schematron schema document|*.sch
+      [reference schema document]|*.xsd|(ref)
 
-      RelaxNG schema document|*.rng
+      IEP sample [XML document]|*.xml|an XML document instance that exemplifies an [IEP conformance target] defined by a c:IEPConformanceTarget (ref)
 
-      Documentation (general)|*.*
+      Schematron schema document|*.sch|a business rule schema in ISO Schematron format ([ISO Schematron])
 
-      Application information (tool-specific artifact)|*.*
+      RelaxNG schema document|*.rng|a business rule schema in ISO RelaxNG format ([ISO RelaxNG])
+
+      documentation|*.*|a textual or graphic artifact containing notes, instructions, guidance, etc.
+
+      application information|*.*|a tool-specific artifact used, generated, exported, imported, etc. by a specific tool; includes models, databases, configuration files, graphics, etc.
 
 Appendix F. Conformance Assertion Example
 
