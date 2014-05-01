@@ -31,22 +31,7 @@
 	  mpd-catalog provides instructions for validating IEPs to schemas. 
 	  
 	  This XML Schema document is supported by a subset of niem-core v3.0.
-          c:AuthoritativeSource should use NIEM 3.0 schema components as follows:
-
-	  c:AuthoritativeSource			(type="nc:EntityType")
-	     nc:EntityOrganization 		(or nc:EntityPerson)
-		nc:OrganizationName		(type="nc:TextType")
-		nc:OrganizationLocation
-		   nc:Address
-		      nc:AddressFullText	(type="nc:TextType")
-		nc:OrganizationPrimaryContactInformation
-		   nc:ContactResponder
-		   nc:PersonName
-		      nc:PersonFullName		(type="nc:TextType")
-		nc:ContactEmailID		(type="niem-xs:string")
-		nc:ContactTelephoneNumber
-		   nc:TelephoneNumberRepresentation (substitutionGroup)
-		nc:ContactWebsiteURI		(type="niem-xs:anyURI")
+          c:AuthoritativeSource should use NIEM 3.0 schema components.
       </xs:documentation>
 
       <xs:appinfo>
@@ -130,8 +115,7 @@
     <xs:element name="File" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
       <xs:annotation>
 	      <xs:documentation>
-		 A generic electronic file artifact in an MPD; a file stored
-	         on a computer system.
+		 A generic electronic file artifact in an MPD; a file stored on a computer system.
 	      </xs:documentation>
       </xs:annotation>
       </xs:element>
@@ -271,7 +255,7 @@
     <xs:element name="Documentation" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
       <xs:annotation>
 	 <xs:documentation>
-	    An MPD artifact that is a form of explanatory documentation.
+		An MPD artifact that is a form of explanatory documentation.
 	 </xs:documentation>
       </xs:annotation>
     </xs:element>
@@ -289,8 +273,9 @@
 
     <xs:element name="RequiredFile" type="c:FileType">
       <xs:annotation>
-	<xs:documentation>An MPD file artifact that another artifact depends on
-	and should not be separated from.</xs:documentation>
+	      <xs:documentation>
+		      An MPD file artifact that another artifact depends on and should not be separated from.
+	      </xs:documentation>
       </xs:annotation>
     </xs:element>
 
@@ -401,9 +386,9 @@
 
     <xs:simpleType name="MPDNameSimpleType">
       <xs:annotation>
-	      <xs:documentation>
-		      A data type for an MPD name, label, or title.
-	      </xs:documentation>
+		<xs:documentation>
+			A data type for an MPD name, label, or title.
+		</xs:documentation>
       </xs:annotation>
       <xs:restriction base="xs:token">
 	<xs:pattern value="[a-z]([-_]?[a-z0-9]+)*"/>
@@ -412,17 +397,17 @@
 
     <xs:attribute name="mpdVersionID" type="c:MPDVersionIDSimpleType">
       <xs:annotation>
-	      <xs:documentation>
-		      An identifier that distinguishes releases of a given MPD.
-	      </xs:documentation>
+		<xs:documentation>
+			An identifier that distinguishes releases of a given MPD.
+		</xs:documentation>
       </xs:annotation>
     </xs:attribute>
 
     <xs:simpleType name="MPDVersionIDSimpleType">
       <xs:annotation>
-	      <xs:documentation>
-		      A data type for an identifier that distinguishes releases of a given MPD.
-	      </xs:documentation>
+		<xs:documentation>
+			A data type for an identifier that distinguishes releases of a given MPD.
+		</xs:documentation>
       </xs:annotation>
       <xs:restriction base="xs:token">
         <xs:pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
@@ -433,17 +418,17 @@
 
     <xs:attribute name="mpdClassCode" type="c:MPDClassListSimpleType">
       <xs:annotation>
-	      <xs:documentation>
-		      A classification for an MPD; values drawn from the set {rel, cu, du, iepd, eiem}.
-	      </xs:documentation>
+		<xs:documentation>
+			A classification for an MPD; values drawn from the set {rel, cu, du, iepd, eiem}.
+		</xs:documentation>
       </xs:annotation>
     </xs:attribute>
 
     <xs:simpleType name="MPDClassListSimpleType">
 	<xs:annotation>
-		<xs:documentation>
+	  	<xs:documentation>
 			A data type that ensures at least one class is identified for an MPD.
-		</xs:documentation>
+	  	</xs:documentation>
 	</xs:annotation>
 	<xs:restriction base="c:ClassListSimpleType">
 	    <xs:minLength value="1"/>
@@ -470,9 +455,7 @@
 
     <xs:simpleType name="MPDClassCodeSimpleType">
       <xs:annotation>
-	      <xs:documentation>
-		      A data type for the classification of an MPD.
-	      </xs:documentation>
+	 <xs:documentation>A data type for the classification of an MPD.</xs:documentation>
       </xs:annotation>
         <xs:restriction base="xs:token">
             <xs:enumeration value="rel">
@@ -580,7 +563,7 @@
 	    <xs:enumeration value="specializes">
 	      <xs:annotation>
 		      <xs:documentation>
-			      A relationshipCode value for indicating that this MPD is a generalization of the MPD referenced in resourceURI.  This value is the inverse of specializes.
+			      A relationshipCode value for indicating that this MPD is a specialization of the MPD referenced in resourceURI.  This value is the inverse of generalizes.
 		      </xs:documentation>
 	      </xs:annotation>
 	    </xs:enumeration>
@@ -628,7 +611,15 @@
 	    </xs:enumeration>
         </xs:restriction>
     </xs:simpleType>
-
+            <xs:enumeration value="derives_from">
+	      <xs:annotation>
+		      <xs:documentation>
+			      A relationshipCode value for indicating that this MPD has been derived from another; used to indicate an IEPD is derived from an EIEM (may have other uses as well).
+		      </xs:documentation>
+	      </xs:annotation>
+	    </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
 
 <!-- IEP Conformance Targets ==================================================== -->
 
@@ -651,7 +642,7 @@
 	  <xs:sequence>
 	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
 	    <xs:element ref="c:ValidityConstraintWithContext" minOccurs="0" maxOccurs="unbounded"/>
-	    <xs:element ref="c:IEPSampleXMLDocument" minOccurs="0" maxOccurs="unbounded"/>
+<!--	    <xs:element ref="c:IEPSampleXMLDocument" minOccurs="1" maxOccurs="unbounded"/> MUST have min one for each IEP CT -->
 	    <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
     	  </xs:sequence>
 	</xs:extension>
@@ -660,8 +651,9 @@
 
     <xs:element name="EXIXMLSchema" type="c:XMLSchemaType" substitutionGroup="c:ArtifactOrArtifactSet">
       <xs:annotation>
-	<xs:documentation>An XML Schema to be used for EXI serialization 
-	of an IEP Class.</xs:documentation>
+	      <xs:documentation>
+		      An XML Schema to be used for EXI serialization of an IEP Class.
+	      </xs:documentation>
       </xs:annotation>
     </xs:element>
 
@@ -981,8 +973,7 @@
 
     <xs:element name="Relationship" type="c:RelationshipType">
       <xs:annotation>
-	<xs:documentation>A reference to another MPD related to this MPD.
-	</xs:documentation>
+	<xs:documentation>A reference to another MPD related to this MPD.</xs:documentation>
       </xs:annotation>
     </xs:element>
 
