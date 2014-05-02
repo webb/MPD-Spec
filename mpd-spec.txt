@@ -66,29 +66,29 @@ Major changes:
 
       12. Added EXI subdirectory to non-normative guidance.
 
+      13. Fixed Rule 4-11, below: only c:mpdURI attributes must adhere to absolute-URI production.
+
+      14. Added simple example of informal conformance assertion. Appendix F, Conformance Assertion Example, below
+
 Remaining work and issues
 
-      1.  Local URIs do not have to satisfy absolute constraint.
+      1. Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? 
 
-      2.  Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? 
+      2. Add back lower level cardinality constraints?
 
-      3.  Add back lower level cardinality constraints?
+      3. oXygen schema validation errors on MPD catalog XSD.
 
-      4.  Oxygen schema validation errors
+      4. Remaining TBDs (Search "TBD").
 
-      5.  Simple example of minimal conformance-assertion.
+      5. Appendix for Schematron rules for all CTs; MPD Catalog, etc.
 
-      6.  Remaining TBDs (Search "TBD").
+      6. Appendix for example IEP from Cursor on Target.
 
-      7.  Appendix for Schematron rules for all CTs; MPD Catalog, etc.
+      7. Assemble resource tool kit including: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules, example CoT IEP, example conformance-assertion.
 
-      8.  Appendix for example IEP from Cursor on Target.
+      8. QA and validity checks on MPD catalog schema, other appendices, etc.
 
-      9.  Resource tool kit: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules, example CoT IEP, conform-assert.
-
-      10. QA and validity checks: MPD catalog schema, appendices, etc.
-
-      11. Final checks: typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
+      9. Final checks for typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
 
 1. Introduction
 
@@ -608,7 +608,7 @@ Remaining work and issues
 
    As authoritative definitions, NIEM reference schema document sets satisfy more rigorous documentation requirements. The [NIEM NDR] requires that each type definition, and element and attribute declaration in a reference schema document contain an xs:annotation element that defines its semantic meaning. As will be explained later, [extension schema documents] are also authoritative definitions, but in a local sense. They are authoritative within a given IEPD or EIEM, and therefore, must also satisfy the same rigorous documentation rules as reference schema documents.
 
-   Typically reference schema documents contain data components with the most relaxed cardinality (0 to unbounded). However, this is not an absolute requirement. Cardinality in reference schema documents may be constrained if necessary to model reality. For example, one might claim that NIEM releases should restrict PersonType to a single occurrence of the element PersonBirthDate. Every person has one and only one birth date. Unfortunately, also in reality, criminal persons often present multiple identities with multiple birth dates; and so the capability to represent such is an important data requirement for NIEM.
+   Typically reference schema documents contain data components with the most relaxed cardinality (0 to unbounded). However, this is not an absolute requirement. If necessary, cardinality in reference schema documents may be constrained to model reality. For example, in NIEM 3.0 a nc:Location2DGeospatialCoordinateType contains both a nc:GeographicCoordinateLatitude element and a nc:GeographicCoordinateLongitude element. Each of these elements has cardinality minOccurs="1" and maxOccurs="1". Any other cardinality for these elements has no meaning. On the other hand, one might claim that NIEM should constrain PersonType to a single occurrence of the element PersonBirthDate. Every person has one and only one birth date. Unfortunately, also in reality, criminal persons often present multiple identities with multiple birth dates; and so the capability to represent such is an important data requirement for NIEM.
 
 3.2. Subset Document Schemas
 
@@ -672,7 +672,7 @@ Remaining work and issues
 
       6.  Remove an xs:complexType or xs:simpleType if not supporting an xs:element or xs:attribute declaration, or another xs:complexType or xs:simpleType definition.
 
-      7.  Remove an xs:attribute whose @use="optional" from an xs:complexType.
+      7.  Remove an xs:attribute with @use="optional" from an xs:complexType.
 
       8.  Change an xs:attribute/@use="optional" to @use="prohibited".
 
@@ -1023,7 +1023,7 @@ Remaining work and issues
 
    [Rule 4-11] (WF-MPD)
 
-      The value of any xs:attribute of type xs:anyURI MUST match the production <absolute-URI> as defined by [RFC 3986 URI], section 4.3, Absolute URI.
+      In an MPD catalog document, the value of a c:mpdURI attribute of type xs:anyURI MUST match the production <absolute-URI> as defined by [RFC 3986 URI], section 4.3, Absolute URI.
 
    Rule 4-11, above, implies that a URI assigned to an MPD must be valid. Furthermore, the entity (person or organization) assigning the MPD URI either (1) is the registrant of the domain name or namespace identifier, or (2) has authority from the registrant to assign this URI.
 
@@ -1033,7 +1033,9 @@ Remaining work and issues
 
       *  http://example.gov/niem-iepd/pmix/3.0/
 
-      *  http://example.gov/niem-eiem/cyfs/4.0beta3/
+      *  http://release.niem.gov/niem/niem-core/3.0/
+
+      *  http://niem.gov/niem/domains/cyfs/2.1/1
 
    This specification does not mandate that basic MPD catalog metadata be designed into an MPD URI. However, including such can obviously provide for convenient visual recognition of an MPD. That said, an author should ensure any metadata embedded in the URI accurately reflect the MPD catalog metadata (in particular, the values of c:mpdURI, c:mpdName, c:mpdVersionID, and c:mpdClass defined in Appendix A, MPD Catalog XML Schema Document, below).
 
@@ -1121,11 +1123,11 @@ Remaining work and issues
 
    [Rule 4-15] (WF-MPD)
 
-      An MPD assigned an c:mpdClassCode attribute value drawn from the set {rel, cu, du} MUST contain a changelog.xml artifact in its [MPD root directory].
+      An MPD with a c:mpdClassCode attribute value from the set {rel, cu, du} MUST contain a changelog.xml artifact in its [MPD root directory].
 
    [Rule 4-16] (M-Chg-Log)
 
-      A changelog.xml artifact for an MPD assigned an c:mpdClassCode attribute value drawn from the set {rel, cu, du} MUST validate with the NIEM change log schemas mpd-changelog-1.0.xsd and niem-model-1.0.xsd.
+      A changelog.xml artifact for an MPD with a c:mpdClassCode attribute value from the set {rel, cu, du} MUST validate with the NIEM change log schemas mpd-changelog-1.0.xsd and niem-model-1.0.xsd.
 
    The most current versions of the resources referenced in Rule 4-16, above, are available here:
 
@@ -1141,7 +1143,7 @@ Remaining work and issues
 
    [Rule 4-17] (WF-MPD)
 
-      An MPD assigned an c:mpdClassCode attribute value drawn from the set {iepd, eiem} MUST contain a change log artifact in its [MPD root directory]
+      An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST contain a change log artifact in its [MPD root directory]
 
    The format of an IEPD or EIEM change log is left to the discretion of the author. The use of mpd-changelog-1.0.xsd for IEPD and EIEM schemas is not required. Relaxing the change log format encourages and facilitates easier and more rapid development. IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges. As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats. A consistent standard change log would be very difficult to specify.
 
@@ -1157,7 +1159,7 @@ Remaining work and issues
 
    [Rule 4-18] (WF-MPD)
 
-      An MPD whose c:mpdClassCode attribute value list contains iepd or eiem MUST contain a read-me.* file artifact in its [MPD root directory].
+      An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST contain a read-me.* file artifact in its [MPD root directory].
 
    The read-me artifact may replicate some of the metadata in the MPD catalog. However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal. It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.
 
@@ -1267,7 +1269,7 @@ Remaining work and issues
 
    [Rule 4-20] (WF-MPD)
 
-      An MPD whose c:mpdClassCode attribute value list contains iepd or eiem MUST [resolve] each namespace it uses to a locally unique URI through one or more [XML catalog documents].
+      An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST [resolve] each namespace it uses to a URI through one or more [XML catalog documents].
 
    This rule implies that er:NextCatalog elements may be used within [XML catalog documents] to connect them and control their parsing sequence. An IEPD must contain at least one [XML catalog document] because it is the only MPD that can specify an IEP [Definition: Information Exchange Package (IEP)], above, and provide validation instructions that would require schema assembly from XML schema documents. Section 4.6, Information Exchange Packages, below, provides more specifics about using [XML catalog documents] within IEPDs.
 
@@ -1415,7 +1417,7 @@ Remaining work and issues
 
    [Rule 4-24] (WF-MPD)
 
-      An MPD whose c:mpdClassCode attribute value list contains iepd or eiem MUST have a [conformance assertion] artifact in its [MPD root directory].
+      An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST contain a [conformance assertion] artifact in its [MPD root directory].
 
    [Rule 4-25] (WF-MPD)
 
@@ -1423,21 +1425,23 @@ Remaining work and issues
 
    A [conformance assertion] presents information to increase the level of confidence that an IEPD or EIEM was checked for NIEM conformance and quality. It does NOT constitute a guarantee or contract. In fact, a conformance assertion can be self-asserted.
 
-   In the absence of a formal NIEM certification process, both weak and strong conformance assertions will exist. A IEPD/EIEM user or ninimplementer (who is not the author) must decide his/her level of confidence in the assertion. A self-signed artifact that simply claims an IEPD is NIEM-conformant may be considered weak. On the other hand, a strong self-signed conformance assertion would provide information that may include (but is not limited to):
+   In the absence of a formal NIEM certification process, both weak and strong conformance assertions will exist. A IEPD/EIEM user or ninimplementer (who is not the author) must decide his/her level of confidence in the assertion. A self-signed artifact that simply claims an IEPD is NIEM-conformant may be considered weak. On the other hand, a stronger self-assertion could provide information that may include (but is not limited to):
 
-      *  Author credentials (name of author, organization, or sponsoring entity; background, experience, etc.).
+      *  Date of assertion.
 
-      *  What was verified (artifacts, rules, etc.)?
+      *  Assertion of NIEM conformance.
 
-      *  Against what [conformance targets]?
+      *  Author (name and/or organization, or sponsoring entity; indication of NIEM and XML background or experience).
 
-      *  When? (date)
+      *  Certifier (could be author or another person/organization).
 
-      *  How? (e.g., what was automatically checked, manually checked?)
+      *  Details of conformance verification:
 
-      *  Employing what tool(s)?
+            *  How, what, and/or who? (e.g., automatic checks, manual checks, other reviews?)
 
-      *  What were the results? (e.g., what passed, failed, warnings, issues?)
+            *  Tool(s) employed? (e.g., tool, version, how used, on what, etc.)
+
+            *  Results? (e.g., issues, pass/fails, warnings, confirmations, etc.)
 
    Inclusion of a conformance assertion made by a reputable, independent, trusted entity (person or organization) would likely increase confidence in conformance. Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact.
 
@@ -1760,7 +1764,7 @@ Remaining work and issues
 
    [Rule 7-5] (WF-MPD)
 
-      Given an MPD whose c:mpdClassCode value is in the set {rel, cu, du}, its file name substrings for name, version, and class (as defined in Rule 7-4 MUST exactly match its MPD catalog values for c:MPD attributes c:mpdName, c:mpdVersionID, and c:mpdClassCode respectively.
+      Given an MPD with a c:mpdClassCode attribute value from the set {rel, cu, du}, its file name substrings for name, version, and class (as defined in Rule 7-4 MUST exactly match its MPD catalog values for c:MPD attributes c:mpdName, c:mpdVersionID, and c:mpdClassCode respectively.
 
    And finally, in HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.
 
@@ -1786,7 +1790,7 @@ Remaining work and issues
 
    [Rule 7-8] (N-IEPD)
 
-      The [MPD catalog document] for an IEPD that belongs to a family of IEPDs derived from an EIEM, MUST have a c:MPDInformation/c:Relationship that owns a c:RelationshipCode="derived_from" attribute and a c:resourceURI attribute whose value [resolves] to an EIEM resource.
+      An [MPD catalog document] for an IEPD that is a member of a family of IEPDs derived from a given EIEM, MUST have a c:MPDInformation/c:Relationship element that owns a c:RelationshipCode="derived_from" attribute and a c:resourceURI attribute with a URI value that [resolves] to an EIEM resource.
 
 7.4. IEPD Completeness
 
@@ -2955,9 +2959,9 @@ Appendix E. Common MPD Artifacts
 
 Appendix F. Conformance Assertion Example
 
-   [TBD]
+   A NIEM conformance assertion is a required artifact for an IEPD or EIEM. The following is a simple example of a conformance assertion (in this case, a self assertion by the author, but with a little assistance from colleagues. The concept is to provide an implementer with some information that indicates how well an IEPD or EIEM has been checked for quality and conformance with respect to XML Schema and NIEM. The assertion can be as simple as the assertion clause. However, clearly the more detail that is provided, the stronger the case for conformance and quality will be.
 
-    
+   [ INSERT EXAMPLE HERE ]
 
 Appendix G. Guidance for IEPD Directories (non-normative)
 
