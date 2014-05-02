@@ -34,7 +34,7 @@ Major changes:
 
       4. Renamed master-document to read-me.*
 
-      5. Revised Appendix G, Guidance for IEPD Directories (non-normative), below, per feedback and discussions.
+      5. Revised Appendix F, Guidance for IEPD Directories (non-normative), below, per feedback and discussions.
 
       6. Validated CoT and all other simpler IEP samples.
 
@@ -48,7 +48,7 @@ Major changes:
 
       3.  Changed Rule 7-9, below, from MUST to SHOULD.
 
-      4.  Lots of minor corrections to Appendix G, Guidance for IEPD Directories (non-normative), below.
+      4.  Lots of minor corrections to Appendix F, Guidance for IEPD Directories (non-normative), below.
 
       5.  Revised Section 5, Conformance Targets, below.
 
@@ -58,7 +58,7 @@ Major changes:
 
       8.  Added statement that the MPD method for [XML schema assembly] is use of XML catalogs.
 
-      9.  Added Appendix for Appendix E, Common MPD Artifacts, below.
+      9.  Added Appendix for Appendix D, Common MPD Artifacts, below.
 
       10. Revised wording of Rule 7-8, below, for Schematron.
 
@@ -68,27 +68,29 @@ Major changes:
 
       13. Fixed Rule 4-11, below: only c:mpdURI attributes must adhere to absolute-URI production.
 
-      14. Added simple example of informal conformance assertion. Appendix F, Conformance Assertion Example, below
+      14. Added simple example of informal conformance assertion. Appendix E, Conformance Assertion Example, below
+
+      15. Added example MPD catalog document from Cursor on Target (Dr Renner). Appendix B, Example MPD Catalog Document for Cursor on Target, below
+
+      16. Added ref to MPD Toolkit that will contain entire CoT IEPD.
 
 Remaining work and issues
 
       1. Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? 
 
-      2. Add back lower level cardinality constraints?
+      2. Can we add lower level cardinality constraints back into mpd-catalog-3.0.xsd (to resolve oXygen errors)?
 
       3. oXygen schema validation errors on MPD catalog XSD.
 
-      4. Remaining TBDs (Search "TBD").
+      4. Remaining TBDs.
 
       5. Appendix for Schematron rules for all CTs; MPD Catalog, etc.
 
-      6. Appendix for example IEP from Cursor on Target.
+      6. Assemble MPD Toolkit and make available at http://reference.niem.gov/niem/resource/mpd/3.0/; will include: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules (beta), example CoT IEPD, example conformance-assertion template.
 
-      7. Assemble resource tool kit including: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules, example CoT IEP, example conformance-assertion.
+      7. QA and validity checks on MPD catalog schema, other appendices, etc.
 
-      8. QA and validity checks on MPD catalog schema, other appendices, etc.
-
-      9. Final checks for typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
+      8. Final checks for typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
 
 1. Introduction
 
@@ -220,7 +222,7 @@ Remaining work and issues
 
       A collection of [artifacts] logically grouped for a defined purpose.
 
-   An MPD is itself a set of artifacts, the purpose for which is to define and document the intended use of the MPD. While the key MPD artifacts are its [XML schema document] artifacts, there are also other kinds of MPD artifacts. These may include (but are not limited to) HTML, XSLT, text, or graphic files used for human-readable documentation. An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD. For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts. Appendix E, Common MPD Artifacts, below, contains a listing of mandatory and common optional artifacts for the five types of MPDs. Common types of artifacts are described in more detail in subsequent sections. Section 7.1, Artifact Sets, below, discusses the different methods for grouping MPD artifacts into sets.
+   An MPD is itself a set of artifacts, the purpose for which is to define and document the intended use of the MPD. While the key MPD artifacts are its [XML schema document] artifacts, there are also other kinds of MPD artifacts. These may include (but are not limited to) HTML, XSLT, text, or graphic files used for human-readable documentation. An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD. For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts. Appendix D, Common MPD Artifacts, below, contains a listing of mandatory and common optional artifacts for the five types of MPDs. Common types of artifacts are described in more detail in subsequent sections. Section 7.1, Artifact Sets, below, discusses the different methods for grouping MPD artifacts into sets.
 
 2.4. Schema Document and Namespace Correspondence in NIEM
 
@@ -884,9 +886,9 @@ Remaining work and issues
 
 4.1.1. NIEM Core Schema Document Subset that Supports MPD Catalog
 
-   Appendix A, MPD Catalog XML Schema Document, below, is a NIEM-conformant schema document. It reuses a schema document subset of NIEM 3.0 (primarily from NIEM Core). Appendix C, NIEM Core Subset for MPD Catalog Schema, below, is a listing of each schema document in this set.
+   Appendix A, MPD Catalog XML Schema Document, below, is a NIEM-conformant schema document. It reuses a schema document subset of NIEM 3.0 (primarily from NIEM Core). [NIEM MPD Toolkit] contains the NIEM 3.0 schema document subset used by mpd-catalog-3.0.xsd.
 
-   As is the case with mpd-catalog-3.0.xsd, MPDs are not required to contain this schema document subset since it is always available here: http://reference.niem.gov/niem/specification/model-package-description/3.0/
+   As is the case with mpd-catalog-3.0.xsd, MPDs are not required to contain this schema document subset since it is always available here: http://reference.niem.gov/niem/resource/mpd/3.0/
 
 4.1.2. MPD Catalog as a Table of Contents
 
@@ -898,7 +900,7 @@ Remaining work and issues
 
    Release, core update, and domain update catalogs are required to record all artifacts. However, IEPD and EIEM MPD catalogs are not. The IEPD or EIEM author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog. The author may choose to classify all, some, or none in the catalog.
 
-   The MPD catalog provides a supplement or an alternative to organizing MPD artifacts and sets with a standard file directory. An author can use it to identify, classify, and describe particular artifacts or sets, instead of having to do so with only file names and directory structure. An author can also employ the guidance in Appendix G, Guidance for IEPD Directories (non-normative), below.
+   The MPD catalog provides a supplement or an alternative to organizing MPD artifacts and sets with a standard file directory. An author can use it to identify, classify, and describe particular artifacts or sets, instead of having to do so with only file names and directory structure. An author can also employ the guidance in Appendix F, Guidance for IEPD Directories (non-normative), below.
 
 4.1.3. Extending an MPD Catalog
 
@@ -932,7 +934,7 @@ Remaining work and issues
 
    Whether extending an MPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, Appendix A, MPD Catalog XML Schema Document, below, provides an abstract element as a substitution group head in each case. The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group. Whenever possible, the user should reuse types, elements, and attributes that are already defined/declared within the Appendix A, MPD Catalog XML Schema Document, below.
 
-   If an MPD catalog schema document extension uses NIEM data components that are not already contained in the NIEM Core subset provided in Appendix C, NIEM Core Subset for MPD Catalog Schema, below, then the additional components must be additive. In other words:
+   If an MPD catalog schema document extension uses NIEM data components that are not already contained in the NIEM Core subset provided in [NIEM MPD Toolkit], then the additional components must be additive. In other words:
 
    [Rule 4-9] (MPD-Cat)
 
@@ -1621,7 +1623,7 @@ Remaining work and issues
 
    An MPD author may include any files believed to be useful to understand, implement, reuse, and/or adapt an MPD.
 
-   An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it. (See Appendix E, Common MPD Artifacts, below, for a listing of the mandatory and common optional artifacts for each type of MPD.)
+   An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it. (See Appendix D, Common MPD Artifacts, below, for a listing of the mandatory and common optional artifacts for each type of MPD.)
 
    Files vary widely in format and are often specific to the tools an author uses to parse, consume, or output them. Therefore, if tool-specific files are included in an MPD, it is also a good practice to include copies of those files in formats that display with standard Web browsers or other cost-free, publicly available viewing tools (e.g., ASCII text, PDF, CSV, HTML, JPG, GIF, PNG). This guidance is intended to encourage and facilitate maximal sharing and distribution of MPDs; it does not prohibit and is not intended to discourage the inclusion of other file formats.
 
@@ -1719,7 +1721,7 @@ Remaining work and issues
 
 7.2. MPD File Name Syntax
 
-   This section is applicable to all MPDs. However, it is only normative for releases, core updates, and domain updates. For IEPDs and EIEMs, this section describes non-normative guidance that is highly recommended, but not mandatory. Additional non-normative guidance that relates to directory naming for IEPDs and EIEMs is in Appendix G, Guidance for IEPD Directories (non-normative), below.
+   This section is applicable to all MPDs. However, it is only normative for releases, core updates, and domain updates. For IEPDs and EIEMs, this section describes non-normative guidance that is highly recommended, but not mandatory. Additional non-normative guidance that relates to directory naming for IEPDs and EIEMs is in Appendix F, Guidance for IEPD Directories (non-normative), below.
 
    The MPD Specification is intended to help facilitate tool support for processing MPDs. Providing tools and search mechanisms basic information about an MPD as early as possible will help reduce processing time and complexity. So, if the MPD name, version, and class can be identified from its file name, then a tool would not have to open the archive and parse the MPD catalog to determine such. Of course, ultimately, to do anything useful, a tool will have to open the MPD archive. However, standard file name syntax allows a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each. File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.
 
@@ -2855,61 +2857,70 @@ Appendix A. MPD Catalog XML Schema Document
 
     
 
-Appendix B. Example Instance XML Document Catalog
+Appendix B. Example MPD Catalog Document for Cursor on Target
 
-   [TBD]
+   Below is a simple example of an MPD catalog document for a Cursor on Target IEPD. The entire IEPD is contained in the [NIEM MPD Toolkit]
 
    <?xml version="1.0" encoding="US-ASCII"?>
    <c:Catalog 
-      xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
-      xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-      xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-      xmlns:ns="http://example.org/namespace">
-     <c:MPD 
-        c:mpdURI="http://example.org/myIEPD/"
-        c:mpdClassCode="iepd http://example.com/new_MPD_class/4.0/"
-        c:mpdName="speeding-ticket"
-        c:mpdVersionID="1.0"
-        >
-       <c:MPDInformation>
-         <c:AuthoritativeSource>
-         </c:AuthoritativeSource>
-         <c:CreationDate>2013-09-18</c:CreationDate>
-       </c:MPDInformation>
-       <c:IEPConformanceTarget structures:id="message">
-        <c:ValidityContext c:xPathText="//ns:ParkingTicket">
-         <c:XMLSchemaValid>
-           <nc:DescriptionText>MUST be valid to this XML Schema.</nc:DescriptionText>
-   	<c:XMLCatalog c:pathURI="xml-catalog.xml"/>
-   	<c:XMLSchemaDocument c:pathURI="parking.xsd"/>
-         </c:XMLSchemaValid>
-         <c:SchematronValid>
-           <c:SchematronSchema c:pathURI="rules.sch"/>
-         </c:SchematronValid>
-        </c:ValidityContext>
-       </c:IEPConformanceTarget>
-       <c:ReadMe
-          c:pathURI="read-me.html">
-       </c:ReadMe>
-     </c:MPD>
+       xmlns:cot="http://example.com/cot-niem/0.8/"
+       xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
+       xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+       xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+       <c:MPD 
+           c:mpdURI="http://example.com/cot-iepd/0.8beta1/" 
+           c:mpdClassCode="iepd"
+           c:mpdName="cot-iepd" 
+           c:mpdVersionID="0.8beta1">
+           <c:MPDInformation>
+               <c:AuthoritativeSource> 
+                   <nc:EntityOrganization>
+                       <nc:OrganizationName>CoT Program Office</nc:OrganizationName>
+                       <nc:OrganizationPrimaryContactInformation>
+                           <nc:ContactWebsiteURI>https://partners.mitre.org/sites/CoTUserGroup/</nc:ContactWebsiteURI>
+                       </nc:OrganizationPrimaryContactInformation>
+                   </nc:EntityOrganization>
+               </c:AuthoritativeSource>
+               <c:CreationDate>2014-03-13</c:CreationDate>
+               <c:StatusText>Beta</c:StatusText>
+           </c:MPDInformation>
+           <c:IEPConformanceTarget structures:id="CoT-NIEM-IEP">
+               <nc:DescriptionText>
+                   An IEP class equivalent to Cursor-on-Target 2.0 messages
+               </nc:DescriptionText>
+               <c:HasDocumentElement c:qualifiedNameList="cot:Event"/>
+               <c:XMLSchemaValid>
+                   <c:XMLCatalog c:pathURI="xml-catalog.xml"/>
+   		<c:XMLSchemaDocument c:pathURI="extension/cot-neim.xsd"/>
+               </c:XMLSchemaValid>
+               <c:SchematronValid>
+                   <c:SchematronSchema c:pathURI="schematron/business-rules.sch"/>
+               </c:SchematronValid>
+          <!-- <c:EXISchema>
+                   <c:XMLCatalog c:pathURI="xml-catalog-exi.xml"/>
+                   <c:XMLSchemaDocument c:pathURI="extension/cot-niem.xsd"/>
+               </c:EXISchema> -->
+               <c:IEPSampleXMLDocument c:pathURI="iep-samples/cot-iep1.xml"/>
+           </c:IEPConformanceTarget>
+           <c:ReadMe c:pathURI="read-me.txt"/>
+           <c:MPDChangeLog c:pathURI="changelog.txt"></c:MPDChangeLog>
+           <c:Wantlist c:pathURI="niem/wantlist.xml"/>
+           <c:ExtensionSchemaDocument c:pathURI="extension/cot-niem.xsd"/>
+           <c:ExtensionSchemaDocument c:pathURI="extension/cot-niem-codes.xsd"/>
+           <c:ReferenceSchemaDocument c:pathURI="extension/milops-future.xsd"/>
+       </c:MPD>
    </c:Catalog>
    
 
     
 
-Appendix C. NIEM Core Subset for MPD Catalog Schema
+Appendix C. Schematron Rules for MPDs
 
    [TBD]
 
     
 
-Appendix D. Schematron Rules for MPDs
-
-   [TBD]
-
-    
-
-Appendix E. Common MPD Artifacts
+Appendix D. Common MPD Artifacts
 
    Notes:
 
@@ -2957,13 +2968,17 @@ Appendix E. Common MPD Artifacts
 
       application information|*.*|a tool-specific artifact used, generated, exported, imported, etc. by a specific tool; includes models, databases, configuration files, graphics, etc.
 
-Appendix F. Conformance Assertion Example
+    
+
+Appendix E. Conformance Assertion Example
 
    A NIEM conformance assertion is a required artifact for an IEPD or EIEM. The following is a simple example of a conformance assertion (in this case, a self assertion by the author, but with a little assistance from colleagues. The concept is to provide an implementer with some information that indicates how well an IEPD or EIEM has been checked for quality and conformance with respect to XML Schema and NIEM. The assertion can be as simple as the assertion clause. However, clearly the more detail that is provided, the stronger the case for conformance and quality will be.
 
    [ INSERT EXAMPLE HERE ]
 
-Appendix G. Guidance for IEPD Directories (non-normative)
+    
+
+Appendix F. Guidance for IEPD Directories (non-normative)
 
    NIEM releases, core updates, and domain updates generally follow a consistent directory organization. When employing release and updates within IEPDs and EIEMs whether as-is or as subsets, users are encouraged to maintain their original directory structures. However, aside from applicable rules previously stated in the preceding sections, there are no normative rules for organizing directories within IEPDs or EIEMs.
 
@@ -3101,7 +3116,7 @@ Appendix G. Guidance for IEPD Directories (non-normative)
 
     
 
-Appendix H. Acronyms and Abbreviations
+Appendix G. Acronyms and Abbreviations
 
       Acronym / Abbreviation|Literal or Definition
 
@@ -3183,7 +3198,7 @@ Appendix H. Acronyms and Abbreviations
 
     
 
-Appendix I. References
+Appendix H. References
 
    [FEA Data Reference Model]: The Federal Enterprise Architecture Data Reference Model, Version 1.0, September 2004. Available from http://xml.gov/documents/completed/DRMv1.pdf. A more recent DRM Version 2.0, 17 November 2005 is available from http://www.whitehouse.gov/omb/assets/egov_docs/DRM_2_0_Final.pdf
 
@@ -3220,6 +3235,8 @@ Appendix I. References
    [NIEM Introduction]: Introduction to the National Information Exchange Model (NIEM), Version 0.3, NIEM Program Management Office, 12 February 2007. Available from http://reference.niem.gov/niem/guidance/introduction/.
 
    [NIEM MPD Specification]: NIEM Model Package Description (MPD) Specification, Version 3.0, NIEM Technical Architecture Committee (NTAC), [day month TBD] 2014. Available from http://reference.niem.gov/niem/specification/model-package-description/3.0/.
+
+   [NIEM MPD Toolkit]: NIEM Model Package Description Toolkit, Version 3.0, NIEM Technical Architecture Committee (NTAC), [day month TBD] 2014. Available from http://referencce.niem.gov/niem/resource/mpd/3.0/.
 
    [NIEM NDR]: NIEM Naming and Design Rules (NDR), Version 3.0, NIEM Technical Architecture Committee (NTAC), [day month TBD] 2014. Available from http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/.
 
@@ -3259,11 +3276,11 @@ Appendix I. References
 
    [PKZIP]: APPNOTE.TXT - .ZIP File Format Specification, Version: 6.3.2, Revised: 28 September 2007, Copyright (c) 1989 - 2007 PKWare Inc. Available from http://www.pkware.com/documents/casestudies/APPNOTE.TXT.
 
-Appendix J. Index of Definitions
+Appendix I. Index of Definitions
 
    The index of definitions is omitted from this edition.
 
-Appendix K. Index of Rules
+Appendix J. Index of Rules
 
    Rule 3-1: Section 3.2.1, Basic Subset Concepts
    Rule 3-2: Section 3.2.3, Subset Schema Document Namespaces
