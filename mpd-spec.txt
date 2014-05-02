@@ -74,23 +74,23 @@ Major changes:
 
       16. Added ref to MPD Toolkit that will contain entire CoT IEPD.
 
+      17. Added 3 Schematron rule files for a few conformance targets; declared them "alpha" and untested. Appendix C, Schematron Rules for MPDs, below
+
 Remaining work and issues
 
       1. Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? 
 
-      2. Can we add lower level cardinality constraints back into mpd-catalog-3.0.xsd (to resolve oXygen errors)?
+      2. oXygen schema validation errors on MPD catalog XSD.
 
-      3. oXygen schema validation errors on MPD catalog XSD.
+      3. Add lower level cardinality constraints back into mpd-catalog-3.0.xsd (to resolve oXygen errors)?
 
       4. Remaining TBDs.
 
-      5. Appendix for Schematron rules for all CTs; MPD Catalog, etc.
+      5. Assemble MPD Toolkit and make available at http://reference.niem.gov/niem/resource/mpd/3.0/; will include: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules (beta), example CoT IEPD, example conformance-assertion template.
 
-      6. Assemble MPD Toolkit and make available at http://reference.niem.gov/niem/resource/mpd/3.0/; will include: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules (beta), example CoT IEPD, example conformance-assertion template.
+      6. Final QA and validity checks on MPD catalog schema, other appendices, etc.
 
-      7. QA and validity checks on MPD catalog schema, other appendices, etc.
-
-      8. Final checks for typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
+      7. Final checks for typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
 
 1. Introduction
 
@@ -404,7 +404,7 @@ Remaining work and issues
 
       XML catalog|X-Cat
 
-   [TBD] [What other conformance targets are needed?]
+   [TBD -- What other conformance targets are needed?]
 
 2.10. MPD Types
 
@@ -878,7 +878,7 @@ Remaining work and issues
 
    [Rule 4-3] (MPD-Cat)
 
-      An [MPD catalog document] MUST be valid to the NIEM MPD catalog Schematron rules [TBD].
+      An [MPD catalog document] MUST be valid to the NIEM MPD catalog Schematron rules in Appendix C, Schematron Rules for MPDs.
 
    Note that Appendix A, MPD Catalog XML Schema Document, below, is a fairly relaxed XML schema definition with very few mandatory properties. The reason for this is to support tools that must identify and distiguish a [well-formed] from a [NIEM IEPD] during incremental stages of development. This is explained in more detail in Section 5.1, Well Formed MPD (WF-MPD), below.
 
@@ -934,7 +934,7 @@ Remaining work and issues
 
    Whether extending an MPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, Appendix A, MPD Catalog XML Schema Document, below, provides an abstract element as a substitution group head in each case. The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group. Whenever possible, the user should reuse types, elements, and attributes that are already defined/declared within the Appendix A, MPD Catalog XML Schema Document, below.
 
-   If an MPD catalog schema document extension uses NIEM data components that are not already contained in the NIEM Core subset provided in [NIEM MPD Toolkit], then the additional components must be additive. In other words:
+   If an MPD catalog schema document extension uses NIEM data components that are not already contained in the NIEM Core subset provided with [NIEM MPD Toolkit], then the additional components must be additive. In other words:
 
    [Rule 4-9] (MPD-Cat)
 
@@ -2916,7 +2916,169 @@ Appendix B. Example MPD Catalog Document for Cursor on Target
 
 Appendix C. Schematron Rules for MPDs
 
-   [TBD]
+   The following Schematron rule files represent a number of the rules defined in this MPD Specification. None of these rules have been tested. For now they should be considered experimental (alpha). In the future, more Schematron rules will be designed, tested, and included with this specification and [NIEM MPD Toolkit]. This is not likely to occur until after this specification has been approved and released.
+
+   <?xml version="1.0" encoding="UTF-8"?>
+   <schema 
+      queryBinding="xslt2"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns="http://purl.oclc.org/dsdl/schematron">
+   
+   <title>Rules about MPD catalog artifacts</title>
+   
+   <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+   <ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+   <ns prefix="c" uri="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"/>
+   <ns prefix="structures" uri="http://release.niem.gov/niem/structures/3.0/"/>
+   
+   <pattern>
+     <rule context="c:IEPConformanceTarget">
+       <assert test="exists(@structures:id)"
+         >Rule 4-21: An element c:IEPConformanceTarget MUST have an attribute structures:id.</assert>
+   </pattern>
+   
+   </schema>
+   <!-- 
+     Local Variables:
+     mode: sgml
+     indent-tabs-mode: nil
+     fill-column: 9999
+     End:
+   -->
+   
+
+   <?xml version="1.0" encoding="UTF-8"?>
+   <schema 
+      queryBinding="xslt2"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns="http://purl.oclc.org/dsdl/schematron">
+      xmlns:lf="http://niem.gtri.gatech.edu/local-functions/2014-04-30-1349">
+   
+   <title>Rules about an MPD catalog document in a well-formed MPD</title>
+   
+   <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+   <ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+   <ns prefix="c" uri="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"/>
+   <ns prefix="structures" uri="http://release.niem.gov/niem/structures/3.0/"/>
+   <ns prefix="xmlcatalog" uri="urn:oasis:names:tc:entity:xmlns:xml:catalog"/>>
+   <ns prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
+   
+   <xsl:function name="lf:has-effective-conformance-target-identifier" as="xs:boolean">
+     <xsl:param name="context" as="element()"/>
+     <xsl:param name="match" as="xs:anyURI"/>
+     <xsl:variable name="effective-conformance-targets-attribute" 
+               as="attribute()?"
+               select="(root($context)//*[exists(@ct:conformanceTargets)])[1]/@ct:conformanceTargets"/>
+     <xsl:sequence select="if (empty($effective-conformance-targets-attribute))
+                       then false()
+                       else some $effective-conformance-target-string
+                            in tokenize(normalize-space(string($effective-conformance-targets-attribute)), ' ')
+                            satisfies (
+                              $effective-conformance-target-string castable as xs:anyURI
+                              and xs:anyURI($effective-conformance-target-string) = $match)"/>
+   </xsl:function>
+   
+   
+   <pattern>
+     <rule context="c:*[exists(@c:pathURI)]">
+       <assert test="unparsed-text-available(resolve-uri(@c:pathURI, base-uri(.)))"
+         >Rule 5-2: The value of a c:pathURI attribute MUST resolve to a resource.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:XMLCatalog[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/xmlcatalog:catalog)"
+         >Rule 5-3: The value of a c:pathURI attribute owned by an element c:XMLCatalog MUST resolve to an XML catalog document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:IEPSampleXMLDocument[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies
+                       doc-available($uri)"
+         >Rule 5-6: The value of a c:pathURI attribute owned by an element c:IEPSampleXMLDocument MUST resolve to an XML document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:ExternalSchemaDocument[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/xs:schema)"
+         >Rule 5-8: The value of a c:pathURI attribute owned by an element c:ExternalSchemaDocument MUST resolve to an XML schema document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:ReferenceSchemaDocument[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/xs:schema
+                       and lf:has-effective-conformance-target-identifier(doc($uri)/xs:schema,
+                               'http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument'))"
+         >Rule 5-9: The value of a c:pathURI attribute owned by an element c:ReferenceSchemaDocument MUST resolve to a NIEM reference schema document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:ExtensionSchemaDocument[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/xs:schema
+                       and lf:has-effective-conformance-target-identifier(doc($uri)/xs:schema,
+                               'http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ExtensionSchemaDocument'))"
+         >Rule 5-10: The value of a c:pathURI attribute owned by an element c:ExtensionSchemaDocument MUST resolve to a NIEM extension schema document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:SubsetSchemaDocument[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/xs:schema)"
+         >Rule 5-11: The value of a c:pathURI attribute owned by an element c:SubsetSchemaDocument MUST resolve to an XML schema document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:SchematronSchema[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/sch:schema)"
+         >Rule 5-13: The value of a c:pathURI attribute owned by an element c:SchematronSchema MUST resolve to a Schematron schema.</assert>
+   </pattern>
+   
+   </schema>
+   <!-- 
+     Local Variables:
+     mode: sgml
+     indent-tabs-mode: nil
+     fill-column: 9999
+     End:
+   -->
+   
+
+   <?xml version="1.0" encoding="UTF-8"?>
+   <schema 
+      queryBinding="xslt2"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns="http://purl.oclc.org/dsdl/schematron">
+      xmlns:lf="http://niem.gtri.gatech.edu/local-functions/2014-04-30-1349">
+   
+   <title>Rules about an XML catalog document in a well-formed MPD</title>
+   
+   <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+   <ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+   <ns prefix="c" uri="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"/>
+   <ns prefix="structures" uri="http://release.niem.gov/niem/structures/3.0/"/>
+   <ns prefix="xmlcatalog" uri="urn:oasis:names:tc:entity:xmlns:xml:catalog"/>>
+   <ns prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
+   
+   </schema>
+   <!-- 
+     Local Variables:
+     mode: sgml
+     indent-tabs-mode: nil
+     fill-column: 9999
+     End:
+   -->
+   
 
     
 
@@ -3248,7 +3410,7 @@ Appendix H. References
 
    [Principles of Data Integration]: Doan, A., Halevy, A., and Ives, X. (2012), Principles of Data Integration, New York, NY: Morgan Kaufmann.
 
-   [RAR]: http://win-rar.com
+   [RAR]: RARLAB WinRAR, http://win-rar.com
 
    [RFC 2119 Key Words]: Bradner, S., Key words for use in RFCs to Indicate Requirement Levels, IETF RFC 2119, March 1997. Available from http://www.ietf.org/rfc/rfc2119.txt.
 
