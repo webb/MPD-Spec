@@ -14,7 +14,7 @@
 <pattern>
   <rule context="c:IEPConformanceTarget">
     <assert test="exists(@structures:id)"
-      >Rule 4-21: An element c:IEPConformanceTarget MUST have an attribute structures:id.</assert>
+      >Rule 4-21: A c:IEPConformanceTarget element MUST own a structures:id attribute.</assert>
 </pattern>
 
 </schema>
