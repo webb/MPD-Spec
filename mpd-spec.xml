@@ -72,6 +72,7 @@
 		<li><p>Added simple example of informal conformance assertion. <ref idref="Conformance-Assertion-Example"/></p></li>
 		<li><p>Added example MPD catalog document from Cursor on Target (Dr Renner).  <ref idref="MPD-Catalog-Document-CoT"/></p></li>
 		<li><p>Added ref to MPD Toolkit that will contain entire CoT IEPD.</p></li>
+		<li><p>Added 3 Schematron rule files for a few conformance targets; declared them "alpha" and untested. <ref idref="MPD-Schematron-Rules"/></p></li>
 	</ol>
 
 </subsection>
@@ -81,13 +82,11 @@
 	<title>Remaining work and issues</title>
 	<ol>
 		<li><p>Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? </p></li>
-		<li><p>Can we add lower level cardinality constraints back into <code>mpd-catalog-3.0.xsd</code> (to resolve oXygen errors)?</p></li>
 		<li><p>oXygen schema validation errors on MPD catalog XSD.</p></li>
+		<li><p>Add lower level cardinality constraints back into <code>mpd-catalog-3.0.xsd</code> (to resolve oXygen errors)?</p></li>
    		<li><p>Remaining TBDs.</p></li>
-		<li><p>Appendix for Schematron rules for all CTs; MPD Catalog, etc.</p></li>
-		<li><p>Assemble MPD Toolkit and make available at <link>http://reference.niem.gov/niem/resource/mpd/3.0/</link>; will include:  
-			mpd-catalog-3.0.xsd, niem-core subset, Schematron rules (beta), example CoT IEPD, example conformance-assertion template.</p></li>
-		<li><p>QA and validity checks on MPD catalog schema, other appendices, etc.</p></li>
+		<li><p>Assemble MPD Toolkit and make available at <link>http://reference.niem.gov/niem/resource/mpd/3.0/</link>; will include: mpd-catalog-3.0.xsd, niem-core subset, Schematron rules (beta), example CoT IEPD, example conformance-assertion template.</p></li>
+		<li><p>Final QA and validity checks on MPD catalog schema, other appendices, etc.</p></li>
 		<li><p>Final checks for typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.</p></li>
 	</ol>
 
@@ -481,7 +480,7 @@
 
 </table>
 
-<p>[TBD] [What other conformance targets are needed?]</p>
+<p>[TBD -- What other conformance targets are needed?]</p>
 
 </section>
 </section>
@@ -1130,7 +1129,7 @@
 	<p>This rule only requires validation with <code>mpd-catalog-3.0.xsd</code> and does not require that this schema document be contained in an MPD.  Tools that validate <code>mpd-catalog.xml</code> will all access the same schema document to perform such.</p>
 
 	<rule id="r3-mpd-cat" applicability="MPD-Cat" class="Constraint">
-		<p>An <termRef>MPD catalog document</termRef> MUST be valid to the NIEM MPD catalog Schematron rules [TBD].</p>
+		<p>An <termRef>MPD catalog document</termRef> MUST be valid to the NIEM MPD catalog Schematron rules in <ref idref="MPD-Schematron-Rules"/>.</p>
 	</rule>
 
 	<p>Note that <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML schema definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef term="well-formed MPD">well-formed</termRef> from a <termRef>NIEM IEPD</termRef> during incremental stages of development.  This is explained in more detail in <ref idref="Well-Formed-MPD"/>.</p>
@@ -1200,7 +1199,7 @@
 
 	<p>Whether extending an MPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, <ref idref="MPD-Catalog-XSD"/> provides an abstract element as a substitution group head in each case.  The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group.  Whenever possible, the user should reuse types, elements, and attributes that are already defined/declared within the <ref idref="MPD-Catalog-XSD"/>.</p>
 
-	<p>If an MPD catalog schema document extension uses NIEM data components that are not already contained in the NIEM Core subset provided in <ref idref="NIEM-MPD-Toolkit"/>, then the additional components must be additive.  In other words:</p>
+	<p>If an MPD catalog schema document extension uses NIEM data components that are not already contained in the NIEM Core subset provided with <ref idref="NIEM-MPD-Toolkit"/>, then the additional components must be additive.  In other words:</p>
 
 	<rule id="r3-mpd-cat-ext-xsd" applicability="MPD-Cat" class="Constraint">
 		<p>Any subset schema documents provided to support an MPD schema document extension MUST be a superset of the subset schema documents provided with this specification to support the MPD catalog schema document.</p>
@@ -2256,7 +2255,11 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 <section id="MPD-Schematron-Rules" isAppendix="true">
 	<title>Schematron Rules for MPDs</title>
-	<pre>[TBD]</pre>
+	<p>The following Schematron rule files represent a number of the rules defined in this MPD Specification.  None of these rules have been tested.  For now they should be considered experimental (alpha).  In the future, more Schematron rules will be designed, tested, and included with this specification and <ref idref="NIEM-MPD-Toolkit">.  This is not likely to occur until after this specification has been approved and released.</p>
+
+	<pre><include-text href="schematron-rules/mpd=catalog.sch"/></pre>
+	<pre><include-text href="schematron-rules/mpd-catalog-in-wf-mpd.sch"/></pre>
+	<pre><include-text href="schematron-rules/xml-catalog-wf-mpd.sch"/></pre>
 
 	<p><char name="nbsp"/></p>
 </section>
@@ -2611,7 +2614,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 </reference>
 
 <reference id="RAR" label="RAR">
-	<p><link>http://win-rar.com</link></p>
+	<p>RARLAB WinRAR, <link>http://win-rar.com</link></p>
 </reference>
 
 <reference id="RFC2119-KeyWords" label="RFC 2119 Key Words">
