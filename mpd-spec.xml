@@ -68,6 +68,7 @@
 		<li><p>Revised wording of <ref idref="r-mpd-link-eiem"/> for Schematron.</p></li>
 		<li><p>Added "derives_from" to mpd-catalog-3.0.xsd to support revision to <ref idref="r-mpd-link-eiem"/>.</p></li>
 		<li><p>Added EXI subdirectory to non-normative guidance.</p></li>
+		<li><p>Fixed <ref idref="r-mpduri"/>: only <code>c:mpdURI</code> attributes must adhere to <absolute-URI> production.</p></li>
 	</ol>
 
 </subsection>
@@ -76,7 +77,6 @@
 
 	<title>Remaining work and issues</title>
 	<ol>
-		<li><p>Local URIs do not have to satisfy absolute constraint.</p></li>
 		<li><p>Conformance targets (CT): Missing? fork? class=Constraint/Interpretation? applicability=(correct CT)? </p></li>
 		<li><p>Add back lower level cardinality constraints?</p></li>
 		<li><p>Oxygen schema validation errors</p></li>
@@ -873,7 +873,7 @@
 		<li><p>Decrease the value of an <code>xs:element/@maxOccurs</code> as long as it remains greater than or equal to its corresponding <code>@minOccurs</code> value.</p></li>
 		<li><p>Remove an <code>xs:element</code> if its <code>@minOccurs="0"</code>.</p></li>
 		<li><p>Remove an <code>xs:complexType</code> or <code>xs:simpleType</code> if not supporting an <code>xs:element</code> or <code>xs:attribute</code> declaration, or another <code>xs:complexType</code> or <code>xs:simpleType</code> definition.</p></li>
-		<li><p>Remove an <code>xs:attribute</code> whose <code>@use="optional"</code> from an <code>xs:complexType</code>.</p></li>
+		<li><p>Remove an <code>xs:attribute</code> with <code>@use="optional"</code> from an <code>xs:complexType</code>.</p></li>
 		<li><p>Change an <code>xs:attribute/@use="optional"</code> to <code>@use="prohibited"</code>.</p></li>
 		<li><p>Change an <code>xs:attribute/@use="optional"</code> to <code>@use="required"</code>.</p></li>
 		<li><p>Remove an <code>xs:element</code> declaration if it is not supporting an element use.</p></li>
@@ -1290,17 +1290,18 @@
 
 	<p>To facilitate MPD sharing and reuse the assignment of a URI (Uniform Resource Identifier) to each MPD is essential.  This is enforced by the MPD catalog schema document <ref idref="MPD-Catalog-XSD"/>.  However, it is also important to ensure that an MPD URI is absolute.</p>
 
-	<rule id="r-uri" applicability="WF-MPD" class="Constraint">
-		<p>The value of any <code>xs:attribute</code> of type <code>xs:anyURI</code> MUST match the production &lt;absolute-URI&gt; as defined by <ref idref="RFC3986-URI"/>, <a href="http://tools.ietf.org/html/rfc3986#page-27"><char name="sect"/>4.3, Absolute URI</a>.</p>
+	<rule id="r-mpduri" applicability="WF-MPD" class="Constraint">
+		<p>In an MPD catalog document, the value of a <code>c:mpdURI</code> attribute of type <code>xs:anyURI</code> MUST match the production &lt;absolute-URI&gt; as defined by <ref idref="RFC3986-URI"/>, <a href="http://tools.ietf.org/html/rfc3986#page-27"><char name="sect"/>4.3, Absolute URI</a>.</p>
 	</rule>
 
-	<p><ref idref="r-uri"/> implies that a URI assigned to an MPD must be valid.  Furthermore, the entity (person or organization) assigning the MPD URI either (1) <em>is</em> the registrant of the domain name or namespace identifier, or (2) <em>has</em> authority from the registrant to assign this URI.</p>
+	<p><ref idref="r-mpduri"/> implies that a URI assigned to an MPD must be valid.  Furthermore, the entity (person or organization) assigning the MPD URI either (1) <em>is</em> the registrant of the domain name or namespace identifier, or (2) <em>has</em> authority from the registrant to assign this URI.</p>
 
 	<p>Examples of valid MPD URIs:</p>
 	<ul>
 		<li><p><code>http://example.gov/niem-iepd/prescription-monitoring-info-exchange/3.0/</code></p></li>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/</code></p></li>
-		<li><p><code>http://example.gov/niem-eiem/cyfs/4.0beta3/</code></p></li>
+		<li><p><code>http://release.niem.gov/niem/niem-core/3.0/</code></p></li>
+		<li><p><code>http://niem.gov/niem/domains/cyfs/2.1/1</code></p></li>
 	</ul>
 
 	<p>This specification does not mandate that basic MPD catalog metadata be designed into an MPD URI.  However, including such can obviously provide for convenient visual recognition of an MPD.  That said, an author should ensure any metadata embedded in the URI accurately reflect the MPD catalog metadata (in particular, the values of <code>c:mpdURI, c:mpdName, c:mpdVersionID, </code>and<code> c:mpdClass</code> defined in <ref idref="MPD-Catalog-XSD"/>).</p>
@@ -1405,11 +1406,11 @@
 	<p>In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change.  New versions of reference schema document sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs and EIEMs.  Developers must understand in detail how changes will affect their IEPD and EIEM products and the tools used to build them.  To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs.  A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users.  All of the foregoing reasons dictate that NIEM require a normative change log for reference schema document sets.</p>
 
 	<rule id="r-mpd-ref-changelog" applicability="WF-MPD" class="Constraint">
-		<p>An MPD assigned an <code>c:mpdClassCode</code> attribute value drawn from the set <code>{rel, cu, du}</code> MUST contain a <code>changelog.xml</code> artifact in its <termRef>MPD root directory</termRef>.</p>
+		<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{rel, cu, du}</code> MUST contain a <code>changelog.xml</code> artifact in its <termRef>MPD root directory</termRef>.</p>
 	</rule>
 
 	<rule id="r-changelog-ref" applicability="M-Chg-Log" class="Constraint">
-		<p>A <code>changelog.xml</code> artifact for an MPD assigned an <code>c:mpdClassCode</code> attribute value drawn from the set <code>{rel, cu, du}</code> MUST validate with the NIEM change log schemas <code>mpd-changelog-1.0.xsd</code> and <code>niem-model-1.0.xsd</code>.</p>
+		<p>A <code>changelog.xml</code> artifact for an MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{rel, cu, du}</code> MUST validate with the NIEM change log schemas <code>mpd-changelog-1.0.xsd</code> and <code>niem-model-1.0.xsd</code>.</p>
 	</rule>
 	
 	<p>The most current versions of the resources referenced in <ref idref="r-changelog-ref"/> are available here:</p>
@@ -1429,7 +1430,7 @@
 	<p>IEPD and EIEM change log requirements are less strict and are not required to conform to the naming and XML schema specifications in <ref idref="r-mpd-ref-changelog"/>.  However, a change log is still required.</p>
 
 	<rule id="r-mpd-changelog-iepd" applicability="WF-MPD" class="Constraint">
-		<p>An MPD assigned an <code>c:mpdClassCode</code> attribute value drawn from the set <code>{iepd, eiem}</code> MUST contain a change log artifact in its <termRef>MPD root directory</termRef></p>
+		<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a change log artifact in its <termRef>MPD root directory</termRef></p>
 	</rule>
 
 	<p>The format of an IEPD or EIEM change log is left to the discretion of the author.  The use of <code>mpd-changelog-1.0.xsd</code> for IEPD and EIEM schemas is not required.  Relaxing the change log format encourages and facilitates easier and more rapid development.  IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  A consistent standard change log would be very difficult to specify.</p>
@@ -1451,7 +1452,7 @@
 	<p>A <code>read-me</code> artifact is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.</p>
 
 	<rule id="r-mpd-read-me" applicability="WF-MPD" class="Constraint">
-		<p>An MPD whose <code>c:mpdClassCode</code> attribute value list contains <code>iepd</code> or <code>eiem</code> MUST contain a <code>read-me.*</code> file artifact in its <termRef>MPD root directory</termRef>.</p>
+		<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a <code>read-me.*</code> file artifact in its <termRef>MPD root directory</termRef>.</p>
 	</rule>
 
 	<p>The read-me artifact may replicate some of the metadata in the MPD catalog.  However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal.  It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.</p>
@@ -1550,7 +1551,7 @@
 	<p>In order to support <termRef>XML schema assembly</termRef> for the purpose of <termRef>XML schema validation</termRef>, the following rule requires that the namespaces of all XML schema documents used within an IEPD <termRef term="resolve URI">resolve</termRef> to a locally-unique artifact:</p>
 
 	<rule id="r-xml-cat-resolution" applicability="WF-MPD" class="Constraint">
-		<p>An MPD whose <code>c:mpdClassCode</code> attribute value list contains <code>iepd</code> or <code>eiem</code> MUST <termRef term="resolve URI">resolve</termRef> each namespace it uses to a locally unique URI through one or more <termRef term="XML catalog document">XML catalog documents</termRef>.</p>
+		<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST <termRef term="resolve URI">resolve</termRef> each namespace it uses to a URI through one or more <termRef term="XML catalog document">XML catalog documents</termRef>.</p>
 	</rule>
 
 	<p>This rule implies that <code>er:NextCatalog</code> elements may be used within <termRef term="XML catalog document">XML catalog documents</termRef> to connect them and control their parsing sequence.  An IEPD must contain at least one <termRef>XML catalog document</termRef> because it is the only MPD that can specify an IEP <ref idref="IEP"/> and provide validation instructions that would require schema assembly from XML schema documents.  <ref idref="Information-Exchange-Packages"/> provides more specifics about using <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs.</p>
@@ -1749,7 +1750,7 @@
 </definition> 
 
 	<rule id="r1-conform-assert" applicability="WF-MPD" class="Constraint">
-		<p>An MPD whose <code>c:mpdClassCode</code> attribute value list contains <code>iepd</code> or <code>eiem</code> MUST have a <termRef>conformance assertion</termRef> artifact in its <termRef>MPD root directory</termRef>.</p>
+		<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a <termRef>conformance assertion</termRef> artifact in its <termRef>MPD root directory</termRef>.</p>
 	</rule>
 
 	<rule id="r2-conform-assert" applicability="WF-MPD" class="Constraint">
@@ -2145,7 +2146,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<p>MPD file names for releases, core updates, and domain updates also adhere to this rule:</p>
 
 	<rule id="r-mpd-match" applicability="WF-MPD" class="Constraint">
-		<p>Given an MPD whose <code>c:mpdClassCode</code> value is in the set <code>{rel, cu, du}</code>, its file name substrings for <code>name</code>, <code>version</code>, and <code>class</code> (as defined in <ref idref="r-name-syntax"/> MUST exactly match its MPD catalog values for <code>c:MPD</code> attributes <code>c:mpdName</code>, <code>c:mpdVersionID</code>, and <code>c:mpdClassCode</code> respectively.</p>
+		<p>Given an MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{rel, cu, du}</code>, its file name substrings for <code>name</code>, <code>version</code>, and <code>class</code> (as defined in <ref idref="r-name-syntax"/> MUST exactly match its MPD catalog values for <code>c:MPD</code> attributes <code>c:mpdName</code>, <code>c:mpdVersionID</code>, and <code>c:mpdClassCode</code> respectively.</p>
 	</rule>
 
 	<p>And finally, in HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.</p>
@@ -2174,7 +2175,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<p>Releases, core updates, and domain updates must adhere to packaging rules primarily to enable development tools to process them consistently and efficiently.  The NIEM PMO controls the format and documentation for these MPDs and publishes them at <link>http://release.niem.gov/niem/</link>.  However, many different organizations author IEPDs and EIEMs.  As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others.  Furthermore, EIEMs are the basis for families of IEPDs.  Therefore, it is important that both of these MPD classes are well documented for understanding and use.  An IEPD that has been derived from an EIEM should identify that relationship through its MPD catalog.</p>
 
 	<rule id="r-mpd-link-eiem" applicability="N-IEPD" class="Constraint">
-		<p>The <termRef>MPD catalog document</termRef> for an IEPD that belongs to a family of IEPDs derived from an EIEM, MUST have a <code>c:MPDInformation/c:Relationship</code> that owns a <code>c:RelationshipCode="derived_from"</code> attribute and a <code>c:resourceURI</code> attribute whose value <termRef term="resolve URI">resolves</termRef> to an EIEM resource.</p>
+		<p>An <termRef>MPD catalog document</termRef> for an IEPD that is a member of a family of IEPDs derived from a given EIEM, MUST have a <code>c:MPDInformation/c:Relationship</code> element that owns a <code>c:RelationshipCode="derived_from"</code> attribute and a <code>c:resourceURI</code> attribute with a URI value that <termRef term="resolve URI">resolves</termRef> to an EIEM resource.</p>
 	</rule>
 
 </section>
