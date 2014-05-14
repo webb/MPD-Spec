@@ -17,8 +17,8 @@
    xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/">
  
    <title>National Information Exchange Model <char name="mdash"/> Model Package Description Specification</title>
-   <version>3.0beta1</version>
-   <date>2014-04-30</date>
+   <version>3.0beta2</version>
+   <date>2014-05-21</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
  
   <subsection>
@@ -52,8 +52,6 @@
 		<li><p>Provided initial cut <code>niem-core</code> subset for <code>mpd-catalog-3.0.xsd</code>.</p></li>
 	</ol>
 
-<!-- Beta 1 ########################################################################################## -->
-
 	<p>Beta 1</p>
 	<ol>
 		<li><p>Added <ref idref="r3-mpd-cat-ext-xsd"/> and text above it.</p></li>
@@ -75,23 +73,30 @@
 		<li><p>Added 3 Schematron rule files for a few conformance targets; declared them "alpha" and untested. <ref idref="MPD-Schematron-Rules"/></p></li>
 		<li><p>Assembled MPD Toolkit; initial version available at <link>http://reference.niem.gov/niem/resource/mpd/3.0/</link>; includes: mpd-spec-3.0beta1.pdf, mpd-catalog-3.0beta1.xsd, mpd catalog NIEM subset, Schematron rules (alpha), example IEPD for CoT, example conformance-assertion (template).</p></li>
 	</ol>
+</subsection>
 
+<!-- Beta 2 ######################################################################## -->
+<subsection>
+	<title>Beta 2</title>
+	<ol>
+		<li><p>Added new <ref idref="URI-Schemes"/>, and reorganized subsections and rules related to URIs under it.</p></li>
+		<li><p>Added title for each rule (~67 total).</p></li>
+		<li><p>.</p></li>
+	</ol>
 </subsection>
 
 <subsection>
-
 	<title>Remaining work and issues</title>
 	<ol>
 		<li><p>Section 5 still needs more text and organization.</p></li>
-		<li><p>Add short title for each rule (approx 67 total).</p></li>
 		<li><p>Conformance targets (CT): missing? fork? class=Constraint/Interpretation? applicability=(correct CT)?</p></li>
 		<li><p>oXygen validation errors on MPD catalog XSD; add lower level cardinality constraints back in to resolve oXygen errors?</p></li>
    		<li><p>Remaining TBDs.</p></li>
-		<li><p>Final QA and validity checks on MPD catalog schema, other appendices, etc.</p></li>
+		<li><p>Final QA, consistency, and validity checks on MPD catalog schema, MPD Toolkit, CoT IEPD, other appendices, etc.</p></li>
 		<li><p>Final checks for typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.</p></li>
 	</ol>
-
 </subsection>
+
 
 
 <!-- ################################################## -->
@@ -850,11 +855,13 @@
 
 	<p>Because NIEM adopts an optional and over-inclusive data representation strategy, most elements in a NIEM reference schema have zero to unbounded cardinality.  So, elements with cardinality <code>minOccurs="0"</code> are optional and may be omitted from a subset schema document if not needed for business reasons.  It is also valid to constrain element cardinality within a subset schema document, as long as doing so does not break the subset relationship with the reference schema document set.  For example, a reference schema document element with cardinality (<code>minOccurs="0"</code>, <code>maxOccurs="unbounded"</code>) may be constrained to (<code>0</code>,<code>1</code>) or (<code>1</code>,<code>1</code>) in a subset schema document.  However, if a reference schema document element's cardinality is (<code>1</code>,<code>unbounded</code>), it may not be constrained to (<code>0</code>,<code>1</code>) since this breaks the subset relationship.  The interval (<code>0</code>,<code>1</code>) is not contained within, and instead, overlaps the interval (<code>1</code>,<code>unbounded</code>).</p>
 
-	<p>The fundamental rule for a valid schema document subset is as follows:</p>
+	<p>The fundamental rule for a valid NIEM schema document subset is as follows:</p>
 
+<ruleSection><title>Fundamental NIEM Subset Rule</title>
 	<rule id="r-subset" applicability="Subset" class="Constraint">
 		<p>A subset schema assembled from a <termRef>schema document subset</termRef> derived from a NIEM <termRef>reference schema document set</termRef> is a valid subset schema, if and only if any instance XML document that validates with the schema subset also validates with the reference schema assembled from the <termRef>reference schema document set</termRef>.</p>
 	</rule>
+</ruleSection>
 
 </section>
 
@@ -900,9 +907,11 @@
 
 	<p>A <termRef>schema document subset</termRef> is essentially a <termRef>reference schema document set</termRef> (i.e., a numbered release) that has been modified by applying the foregoing subset operations <ref idref="Subset-Operations"/> to support business requirements represented in an IEPD or EIEM.  A subset derived from a reference schema document set may differ from that reference set only in that its content has been reduced and/or constrained.  For this reason, each <termRef>subset schema document</termRef> adopts the target namespace of its corresponding <termRef>reference schema document</termRef>.</p>
 
+<ruleSection><title>Subset Schema Namespace Is a Reference Schema Namespace</title>
 	<rule id="r-subset-tgt-ns" applicability="Subset" class="Constraint">
 		<p>A <termRef>subset schema document</termRef> in a <termRef>schema document subset</termRef> derived from a <termRef>reference schema document set</termRef> MUST have the same target namespace as the schema document in the <termRef>reference schema document set</termRef> on which it is based.</p>
 	</rule>
+</ruleSection>
 
 </section>
 
@@ -994,9 +1003,11 @@
 
 	<p>Constraint schema documents are generally designed and employed in sets, similar to reference schema document set or schema document subsets.  A common practice for creating an IEPD or EIEM constraint schema document set is to start with a valid NIEM schema document subset and modify it to further restrict the class of instance XML documents (IEPs) that will validate with this constraint schema set.  However, an extension schema document can also be used to derive a constraint schema document.  The namespace of a constraint schema document is established the same way the namespace of a subset schema document is established, by reusing the target namespace of the schema document from which it is derived.</p>
 
+<ruleSection><title>Constraint Schema Namespace Is a Reference Schema Namespace</title>
 	<rule id="r-constraint-tgt-ns" applicability="Constraint" class="Constraint">
 		<p>A <termRef>constraint schema document</termRef> MUST have a target namespace that has been previously assigned to a <termRef term="reference schema document">reference</termRef> or <termRef>extension schema document</termRef>, or is a <termRef>constraint schema document</termRef> intended to support another <termRef>constraint schema document</termRef> that has such a target namespace.</p>
 	</rule>
+</ruleSection>
 
 	<p>There is no restriction on the number of constraint schema document sets that an IEPD or EIEM can employ.  As in other advanced situations, developers must clearly document their intentions for and use of multiple constraint schema document sets.</p>
 
@@ -1119,19 +1130,25 @@
 		<li><p>Definition, identification, and validation of IEP conformance targets</p></li>
 	</ul>
 
-	<rule id="r1-mpd-cat" applicability="MPD-Cat" class="Constraint">
-		<p>An <termRef>MPD catalog document</termRef> MUST have an artifact named <code>mpd-catalog.xml</code> in its <termRef>MPD root directory</termRef>.</p>
+<ruleSection><title>MPD Has MPD Catalog Document</title>
+	<rule id="r1-mpd-cat" applicability="WF-MPD" class="Constraint">
+		<p>An MPD MUST have an artifact named <code>mpd-catalog.xml</code> in its <termRef term="MPD root directory">root directory</termRef>.</p>
 	</rule>
+</ruleSection>
 
+<ruleSection><title>MPD Catalog Document Valid to <code>mpd-catalog-3.0.xsd</code></title>
 	<rule id="r2-mpd-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An <termRef>MPD catalog document</termRef> MUST be valid to <code>mpd-catalog-3.0.xsd</code> <ref idref="MPD-Catalog-XSD"/>.</p>
 	</rule>
+</ruleSection>
 
 	<p>This rule only requires validation with <code>mpd-catalog-3.0.xsd</code> and does not require that this schema document be contained in an MPD.  Tools that validate <code>mpd-catalog.xml</code> will all access the same schema document to perform such.</p>
 
+<ruleSection><title>MPD Catalog Document Valid to Schematron Rules</title>
 	<rule id="r3-mpd-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An <termRef>MPD catalog document</termRef> MUST be valid to the NIEM MPD catalog Schematron rules in <ref idref="MPD-Schematron-Rules"/>.</p>
 	</rule>
+</ruleSection>
 
 	<p>Note that <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML schema definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef term="well-formed MPD">well-formed</termRef> from a <termRef>NIEM IEPD</termRef> during incremental stages of development.  This is explained in more detail in <ref idref="Well-Formed-MPD"/>.</p>
 
@@ -1287,7 +1304,14 @@
 
 
 
-<section id="URI-Scheme-for-MPDs">
+<section id="URI-Schemes">
+	<title>URI Schemes</title>
+
+	<p>Various Uniform Resource Identifiers (URI) are employed extensively in MPDs to identify and reference other MPDs, MPD artifacts, conformance targets, documents, and other resources.  For each type of URI used in an MPD catalog document, this section describes its purpose, syntax, and options based on <ref idref=""/>.</p>
+
+
+
+<section id="URI-MPD">
 	<title>URI Scheme for MPDs</title>
 
 	<p>To facilitate MPD sharing and reuse the assignment of a URI (Uniform Resource Identifier) to each MPD is essential.  This is enforced by the MPD catalog schema document <ref idref="MPD-Catalog-XSD"/>.  However, it is also important to ensure that an MPD URI is absolute.</p>
@@ -1312,7 +1336,7 @@
 
 
 
-<section id="URI-Scheme-for-MPD-Artifacts">
+<section id="URI-MPD-Artifact">
 	<title>URI Scheme for MPD Artifacts</title>
 
 		<p>Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (reuse) and one aspect of lineage.  To support this concept, the following MPD URI rules are necessary:</p>
@@ -1379,15 +1403,15 @@
 
 	<p>The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an MPD catalog.  The URI scheme for MPDs and their artifacts and sets enables a graph of relationships.  An MPD may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.</p>
 
-	<p>The MPD catalog provides a <code>c:Relationship</code> element with two attributes (<code>c:resourceURI</code> and <code>c:relationshipCode</code>) and an optional element (<code>nc:descriptionText</code>) to identify ancestry and other relationships to other MPDs.  There are many ways that one MPD may relate to another.  This makes it extremely difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>nc:descriptionText</code> element is provided to further explain the nature of any of the eight <code>c:relationshipCode</code> values available.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>c:relationshipCode</code> may be generic enough to require a more detailed explanation in <code>nc:descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
+	<p>The MPD catalog provides a <code>c:Relationship</code> element with two attributes (<code>c:resourceURI</code> and <code>c:relationshipCode</code>) and an optional element (<code>nc:descriptionText</code>) to identify ancestry and other relationships to other MPDs.  There are many ways that one MPD may relate to another.  This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>nc:descriptionText</code> element is provided to further explain the nature of any of the eight <code>c:relationshipCode</code> values available.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>c:relationshipCode</code> may be generic enough to require a more detailed explanation in <code>nc:descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
 
-	<p>The MPD catalog also enables an author to record more fine-grained ancestry between MPDs.  An MPD catalog can explicitly declare that it reuses an artifact or artifact set from one or more other MPDs.  By default each artifact and artifact set identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it <ref idref="URI-Scheme-for-MPD-Artifacts"/>.  An MPD author signifies reuse by entering the URI for the artifact or artifact set in the optional <code>c:externalURI</code> attribute within the appropriate <code>c:FileType</code> or <code>c:FileSetType</code> elements.</p>
+	<p>The MPD catalog also enables an author to record more fine-grained ancestry between MPDs.  An MPD catalog can explicitly declare that it reuses an artifact or artifact set from one or more other MPDs.  By default each artifact and artifact set identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it <ref idref="URI-MPD-Artifact"/>.  An MPD author signifies reuse by entering the URI for the artifact or artifact set in the optional <code>c:externalURI</code> attribute within the appropriate <code>c:FileType</code> or <code>c:FileSetType</code> elements.</p>
 
 	<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse a given EIEM.  In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.</p>
 
 </section>
 </section>
-
+</section>
 
 
 <section id="Change-Log">
@@ -1567,13 +1591,13 @@
 <section id="Information-Exchange-Packages">
 	<title>Information Exchange Packages</title>
 
-	<p>This section only applies to IEPDs.  An IEPD is the only MPD that defines IEPs <ref idref="IEP"/>.  An IEPD does this by declaring (either implicitly or explicitly) one or more <em>IEP conformance targets</em>.</p>
+	<p>This section only applies to IEPDs.  An IEPD is the only MPD that can define an IEP <ref idref="IEP"/>.  It does this by explicitly declaring one or more <em>IEP conformance targets</em> within its <termRef>MPD catalog document</termRef>.</p>
 
 	<definition term="IEP conformance target" id="iep-conformance-target">
 		<p>A class or category of IEPs which has a set of one or more validity constraints and a unique identifier.  Every IEP is an instance of one or more IEP conformance targets.</p>
 	</definition>
 
-	<p>This definition requires that a IEP conformance target be assigned a unique identifier, a <em>Conformance Target URI</em> that distinguishes it from all other IEP conformance targets.  Similar to a URI for an MPD artifact, construct a <em>conformance target URI</em> by concatenating the IEPD's URI, the pound sign character (<code>#</code>), and a locally unique (within the IEPD) <link href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NCName">NCName</link> (non-colonized name) as defined by <ref idref="W3-XML-Schema-Structures"/><char name="sect"/>3.3.7 NCName.</p>
+	<p>This definition requires that an IEP conformance target be assigned a unique identifier, a <em>Conformance Target URI</em> that distinguishes it from all other IEP conformance targets.  Similar to a URI for an MPD artifact, construct a <em>conformance target URI</em> by concatenating the IEPD's URI, the pound sign character (<code>#</code>), and a locally unique (within the IEPD) <link href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NCName">NCName</link> (non-colonized name) as defined by <ref idref="W3-XML-Schema-Structures"/><char name="sect"/>3.3.7 NCName.</p>
 
 	<definition term="IEP conformance target URI" id="iep-conformance-target-uri">
 		<p>A globally unique identifier for an IEP conformance target declared in an IEPD, formed by concatenating:</p>
@@ -2172,7 +2196,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="Artifact-Links-to-Other-Resources">
 	<title>Artifact Links to Other Resources</title>
 
-	<p>It is important to understand that the URI scheme defined in <ref idref="URI-Scheme-for-MPD-Artifacts"/> can only be used to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD.  In accordance with the <ref idref="NIEM-NDR"/>, if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed.  When absolute references to Internet resources are required:</p>
+	<p>It is important to understand that the URI scheme defined in <ref idref="URI-MPD-Artifact"/> can only be used to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD.  In accordance with the <ref idref="NIEM-NDR"/>, if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed.  When absolute references to Internet resources are required:</p>
 
 	<rule id="r-mpd-protocol" applicability="WF-MPD" class="Constraint">
 		<p>Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST <termRef term="resolve URI">resolve</termRef> (If applicable, documentation SHOULD describe how to <termRef term="resolve URI">resolve</termRef> with security, account, and/or password issues).</p>
@@ -2206,7 +2230,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<p>The <ref idref="NIEM-NDR"/> explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant.  Other standards may use <code>xs:import</code> without requiring <code>schemaLocation</code> attributes (instead, relying only on the namespace value).  These standards may also use <code>xs:include</code>.  This XML Schema construct is disallowed by NIEM.  When standards external to NIEM are required within MPDs, the following rule applies:</p>
 
 	<rule id="r-mpd-other-stds" applicability="WF-MPD" class="Constraint">
-		<p>Within an MPD, if non-conformant external schema documents are used, then any references from these schema documents to other schema documents and/or namespaces MUST <termRef term="resolve URI">resolve</termRef> to local URIs.  <code>schemaLocation</code> attributes or XML catalogs can be used to ensure resolution.</p>
+		<p>Within an MPD, a non-NIEM-conformant external schema document reference to another schema document and/or namespace MUST <termRef term="resolve URI">resolve</termRef> to a local resource.  <code>schemaLocation</code> attributes or XML catalogs can be used to ensure resolution.</p>
 	</rule>
 
 	<p>For the case of non-NIEM-conformant schemas, this rule ensures that all schemas (or corresponding artifacts and namespaces) from external standards required for definition, validation, and use of the MPD are present within the archive.</p>
@@ -2486,13 +2510,14 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<tr><td>JPG  </td><td>Joint Photographic (Experts) Group</td></tr>
 	<tr><td>LEXS </td><td>Logical Entity Exchage Specifications</td></tr>
 	<tr><td>MPD  </td><td>Model Package Description</td></tr>
+	<tr><td>NCName</td><td>Non-colonized Name (in XML Schema: unqualified; no colon characters)</td></tr>
 	<tr><td>NDR  </td><td>Naming and Design Rules</td></tr>
 	<tr><td>NIEM </td><td>National Information Exchange Model</td></tr>
 	<tr><td>NTAC </td><td>NIEM Technical Architecture Committee</td></tr>
 	<tr><td>PDF  </td><td>Portable Document Format</td></tr>
 	<tr><td>PMO  </td><td>Program Management Office</td></tr>
 	<tr><td>PNG  </td><td>Portable Network Graphic</td></tr>
-	<tr><td>QName</td><td>Qualified Name (XML Schema: qualified by a namespace prefix)</td></tr>
+	<tr><td>QName</td><td>Qualified Name (in XML Schema: qualified by a namespace prefix and colon character)/td></tr>
 	<tr><td>RAR  </td><td>Roshal Archive; a compressed archive file format 
 				named for its developer, Eugene Roshal</td></tr>
 	<tr><td>Rel  </td><td>Release (NIEM)</td></tr>
