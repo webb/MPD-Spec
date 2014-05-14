@@ -1,8 +1,8 @@
 National Information Exchange Model -- Model Package Description Specification
 
-Version 3.0beta1
+Version 3.0beta2
 
-April 30, 2014
+May 21, 2014
 
 NIEM Technical Architecture Committee (NTAC)
 
@@ -78,21 +78,27 @@ Major changes:
 
       18. Assembled MPD Toolkit; initial version available at http://reference.niem.gov/niem/resource/mpd/3.0/; includes: mpd-spec-3.0beta1.pdf, mpd-catalog-3.0beta1.xsd, mpd catalog NIEM subset, Schematron rules (alpha), example IEPD for CoT, example conformance-assertion (template).
 
+Beta 2
+
+      1. Added new Section 4.2.2, URI Schemes, below, and reorganized subsections and rules related to URIs under it.
+
+      2. Added title for each rule (~67 total).
+
+      3. .
+
 Remaining work and issues
 
       1. Section 5 still needs more text and organization.
 
-      2. Add short title for each rule (approx 67 total).
+      2. Conformance targets (CT): missing? fork? class=Constraint/Interpretation? applicability=(correct CT)?
 
-      3. Conformance targets (CT): missing? fork? class=Constraint/Interpretation? applicability=(correct CT)?
+      3. oXygen validation errors on MPD catalog XSD; add lower level cardinality constraints back in to resolve oXygen errors?
 
-      4. oXygen validation errors on MPD catalog XSD; add lower level cardinality constraints back in to resolve oXygen errors?
+      4. Remaining TBDs.
 
-      5. Remaining TBDs.
+      5. Final QA, consistency, and validity checks on MPD catalog schema, MPD Toolkit, CoT IEPD, other appendices, etc.
 
-      6. Final QA and validity checks on MPD catalog schema, other appendices, etc.
-
-      7. Final checks for typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
+      6. Final checks for typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
 
 1. Introduction
 
@@ -650,7 +656,9 @@ Remaining work and issues
 
    Because NIEM adopts an optional and over-inclusive data representation strategy, most elements in a NIEM reference schema have zero to unbounded cardinality. So, elements with cardinality minOccurs="0" are optional and may be omitted from a subset schema document if not needed for business reasons. It is also valid to constrain element cardinality within a subset schema document, as long as doing so does not break the subset relationship with the reference schema document set. For example, a reference schema document element with cardinality (minOccurs="0", maxOccurs="unbounded") may be constrained to (0,1) or (1,1) in a subset schema document. However, if a reference schema document element's cardinality is (1,unbounded), it may not be constrained to (0,1) since this breaks the subset relationship. The interval (0,1) is not contained within, and instead, overlaps the interval (1,unbounded).
 
-   The fundamental rule for a valid schema document subset is as follows:
+   The fundamental rule for a valid NIEM schema document subset is as follows:
+
+Rule 3-1. Fundamental NIEM Subset Rule
 
    [Rule 3-1] (Subset)
 
@@ -707,6 +715,8 @@ Remaining work and issues
    This section applies to IEPDs and EIEMs.
 
    A [schema document subset] is essentially a [reference schema document set] (i.e., a numbered release) that has been modified by applying the foregoing subset operations Section 3.2.2, Subset Operations, above, to support business requirements represented in an IEPD or EIEM. A subset derived from a reference schema document set may differ from that reference set only in that its content has been reduced and/or constrained. For this reason, each [subset schema document] adopts the target namespace of its corresponding [reference schema document].
+
+Rule 3-2. Subset Schema Namespace Is a Reference Schema Namespace
 
    [Rule 3-2] (Subset)
 
@@ -785,6 +795,8 @@ Remaining work and issues
    Use of constraint schemas is one option for applying additional business rules to or tightening constraints on NIEM IEPs beyond what NIEM itself provides. This particular technique uses the XML Schema Definition Language [W3C XML Schema Datatypes], [W3C XML Schema Structures]. NIEM also allows other methods that do not use XML Schema, such as [ISO Schematron] or other methods. However, at this time there are no normative rules for how these techniques should be employed in NIEM IEPDs or EIEMs. Therefore, if other techniques are used, it is a developer responsibility to incorporate appropriate artifacts and clear documentation.
 
    Constraint schema documents are generally designed and employed in sets, similar to reference schema document set or schema document subsets. A common practice for creating an IEPD or EIEM constraint schema document set is to start with a valid NIEM schema document subset and modify it to further restrict the class of instance XML documents (IEPs) that will validate with this constraint schema set. However, an extension schema document can also be used to derive a constraint schema document. The namespace of a constraint schema document is established the same way the namespace of a subset schema document is established, by reusing the target namespace of the schema document from which it is derived.
+
+Rule 3-3. Constraint Schema Namespace Is a Reference Schema Namespace
 
    [Rule 3-3] (Constraint)
 
@@ -868,15 +880,21 @@ Remaining work and issues
 
       *  Definition, identification, and validation of IEP conformance targets
 
-   [Rule 4-1] (MPD-Cat)
+Rule 4-1. MPD Has MPD Catalog Document
 
-      An [MPD catalog document] MUST have an artifact named mpd-catalog.xml in its [MPD root directory].
+   [Rule 4-1] (WF-MPD)
+
+      An MPD MUST have an artifact named mpd-catalog.xml in its [root directory].
+
+Rule 4-2. MPD Catalog Document Valid to mpd-catalog-3.0.xsd
 
    [Rule 4-2] (MPD-Cat)
 
       An [MPD catalog document] MUST be valid to mpd-catalog-3.0.xsd Appendix A, MPD Catalog XML Schema Document.
 
    This rule only requires validation with mpd-catalog-3.0.xsd and does not require that this schema document be contained in an MPD. Tools that validate mpd-catalog.xml will all access the same schema document to perform such.
+
+Rule 4-3. MPD Catalog Document Valid to Schematron Rules
 
    [Rule 4-3] (MPD-Cat)
 
@@ -1021,7 +1039,11 @@ Remaining work and issues
 
    Version number syntax applies to MPDs only; there is no requirement to apply this syntax to artifact versioning.
 
-4.2.2. URI Scheme for MPDs
+4.2.2. URI Schemes
+
+   Various Uniform Resource Identifiers (URI) are employed extensively in MPDs to identify and reference other MPDs, MPD artifacts, conformance targets, documents, and other resources. For each type of URI used in an MPD catalog document, this section describes its purpose, syntax, and options based on [RFC 3986 URI].
+
+4.2.2.1. URI Scheme for MPDs
 
    To facilitate MPD sharing and reuse the assignment of a URI (Uniform Resource Identifier) to each MPD is essential. This is enforced by the MPD catalog schema document Appendix A, MPD Catalog XML Schema Document, below. However, it is also important to ensure that an MPD URI is absolute.
 
@@ -1043,7 +1065,7 @@ Remaining work and issues
 
    This specification does not mandate that basic MPD catalog metadata be designed into an MPD URI. However, including such can obviously provide for convenient visual recognition of an MPD. That said, an author should ensure any metadata embedded in the URI accurately reflect the MPD catalog metadata (in particular, the values of c:mpdURI, c:mpdName, c:mpdVersionID, and c:mpdClass defined in Appendix A, MPD Catalog XML Schema Document, below).
 
-4.2.3. URI Scheme for MPD Artifacts
+4.2.2.2. URI Scheme for MPD Artifacts
 
    Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (reuse) and one aspect of lineage. To support this concept, the following MPD URI rules are necessary:
 
@@ -1099,15 +1121,15 @@ Remaining work and issues
 
    Later, Section 4.5, XML Catalogs, below, will describe the use of [XML Catalogs] to correlate and [resolve] namespaces to their corresponding local URIs.
 
-4.2.4. MPD and MPD Artifact Lineage
+4.2.2.3. MPD and MPD Artifact Lineage
 
    An important business requirement is transparency of MPD lineage. Data lineage is also referred to as data provenance, how data are derived or where it came from. There are two basic views of data provenance: (1) as data annotations; and (2) as a graph of data relationships [Principles of Data Integration], Chapter 14 "Data Provenance".
 
    The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an MPD catalog. The URI scheme for MPDs and their artifacts and sets enables a graph of relationships. An MPD may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.
 
-   The MPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:descriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one MPD may relate to another. This makes it extremely difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:descriptionText element is provided to further explain the nature of any of the eight c:relationshipCode values available. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:descriptionText (for example, if its value is adapts).
+   The MPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:descriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one MPD may relate to another. This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:descriptionText element is provided to further explain the nature of any of the eight c:relationshipCode values available. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:descriptionText (for example, if its value is adapts).
 
-   The MPD catalog also enables an author to record more fine-grained ancestry between MPDs. An MPD catalog can explicitly declare that it reuses an artifact or artifact set from one or more other MPDs. By default each artifact and artifact set identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it Section 4.2.3, URI Scheme for MPD Artifacts, above. An MPD author signifies reuse by entering the URI for the artifact or artifact set in the optional c:externalURI attribute within the appropriate c:FileType or c:FileSetType elements.
+   The MPD catalog also enables an author to record more fine-grained ancestry between MPDs. An MPD catalog can explicitly declare that it reuses an artifact or artifact set from one or more other MPDs. By default each artifact and artifact set identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it Section 4.2.2.2, URI Scheme for MPD Artifacts, above. An MPD author signifies reuse by entering the URI for the artifact or artifact set in the optional c:externalURI attribute within the appropriate c:FileType or c:FileSetType elements.
 
    Some MPDs are designed for more extensive reuse than others. For example, families of IEPDs are expected to reuse a given EIEM. In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references. This is expected. The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs. Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.
 
@@ -1281,13 +1303,13 @@ Remaining work and issues
 
 4.6. Information Exchange Packages
 
-   This section only applies to IEPDs. An IEPD is the only MPD that defines IEPs [Definition: Information Exchange Package (IEP)], above. An IEPD does this by declaring (either implicitly or explicitly) one or more IEP conformance targets.
+   This section only applies to IEPDs. An IEPD is the only MPD that can define an IEP [Definition: Information Exchange Package (IEP)], above. It does this by explicitly declaring one or more IEP conformance targets within its [MPD catalog document].
 
    [Definition: IEP conformance target]
 
       A class or category of IEPs which has a set of one or more validity constraints and a unique identifier. Every IEP is an instance of one or more IEP conformance targets.
 
-   This definition requires that a IEP conformance target be assigned a unique identifier, a Conformance Target URI that distinguishes it from all other IEP conformance targets. Similar to a URI for an MPD artifact, construct a conformance target URI by concatenating the IEPD's URI, the pound sign character (#), and a locally unique (within the IEPD) NCName (non-colonized name) as defined by [W3C XML Schema Structures]section 3.3.7 NCName.
+   This definition requires that an IEP conformance target be assigned a unique identifier, a Conformance Target URI that distinguishes it from all other IEP conformance targets. Similar to a URI for an MPD artifact, construct a conformance target URI by concatenating the IEPD's URI, the pound sign character (#), and a locally unique (within the IEPD) NCName (non-colonized name) as defined by [W3C XML Schema Structures]section 3.3.7 NCName.
 
    [Definition: IEP conformance target URI]
 
@@ -1784,7 +1806,7 @@ Remaining work and issues
 
 7.3. Artifact Links to Other Resources
 
-   It is important to understand that the URI scheme defined in Section 4.2.3, URI Scheme for MPD Artifacts, above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM NDR], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed. When absolute references to Internet resources are required:
+   It is important to understand that the URI scheme defined in Section 4.2.2.2, URI Scheme for MPD Artifacts, above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM NDR], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed. When absolute references to Internet resources are required:
 
    [Rule 7-7] (WF-MPD)
 
@@ -1814,7 +1836,7 @@ Remaining work and issues
 
    [Rule 7-10] (WF-MPD)
 
-      Within an MPD, if non-conformant external schema documents are used, then any references from these schema documents to other schema documents and/or namespaces MUST [resolve] to local URIs. schemaLocation attributes or XML catalogs can be used to ensure resolution.
+      Within an MPD, a non-NIEM-conformant external schema document reference to another schema document and/or namespace MUST [resolve] to a local resource. schemaLocation attributes or XML catalogs can be used to ensure resolution.
 
    For the case of non-NIEM-conformant schemas, this rule ensures that all schemas (or corresponding artifacts and namespaces) from external standards required for definition, validation, and use of the MPD are present within the archive.
 
@@ -3152,7 +3174,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
 
       2.  The following artifacts are required to be in the [MPD root directory] (Note: .* indicates any format):
 
-             *  mpd-catalog.xml (Rule 4-1, above)
+             *  mpd-catalog.xml (Rule 4-1, MPD Has MPD Catalog Document)
 
              *  changelog.* (Rule 4-17, above)
 
@@ -3316,6 +3338,8 @@ Appendix G. Acronyms and Abbreviations
 
       MPD |Model Package Description
 
+      NCName|Non-colonized Name (in XML Schema: unqualified; no colon characters)
+
       NDR |Naming and Design Rules
 
       NIEM |National Information Exchange Model
@@ -3328,7 +3352,7 @@ Appendix G. Acronyms and Abbreviations
 
       PNG |Portable Network Graphic
 
-      QName|Qualified Name (XML Schema: qualified by a namespace prefix)
+      QName|Qualified Name (in XML Schema: qualified by a namespace prefix and colon character)
 
       RAR |Roshal Archive; a compressed archive file format named for its developer, Eugene Roshal
 
@@ -3446,12 +3470,12 @@ Appendix I. Index of Definitions
 
 Appendix J. Index of Rules
 
-   Rule 3-1: Section 3.2.1, Basic Subset Concepts
-   Rule 3-2: Section 3.2.3, Subset Schema Document Namespaces
-   Rule 3-3: Section 3.5, Constraint Schema Documents and Document Sets
-   Rule 4-1: Section 4.1, NIEM MPD Catalog
-   Rule 4-2: Section 4.1, NIEM MPD Catalog
-   Rule 4-3: Section 4.1, NIEM MPD Catalog
+   Rule 3-1, Fundamental NIEM Subset Rule: Section 3.2.1, Basic Subset Concepts
+   Rule 3-2, Subset Schema Namespace Is a Reference Schema Namespace: Section 3.2.3, Subset Schema Document Namespaces
+   Rule 3-3, Constraint Schema Namespace Is a Reference Schema Namespace: Section 3.5, Constraint Schema Documents and Document Sets
+   Rule 4-1, MPD Has MPD Catalog Document: Section 4.1, NIEM MPD Catalog
+   Rule 4-2, MPD Catalog Document Valid to mpd-catalog-3.0.xsd: Section 4.1, NIEM MPD Catalog
+   Rule 4-3, MPD Catalog Document Valid to Schematron Rules: Section 4.1, NIEM MPD Catalog
    Rule 4-4: Section 4.1.3, Extending an MPD Catalog
    Rule 4-5: Section 4.1.3, Extending an MPD Catalog
    Rule 4-6: Section 4.1.3, Extending an MPD Catalog
@@ -3459,10 +3483,10 @@ Appendix J. Index of Rules
    Rule 4-8: Section 4.1.3, Extending an MPD Catalog
    Rule 4-9: Section 4.1.3, Extending an MPD Catalog
    Rule 4-10: Section 4.2.1, Version Numbering Scheme
-   Rule 4-11: Section 4.2.2, URI Scheme for MPDs
-   Rule 4-12: Section 4.2.3, URI Scheme for MPD Artifacts
-   Rule 4-13: Section 4.2.3, URI Scheme for MPD Artifacts
-   Rule 4-14: Section 4.2.3, URI Scheme for MPD Artifacts
+   Rule 4-11: Section 4.2.2.1, URI Scheme for MPDs
+   Rule 4-12: Section 4.2.2.2, URI Scheme for MPD Artifacts
+   Rule 4-13: Section 4.2.2.2, URI Scheme for MPD Artifacts
+   Rule 4-14: Section 4.2.2.2, URI Scheme for MPD Artifacts
    Rule 4-15: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-16: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-17: Section 4.3.2, Change Log for IEPDs and EIEMs
