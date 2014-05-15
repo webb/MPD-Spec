@@ -1423,8 +1423,130 @@
 
 	<p>Note that per <ref idref="uri-syntax"/> and <ref idref="uri-summary"/> a local URI may contain an optional fragment.  Although <code>c:pathURI</code> has no use for a URI with a fragment, MPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.</p>
 
+	<p>Despite its simplicity, <code>c:pathURI</code> comes with over a dozen rules that help to define a <termRef>well-formed MPD</termRef>.  The following rules essentially ensure that every <code>c:pathURI</code> attribute value in a well-formed MPD resolves to the correct local resource:</p>
+
+<ruleSection><title>pathURIs Resolve</title>
+	<rule id="wfm2" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for XMLCatalog</title>
+	<rule id="wfm3" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:XMLCatalog</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML catalog document</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for MPDChangeLog</title>
+	<rule id="wfm4" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MPDChangeLog</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>change log</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for ReadME</title>
+	<rule id="wfm5" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReadMe</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>read-me artifact</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for IEPSampleXMLDocument</title>
+	<rule id="wfm6" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML document</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for BusinessRulesArtifact</title>
+	<rule id="wfm7" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:BusinessRulesArtifact</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for ExternalSchemaDocument</title>
+	<rule id="wfm8" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExternalSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for ReferenceSchemaDocument</title>
+	<rule id="wfm9" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for ExtensionSchemaDocument</title>
+	<rule id="wfm10" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExtensionSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>extension schema document</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for SubsetSchemaDocument</title>
+	<rule id="wfm11" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SubsetSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>subset schema document</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for Wantlist</title>
+	<rule id="wfm12" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:Wantlist</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>NIEM wantlist</termRef> XML document.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for SchematronSchema</title>
+	<rule id="wfm13" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>Schematron schema</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for RelaxNGSchema</title>
+	<rule id="wfm14" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>RelaxNG schema</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for SchemaDocumentSet</title>
+	<rule id="wfm15" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef> set.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for ConstraintSchemaDocumentSet</title>
+	<rule id="wfm16" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ConstraintSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>constraint schema document set</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for ReferenceSchemaDocumentSet</title>
+	<rule id="wfm17" applicability="WF-MPD" class="Constraint">
+		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document set</termRef>.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>pathURI for RequiredFile</title>
+	<rule id="wfm18" applicability="WF-MPD" class="Constraint">
+		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RequiredFile</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+	</rule>
+</ruleSection>
+
 </section>
 
+
+<section id="CT-XML-Catalog">
+	<title>XML Catalog</title>
+
+
+<ruleSection><title>XML Catalog uri Resolves</title>
+	<rule id="xc1" applicability="XML-Cat" class="Constraint">
+		<p>Within an <termRef>XML catalog document</termRef> the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+	</rule>
+</ruleSection>
+
+<ruleSection><title>XML Catalog uri Resolves to Correct Target Namespace</title>
+	<rule id="xc2" applicability="XML-Cat" class="Constraint">
+		<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>name</code> (a namespace string) attribute owned by the <code>er:uri</code> element.</p> 
+	</rule>
+</ruleSection>
+
+</section>
 
 
 <section id="MPD-Lineage">
@@ -1952,88 +2074,6 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 <rule id="wfm1" applicability="WF-MPD" class="Constraint">
 	<p>An MPD contains one and only one <code>mpd-catalog.xml</code> artifact in its <termRef term="MPD root directory">root directory</termRef>.</p>
-</rule>
-
-<rule id="wfm2" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
-</rule>
-
-<rule id="wfm3" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:XMLCatalog</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML catalog document</termRef>.</p>
-</rule>
-
-<rule id="wfm4" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MPDChangeLog</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>change log</termRef>.</p>
-</rule>
-
-<rule id="wfm5" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReadMe</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>read-me artifact</termRef>.</p>
-</rule>
-
-<rule id="wfm6" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML document</termRef>.</p>
-</rule>
-
-<rule id="wfm7" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:BusinessRulesArtifact</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
-</rule>
-
-<rule id="wfm8" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExternalSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
-</rule>
-
-<rule id="wfm9" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document</termRef>.</p>
-</rule>
-
-<rule id="wfm10" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExtensionSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>extension schema document</termRef>.</p>
-</rule>
-
-<rule id="wfm11" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SubsetSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>subset schema document</termRef>.</p>
-</rule>
-
-<rule id="wfm12" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:Wantlist</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>NIEM wantlist</termRef> XML document.</p>
-</rule>
-
-<rule id="wfm13" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>Schematron schema</termRef>.</p>
-</rule>
-
-<rule id="wfm14" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>RelaxNG schema</termRef>.</p>
-</rule>
-
-<rule id="wfm15" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef> set.</p>
-</rule>
-
-<rule id="wfm16" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ConstraintSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>constraint schema document set</termRef>.</p>
-</rule>
-
-<rule id="wfm17" applicability="WF-MPD" class="Constraint">
-	<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document set</termRef>.</p>
-</rule>
-
-<rule id="wfm18" applicability="WF-MPD" class="Constraint">
-	<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RequiredFile</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
-</rule>
-
-
-<section id="CT-XML-Catalog">
-	<title>XML Catalog</title>
-</section>
-
-
-<rule id="xc1" applicability="XML-Cat" class="Constraint">
-	<p>Within an <termRef>XML catalog document</termRef> the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
-</rule>
-
-<rule id="xc2" applicability="XML-Cat" class="Constraint">
-	<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>name</code> (a namespace string) attribute owned by the <code>er:uri</code> element.</p> 
 </rule>
 
 </section>
