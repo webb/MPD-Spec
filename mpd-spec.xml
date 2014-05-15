@@ -1315,18 +1315,20 @@
 <section id="URI-Schemes">
 	<title>URI Schemes</title>
 
-	<p>Various Uniform Resource Identifiers (URI) are employed extensively in MPDs to identify and reference other MPDs, MPD artifacts, conformance targets, documents, and other resources.  For each type of URI used in an MPD catalog document, this section describes its purpose, syntax, and options based on <ref idref="RFC3986-URI"/>.</p>
+	<p>Various Uniform Resource Identifiers (URI) are employed extensively in MPDs to identify and reference other MPDs, MPD artifacts, conformance targets, documents, and other resources.  For each type of URI used in an MPD catalog document, this section describes its purpose, options, and syntax based on <ref idref="RFC3986-URI"/>.</p>
 
 
 
-<section id="URI-MPD">
-	<title>URI Scheme for MPDs</title>
+<section id="mpdURI">
+	<title>URI Scheme for MPDs (<code>mpdURI</code>)</title>
 
-	<p>To facilitate MPD sharing and reuse the assignment of a URI (Uniform Resource Identifier) to each MPD is essential.  This is enforced by the MPD catalog schema document <ref idref="MPD-Catalog-XSD"/>.  However, it is also important to ensure that an MPD URI is absolute.</p>
+	<p>To facilitate MPD sharing and reuse, the assignment of a URI (Uniform Resource Identifier) to an MPD is essential.  This is enforced by the MPD catalog schema document <ref idref="MPD-Catalog-XSD"/>.  It is also important to ensure that an MPD URI is absolute.</p>
 
+<ruleSection><title>MPD URI MUST be Absolute</title>
 	<rule id="r-mpduri" applicability="WF-MPD" class="Constraint">
 		<p>In an MPD catalog document, the value of a <code>c:mpdURI</code> attribute of type <code>xs:anyURI</code> MUST match the production &lt;absolute-URI&gt; as defined by <ref idref="RFC3986-URI"/>, <a href="http://tools.ietf.org/html/rfc3986#page-27"><char name="sect"/>4.3, Absolute URI</a>.</p>
 	</rule>
+</ruleSection>
 
 	<p><ref idref="r-mpduri"/> implies that a URI assigned to an MPD must be valid.  Furthermore, the entity (person or organization) assigning the MPD URI either (1) <em>is</em> the registrant of the domain name or namespace identifier, or (2) <em>has</em> authority from the registrant to assign this URI.</p>
 
@@ -1338,27 +1340,32 @@
 		<li><p><code>http://niem.gov/niem/domains/cyfs/2.1/1</code></p></li>
 	</ul>
 
-	<p>This specification does not mandate that basic MPD catalog metadata be designed into an MPD URI.  However, including such can obviously provide for convenient visual recognition of an MPD.  That said, an author should ensure any metadata embedded in the URI accurately reflect the MPD catalog metadata (in particular, the values of <code>c:mpdURI, c:mpdName, c:mpdVersionID, </code>and<code> c:mpdClass</code> defined in <ref idref="MPD-Catalog-XSD"/>).</p>
+	<p>This specification does not mandate that basic MPD catalog metadata be designed into an MPD URI.  However, including such can obviously provide convenient visual recognition.  That said, an author should ensure any metadata embedded in the URI accurately reflect the MPD catalog metadata (in particular, the values of <code>c:mpdURI, c:mpdName, c:mpdVersionID, </code>and<code> c:mpdClass</code> defined in the MPD catalog document).</p>
 
 </section>
 
 
 
-<section id="URI-MPD-Artifact">
-	<title>URI Scheme for MPD Artifacts</title>
+<section id="externalURI">
+	<title>General URI Scheme for MPD Artifacts (<code>externalURI</code>)</title>
 
 		<p>Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (reuse) and one aspect of lineage.  To support this concept, the following MPD URI rules are necessary:</p>
 
+<ruleSection><title>MPD URI Supports Fragment</title>
 	<rule id="r-uri-frag" applicability="WF-MPD" class="Interpretation">
 		<p>A valid MPD URI MUST support the inclusion of a <em>fragment identifier</em> (as a suffix) <ref idref="RFC3986-URI"/>.</p>
 	</rule>
+</ruleSection>
 
+<ruleSection><title>MPD URI Has No Fragment</title>
 	<rule id="r-uri-nofrag" applicability="WF-MPD" class="Constraint">
 		<p>A valid MPD URI MUST NOT contain a <em>fragment identifier</em> <ref idref="RFC3986-URI"/>.</p>
 	</rule>
+</ruleSection>
 
 	<p><ref idref="r-uri-frag"/> is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD).  This specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to construct a URI for an artifact within an MPD.  By the following rule, each file artifact or artifact set is uniquely identified by its path name relative to the <termRef>MPD root directory</termRef>.</p>
 
+<ruleSection><title>MPD Artifact URI Syntax</title>
 	<rule id="r-mpd-uri-syntax" applicability="WF-MPD" class="Constraint">
 		<p>Within an MPD a URI reference to an artifact in another external MPD is the concatenation of</p>
 		<ul>
@@ -1367,6 +1374,7 @@
 			<li><p>An identifier that is the artifact's locally unique path name relative to the <termRef>MPD root directory</termRef>.</p></li>
 		</ul>
 	</rule>
+</ruleSection>
 
 	<p>An artifact always has a locally unique path name that terminates in (and includes) its file name; an artifact set always has a locally unique path name (that terminates in and includes a slash character <char name="mdash"/> <code>"/"</code>).</p>
 
@@ -1383,22 +1391,37 @@
 
 	<p>Note that <ref idref="RFC2141-URN-Syntax"/> appears to preclude the use of a URN as an MPD URI.  URN syntax violates <ref idref="r-uri-frag"/> because it does not support fragment identifiers.</p>
 
-	<p>Here is one simple scenario for using an artifact URI within the MPD catalog.  Consider two different IEPDs with the following URIs:</p>
+	<p>Artifact URIs are used as values for the <code>c:externalURI</code> attribute in the MPD catalog XML document to declare equivalence relationships between artifacts (See <ref idref="MPD-Catalog-XSD"/>).  A simple scenario follows.  Consider two different IEPDs with the following URIs:</p>
 	<ol>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/</code></p></li>
 		<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code></p></li>
 	</ol>
 	
-	<p>The author of IEPD (2) has decided to reuse (as-is) the <code>extension/req1.xsd</code> artifact in IEPD (1).  He/she can optionally create an MPD catalog <code>c:ExtensionSchemaDocument</code> entry for this artifact (assuming it is an extension schema document), and add the attribute:</p> 
+	<p>The author of IEPD (2) has decided to reuse (as-is) the <code>base-xsd/extension/req1.xsd</code> artifact in IEPD (1).  He/she can optionally create an MPD catalog <code>c:ExtensionSchemaDocument</code> entry for this artifact (assuming it is an extension schema document), and add the attribute:</p> 
 	<blockquote>
-		<p><code>c:externalURI="http://example.org/niem-iepd/pmix/3.0/#extension/req1.xsd"</code></p>
+		<p><code>c:externalURI="http://example.org/niem-iepd/pmix/3.0/#base-xsd/extension/req1.xsd"</code></p>
 	</blockquote>
 
-	<p>Additional <code>c:externalURI</code> attributes can be optionally added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.</p> 
+	<p>Additional <code>c:externalURI</code> attributes may be added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.</p>
 
-	<p>Note that a URI does not have the same meaning as namespace.  NIEM namespaces cannot be used as artifact URIs.  Recall that the namespaces used in a schema document subset derived from a NIEM release are identical to the namespaces of the release itself.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  NIEM namespaces are not necessarily unique to an artifact within an MPD.</p>
+	<p>Note that a URI does not have the same meaning as namespace.  NIEM namespaces cannot be used as artifact URIs.  Recall that the target namespace used in a subset schema document derived from a NIEM release schema document is identical to the target namespace of that release schema document.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  NIEM namespaces are not necessarily unique to an artifact within an MPD.  Later, <ref idref="XML-Catalogs"/> will describe the use of <ref idref="OASIS-XML-Catalogs"/> to correlate namespaces to local URIs in order to <termRef term="resolve URI">resolve</termRef> them to local resources.</p>
 
-	<p>Later, <ref idref="XML-Catalogs"/> will describe the use of <ref idref="OASIS-XML-Catalogs"/> to correlate and <termRef term="resolve URI">resolve</termRef> namespaces to their corresponding local URIs.</p>
+</section>
+
+
+
+<section id="pathURI">
+	<title>URI Scheme for Local MPD Artifacts (<code>pathURI</code>)</title>
+
+	<p>An MPD uses the file directory system of path names and file names to identify local artifacts and artifact sets.  All local URIs are relative to the location of the <termRef>MPD catalog document</termRef>, and therefore, they are also relative to the <termRef>MPD root directory</termRef> since the MPD catalog document resides in the MPD root directory.</p>
+
+	<p>In general, every value of attribute <code>c:pathURI</code> in an MPD catalog document will be a relative pathname to a directory (i.e., an artifact set), or to a file (i.e., an artifact).  The following are typical examples of each:</p>
+	<blockquote>
+		Artifact: 	<code>pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"</code>
+		Artifact Set:	<code>pathURI="base-xsd/niem/niem-core/3.0/</code>		
+	</blockquote>
+
+	<p>Note that per <ref idref="uri-syntax"/> and <ref idref="uri-summary"/> a local URI may contain an optional fragment.  Although <code>c:pathURI</code> has no use for a URI with a fragment, MPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.</p>
 
 </section>
 
@@ -1413,7 +1436,7 @@
 
 	<p>The MPD catalog provides a <code>c:Relationship</code> element with two attributes (<code>c:resourceURI</code> and <code>c:relationshipCode</code>) and an optional element (<code>nc:descriptionText</code>) to identify ancestry and other relationships to other MPDs.  There are many ways that one MPD may relate to another.  This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>nc:descriptionText</code> element is provided to further explain the nature of any of the eight <code>c:relationshipCode</code> values available.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>c:relationshipCode</code> may be generic enough to require a more detailed explanation in <code>nc:descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
 
-	<p>The MPD catalog also enables an author to record more fine-grained ancestry between MPDs.  An MPD catalog can explicitly declare that it reuses an artifact or artifact set from one or more other MPDs.  By default each artifact and artifact set identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it <ref idref="URI-MPD-Artifact"/>.  An MPD author signifies reuse by entering the URI for the artifact or artifact set in the optional <code>c:externalURI</code> attribute within the appropriate <code>c:FileType</code> or <code>c:FileSetType</code> elements.</p>
+	<p>The MPD catalog also enables an author to record more fine-grained ancestry between MPDs.  An MPD catalog can explicitly declare that it reuses an artifact or artifact set from one or more other MPDs.  By default each artifact and artifact set identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it <ref idref="externalURI"/>.  An MPD author declares reuse by entering the URI for the artifact or artifact set in the optional <code>c:externalURI</code> attribute within the appropriate <code>c:FileType</code> or <code>c:FileSetType</code> elements.</p>
 
 	<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse a given EIEM.  In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.</p>
 
@@ -1427,7 +1450,7 @@
 	<p>This section summarizes the various URIs used in the MPD catalog document.  It also presents a summary of <ref idref="RFC3986-URI"/>.  See that reference for explanation and details of URI syntax.</p>
 
 <table id="uri-syntax">
-	<title>Summary of <link href="http://tools.ietf.org/html/rfc3986"><em>RFC 3986 URI: Generic Syntax</em></link></title>
+	<title>Summary of<link href="http://tools.ietf.org/html/rfc3986"><em> RFC 3986 URI: Generic Syntax</em></link></title>
 	<theadr>
 	    <th>Id</th>
             <th>URI Syntax</th>
@@ -1437,20 +1460,20 @@
 	<tr>
 	    <td>1</td>
 	    <td>&lt;absolute-URI&gt;</td>
-	    <td>an absolute URI only; no fragment allowed</td>
+	    <td>absolute URI only (no fragment)</td>
 	    <td><code>http://nlets.org/rap/3.1/</code></td>
 	</tr>
 	<tr>
 	    <td>2</td>
             <td>&lt;URI&gt;</td>
-	    <td>an absolute URI with (optional) fragment</td>
+	    <td>absolute URI and optional fragment</td>
 	    <td><code>http://nlets.org/rap/3.1/#rap-sheet2</code></td>
 	</tr>
 	<tr>
 	    <td>3</td>
             <td>&lt;relative-reference&gt;</td>
 	    <td>optional relative part and optional fragment</td>
-	    <td><code>/iep-sample/query.xml</code> or <code>#A3</code> or <code>/iep-sample/query.xml#A3</code></td>
+	    <td><code>/iep-sample/query.xml </code>or<code> #A3 </code>or<code> /iep-sample/query.xml#A3</code></td>
 	</tr>
 	<tr>
 	    <td>4</td>
@@ -1491,6 +1514,8 @@
 	    <td></td>
 	</tr>
 </table>
+
+<p> <char name="nbsp"/> </p>
 
 </section>
 
@@ -2280,7 +2305,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="Artifact-Links-to-Other-Resources">
 	<title>Artifact Links to Other Resources</title>
 
-	<p>It is important to understand that the URI scheme defined in <ref idref="URI-MPD-Artifact"/> can only be used to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD.  In accordance with the <ref idref="NIEM-NDR"/>, if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed.  When absolute references to Internet resources are required:</p>
+	<p>It is important to understand that the URI scheme defined in <ref idref="externalURI"/> can only be used to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD.  In accordance with the <ref idref="NIEM-NDR"/>, if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed.  When absolute references to Internet resources are required:</p>
 
 	<rule id="r-mpd-protocol" applicability="WF-MPD" class="Constraint">
 		<p>Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST <termRef term="resolve URI">resolve</termRef> (If applicable, documentation SHOULD describe how to <termRef term="resolve URI">resolve</termRef> with security, account, and/or password issues).</p>
