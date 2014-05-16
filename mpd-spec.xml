@@ -1334,13 +1334,13 @@
 
 	<p>To facilitate MPD sharing and reuse, the assignment of a URI (Uniform Resource Identifier) to an MPD is essential.  This is enforced by the MPD catalog schema document <ref idref="MPD-Catalog-XSD"/>.  It is also important to ensure that an MPD URI is absolute.</p>
 
-<ruleSection><title>MPD URI MUST be Absolute</title>
+<ruleSection><title>MPD URI Is Absolute</title>
 	<rule id="r-mpduri" applicability="WF-MPD" class="Constraint">
 		<p>In an MPD catalog document, the value of a <code>c:mpdURI</code> attribute of type <code>xs:anyURI</code> MUST match the production &lt;absolute-URI&gt; as defined by <ref idref="RFC3986-URI"/>, <a href="http://tools.ietf.org/html/rfc3986#page-27"><char name="sect"/>4.3, Absolute URI</a>.</p>
 	</rule>
 </ruleSection>
 
-	<p><ref idref="r-mpduri"/> implies that a URI assigned to an MPD must be valid.  Furthermore, the entity (person or organization) assigning the MPD URI either (1) <em>is</em> the registrant of the domain name or namespace identifier, or (2) <em>has</em> authority from the registrant to assign this URI.</p>
+	<p>This rule implies that a URI assigned to an MPD must be valid.  Furthermore, the entity (person or organization) assigning the MPD URI either (1) <em>is</em> the registrant of the domain name or namespace identifier, or (2) <em>has</em> authority from the registrant to assign this URI.</p>
 
 	<p>Examples of valid MPD URIs:</p>
 	<ul>
@@ -1357,9 +1357,9 @@
 
 
 <section id="externalURI">
-	<title>General URI Scheme for MPD Artifacts (<code>externalURI</code>)</title>
+	<title>URI Scheme for MPD Artifacts (<code>externalURI</code>)</title>
 
-	<p>Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (reuse) and one aspect of lineage.  To support this concept, the following MPD URI rules are necessary:</p>
+	<p>Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (signify reuse, one aspect of lineage).  To support this concept, the following MPD URI rules are necessary:</p>
 
 <ruleSection><title>MPD URI Supports Fragment</title>
 	<rule id="r-uri-frag" applicability="WF-MPD" class="Interpretation">
@@ -1367,28 +1367,30 @@
 	</rule>
 </ruleSection>
 
+	<p><ref idref="r-uri-frag"/> ensures that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD).  This specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to construct a URI for an artifact within an MPD.</p>
+
 <ruleSection><title>MPD URI Has No Fragment</title>
 	<rule id="r-uri-nofrag" applicability="WF-MPD" class="Constraint">
 		<p>A valid MPD URI MUST NOT contain a <em>fragment identifier</em> <ref idref="RFC3986-URI"/>.</p>
 	</rule>
 </ruleSection>
 
-	<p><ref idref="r-uri-frag"/> is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD).  This specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to construct a URI for an artifact within an MPD.  By the following rule, each file artifact or artifact set is uniquely identified by its <termRef>path name</termRef> relative to the <termRef>MPD root directory</termRef>.</p>
+	<p>The rationale for <ref idref="r-uri-nofrag"/> should be clear.  If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because <ref idref="RFC3986-URI"/> allows only a single fragment identifier.</p>
+
+	<p>By the following rule, each file artifact or artifact set is uniquely identified by its <termRef>path name</termRef> relative to the <termRef>MPD root directory</termRef>.</p>
 
 <ruleSection><title>MPD Artifact URI Syntax</title>
 	<rule id="r-mpd-uri-syntax" applicability="WF-MPD" class="Constraint">
 		<p>Within an MPD a URI reference to an artifact in another external MPD is the concatenation of:</p>
 		<ul>
 			<li><p>The URI of the MPD that contains the artifact.</p></li>
-			<li><p>The pound-sign character ("#") (also known as the hashtag character).</p></li>
+			<li><p>A pound-sign character ("#" <char name="mdash"/> also known as a hashtag character).</p></li>
 			<li><p>An identifier that is the artifact's locally unique <termRef>path name</termRef> relative to the <termRef>MPD root directory</termRef>.</p></li>
 		</ul>
 	</rule>
 </ruleSection>
 
-	<p>An artifact always has a locally unique <termRef>path name</termRef> that terminates in (and includes) its file name; an artifact set always has a locally unique path name (that terminates in and includes a slash character <char name="mdash"/> <code>"/"</code>).</p>
-
-	<p>You should now understand the rationale for <ref idref="r-uri-nofrag"/>.  If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because <ref idref="RFC3986-URI"/> allows only a single fragment identifier.</p> 
+	<p>An artifact set has a locally unique <termRef>path name</termRef>.  An artifact has a path name that terminates with its file name which is unique to the directory it resides in.</p>
 
 	<p>The following are examples of valid MPD artifact URIs:</p>
 	<ul>
@@ -1406,7 +1408,7 @@
 			<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code></p></li>
 		</ol>
 		
-	<p>The author of IEPD (2) has decided to reuse (as-is) the <code>base-xsd/extension/req1.xsd</code> artifact in IEPD (1).  He/she can optionally create an MPD catalog <code>c:ExtensionSchemaDocument</code> entry for this artifact (assuming it is an extension schema document), and add the attribute:</p> 
+	<p>The author of IEPD (2) has decided to reuse the <code>base-xsd/extension/req1.xsd</code> artifact in IEPD (1) as-is.  He/she can optionally create an MPD catalog <code>c:ExtensionSchemaDocument</code> entry for this artifact (assuming it is an extension schema document), and add the attribute:</p> 
 		<blockquote>
 			<p><code>c:externalURI="http://example.org/niem-iepd/pmix/3.0/#base-xsd/extension/req1.xsd"</code></p>
 		</blockquote>
