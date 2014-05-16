@@ -1180,7 +1180,7 @@
 
 	<p>One function of the MPD catalog is to serve as a table of contents that identifies, locates, and classifies key artifacts and artifact sets.  For that purpose <ref idref="MPD-Catalog-XSD"/> provides a number of classifier elements for most common artifacts and artifact sets in MPDs.  For other less common or generic artifacts two general classifiers exist:  <code>c:Documentation</code> and <code>c:ApplicationInfo</code>.  These elements loosely correspond to the meaning of the XML Schema <code>xs:annotation</code> child elements, <code>xs:documentation</code> and <code>xs:appinfo</code>.  General visual, audio, and textual explanatory documentation should be classified as <code>c:Documentation</code>, while tool-specific artifacts (such as imports, exports, executables, etc.) should be classified as <code>c:ApplicationInfo</code>.</p>
 
-	<p>The classifier elements are designed to identify, categorize, and describe any artifacts and artifact sets (including its path name, dependencies, and lineage).  Employing XSLT, <code>mpd-catalog.xml</code> can be transformed into an <code>index.html</code> artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.</p>
+	<p>The classifier elements are designed to identify, categorize, and describe any artifacts and artifact sets (including its <termRef>path name</termRef>, dependencies, and lineage).  Employing XSLT, <code>mpd-catalog.xml</code> can be transformed into an <code>index.html</code> artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.</p>
 
 	<p>In general, only an IEPD or EIEM would contain <code>c:Documentation</code> and <code>c:ApplicationInfo</code> artifacts.  So, for an IEPD and EIEM, a best practice is to use the <code>read-me</code> artifact (i.e., the <termRef>read-me artifact</termRef> required in the <termRef>MPD root directory</termRef>) to reference <code>c:Documentation</code> and <code>c:ApplicationInfo</code> artifacts whether or not they have been classified in the MPD catalog.</p>
 
@@ -1315,7 +1315,62 @@
 <section id="URI-Schemes">
 	<title>URI Schemes</title>
 
-	<p>Various Uniform Resource Identifiers (URI) are employed extensively in MPDs to identify and reference other MPDs, MPD artifacts, conformance targets, documents, and other resources.  For each type of URI used in an MPD catalog document, this section describes its purpose, options, and syntax based on <ref idref="RFC3986-URI"/>.</p>
+	<p>All MPDs use Uniform Resource Identifiers (URIs) to identify artifacts and other resources.  Several kinds of URIs are employed by MPDs to reference other MPDs, MPD artifacts (internally and externally), conformance targets, documents, and other resources.  For each type of URI used in an MPD catalog document, this section describes its purpose, options, and syntax based on <ref idref="RFC3986-URI"/>.</p>
+
+	<p>The following definitions will be useful to understanding MPD rules defined later that involve various kinds of URIs.</p>
+
+<definition term="path name">
+	<p>A general form of the name of a file or directory that specifies a unique location in a file system.  A path name points to a file system location by following the directory tree hierarchy expressed in a string of characters in which path components, separated by a delimiting character, represent each subdirectory.  If a path name terminates in a file name, then it specifies the location of that file (Paraphrased from <link href="http://en.wikipedia.org/wiki/Pathname"><em>Wikipedia: Path (computing)</em>).</link></p>
+</definition>
+
+<definition term="resolve URI">
+	<p>A function (or an action) that takes a URI string of the form <code>xs:anyURI</code> and returns the resource it identifies.  If the resource is local and does not exist, then this function fails.  If a resource is remote (e.g., a URL on the Internet or a URN of an unknown location), then this function (or action) may require human intervention to determine if the resource exists (pass) or not (fail).</p>
+</definition>
+
+	<p>In the presence of NIEM <ternRef term="reference element">reference elements</termRef> URI resolution may require an additional step to account for indirect references.  Be sure to review <ref idref="URI-Resolution-Ref-Elements"/> in case this applies.</p>
+
+
+
+
+@@@
+
+<ruleSection><title>Resolve MPD URI With Fragment</title>
+	<rule id="r-resolve-uri" applicability="WF-MPD" class="Interpretation">
+		<p>Given an absolute MPD URI with a fragment, resolve this URI as follows:</p>
+		<ol>
+			<li><p>Resolve the base URI (per <ref idref="RFC3986-URI"/>) to retrieve the resource MPD.  If the resource MPD does not exist, then fail (existence error).</p></li>
+			<li><p>Apply the fragment (without "#") to the MPD resource:</p>
+				<ol>
+					<li><p>Locate a <code>structures:id</code> attribute value that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then continue.</p></li>
+					<li><p>Locate a <termRef>path name</termRef> (for a directory or file) that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then fail (existence error).</p></li>
+				</ol>
+			</li>	
+			<li><p>Return the element, directory, or file found.</p></li>
+		</ol>
+	</rule>
+</ruleSection>
+
+@@@
+
+
+
+
+<section id="URI-Resolution-Ref-Elements">
+	<title>URI Resolution Involving Reference Elements</title>
+
+	<p>Note that a NIEM element can indirectly reference its content rather than carry or encapsulate it.  So, a NIEM element of type <code>xs:anyURI</code> may not contain a URI, but instead refer to another element that contains it for both elements.  Under some circumstances, this might have an impact on URI resolution.</p> 
+
+	<p><ref idref="NIEM-NDR"/>, <link href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha9/NIEM-NDR-3.0alpha9-2014-04-02.html#definition_reference_element"><char name="sect"/>12.3 Reference Elements</link> defines a NIEM <termRef>reference element</termRef> as follows:</p>
+
+<definition term="reference element">
+	<p>A reference element is an element information item that has an attribute <code>structures:ref</code>.  A reference element refers to its value by reference, instead of carrying it as content.</p>
+</definition>
+
+	<p>Thus, the <code>structures:ref</code> attribute value refers to another element that carries the content (for both elements) and owns a <code>structures:id</code> attribute with a value equal to that of <code>structures:ref</code>.</p>
+
+	<p>The <termRef>MPD catalog document</termRef> reuses NIEM Core and so it conforms to NIEM.  Therefore, one or more NIEM <termRef term="reference element">reference elements</termRef> from various locations may refer to a single content bearing instance of the same element (with a unique <code>structures:id</code>).  The definition of <termRef>resolve URI</termRef> and the URI-related rules in this section assume content bearing elements.  If a URI resolution rule applies to an element in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).</p>
+
+</section>
 
 
 
@@ -1363,7 +1418,7 @@
 	</rule>
 </ruleSection>
 
-	<p><ref idref="r-uri-frag"/> is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD).  This specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to construct a URI for an artifact within an MPD.  By the following rule, each file artifact or artifact set is uniquely identified by its path name relative to the <termRef>MPD root directory</termRef>.</p>
+<p><ref idref="r-uri-frag"/> is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD).  This specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to construct a URI for an artifact within an MPD.  By the following rule, each file artifact or artifact set is uniquely identified by its <termRef>path name</termRef> relative to the <termRef>MPD root directory</termRef>.</p>
 
 <ruleSection><title>MPD Artifact URI Syntax</title>
 	<rule id="r-mpd-uri-syntax" applicability="WF-MPD" class="Constraint">
@@ -1371,12 +1426,12 @@
 		<ul>
 			<li><p>The URI of the MPD that contains the artifact.</p></li>
 			<li><p>The pound-sign character ("#") (also known as the hashtag character).</p></li>
-			<li><p>An identifier that is the artifact's locally unique path name relative to the <termRef>MPD root directory</termRef>.</p></li>
+			<li><p>An identifier that is the artifact's locally unique <termRef>path name</termRef> relative to the <termRef>MPD root directory</termRef>.</p></li>
 		</ul>
 	</rule>
 </ruleSection>
 
-	<p>An artifact always has a locally unique path name that terminates in (and includes) its file name; an artifact set always has a locally unique path name (that terminates in and includes a slash character <char name="mdash"/> <code>"/"</code>).</p>
+	<p>An artifact always has a locally unique <termRef>path name</termRef> that terminates in (and includes) its file name; an artifact set always has a locally unique path name (that terminates in and includes a slash character <char name="mdash"/> <code>"/"</code>).</p>
 
 	<p>You should now understand the rationale for <ref idref="r-uri-nofrag"/>.  If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because <ref idref="RFC3986-URI"/> allows only a single fragment identifier.</p> 
 
@@ -1415,10 +1470,11 @@
 
 	<p>An MPD uses the file directory system of path names and file names to identify local artifacts and artifact sets.  All local URIs are relative to the location of the <termRef>MPD catalog document</termRef>, and therefore, they are also relative to the <termRef>MPD root directory</termRef> since the MPD catalog document resides in the MPD root directory.</p>
 
-	<p>In general, every value of attribute <code>c:pathURI</code> in an MPD catalog document will be a relative pathname to a directory (i.e., an artifact set), or to a file (i.e., an artifact).  The following are typical examples of each:</p>
+	<p>In general, every value of attribute <code>c:pathURI</code> in an MPD catalog document will be a relative <termRef>path name</termRef> to a directory (i.e., an artifact set), or to a file (i.e., an artifact).  The following are typical examples of each:</p>
 	<blockquote>
-		<p>Artifact Set:	<code>pathURI="base-xsd/niem/niem-core/3.0/"</code></p>	
-		<p>Artifact: <char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><code> pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"</code></p>
+		<p>Artifact Set: <code>pathURI="base-xsd/niem/niem-core/3.0/"</code></p>	
+		<p>Artifact: <char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/>
+				 <code>pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"</code></p>
 	</blockquote>
 
 	<p>Note that per <ref idref="uri-syntax"/> and <ref idref="uri-summary"/> a local URI may contain an optional fragment.  Although <code>c:pathURI</code> has no use for a URI with a fragment, MPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.</p>
@@ -2056,20 +2112,6 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<p>A valid <ref idref="PKZIP"/> archive file that adheres to the rules defined for the well-formed MPD <termRef>conformance target</termRef> in this MPD specification.</p> 
 </definition>
 
-	<p>All MPDs use URIs to identify, find, or acquire artifacts and other resources.  As such, the following definition for resolving URIs will be useful to the validation rules to be defined.</p>
-
-<definition term="resolve URI">
-	<p>A function (or an action) that takes a URI string of the form <code>xs:anyURI</code> and returns the resource it identifies.  If the resource is local and does not exist, then this function fails.  If a resource is remote (e.g., a URL on the Internet or a URN of an unknown location), then this function (or action) may require human intervention to determine if the resource exists (pass) or not (fail).</p>
-</definition>
-
-<p><ref idref="NIEM-NDR"/>, <link href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha9/NIEM-NDR-3.0alpha9-2014-04-02.html#definition_reference_element"><char name="sect"/>12.3 Reference Elements</link> defines a <termRef>reference element</termRef> as follows:</p>
-
-<definition term="reference element">
-	<p>An XML element that refers to its value by a reference attribute instead of carrying it as content.</p>
-</definition>
-
-	<p>The <termRef>MPD catalog document</termRef> reuses NIEM Core and so it conforms to NIEM.  This means that an author may use one or more <termRef term="reference element">reference elements</termRef> from various locations to refer to a single content bearing instance of the same element (with a unique <code>structures:id</code>).  The definition of <termRef>resolve URI</termRef> and the conformance target rules that follow assume content bearing elements.  Therefore, if a rule applies to a conformance target with a URI attribute whose owning element is in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form referenced.</p>
-
 	<p>The following rules apply to a <termRef>well-formed MPD</termRef>:</p>
 
 <rule id="wfm1" applicability="WF-MPD" class="Constraint">
@@ -2274,7 +2316,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>The MPD catalog schema <ref idref="MPD-Catalog-XSD"/> defines a large set of common artifact classifiers and a smaller set of artifact set classifiers.  In summary, per <ref idref="MPD-Catalog-XSD"/>, define sets by substituting the appropriate artifact classifier (of type <code>c:FileType</code>) into the abstract element <code>c:Artifact</code>, within the appropriate artifact set classifier (of type <code>c:FileSetType</code>).  Use the most specific classifiers available for your artifacts and artifact sets.  Otherwise, as needed, use generic <code>c:File</code> and <code>c:FileSet</code> classifiers with <code>nc:DescriptionText</code>.</p>
 
-	<p>Note that the <code>c:pathURI</code> value for an artifact is its operating system relative directory path name and file name.  The <code>c:pathURI</code> value for an artifact set is its operating system relative directory path name.</p>
+	<p>Note that the <code>c:pathURI</code> value for an artifact is its operating system relative directory <termRef>path name</termRef> with file name.  The <code>c:pathURI</code> value for an artifact set is its operating system relative <termRef>path name</termRef>.</p>
 
 	<p>Another way the MPD catalog schema can group artifacts is through the use of the <code>c:RequiredFile</code> element.  Use this construct to signify there are strong dependencies among artifacts.  For example, documentation may be prepared as a set of hyperlinked HTML files.  These HTML files may also incorporate separate GIF or JPG images.  Regardless of file location within the MPD, these files depend on one another through hyperlinks.  As a result, they tend operate as a single artifact; removal of a file will cause one or more broken links within the set.  This set of artifacts should be grouped using <code>c:RequiredFile</code>.  If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the <code>c:File</code> element while all others are values for <code>c:RequiredFile</code> child elements).</p>
 
@@ -2345,7 +2387,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="Artifact-Links-to-Other-Resources">
 	<title>Artifact Links to Other Resources</title>
 
-	<p>It is important to understand that the URI scheme defined in <ref idref="externalURI"/> can only be used to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD.  In accordance with the <ref idref="NIEM-NDR"/>, if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative path references when needed.  When absolute references to Internet resources are required:</p>
+	<p>It is important to understand that the URI scheme defined in <ref idref="externalURI"/> can only be used to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD.  In accordance with the <ref idref="NIEM-NDR"/>, if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative <termRef>path name</termRef> references when needed.  When absolute references to Internet resources are required:</p>
 
 	<rule id="r-mpd-protocol" applicability="WF-MPD" class="Constraint">
 		<p>Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST <termRef term="resolve URI">resolve</termRef> (If applicable, documentation SHOULD describe how to <termRef term="resolve URI">resolve</termRef> with security, account, and/or password issues).</p>
