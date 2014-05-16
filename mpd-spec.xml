@@ -1317,7 +1317,7 @@
 
 	<p>All MPDs use Uniform Resource Identifiers (URIs) to identify artifacts and other resources.  Several kinds of URIs are employed by MPDs to reference other MPDs, MPD artifacts (internally and externally), conformance targets, documents, and other resources.  For each type of URI used in an MPD catalog document, this section describes its purpose, options, and syntax based on <ref idref="RFC3986-URI"/>.</p>
 
-	<p>The following definitions will be useful to understanding MPD rules defined later that involve various kinds of URIs.</p>
+	<p>The following definitions will be useful to understanding MPD rules defined in later subsections that involve various kinds of URIs.</p>
 
 <definition term="path name">
 	<p>A general form of the name of a file or directory that specifies a unique location in a file system.  A path name points to a file system location by following the directory tree hierarchy expressed in a string of characters in which path components, separated by a delimiting character, represent each subdirectory.  If a path name terminates in a file name, then it specifies the location of that file (Paraphrased from <link href="http://en.wikipedia.org/wiki/Pathname"><em>Wikipedia: Path (computing)</em>).</link></p>
@@ -1326,49 +1326,6 @@
 <definition term="resolve URI">
 	<p>A function (or an action) that takes a URI string of the form <code>xs:anyURI</code> and returns the resource it identifies.  If the resource is local and does not exist, then this function fails.  If a resource is remote (e.g., a URL on the Internet or a URN of an unknown location), then this function (or action) may require human intervention to determine if the resource exists (pass) or not (fail).</p>
 </definition>
-
-	<p>In the presence of NIEM <termRef term="reference element">reference elements</termRef> URI resolution may require an additional step to account for indirect references.  Be sure to review <ref idref="URI-Resolution-Ref-Elements"/> in case this applies.</p>
-
-
-
-
-
-<ruleSection><title>Resolve MPD URI With Fragment</title>
-	<rule id="r-resolve-uri" applicability="WF-MPD" class="Interpretation">
-		<p>Given an absolute MPD URI with a fragment, resolve this URI as follows:</p>
-		<ol>
-			<li><p>Resolve the base URI (per <ref idref="RFC3986-URI"/>) to retrieve the resource MPD.  If the resource MPD does not exist, then fail (existence error).</p></li>
-			<li><p>Apply the fragment (without "#") to the MPD resource:</p>
-				<ol>
-					<li><p>Locate a <code>structures:id</code> attribute value that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then continue.</p></li>
-					<li><p>Locate a <termRef>path name</termRef> (for a directory or file) that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then fail (existence error).</p></li>
-				</ol>
-			</li>	
-			<li><p>Return the element, directory, or file found.</p></li>
-		</ol>
-	</rule>
-</ruleSection>
-
-
-
-
-
-<section id="URI-Resolution-Ref-Elements">
-	<title>URI Resolution Involving Reference Elements</title>
-
-	<p>Note that a NIEM element can indirectly reference its content rather than carry or encapsulate it.  So, a NIEM element of type <code>xs:anyURI</code> may not contain a URI, but instead refer to another element that contains it for both elements.  Under some circumstances, this might have an impact on URI resolution.</p> 
-
-	<p><ref idref="NIEM-NDR"/>, <link href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha9/NIEM-NDR-3.0alpha9-2014-04-02.html#definition_reference_element"><char name="sect"/>12.3 Reference Elements</link> defines a NIEM <termRef>reference element</termRef> as follows:</p>
-
-<definition term="reference element">
-	<p>A reference element is an element information item that has an attribute <code>structures:ref</code>.  A reference element refers to its value by reference, instead of carrying it as content.</p>
-</definition>
-
-	<p>Thus, the <code>structures:ref</code> attribute value refers to another element that carries the content (for both elements) and owns a <code>structures:id</code> attribute with a value equal to that of <code>structures:ref</code>.</p>
-
-	<p>The <termRef>MPD catalog document</termRef> reuses NIEM Core and so it conforms to NIEM.  Therefore, one or more NIEM <termRef term="reference element">reference elements</termRef> from various locations may refer to a single content bearing instance of the same element (with a unique <code>structures:id</code>).  The definition of <termRef>resolve URI</termRef> and the URI-related rules in this section assume content bearing elements.  If a URI resolution rule applies to an element in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).</p>
-
-</section>
 
 
 
@@ -1402,7 +1359,7 @@
 <section id="externalURI">
 	<title>General URI Scheme for MPD Artifacts (<code>externalURI</code>)</title>
 
-		<p>Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (reuse) and one aspect of lineage.  To support this concept, the following MPD URI rules are necessary:</p>
+	<p>Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (reuse) and one aspect of lineage.  To support this concept, the following MPD URI rules are necessary:</p>
 
 <ruleSection><title>MPD URI Supports Fragment</title>
 	<rule id="r-uri-frag" applicability="WF-MPD" class="Interpretation">
@@ -1416,11 +1373,11 @@
 	</rule>
 </ruleSection>
 
-<p><ref idref="r-uri-frag"/> is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD).  This specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to construct a URI for an artifact within an MPD.  By the following rule, each file artifact or artifact set is uniquely identified by its <termRef>path name</termRef> relative to the <termRef>MPD root directory</termRef>.</p>
+	<p><ref idref="r-uri-frag"/> is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD).  This specification follows <ref idref="RFC3986-URI"/> and employs a fragment identifier to construct a URI for an artifact within an MPD.  By the following rule, each file artifact or artifact set is uniquely identified by its <termRef>path name</termRef> relative to the <termRef>MPD root directory</termRef>.</p>
 
 <ruleSection><title>MPD Artifact URI Syntax</title>
 	<rule id="r-mpd-uri-syntax" applicability="WF-MPD" class="Constraint">
-		<p>Within an MPD a URI reference to an artifact in another external MPD is the concatenation of</p>
+		<p>Within an MPD a URI reference to an artifact in another external MPD is the concatenation of:</p>
 		<ul>
 			<li><p>The URI of the MPD that contains the artifact.</p></li>
 			<li><p>The pound-sign character ("#") (also known as the hashtag character).</p></li>
@@ -1434,7 +1391,6 @@
 	<p>You should now understand the rationale for <ref idref="r-uri-nofrag"/>.  If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because <ref idref="RFC3986-URI"/> allows only a single fragment identifier.</p> 
 
 	<p>The following are examples of valid MPD artifact URIs:</p>
-
 	<ul>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#subset/niem-core.xsd</code> (a file artifact)</p></li>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0beta2/#extension/ext-1.1.xsd</code> (a file artifact)</p></li>
@@ -1442,22 +1398,22 @@
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query/</code> (a set artifact)</p></li>
 	</ul>
 
-	<p>Note that <ref idref="RFC2141-URN-Syntax"/> appears to preclude the use of a URN as an MPD URI.  URN syntax violates <ref idref="r-uri-frag"/> because it does not support fragment identifiers.</p>
+	<p><ref idref="RFC2141-URN-Syntax"/> appears to preclude the use of a Uniform Resource Name (URN) as an MPD URI.  URN syntax violates <ref idref="r-uri-frag"/> because it does not support fragment identifiers.</p>
 
 	<p>Artifact URIs are used as values for the <code>c:externalURI</code> attribute in the MPD catalog XML document to declare equivalence relationships between artifacts (See <ref idref="MPD-Catalog-XSD"/>).  A simple scenario follows.  Consider two different IEPDs with the following URIs:</p>
-	<ol>
-		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/</code></p></li>
-		<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code></p></li>
-	</ol>
-	
+		<ol>
+			<li><p><code>http://example.gov/niem-iepd/pmix/3.0/</code></p></li>
+			<li><p><code>http://www.abc.org/niem-iepd/order/2.1.2rev3/</code></p></li>
+		</ol>
+		
 	<p>The author of IEPD (2) has decided to reuse (as-is) the <code>base-xsd/extension/req1.xsd</code> artifact in IEPD (1).  He/she can optionally create an MPD catalog <code>c:ExtensionSchemaDocument</code> entry for this artifact (assuming it is an extension schema document), and add the attribute:</p> 
-	<blockquote>
-		<p><code>c:externalURI="http://example.org/niem-iepd/pmix/3.0/#base-xsd/extension/req1.xsd"</code></p>
-	</blockquote>
+		<blockquote>
+			<p><code>c:externalURI="http://example.org/niem-iepd/pmix/3.0/#base-xsd/extension/req1.xsd"</code></p>
+		</blockquote>
 
 	<p>Additional <code>c:externalURI</code> attributes may be added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.</p>
 
-	<p>Note that a URI does not have the same meaning as namespace.  NIEM namespaces cannot be used as artifact URIs.  Recall that the target namespace used in a subset schema document derived from a NIEM release schema document is identical to the target namespace of that release schema document.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  NIEM namespaces are not necessarily unique to an artifact within an MPD.  Later, <ref idref="XML-Catalogs"/> will describe the use of <ref idref="OASIS-XML-Catalogs"/> to correlate namespaces to local URIs in order to <termRef term="resolve URI">resolve</termRef> them to local resources.</p>
+	<p>A URI does not have the same meaning as namespace.  NIEM namespaces cannot be used as MPD artifact URIs.  Recall that the target namespace used in a subset schema document derived from a NIEM release schema document is identical to the target namespace of that release schema document.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  NIEM namespaces are not necessarily unique to an artifact within an MPD.  Later, <ref idref="XML-Catalogs"/> will describe the use of <ref idref="OASIS-XML-Catalogs"/> to correlate namespaces to local URIs in order to <termRef term="resolve URI">resolve</termRef> them to local resources.</p>
 
 </section>
 
@@ -1469,138 +1425,140 @@
 	<p>An MPD uses the file directory system of path names and file names to identify local artifacts and artifact sets.  All local URIs are relative to the location of the <termRef>MPD catalog document</termRef>, and therefore, they are also relative to the <termRef>MPD root directory</termRef> since the MPD catalog document resides in the MPD root directory.</p>
 
 	<p>In general, every value of attribute <code>c:pathURI</code> in an MPD catalog document will be a relative <termRef>path name</termRef> to a directory (i.e., an artifact set), or to a file (i.e., an artifact).  The following are typical examples of each:</p>
-	<blockquote>
-		<p>Artifact Set: <code>pathURI="base-xsd/niem/niem-core/3.0/"</code></p>	
-		<p>Artifact: <char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/>
-				 <code>pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"</code></p>
-	</blockquote>
+		<blockquote>
+			<p>Artifact Set: <code>pathURI="base-xsd/niem/niem-core/3.0/"</code></p>	
+			<p>Artifact: <char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/>
+					 <code>pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"</code></p>
+		</blockquote>
 
 	<p>Note that per <ref idref="uri-syntax"/> and <ref idref="uri-summary"/> a local URI may contain an optional fragment.  Although <code>c:pathURI</code> has no use for a URI with a fragment, MPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.</p>
 
 	<p>Despite its simplicity, <code>c:pathURI</code> comes with over a dozen rules that help to define a <termRef>well-formed MPD</termRef>.  The following rules essentially ensure that every <code>c:pathURI</code> attribute value in a well-formed MPD resolves to the correct local resource:</p>
 
-<ruleSection><title>pathURIs Resolve</title>
-	<rule id="wfm2" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURIs Resolve</title>
+		<rule id="wfm2" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for XMLCatalog</title>
-	<rule id="wfm3" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:XMLCatalog</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML catalog document</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for XMLCatalog</title>
+		<rule id="wfm3" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:XMLCatalog</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML catalog document</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for MPDChangeLog</title>
-	<rule id="wfm4" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MPDChangeLog</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>change log</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for MPDChangeLog</title>
+		<rule id="wfm4" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MPDChangeLog</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>change log</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for ReadME</title>
-	<rule id="wfm5" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReadMe</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>read-me artifact</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for ReadME</title>
+		<rule id="wfm5" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReadMe</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>read-me artifact</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for IEPSampleXMLDocument</title>
-	<rule id="wfm6" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML document</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for IEPSampleXMLDocument</title>
+		<rule id="wfm6" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML document</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for BusinessRulesArtifact</title>
-	<rule id="wfm7" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:BusinessRulesArtifact</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for BusinessRulesArtifact</title>
+		<rule id="wfm7" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:BusinessRulesArtifact</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for ExternalSchemaDocument</title>
-	<rule id="wfm8" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExternalSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for ExternalSchemaDocument</title>
+		<rule id="wfm8" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExternalSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for ReferenceSchemaDocument</title>
-	<rule id="wfm9" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for ReferenceSchemaDocument</title>
+		<rule id="wfm9" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for ExtensionSchemaDocument</title>
-	<rule id="wfm10" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExtensionSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>extension schema document</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for ExtensionSchemaDocument</title>
+		<rule id="wfm10" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExtensionSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>extension schema document</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for SubsetSchemaDocument</title>
-	<rule id="wfm11" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SubsetSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>subset schema document</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for SubsetSchemaDocument</title>
+		<rule id="wfm11" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SubsetSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>subset schema document</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for Wantlist</title>
-	<rule id="wfm12" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:Wantlist</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>NIEM wantlist</termRef> XML document.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for Wantlist</title>
+		<rule id="wfm12" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:Wantlist</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>NIEM wantlist</termRef> XML document.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for SchematronSchema</title>
-	<rule id="wfm13" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>Schematron schema</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for SchematronSchema</title>
+		<rule id="wfm13" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>Schematron schema</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for RelaxNGSchema</title>
-	<rule id="wfm14" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>RelaxNG schema</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for RelaxNGSchema</title>
+		<rule id="wfm14" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>RelaxNG schema</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for SchemaDocumentSet</title>
-	<rule id="wfm15" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef> set.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for SchemaDocumentSet</title>
+		<rule id="wfm15" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef> set.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for ConstraintSchemaDocumentSet</title>
-	<rule id="wfm16" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ConstraintSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>constraint schema document set</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for ConstraintSchemaDocumentSet</title>
+		<rule id="wfm16" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ConstraintSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>constraint schema document set</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for ReferenceSchemaDocumentSet</title>
-	<rule id="wfm17" applicability="WF-MPD" class="Constraint">
-		<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document set</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for ReferenceSchemaDocumentSet</title>
+		<rule id="wfm17" applicability="WF-MPD" class="Constraint">
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document set</termRef>.</p>
+		</rule>
+	</ruleSection>
 
-<ruleSection><title>pathURI for RequiredFile</title>
-	<rule id="wfm18" applicability="WF-MPD" class="Constraint">
-		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RequiredFile</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>pathURI for RequiredFile</title>
+		<rule id="wfm18" applicability="WF-MPD" class="Constraint">
+			<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RequiredFile</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+		</rule>
+	</ruleSection>
+
+	</section>
+
+
+<section id="XML-Catalog-URI">
+	<title>XML Catalog URI</title>
+
+	<p>An <termRef>XML Catalog document</termRef> conforms to <ref idref="OASIS-XML-Catalogs"/>.  For the purpose of an MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.</p>
+
+	<ruleSection><title>XML Catalog uri Resolves</title>
+		<rule id="xc1" applicability="XML-Cat" class="Constraint">
+			<p>Within an <termRef>XML catalog document</termRef> the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+		</rule>
+	</ruleSection>
+
+	<ruleSection><title>XML Catalog uri Resolves to Correct Target Namespace</title>
+		<rule id="xc2" applicability="XML-Cat" class="Constraint">
+			<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>name</code> (a namespace string) attribute owned by the <code>er:uri</code> element.</p> 
+		</rule>
+	</ruleSection>
 
 </section>
 
-
-<section id="CT-XML-Catalog">
-	<title>XML Catalog</title>
-
-
-<ruleSection><title>XML Catalog uri Resolves</title>
-	<rule id="xc1" applicability="XML-Cat" class="Constraint">
-		<p>Within an <termRef>XML catalog document</termRef> the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
-	</rule>
-</ruleSection>
-
-<ruleSection><title>XML Catalog uri Resolves to Correct Target Namespace</title>
-	<rule id="xc2" applicability="XML-Cat" class="Constraint">
-		<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>name</code> (a namespace string) attribute owned by the <code>er:uri</code> element.</p> 
-	</rule>
-</ruleSection>
-
-</section>
 
 
 <section id="MPD-Lineage">
@@ -1620,80 +1578,133 @@
 
 
 
+
+<section id="Resolve-URI-W-Fragment"/>
+	<title>Resolving an MPD URI with a Fragment</title>
+
+	<ruleSection><title>Resolve MPD URI With Fragment</title>
+		<rule id="r-resolve-uri" applicability="WF-MPD" class="Interpretation">
+			<p>Given an absolute MPD URI with a fragment, resolve this URI as follows:</p>
+			<ol>
+				<li><p>Resolve the base URI (per <ref idref="RFC3986-URI"/>) to retrieve the resource MPD.  If the resource MPD does not exist, then fail (existence error).</p></li>
+				<li><p>Apply the fragment (without "#") to the MPD resource:</p>
+					<ol>
+						<li><p>Locate a <code>structures:id</code> attribute value that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then continue.</p></li>
+						<li><p>Locate a <termRef>path name</termRef> (for a directory or file) that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then fail (existence error).</p></li>
+					</ol>
+				</li>	
+				<li><p>Return the element, directory, or file found.</p></li>
+			</ol>
+		</rule>
+	</ruleSection>
+
+</section>
+
+
+<section id="URI-Resolution-Ref-Elements">
+	<title>URI Resolution Involving Reference Elements</title>
+	
+	<p>In the presence of NIEM <termRef term="reference element">reference elements</termRef> URI resolution may require an additional step to account for indirect references.  Be sure to review <ref idref="URI-Resolution-Ref-Elements"/> if case this applies.</p>
+
+	<p>Note that a NIEM element can indirectly reference its content rather than carry or encapsulate it.  So, a NIEM element of type <code>xs:anyURI</code> may not contain a URI, but instead refer to another element that contains it for both elements.  Under some circumstances, this might have an impact on URI resolution.</p> 
+
+	<p><ref idref="NIEM-NDR"/>, <link href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha9/NIEM-NDR-3.0alpha9-2014-04-02.html#definition_reference_element"><char name="sect"/>12.3 Reference Elements</link> defines a NIEM <termRef>reference element</termRef> as follows:</p>
+
+<definition term="reference element">
+	<p>A reference element is an element information item that has an attribute <code>structures:ref</code>.  A reference element refers to its value by reference, instead of carrying it as content.</p>
+</definition>
+
+	<p>Thus, the <code>structures:ref</code> attribute value refers to another element that carries the content (for both elements) and owns a <code>structures:id</code> attribute with a value equal to that of <code>structures:ref</code>.</p>
+
+	<p>The <termRef>MPD catalog document</termRef> reuses NIEM Core and so it conforms to NIEM.  Therefore, one or more NIEM <termRef term="reference element">reference elements</termRef> from various locations may refer to a single content bearing instance of the same element (with a unique <code>structures:id</code>).  The definition of <termRef>resolve URI</termRef> and the URI-related rules in this section assume content bearing elements.  If a URI resolution rule applies to an element in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).</p>
+
+</section>
+
+
+
+<section id="Conform-Tgt-URI">
+	<title>Conformance Target URI (conformanceTargetURI)</title>
+
+	<p></p>
+
+</section>
+
+
+
 <section id="URI-Summary">
 	<title>Summary of MPD URIs</title>
 
-	<p>This section summarizes the various URIs used in the MPD catalog document.  It also presents a summary of <ref idref="RFC3986-URI"/>.  See that reference for explanation and details of URI syntax.</p>
+		<p>This section summarizes the various URIs used in the MPD catalog document.  It also presents a summary of <ref idref="RFC3986-URI"/>.  See that reference for explanation and details of URI syntax.</p>
 
-<table id="uri-syntax">
-	<title>Summary of<link href="http://tools.ietf.org/html/rfc3986"><em> RFC 3986 URI: Generic Syntax</em></link></title>
-	<theadr>
-	    <th>Id</th>
-            <th>URI Syntax</th>
-	    <th>Meaning</th>
-	    <th>Examples</th>
-        </theadr>
-	<tr>
-	    <td>1</td>
-	    <td>&lt;absolute-URI&gt;</td>
-	    <td>absolute URI only (no fragment)</td>
-	    <td><code>http://nlets.org/rap/3.1/</code></td>
-	</tr>
-	<tr>
-	    <td>2</td>
-            <td>&lt;URI&gt;</td>
-	    <td>absolute URI and optional fragment</td>
-	    <td><code>http://nlets.org/rap/3.1/#rap-sheet2</code></td>
-	</tr>
-	<tr>
-	    <td>3</td>
-            <td>&lt;relative-reference&gt;</td>
-	    <td>optional relative part and optional fragment</td>
-	    <td><code>/iep-sample/query.xml </code>or<code> #A3 </code>or<code> /iep-sample/query.xml#A3</code></td>
-	</tr>
-	<tr>
-	    <td>4</td>
-            <td>&lt;URI-reference&gt;</td>
-	    <td>&lt;URI&gt; or &lt;relative-reference&gt;</td>
-	    <td>any example in 1, 2, or 3 above</td>
-	</tr>
-</table>
+	<table id="uri-syntax">
+		<title>Summary of<link href="http://tools.ietf.org/html/rfc3986"><em> RFC 3986 URI: Generic Syntax</em></link></title>
+		<theadr>
+		    <th>Id</th>
+		    <th>URI Syntax</th>
+		    <th>Meaning</th>
+		    <th>Examples</th>
+		</theadr>
+		<tr>
+		    <td>1</td>
+		    <td>&lt;absolute-URI&gt;</td>
+		    <td>absolute URI only (no fragment)</td>
+		    <td><code>http://nlets.org/rap/3.1/</code></td>
+		</tr>
+		<tr>
+		    <td>2</td>
+		    <td>&lt;URI&gt;</td>
+		    <td>absolute URI and optional fragment</td>
+		    <td><code>http://nlets.org/rap/3.1/#rap-sheet2</code></td>
+		</tr>
+		<tr>
+		    <td>3</td>
+		    <td>&lt;relative-reference&gt;</td>
+		    <td>optional relative part and optional fragment</td>
+		    <td><code>/iep-sample/query.xml </code>or<code> #A3 </code>or<code> /iep-sample/query.xml#A3</code></td>
+		</tr>
+		<tr>
+		    <td>4</td>
+		    <td>&lt;URI-reference&gt;</td>
+		    <td>&lt;URI&gt; or &lt;relative-reference&gt;</td>
+		    <td>any example in 1, 2, or 3 above</td>
+		</tr>
+	</table>
 
-<p> <char name="nbsp"/> </p>
+	<p> <char name="nbsp"/> </p>
 
-<table id="uri-summary">
-	<title>Summary of MPD URI attributes</title>
-        <theadr>
-            <th>MPD Attribute</th>
-	    <th>URI Syntax (per table above)</th>
-        </theadr>
-	<tr>
-            <td>mpdURI</td>
-	    <td>&lt;absolute-URI&gt;</td>
-	</tr>
-	<tr>
-            <td>pathURI</td>
-	    <td>&lt;relative-reference&gt; (relative to MPD catalog document)</td>
-	</tr>
-	<tr>
-            <td>externalURI</td>
-	    <td>&lt;URI&gt;</td>
-	</tr>
-	<tr>
-            <td>resourceURI</td>
-	    <td>&lt;URI&gt;</td>
-	    <td></td>
-	</tr>
-	<tr>
-            <td>conformanceTargetURI</td>
-	    <td>&lt;URI-reference&gt;</td>
-	    <td></td>
-	</tr>
-</table>
+	<table id="uri-summary">
+		<title>Summary of MPD URI attributes</title>
+		<theadr>
+		    <th>MPD Attribute</th>
+		    <th>URI Syntax (per table above)</th>
+		</theadr>
+		<tr>
+		    <td>mpdURI</td>
+		    <td>&lt;absolute-URI&gt;</td>
+		</tr>
+		<tr>
+		    <td>pathURI</td>
+		    <td>&lt;relative-reference&gt; (relative to MPD catalog document)</td>
+		</tr>
+		<tr>
+		    <td>externalURI</td>
+		    <td>&lt;URI&gt;</td>
+		</tr>
+		<tr>
+		    <td>resourceURI</td>
+		    <td>&lt;URI&gt;</td>
+		    <td></td>
+		</tr>
+		<tr>
+		    <td>conformanceTargetURI</td>
+		    <td>&lt;URI-reference&gt;</td>
+		    <td></td>
+		</tr>
+	</table>
 
-<p> <char name="nbsp"/> </p>
+	<p> <char name="nbsp"/> </p>
 
-</section>
+	</section>
 
 </section>
 </section>
@@ -1716,101 +1727,101 @@
 
 	<p>In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change.  New versions of reference schema document sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs and EIEMs.  Developers must understand in detail how changes will affect their IEPD and EIEM products and the tools used to build them.  To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs.  A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users.  All of the foregoing reasons dictate that NIEM require a normative change log for reference schema document sets.</p>
 
-	<rule id="r-mpd-ref-changelog" applicability="WF-MPD" class="Constraint">
-		<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{rel, cu, du}</code> MUST contain a <code>changelog.xml</code> artifact in its <termRef>MPD root directory</termRef>.</p>
-	</rule>
+		<rule id="r-mpd-ref-changelog" applicability="WF-MPD" class="Constraint">
+			<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{rel, cu, du}</code> MUST contain a <code>changelog.xml</code> artifact in its <termRef>MPD root directory</termRef>.</p>
+		</rule>
 
-	<rule id="r-changelog-ref" applicability="M-Chg-Log" class="Constraint">
-		<p>A <code>changelog.xml</code> artifact for an MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{rel, cu, du}</code> MUST validate with the NIEM change log schemas <code>mpd-changelog-1.0.xsd</code> and <code>niem-model-1.0.xsd</code>.</p>
-	</rule>
-	
-	<p>The most current versions of the resources referenced in <ref idref="r-changelog-ref"/> are available here:</p>
-	<blockquote>
-		<p><link>http://reference.niem.gov/niem/resource/mpd/changelog/</link></p>
-		<p><link>http://reference.niem.gov/niem/resource/model/</link></p>
-	</blockquote>
+		<rule id="r-changelog-ref" applicability="M-Chg-Log" class="Constraint">
+			<p>A <code>changelog.xml</code> artifact for an MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{rel, cu, du}</code> MUST validate with the NIEM change log schemas <code>mpd-changelog-1.0.xsd</code> and <code>niem-model-1.0.xsd</code>.</p>
+		</rule>
+		
+		<p>The most current versions of the resources referenced in <ref idref="r-changelog-ref"/> are available here:</p>
+		<blockquote>
+			<p><link>http://reference.niem.gov/niem/resource/mpd/changelog/</link></p>
+			<p><link>http://reference.niem.gov/niem/resource/model/</link></p>
+		</blockquote>
 
-	<p>Since the schemas are the authority for a release or update and because almost all tool support depends on the schemas, the change log is only designed to audit transactional changes to the reference schema documents.  There is no provision for logging changes to support documentation or other non-schema artifacts.  Non-schema changes are generally handled non-normatively in the form of release notes.</p>
+		<p>Since the schemas are the authority for a release or update and because almost all tool support depends on the schemas, the change log is only designed to audit transactional changes to the reference schema documents.  There is no provision for logging changes to support documentation or other non-schema artifacts.  Non-schema changes are generally handled non-normatively in the form of release notes.</p>
 
-</section>
-
-
-<section id="Change-Log-IEPD-EIEM">
-	<title>Change Log for IEPDs and EIEMs</title>
-
-	<p>IEPD and EIEM change log requirements are less strict and are not required to conform to the naming and XML schema specifications in <ref idref="r-mpd-ref-changelog"/>.  However, a change log is still required.</p>
-
-	<rule id="r-mpd-changelog-iepd" applicability="WF-MPD" class="Constraint">
-		<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a change log artifact in its <termRef>MPD root directory</termRef></p>
-	</rule>
-
-	<p>The format of an IEPD or EIEM change log is left to the discretion of the author.  The use of <code>mpd-changelog-1.0.xsd</code> for IEPD and EIEM schemas is not required.  Relaxing the change log format encourages and facilitates easier and more rapid development.  IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  A consistent standard change log would be very difficult to specify.</p>
-
-</section>
-</section>
+	</section>
 
 
+	<section id="Change-Log-IEPD-EIEM">
+		<title>Change Log for IEPDs and EIEMs</title>
 
-<section id="Read-Me-Artifact">
-	<title>Read-Me Artifact</title>
+		<p>IEPD and EIEM change log requirements are less strict and are not required to conform to the naming and XML schema specifications in <ref idref="r-mpd-ref-changelog"/>.  However, a change log is still required.</p>
 
-	<p>This section is applicable to IEPDs and EIEMs.</p>
+		<rule id="r-mpd-changelog-iepd" applicability="WF-MPD" class="Constraint">
+			<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a change log artifact in its <termRef>MPD root directory</termRef></p>
+		</rule>
 
-	<definition term="read-me artifact">
-		<p>An informal documentation artifact contained in an IEPD or EIEM that serves as the initial general source of human readable descriptive or instructional information.  A <em>read-me</em> artifact or file (formerly known as a <em>master document</em>) may index or reference other more specific documentation or other explanatory materials within the MPD.</p>
-	</definition>
+		<p>The format of an IEPD or EIEM change log is left to the discretion of the author.  The use of <code>mpd-changelog-1.0.xsd</code> for IEPD and EIEM schemas is not required.  Relaxing the change log format encourages and facilitates easier and more rapid development.  IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  A consistent standard change log would be very difficult to specify.</p>
 
-	<p>A <code>read-me</code> artifact is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.</p>
+	</section>
+	</section>
 
-	<rule id="r-mpd-read-me" applicability="WF-MPD" class="Constraint">
-		<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a <code>read-me.*</code> file artifact in its <termRef>MPD root directory</termRef>.</p>
-	</rule>
 
-	<p>The read-me artifact may replicate some of the metadata in the MPD catalog.  However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal.  It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.</p>
 
-	<p>The primary purposes of the <termRef>read-me artifact</termRef> include:</p>
+	<section id="Read-Me-Artifact">
+		<title>Read-Me Artifact</title>
+
+		<p>This section is applicable to IEPDs and EIEMs.</p>
+
+		<definition term="read-me artifact">
+			<p>An informal documentation artifact contained in an IEPD or EIEM that serves as the initial general source of human readable descriptive or instructional information.  A <em>read-me</em> artifact or file (formerly known as a <em>master document</em>) may index or reference other more specific documentation or other explanatory materials within the MPD.</p>
+		</definition>
+
+		<p>A <code>read-me</code> artifact is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.</p>
+
+		<rule id="r-mpd-read-me" applicability="WF-MPD" class="Constraint">
+			<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a <code>read-me.*</code> file artifact in its <termRef>MPD root directory</termRef>.</p>
+		</rule>
+
+		<p>The read-me artifact may replicate some of the metadata in the MPD catalog.  However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal.  It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.</p>
+
+		<p>The primary purposes of the <termRef>read-me artifact</termRef> include:</p>
+			<ul>
+			<li><p>To help facilitate understanding and reuse of IEPDs and EIEMs.</p></li>
+			<li><p>To ensure that fundamental and detailed business-level information about an IEPD or EIEM are documented for human understanding.</p></li>
+			<li><p>To ensure the IEPD or EIEM author has considered and conveys such fundamental information.</p></li>
+			<li><p>To provide an initial source within an IEPD or EIEM for human consumable documentation and/or references to other business or technical documentation needed for understanding.</p></li>
+			</ul>
+
+			<p>The read-me artifact is not intended to be the only source of written documentation for an MPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference.  Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize read-me format or layout.  Only the file name and relative path within the MPD archive are strictly specified.  The following section will generally describe minimal content that should be in the read-me artifact.  This guidance is non-normative, so adherence is a subjective judgment by the author.
+	</p>
+
+
+
+	<section id="Read-Me-Content">
+		<title>Read-me Content</title>
+
+		<p>This section is non-normative and applies to IEPDs and EIEMs.</p>
+
+		<p>This section is neither a cookbook nor a normative specification for a read-me artifact.  It simply suggests typical topics that a read-me artifact should or might address, and provides some non-normative guidance.</p>
+
+		<p>The read-me file should help another user or developer to understand the content and use of an IEPD or EIEM, as well as determine potential for reuse or adaptation.  It should describe what implementers need to understand and what the author considers is important to understanding an IEPD or EIEM.  There is no limit or constraint on its content.</p>
+
+		<p>At a minimum, the read-me file should contain several fundamental elements of information about the MPD:</p>
 		<ul>
-		<li><p>To help facilitate understanding and reuse of IEPDs and EIEMs.</p></li>
-		<li><p>To ensure that fundamental and detailed business-level information about an IEPD or EIEM are documented for human understanding.</p></li>
-		<li><p>To ensure the IEPD or EIEM author has considered and conveys such fundamental information.</p></li>
-		<li><p>To provide an initial source within an IEPD or EIEM for human consumable documentation and/or references to other business or technical documentation needed for understanding.</p></li>
+		<li><p>Purpose of this MPD.</p></li>
+		<li><p>Scope of its deployment, usage, and information content.</p></li>
+		<li><p>Business value and rationale for developing it.</p></li>
+		<li><p>Type of information it is intended to exchange (in business terms).</p></li>
+		<li><p>Identification of senders and receivers (or the types of senders and receivers).</p></li>
+		<li><p>Typical interactions between senders, receivers, and systems.</p></li>
+		<li><p>References to other documentation within the MPD, and links to external documents that may be needed to understand and implement it.</p></li>
 		</ul>
 
-		<p>The read-me artifact is not intended to be the only source of written documentation for an MPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference.  Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize read-me format or layout.  Only the file name and relative path within the MPD archive are strictly specified.  The following section will generally describe minimal content that should be in the read-me artifact.  This guidance is non-normative, so adherence is a subjective judgment by the author.
-</p>
+		<p>Many document formats (e.g., HTML, PDF) can display hot links to local files within the MPD archive as well as URLs to files on the Internet.  Employing such a format is highly recommended but not mandatory.</p> 
 
+		<rule id="r-mpd-read-me-purpose" applicability="WF-MPD" class="Interpretation">
+			<p>A NIEM IEPD or EIEM read-me artifact SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.</p>
+		</rule>
 
+		<p>MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the <termRef>read-me artifact</termRef>.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the read-me artifact (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the read-me artifact:</p>
 
-<section id="Read-Me-Content">
-	<title>Read-me Content</title>
-
-	<p>This section is non-normative and applies to IEPDs and EIEMs.</p>
-
-	<p>This section is neither a cookbook nor a normative specification for a read-me artifact.  It simply suggests typical topics that a read-me artifact should or might address, and provides some non-normative guidance.</p>
-
-	<p>The read-me file should help another user or developer to understand the content and use of an IEPD or EIEM, as well as determine potential for reuse or adaptation.  It should describe what implementers need to understand and what the author considers is important to understanding an IEPD or EIEM.  There is no limit or constraint on its content.</p>
-
-	<p>At a minimum, the read-me file should contain several fundamental elements of information about the MPD:</p>
 	<ul>
-	<li><p>Purpose of this MPD.</p></li>
-	<li><p>Scope of its deployment, usage, and information content.</p></li>
-	<li><p>Business value and rationale for developing it.</p></li>
-	<li><p>Type of information it is intended to exchange (in business terms).</p></li>
-	<li><p>Identification of senders and receivers (or the types of senders and receivers).</p></li>
-	<li><p>Typical interactions between senders, receivers, and systems.</p></li>
-	<li><p>References to other documentation within the MPD, and links to external documents that may be needed to understand and implement it.</p></li>
-	</ul>
-
-	<p>Many document formats (e.g., HTML, PDF) can display hot links to local files within the MPD archive as well as URLs to files on the Internet.  Employing such a format is highly recommended but not mandatory.</p> 
-
-	<rule id="r-mpd-read-me-purpose" applicability="WF-MPD" class="Interpretation">
-		<p>A NIEM IEPD or EIEM read-me artifact SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.</p>
-	</rule>
-
-	<p>MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the <termRef>read-me artifact</termRef>.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the read-me artifact (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the read-me artifact:</p>
-
-<ul>
-	<li><p>Executive summary (especially for a lengthy read-me artifact></p></li>
+		<li><p>Executive summary (especially for a lengthy read-me artifact></p></li>
 	<li><p>Use cases</p></li>
 	<li><p>Business processes</p></li>
 	<li><p>Business requirements</p></li>
