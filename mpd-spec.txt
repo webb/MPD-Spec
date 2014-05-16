@@ -1117,9 +1117,9 @@ Rule 4-14. MPD Artifact URI Syntax
 
       *  http://example.gov/niem-iepd/pmix/3.0beta2/#extension/ext-1.1.xsd (a file artifact)
 
-      *  http://example.gov/niem-iepd/pmix/3.0/#application-info/ (a set artifact)
+      *  http://example.gov/niem-iepd/pmix/3.0/#application-info (a set artifact)
 
-      *  http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query/ (a set artifact)
+      *  http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query (a set artifact)
 
    [RFC 2141 URN Syntax] appears to preclude the use of a Uniform Resource Name (URN) as an MPD URI. URN syntax violates Rule 4-12, MPD URI Supports Fragment because it does not support fragment identifiers.
 
@@ -1143,13 +1143,13 @@ Rule 4-14. MPD Artifact URI Syntax
 
    In general, every value of attribute c:pathURI in an MPD catalog document will be a relative [path name] to a directory (i.e., an artifact set), or to a file (i.e., an artifact). The following are typical examples of each:
 
-      Artifact Set: pathURI="base-xsd/niem/niem-core/3.0/"
+      Artifact Set: pathURI="base-xsd/niem/niem-core/3.0"
 
       Artifact:      pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"
 
    Note that per Table Table 4-1, Summary of RFC 3986 URI: Generic Syntax, below, and Table Table 4-2, Summary of MPD URI attributes, below, a local URI may contain an optional fragment. Although c:pathURI has no use for a URI with a fragment, MPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.
 
-   Despite its simplicity, c:pathURI comes with over a dozen rules that help to define a [well-formed MPD]. The following rules essentially ensure that every c:pathURI attribute value in a well-formed MPD resolves to the correct local resource:
+   Despite its simplicity, c:pathURI comes with over a dozen rules that help to define a [well-formed MPD]. These rules ensure that every c:pathURI attribute value in a well-formed MPD resolves to a correct local resource:
 
 Rule 4-15. pathURIs Resolve
 
@@ -1255,7 +1255,7 @@ Rule 4-31. pathURI for RequiredFile
 
 4.2.2.4. XML Catalog URI
 
-   An [XML catalog document] conforms to [XML Catalogs]. For the purpose of an MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.
+   An [XML catalog document] conforms to [XML Catalogs]. For the purpose of MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.
 
 Rule 4-32. XML Catalog uri Resolves
 
@@ -1269,7 +1269,7 @@ Rule 4-33. XML Catalog uri Resolves to Correct Target Namespace
 
       Within an [XML catalog document], given an [XML schema document] resolved by the value of a uri attribute owned by a er:uri element, the [XML schema document] target namespace MUST equal the value of the name (a namespace string) attribute owned by the er:uri element.
 
-4.2.2.5. MPD and MPD Artifact Lineage
+4.2.2.5. MPD and MPD Artifact Lineage (resourceURI)
 
    An important business requirement is transparency of MPD lineage. Data lineage is also referred to as data provenance, how data are derived or where it came from. There are two basic views of data provenance: (1) as data annotations; and (2) as a graph of data relationships [Principles of Data Integration], Chapter 14 "Data Provenance".
 
@@ -1277,11 +1277,15 @@ Rule 4-33. XML Catalog uri Resolves to Correct Target Namespace
 
    The MPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:descriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one MPD may relate to another. This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:descriptionText element is provided to further explain the nature of any of the eight c:relationshipCode values available. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:descriptionText (for example, if its value is adapts).
 
-   The MPD catalog also enables an author to record more fine-grained ancestry between MPDs. An MPD catalog can explicitly declare that it reuses an artifact or artifact set from one or more other MPDs. By default each artifact and artifact set identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it Section 4.2.2.2, URI Scheme for MPD Artifacts (externalURI), above. An MPD author declares reuse by entering the URI for the artifact or artifact set in the optional c:externalURI attribute within the appropriate c:FileType or c:FileSetType elements.
+   As was described in Section 4.2.2.2, URI Scheme for MPD Artifacts (externalURI), above, the MPD catalog also enables an author to record more fine-grained ancestry between MPDs using the c:externalURI attribute. This attribute records an explicit equivalence relationship between artifacts reused across MPDs.
 
    Some MPDs are designed for more extensive reuse than others. For example, families of IEPDs are expected to reuse a given EIEM. In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references. This is expected. The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs. Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.
 
-4.2.2.6. Resolving an MPD URI with a Fragment
+4.2.2.6. Conformance Target URI (conformanceTargetURI)
+
+   
+
+4.2.2.7. Resolving an MPD URI with a Fragment
 
 Rule 4-34. Resolve MPD URI With Fragment
 
@@ -1299,9 +1303,9 @@ Rule 4-34. Resolve MPD URI With Fragment
 
          3. Return the element, directory, or file found.
 
-4.2.2.7. URI Resolution Involving Reference Elements
+4.2.2.8. URI Resolution Involving Reference Elements
 
-   In the presence of NIEM [reference elements] URI resolution may require an additional step to account for indirect references. Be sure to review Section 4.2.2.7, URI Resolution Involving Reference Elements, above, if case this applies.
+   In the presence of NIEM [reference elements] URI resolution may require an additional step to account for indirect references. Be sure to review Section 4.2.2.8, URI Resolution Involving Reference Elements, above, if case this applies.
 
    Note that a NIEM element can indirectly reference its content rather than carry or encapsulate it. So, a NIEM element of type xs:anyURI may not contain a URI, but instead refer to another element that contains it for both elements. Under some circumstances, this might have an impact on URI resolution.
 
@@ -1314,10 +1318,6 @@ Rule 4-34. Resolve MPD URI With Fragment
    Thus, the structures:ref attribute value refers to another element that carries the content (for both elements) and owns a structures:id attribute with a value equal to that of structures:ref.
 
    The [MPD catalog document] reuses NIEM Core and so it conforms to NIEM. Therefore, one or more NIEM [reference elements] from various locations may refer to a single content bearing instance of the same element (with a unique structures:id). The definition of [resolve URI] and the URI-related rules in this section assume content bearing elements. If a URI resolution rule applies to an element in [reference element] form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).
-
-4.2.2.8. Conformance Target URI (conformanceTargetURI)
-
-   
 
 4.2.2.9. Summary of MPD URIs
 
@@ -3636,7 +3636,7 @@ Appendix J. Index of Rules
    Rule 4-31, pathURI for RequiredFile: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
    Rule 4-32, XML Catalog uri Resolves: Section 4.2.2.4, XML Catalog URI
    Rule 4-33, XML Catalog uri Resolves to Correct Target Namespace: Section 4.2.2.4, XML Catalog URI
-   Rule 4-34, Resolve MPD URI With Fragment: Section 4.2.2.6, Resolving an MPD URI with a Fragment
+   Rule 4-34, Resolve MPD URI With Fragment: Section 4.2.2.7, Resolving an MPD URI with a Fragment
    Rule 4-35: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-36: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-37: Section 4.3.2, Change Log for IEPDs and EIEMs
