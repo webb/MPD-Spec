@@ -1253,27 +1253,13 @@ Rule 4-31. pathURI for RequiredFile
 
       Within an [MPD catalog document] the value of a c:pathURI attribute owned by a c:RequiredFile element MUST [resolve] to a resource.
 
-4.2.2.4. XML Catalog URI
-
-   An [XML catalog document] conforms to [XML Catalogs]. For the purpose of MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.
-
-Rule 4-32. XML Catalog uri Resolves
-
-   [Rule 4-32] (XML-Cat)
-
-      Within an [XML catalog document] the value of a uri attribute owned by a er:uri element MUST [resolve] to a resource.
-
-Rule 4-33. XML Catalog uri Resolves to Correct Target Namespace
-
-   [Rule 4-33] (XML-Cat)
-
-      Within an [XML catalog document], given an [XML schema document] resolved by the value of a uri attribute owned by a er:uri element, the [XML schema document] target namespace MUST equal the value of the name (a namespace string) attribute owned by the er:uri element.
-
-4.2.2.5. MPD and MPD Artifact Lineage (resourceURI)
+4.2.2.4. MPD Relationships and Lineage (resourceURI)
 
    An important business requirement is transparency of MPD lineage. Data lineage is also referred to as data provenance, how data are derived or where it came from. There are two basic views of data provenance: (1) as data annotations; and (2) as a graph of data relationships [Principles of Data Integration], Chapter 14 "Data Provenance".
 
    The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an MPD catalog. The URI scheme for MPDs and their artifacts and sets enables a graph of relationships. An MPD may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.
+
+   The next few paragraphs require that you understand URIs for MPDs and MPD artifacts. See Section 4.2.2.1, URI Scheme for MPDs (mpdURI), above, and Section 4.2.2.2, URI Scheme for MPD Artifacts (externalURI), above.
 
    The MPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:descriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one MPD may relate to another. This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:descriptionText element is provided to further explain the nature of any of the eight c:relationshipCode values available. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:descriptionText (for example, if its value is adapts).
 
@@ -1281,15 +1267,15 @@ Rule 4-33. XML Catalog uri Resolves to Correct Target Namespace
 
    Some MPDs are designed for more extensive reuse than others. For example, families of IEPDs are expected to reuse a given EIEM. In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references. This is expected. The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs. Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.
 
-4.2.2.6. Conformance Target URI (conformanceTargetURI)
+4.2.2.5. Conformance Target URI (conformanceTargetURI)
 
-   
+   A declared c:IEPConformanceTarget also has a URI. 
 
-4.2.2.7. Resolving an MPD URI with a Fragment
+4.2.2.6. Resolving an MPD URI with a Fragment
 
-Rule 4-34. Resolve MPD URI With Fragment
+Rule 4-32. Resolve MPD URI With Fragment
 
-   [Rule 4-34] (WF-MPD)
+   [Rule 4-32] (WF-MPD)
 
       Given an absolute MPD URI with a fragment, resolve this URI as follows:
 
@@ -1303,9 +1289,9 @@ Rule 4-34. Resolve MPD URI With Fragment
 
          3. Return the element, directory, or file found.
 
-4.2.2.8. URI Resolution Involving Reference Elements
+4.2.2.7. URI Resolution Involving Reference Elements
 
-   In the presence of NIEM [reference elements] URI resolution may require an additional step to account for indirect references. Be sure to review Section 4.2.2.8, URI Resolution Involving Reference Elements, above, if case this applies.
+   In the presence of NIEM [reference elements] URI resolution may require an additional step to account for indirect references. Be sure to review Section 4.2.2.7, URI Resolution Involving Reference Elements, above, if case this applies.
 
    Note that a NIEM element can indirectly reference its content rather than carry or encapsulate it. So, a NIEM element of type xs:anyURI may not contain a URI, but instead refer to another element that contains it for both elements. Under some circumstances, this might have an impact on URI resolution.
 
@@ -1318,6 +1304,22 @@ Rule 4-34. Resolve MPD URI With Fragment
    Thus, the structures:ref attribute value refers to another element that carries the content (for both elements) and owns a structures:id attribute with a value equal to that of structures:ref.
 
    The [MPD catalog document] reuses NIEM Core and so it conforms to NIEM. Therefore, one or more NIEM [reference elements] from various locations may refer to a single content bearing instance of the same element (with a unique structures:id). The definition of [resolve URI] and the URI-related rules in this section assume content bearing elements. If a URI resolution rule applies to an element in [reference element] form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).
+
+4.2.2.8. XML Catalog URI
+
+   An [XML catalog document] conforms to [XML Catalogs]. For the purpose of MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.
+
+Rule 4-33. XML Catalog uri Resolves
+
+   [Rule 4-33] (XML-Cat)
+
+      Within an [XML catalog document] the value of a uri attribute owned by a er:uri element MUST [resolve] to a resource.
+
+Rule 4-34. XML Catalog uri Resolves to Correct Target Namespace
+
+   [Rule 4-34] (XML-Cat)
+
+      Within an [XML catalog document], given an [XML schema document] resolved by the value of a uri attribute owned by a er:uri element, the [XML schema document] target namespace MUST equal the value of the name (a namespace string) attribute owned by the er:uri element.
 
 4.2.2.9. Summary of MPD URIs
 
@@ -2169,7 +2171,7 @@ Appendix A. MPD Catalog XML Schema Document
        <xs:element name="XMLSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
          <xs:annotation>
    	      <xs:documentation>
-   		 An MPD artifact that is a an XML schema document (i.e., an XSD that
+   		 An MPD artifact that is an XML schema document (i.e., an XSD that
    		 is not necessarily a NIEM subset, extension, or reference schema).
    	      </xs:documentation>
          </xs:annotation>
@@ -2301,6 +2303,8 @@ Appendix A. MPD Catalog XML Schema Document
            </xs:extension>
          </xs:complexContent>
        </xs:complexType>
+   
+       <!-- Should this be BaseSchemaDocumentSet (and BaseSchemaDocumentSetType) to make it clear this set is used to validate NIEM conformance?  and so it is consistent with non-normative guidance about directory organization and naming -->
    
        <xs:element name="SchemaDocumentSet"
                 type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
@@ -2638,7 +2642,7 @@ Appendix A. MPD Catalog XML Schema Document
    	  <xs:sequence>
    	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
    	    <xs:element ref="c:ValidityConstraintWithContext" minOccurs="0" maxOccurs="unbounded"/>
-   <!--	    <xs:element ref="c:IEPSampleXMLDocument" minOccurs="1" maxOccurs="unbounded"/> MUST have min one for each IEP CT -->
+   <!--	    <xs:element ref="c:IEPSampleXMLDocument" minOccurs="1" maxOccurs="unbounded"/> MUST have min one for each c:IEP ConformanceTarget -->
    	    <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
        	  </xs:sequence>
    	</xs:extension>
@@ -3088,7 +3092,7 @@ Appendix C. Schematron Rules for MPDs
    <pattern>
      <rule context="c:IEPConformanceTarget">
        <assert test="exists(@structures:id)"
-         >Rule 4-21: An element c:IEPConformanceTarget MUST have an attribute structures:id.</assert>
+         >Rule 4-21: A c:IEPConformanceTarget element MUST own a structures:id attribute.</assert>
    </pattern>
    
    </schema>
@@ -3634,9 +3638,9 @@ Appendix J. Index of Rules
    Rule 4-29, pathURI for ConstraintSchemaDocumentSet: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
    Rule 4-30, pathURI for ReferenceSchemaDocumentSet: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
    Rule 4-31, pathURI for RequiredFile: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-32, XML Catalog uri Resolves: Section 4.2.2.4, XML Catalog URI
-   Rule 4-33, XML Catalog uri Resolves to Correct Target Namespace: Section 4.2.2.4, XML Catalog URI
-   Rule 4-34, Resolve MPD URI With Fragment: Section 4.2.2.7, Resolving an MPD URI with a Fragment
+   Rule 4-32, Resolve MPD URI With Fragment: Section 4.2.2.6, Resolving an MPD URI with a Fragment
+   Rule 4-33, XML Catalog uri Resolves: Section 4.2.2.8, XML Catalog URI
+   Rule 4-34, XML Catalog uri Resolves to Correct Target Namespace: Section 4.2.2.8, XML Catalog URI
    Rule 4-35: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-36: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-37: Section 4.3.2, Change Log for IEPDs and EIEMs
