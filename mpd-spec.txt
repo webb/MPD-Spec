@@ -64,7 +64,7 @@ Beta 1
 
       12. Added EXI subdirectory to non-normative guidance.
 
-      13. Fixed Rule 4-12, MPD URI MUST be Absolute: only c:mpdURI attributes must adhere to absolute-URI production.
+      13. Fixed Rule 4-11, MPD URI MUST be Absolute: only c:mpdURI attributes must adhere to absolute-URI production.
 
       14. Added simple example of informal conformance assertion. Appendix E, Conformance Assertion Example, below
 
@@ -1041,7 +1041,7 @@ Rule 4-3. MPD Catalog Document Valid to Schematron Rules
 
    All MPDs use Uniform Resource Identifiers (URIs) to identify artifacts and other resources. Several kinds of URIs are employed by MPDs to reference other MPDs, MPD artifacts (internally and externally), conformance targets, documents, and other resources. For each type of URI used in an MPD catalog document, this section describes its purpose, options, and syntax based on [RFC 3986 URI].
 
-   The following definitions will be useful to understanding MPD rules defined later that involve various kinds of URIs.
+   The following definitions will be useful to understanding MPD rules defined in later subsections that involve various kinds of URIs.
 
    [Definition: path name]
 
@@ -1051,49 +1051,17 @@ Rule 4-3. MPD Catalog Document Valid to Schematron Rules
 
       A function (or an action) that takes a URI string of the form xs:anyURI and returns the resource it identifies. If the resource is local and does not exist, then this function fails. If a resource is remote (e.g., a URL on the Internet or a URN of an unknown location), then this function (or action) may require human intervention to determine if the resource exists (pass) or not (fail).
 
-   In the presence of NIEM [reference elements] URI resolution may require an additional step to account for indirect references. Be sure to review Section 4.2.2.1, URI Resolution Involving Reference Elements, below, in case this applies.
-
-Rule 4-11. Resolve MPD URI With Fragment
-
-   [Rule 4-11] (WF-MPD)
-
-      Given an absolute MPD URI with a fragment, resolve this URI as follows:
-
-         1. Resolve the base URI (per [RFC 3986 URI]) to retrieve the resource MPD. If the resource MPD does not exist, then fail (existence error).
-
-         2. Apply the fragment (without "#") to the MPD resource:
-
-               1. Locate a structures:id attribute value that matches the fragment string. If more than one exist, then fail (ambiguity error). If none exists, then continue.
-
-               2. Locate a [path name] (for a directory or file) that matches the fragment string. If more than one exist, then fail (ambiguity error). If none exists, then fail (existence error).
-
-         3. Return the element, directory, or file found.
-
-4.2.2.1. URI Resolution Involving Reference Elements
-
-   Note that a NIEM element can indirectly reference its content rather than carry or encapsulate it. So, a NIEM element of type xs:anyURI may not contain a URI, but instead refer to another element that contains it for both elements. Under some circumstances, this might have an impact on URI resolution.
-
-   [NIEM NDR], section 12.3 Reference Elements defines a NIEM [reference element] as follows:
-
-   [Definition: reference element]
-
-      A reference element is an element information item that has an attribute structures:ref. A reference element refers to its value by reference, instead of carrying it as content.
-
-   Thus, the structures:ref attribute value refers to another element that carries the content (for both elements) and owns a structures:id attribute with a value equal to that of structures:ref.
-
-   The [MPD catalog document] reuses NIEM Core and so it conforms to NIEM. Therefore, one or more NIEM [reference elements] from various locations may refer to a single content bearing instance of the same element (with a unique structures:id). The definition of [resolve URI] and the URI-related rules in this section assume content bearing elements. If a URI resolution rule applies to an element in [reference element] form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).
-
-4.2.2.2. URI Scheme for MPDs (mpdURI)
+4.2.2.1. URI Scheme for MPDs (mpdURI)
 
    To facilitate MPD sharing and reuse, the assignment of a URI (Uniform Resource Identifier) to an MPD is essential. This is enforced by the MPD catalog schema document Appendix A, MPD Catalog XML Schema Document, below. It is also important to ensure that an MPD URI is absolute.
 
-Rule 4-12. MPD URI MUST be Absolute
+Rule 4-11. MPD URI MUST be Absolute
 
-   [Rule 4-12] (WF-MPD)
+   [Rule 4-11] (WF-MPD)
 
       In an MPD catalog document, the value of a c:mpdURI attribute of type xs:anyURI MUST match the production <absolute-URI> as defined by [RFC 3986 URI], section 4.3, Absolute URI.
 
-   Rule 4-12, MPD URI MUST be Absolute implies that a URI assigned to an MPD must be valid. Furthermore, the entity (person or organization) assigning the MPD URI either (1) is the registrant of the domain name or namespace identifier, or (2) has authority from the registrant to assign this URI.
+   Rule 4-11, MPD URI MUST be Absolute implies that a URI assigned to an MPD must be valid. Furthermore, the entity (person or organization) assigning the MPD URI either (1) is the registrant of the domain name or namespace identifier, or (2) has authority from the registrant to assign this URI.
 
    Examples of valid MPD URIs:
 
@@ -1107,29 +1075,29 @@ Rule 4-12. MPD URI MUST be Absolute
 
    This specification does not mandate that basic MPD catalog metadata be designed into an MPD URI. However, including such can obviously provide convenient visual recognition. That said, an author should ensure any metadata embedded in the URI accurately reflect the MPD catalog metadata (in particular, the values of c:mpdURI, c:mpdName, c:mpdVersionID, and c:mpdClass defined in the MPD catalog document).
 
-4.2.2.3. General URI Scheme for MPD Artifacts (externalURI)
+4.2.2.2. General URI Scheme for MPD Artifacts (externalURI)
 
    Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (reuse) and one aspect of lineage. To support this concept, the following MPD URI rules are necessary:
 
-Rule 4-13. MPD URI Supports Fragment
+Rule 4-12. MPD URI Supports Fragment
 
-   [Rule 4-13] (WF-MPD)
+   [Rule 4-12] (WF-MPD)
 
       A valid MPD URI MUST support the inclusion of a fragment identifier (as a suffix) [RFC 3986 URI].
 
-Rule 4-14. MPD URI Has No Fragment
+Rule 4-13. MPD URI Has No Fragment
 
-   [Rule 4-14] (WF-MPD)
+   [Rule 4-13] (WF-MPD)
 
       A valid MPD URI MUST NOT contain a fragment identifier [RFC 3986 URI].
 
-   Rule 4-13, MPD URI Supports Fragment is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD). This specification follows [RFC 3986 URI] and employs a fragment identifier to construct a URI for an artifact within an MPD. By the following rule, each file artifact or artifact set is uniquely identified by its [path name] relative to the [MPD root directory].
+   Rule 4-12, MPD URI Supports Fragment is required to ensure that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD). This specification follows [RFC 3986 URI] and employs a fragment identifier to construct a URI for an artifact within an MPD. By the following rule, each file artifact or artifact set is uniquely identified by its [path name] relative to the [MPD root directory].
 
-Rule 4-15. MPD Artifact URI Syntax
+Rule 4-14. MPD Artifact URI Syntax
 
-   [Rule 4-15] (WF-MPD)
+   [Rule 4-14] (WF-MPD)
 
-      Within an MPD a URI reference to an artifact in another external MPD is the concatenation of
+      Within an MPD a URI reference to an artifact in another external MPD is the concatenation of:
 
          *  The URI of the MPD that contains the artifact.
 
@@ -1139,7 +1107,7 @@ Rule 4-15. MPD Artifact URI Syntax
 
    An artifact always has a locally unique [path name] that terminates in (and includes) its file name; an artifact set always has a locally unique path name (that terminates in and includes a slash character -- "/").
 
-   You should now understand the rationale for Rule 4-14, MPD URI Has No Fragment. If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because [RFC 3986 URI] allows only a single fragment identifier.
+   You should now understand the rationale for Rule 4-13, MPD URI Has No Fragment. If an MPD URI is constructed with a fragment identifier, then that URI cannot be employed as an MPD artifact URI because [RFC 3986 URI] allows only a single fragment identifier.
 
    The following are examples of valid MPD artifact URIs:
 
@@ -1151,7 +1119,7 @@ Rule 4-15. MPD Artifact URI Syntax
 
       *  http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query/ (a set artifact)
 
-   Note that [RFC 2141 URN Syntax] appears to preclude the use of a URN as an MPD URI. URN syntax violates Rule 4-13, MPD URI Supports Fragment because it does not support fragment identifiers.
+   [RFC 2141 URN Syntax] appears to preclude the use of a Uniform Resource Name (URN) as an MPD URI. URN syntax violates Rule 4-12, MPD URI Supports Fragment because it does not support fragment identifiers.
 
    Artifact URIs are used as values for the c:externalURI attribute in the MPD catalog XML document to declare equivalence relationships between artifacts (See Appendix A, MPD Catalog XML Schema Document, below). A simple scenario follows. Consider two different IEPDs with the following URIs:
 
@@ -1165,9 +1133,9 @@ Rule 4-15. MPD Artifact URI Syntax
 
    Additional c:externalURI attributes may be added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.
 
-   Note that a URI does not have the same meaning as namespace. NIEM namespaces cannot be used as artifact URIs. Recall that the target namespace used in a subset schema document derived from a NIEM release schema document is identical to the target namespace of that release schema document. Furthermore, an IEPD or an EIEM may contain multiple subsets. NIEM namespaces are not necessarily unique to an artifact within an MPD. Later, Section 4.5, XML Catalogs, below, will describe the use of [XML Catalogs] to correlate namespaces to local URIs in order to [resolve] them to local resources.
+   A URI does not have the same meaning as namespace. NIEM namespaces cannot be used as MPD artifact URIs. Recall that the target namespace used in a subset schema document derived from a NIEM release schema document is identical to the target namespace of that release schema document. Furthermore, an IEPD or an EIEM may contain multiple subsets. NIEM namespaces are not necessarily unique to an artifact within an MPD. Later, Section 4.5, XML Catalogs, below, will describe the use of [XML Catalogs] to correlate namespaces to local URIs in order to [resolve] them to local resources.
 
-4.2.2.4. URI Scheme for Local MPD Artifacts (pathURI)
+4.2.2.3. URI Scheme for Local MPD Artifacts (pathURI)
 
    An MPD uses the file directory system of path names and file names to identify local artifacts and artifact sets. All local URIs are relative to the location of the [MPD catalog document], and therefore, they are also relative to the [MPD root directory] since the MPD catalog document resides in the MPD root directory.
 
@@ -1181,123 +1149,125 @@ Rule 4-15. MPD Artifact URI Syntax
 
    Despite its simplicity, c:pathURI comes with over a dozen rules that help to define a [well-formed MPD]. The following rules essentially ensure that every c:pathURI attribute value in a well-formed MPD resolves to the correct local resource:
 
-Rule 4-16. pathURIs Resolve
+Rule 4-15. pathURIs Resolve
 
-   [Rule 4-16] (WF-MPD)
+   [Rule 4-15] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute MUST [resolve] to a resource.
 
-Rule 4-17. pathURI for XMLCatalog
+Rule 4-16. pathURI for XMLCatalog
 
-   [Rule 4-17] (WF-MPD)
+   [Rule 4-16] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:XMLCatalog element MUST [resolve] to an [XML catalog document].
 
-Rule 4-18. pathURI for MPDChangeLog
+Rule 4-17. pathURI for MPDChangeLog
 
-   [Rule 4-18] (WF-MPD)
+   [Rule 4-17] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:MPDChangeLog element MUST [resolve] to a [change log].
 
-Rule 4-19. pathURI for ReadME
+Rule 4-18. pathURI for ReadME
 
-   [Rule 4-19] (WF-MPD)
+   [Rule 4-18] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ReadMe element MUST [resolve] to a [read-me artifact].
 
-Rule 4-20. pathURI for IEPSampleXMLDocument
+Rule 4-19. pathURI for IEPSampleXMLDocument
 
-   [Rule 4-20] (WF-MPD)
+   [Rule 4-19] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:IEPSampleXMLDocument element MUST [resolve] to an [XML document].
 
-Rule 4-21. pathURI for BusinessRulesArtifact
+Rule 4-20. pathURI for BusinessRulesArtifact
 
-   [Rule 4-21] (WF-MPD)
+   [Rule 4-20] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:BusinessRulesArtifact element MUST [resolve] to a [business rule schema] or [business rules] artifact.
 
-Rule 4-22. pathURI for ExternalSchemaDocument
+Rule 4-21. pathURI for ExternalSchemaDocument
 
-   [Rule 4-22] (WF-MPD)
+   [Rule 4-21] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ExternalSchemaDocument element MUST [resolve] to an [XML schema document].
 
-Rule 4-23. pathURI for ReferenceSchemaDocument
+Rule 4-22. pathURI for ReferenceSchemaDocument
 
-   [Rule 4-23] (WF-MPD)
+   [Rule 4-22] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ReferenceSchemaDocument element MUST [resolve] to a NIEM [reference schema document].
 
-Rule 4-24. pathURI for ExtensionSchemaDocument
+Rule 4-23. pathURI for ExtensionSchemaDocument
 
-   [Rule 4-24] (WF-MPD)
+   [Rule 4-23] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ExtensionSchemaDocument element MUST [resolve] to a NIEM [extension schema document].
 
-Rule 4-25. pathURI for SubsetSchemaDocument
+Rule 4-24. pathURI for SubsetSchemaDocument
 
-   [Rule 4-25] (WF-MPD)
+   [Rule 4-24] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:SubsetSchemaDocument element MUST [resolve] to a NIEM [subset schema document].
 
-Rule 4-26. pathURI for Wantlist
+Rule 4-25. pathURI for Wantlist
 
-   [Rule 4-26] (WF-MPD)
+   [Rule 4-25] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:Wantlist element MUST [resolve] to a [NIEM wantlist] XML document.
 
-Rule 4-27. pathURI for SchematronSchema
+Rule 4-26. pathURI for SchematronSchema
 
-   [Rule 4-27] (WF-MPD)
+   [Rule 4-26] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:SchematronSchema element MUST [resolve] to a [Schematron schema].
 
-Rule 4-28. pathURI for RelaxNGSchema
+Rule 4-27. pathURI for RelaxNGSchema
 
-   [Rule 4-28] (WF-MPD)
+   [Rule 4-27] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:RelaxNGSchema element MUST [resolve] to a [RelaxNG schema].
 
-Rule 4-29. pathURI for SchemaDocumentSet
+Rule 4-28. pathURI for SchemaDocumentSet
 
-   [Rule 4-29] (WF-MPD)
+   [Rule 4-28] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:SchemaDocumentSet element MUST [resolve] to an [XML schema document] set.
 
-Rule 4-30. pathURI for ConstraintSchemaDocumentSet
+Rule 4-29. pathURI for ConstraintSchemaDocumentSet
 
-   [Rule 4-30] (WF-MPD)
+   [Rule 4-29] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ConstraintSchemaDocumentSet element MUST [resolve] to a NIEM [constraint schema document set].
 
-Rule 4-31. pathURI for ReferenceSchemaDocumentSet
+Rule 4-30. pathURI for ReferenceSchemaDocumentSet
 
-   [Rule 4-31] (WF-MPD)
+   [Rule 4-30] (WF-MPD)
 
       Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ReferenceSchemaDocumentSet element MUST [resolve] to a NIEM [reference schema document set].
 
-Rule 4-32. pathURI for RequiredFile
+Rule 4-31. pathURI for RequiredFile
 
-   [Rule 4-32] (WF-MPD)
+   [Rule 4-31] (WF-MPD)
 
       Within an [MPD catalog document] the value of a c:pathURI attribute owned by a c:RequiredFile element MUST [resolve] to a resource.
 
-4.2.2.5. XML Catalog
+4.2.2.4. XML Catalog URI
 
-Rule 4-33. XML Catalog uri Resolves
+   An [XML catalog document] conforms to [XML Catalogs]. For the purpose of an MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.
 
-   [Rule 4-33] (XML-Cat)
+Rule 4-32. XML Catalog uri Resolves
+
+   [Rule 4-32] (XML-Cat)
 
       Within an [XML catalog document] the value of a uri attribute owned by a er:uri element MUST [resolve] to a resource.
 
-Rule 4-34. XML Catalog uri Resolves to Correct Target Namespace
+Rule 4-33. XML Catalog uri Resolves to Correct Target Namespace
 
-   [Rule 4-34] (XML-Cat)
+   [Rule 4-33] (XML-Cat)
 
       Within an [XML catalog document], given an [XML schema document] resolved by the value of a uri attribute owned by a er:uri element, the [XML schema document] target namespace MUST equal the value of the name (a namespace string) attribute owned by the er:uri element.
 
-4.2.2.6. MPD and MPD Artifact Lineage
+4.2.2.5. MPD and MPD Artifact Lineage
 
    An important business requirement is transparency of MPD lineage. Data lineage is also referred to as data provenance, how data are derived or where it came from. There are two basic views of data provenance: (1) as data annotations; and (2) as a graph of data relationships [Principles of Data Integration], Chapter 14 "Data Provenance".
 
@@ -1305,11 +1275,49 @@ Rule 4-34. XML Catalog uri Resolves to Correct Target Namespace
 
    The MPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:descriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one MPD may relate to another. This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:descriptionText element is provided to further explain the nature of any of the eight c:relationshipCode values available. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:descriptionText (for example, if its value is adapts).
 
-   The MPD catalog also enables an author to record more fine-grained ancestry between MPDs. An MPD catalog can explicitly declare that it reuses an artifact or artifact set from one or more other MPDs. By default each artifact and artifact set identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it Section 4.2.2.3, General URI Scheme for MPD Artifacts (externalURI), above. An MPD author declares reuse by entering the URI for the artifact or artifact set in the optional c:externalURI attribute within the appropriate c:FileType or c:FileSetType elements.
+   The MPD catalog also enables an author to record more fine-grained ancestry between MPDs. An MPD catalog can explicitly declare that it reuses an artifact or artifact set from one or more other MPDs. By default each artifact and artifact set identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it Section 4.2.2.2, General URI Scheme for MPD Artifacts (externalURI), above. An MPD author declares reuse by entering the URI for the artifact or artifact set in the optional c:externalURI attribute within the appropriate c:FileType or c:FileSetType elements.
 
    Some MPDs are designed for more extensive reuse than others. For example, families of IEPDs are expected to reuse a given EIEM. In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references. This is expected. The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs. Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.
 
-4.2.2.7. Summary of MPD URIs
+4.2.2.6. Resolving an MPD URI with a Fragment
+
+Rule 4-34. Resolve MPD URI With Fragment
+
+   [Rule 4-34] (WF-MPD)
+
+      Given an absolute MPD URI with a fragment, resolve this URI as follows:
+
+         1. Resolve the base URI (per [RFC 3986 URI]) to retrieve the resource MPD. If the resource MPD does not exist, then fail (existence error).
+
+         2. Apply the fragment (without "#") to the MPD resource:
+
+               1. Locate a structures:id attribute value that matches the fragment string. If more than one exist, then fail (ambiguity error). If none exists, then continue.
+
+               2. Locate a [path name] (for a directory or file) that matches the fragment string. If more than one exist, then fail (ambiguity error). If none exists, then fail (existence error).
+
+         3. Return the element, directory, or file found.
+
+4.2.2.7. URI Resolution Involving Reference Elements
+
+   In the presence of NIEM [reference elements] URI resolution may require an additional step to account for indirect references. Be sure to review Section 4.2.2.7, URI Resolution Involving Reference Elements, above, if case this applies.
+
+   Note that a NIEM element can indirectly reference its content rather than carry or encapsulate it. So, a NIEM element of type xs:anyURI may not contain a URI, but instead refer to another element that contains it for both elements. Under some circumstances, this might have an impact on URI resolution.
+
+   [NIEM NDR], section 12.3 Reference Elements defines a NIEM [reference element] as follows:
+
+   [Definition: reference element]
+
+      A reference element is an element information item that has an attribute structures:ref. A reference element refers to its value by reference, instead of carrying it as content.
+
+   Thus, the structures:ref attribute value refers to another element that carries the content (for both elements) and owns a structures:id attribute with a value equal to that of structures:ref.
+
+   The [MPD catalog document] reuses NIEM Core and so it conforms to NIEM. Therefore, one or more NIEM [reference elements] from various locations may refer to a single content bearing instance of the same element (with a unique structures:id). The definition of [resolve URI] and the URI-related rules in this section assume content bearing elements. If a URI resolution rule applies to an element in [reference element] form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).
+
+4.2.2.8. Conformance Target URI (conformanceTargetURI)
+
+   
+
+4.2.2.9. Summary of MPD URIs
 
    This section summarizes the various URIs used in the MPD catalog document. It also presents a summary of [RFC 3986 URI]. See that reference for explanation and details of URI syntax.
 
@@ -1924,7 +1932,7 @@ Rule 4-34. XML Catalog uri Resolves to Correct Target Namespace
 
 7.3. Artifact Links to Other Resources
 
-   It is important to understand that the URI scheme defined in Section 4.2.2.3, General URI Scheme for MPD Artifacts (externalURI), above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM NDR], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative [path name] references when needed. When absolute references to Internet resources are required:
+   It is important to understand that the URI scheme defined in Section 4.2.2.2, General URI Scheme for MPD Artifacts (externalURI), above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM NDR], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative [path name] references when needed. When absolute references to Internet resources are required:
 
    [Rule 7-7] (WF-MPD)
 
@@ -3603,30 +3611,30 @@ Appendix J. Index of Rules
    Rule 4-8: Section 4.1.3, Extending an MPD Catalog
    Rule 4-9: Section 4.1.3, Extending an MPD Catalog
    Rule 4-10: Section 4.2.1, Version Numbering Scheme
-   Rule 4-11, Resolve MPD URI With Fragment: Section 4.2.2, URI Schemes
-   Rule 4-12, MPD URI MUST be Absolute: Section 4.2.2.2, URI Scheme for MPDs (mpdURI)
-   Rule 4-13, MPD URI Supports Fragment: Section 4.2.2.3, General URI Scheme for MPD Artifacts (externalURI)
-   Rule 4-14, MPD URI Has No Fragment: Section 4.2.2.3, General URI Scheme for MPD Artifacts (externalURI)
-   Rule 4-15, MPD Artifact URI Syntax: Section 4.2.2.3, General URI Scheme for MPD Artifacts (externalURI)
-   Rule 4-16, pathURIs Resolve: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-17, pathURI for XMLCatalog: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-18, pathURI for MPDChangeLog: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-19, pathURI for ReadME: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-20, pathURI for IEPSampleXMLDocument: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-21, pathURI for BusinessRulesArtifact: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-22, pathURI for ExternalSchemaDocument: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-23, pathURI for ReferenceSchemaDocument: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-24, pathURI for ExtensionSchemaDocument: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-25, pathURI for SubsetSchemaDocument: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-26, pathURI for Wantlist: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-27, pathURI for SchematronSchema: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-28, pathURI for RelaxNGSchema: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-29, pathURI for SchemaDocumentSet: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-30, pathURI for ConstraintSchemaDocumentSet: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-31, pathURI for ReferenceSchemaDocumentSet: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-32, pathURI for RequiredFile: Section 4.2.2.4, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-33, XML Catalog uri Resolves: Section 4.2.2.5, XML Catalog
-   Rule 4-34, XML Catalog uri Resolves to Correct Target Namespace: Section 4.2.2.5, XML Catalog
+   Rule 4-11, MPD URI MUST be Absolute: Section 4.2.2.1, URI Scheme for MPDs (mpdURI)
+   Rule 4-12, MPD URI Supports Fragment: Section 4.2.2.2, General URI Scheme for MPD Artifacts (externalURI)
+   Rule 4-13, MPD URI Has No Fragment: Section 4.2.2.2, General URI Scheme for MPD Artifacts (externalURI)
+   Rule 4-14, MPD Artifact URI Syntax: Section 4.2.2.2, General URI Scheme for MPD Artifacts (externalURI)
+   Rule 4-15, pathURIs Resolve: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-16, pathURI for XMLCatalog: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-17, pathURI for MPDChangeLog: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-18, pathURI for ReadME: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-19, pathURI for IEPSampleXMLDocument: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-20, pathURI for BusinessRulesArtifact: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-21, pathURI for ExternalSchemaDocument: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-22, pathURI for ReferenceSchemaDocument: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-23, pathURI for ExtensionSchemaDocument: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-24, pathURI for SubsetSchemaDocument: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-25, pathURI for Wantlist: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-26, pathURI for SchematronSchema: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-27, pathURI for RelaxNGSchema: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-28, pathURI for SchemaDocumentSet: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-29, pathURI for ConstraintSchemaDocumentSet: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-30, pathURI for ReferenceSchemaDocumentSet: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-31, pathURI for RequiredFile: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-32, XML Catalog uri Resolves: Section 4.2.2.4, XML Catalog URI
+   Rule 4-33, XML Catalog uri Resolves to Correct Target Namespace: Section 4.2.2.4, XML Catalog URI
+   Rule 4-34, Resolve MPD URI With Fragment: Section 4.2.2.6, Resolving an MPD URI with a Fragment
    Rule 4-35: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-36: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-37: Section 4.3.2, Change Log for IEPDs and EIEMs
