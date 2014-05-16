@@ -1396,8 +1396,8 @@
 	<ul>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#subset/niem-core.xsd</code> (a file artifact)</p></li>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0beta2/#extension/ext-1.1.xsd</code> (a file artifact)</p></li>
-		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#application-info/</code> (a set artifact)</p></li>
-		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query/</code> (a set artifact)</p></li>
+		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#application-info</code> (a set artifact)</p></li>
+		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query</code> (a set artifact)</p></li>
 	</ul>
 
 	<p><ref idref="RFC2141-URN-Syntax"/> appears to preclude the use of a Uniform Resource Name (URN) as an MPD URI.  URN syntax violates <ref idref="r-uri-frag"/> because it does not support fragment identifiers.</p>
@@ -1428,14 +1428,14 @@
 
 	<p>In general, every value of attribute <code>c:pathURI</code> in an MPD catalog document will be a relative <termRef>path name</termRef> to a directory (i.e., an artifact set), or to a file (i.e., an artifact).  The following are typical examples of each:</p>
 		<blockquote>
-			<p>Artifact Set: <code>pathURI="base-xsd/niem/niem-core/3.0/"</code></p>	
+			<p>Artifact Set: <code>pathURI="base-xsd/niem/niem-core/3.0"</code></p>	
 			<p>Artifact: <char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/>
 					 <code>pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"</code></p>
 		</blockquote>
 
 	<p>Note that per <ref idref="uri-syntax"/> and <ref idref="uri-summary"/> a local URI may contain an optional fragment.  Although <code>c:pathURI</code> has no use for a URI with a fragment, MPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.</p>
 
-	<p>Despite its simplicity, <code>c:pathURI</code> comes with over a dozen rules that help to define a <termRef>well-formed MPD</termRef>.  The following rules essentially ensure that every <code>c:pathURI</code> attribute value in a well-formed MPD resolves to the correct local resource:</p>
+	<p>Despite its simplicity, <code>c:pathURI</code> comes with over a dozen rules that help to define a <termRef>well-formed MPD</termRef>.  These rules ensure that every <code>c:pathURI</code> attribute value in a well-formed MPD resolves to a correct local resource:</p>
 
 	<ruleSection><title>pathURIs Resolve</title>
 		<rule id="wfm2" applicability="WF-MPD" class="Constraint">
@@ -1542,10 +1542,11 @@
 	</section>
 
 
+
 <section id="XML-Catalog-URI">
 	<title>XML Catalog URI</title>
 
-	<p>An <termRef>XML catalog document</termRef> conforms to <ref idref="OASIS-XML-Catalogs"/>.  For the purpose of an MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.</p>
+	<p>An <termRef>XML catalog document</termRef> conforms to <ref idref="OASIS-XML-Catalogs"/>.  For the purpose of MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.</p>
 
 	<ruleSection><title>XML Catalog uri Resolves</title>
 		<rule id="xc1" applicability="XML-Cat" class="Constraint">
@@ -1563,48 +1564,54 @@
 
 
 
-	<section id="MPD-Lineage">
-		<title>MPD and MPD Artifact Lineage</title>
+<section id="MPD-Lineage">
+	<title>MPD and MPD Artifact Lineage (resourceURI)</title>
 
-		<p>An important business requirement is transparency of MPD lineage.  Data lineage is also referred to as <em>data provenance</em>, how data are derived or where it came from.  There are two basic views of data provenance:  (1) as data annotations; and (2) as a graph of data relationships <ref idref="Principles-of-Data-Integration"/>, Chapter 14 <q>Data Provenance</q>.</p>
+	<p>An important business requirement is transparency of MPD lineage.  Data lineage is also referred to as <em>data provenance</em>, how data are derived or where it came from.  There are two basic views of data provenance:  (1) as data annotations; and (2) as a graph of data relationships <ref idref="Principles-of-Data-Integration"/>, Chapter 14 <q>Data Provenance</q>.</p>
 
-		<p>The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an MPD catalog.  The URI scheme for MPDs and their artifacts and sets enables a graph of relationships.  An MPD may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.</p>
+	<p>The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an MPD catalog.  The URI scheme for MPDs and their artifacts and sets enables a graph of relationships.  An MPD may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.</p>
 
-		<p>The MPD catalog provides a <code>c:Relationship</code> element with two attributes (<code>c:resourceURI</code> and <code>c:relationshipCode</code>) and an optional element (<code>nc:descriptionText</code>) to identify ancestry and other relationships to other MPDs.  There are many ways that one MPD may relate to another.  This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>nc:descriptionText</code> element is provided to further explain the nature of any of the eight <code>c:relationshipCode</code> values available.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>c:relationshipCode</code> may be generic enough to require a more detailed explanation in <code>nc:descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
+	<p>The MPD catalog provides a <code>c:Relationship</code> element with two attributes (<code>c:resourceURI</code> and <code>c:relationshipCode</code>) and an optional element (<code>nc:descriptionText</code>) to identify ancestry and other relationships to other MPDs.  There are many ways that one MPD may relate to another.  This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>nc:descriptionText</code> element is provided to further explain the nature of any of the eight <code>c:relationshipCode</code> values available.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>c:relationshipCode</code> may be generic enough to require a more detailed explanation in <code>nc:descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
 
-		<p>The MPD catalog also enables an author to record more fine-grained ancestry between MPDs.  An MPD catalog can explicitly declare that it reuses an artifact or artifact set from one or more other MPDs.  By default each artifact and artifact set identified in an MPD catalog has a globally unique URI (using a fragment reference) that can refer to it <ref idref="externalURI"/>.  An MPD author declares reuse by entering the URI for the artifact or artifact set in the optional <code>c:externalURI</code> attribute within the appropriate <code>c:FileType</code> or <code>c:FileSetType</code> elements.</p>
+	<p>As was described in <ref idref="externalURI"/>, the MPD catalog also enables an author to record more fine-grained ancestry between MPDs using the <code>c:externalURI</code> attribute.  This attribute records an explicit equivalence relationship between artifacts reused across MPDs.</p>
 
-		<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse a given EIEM.  In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.</p>
+	<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse a given EIEM.  In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.</p>
 
-	</section>
-
-
+</section>
 
 
-	<section id="Resolve-URI-W-Fragment">
-		<title>Resolving an MPD URI with a Fragment</title>
 
-		<ruleSection><title>Resolve MPD URI With Fragment</title>
-			<rule id="r-resolve-uri" applicability="WF-MPD" class="Interpretation">
-				<p>Given an absolute MPD URI with a fragment, resolve this URI as follows:</p>
-				<ol>
-					<li><p>Resolve the base URI (per <ref idref="RFC3986-URI"/>) to retrieve the resource MPD.  If the resource MPD does not exist, then fail (existence error).</p></li>
-					<li><p>Apply the fragment (without "#") to the MPD resource:</p>
-						<ol>
-							<li><p>Locate a <code>structures:id</code> attribute value that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then continue.</p></li>
-							<li><p>Locate a <termRef>path name</termRef> (for a directory or file) that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then fail (existence error).</p></li>
-						</ol>
-					</li>	
-					<li><p>Return the element, directory, or file found.</p></li>
-				</ol>
-			</rule>
-		</ruleSection>
-
-	</section>
+<section id="Conform-Tgt-URI">
+	<title>Conformance Target URI (conformanceTargetURI)</title>
+	<p></p>
+</section>
 
 
-	<section id="URI-Resolution-Ref-Elements">
-		<title>URI Resolution Involving Reference Elements</title>
+
+<section id="Resolve-URI-W-Fragment">
+	<title>Resolving an MPD URI with a Fragment</title>
+
+	<ruleSection><title>Resolve MPD URI With Fragment</title>
+		<rule id="r-resolve-uri" applicability="WF-MPD" class="Interpretation">
+			<p>Given an absolute MPD URI with a fragment, resolve this URI as follows:</p>
+			<ol>
+				<li><p>Resolve the base URI (per <ref idref="RFC3986-URI"/>) to retrieve the resource MPD.  If the resource MPD does not exist, then fail (existence error).</p></li>
+				<li><p>Apply the fragment (without "#") to the MPD resource:</p>
+					<ol>
+						<li><p>Locate a <code>structures:id</code> attribute value that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then continue.</p></li>
+						<li><p>Locate a <termRef>path name</termRef> (for a directory or file) that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then fail (existence error).</p></li>
+					</ol>
+				</li>	
+				<li><p>Return the element, directory, or file found.</p></li>
+			</ol>
+		</rule>
+	</ruleSection>
+
+</section>
+
+
+<section id="URI-Resolution-Ref-Elements">
+	<title>URI Resolution Involving Reference Elements</title>
 		
 		<p>In the presence of NIEM <termRef term="reference element">reference elements</termRef> URI resolution may require an additional step to account for indirect references.  Be sure to review <ref idref="URI-Resolution-Ref-Elements"/> if case this applies.</p>
 
@@ -1620,21 +1627,12 @@
 
 		<p>The <termRef>MPD catalog document</termRef> reuses NIEM Core and so it conforms to NIEM.  Therefore, one or more NIEM <termRef term="reference element">reference elements</termRef> from various locations may refer to a single content bearing instance of the same element (with a unique <code>structures:id</code>).  The definition of <termRef>resolve URI</termRef> and the URI-related rules in this section assume content bearing elements.  If a URI resolution rule applies to an element in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).</p>
 
-	</section>
+</section>
 
 
 
-	<section id="Conform-Tgt-URI">
-		<title>Conformance Target URI (conformanceTargetURI)</title>
-
-		<p></p>
-
-	</section>
-
-
-
-	<section id="URI-Summary">
-		<title>Summary of MPD URIs</title>
+<section id="URI-Summary">
+	<title>Summary of MPD URIs</title>
 
 			<p>This section summarizes the various URIs used in the MPD catalog document.  It also presents a summary of <ref idref="RFC3986-URI"/>.  See that reference for explanation and details of URI syntax.</p>
 
