@@ -1201,35 +1201,53 @@
 
 	<p>The following rules specify the requirements for an MPD catalog extension XML catalog document:</p>
 
+<ruleSection>
+	<title>MPD Catalog Extension XML Catalog Document in Root Directory</title>
 	<rule id="r1-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An MPD catalog extension XML catalog document MUST reside in the same relative directory as the <code>mpd-catalog.xml</code> artifact (normally in the <termRef>MPD root directory</termRef>)</p>
 	</rule>
+</ruleSection>
 
+<ruleSection>
+	<title>MPD Catalog Extension XML Catalog Document Name Is <code>mpd-catalog-extension-xml-catalog.xml</code></title>
 	<rule id="r2-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An MPD catalog extension XML catalog document MUST bear the file name (and type) <code>mpd-catalog-extension-xml-catalog.xml</code>.</p>
 	</rule>
+</ruleSection>
 
+<ruleSection>
+	<title>MPD Catalog Extension XML Catalog Document Resolves Namespaces to URIs</title>
 	<rule id="r3-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
 		<p>An MPD catalog extension XML catalog document MUST <termRef term="resolve URI">resolve</termRef> all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.</p>
 	</rule>
+</ruleSection>
 
 	<p>So, when a processor identifies a file named <code>mpd-catalog-extension-xml-catalog.xml</code> in the <termRef>MPD root directory</termRef>, it can assume that it contains references to one or more MPD catalog extension schema documents that adhere to the following rules:</p>
 
+<ruleSection>
+	<title>MPD Catalog Extension Schema Document Conforms to NDR Extension Rules</title>
 	<rule id="r1-mpd-cat-ext-xsd" applicability="MPD-Cat" class="Constraint">
 		<p>An MPD catalog extension schema document MUST conform to the <ref idref="NIEM-NDR"/> extension schema conformance target rules.</p>
 	</rule>
+</ruleSection>
 
+<ruleSection>
+	<title>MPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules</title>
 	<rule id="r2-mpd-cat-ext-xsd" applicability="MPD-Cat" class="Constraint">
 		<p>Within an MPD, the schema set formed by <code>mpd-catalog-3.0.xsd</code> and all MPD catalog extension schema documents MUST conform to the <ref idref="NIEM-NDR"/> schema set conformance target rules.</p>
 	</rule>
+</ruleSection>
 
 	<p>Whether extending an MPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, <ref idref="MPD-Catalog-XSD"/> provides an abstract element as a substitution group head in each case.  The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group.  Whenever possible, the user should reuse types, elements, and attributes that are already defined/declared within the <ref idref="MPD-Catalog-XSD"/>.</p>
 
 	<p>If an MPD catalog schema document extension uses NIEM data components that are not already contained in the NIEM Core subset provided with <ref idref="NIEM-MPD-Toolkit"/>, then the additional components must be additive.  In other words:</p>
 
+<ruleSection>
+	<title>MPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets</title>
 	<rule id="r3-mpd-cat-ext-xsd" applicability="MPD-Cat" class="Constraint">
-		<p>Any subset schema documents provided to support an MPD schema document extension MUST be a superset of the subset schema documents provided with this specification to support the MPD catalog schema document.</p>
+		<p>Subset schema documents provided to support an MPD schema document extension MUST be a superset of the subset schema documents provided with this specification to support the MPD catalog schema document.</p>
 	</rule>
+</ruleSection>
 
 </section>
 </section>
@@ -1248,6 +1266,8 @@
 
 	<p>Published MPDs may be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred.  In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices.  This is the same version numbering scheme that is used for NIEM releases.</p>
 
+<ruleSection>
+	<title>MPD Version Number Syntax</title>
 	<rule id="r-mpd-vers-syntax" applicability="WF-MPD" class="Constraint">
 		<p>An MPD MUST be assigned a version number that adheres to the regular expression:</p>
 	<pre>	version ::= digit+ ('.' digit+)* (status digit+)?
@@ -1263,6 +1283,7 @@
 			<li><p><code>rev</code> indicates very minor revision that does not impact schema validation.</p></li>
 		</ul>
 	</rule>
+</ruleSection>
 
 	<p>The regular expression notation used above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>.</p>
 
