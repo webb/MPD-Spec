@@ -446,11 +446,11 @@
 
 	<p><ref idref="Conformance-Targets"/> defines MPD Specification conformance targets and associated rules in more detail.  However, the following is a brief summary of MPD <termRef term="conformance target">conformance targets</termRef>:</p>
 	<ul>
-		<li><p><termRef term="well-formed MPD"><strong>Well-formed MPD</strong></termRef> <char name="mdash"/> An MPD that satisfies the need for a <ref idref="PKZIP"/> file with an <termRef>MPD catalog document</termRef> that adheres to a base set of rules:  the MPD catalog links to XML catalogs and identifies NDR classes of schema documents.  All five <termRef>Model Package Description</termRef> classes conform to this conformance target.</p></li>
+		<li><p><termRef term="well-formed MPD"><strong>Well-formed MPD</strong></termRef> <char name="mdash"/> An MPD that satisfies the need for a <ref idref="PKZIP"/> file with an <termRef>MPD catalog document</termRef> that adheres to a base set of rules:  the MPD catalog links to XML catalogs and identifies NDR classes of schema documents.  All five <termRef>Model Package Description (MPD)</termRef> classes conform to this conformance target.</p></li>
 		<li><p><termRef><strong>NIEM IEPD</strong></termRef> <char name="mdash"/> A special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more <code>c:IEPConformanceTarget</code> elements). </p></li>
-		<li><p><termRef term="Information Exchange Package (IEP)"><strong>IEP</strong></termRef> <char name="mdash"/> An <termRef>instance XML document</termRef> that conforms to a conformance target defined by a NIEM IEPD.</p></li>
-		<li><p><termRef term="full NIEM IEP"><strong>Full NIEM IEP</strong></termRef> <char name="mdash"/> An XML document with an XML document element that is declared in either a NIEM reference or extension schema document.</p></li>
-		<li><p>Other conformance targets internal to an MPD include:  <termRef><strong>MPD catalog document</strong></termRef>, <termRef><strong>XML catalog document</strong></termRef>, and <termRef><strong>MPD changelog</strong></termRef>.</p></li>
+		<li><p><termRef term="Information Exchange Package (IEP)"><strong>IEP</strong></termRef> <char name="mdash"/> An <termRef term="instance document">instance XML document</termRef> that conforms to a conformance target defined by a <termRef><strong>NIEM IEPD</strong></termRef>.</p></li>
+		<li><p><termRef term="full NIEM IEP"><strong>Full NIEM IEP</strong></termRef> <char name="mdash"/> An XML document with an XML document element that is declared in either a NIEM <termRef term="reference schema document">reference</termRef> or <termRef>extension schema document</termRef>.</p></li>
+		<li><p>Other conformance targets internal to an MPD include:  <termRef><strong>MPD catalog document</strong></termRef>, <termRef><strong>XML catalog document</strong></termRef>, and <strong>MPD <termRef>change log</strong></termRef></strong>.</p></li>
 	</ul>
 
 	<p>The conformance targets above support a variety of use cases:</p>
@@ -582,7 +582,13 @@
 		<p>An MPD that defines one or more (generally recurring) XML data or information exchanges.</p>
 	</definition>
 
-	<p>A NIEM IEPD contains a NIEM-conformant XML schema document set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents, and declares at least one <termRef>IEP conformance target</termRef> within its MPD Catalog <ref idref="MPD-Catalog"/>.  The XML schema documents contained in an IEPD work together to define one or more classes of instance XML documents that consistently encapsulate data for meaningful information exchanges.  Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated <termRef>IEP conformance target</termRef> (declared in the IEPD) is considered a member of that <termRef>IEP conformance target</termRef> class.  XML schema documents in a NIEM IEPD conform to the <ref idref="NIEM-NDR"/> and may use or extend data component definitions drawn from NIEM.  An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See <ref idref="NIEM-NDR"/> for details.)</p>
+	<p>An IEPD explicitly defines one or more classes of <termRef term="Information Exchange Package (IEP)">Information Exchanges Packages</em></termRef> (IEP), each of which is an XML <em>instance document</em>.</p>
+
+	<definition term="instance document">
+		<p>An instance document (of an <termRef>XML Schema</termRef>) is an <termRef>XML document</termRef> that is valid against the <termRef>XML Schema</termRef>.</p>
+	</definition>
+
+	<p>A NIEM IEPD contains a NIEM-conformant <termRef>XML schema document set</termRef> that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents, and declares at least one <termRef>IEP conformance target</termRef> within its MPD Catalog <ref idref="MPD-Catalog"/>.  The XML schema documents contained in an IEPD work together to define one or more classes of instance XML documents (that is, IEPs) that consistently encapsulate data for meaningful information exchanges.  Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated <termRef>IEP conformance target</termRef> (declared in the IEPD) is considered a member of that <termRef>IEP conformance target</termRef> class.  XML schema documents in a NIEM IEPD conform to the <ref idref="NIEM-NDR"/> and may use or extend data component definitions drawn from NIEM.  An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See <ref idref="NIEM-NDR"/> for details.)</p>
 
 	<p>An IEPD consists of a set of artifacts (XML schema documents, documentation, sample instance XML documents, etc.) that together define and describe an implementable NIEM information exchange.  An IEPD should contain an XML schema document set and instructional material necessary to:</p>
 	<ul>
@@ -2175,7 +2181,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 
 <section id="Well-Formed-MPD">
-	<title>Well Formed MPD (WF-MPD)</title>
+	<title>Well-Formed MPD (WF-MPD)</title>
 
 <definition term="well-formed MPD">
 	<p>A valid <ref idref="PKZIP"/> archive file that adheres to the rules defined for the well-formed MPD <termRef>conformance target</termRef> in this MPD specification.</p> 
