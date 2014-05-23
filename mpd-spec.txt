@@ -252,23 +252,23 @@ Remaining work and issues
 
    [Definition: XML document]
 
-      A document in XML format as defined by [W3-XML], section 2.
+      A document in XML format as defined by [W3-XML],  section 2, "Documents".
 
    [Definition: schema component]
 
-      A schema component is as defined by [W3C XML Schema Structures] section 2.2, "XML Schema Abstract Data Model", which states:
+      A schema component is as defined by [W3C XML Schema Structures]  section 2.2, "XML Schema Abstract Data Model", which states:
 
          Schema component is the generic term for the building blocks that comprise the abstract data model of the schema.
 
    [Definition: XML Schema]
 
-      An XML Schema is as defined by [W3C XML Schema Structures] section 2.2, "XML Schema Abstract Data Model", which states:
+      An XML Schema is as defined by [W3C XML Schema Structures]  section 2.2, "XML Schema Abstract Data Model", which states:
 
          An XML Schema is a set of schema components.
 
    [Definition: XML schema validation]
 
-      The process of checking an [XML document] to confirm that it is both well-formed [W3-XML], section 2.1 Well-Formed XML Documents and valid [W3C XML Schema Structures], section 2.3 Constraints and Validation Rules, in that it follows the structure defined by an associated [XML Schema]. A well-formed document follows the basic syntactic rules of XML, which are the same for all XML documents.
+      The process of checking an [XML document] to confirm that it is both well-formed [W3-XML],  section 2.1, "Well-Formed XML Documents" and valid [W3C XML Schema Structures],  section 2.3, "Constraints and Validation Rules", in that it follows the structure defined by an associated [XML Schema]. A well-formed document follows the basic syntactic rules of XML, which are the same for all XML documents.
 
    [Definition: XML schema document]
 
@@ -712,7 +712,7 @@ Rule 3-1. Fundamental NIEM Subset Rule
 
       17. Substitute an xs:element/@substitutionGroup member for its associated substitution group head.
 
-      18. Substitute a composition of xs:element/@substitutionGroup members for their associated substitution head (subject to cardinality and unique particle attribution (UPA) constraints [W3C XML Schema Structures],  section Schema Component Constraint: Unique Particle Attribution). The composition is an ordered sequence of the @substitutionGroup member elements. Each substitute element may bound its cardinality such that the total cardinality sum is within the bounds of the @substitutionGroup head cardinality. Order and cardinality of the replacement sequence must conform to XML Schema UPA constraints.
+      18. Substitute a composition of xs:element/@substitutionGroup members for their associated substitution head (subject to cardinality and unique particle attribution (UPA) constraints [W3C XML Schema Structures],  section  "Schema Component Constraint: Unique Particle Attribution"). The composition is an ordered sequence of the @substitutionGroup member elements. Each substitute element may bound its cardinality such that the total cardinality sum is within the bounds of the @substitutionGroup head cardinality. Order and cardinality of the replacement sequence must conform to XML Schema UPA constraints.
 
       19. Replace a wildcard (subject to cardinality, UPA, and namespace constraints) with a composition, i.e., an ordered sequence of elements. Each element may further bound cardinality within the bounds of the wildcard. Order and cardinality of replacement sequence must conform to XML Schema UPA constraints. The namespace of each element must conform with namespace constraints specified by the wildcard (if any).
 
@@ -1081,7 +1081,7 @@ Rule 4-11. MPD URI Is Absolute
 
    [Rule 4-11] (WF-MPD)
 
-      In an MPD catalog document, the value of a c:mpdURI attribute of type xs:anyURI MUST match the production <absolute-URI> as defined by [RFC 3986 URI], section 4.3, Absolute URI.
+      In an MPD catalog document, the value of a c:mpdURI attribute of type xs:anyURI MUST match the production <absolute-URI> as defined by [RFC 3986 URI],  section 4.3, "Absolute URI".
 
    This rule implies that a URI assigned to an MPD must be valid. Furthermore, the entity (person or organization) assigning the MPD URI either (1) is the registrant of the domain name or namespace identifier, or (2) has authority from the registrant to assign this URI.
 
@@ -1319,7 +1319,7 @@ Rule 4-32. Resolve MPD URI With Fragment
 
    Note that a NIEM element can indirectly reference its content rather than carry or encapsulate it. So, a NIEM element of type xs:anyURI may not contain a URI, but instead refer to another element that contains it for both elements. Under some circumstances, this might have an impact on URI resolution.
 
-   [NIEM NDR], section 12.3 Reference Elements defines a NIEM [reference element] as follows:
+   [NIEM NDR],  section 12.3, "Reference Elements" defines a NIEM [reference element] as follows:
 
    [Definition: reference element]
 
@@ -1567,7 +1567,7 @@ Rule 4-40. IEPD and EIEM Resolve Namespaces to URIs With XML Catalog Documents
 
       A class or category of IEPs which has a set of one or more validity constraints and a unique identifier. Every IEP is an instance of one or more IEP conformance targets.
 
-   This definition requires that an IEP conformance target be assigned a unique identifier, a Conformance Target URI that distinguishes it from all other IEP conformance targets. Similar to a URI for an MPD artifact, construct a conformance target URI by concatenating the IEPD's URI, the pound sign character (#), and a locally unique (within the IEPD) NCName (non-colonized name) as defined by [W3C XML Schema Structures]section 3.3.7 NCName.
+   This definition requires that an IEP conformance target be assigned a unique identifier, a Conformance Target URI that distinguishes it from all other IEP conformance targets. Similar to a URI for an MPD artifact, construct a conformance target URI by concatenating the IEPD's URI, the pound sign character (#), and a locally unique (within the IEPD) NCName (non-colonized name) as defined by [W3C XML Schema Structures], section 3.3.7, "NCName".
 
    [Definition: IEP conformance target URI]
 
@@ -1593,7 +1593,7 @@ Rule 4-41. IEP Conformance Target Has a structures:id
 
 4.6.1. Schema Validation
 
-   NIEM employs the W3C XML Schema Definition (XSD) Language ([W3C XML Schema Structures] and [W3C XML Schema Datatypes]), one of several XML schema definition languages designed to define an instance XML document and enable its validation. In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema ([W3C XML Schema Structures]  section 2.5 Schema-validity and documents).
+   NIEM employs the W3C XML Schema Definition (XSD) Language ([W3C XML Schema Structures] and [W3C XML Schema Datatypes]), one of several XML schema definition languages designed to define an instance XML document and enable its validation. In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema ([W3C XML Schema Structures]  section 2.5, Schema-validity and documents).
 
    So, a NIEM IEPD is an MPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing XML catalogs to [resolve URI] values in namespace attributes owned by xs:import elements and similar XML Schema constructs). In turn, the resulting XML schema can be used to validate one or more instance [XML documents] (i.e., NIEM IEPs [Definition: Information Exchange Package (IEP)], above) for NIEM conformance.
 
@@ -1619,7 +1619,7 @@ Rule 4-42. IEPD Declares One or More IEP Conformance Targets
 
 4.6.2.1. c:ValidityConstraintWithContext
 
-   c:ValidityConstraintWithContext is an abstract element into which various validity constraints will be substituted, depending upon the IEPD author's intent. In the absence of an explicit context (declared by an xPathText attribute), validity constraint context defaults to document as defined in [W3-XML-InfoSet] section 2.1 "The Document Information Item". In this default case, a specific validity constraint will substitute for c:ValidityConstraint which in turn, substitutes for c:ValidityConstraintWithContext.
+   c:ValidityConstraintWithContext is an abstract element into which various validity constraints will be substituted, depending upon the IEPD author's intent. In the absence of an explicit context (declared by an xPathText attribute), validity constraint context defaults to document as defined in [W3-XML-InfoSet]  section 2.1, "The Document Information Item". In this default case, a specific validity constraint will substitute for c:ValidityConstraint which in turn, substitutes for c:ValidityConstraintWithContext.
 
 4.6.2.2. c:ValidityConstraint
 
@@ -1633,7 +1633,7 @@ Rule 4-42. IEPD Declares One or More IEP Conformance Targets
 
    c:HasDocumentElement is a validity constraint that identifies all intended XML document elements for an IEP conformance target, and it is directly substitutable for c:ValidityConstraintWithContext. This constraint ensures that an IEP artifact is rooted by one XML document element that is a member of the list of elements in its c:qualifiedNameList attribute. This is a common validity constraint employed by simple IEPDs that declare one or more intended XML document elements.
 
-   Note that the context of this validity constraint is always document as defined in [W3-XML-InfoSet] section 2.1, "The Document Information Item". This is because it can only declare XML document elements. So, if an IEPD defines an IEP as a payload within an envelope, then c:ValidityContext must be used with another specific validity constraint and an explicit context declaration (c:xPathText).
+   Note that the context of this validity constraint is always document as defined in [W3-XML-InfoSet]  section 2.1, "The Document Information Item". This is because it can only declare XML document elements. So, if an IEPD defines an IEP as a payload within an envelope, then c:ValidityContext must be used with another specific validity constraint and an explicit context declaration (c:xPathText).
 
 4.6.2.5. c:ValidToXPath
 
@@ -1779,7 +1779,7 @@ Rule 5-2. Validating an XPath Expression
 
    [Rule 5-2] (IEP)
 
-      Within an [MPD catalog document] with a c:xPathText attribute owned by a c:ValidToXPath element, a candidate IEP is a valid IEP, ONLY IF the value of c:ValidToXPath applied to the candidate IEP (an [XML document]) has an effective Boolean value (EBV) equal to true. EBV is defined by [W3C XPath 2.0] section  2.4.3 "Effective Boolean Value".
+      Within an [MPD catalog document] with a c:xPathText attribute owned by a c:ValidToXPath element, a candidate IEP is a valid IEP, ONLY IF the value of c:ValidToXPath applied to the candidate IEP (an [XML document]) has an effective Boolean value (EBV) equal to true. EBV is defined by [W3C XPath 2.0]  section 2.4.3, "Effective Boolean Value".
 
 Rule 5-3. Validating a Qualified Name List
 
@@ -3634,11 +3634,11 @@ Appendix H. References
 
    [NIEM MPD Specification]: NIEM Model Package Description (MPD) Specification, Version 3.0, NIEM Technical Architecture Committee (NTAC), [day month TBD] 2014. Available from http://reference.niem.gov/niem/specification/model-package-description/3.0/.
 
-   [NIEM MPD Toolkit]: NIEM Model Package Description Toolkit, Version 3.0, NIEM Technical Architecture Committee (NTAC), [day month TBD] 2014. Available from http://referencce.niem.gov/niem/resource/mpd/3.0/.
+   [NIEM MPD Toolkit]: "NIEM Model Package Description Toolkit", Version 3.0, NIEM Technical Architecture Committee (NTAC), [day month TBD] 2014. Available from http://referencce.niem.gov/niem/resource/mpd/3.0/.
 
    [NIEM NDR]: NIEM Naming and Design Rules (NDR), Version 3.0, NIEM Technical Architecture Committee (NTAC), [day month TBD] 2014. Available from http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/.
 
-   [NIEM SSGT]: NIEM Schema Subset Generation Tool (SSGT). Available from http://tools.niem.gov/niemtools/ssgt/index.iepd.
+   [NIEM SSGT]: "NIEM Schema Subset Generation Tool" (SSGT). Available from http://tools.niem.gov/niemtools/ssgt/index.iepd.
 
    [NIEM User Guide]: NIEM User Guide, Volume 1, U.S. Department of Justice, Office of Justice Programs, (date unknown). Available from http://reference.niem.gov/niem/guidance/user-guide/vol1/.
 
