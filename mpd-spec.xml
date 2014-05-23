@@ -81,14 +81,18 @@
 </subsection>
 
 
-<!-- Beta 2 ############################################################### -->
+<!-- ################################# Beta 2 ##################################### -->
 <subsection>
 	<title>Beta 2</title>
 	<ol>
 		<li><p>Major: Added new <ref idref="URI-Schemes"/>, and reorganized subsections and rules related to URIs under it.</p></li>
 		<li><p>Added one-line titles for each rule (~67).</p></li>
 		<li><p>Fixed error in <code>mpd-catalog-3.0.xsd</code>; removed extra tags: <code>/xs:restriction</code> and <code>/xs:simpleType</code>.</p></li>
-		<li><p>.</p></li>
+		<li><p>Removed rule for Effective Conformance Target Identifier; not needed.</p></li>
+		<li><p>Removed duplicate rule requiring MPD catalog artifact in root directory.</p></li>
+		<li><p>See TOC; reordered subsections in Section 2 (Basic Concepts and Terminology).</p></li>
+		<li><p>Refined <ref idref="Rules"/> for clarity.</p></li>
+		<li><p>Refined <ref idref="Conformance-Target-Concepts"/>.</p></li>
 	</ol>
 </subsection>
 
@@ -107,7 +111,7 @@
 
 
 
-<!-- ################################################## -->
+<!-- #########@@@@############# Introduction ############################ -->
 
 
 <section id="Introduction">
@@ -210,7 +214,7 @@
 </section>
 
 
-<!-- ################################################## -->
+<!-- ####################### Concepts and Terminology ########################### -->
 
 
 <section id="Concepts-and-Terminology">
@@ -648,7 +652,7 @@
 </section>
 
 
-<!-- ################################################## -->
+<!-- ###################### Rules ############################ -->
 
 
 <section id="Rules">
@@ -713,11 +717,13 @@
           </blockquote>
         </definition>
 
+	<p>The term internationlized resource identifier (IRI) is defined by <ref idref="RFC3987-IRI"/>.  The RFC also defines comparison of IRIs.</p>
+
 </section>
 
 
 
-<!-- ################################################## -->
+<!-- ####################### Conformance Targets for MPDs ########################### -->
 
 
 
@@ -791,7 +797,7 @@
 </section>
 
 
-<!-- ################################################## -->
+<!-- ####################### MPD XML Schema Document Artifacts ########################### -->
 
 
 <section id="MPD-XML-Schema-Artifacts">
@@ -1080,7 +1086,7 @@
 </section>
 
 
-<!-- ################################################## -->
+<!-- ###################### MPD Documentation Artifacts ############################ -->
 
 
 <section id="MPD-Documentation-Artifacts">
@@ -1126,10 +1132,11 @@
 		<li><p>Definition, identification, and validation of IEP conformance targets</p></li>
 	</ul>
 
-<ruleSection><title>MPD Has MPD Catalog Document</title>
-	<rule id="r1-mpd-cat" applicability="WF-MPD" class="Constraint">
-		<p>An MPD MUST have an artifact named <code>mpd-catalog.xml</code> in its <termRef term="MPD root directory">root directory</termRef>.</p>
-	</rule>
+<ruleSection>
+	<title>MPD Has One and Only One <code>mpd-catalog.xml</code> in Root Directory</title>
+<rule id="r1-mpd-cat" applicability="WF-MPD" class="Constraint">
+	<p>An MPD MUST contain one and only one <code>mpd-catalog.xml</code> artifact in its <termRef term="MPD root directory">root directory</termRef>.</p>
+</rule>
 </ruleSection>
 
 <ruleSection><title>MPD Catalog Document Valid to <code>mpd-catalog-3.0.xsd</code></title>
@@ -1929,7 +1936,7 @@
 	<p>This definition requires that an IEP conformance target be assigned a unique identifier, a <em>Conformance Target URI</em> that distinguishes it from all other IEP conformance targets.  Similar to a URI for an MPD artifact, construct a <em>conformance target URI</em> by concatenating the IEPD's URI, the pound sign character (<code>#</code>), and a locally unique (within the IEPD) <link href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NCName">NCName</link> (non-colonized name) as defined by <ref idref="W3-XML-Schema-Structures"/>, <char name="sect"/>3.3.7, <q>NCName</q>.</p>
 
 	<definition term="IEP conformance target URI" id="iep-conformance-target-uri">
-		<p>A globally unique identifier for an IEP conformance target declared in an IEPD, formed by concatenating:</p>
+		<p>A <termRef>conformance target identifier</termRef> for an IEP conformance target declared in an IEPD, formed by concatenating:</p>
 		<ol>
 			<li><p>the IEPD URI</p></li>
 			<li><p>the pound sign character (<code>#</code>) and</p></li>
@@ -2153,7 +2160,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 </section>
 
 
-<!-- ################################################## -->
+<!-- ####################### Conformance Targets ########################### -->
 
 
 <section id="Conformance-Targets">
@@ -2166,17 +2173,8 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<title>Well-Formed MPD (WF-MPD)</title>
 
 <definition term="well-formed MPD">
-	<p>A valid <ref idref="PKZIP"/> archive file that adheres to the rules defined for the well-formed MPD <termRef>conformance target</termRef> in this MPD specification.</p> 
+	<p>A valid <ref idref="PKZIP"/> archive file that adheres to the rules defined for a well-formed MPD <termRef>conformance target</termRef> in this MPD specification.</p> 
 </definition>
-
-	<p>The following rule applies to a <termRef>well-formed MPD</termRef>:</p>
-
-<ruleSection>
-	<title>MPD Has One and Only One <code>mpd-catalog.xml</code> in Root Directory</title>
-<rule id="wfm1" applicability="WF-MPD" class="Constraint">
-	<p>An MPD contains one and only one <code>mpd-catalog.xml</code> artifact in its <termRef term="MPD root directory">root directory</termRef>.</p>
-</rule>
-</ruleSection>
 
 </section>
 
@@ -2804,6 +2802,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<tr><td>HTML </td><td>Hyper Text Markup Language</td></tr>
 	<tr><td>IEP  </td><td>Information Exchange Package</td></tr>
 	<tr><td>IEPD </td><td>Information Exchange Package Documentation</td></tr>
+	<tr><td>IRI  </td><td>Internationalized Resource Indentifier</td></tr>
 	<tr><td>JPG  </td><td>Joint Photographic (Experts) Group</td></tr>
 	<tr><td>LEXS </td><td>Logical Entity Exchage Specifications</td></tr>
 	<tr><td>MPD  </td><td>Model Package Description</td></tr>
@@ -2817,6 +2816,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<tr><td>QName</td><td>Qualified Name (in XML Schema: qualified by a namespace prefix and colon character)</td></tr>
 	<tr><td>RAR  </td><td>Roshal Archive; a compressed archive file format named for its developer, Eugene Roshal</td></tr>
 	<tr><td>Rel  </td><td>Release (NIEM)</td></tr>
+	<tr><td>RFC  </td><td>Request for Comment</td></tr>
 	<tr><td>SSGT </td><td>Schema Subset Generation Tool</td></tr>
 	<tr><td>UML  </td><td>Unified Modeling Language</td></tr>
 	<tr><td>UPA  </td><td>Unique Particle Attribution</td></tr>
@@ -2944,11 +2944,15 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 </reference>
 
 <reference id="RFC2141-URN-Syntax" label="RFC 2141 URN Syntax">
-	<p>Moats, R., <em>URN Syntax</em>, IETF RFC 2141, May 1997.  Available from <link>http://tools.ietf.org/html/rfc2141</link>.</p>
+	<p>Moats, R., <em>URN Syntax</em>, IETF Request For Comment 2141, May 1997.  Available from <link>http://tools.ietf.org/html/rfc2141</link>.</p>
 </reference>
 
 <reference id="RFC3986-URI" label="RFC 3986 URI">
-	<p>Berners-Lee, T., et al., <em>Uniform Resource Identifier (URI): Generic Syntax</em>, Request for Comments 3986, Network Working Group, January 2005.  Available from <link>http://tools.ietf.org/html/rfc3986</link>.</p>
+	<p>Berners-Lee, T., et al., <em>Uniform Resource Identifier (URI): Generic Syntax</em>, Request for Comment 3986, Network Working Group, January 2005.  Available from <link>http://tools.ietf.org/html/rfc3986</link>.</p>
+</reference>
+
+<referemce id="RFC3987-IRI" label="RFC 3987 IRI">
+	<p>Duerst, M., and Suignard, M., <em>Internationalized Resource Identifiers (IRIs)</em>, Request For Comment 3987, January 2005.  Avalailable from <link>http://tools.ietf.org/html/rfc3987</link>.</p>
 </reference>
 
 <reference id="W3-EXI">
