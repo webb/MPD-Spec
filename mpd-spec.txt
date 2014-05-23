@@ -368,17 +368,17 @@ Remaining work and issues
 
    Conformance targets satisfy a need to ensure developers do not conform to NIEM in name only. Once committed to using NIEM, developers and organizations need well-defined conformance targets and rules to know exactly how to conform to NIEM. Funding agencies require conformance targets that correspond to interoperability goals. An agency funding development of a set of systems will need to ensure it funds development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs. Tools and system developers need conformance targets that identify real world requirements corresponding to their use cases and tool capabilities. Many of these tools are not yet developed. And so, this specification attempts to cover a broad range of general use cases.
 
-   Section 5, Conformance Targets, below, defines MPD Specification conformance targets and associated rules in more detail. However, the following is a brief summary of conformance targets:
+   Section 5, Conformance Targets, below, defines MPD Specification conformance targets and associated rules in more detail. However, the following is a brief summary of MPD [conformance targets]:
 
-      *  Well-formed MPD -- This MPD satisfies the need for a [PKZIP] file with an MPD catalog that follows a base set of rules: the MPD catalog links to XML catalogs and identifies NDR classes of schema documents. IEPDs, EIEMs, releases, and their associated core and domains updates will conform to this conformance target.
+      *  [Well-formed MPD] -- An MPD that satisfies the need for a [PKZIP] file with an [MPD catalog document] that adheres to a base set of rules: the MPD catalog links to XML catalogs and identifies NDR classes of schema documents. All five [Model Package Description (MPD)] classes conform to this conformance target.
 
-      *  NIEM IEPD -- This is a special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more c:IEPConformanceTarget elements). 
+      *  [NIEM IEPD] -- A special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more c:IEPConformanceTarget elements). 
 
-      *  IEP -- This is an XML document that conforms to a conformance target defined by a NIEM IEPD.
+      *  [IEP] -- An [instance XML document] that conforms to a conformance target defined by a [NIEM IEPD].
 
-      *  Full NIEM IEP -- This is an XML document with an XML document element that is declared in either a NIEM reference or extension schema document.
+      *  [Full NIEM IEP] -- An XML document with an XML document element that is declared in either a NIEM [reference] or [extension schema document].
 
-      *  Other conformance targets internal to an MPD, including MPD catalog, XML catalog, and MPD changelog.
+      *  Other conformance targets internal to an MPD include: [MPD catalog document], [XML catalog document], and MPD [change log].
 
    The conformance targets above support a variety of use cases:
 
@@ -478,7 +478,13 @@ Remaining work and issues
 
       An MPD that defines one or more (generally recurring) XML data or information exchanges.
 
-   A NIEM IEPD contains a NIEM-conformant XML schema document set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents, and declares at least one [IEP conformance target] within its MPD Catalog Section 4.1, NIEM MPD Catalog, below. The XML schema documents contained in an IEPD work together to define one or more classes of instance XML documents that consistently encapsulate data for meaningful information exchanges. Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated [IEP conformance target] (declared in the IEPD) is considered a member of that [IEP conformance target] class. XML schema documents in a NIEM IEPD conform to the [NIEM NDR] and may use or extend data component definitions drawn from NIEM. An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See [NIEM NDR] for details.)
+   An IEPD explicitly defines one or more classes of [Information Exchanges Packages] (IEP), each of which is an XML instance document.
+
+   [Definition: instance document]
+
+      An instance document (of an [XML Schema]) is an [XML document] that is valid against the [XML Schema].
+
+   A NIEM IEPD contains a NIEM-conformant [XML schema document] set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents, and declares at least one [IEP conformance target] within its MPD Catalog Section 4.1, NIEM MPD Catalog, below. The XML schema documents contained in an IEPD work together to define one or more classes of instance XML documents (that is, IEPs) that consistently encapsulate data for meaningful information exchanges. Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated [IEP conformance target] (declared in the IEPD) is considered a member of that [IEP conformance target] class. XML schema documents in a NIEM IEPD conform to the [NIEM NDR] and may use or extend data component definitions drawn from NIEM. An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See [NIEM NDR] for details.)
 
    An IEPD consists of a set of artifacts (XML schema documents, documentation, sample instance XML documents, etc.) that together define and describe an implementable NIEM information exchange. An IEPD should contain an XML schema document set and instructional material necessary to:
 
@@ -534,7 +540,7 @@ Remaining work and issues
 
    [Definition: Enterprise Information Exchange Model (EIEM)]
 
-      An MPD that contains a NIEM-conformant schema document set that defines and declares data components to be consistently reused in the IEPDs of an enterprise. An EIEM is a collection of BIECs organized into a schema document subset. As options, an EIEM can include extension, constraint, and external(non-NIEM) XML schema documents.
+      An MPD that contains a NIEM-conformant schema document set that defines and declares data components to be consistently reused in the IEPDs of an enterprise. An EIEM is a collection of BIECs organized into a schema document subset. As options, an EIEM can include extension, constraint, and external (non-NIEM-conformant) XML schema documents.
 
    An information sharing enterprise that creates and maintains an EIEM authors IEPDs by reusing its EIEM content instead of (re)subsetting reference schema documents sets and (re)creating extensions. An EIEM may also contain business rules or constraint schema document sets tailored to enterprise requirements and designed to restrict variability in use of NIEM data components. This not only saves time, but it also ensures that enterprise IEPDs reuse NIEM and associated extensions consistently. (XML schema document subsets, extension schema documents, and constraint schema document sets will be defined and discussed in more detail later in this document). Figure 2-2, BIECs, EIEM, and a small family of IEPDs., below, generally illustrates how BIECs, an EIEM, and an IEPD family relate (Constraint schema document sets are optional and not depicted in this figure).
 
@@ -900,7 +906,7 @@ Rule 4-3. MPD Catalog Document Valid to Schematron Rules
 
       An [MPD catalog document] MUST be valid to the NIEM MPD catalog Schematron rules in Appendix C, Schematron Rules for MPDs.
 
-   Note that Appendix A, MPD Catalog XML Schema Document, below, is a fairly relaxed XML schema definition with very few mandatory properties. The reason for this is to support tools that must identify and distiguish a [well-formed] from a [NIEM IEPD] during incremental stages of development. This is explained in more detail in Section 5.1, Well Formed MPD (WF-MPD), below.
+   Note that Appendix A, MPD Catalog XML Schema Document, below, is a fairly relaxed XML schema definition with very few mandatory properties. The reason for this is to support tools that must identify and distiguish a [well-formed] from a [NIEM IEPD] during incremental stages of development. This is explained in more detail in Section 5.1, Well-Formed MPD (WF-MPD), below.
 
    Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a [NIEM IEPD], special Schematron rules also apply to an MPD catalog to ensure its validity or completeness.
 
@@ -1739,7 +1745,7 @@ Rule 4-45. Conformance Assertion File Name Is conformance-assertion.*
 
    The conformance targets that follow do not equate to levels of conformance, although it may be possible to sequence them as such. These conformance targets represent sets of rules. Each set can be applied to its respective conformance target independently of other rule sets.
 
-5.1. Well Formed MPD (WF-MPD)
+5.1. Well-Formed MPD (WF-MPD)
 
    [Definition: well-formed MPD]
 
@@ -3722,7 +3728,7 @@ Appendix J. Index of Rules
    Rule 4-43, IEPD Has One or More Samples for Each c:IEPConformanceTarget: Section 4.6.3, IEP Sample XML Instance Documents
    Rule 4-44, IEPD and EIEM Have Conformance Assertion in Root Directory: Section 4.7, Conformance Assertion
    Rule 4-45, Conformance Assertion File Name Is conformance-assertion.*: Section 4.7, Conformance Assertion
-   Rule 5-1, MPD Has One and Only One mpd-catalog.xml in Root Directory: Section 5.1, Well Formed MPD (WF-MPD)
+   Rule 5-1, MPD Has One and Only One mpd-catalog.xml in Root Directory: Section 5.1, Well-Formed MPD (WF-MPD)
    Rule 5-2, Validating an XPath Expression: Section 5.3, IEP
    Rule 5-3, Validating a Qualified Name List: Section 5.3, IEP
    Rule 5-4, Validating an IEP Sample XML Document: Section 5.3, IEP
