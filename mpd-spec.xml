@@ -2163,11 +2163,10 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <!-- ####################### Conformance Targets ########################### -->
 
 
-<section id="Conformance-Targets">
-	<title>Conformance Targets</title>
+<section id="MPD-Conformance-Targets">
+	<title>MPD Conformance Targets</title>
 
-	<p>The conformance targets that follow do not equate to levels of conformance, although it may be possible to sequence them as such.  These conformance targets represent sets of rules.  Each set can be applied to its respective conformance target independently of other rule sets.</p>
-
+	<p><termRef term="conformance target">conformance targets</termRef> were introduced earlier in <ref idref="Conformance-Target-Concepts"/> because they are necessary to understand the rules this specification subsequently defines.  This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.</p>
 
 <section id="Well-Formed-MPD">
 	<title>Well-Formed MPD (WF-MPD)</title>
@@ -2178,26 +2177,21 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 </section>
 
-
-
-<section id="NIEM-IEPD2">
-	<title>NIEM IEPD (N-IEPD)</title>
-
-	<definition term="NIEM IEPD">
-		<p>A special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more <code>c:IEPConformanceTarget</code> elements.  Furthermore, satisfies all rules and mandatory requirements for:</p>
-		<ul>
-			<li><p><ref idref="NIEM-MPD"/> (i.e., This MPD Specification)</p></li>
-			<li><p><ref idref="NIEM-NDR"/></p></li>
-			<li><p><ref idref="NIEM-Conformance"/></p></li>
-		</ul>
-	</definition>
+<definition term="NIEM IEPD">
+	<p>A special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more <code>c:IEPConformanceTarget</code> elements.  Furthermore, satisfies all rules and mandatory requirements for:</p>
+	<ul>
+		<li><p><ref idref="NIEM-MPD"/> (i.e., This MPD Specification)</p></li>
+		<li><p><ref idref="NIEM-NDR"/></p></li>
+		<li><p><ref idref="NIEM-Conformance"/></p></li>
+	</ul>
+</definition>
 
 </section>
 
 
 
-<section id="CT-IEP">
-<title>IEP</title>
+<section id="IEP-Conformance-Targets">
+<title>IEP Conformance Targets</title>
 
 <ruleSection>
 	<title>Validating an XPath Expression</title>
@@ -2220,16 +2214,9 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 </rule>
 </ruleSection>
 
-</section>
-
-
-
-<section id="Full-NIEM-IEP">
-	<title>Full NIEM IEP (FN-IEP)</title>
-
-	<definition term="full NIEM IEP">
-		<p>An XML document with an XML document element that is defined by a NIEM reference schema or NIEM extension schema.  (Abbreviated as "FN-IEP")</p>
-	</definition>
+<definition term="full NIEM IEP">
+	<p>An XML document with an XML document element that is defined by a NIEM reference schema or NIEM extension schema.  (Abbreviated as "FN-IEP")</p>
+</definition>
 
 	<p>The following rules apply to a <termRef>full NIEM IEP</termRef>:</p>
 
@@ -2278,9 +2265,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 
 
-
-
-<section id="Wantlists">
+	<section id="Wantlists">
 	<title>NIEM Wantlist</title>
 
 	<p>A NIEM schema document subset is often associated with a NIEM <em>wantlist</em>.  A <em>wantlist</em> is an abbreviated XML representation of a NIEM schema document subset, and identifies only the data components a user selected (as requirements) to build a schema document subset.  To reconstruct the complete schema document subset there are usually a number of additional data components that the user selections depend upon.  These must be computed from the appropriate NIEM reference model and added to reconstruct the complete schema document subset.  For example, a user may select <code>nc:Person</code> for the subset.  In this case, the wantlist will only contain that component, but the associated full subset must contain both <code>nc:Person</code> and <code>nc:PersonType</code>.  A software tool that understands how to process NIEM wantlists and schema document subsets (such as the NIEM Schema Subset Generator Tool <ref idref="NIEM-SSGT"/>) can rebuild an accurate schema document subset from a wantlist (and the reverse).</p>
