@@ -2180,7 +2180,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="Conformance-Targets">
 	<title>MPD Conformance Targets</title>
 
-	<p><termRef term="conformance target">conformance targets</termRef> were introduced earlier in <ref idref="Conformance-Target-Concepts"/> because they are necessary to understand the rules this specification subsequently defines.  This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.</p>
+	<p><termRef term="conformance target">Conformance targets</termRef> were introduced earlier in <ref idref="Conformance-Target-Concepts"/> because they are necessary to understand the rules this specification subsequently defines.  This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.</p>
 
 
 <!-- ######################## MPD ########################## -->
@@ -2189,9 +2189,25 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="MPD-Conformance-Targets">
 	<title>MPD Conformance Targets</title>
 
+	<p>There are two primary MPD conformance targets: <termRef>well-formed MPD</termRef> and <termRef>NIEM IEPD</termRef>.</p>
+
+	<p>An MPD may be constructed manually, but it is far more efficient to generate its parts or its entirety using one or more NIEM-aware software tools.  A <termRef>well-formed MPD</termRef> <termRef>conformance target has several advantages:</p>
+
+		<ul>
+			<li><p>Facilitates the existence of many incremental states from start to finish that are checkpoints for well-formedness.</p></li>
+			<li><p>Enables multiple paths to completion; no one pre-determined sequence of rule applications.</p></li>
+			<li><p>Avoids a need to build a complete MPD before automated correctness checks can be applied.</p></li>
+			<li><p>Provides tool developers with flexibility for constructing an MPD incrementally in many different sequences.</p></li>
+			<li><p>Facilitates the interoperability and use of multiple tools that can export/import a WF-MPD.</p></li>
+		</ul>
+
 <definition term="well-formed MPD">
 	<p>A valid <ref idref="PKZIP"/> archive file that adheres to the rules defined for a well-formed MPD <termRef>conformance target</termRef> in this MPD specification.  (Abbreviated WF-MPD)</p> 
 </definition>
+
+	<p>The five standard NIEM MPD classes can be partitioned into two general groups based on control.  In the first group are NIEM releases, Core updates, and domain updates; and in the second, IEPDs and EIEMs.  The first group is developed, controlled, and published by the NIEM PMO.  However, the second group is developed by organizations or individuals that are not under PMO control.  Control of these MPDs is widely distributed and subject only to NIEM specifications (e.g., the NIEM NDR, the NIEM MPD Specification, the NIEM Conformance Specification, etc.).  In some cases, this may mean interpretation of subjective rules that are not testable (for example, rules for new data component definitions).</p>
+
+	<p>Furthermore, most rules in this MPD Specification are applicable to a <termRef>well-formed MPD</termRef> <termRef>conformance target</termRef>.  Rules for this conformance target are less concerned with the correct use of NIEM and more concerned with correct use of MPD artifacts, and proper format and structure.  Adherence to these rules can produce an IEPD or EIEM that is well-formed, but that does not necessarily satisfy all general and specific requirements for a NIEM IEPD or EIEM.  While some rules in this MPD Specification may imply general and specific NIEM-conformance, the following rules ensure that a complete <em>NIEM-IEPD</em> and <em>NIEM-EIEM</em> adhere to all applicable NIEM conformance rules.</p>
 
 <definition term="NIEM IEPD">
 	<p>A special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more <code>c:IEPConformanceTarget</code> elements.  Furthermore, satisfies all rules and mandatory requirements for:</p>
