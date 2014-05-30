@@ -105,7 +105,7 @@
 	<title>Beta 3</title>
 	<ol>
 		<li><p>Added explanations for <ref idref="MPD-Conformance-Targets"/>.</p></li>
-		<li><p>.</p></li>
+		<li><p>Added conformance target for <termRef>NIEM EIEM</termRef> (similar to <termRef>NIEM IEPD</termRef>.</p></li>
 	</ol>
 </subsection>
 
@@ -758,6 +758,8 @@
 
 		<li><p><termRef><strong>NIEM IEPD</strong></termRef> <char name="mdash"/> An IEPD class of MPD that establishes at least one conformance target for a class of IEPs (i.e., contains an <termRef>MPD catalog document</termRef> that declares one or more <code>c:IEPConformanceTarget</code> elements). </p></li>
 
+		<li><p><termRef><strong>NIEM EIEM</strong></termRef> <char name="mdash"/> An EIEM class of MPD that that serves as a template for building or generating a family of IEPDs; a relatively new concept in NIEM.</p></li>
+
 		<li><p><termRef term="Information Exchange Package (IEP)"><strong>IEP</strong></termRef> <char name="mdash"/> An <termRef term="instance document">instance XML document</termRef> that conforms to a conformance target defined by a <termRef><strong>NIEM IEPD</strong></termRef>.</p></li>
 
 		<li><p><termRef term="full NIEM IEP"><strong>Full NIEM IEP</strong></termRef> <char name="mdash"/> An <termRef term="instance document">instance XML document</termRef> with an XML document element that is declared in either a NIEM <termRef term="reference schema document">reference</termRef> or <termRef>extension schema document</termRef>.</p></li>
@@ -785,8 +787,11 @@
             <td><termRef term="well-formed MPD">Well-formed MPD</termRef></td>
 	    <td>WF-MPD</td>
 	</tr><tr>
-	<td><termRef>NIEM IEPD</termRef></td>
+	    <td><termRef>NIEM IEPD</termRef></td>
 	    <td>N-IEPD</td>
+	</tr></tr>
+	    <td><termRef>NIEM EIEM</termRef></td>
+	    <td>N-EIEM</td>
 	</tr><tr>
 	    <td><termRef term="Information Exchange Package (IEP)">IEP</termRef></td>
 	    <td>IEP</td>
@@ -2036,6 +2041,15 @@
 
 	<p>Note that the context of this validity constraint is always <em>document</em> as defined in <ref idref="W3-XML-InfoSet"/> <a href="http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.document"> <char name="sect"/>2.1, <q>The Document Information Item</q></a>.  This is because it can only declare XML document elements.  So, if an IEPD defines an IEP as a payload within an envelope, then <code>c:ValidityContext</code> must be used with another specific validity constraint and an explicit context declaration (<code>c:xPathText</code>).</p>
 
+	<p>When employing <code>c:HasDocumentElement</code> the following rule applies:</p>
+
+<ruleSection>
+	<title>Validating a Qualified Name List</title>
+<rule id="i2" applicability="IEP" class="Constraint">
+	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, ONLY IF its XML document element's name is a member of that list of <em>QNames</em>.</p>
+	</rule>
+</ruleSection>
+
 </section>
 
 <section id="ValidToXPath">
@@ -2052,6 +2066,16 @@
 	<p>This specific validity constraint as well as those that follow below can either be substituted for the <code>c:ValidityConstraint</code> or used within the <code>c:ValidityContext</code> element (i.e., substituted for its <code>c:ValidityConstraint</code> sub-element).</p>
 
 	<p>Note that if <code>c:ValidToXPath</code> is substituted for <code>c:ValidityConstraint</code> within the <code>c:ValidityContext</code> element, then the explicit context, the <code>c:xPathText</code> value, can imply that multiple items must be checked and each must return "true" in order for an IEP to pass the <code>c:ValidToXPath</code> constraint.</p>
+
+	<p>When employing <code>c:ValidToXPath</code> the following rule applies:</p>
+
+<ruleSection>
+	<title>Validating an XPath Expression</title>
+<rule id="i1" applicability="IEP" class="Constraint">
+	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:xPathText</code> attribute owned by a <code>c:ValidToXPath</code> element, a candidate IEP is a valid IEP, ONLY IF the value of <code>c:ValidToXPath</code> applied to the candidate IEP (an <termRef>XML document</termRef>) has an effective Boolean value (EBV) equal to <code>true</code>.  EBV is defined by <ref idref="W3-XPath"/> <a href="http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv"> <char name="sect"/>2.4.3, <q>Effective Boolean Value</q></a>.</p>
+</rule>
+</ruleSection>
+
 
 </section>
 
@@ -2117,6 +2141,15 @@
 	<p>The purpose of this rule is not to provide a test for all possible IEP permutations given the schema definitions and validity constraint declarations; rather, it is to encourage IEPD authors to test their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  To the extent possible, IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges, and (2) exercise as many data components and validity constraints as possible.  Where it makes sense, an IEPD author should strive to provide enough sample IEPs to exercise all the XML document elements (or payload root elements).  If a single IEP cannot provide enough example coverage, an author may include multiple IEPs (but is not required to do so).</p>
 
 	<p>Each sample IEP usually illustrates a single view of the data based on a chosen set of conditions.  Other views based on different conditions likely exist.  An implementer will still need to review the IEPD documentation to ensure understanding of all potential conditions.  Therefore, as appropriate, the author should not rely exclusively on sample IEPs to convey implementation understanding, since they will probably not account for all possible permutations.</p>
+
+	<p>The following rule relates to validity of an IEP Sample XML Document:</p>
+
+<ruleSection>
+	<title>Validating an IEP Sample XML Document</title>	
+<rule id="i3" applicability="IEP" class="Constraint">
+	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code>, the artifact resolved by the value of <code>c:pathURI</code> MUST be valid for the validity constraints of the <code>c:IEPConformanceTarget</code> parent of <code>c:IEPSampleXMLDocument</code>.</p>
+</rule>
+</ruleSection>
 
 </section>
 </section>
@@ -2202,7 +2235,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 		</ul>
 
 <definition term="well-formed MPD">
-	<p>A valid <ref idref="PKZIP"/> archive file that adheres to the rules defined for a well-formed MPD <termRef>conformance target</termRef> in this MPD specification.  (Abbreviated WF-MPD)</p> 
+	<p>A valid <ref idref="PKZIP"/> archive file that adheres to the rules defined for a <termRef>well-formed MPD</termRef> <termRef>conformance target</termRef> in this MPD specification.  (Abbreviated WF-MPD)</p> 
 </definition>
 
 	<p>The five standard NIEM MPD classes can be partitioned into two general groups based on control.  In the first group are NIEM releases, Core updates, and domain updates; and in the second, IEPDs and EIEMs.  The first group is developed, controlled, and published by the NIEM PMO.  However, the second group is developed by organizations or individuals that are not under PMO control.  Control of these MPDs is widely distributed and subject only to NIEM specifications (e.g., the NIEM NDR, the NIEM MPD Specification, the NIEM Conformance Specification, etc.).  In some cases, this may mean interpretation of subjective rules that are not testable (for example, rules for new data component definitions).</p>
@@ -2210,11 +2243,30 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<p>Furthermore, most rules in this MPD Specification are applicable to a <termRef>well-formed MPD</termRef> <termRef>conformance target</termRef>.  Rules for this conformance target are less concerned with the correct use of NIEM and more concerned with correct use of MPD artifacts, and proper format and structure.  Adherence to these rules can produce an IEPD or EIEM that is well-formed, but that does not necessarily satisfy all general and specific requirements for a NIEM IEPD or EIEM.  While some rules in this MPD Specification may imply general and specific NIEM-conformance, the following rules ensure that a complete <em>NIEM-IEPD</em> and <em>NIEM-EIEM</em> adhere to all applicable NIEM conformance rules.</p>
 
 <definition term="NIEM IEPD">
-	<p>A special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more <code>c:IEPConformanceTarget</code> elements.  Furthermore, satisfies all rules and mandatory requirements for:</p>
+	<p>An MPD that:</p>
 	<ul>
-		<li><p><ref idref="NIEM-MPD"/> (i.e., This MPD Specification)</p></li>
-		<li><p><ref idref="NIEM-NDR"/></p></li>
-		<li><p><ref idref="NIEM-Conformance"/></p></li>
+		<li><p>Has <code>c:mpdClassCode="iepd"</code>, and</p></li>
+		<li><p>Has one or more <code>c:IEPConformanceTarget</code> elements within its <termRef>MPD catalog document</termRef>, and</p></li>
+		<li><p>Satisfies all applicable rules and mandatory requirements in:</p>
+			<ul>
+				<li><p><ref idref="NIEM-MPD"/> (i.e., This MPD Specification)</p></li>
+				<li><p><ref idref="NIEM-NDR"/></p></li>
+				<li><p><ref idref="NIEM-Conformance"/></p></li>
+			</ul>
+		</li>
+	</ul>
+</definition>
+
+<definition term="NIEM EIEM">
+	<p>An MPD that:</p>
+	<ul>
+		<li><p>Has <code>c:mpdClassCode="eiem"</code>, and</p></li>
+		<li><p>Satisfies all applicable rules and mandatory requirements in:</p>
+			<ul>
+				<li><p><ref idref="NIEM-MPD"/> (i.e., This MPD Specification)</p></li>
+				<li><p><ref idref="NIEM-NDR"/></p></li>
+				<li><p><ref idref="NIEM-Conformance"/></p></li>
+			</ul>
 	</ul>
 </definition>
 
@@ -2227,28 +2279,13 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="IEP-Conformance-Targets">
 	<title>IEP Conformance Targets</title>
 
-<ruleSection>
-	<title>Validating an XPath Expression</title>
-<rule id="i1" applicability="IEP" class="Constraint">
-	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:xPathText</code> attribute owned by a <code>c:ValidToXPath</code> element, a candidate IEP is a valid IEP, ONLY IF the value of <code>c:ValidToXPath</code> applied to the candidate IEP (an <termRef>XML document</termRef>) has an effective Boolean value (EBV) equal to <code>true</code>.  EBV is defined by <ref idref="W3-XPath"/> <a href="http://www.w3.org/TR/2010/REC-xpath20-20101214/#id-ebv"> <char name="sect"/>2.4.3, <q>Effective Boolean Value</q></a>.</p>
-</rule>
-</ruleSection>
+	<ref idref="Information-Exchange-Package-Documentation"/> introduced the only MPD class that defines an information exchange <char name="mdash"/> <termRef>Information Exchange Package Documentation</termRef> (IEPD).  This section also introduced an <termRef>Information Exchange Package (IEP)</termRef>, which is an information exchange defined by an IEPD.  An IEP is also a <termRef>conformance target</termRef> and in that connotation is defined as follows: 
 
-<ruleSection>
-	<title>Validating a Qualified Name List</title>
-<rule id="i2" applicability="IEP" class="Constraint">
-	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, ONLY IF its XML document element's name is a member of that list of <em>QNames</em>.</p>
-	</rule>
-</ruleSection>
+<definition term="information exchange package">
+		<p>An XML <termRef>instance document</termRef> defined by a <code>c:IEPConformanceTarget</code> element in an IEPD's <termRef>MPD catalog document</termRef>.</p>
+</definition>
 
-<ruleSection>
-	<title>Validating an IEP Sample XML Document</title>	
-<rule id="i3" applicability="IEP" class="Constraint">
-	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code>, the artifact resolved by the value of <code>c:pathURI</code> MUST be valid for the validity constraints of the <code>c:IEPConformanceTarget</code> parent of <code>c:IEPSampleXMLDocument</code>.</p>
-</rule>
-</ruleSection>
-
-	<p> <char name="nbsp"/> </p>
+	<p></p>
 
 <definition term="full NIEM IEP">
 	<p>An XML document with an XML document element that is defined by a NIEM reference schema or NIEM extension schema.  (Abbreviated as "FN-IEP")</p>
