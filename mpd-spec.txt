@@ -1757,13 +1757,31 @@ Rule 4-45. Conformance Assertion File Name Is conformance-assertion.*
 
 5. MPD Conformance Targets
 
-   [conformance targets] were introduced earlier in Section 2.11, Conformance Target Concepts, above, because they are necessary to understand the rules this specification subsequently defines. This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.
+   [Conformance targets] were introduced earlier in Section 2.11, Conformance Target Concepts, above, because they are necessary to understand the rules this specification subsequently defines. This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.
 
 5.1. MPD Conformance Targets
+
+   There are two primary MPD conformance targets: [well-formed MPD] and [NIEM IEPD].
+
+   An MPD may be constructed manually, but it is far more efficient to generate its parts or its entirety using one or more NIEM-aware software tools. A [well-formed MPD] [conformance target] has several advantages:
+
+      *  Facilitates the existence of many incremental states from start to finish that are checkpoints for well-formedness.
+
+      *  Enables multiple paths to completion; no one pre-determined sequence of rule applications.
+
+      *  Avoids a need to build a complete MPD before automated correctness checks can be applied.
+
+      *  Provides tool developers with flexibility for constructing an MPD incrementally in many different sequences.
+
+      *  Facilitates the interoperability and use of multiple tools that can export/import a WF-MPD.
 
    [Definition: well-formed MPD]
 
       A valid [PKZIP] archive file that adheres to the rules defined for a well-formed MPD [conformance target] in this MPD specification. (Abbreviated WF-MPD)
+
+   The five standard NIEM MPD classes can be partitioned into two general groups based on control. In the first group are NIEM releases, Core updates, and domain updates; and in the second, IEPDs and EIEMs. The first group is developed, controlled, and published by the NIEM PMO. However, the second group is developed by organizations or individuals that are not under PMO control. Control of these MPDs is widely distributed and subject only to NIEM specifications (e.g., the NIEM NDR, the NIEM MPD Specification, the NIEM Conformance Specification, etc.). In some cases, this may mean interpretation of subjective rules that are not testable (for example, rules for new data component definitions).
+
+   Furthermore, most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and more concerned with correct use of MPD artifacts, and proper format and structure. Adherence to these rules can produce an IEPD or EIEM that is well-formed, but that does not necessarily satisfy all general and specific requirements for a NIEM IEPD or EIEM. While some rules in this MPD Specification may imply general and specific NIEM-conformance, the following rules ensure that a complete NIEM-IEPD and NIEM-EIEM adhere to all applicable NIEM conformance rules.
 
    [Definition: NIEM IEPD]
 
