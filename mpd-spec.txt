@@ -102,7 +102,7 @@ Beta 3
 
       1. Added explanations for Section 5.1, MPD Conformance Targets, below.
 
-      2. .
+      2. Added conformance target for [NIEM EIEM] (similar to [NIEM IEPD].
 
 Remaining work and issues
 
@@ -586,6 +586,8 @@ Remaining work and issues
 
       *  [NIEM IEPD] -- An IEPD class of MPD that establishes at least one conformance target for a class of IEPs (i.e., contains an [MPD catalog document] that declares one or more c:IEPConformanceTarget elements). 
 
+      *  [NIEM EIEM] -- An EIEM class of MPD that that serves as a template for building or generating a family of IEPDs; a relatively new concept in NIEM.
+
       *  [IEP] -- An [instance XML document] that conforms to a conformance target defined by a [NIEM IEPD].
 
       *  [Full NIEM IEP] -- An [instance XML document] with an XML document element that is declared in either a NIEM [reference] or [extension schema document].
@@ -613,6 +615,8 @@ Remaining work and issues
       [Well-formed MPD]|WF-MPD
 
       [NIEM IEPD]|N-IEPD
+
+      [NIEM EIEM]|N-EIEM
 
       [IEP]|IEP
 
@@ -1649,6 +1653,14 @@ Rule 4-42. IEPD Declares One or More IEP Conformance Targets
 
    Note that the context of this validity constraint is always document as defined in [W3-XML-InfoSet]  section 2.1, "The Document Information Item". This is because it can only declare XML document elements. So, if an IEPD defines an IEP as a payload within an envelope, then c:ValidityContext must be used with another specific validity constraint and an explicit context declaration (c:xPathText).
 
+   When employing c:HasDocumentElement the following rule applies:
+
+Rule 4-43. Validating a Qualified Name List
+
+   [Rule 4-43] (IEP)
+
+      Within an [MPD catalog document] with a c:qualifiedNameList attribute owned by a c:HasDocumentElement element, a candidate IEP is a valid IEP, ONLY IF its XML document element's name is a member of that list of QNames.
+
 4.6.2.5. c:ValidToXPath
 
    c:ValidToXPath is a specific validity constraint whose purpose is to ensure that a condition is satisfied within an IEP. The condition is defined by an XPath expression contained in the c:xPathText attribute. If the XPath expression applied to a target instance [XML document] returns a Boolean value of TRUE, then the condition is satisfied by that XML document.
@@ -1662,6 +1674,14 @@ Rule 4-42. IEPD Declares One or More IEP Conformance Targets
    This specific validity constraint as well as those that follow below can either be substituted for the c:ValidityConstraint or used within the c:ValidityContext element (i.e., substituted for its c:ValidityConstraint sub-element).
 
    Note that if c:ValidToXPath is substituted for c:ValidityConstraint within the c:ValidityContext element, then the explicit context, the c:xPathText value, can imply that multiple items must be checked and each must return "true" in order for an IEP to pass the c:ValidToXPath constraint.
+
+   When employing c:ValidToXPath the following rule applies:
+
+Rule 4-44. Validating an XPath Expression
+
+   [Rule 4-44] (IEP)
+
+      Within an [MPD catalog document] with a c:xPathText attribute owned by a c:ValidToXPath element, a candidate IEP is a valid IEP, ONLY IF the value of c:ValidToXPath applied to the candidate IEP (an [XML document]) has an effective Boolean value (EBV) equal to true. EBV is defined by [W3C XPath 2.0]  section 2.4.3, "Effective Boolean Value".
 
 4.6.2.6. c:XMLSchemaValid
 
@@ -1697,9 +1717,9 @@ Rule 4-42. IEPD Declares One or More IEP Conformance Targets
 
    For these reasons, IEP samples are required for IEPDs:
 
-Rule 4-43. IEPD Has One or More Samples for Each c:IEPConformanceTarget
+Rule 4-45. IEPD Has One or More Samples for Each c:IEPConformanceTarget
 
-   [Rule 4-43] (IEP, NF-IEP)
+   [Rule 4-45] (IEP, NF-IEP)
 
       An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared c:IEPConformanceTarget. If applicable, a single IEP sample MAY exemplify multiple conformance targets.
 
@@ -1708,6 +1728,14 @@ Rule 4-43. IEPD Has One or More Samples for Each c:IEPConformanceTarget
    The purpose of this rule is not to provide a test for all possible IEP permutations given the schema definitions and validity constraint declarations; rather, it is to encourage IEPD authors to test their own designs, and to provide implementers with examples for additional understanding, guidance, and testing. To the extent possible, IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges, and (2) exercise as many data components and validity constraints as possible. Where it makes sense, an IEPD author should strive to provide enough sample IEPs to exercise all the XML document elements (or payload root elements). If a single IEP cannot provide enough example coverage, an author may include multiple IEPs (but is not required to do so).
 
    Each sample IEP usually illustrates a single view of the data based on a chosen set of conditions. Other views based on different conditions likely exist. An implementer will still need to review the IEPD documentation to ensure understanding of all potential conditions. Therefore, as appropriate, the author should not rely exclusively on sample IEPs to convey implementation understanding, since they will probably not account for all possible permutations.
+
+   The following rule relates to validity of an IEP Sample XML Document:
+
+Rule 4-46. Validating an IEP Sample XML Document
+
+   [Rule 4-46] (IEP)
+
+      Within an [MPD catalog document] with a c:pathURI attribute owned by a c:IEPSampleXMLDocument, the artifact resolved by the value of c:pathURI MUST be valid for the validity constraints of the c:IEPConformanceTarget parent of c:IEPSampleXMLDocument.
 
 4.7. Conformance Assertion
 
@@ -1719,15 +1747,15 @@ Rule 4-43. IEPD Has One or More Samples for Each c:IEPConformanceTarget
 
       An artifact that provides a formal or informal declaration that a NIEM IEPD or EIEM conforms to [NIEM Conformance], [NIEM NDR], and [NIEM MPD Specification] (this NIEM MPD Specification).
 
-Rule 4-44. IEPD and EIEM Have Conformance Assertion in Root Directory
+Rule 4-47. IEPD and EIEM Have Conformance Assertion in Root Directory
 
-   [Rule 4-44] (WF-MPD)
+   [Rule 4-47] (WF-MPD)
 
       An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST contain a [conformance assertion] artifact in its [MPD root directory].
 
-Rule 4-45. Conformance Assertion File Name Is conformance-assertion.*
+Rule 4-48. Conformance Assertion File Name Is conformance-assertion.*
 
-   [Rule 4-45] (WF-MPD)
+   [Rule 4-48] (WF-MPD)
 
       The file name of an MPD [conformance assertion] MUST be of the form conformance-assertion.*.
 
@@ -1777,7 +1805,7 @@ Rule 4-45. Conformance Assertion File Name Is conformance-assertion.*
 
    [Definition: well-formed MPD]
 
-      A valid [PKZIP] archive file that adheres to the rules defined for a well-formed MPD [conformance target] in this MPD specification. (Abbreviated WF-MPD)
+      A valid [PKZIP] archive file that adheres to the rules defined for a [well-formed MPD] [conformance target] in this MPD specification. (Abbreviated WF-MPD)
 
    The five standard NIEM MPD classes can be partitioned into two general groups based on control. In the first group are NIEM releases, Core updates, and domain updates; and in the second, IEPDs and EIEMs. The first group is developed, controlled, and published by the NIEM PMO. However, the second group is developed by organizations or individuals that are not under PMO control. Control of these MPDs is widely distributed and subject only to NIEM specifications (e.g., the NIEM NDR, the NIEM MPD Specification, the NIEM Conformance Specification, etc.). In some cases, this may mean interpretation of subjective rules that are not testable (for example, rules for new data component definitions).
 
@@ -1785,35 +1813,43 @@ Rule 4-45. Conformance Assertion File Name Is conformance-assertion.*
 
    [Definition: NIEM IEPD]
 
-      A special kind of MPD that establishes at least one conformance target for a class of IEPs (by employing one or more c:IEPConformanceTarget elements. Furthermore, satisfies all rules and mandatory requirements for:
+      An MPD that:
 
-         *  [NIEM MPD Specification] (i.e., This MPD Specification)
+         *  Has c:mpdClassCode="iepd", and
 
-         *  [NIEM NDR]
+         *  Has one or more c:IEPConformanceTarget elements within its [MPD catalog document], and
 
-         *  [NIEM Conformance]
+         *  Satisfies all applicable rules and mandatory requirements in:
+
+               *  [NIEM MPD Specification] (i.e., This MPD Specification)
+
+               *  [NIEM NDR]
+
+               *  [NIEM Conformance]
+
+   [Definition: NIEM EIEM]
+
+      An MPD that:
+
+         *  Has c:mpdClassCode="eiem", and
+
+         *  Satisfies all applicable rules and mandatory requirements in:
+
+               *  [NIEM MPD Specification] (i.e., This MPD Specification)
+
+               *  [NIEM NDR]
+
+               *  [NIEM Conformance]
 
 5.2. IEP Conformance Targets
 
-Rule 5-1. Validating an XPath Expression
+   Section 2.8.4, Information Exchange Package Documentation (IEPD), above, introduced the only MPD class that defines an information exchange -- [Information Exchange Package Documentation (IEPD)]. This section also introduced an [Information Exchange Package (IEP)], which is an information exchange defined by an IEPD. An IEP is also a [conformance target] and in that connotation is defined as follows:
 
-   [Rule 5-1] (IEP)
+   [Definition: information exchange package]
 
-      Within an [MPD catalog document] with a c:xPathText attribute owned by a c:ValidToXPath element, a candidate IEP is a valid IEP, ONLY IF the value of c:ValidToXPath applied to the candidate IEP (an [XML document]) has an effective Boolean value (EBV) equal to true. EBV is defined by [W3C XPath 2.0]  section 2.4.3, "Effective Boolean Value".
+      An XML [instance document] defined by a c:IEPConformanceTarget element in an IEPD's [MPD catalog document].
 
-Rule 5-2. Validating a Qualified Name List
-
-   [Rule 5-2] (IEP)
-
-      Within an [MPD catalog document] with a c:qualifiedNameList attribute owned by a c:HasDocumentElement element, a candidate IEP is a valid IEP, ONLY IF its XML document element's name is a member of that list of QNames.
-
-Rule 5-3. Validating an IEP Sample XML Document
-
-   [Rule 5-3] (IEP)
-
-      Within an [MPD catalog document] with a c:pathURI attribute owned by a c:IEPSampleXMLDocument, the artifact resolved by the value of c:pathURI MUST be valid for the validity constraints of the c:IEPConformanceTarget parent of c:IEPSampleXMLDocument.
-
-      
+   
 
    [Definition: full NIEM IEP]
 
@@ -1821,15 +1857,15 @@ Rule 5-3. Validating an IEP Sample XML Document
 
    The following rules apply to a [full NIEM IEP]:
 
-Rule 5-4. Value of c:externalURI Resolves to Resource
+Rule 5-1. Value of c:externalURI Resolves to Resource
 
-   [Rule 5-4] (FN-IEP)
+   [Rule 5-1] (FN-IEP)
 
       Within an [MPD catalog document] the value of a c:externalURI attribute owned by an element that is a c:FileType or c:FileSetType (or a type derived from either of these) MUST [resolve] to a resource.
 
-Rule 5-5. Value of c:resourceURI Resolves to Resource
+Rule 5-2. Value of c:resourceURI Resolves to Resource
 
-   [Rule 5-5] (FN-IEP)
+   [Rule 5-2] (FN-IEP)
 
       Within an [MPD catalog document] the value of a c:resourceURI attribute owned by a c:Relationship element MUST [resolve] to a resource.
 
@@ -3410,7 +3446,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
 
              *  read-me.* (Rule 4-38, IEPD and EIEM Have read-me.* in Root Directory)
 
-             *  conformance-assertion.* (Rule 4-44, IEPD and EIEM Have Conformance Assertion in Root Directory)
+             *  conformance-assertion.* (Rule 4-47, IEPD and EIEM Have Conformance Assertion in Root Directory)
 
       3.  If extending the [MPD catalog document], then per Rule 4-4, MPD Catalog Extension XML Catalog Document in Root Directory mpd-catalog-extension-xml-catalog.xml must reside in the same relative directory as the mpd-catalog.xml it supports (normally, the [MPD root directory]). mpd-catalog-extension.xsd can be anywhere in the MPD because mpd-catalog-extension-xml-catalog.xml must correlate its namespace to its URI. However, we recommend both artifacts be co-located in the MPD root directory for visibility:
 
@@ -3436,7 +3472,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
 
       6.  If using EXI schema documents, create a exi-xsd subdirectory for these.
 
-      7.  Create an iep-sample subdirectory for sample IEPs (Rule 4-43, IEPD Has One or More Samples for Each c:IEPConformanceTarget).
+      7.  Create an iep-sample subdirectory for sample IEPs (Rule 4-45, IEPD Has One or More Samples for Each c:IEPConformanceTarget).
 
       8.  If more documentation artifacts (e.g., text, graphics, media) are necessary, create a documentation subdirectory for miscellaneous explanatory documentation. As needed, create additional subdirectories within this one to organize documentation artifacts. The read-me.* artifact in the [MPD root directory] should refer to or index documentation in this subdirectory.
 
@@ -3751,14 +3787,14 @@ Appendix J. Index of Rules
    Rule 4-40, IEPD and EIEM Resolve Namespaces to URIs With XML Catalog Documents: Section 4.5, XML Catalogs
    Rule 4-41, IEP Conformance Target Has a structures:id: Section 4.6, Information Exchange Packages
    Rule 4-42, IEPD Declares One or More IEP Conformance Targets: Section 4.6.2, Declaring Validity Constraints
-   Rule 4-43, IEPD Has One or More Samples for Each c:IEPConformanceTarget: Section 4.6.3, IEP Sample XML Instance Documents
-   Rule 4-44, IEPD and EIEM Have Conformance Assertion in Root Directory: Section 4.7, Conformance Assertion
-   Rule 4-45, Conformance Assertion File Name Is conformance-assertion.*: Section 4.7, Conformance Assertion
-   Rule 5-1, Validating an XPath Expression: Section 5.2, IEP Conformance Targets
-   Rule 5-2, Validating a Qualified Name List: Section 5.2, IEP Conformance Targets
-   Rule 5-3, Validating an IEP Sample XML Document: Section 5.2, IEP Conformance Targets
-   Rule 5-4, Value of c:externalURI Resolves to Resource: Section 5.2, IEP Conformance Targets
-   Rule 5-5, Value of c:resourceURI Resolves to Resource: Section 5.2, IEP Conformance Targets
+   Rule 4-43, Validating a Qualified Name List: Section 4.6.2.4, c:HasDocumentElement
+   Rule 4-44, Validating an XPath Expression: Section 4.6.2.5, c:ValidToXPath
+   Rule 4-45, IEPD Has One or More Samples for Each c:IEPConformanceTarget: Section 4.6.3, IEP Sample XML Instance Documents
+   Rule 4-46, Validating an IEP Sample XML Document: Section 4.6.3, IEP Sample XML Instance Documents
+   Rule 4-47, IEPD and EIEM Have Conformance Assertion in Root Directory: Section 4.7, Conformance Assertion
+   Rule 4-48, Conformance Assertion File Name Is conformance-assertion.*: Section 4.7, Conformance Assertion
+   Rule 5-1, Value of c:externalURI Resolves to Resource: Section 5.2, IEP Conformance Targets
+   Rule 5-2, Value of c:resourceURI Resolves to Resource: Section 5.2, IEP Conformance Targets
    Rule 6-1, Wantlist Location: Section 6.1, NIEM Wantlist
    Rule 7-1, MPD Is a Zip Archive: Section 7, Organization, Packaging, and Other Criteria
    Rule 7-2, XSD and XML Documents are Valid to Corresponding NDR Conformance Targets: Section 7, Organization, Packaging, and Other Criteria
