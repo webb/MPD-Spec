@@ -783,7 +783,7 @@
 	    <th>Code</th>
         </theadr>
 	<tr>
-            <td><termRef term="well-formed MPD">Well-formed MPD</termRef></td>
+	    <td><termRef>well-formed MPD</termRef></td>
 	    <td>WF-MPD</td>
 	</tr><tr>
 	    <td><termRef>NIEM IEPD</termRef></td>
@@ -792,21 +792,29 @@
 	    <td><termRef>NIEM EIEM</termRef></td>
 	    <td>N-EIEM</td>
 	</tr><tr>
-	    <td><termRef term="Information Exchange Package (IEP)">IEP</termRef></td>
+	<td><termRef>Information Exchange Package (IEP)</termRef></td>
 	    <td>IEP</td>
 	</tr><tr>
-	    <td><termRef term="full NIEM IEP">Full NIEM IEP</termRef></td>
+	<td><termRef>full NIEM IEP</termRef></td>
 	    <td>FN-IEP</td>
 	</tr><tr>
-	    <td><termRef term="MPD catalog document">MPD catalog</termRef></td>
+	<td><termRef>schema document subset</termRef></td>
+	    <td>Schema-subset</td>
+	</tr><tr>
+	<td><termRef>subset schema document</termRef></td>
+	    <td>Subset-schema</td>
+        </tr><tr>
+	<td><termRef>constraint schema document</termRef></td>
+	    <td>Constraint-schema</td>
+	</tr><tr>
+	<td><termRef>MPD catalog document</termRef></td>
 	    <td>M-Cat</td>
 	</tr><tr>
-	    <td><termRef term="XML catalog document">XML catalog</termRef></td>
+	<td><termRef>XML catalog document</termRef></td>
 	    <td>X-Cat</td>
 	</tr><tr>
 	    <td>MPD <termRef>change log</termRef></td>
 	    <td>M-Chg-Log</td>
-
         </tr>
 </table>
 
@@ -878,8 +886,8 @@
 	<p>The fundamental rule for a valid NIEM schema document subset is as follows:</p>
 
 <ruleSection><title>Fundamental NIEM Subset Rule</title>
-	<rule id="r-subset" applicability="Subset" class="Constraint">
-		<p>A subset schema assembled from a <termRef>schema document subset</termRef> derived from a NIEM <termRef>reference schema document set</termRef> is a valid subset schema, if and only if any instance XML document that validates with the schema subset also validates with the reference schema assembled from the <termRef>reference schema document set</termRef>.</p>
+	<rule id="r-subset" applicability="Schema-subset" class="Constraint">
+		<p>A subset schema assembled from a <termRef>schema document subset</termRef> derived from a NIEM <termRef>reference schema document set</termRef> is a valid subset schema, if and only if any instance XML document that validates with the subset schema also validates with the reference schema assembled from the <termRef>reference schema document set</termRef>.</p>
 	</rule>
 </ruleSection>
 
@@ -928,7 +936,7 @@
 	<p>A <termRef>schema document subset</termRef> is essentially a <termRef>reference schema document set</termRef> (i.e., a numbered release) that has been modified by applying the foregoing subset operations <ref idref="Subset-Operations"/> to support business requirements represented in an IEPD or EIEM.  A subset derived from a reference schema document set may differ from that reference set only in that its content has been reduced and/or constrained.  For this reason, each <termRef>subset schema document</termRef> adopts the target namespace of its corresponding <termRef>reference schema document</termRef>.</p>
 
 <ruleSection><title>Subset Schema Namespace Is a Reference Schema Namespace</title>
-	<rule id="r-subset-tgt-ns" applicability="Subset" class="Constraint">
+	<rule id="r-subset-tgt-ns" applicability="Subset-schema" class="Constraint">
 		<p>A <termRef>subset schema document</termRef> in a <termRef>schema document subset</termRef> derived from a <termRef>reference schema document set</termRef> MUST have the same target namespace as the schema document in the <termRef>reference schema document set</termRef> on which it is based.</p>
 	</rule>
 </ruleSection>
@@ -1024,7 +1032,7 @@
 	<p>Constraint schema documents are generally designed and employed in sets, similar to reference schema document set or schema document subsets.  A common practice for creating an IEPD or EIEM constraint schema document set is to start with a valid NIEM schema document subset and modify it to further restrict the class of instance XML documents (IEPs) that will validate with this constraint schema set.  However, an extension schema document can also be used to derive a constraint schema document.  The namespace of a constraint schema document is established the same way the namespace of a subset schema document is established, by reusing the target namespace of the schema document from which it is derived.</p>
 
 <ruleSection><title>Constraint Schema Namespace Is a Reference Schema Namespace</title>
-	<rule id="r-constraint-tgt-ns" applicability="Constraint" class="Constraint">
+	<rule id="r-constraint-tgt-ns" applicability="Constraint-schema" class="Constraint">
 		<p>A <termRef>constraint schema document</termRef> MUST have a target namespace that has been previously assigned to a <termRef term="reference schema document">reference</termRef> or <termRef>extension schema document</termRef>, or is a <termRef>constraint schema document</termRef> intended to support another <termRef>constraint schema document</termRef> that has such a target namespace.</p>
 	</rule>
 </ruleSection>
