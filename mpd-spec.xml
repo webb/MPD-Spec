@@ -105,6 +105,7 @@
 	<ol>
 		<li><p>Added explanations for <ref idref="MPD-Conformance-Targets"/>.</p></li>
 		<li><p>Added conformance target for <termRef>NIEM EIEM</termRef> (similar to <termRef>NIEM IEPD</termRef>.</p></li>
+		<li><p>Adjusted several conformance targets (what some rules apply to).</p></li>
 	</ol>
 </subsection>
 
@@ -439,7 +440,7 @@
 		<p>An MPD that defines one or more (generally recurring) XML data or information exchanges.</p>
 	</definition>
 
-	<p>An IEPD explicitly defines one or more classes of <termRef term="Information Exchange Package (IEP)"><em>Information Exchanges Packages</em></termRef> (IEP), each of which is an XML <em>instance document</em>.</p>
+	<p>An IEPD explicitly defines one or more classes of <termRef term="Information Exchange Package"><em>Information Exchanges Packages</em></termRef> (IEP), each of which is an XML <em>instance document</em>.</p>
 
 	<definition term="instance document">
 		<p>An instance document (of an <termRef>XML Schema</termRef>) is an <termRef>XML document</termRef> that is valid against the <termRef>XML Schema</termRef>.</p>
@@ -455,8 +456,8 @@
 	</ul>
 	<p>A NIEM IEPD defines one or more classes of XML documents.  Each of these XML documents is an <em>Information Exchange Package (IEP)</em> that satisfies all validity constraints for its class as defined by the IEPD.  An IEP is an information message payload serialized as XML and transmitted in some way, for example over a communications network.  (<ref idref="FEA-DRM"/> and <ref idref="GJXDM-IEPD"/> are the original sources of the terms <em>information exchange package</em> and <em>information exchange package documentation</em>, respectively).</p>
 
-	<definition id="IEP" term="Information Exchange Package (IEP)">
-		<p>An XML document that satisfies all the validity constraints for its class as defined by a NIEM IEPD.</p>
+	<definition id="IEP" term="Information Exchange Package">
+		<p>An XML document that satisfies all the validity constraints for its class as defined by a NIEM IEPD.  Abbreviated IEP.</p>
 	</definition>
 
 	<p>How to declare validity constraints for one or more IEP classes within an IEPD will be covered in more depth in <ref idref="Information-Exchange-Packages"/>.</p>
@@ -755,11 +756,11 @@
 	<ul>
 		<li><p><termRef term="well-formed MPD"><strong>Well-formed MPD</strong></termRef> <char name="mdash"/> An MPD that satisfies the need for a <ref idref="PKZIP"/> file with an <termRef>MPD catalog document</termRef> that adheres to a base set of rules:  the MPD catalog links to XML catalogs and identifies NDR classes of schema documents.  All five <termRef>Model Package Description (MPD)</termRef> classes conform to this conformance target.</p></li>
 
-		<li><p><termRef><strong>NIEM IEPD</strong></termRef> <char name="mdash"/> An IEPD class of MPD that establishes at least one conformance target for a class of IEPs (i.e., contains an <termRef>MPD catalog document</termRef> that declares one or more <code>c:IEPConformanceTarget</code> elements). </p></li>
+		<li><p><termRef><strong>NIEM IEPD</strong></termRef> <char name="mdash"/> An IEPD class of MPD that establishes at least one conformance target for a class of <termRef term="Information Exchange Package">Information Exchange Packages (IEP) (i.e., contains an <termRef>MPD catalog document</termRef> that declares one or more <code>c:IEPConformanceTarget</code> elements). </p></li>
 
 		<li><p><termRef><strong>NIEM EIEM</strong></termRef> <char name="mdash"/> An EIEM class of MPD that that serves as a template for building or generating a family of IEPDs; a relatively new concept in NIEM.</p></li>
 
-		<li><p><termRef term="Information Exchange Package (IEP)"><strong>IEP</strong></termRef> <char name="mdash"/> An <termRef term="instance document">instance XML document</termRef> that conforms to a conformance target defined by a <termRef><strong>NIEM IEPD</strong></termRef>.</p></li>
+		<li><p><termRef><strong>Information Exchange Package</strong></termRef> (IEP) <char name="mdash"/> An <termRef term="instance document">instance XML document</termRef> that conforms to a conformance target defined by a <termRef><strong>NIEM IEPD</strong></termRef>.</p></li>
 
 		<li><p><termRef term="full NIEM IEP"><strong>Full NIEM IEP</strong></termRef> <char name="mdash"/> An <termRef term="instance document">instance XML document</termRef> with an XML document element that is declared in either a NIEM <termRef term="reference schema document">reference</termRef> or <termRef>extension schema document</termRef>.</p></li>
 
@@ -798,25 +799,25 @@
 	    <td><termRef>NIEM EIEM</termRef></td>
 	    <td>N-EIEM</td>
 	</tr><tr>
-	<td><termRef>Information Exchange Package (IEP)</termRef></td>
+	    <td><termRef>Information Exchange Package</termRef></td>
 	    <td>IEP</td>
 	</tr><tr>
-	<td><termRef>full NIEM IEP</termRef></td>
+	    <td><termRef>full NIEM IEP</termRef></td>
 	    <td>FN-IEP</td>
 	</tr><tr>
-	<td><termRef>schema document subset</termRef></td>
+	    <td><termRef>schema document subset</termRef></td>
 	    <td>Schema-subset</td>
 	</tr><tr>
-	<td><termRef>subset schema document</termRef></td>
+	    <td><termRef>subset schema document</termRef></td>
 	    <td>Subset-schema</td>
         </tr><tr>
-	<td><termRef>constraint schema document</termRef></td>
+	    <td><termRef>constraint schema document</termRef></td>
 	    <td>Constraint-schema</td>
 	</tr><tr>
-	<td><termRef>MPD catalog document</termRef></td>
+	    <td><termRef>MPD catalog document</termRef></td>
 	    <td>M-Cat</td>
 	</tr><tr>
-	<td><termRef>XML catalog document</termRef></td>
+	    <td><termRef>XML catalog document</termRef></td>
 	    <td>X-Cat</td>
 	</tr><tr>
 	    <td>MPD <termRef>change log</termRef></td>
@@ -2293,7 +2294,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="IEP-Conformance-Targets">
 	<title>IEP Conformance Targets</title>
 
-	<p><ref idref="Information-Exchange-Package-Documentation"/> introduced the only MPD class that defines an information exchange <char name="mdash"/> <termRef>Information Exchange Package Documentation (IEPD)</termRef>.  This section also introduced an <termRef>Information Exchange Package (IEP)</termRef>, which is an information exchange defined by an IEPD.  An IEP is also a <termRef>conformance target</termRef> and in that connotation is defined as follows:</p>
+	<p><ref idref="Information-Exchange-Package-Documentation"/> introduced the only MPD class that defines an information exchange <char name="mdash"/> <termRef>Information Exchange Package Documentation (IEPD)</termRef>.  This section also introduced an <termRef>Information Exchange Package</termRef>, which is an information exchange defined by an IEPD.  An IEP is also a <termRef>conformance target</termRef> and in that connotation is defined as follows:</p>
 
 <definition term="information exchange package">
 		<p>An XML <termRef>instance document</termRef> defined by a <code>c:IEPConformanceTarget</code> element in an IEPD's <termRef>MPD catalog document</termRef>.</p>
