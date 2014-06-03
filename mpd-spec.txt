@@ -2,7 +2,7 @@ National Information Exchange Model -- Model Package Description Specification
 
 Version 3.0beta3
 
-June 1, 2014
+June 5, 2014
 
 NIEM Technical Architecture Committee (NTAC)
 
@@ -22,22 +22,6 @@ Status
 
    Email comments on this specification to niem-comments@lists.gatech.edu.
 
-Alpha 11 changes
-
-      1. Moved Section 4.7, Conformance Assertion, below, section to mandatory artifacts.
-
-      2. Added NIEM subset that supplements mpd-catalog-3.0.xsd.
-
-      3. Inserted proxy types (and namespace) into mpd-catalog-3.0.xsd.
-
-      4. Renamed master-document to read-me.*
-
-      5. Revised Appendix F, Guidance for IEPD Directories (non-normative), below, per feedback and discussions.
-
-      6. Validated CoT and all other simpler IEP samples.
-
-      7. Provided initial cut niem-core subset for mpd-catalog-3.0.xsd.
-
 Beta 1
 
       1.  Added Rule 4-9, MPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets and text above it.
@@ -48,7 +32,7 @@ Beta 1
 
       4.  Lots of minor corrections to Appendix F, Guidance for IEPD Directories (non-normative), below.
 
-      5.  Revised Section 5, MPD Conformance Targets, below.
+      5.  Revised Section 5, Conformance Targets, below.
 
       6.  Added Section 7.4, IEPD Completeness, below.
 
@@ -100,25 +84,33 @@ Beta 2
 
 Beta 3
 
-      1. Added explanations for Section 5.1, MPD Conformance Targets, below.
+      1. Added more detail and explanations for Section 5, Conformance Targets, below.
 
       2. Added conformance target for [NIEM EIEM] (similar to [NIEM IEPD].
 
-      3. Adjusted several conformance targets (what some rules apply to).
+      3. Adjusted several conformance targets (applicability: what some rules apply to).
 
-Remaining work and issues
+      4. Removed rules re resolution of URIs for c:externalURI and c:resourceURI that are not easily enforced and essentially out of scope.
 
-      1. Section 5 still needs work.
+Remaining work
 
-      2. Conformance targets (CT): missing? fork? class=Constraint/Interpretation? applicability=(correct CT)?
+      1. Review Conformance targets (CT):
 
-      3. oXygen validation errors on MPD catalog XSD; add lower level cardinality constraints back in to resolve oXygen errors?
+            *  Any missing?
 
-      4. Remaining TBDs.
+            *  Fork any rules?
 
-      5. Final QA, consistency, and validity checks on MPD catalog schema, MPD Toolkit, CoT IEPD, other appendices, etc.
+            *  applicability="(correct CT)"?
 
-      6. Final checks for typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.
+            *  class="Constraint" or "Interpretation"?
+
+      2. oXygen validation errors on MPD catalog XSD; reinsert cardinality constraints to resolve oXygen errors?
+
+      3. Remaining TBDs.
+
+      4. Final QA and validity checks on MPD catalog XSD, MPD Toolkit, CoT IEPD, other appendices, etc.
+
+      5. Final checks: typos, spell, punctuation, acronyms, abbreviations, format consistency, missing refs or termRefs.
 
 1. Introduction
 
@@ -546,13 +538,13 @@ Remaining work and issues
 
       A rule that sets the methodology, pattern, or procedure for understanding or using some aspect of an instance of a conformance target.
 
-   Each rule may apply to one or more [conformance targets]. Each rule lists its applicable [conformance target(s)] encoded according to Table Table 2-2, Conformance Target Codes, below. The conformance targets for this specification are summarized in Section 2.11, Conformance Target Concepts, below. Section 5, MPD Conformance Targets, below, provides additional conformance target definitions, explanations, and rules.
+   Each rule may apply to one or more [conformance targets]. Each rule lists its applicable [conformance target(s)] encoded according to Table Table 2-2, Conformance Target Codes, below. The conformance targets for this specification are summarized in Section 2.11, Conformance Target Concepts, below. Section 5, Conformance Targets, below, provides additional conformance target definitions, explanations, and rules.
 
    Rules are numbered according to the section in which they appear and the order in which they appear within that section. For example, Rule 4-1 is the first rule in Section 4.
 
 2.11. Conformance Target Concepts
 
-   This section introduces the concept of [conformance target], a concept fundamental to understanding the normative rules defined in this specification. Section 5, MPD Conformance Targets, below, defines and discusses rules for specific [conformance targets] established for MPDs.
+   This section introduces the concept of [conformance target], a concept fundamental to understanding the normative rules defined in this specification. Section 5, Conformance Targets, below, defines and discusses rules for specific [conformance targets] established for MPDs.
 
 2.11.1. Conformance Targets Attribute Specification terminology
 
@@ -582,7 +574,7 @@ Remaining work and issues
 
    Before summarizing the basic MPD [conformance targets], it is important to understand that IEPDs themselves are capable of declaring their own conformance targets
 
-   Section 5, MPD Conformance Targets, below, defines MPD Specification conformance targets and associated rules in more detail. However, the following is a brief summary of MPD [conformance targets]:
+   Section 5, Conformance Targets, below, defines MPD Specification conformance targets and associated rules in more detail. However, the following is a brief summary of MPD [conformance targets]:
 
       *  [Well-formed MPD] -- An MPD that satisfies the need for a [PKZIP] file with an [MPD catalog document] that adheres to a base set of rules: the MPD catalog links to XML catalogs and identifies NDR classes of schema documents. All five [Model Package Description (MPD)] classes conform to this conformance target.
 
@@ -932,7 +924,7 @@ Rule 4-3. MPD Catalog Document Valid to Schematron Rules
 
       An [MPD catalog document] MUST be valid to the NIEM MPD catalog Schematron rules in Appendix C, Schematron Rules for MPDs.
 
-   Note that Appendix A, MPD Catalog XML Schema Document, below, is a fairly relaxed XML schema definition with very few mandatory properties. The reason for this is to support tools that must identify and distiguish a [well-formed] from a [NIEM IEPD] during incremental stages of development. This is explained in more detail in Section 5, MPD Conformance Targets, below.
+   Note that Appendix A, MPD Catalog XML Schema Document, below, is a fairly relaxed XML schema definition with very few mandatory properties. The reason for this is to support tools that must identify and distiguish a [well-formed] from a [NIEM IEPD] during incremental stages of development. This is explained in more detail in Section 5, Conformance Targets, below.
 
    Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a [NIEM IEPD], special Schematron rules also apply to an MPD catalog to ensure its validity or completeness.
 
@@ -1795,7 +1787,7 @@ Rule 4-48. Conformance Assertion File Name Is conformance-assertion.*
 
    In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts. A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and IEPD identity (i.e., that the IEPD is an unaltered copy of the original). For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discretion of the author or sponsor.
 
-5. MPD Conformance Targets
+5. Conformance Targets
 
    [Conformance targets] were introduced earlier in Section 2.11, Conformance Target Concepts, above, because they are necessary to understand the rules this specification subsequently defines. This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.
 
@@ -3426,8 +3418,6 @@ Appendix E. Conformance Assertion Example
 
    Images are omitted from this edition.
 
-      
-
 Appendix F. Guidance for IEPD Directories (non-normative)
 
    NIEM releases, core updates, and domain updates generally follow a consistent directory organization. When employing release and updates within IEPDs and EIEMs whether as-is or as subsets, users are encouraged to maintain their original directory structures. However, aside from applicable rules previously stated in the preceding sections, there are no normative rules for organizing directories within IEPDs or EIEMs.
@@ -3497,6 +3487,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
    		read-me.*
    
    		/base-xsd
+   
    			/niem			(subset)
    				/adapters
    				/appinfo
@@ -3529,6 +3520,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
    				xml-catalog.xml
    
    		/constraint-xsd			(constraint schema documents)
+   
    			/niem			(constraints on subset)
    				/adapters
    				/appinfo
@@ -3537,6 +3529,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
    				...
    				wantlist.xml
    				xml-catalog.xml
+   
    			/extension		(constraints on extensions)
    				query.xsd
    				extension1.xsd
