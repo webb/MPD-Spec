@@ -16,7 +16,7 @@
  
    <title>National Information Exchange Model <char name="mdash"/> Model Package Description Specification</title>
    <version>3.0beta3</version>
-   <date>2014-06-01</date>
+   <date>2014-06-05</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
  
   <subsection>
@@ -37,21 +37,6 @@
     	<p>This specification is a product of the NIEM Program Management Office (PMO).</p>
     	<p>Email comments on this specification to <link href="mailto:niem-comments%40lists.gatech.edu?subject=NIEM%20MPD%20Specification%20Version%203.0">niem-comments@lists.gatech.edu</link>.</p>
 	</subsection>
-
-
-
-<subsection>
-	<title>Alpha 11 changes</title>
-	<ol>
-		<li><p>Moved <ref idref="Conformance-Assertion"/> section to mandatory artifacts.</p></li>
-		<li><p>Added NIEM subset that supplements <code>mpd-catalog-3.0.xsd</code>.</p></li>
-		<li><p>Inserted proxy types (and namespace) into <code>mpd-catalog-3.0.xsd</code>.</p></li>
-		<li><p>Renamed <code>master-document</code> to <code>read-me.*</code></p></li>
-		<li><p>Revised <ref idref="Guidance-IEPD-Directories"/> per feedback and discussions.</p></li>
-		<li><p>Validated CoT and all other simpler IEP samples.</p></li>
-		<li><p>Provided initial cut <code>niem-core</code> subset for <code>mpd-catalog-3.0.xsd</code>.</p></li>
-	</ol>
-</subsection>
 
 
 
@@ -103,23 +88,29 @@
 <subsection>
 	<title>Beta 3</title>
 	<ol>
-		<li><p>Added explanations for <ref idref="MPD-Conformance-Targets"/>.</p></li>
+		<li><p>Added more detail and explanations for <ref idref="Conformance-Targets"/>.</p></li>
 		<li><p>Added conformance target for <termRef>NIEM EIEM</termRef> (similar to <termRef>NIEM IEPD</termRef>.</p></li>
-		<li><p>Adjusted several conformance targets (what some rules apply to).</p></li>
+		<li><p>Adjusted several conformance targets (applicability:  what some rules apply to).</p></li>
+		<li><p>Removed rules re resolution of URIs for <code>c:externalURI</code> and <code>c:resourceURI</code> that are not easily enforced and essentially out of scope.</p></li>
 	</ol>
 </subsection>
 
 
 
 <subsection>
-	<title>Remaining work and issues</title>
+	<title>Remaining work</title>
 	<ol>
-		<li><p>Section 5 still needs work.</p></li>
-		<li><p>Conformance targets (CT): missing? fork? class=Constraint/Interpretation? applicability=(correct CT)?</p></li>
-		<li><p>oXygen validation errors on MPD catalog XSD; add lower level cardinality constraints back in to resolve oXygen errors?</p></li>
+		<li><p>Review Conformance targets (CT):<p>
+			<ul>
+				<li><p>Any missing?</p></li> 
+				<li><p>Fork any rules?</p></li>
+				<li><p>applicability="(correct CT)"?</p></li>
+			        <li><p>class="Constraint" or "Interpretation"?</p></li>
+			</ul></li>
+		<li><p>oXygen validation errors on MPD catalog XSD; reinsert cardinality constraints to resolve oXygen errors?</p></li>
    		<li><p>Remaining TBDs.</p></li>
-		<li><p>Final QA, consistency, and validity checks on MPD catalog schema, MPD Toolkit, CoT IEPD, other appendices, etc.</p></li>
-		<li><p>Final checks for typos, spell, punctuation, acronyms/abbrevs, missing refs or termRefs, consistency.</p></li>
+		<li><p>Final QA and validity checks on MPD catalog XSD, MPD Toolkit, CoT IEPD, other appendices, etc.</p></li>
+		<li><p>Final checks: typos, spell, punctuation, acronyms, abbreviations, format consistency, missing refs or termRefs.</p></li>
 	</ol>
 </subsection>
 
@@ -2229,7 +2220,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 
 <section id="Conformance-Targets">
-	<title>MPD Conformance Targets</title>
+	<title>Conformance Targets</title>
 
 	<p><termRef term="conformance target">Conformance targets</termRef> were introduced earlier in <ref idref="Conformance-Target-Concepts"/> because they are necessary to understand the rules this specification subsequently defines.  This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.</p>
 
@@ -2693,7 +2684,6 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<image src="img/niem-conformance-assertion.png"/>
 
-	<p> <char name="nbsp"/> </p>
 </section>
 
 
@@ -2766,6 +2756,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 		read-me.*
 
 		/base-xsd
+
 			/niem			(subset)
 				/adapters
 				/appinfo
@@ -2798,6 +2789,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 				xml-catalog.xml
 
 		/constraint-xsd			(constraint schema documents)
+
 			/niem			(constraints on subset)
 				/adapters
 				/appinfo
@@ -2806,6 +2798,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 				...
 				wantlist.xml
 				xml-catalog.xml
+
 			/extension		(constraints on extensions)
 				query.xsd
 				extension1.xsd
