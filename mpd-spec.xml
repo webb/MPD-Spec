@@ -1373,7 +1373,7 @@
 </definition>
 
 <definition term="resolve URI">
-	<p>A function (or an action) that takes a URI string of the form <code>xs:anyURI</code> and returns the resource it identifies.  If the resource is local and does not exist, then this function fails.  If a resource is remote (e.g., a URL on the Internet or a URN of an unknown location), then this function (or action) may require human intervention to determine if the resource exists (pass) or not (fail).</p>
+	<p>A function (or action) that takes a URI string of the form <code>xs:anyURI</code> and returns the resource it identifies.  If the URI is local (i.e., within an MPD) and the resource does not exist, then this function fails.  If a URI is remote or of unknown location (e.g., a URN), then this function (or action) may require human assistance to determine if a resource associated with the URI exists (pass) or not (fail).</p>
 </definition>
 
 
@@ -1465,6 +1465,8 @@
 	<p>Additional <code>c:externalURI</code> attributes may be added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.</p>
 
 	<p>A URI does not have the same meaning as namespace.  NIEM namespaces cannot be used as MPD artifact URIs.  Recall that the target namespace used in a subset schema document derived from a NIEM release schema document is identical to the target namespace of that release schema document.  Furthermore, an IEPD or an EIEM may contain multiple subsets.  NIEM namespaces are not necessarily unique to an artifact within an MPD.  Later, <ref idref="XML-Catalogs"/> will describe the use of <ref idref="OASIS-XML-Catalogs"/> to correlate namespaces to local URIs in order to <termRef term="resolve URI">resolve</termRef> them to local resources.</p>
+
+	<p>The value of <code>c:externalURI</code> is an identifier for a remote resource that is not necessarily accessible online.  For this reason, even though such URIs should be correct (i.e. a resource with that URI should exist), their verification is not within the scope of this specification.</p>
 
 </section>
 
@@ -1607,6 +1609,8 @@
 	<p>As was described in <ref idref="externalURI"/>, the MPD catalog also enables an author to record more fine-grained ancestry between MPDs using the <code>c:externalURI</code> attribute.  This attribute records an explicit equivalence relationship between artifacts reused across MPDs.</p>
 
 	<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse a given EIEM.  In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.</p>
+
+	<p>Note that a <code>c:resourceURI</code> attribute is used to identify a remote resource that is related to the MPD whose catalog declares it.  Therefore, the MPD is not required to contain this resource.  As in the case of <code>c:externalURI</code>, the value of a <code>c:resourceURI</code> should be correct (i.e., a resource with that URI should exist).  However, verification of this is considered outside the scope of this specfication.</p>
 
 </section>
 
@@ -2236,16 +2240,16 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="MPD-Conformance-Targets">
 	<title>MPD Conformance Targets</title>
 
-	<p>There are two primary MPD conformance targets: <termRef>well-formed MPD</termRef> and <termRef>NIEM IEPD</termRef>.</p>
+	<p>There are three primary MPD conformance targets: <termRef>well-formed MPD</termRef>, <termRef>NIEM IEPD</termRef>, and <termRef>NIEM EIEM</termRef>.</p>
 
 	<p>An MPD may be constructed manually, but it is far more efficient to generate its parts or its entirety using one or more NIEM-aware software tools.  A <termRef>well-formed MPD</termRef> <termRef>conformance target</termRef> has several advantages:</p>
 
 		<ul>
 			<li><p>Facilitates the existence of many incremental states from start to finish that are checkpoints for well-formedness.</p></li>
-			<li><p>Enables multiple paths to completion; no one pre-determined sequence of rule applications.</p></li>
+			<li><p>Enables multiple paths to completion; no single pre-determined sequence of rule applications exists.</p></li>
 			<li><p>Avoids a need to build a complete MPD before automated correctness checks can be applied.</p></li>
 			<li><p>Provides tool developers with flexibility for constructing an MPD incrementally in many different sequences.</p></li>
-			<li><p>Facilitates the interoperability and use of multiple tools that can export/import a WF-MPD.</p></li>
+			<li><p>Facilitates the interoperability and use of multiple tools that can export/import a <termRef>well-formed MPD</termRef>.</p></li>
 		</ul>
 
 <definition term="well-formed MPD">
@@ -2254,7 +2258,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>The five standard NIEM MPD classes can be partitioned into two general groups based on control.  In the first group are NIEM releases, Core updates, and domain updates; and in the second, IEPDs and EIEMs.  The first group is developed, controlled, and published by the NIEM PMO.  However, the second group is developed by organizations or individuals that are not under PMO control.  Control of these MPDs is widely distributed and subject only to NIEM specifications (e.g., the NIEM NDR, the NIEM MPD Specification, the NIEM Conformance Specification, etc.).  In some cases, this may mean interpretation of subjective rules that are not testable (for example, rules for new data component definitions).</p>
 
-	<p>Furthermore, most rules in this MPD Specification are applicable to a <termRef>well-formed MPD</termRef> <termRef>conformance target</termRef>.  Rules for this conformance target are less concerned with the correct use of NIEM and more concerned with correct use of MPD artifacts, and proper format and structure.  Adherence to these rules can produce an IEPD or EIEM that is well-formed, but that does not necessarily satisfy all general and specific requirements for a NIEM IEPD or EIEM.  While some rules in this MPD Specification may imply general and specific NIEM-conformance, the following rules ensure that a complete <em>NIEM-IEPD</em> and <em>NIEM-EIEM</em> adhere to all applicable NIEM conformance rules.</p>
+	<p>Furthermore, most rules in this MPD Specification are applicable to a <termRef>well-formed MPD</termRef> <termRef>conformance target</termRef>.  Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts.  Adherence to these rules can produce an IEPD or EIEM that is well-formed, but that does not necessarily satisfy all general and specific requirements for a NIEM IEPD or EIEM.  While some rules in this MPD Specification may imply general and specific NIEM-conformance, the following rules ensure that a complete <em>NIEM-IEPD</em> and <em>NIEM-EIEM</em> adhere to all applicable NIEM conformance rules.</p>
 
 <definition term="NIEM IEPD">
 	<p>An MPD that:</p>
@@ -2294,33 +2298,17 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="IEP-Conformance-Targets">
 	<title>IEP Conformance Targets</title>
 
-	<p><ref idref="Information-Exchange-Package-Documentation"/> introduced the only MPD class that defines an information exchange <char name="mdash"/> <termRef>Information Exchange Package Documentation (IEPD)</termRef>.  This section also introduced an <termRef>Information Exchange Package</termRef>, which is an information exchange defined by an IEPD.  An IEP is also a <termRef>conformance target</termRef> and in that connotation is defined as follows:</p>
+	<p><ref idref="Information-Exchange-Package-Documentation"/> introduced the only MPD class that defines an information exchange <char name="mdash"/> <termRef>Information Exchange Package Documentation (IEPD)</termRef>.  This section also introduced an <termRef>Information Exchange Package</termRef>, which is an information exchange instance defined by an IEPD.  An IEP is also a <termRef>conformance target</termRef> and in that connotation is defined as follows:</p>
 
 <definition term="information exchange package">
 		<p>An XML <termRef>instance document</termRef> defined by a <code>c:IEPConformanceTarget</code> element in an IEPD's <termRef>MPD catalog document</termRef>.</p>
 </definition>
 
-<p>The definition of an <termRef>information exchange package</termRef> conformance target is not strong enough to ensure that an IEP artifact uses NIEM.  Somewhat similar to the rationale for conformance targets <termRef>well-formed MPD</termRef> and <termRef>NIEM IEPD</termRef>, there is a need for a conformance target that distinguishes a general IEP and an IEP that represents a valid NIEM information exchange.  The following definition for a <em>full NIEM IEP</em> will suffice:</p>
+<p>The definition of an <termRef>information exchange package</termRef> conformance target is not strong enough to ensure that an IEP artifact uses NIEM.  Thus, there is a need for a conformance target that distinguishes a general IEP from an IEP that represents a valid NIEM information exchange.  This is somewhat analogous to the need for <termRef>well-formed MPD</termRef> and <termRef>NIEM IEPD</termRef> conformance targets.  The following defines a <em>full NIEM IEP</em> <termRef>conformance target</termRef>:</p>
 
 <definition term="full NIEM IEP">
 	<p>An XML document with an XML document element that is defined by a NIEM reference schema or NIEM extension schema.</p>
 </definition>
-
-	<p>The following rules apply to a <termRef>full NIEM IEP</termRef>:</p>
-
-<ruleSection>
-	<title>Value of <code>c:externalURI</code> Resolves to Resource</title>
-	<rule id="fni1" applicability="FN-IEP" class="Constraint">
-		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:externalURI</code> attribute owned by an element that is a <code>c:FileType</code> or <code>c:FileSetType</code> (or a type derived from either of these) MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
-	</rule>
-</ruleSection>
-
-<ruleSection>
-	<title>Value of <code>c:resourceURI</code> Resolves to Resource</title>
-	<rule id="fni2" applicability="FN-IEP" class="Constraint">
-		<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:resourceURI</code> attribute owned by a <code>c:Relationship</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
-	</rule>
-</ruleSection>
 
 </section>
 </section>
