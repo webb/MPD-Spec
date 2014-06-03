@@ -1097,7 +1097,7 @@ Rule 4-10. MPD Version Number Syntax
 
    [Definition: resolve URI]
 
-      A function (or an action) that takes a URI string of the form xs:anyURI and returns the resource it identifies. If the resource is local and does not exist, then this function fails. If a resource is remote (e.g., a URL on the Internet or a URN of an unknown location), then this function (or action) may require human intervention to determine if the resource exists (pass) or not (fail).
+      A function (or action) that takes a URI string of the form xs:anyURI and returns the resource it identifies. If the URI is local (i.e., within an MPD) and the resource does not exist, then this function fails. If a URI is remote or of unknown location (e.g., a URN), then this function (or action) may require human assistance to determine if a resource associated with the URI exists (pass) or not (fail).
 
 4.2.2.1. URI Scheme for MPDs (mpdURI)
 
@@ -1184,6 +1184,8 @@ Rule 4-14. MPD Artifact URI Syntax
    Additional c:externalURI attributes may be added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.
 
    A URI does not have the same meaning as namespace. NIEM namespaces cannot be used as MPD artifact URIs. Recall that the target namespace used in a subset schema document derived from a NIEM release schema document is identical to the target namespace of that release schema document. Furthermore, an IEPD or an EIEM may contain multiple subsets. NIEM namespaces are not necessarily unique to an artifact within an MPD. Later, Section 4.5, XML Catalogs, below, will describe the use of [XML Catalogs] to correlate namespaces to local URIs in order to [resolve] them to local resources.
+
+   The value of c:externalURI is an identifier for a remote resource that is not necessarily accessible online. For this reason, even though such URIs should be correct (i.e. a resource with that URI should exist), their verification is not within the scope of this specification.
 
 4.2.2.3. URI Scheme for Local MPD Artifacts (pathURI)
 
@@ -1317,6 +1319,8 @@ Rule 4-31. c:pathURI for c:RequiredFile
 
    Some MPDs are designed for more extensive reuse than others. For example, families of IEPDs are expected to reuse a given EIEM. In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references. This is expected. The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs. Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.
 
+   Note that a c:resourceURI attribute is used to identify a remote resource that is related to the MPD whose catalog declares it. Therefore, the MPD is not required to contain this resource. As in the case of c:externalURI, the value of a c:resourceURI should be correct (i.e., a resource with that URI should exist). However, verification of this is considered outside the scope of this specfication.
+
 4.2.2.5. Conformance Target URI (conformanceTargetURI)
 
    A declared c:IEPConformanceTarget also has a URI. 
@@ -1445,7 +1449,7 @@ Rule 4-36. Release and Core/Domain Update changelog.xml Valid to mpd-changelog-1
 
 Rule 4-37. IEPD and EIEM Have Change Log in Root Directory
 
-   [Rule 4-37] (N-IEPD,, N-EIEM)
+   [Rule 4-37] (N-IEPD, N-EIEM)
 
       An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST contain a change log artifact in its [MPD root directory]
 
@@ -1463,7 +1467,7 @@ Rule 4-37. IEPD and EIEM Have Change Log in Root Directory
 
 Rule 4-38. IEPD and EIEM Have read-me.* in Root Directory
 
-   [Rule 4-38] (N-IEPD,, N-EIEM)
+   [Rule 4-38] (N-IEPD, N-EIEM)
 
       An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST contain a read-me.* file artifact in its [MPD root directory].
 
@@ -1757,7 +1761,7 @@ Rule 4-46. Validating an IEP Sample XML Document
 
 Rule 4-47. IEPD and EIEM Have Conformance Assertion in Root Directory
 
-   [Rule 4-47] (N-IEPD,, N-EIEM)
+   [Rule 4-47] (N-IEPD, N-EIEM)
 
       An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST contain a [conformance assertion] artifact in its [MPD root directory].
 
@@ -1797,19 +1801,19 @@ Rule 4-48. Conformance Assertion File Name Is conformance-assertion.*
 
 5.1. MPD Conformance Targets
 
-   There are two primary MPD conformance targets: [well-formed MPD] and [NIEM IEPD].
+   There are three primary MPD conformance targets: [well-formed MPD], [NIEM IEPD], and [NIEM EIEM].
 
    An MPD may be constructed manually, but it is far more efficient to generate its parts or its entirety using one or more NIEM-aware software tools. A [well-formed MPD] [conformance target] has several advantages:
 
       *  Facilitates the existence of many incremental states from start to finish that are checkpoints for well-formedness.
 
-      *  Enables multiple paths to completion; no one pre-determined sequence of rule applications.
+      *  Enables multiple paths to completion; no single pre-determined sequence of rule applications exists.
 
       *  Avoids a need to build a complete MPD before automated correctness checks can be applied.
 
       *  Provides tool developers with flexibility for constructing an MPD incrementally in many different sequences.
 
-      *  Facilitates the interoperability and use of multiple tools that can export/import a WF-MPD.
+      *  Facilitates the interoperability and use of multiple tools that can export/import a [well-formed MPD].
 
    [Definition: well-formed MPD]
 
@@ -1817,7 +1821,7 @@ Rule 4-48. Conformance Assertion File Name Is conformance-assertion.*
 
    The five standard NIEM MPD classes can be partitioned into two general groups based on control. In the first group are NIEM releases, Core updates, and domain updates; and in the second, IEPDs and EIEMs. The first group is developed, controlled, and published by the NIEM PMO. However, the second group is developed by organizations or individuals that are not under PMO control. Control of these MPDs is widely distributed and subject only to NIEM specifications (e.g., the NIEM NDR, the NIEM MPD Specification, the NIEM Conformance Specification, etc.). In some cases, this may mean interpretation of subjective rules that are not testable (for example, rules for new data component definitions).
 
-   Furthermore, most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and more concerned with correct use of MPD artifacts, and proper format and structure. Adherence to these rules can produce an IEPD or EIEM that is well-formed, but that does not necessarily satisfy all general and specific requirements for a NIEM IEPD or EIEM. While some rules in this MPD Specification may imply general and specific NIEM-conformance, the following rules ensure that a complete NIEM-IEPD and NIEM-EIEM adhere to all applicable NIEM conformance rules.
+   Furthermore, most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts. Adherence to these rules can produce an IEPD or EIEM that is well-formed, but that does not necessarily satisfy all general and specific requirements for a NIEM IEPD or EIEM. While some rules in this MPD Specification may imply general and specific NIEM-conformance, the following rules ensure that a complete NIEM-IEPD and NIEM-EIEM adhere to all applicable NIEM conformance rules.
 
    [Definition: NIEM IEPD]
 
@@ -1851,31 +1855,17 @@ Rule 4-48. Conformance Assertion File Name Is conformance-assertion.*
 
 5.2. IEP Conformance Targets
 
-   Section 2.8.4, Information Exchange Package Documentation (IEPD), above, introduced the only MPD class that defines an information exchange -- [Information Exchange Package Documentation (IEPD)]. This section also introduced an [Information Exchange Package], which is an information exchange defined by an IEPD. An IEP is also a [conformance target] and in that connotation is defined as follows:
+   Section 2.8.4, Information Exchange Package Documentation (IEPD), above, introduced the only MPD class that defines an information exchange -- [Information Exchange Package Documentation (IEPD)]. This section also introduced an [Information Exchange Package], which is an information exchange instance defined by an IEPD. An IEP is also a [conformance target] and in that connotation is defined as follows:
 
    [Definition: information exchange package]
 
       An XML [instance document] defined by a c:IEPConformanceTarget element in an IEPD's [MPD catalog document].
 
-   The definition of an [information exchange package] conformance target is not strong enough to ensure that an IEP artifact uses NIEM. Somewhat similar to the rationale for conformance targets [well-formed MPD] and [NIEM IEPD], there is a need for a conformance target that distinguishes a general IEP and an IEP that represents a valid NIEM information exchange. The following definition for a full NIEM IEP will suffice:
+   The definition of an [information exchange package] conformance target is not strong enough to ensure that an IEP artifact uses NIEM. Thus, there is a need for a conformance target that distinguishes a general IEP from an IEP that represents a valid NIEM information exchange. This is somewhat analogous to the need for [well-formed MPD] and [NIEM IEPD] conformance targets. The following defines a full NIEM IEP [conformance target]:
 
    [Definition: full NIEM IEP]
 
       An XML document with an XML document element that is defined by a NIEM reference schema or NIEM extension schema.
-
-   The following rules apply to a [full NIEM IEP]:
-
-Rule 5-1. Value of c:externalURI Resolves to Resource
-
-   [Rule 5-1] (FN-IEP)
-
-      Within an [MPD catalog document] the value of a c:externalURI attribute owned by an element that is a c:FileType or c:FileSetType (or a type derived from either of these) MUST [resolve] to a resource.
-
-Rule 5-2. Value of c:resourceURI Resolves to Resource
-
-   [Rule 5-2] (FN-IEP)
-
-      Within an [MPD catalog document] the value of a c:resourceURI attribute owned by a c:Relationship element MUST [resolve] to a resource.
 
 6. Optional MPD Artifacts
 
@@ -3801,8 +3791,6 @@ Appendix J. Index of Rules
    Rule 4-46, Validating an IEP Sample XML Document: Section 4.6.3, IEP Sample XML Instance Documents
    Rule 4-47, IEPD and EIEM Have Conformance Assertion in Root Directory: Section 4.7, Conformance Assertion
    Rule 4-48, Conformance Assertion File Name Is conformance-assertion.*: Section 4.7, Conformance Assertion
-   Rule 5-1, Value of c:externalURI Resolves to Resource: Section 5.2, IEP Conformance Targets
-   Rule 5-2, Value of c:resourceURI Resolves to Resource: Section 5.2, IEP Conformance Targets
    Rule 6-1, Wantlist Location: Section 6.1, NIEM Wantlist
    Rule 7-1, MPD Is a Zip Archive: Section 7, Organization, Packaging, and Other Criteria
    Rule 7-2, XSD and XML Documents are Valid to Corresponding NDR Conformance Targets: Section 7, Organization, Packaging, and Other Criteria
