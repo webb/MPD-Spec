@@ -568,9 +568,7 @@ Remaining work
 
       The term conformance target identifier is as defined by [NIEM Conformance Target Attribute Specification], which states:
 
-         A conformance target identifier is an internationalized resource identifier that uniquely identifies a conformance target.
-
-   The term internationlized resource identifier (IRI) is defined by [RFC 3987 IRI]. The RFC also defines comparison of IRIs.
+         A conformance target identifier is an internationalized resource identifier [RFC 3987 IRI] that uniquely identifies a conformance target.
 
 2.11.2. Conformance Targets for MPDs
 
@@ -584,7 +582,7 @@ Remaining work
 
    Section 5, Conformance Targets, below, defines MPD Specification conformance targets and associated rules in more detail. However, the following is a brief summary of MPD [conformance targets]:
 
-      *  [Well-formed MPD] -- An MPD that satisfies the need for a [PKZIP] file with an [MPD catalog document] that adheres to a base set of rules: the MPD catalog links to XML catalogs and identifies NDR classes of schema documents. All five [Model Package Description] (MPD) classes conform to this [conformance target].
+      *  [Well-formed MPD] -- An MPD that satisfies the need for a [PKZIP] file with an [MPD catalog document] that validates with the MPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an MPD by iteratively adding artifacts and expanding the MPD catalog to reference them.
 
       *  [NIEM IEPD] -- An IEPD class of MPD that establishes at least one conformance target for a class of [Information Exchange Packages] (IEP) (i.e., contains an [MPD catalog document] that declares one or more c:IEPConformanceTarget elements). 
 
@@ -638,7 +636,7 @@ Remaining work
 
 3. MPD XML Schema Document Artifacts
 
-   [XML schema document] artifacts are the essential content of MPDs because they normatively define and declare data components. The purpose of an MPD is determined by the [XML schema document] or document set(s) it contains; furthermore, each [ XML schema document] may have a different purpose. The [NIEM NDR] addresses some schema documents as [conformance targets] including reference schema documents, extension schema documents, and schema document sets. Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules. Consult the [NIEM NDR] for these rules. NIEM also employs a special technique that relies on [constraint schema documents] and document sets.
+   [XML schema document] artifacts are the essential content of MPDs because they normatively define and declare data components. The purpose of an MPD is determined by the [XML schema document] or document set(s) it contains; furthermore, each [ XML schema document] may have a different purpose. The [NIEM NDR] addresses some schema documents as [conformance targets] including reference schema documents, extension schema documents, and schema document sets. Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules. Consult the [NIEM NDR] for these rules. NIEM also employs a special technique that relies on [constraint schema documents] and document sets Section 3.5, Constraint Schema Documents and Document Sets, below.
 
    The following subsections will define each type of NIEM schema document and document set, and will identify the types of MPDs that contain them.
 
@@ -664,7 +662,7 @@ Remaining work
 
       An XML schema document that meets all of the following criteria:
 
-         *  It is built from a reference schema document set where one or more reference schema documents has been substituted by a its corresponding subset schema document.
+         *  It is built from a reference schema document set where one or more reference schema documents have been substituted by corresponding subset schema documents.
 
          *  It is built from a reference schema document by applying subset operations to the XML schema statements in a reference schema document.
 
@@ -678,13 +676,13 @@ Remaining work
 
       See also [schema document subset].
 
-   The primary purpose for a schema document subset is to reduce and constrain the scope and size of a full NIEM reference schema document set for use within an IEPD or EIEM. Thus, a schema document subset is derived from a reference schema document set (such as a NIEM release) by applying subset operations (See Section 3.2.2, Subset Operations, below). Also, note that the process of deriving a schema document subset from a NIEM reference schema document set is optional; it is completely valid to reuse NIEM reference schema documents as-is within IEPDs or EIEMs.
-
    [Definition: schema document subset]
 
       An XML schema document set built from a reference schema document set by applying subset operations to the reference schema documents in that set.
 
       See also [subset schema document].
+
+   The primary purpose for a schema document subset is to reduce and constrain the scope and size of a full NIEM reference schema document set for use within an IEPD or EIEM. Thus, a schema document subset is derived from a reference schema document set (such as a NIEM release) by applying subset operations (See Section 3.2.2, Subset Operations, below). Also, note that the process of deriving a schema document subset from a NIEM reference schema document set is optional; it is completely valid to reuse NIEM reference schema documents as-is within IEPDs or EIEMs.
 
    Because NIEM adopts an optional and over-inclusive data representation strategy, most elements in a NIEM reference schema have zero to unbounded cardinality. So, elements with cardinality minOccurs="0" are optional and may be omitted from a subset schema document if not needed for business reasons. It is also valid to constrain element cardinality within a subset schema document, as long as doing so does not break the subset relationship with the reference schema document set. For example, a reference schema document element with cardinality (minOccurs="0", maxOccurs="unbounded") may be constrained to (0,1) or (1,1) in a subset schema document. However, if a reference schema document element's cardinality is (1,unbounded), it may not be constrained to (0,1) since this breaks the subset relationship. The interval (0,1) is not contained within, and instead, overlaps the interval (1,unbounded).
 
@@ -702,7 +700,7 @@ Rule 3-1. Fundamental NIEM Subset Rule
 
    NIEM subset operations are essentially reduction operations that remove or constrain portions of a reference schema document set, thereby building a profile of the set. They do not expand the scope (i.e., relax constraints) or change the semantics of reference schema document set content.
 
-   The following describe valid operations that, if applied to a schema document set will result in a corresponding [schema document subset]:
+   The following list describes valid operations that, if applied to a schema document set will result in a corresponding [schema document subset]:
 
       1.  Remove an XML comment.
 
@@ -760,7 +758,7 @@ Rule 3-2. Subset Schema Namespace Is a Reference Schema Namespace
 
    Previous sections defined a single schema subset derived from a reference schema document set. In general, an IEPD or EIEM contains a single cohesive schema subset (which may be a rather large set of files) based on one numbered NIEM release or domain update.
 
-   However, this specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM. Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM. However, exercising this degree of flexibility makes it critically important that developers understand the potential consequences. NIEM subsets represent a delicate compromise between flexibility and interoperability. On the one hand, a set of IEPDs based on the same subset and numbered release use identical data components, thereby enhancing interoperability. On the other hand, mixing dissimilar subsets from the same numbered release or mixing subsets derived from various numbered releases has the potential to introduce semantic duplication and subtle ambiguity. This, in turn, can have a negatively impact on interoperability.
+   However, this specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM. Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM. However, exercising this degree of flexibility makes it critically important that developers understand the potential consequences. NIEM subsets represent a compromise between flexibility and interoperability. On the one hand, a set of IEPDs based on the same subset and numbered release use identical data components, thereby enhancing interoperability. On the other hand, mixing dissimilar subsets from the same numbered release or mixing subsets derived from various numbered releases has the potential to introduce semantic duplication and subtle ambiguity. This, in turn, can have a negative impact on interoperability.
 
    The NIEM mandate that every schema have a unique target namespace prevents name conflicts between reference schema document sets and between two subsets derived from different reference sets. In spite of namespace distinction, mixing subsets of multiple reference schema document sets can still introduce multiple versions of semantically equivalent data components, a potentially ambiguous situation. Even employing multiple subsets together that have been derived from the same reference set has the potential to create a similar result. Above all, it is the developer's responsibility to ensure that, if mixing subsets from one or more numbered releases within a single IEPD or EIEM, these artifacts are carefully coordinated and clearly documented to ensure the various versions of semantically equivalent data components and different schemas with the same namespaces will not cause conflicts, confusion, and/or failure during validation or exchange implementation.
 
@@ -932,7 +930,7 @@ Rule 4-3. MPD Catalog Document Valid to Schematron Rules
 
       An [MPD catalog document] MUST be valid to the NIEM MPD catalog Schematron rules in Appendix C, Schematron Rules for MPDs.
 
-   Note that Appendix A, MPD Catalog XML Schema Document, below, is a fairly relaxed XML schema definition with very few mandatory properties. The reason for this is to support tools that must identify and distiguish a [well-formed] from a [NIEM IEPD] during incremental stages of development. This is explained in more detail in Section 5, Conformance Targets, below.
+   Note that Appendix A, MPD Catalog XML Schema Document, below, is a fairly relaxed XML schema definition with very few mandatory properties. The reason for this is to support tools that must identify and distiguish a [well-formed] IEPD from a [NIEM IEPD] during incremental stages of development. This is explained in more detail in Section 5, Conformance Targets, below.
 
    Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a [NIEM IEPD], special Schematron rules also apply to an MPD catalog to ensure its validity or completeness.
 
@@ -1327,11 +1325,11 @@ Rule 4-31. c:pathURI for c:RequiredFile
 
 4.2.2.6. Resolving an MPD URI with a Fragment
 
-Rule 4-32. Resolve MPD URI With Fragment
+Rule 4-32. Resolve MPD URI with Fragment
 
    [Rule 4-32] (WF-MPD)
 
-      Given an absolute MPD URI with a fragment, resolve this URI as follows:
+      Given an absolute MPD URI [RFC 3986 URI],  section 4.3, "Absolute URI" with a fragment, resolve this URI as follows:
 
          1. Resolve the base URI (per [RFC 3986 URI]) to retrieve the resource MPD. If the resource MPD does not exist, then fail (existence error).
 
@@ -1345,7 +1343,7 @@ Rule 4-32. Resolve MPD URI With Fragment
 
 4.2.2.7. URI Resolution Involving Reference Elements
 
-   In the presence of NIEM [reference elements] URI resolution may require an additional step to account for indirect references. Be sure to review Section 4.2.2.7, URI Resolution Involving Reference Elements, above, if case this applies.
+   In the presence of NIEM [reference elements] URI resolution may require an additional step to account for indirect references. Be sure to review Section 4.2.2.7, URI Resolution Involving Reference Elements, above, if this case applies.
 
    Note that a NIEM element can indirectly reference its content rather than carry or encapsulate it. So, a NIEM element of type xs:anyURI may not contain a URI, but instead refer to another element that contains it for both elements. Under some circumstances, this might have an impact on URI resolution.
 
@@ -1435,7 +1433,7 @@ Rule 4-36. Release and Core/Domain Update changelog.xml Valid to mpd-changelog-1
 
       A changelog.xml artifact for an MPD with a c:mpdClassCode attribute value from the set {rel, cu, du} MUST validate with the NIEM change log schemas mpd-changelog-1.0.xsd and niem-model-1.0.xsd.
 
-   The most current versions of the resources referenced in Rule 4-36, Release and Core/Domain Update changelog.xml Valid to mpd-changelog-1.0.xsd are available here:
+   The most current versions of the resources referenced in the rule above are available here:
 
       http://reference.niem.gov/niem/resource/mpd/changelog/
 
@@ -1603,11 +1601,11 @@ Rule 4-40. IEPD and EIEM Resolve Namespaces to URIs With XML Catalog Documents
 
       A [conformance target identifier] for an IEP conformance target declared in an IEPD, formed by concatenating:
 
-         1. the IEPD URI
+         1. the IEPD URI and
 
          2. the pound sign character (#) and
 
-         3. a locally unique NCName (non-colonized name).
+         3. a locally unique NCName.
 
    The foregoing definition requires that an IEP conformance target class have a URI. As a result, the following rule is also required for an [MPD catalog document]:
 
@@ -1623,7 +1621,7 @@ Rule 4-41. IEP Conformance Target Has a structures:id
 
 4.6.1. Schema Validation
 
-   NIEM employs the W3C XML Schema Definition (XSD) Language ([W3C XML Schema Structures] and [W3C XML Schema Datatypes]), one of several XML schema definition languages designed to define an instance XML document and enable its validation. In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema ([W3C XML Schema Structures]  section 2.5, Schema-validity and documents).
+   NIEM employs the W3C XML Schema Definition (XSD) Language ([W3C XML Schema Structures] and [W3C XML Schema Datatypes]), one of several XML schema definition languages designed to define an instance XML document and enable its validation. In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema ([W3C XML Schema Structures]  section 2.5, "Schema-validity and documents").
 
    So, a NIEM IEPD is an MPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing XML catalogs to [resolve URI] values in namespace attributes owned by xs:import elements and similar XML Schema constructs). In turn, the resulting XML schema can be used to validate one or more instance [XML documents] (i.e., NIEM IEPs [Definition: Information Exchange Package], above) for NIEM conformance.
 
@@ -1631,7 +1629,7 @@ Rule 4-41. IEP Conformance Target Has a structures:id
 
 4.6.2. Declaring Validity Constraints
 
-   Explicit declaration of validity constraints is far more flexible and precise than relying on conventions that can easily be misinterpreted. The c:IEPConformanceTarget element within the [MPD catalog document] can apply several common constraints by explicitly declaring the information required for a given constraint. This information may include the conformance target, context, type of validation, location of validation artifact(s), a specific tests to perform. It can also identify IEP samples known to satisfy the validity constraints.
+   Explicit declaration of validity constraints is far more flexible and precise than relying on conventions that can easily be misinterpreted. The c:IEPConformanceTarget element within the [MPD catalog document] can apply several common constraints by explicitly declaring the information required for a given constraint. This information may include the conformance target, context, and type of validation, location of validation artifact(s), and specific tests to perform. It can also identify IEP samples known to satisfy the validity constraints.
 
 Rule 4-42. IEPD Declares One or More IEP Conformance Targets
 
@@ -1773,7 +1771,7 @@ Rule 4-48. Conformance Assertion File Name Is conformance-assertion.*
 
    A [conformance assertion] presents information to increase the level of confidence that an IEPD or EIEM was checked for NIEM conformance and quality. It does NOT constitute a guarantee or contract. In fact, a conformance assertion can be self-asserted.
 
-   In the absence of a formal NIEM certification process, both weak and strong conformance assertions will exist. A IEPD/EIEM user or ninimplementer (who is not the author) must decide his/her level of confidence in the assertion. A self-signed artifact that simply claims an IEPD is NIEM-conformant may be considered weak. On the other hand, a stronger self-assertion could provide information that may include (but is not limited to):
+   In the absence of a formal NIEM certification process, both weak and strong conformance assertions will exist. A IEPD/EIEM user or implementer (who is not the author) must decide his/her level of confidence in the assertion. A self-signed artifact that simply claims an IEPD is NIEM-conformant may be considered weak. On the other hand, a stronger self-assertion could provide information that may include (but is not limited to):
 
       *  Date of assertion.
 
@@ -1911,7 +1909,7 @@ Rule 6-1. Wantlist Location
 
 6.2. Business Rules
 
-   For simplicity and consistency, NIEM employs a profile of the XML Schema language [W3C XML Schema Structures], [W3C XML Schema Datatypes]. Thus, some constraints on NIEM XML documents cannot be enforced by NIEM. [Constraint schema documents] provide a convenient technique for enforcing some additional constraints. However, even the full XML Schema language cannot validate and enforce all possible constraints that may required on an XML document.
+   For simplicity and consistency, NIEM employs a profile of the XML Schema language [W3C XML Schema Structures], [W3C XML Schema Datatypes]. Thus, some constraints on NIEM XML documents cannot be enforced by NIEM. [Constraint schema documents] provide a convenient technique for enforcing some additional constraints. However, even the full XML Schema language cannot validate and enforce all possible constraints that may be required of an XML document.
 
    That said, NIEM allows (even encourages) the use of formal or informal business rules to supplement MPDs (in particular IEPDs).
 
@@ -1937,15 +1935,13 @@ Rule 6-1. Wantlist Location
 
    An MPD is a logical set of electronic files aggregated and organized to fulfill a specific purpose in NIEM. Directory organization and packaging of an MPD should be designed around major themes in NIEM: reuse, sharing, interoperability, and efficiency.
 
-   This rule is also applicable to all MPDs:
-
 Rule 7-1. MPD Is a Zip Archive
 
    [Rule 7-1] (WF-MPD)
 
       An MPD is packaged as a single compressed archive of files that represents a sub-tree of a file system in standard [PKZIP] format. This archive MUST preserve and store the logical directory structure intended by its author.
 
-   MPD NIEM schema artifacts must be valid for both XML Schema and NIEM:
+   MPD NIEM schema artifacts must be valid for both XML Schema and NIEM.
 
 Rule 7-2. XSD and XML Documents are Valid to Corresponding NDR Conformance Targets
 
@@ -1987,7 +1983,7 @@ Rule 7-3. MPD Archive Uncompresses to a Single Root Directory
 
    Note that the c:pathURI value for an artifact is its operating system relative directory [path name] with file name. The c:pathURI value for an artifact set is its operating system relative [path name].
 
-   Another way the MPD catalog schema can group artifacts is through the use of the c:RequiredFile element. Use this construct to signify there are strong dependencies among artifacts. For example, documentation may be prepared as a set of hyperlinked HTML files. These HTML files may also incorporate separate GIF or JPG images. Regardless of file location within the MPD, these files depend on one another through hyperlinks. As a result, they tend operate as a single artifact; removal of a file will cause one or more broken links within the set. This set of artifacts should be grouped using c:RequiredFile. If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the c:File element while all others are values for c:RequiredFile child elements).
+   Another way the MPD catalog schema can group artifacts is through the use of the c:RequiredFile element. Use this construct to signify there are strong dependencies among artifacts. For example, documentation may be prepared as a set of hyperlinked HTML files. These HTML files may also incorporate separate GIF or JPG images. Regardless of file location within the MPD, these files depend on one another through hyperlinks. As a result, they tend to operate as a single artifact; removal of a file will cause one or more broken links within the set. This set of artifacts should be grouped using c:RequiredFile. If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the c:File element while all others are values for c:RequiredFile child elements).
 
 7.2. MPD File Name Syntax
 
@@ -2040,7 +2036,7 @@ Rule 7-5. Release and Core/Domain Update File Name Matches Metadata
 
    [Rule 7-5] (WF-MPD)
 
-      Given an MPD with a c:mpdClassCode attribute value from the set {rel, cu, du}, its file name substrings for name, version, and class (as defined in Rule 7-4, Release and Core/Domain Update File Name Syntax MUST exactly match its MPD catalog values for c:MPD attributes c:mpdName, c:mpdVersionID, and c:mpdClassCode respectively.
+      Given an MPD with a c:mpdClassCode attribute value from the set {rel, cu, du}, its file name substrings for name, version, and class, as defined in Rule 7-4, Release and Core/Domain Update File Name Syntax, MUST exactly match its MPD catalog values for c:MPD attributes c:mpdName, c:mpdVersionID, and c:mpdClassCode respectively.
 
    And finally, in HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.
 
@@ -2066,7 +2062,7 @@ Rule 7-7. MPD References to Resources Use Common Transfer Protocols
 
       Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST [resolve] (If applicable, documentation SHOULD describe how to [resolve] with security, account, and/or password issues).
 
-   Releases, core updates, and domain updates must adhere to packaging rules primarily to enable development tools to process them consistently and efficiently. The NIEM PMO controls the format and documentation for these MPDs and publishes them at http://release.niem.gov/niem/. However, many different organizations author IEPDs and EIEMs. As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others. Furthermore, EIEMs are the basis for families of IEPDs. Therefore, it is important that both of these MPD classes are well documented for understanding and use. An IEPD that has been derived from an EIEM should identify that relationship through its MPD catalog.
+   Releases, core updates, and domain updates must adhere to packaging rules to enable development tools to process them consistently and efficiently. The NIEM PMO controls the format and documentation for these MPDs and publishes them at http://release.niem.gov/niem/. However, many different organizations author IEPDs and EIEMs. As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others. Furthermore, EIEMs are the basis for families of IEPDs. Therefore, it is important that both of these MPD classes are well documented for understanding and use. An IEPD that has been derived from an EIEM should identify that relationship through its MPD catalog.
 
 Rule 7-8. IEPD Family Members Reference Parent EIEM
 
@@ -2088,7 +2084,7 @@ Rule 7-9. IEPD Completeness
 
    On the other hand, an IEPD whose author has extended the MPD catalog schema is clearly required to contain the catalog extension schema document, since this is a specialized customization created by the author. If a different NIEM schema subset is also used, then the IEPD must also contain its superset (i.e., a complete subset that incorporates both the original subset with additional NIEM components used to extend the catalog schema document; see Rule 4-9, MPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets.)
 
-   The rationale for "SHOULD" in Rule 7-9, IEPD Completeness relates to issues of security. Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validition and implementation, instead of circulating them within a public IEPD. Implementers would then be expected to know how and where to obtain the required documents.
+   The rationale for "SHOULD" in Rule 7-9, IEPD Completeness relates to issues of security. Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validation and implementation, instead of circulating them within a public IEPD. Implementers would then be expected to know how and where to obtain the required documents.
 
    The [NIEM NDR] explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant. Other standards may use xs:import without requiring schemaLocation attributes (instead, relying only on the namespace value). These standards may also use xs:include. This XML Schema construct is disallowed by NIEM. When standards external to NIEM are required within MPDs, the following rule applies:
 
@@ -3597,11 +3593,11 @@ Appendix G. Acronyms and Abbreviations
 
       IEPD |Information Exchange Package Documentation
 
-      IRI |Internationalized Resource Indentifier
+      IRI |Internationalized Resource Identifier
 
       JPG |Joint Photographic (Experts) Group
 
-      LEXS |Logical Entity Exchage Specifications
+      LEXS |Logical Entity Exchange Specifications
 
       MPD |Model Package Description
 
@@ -3779,7 +3775,7 @@ Appendix J. Index of Rules
    Rule 4-29, c:pathURI for c:ConstraintSchemaDocumentSet: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
    Rule 4-30, c:pathURI for c:ReferenceSchemaDocumentSet: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
    Rule 4-31, c:pathURI for c:RequiredFile: Section 4.2.2.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-32, Resolve MPD URI With Fragment: Section 4.2.2.6, Resolving an MPD URI with a Fragment
+   Rule 4-32, Resolve MPD URI with Fragment: Section 4.2.2.6, Resolving an MPD URI with a Fragment
    Rule 4-33, XML Catalog uri Value Resolves to Resource: Section 4.2.2.8, XML Catalog URI
    Rule 4-34, XML Catalog uri Value Resolves to Resource with Correct Target Namespace: Section 4.2.2.8, XML Catalog URI
    Rule 4-35, Releases and Core/Domain Updates Require changelog.xml: Section 4.3.1, Change Log for Releases and Core/Domain Updates
