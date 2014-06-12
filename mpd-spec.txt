@@ -178,7 +178,7 @@ Remaining work
 
       An XML Schema type or attribute group definition; or an XML Schema element or attribute declaration.
 
-   An MPD is a normative specification for XML data components in the format of the World Wide Web Consortium (W3C) XML Schema Definition Language [W3C XML Schema Datatypes], [W3C XML Schema Structures]. MPD schema documents either (1) define the semantics and structure for NIEM reusable data components, or (2) define implementable NIEM exchange instance documents in W3C Extensible Markup Language (XML) [W3-XML].
+   An MPD is a normative specification for XML data components in the format of the World Wide Web Consortium (W3C) XML Schema Definition Language [W3C XML Schema Datatypes], [W3C XML Schema Structures]. MPD schema documents either (1) define the semantics and structure for NIEM reusable data components, or (2) define implementable NIEM exchange instance XML documents in W3C Extensible Markup Language (XML) [W3-XML].
 
    An MPD is ready to publish and use when it conforms to NIEM specifications, and has been properly packaged with the schemas, documentation, and supplemental files needed to implement or reuse it. MPD content design, development, and assembly may be difficult and time-consuming, especially if done manually. Software tools can significantly reduce the complexity of designing, constructing, changing, and managing MPDs. In order to reduce ambiguity and to facilitate interoperable and effective tool support, this baseline specification imposes some degree of consistency on the terminology, syntax, semantics, and composition of MPDs.
 
@@ -394,19 +394,17 @@ Remaining work
 
 2.8.4. Information Exchange Package Documentation (IEPD)
 
-   NIEM [Information Exchange Package Documentation] (IEPD)is an MPD that defines a class of instance XML documents that represent a recurring XML data exchange.
+   This section only applies to an MPD that is an IEPD.
 
    [Definition: Information Exchange Package Documentation]
 
-      An MPD that defines one or more (generally recurring) XML data or information exchanges.
+      An MPD that defines one or more (generally) recurring data or information exchanges, each in the form of an instance XML document.
 
-   An IEPD explicitly defines one or more classes of [Information Exchanges Packages] (IEP), each of which is an XML [instance document].
+   [Definition: instance XML document]
 
-   [Definition: instance document]
+      An [XML document] that is valid against an [XML Schema].
 
-      An instance document (of an [XML Schema]) is an [XML document] that is valid against the [XML Schema].
-
-   A NIEM IEPD contains a NIEM-conformant [XML schema document] set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents, and declares at least one [IEP conformance target] within its [MPD catalog document] Section 4.1, NIEM MPD Catalog, below. The XML schema documents contained in an IEPD work together to define one or more classes of instance XML documents (that is, IEPs) that consistently encapsulate data for meaningful information exchanges. Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated [IEP conformance target] (declared in the IEPD) is considered a member of that [IEP conformance target] class. XML schema documents in a NIEM IEPD conform to the [NIEM NDR] and may use or extend data component definitions drawn from NIEM. An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See [NIEM NDR] for details.)
+   A NIEM IEPD contains a NIEM-conformant [XML schema document] set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents. Furthermore, a NIEM IEPD declares at least one [IEP conformance target] within its [MPD catalog document] Section 4.1, NIEM MPD Catalog, below. The XML schema documents contained in an IEPD work together to define one or more classes of [instance XML documents] that consistently encapsulate data for meaningful information exchanges. Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated [IEP conformance target] (declared in the IEPD's MPD catalog) is considered a member of that [IEP conformance target] class. XML schema documents in a NIEM IEPD conform to the [NIEM NDR] and may use or extend data component definitions drawn from NIEM. An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See [NIEM NDR] for details.)
 
    An IEPD consists of a set of artifacts (XML schema documents, documentation, sample [instance XML documents], etc.) that together define and describe an implementable NIEM information exchange. An IEPD should contain an [XML schema document] set and instructional material necessary to:
 
@@ -416,17 +414,19 @@ Remaining work
 
       *  Identify the lineage of the IEPD itself and optionally its artifacts.
 
-   A NIEM IEPD defines one or more classes of [instance XML documents]. Each of these XML documents is an [Information Exchange Package] (IEP) that satisfies all validity constraints for its class as defined by the IEPD. An IEP is an information message payload serialized as XML and transmitted in some way, for example over a communications network. ([FEA Data Reference Model] and [GJXDM IEPD Guidelines] are the original sources of the terms information exchange package and information exchange package documentation, respectively).
+   A NIEM IEPD defines one or more classes of [instance XML documents]. In NIEM each of these instances is called an [Information Exchange Package] (or IEP) that satisfies all validity constraints for its class as defined by the IEPD. An IEP is an information message payload serialized as XML and transmitted in some way, for example over a communications network. ([FEA Data Reference Model] and [GJXDM IEPD Guidelines] are the original sources of the terms information exchange package and information exchange package documentation, respectively).
 
    [Definition: Information Exchange Package]
 
-      An [XML document] that satisfies all the validity constraints for its class as defined by a NIEM IEPD. Abbreviated IEP.
+      An [XML document] that satisfies all the validity constraints for its class as defined by a NIEM IEPD. (Information Exchange Package is abbreviated IEP.)
 
    How to declare validity constraints for one or more IEP classes within an IEPD will be covered in more depth in Section 4.6, Information Exchange Packages, below.
 
    Note that NIEM conformance does not require that an IEP be native XML on the transmission medium. A NIEM-conformant IEP may be encrypted, compressed (e.g., using [PKZIP], [RAR], [W3-EXI], etc.), or wrapped within an envelope mechanism, as long as its original native XML form can be retrieved by the receiver.
 
 2.8.5. Enterprise Information Exchange Model (EIEM)
+
+   This section is only applicable to an MPD that is an EIEM.
 
    As an organization develops IEPDs, it may realize that many of its IEPDs have similar business content. A collection of closely related business data could be organized at an object level and defined as extension data components. In NIEM, an extension component is referred to as a [Business Information Exchange Component] (BIEC), because it is either specific to an organization's business or it represents a more general line of business that crosses organizational lines. Often a business data component is developed and used by multiple organizations within the same community of interest (COI). So, instead of an organization, it is more appropriate and provides better context if we use the term [information sharing enterprise].
 
@@ -1719,9 +1719,9 @@ Rule 4-44. Validating an XPath Expression
 
    Sometimes it is not possible to formally declare an executable validity constraint. For example, we can mandate that a data component definition must be present, must be in English, and must follow [ISO 11179-4]. Validating that text is present is easy, and validating that it is in English is more difficult, but validating that it obeys [ISO 11179-4] is essentially intractable. Thus, c:ConformsToRule provides an IEPD author with English text representation as an alternative when it is not possible or not easy to define more formal validation rules or validity constraints.
 
-4.6.3. IEP Sample XML Instance Documents
+4.6.3. IEP Sample Instance XML Documents
 
-   Sample IEP XML instance documents are representations of actual or example exchange data instances and can be extremely valuable artifacts in an IEPD. Sample IEPs can:
+   Sample IEP [instance XML documents] are representations of actual or example exchange data instances and can be extremely valuable artifacts in an IEPD. Sample IEPs can:
 
       *  Help an IEPD implementer to understand the original intent of the IEPD author.
 
@@ -1861,7 +1861,7 @@ Rule 4-48. Conformance Assertion File Name Is conformance-assertion.*
 
    [Definition: information exchange package]
 
-      An XML [instance document] defined by a c:IEPConformanceTarget element in an IEPD's [MPD catalog document].
+      An XML [instance XML document] defined by a c:IEPConformanceTarget element in an IEPD's [MPD catalog document].
 
    The definition of an [information exchange package] conformance target is not strong enough to ensure that an IEP artifact uses NIEM. Thus, there is a need for a conformance target that distinguishes a general IEP from an IEP that represents a valid NIEM information exchange. This is somewhat analogous to the need for [well-formed MPD] and [NIEM IEPD] conformance targets. The following defines a full NIEM IEP [conformance target]:
 
@@ -3798,8 +3798,8 @@ Appendix K. Index of Rules
    Rule 4-42, IEPD Declares One or More IEP Conformance Targets: Section 4.6.2, Declaring Validity Constraints
    Rule 4-43, Validating a Qualified Name List: Section 4.6.2.4, c:HasDocumentElement
    Rule 4-44, Validating an XPath Expression: Section 4.6.2.5, c:ValidToXPath
-   Rule 4-45, IEPD Has One or More Samples for Each c:IEPConformanceTarget: Section 4.6.3, IEP Sample XML Instance Documents
-   Rule 4-46, Validating an IEP Sample XML Document: Section 4.6.3, IEP Sample XML Instance Documents
+   Rule 4-45, IEPD Has One or More Samples for Each c:IEPConformanceTarget: Section 4.6.3, IEP Sample Instance XML Documents
+   Rule 4-46, Validating an IEP Sample XML Document: Section 4.6.3, IEP Sample Instance XML Documents
    Rule 4-47, IEPD and EIEM Have Conformance Assertion in Root Directory: Section 4.7, Conformance Assertion
    Rule 4-48, Conformance Assertion File Name Is conformance-assertion.*: Section 4.7, Conformance Assertion
    Rule 6-1, Wantlist Location: Section 6.1, NIEM Wantlist
