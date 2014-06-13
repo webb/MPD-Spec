@@ -100,6 +100,8 @@ Beta 4
 
       1. Applied many small adjustments suggested by Ted Stout's review of Beta2.
 
+      2. Rewrote Section 3.2.4, Multiple Schema Document Subsets in a Single IEPD or EIEM, below, for clarity and simplicity.
+
 Remaining work
 
       1. Review Rules (63 total) and conformance targets (11 CTs total):
@@ -292,7 +294,7 @@ Remaining work
 
    [Definition: XML schema validation]
 
-      The process of checking an [XML document] to confirm that it is both well-formed [W3-XML],  section 2.1, "Well-Formed XML Documents" and valid [W3C XML Schema Structures],  section 2.3, "Constraints and Validation Rules", in that it follows the structure defined by an associated [XML Schema]. A well-formed document follows the syntactic rules of XML, which are the same for all XML documents.
+      The process of checking an [XML document] to confirm that it is both well-formed (as defined by [W3-XML],  section 2.1, "Well-Formed XML Documents") and valid (as defined by [W3C XML Schema Structures],  section 2.3, "Constraints and Validation Rules"), in that it follows the structure defined by an associated [XML Schema]. A well-formed document follows the syntactic rules of XML, which are the same for all XML documents.
 
    [Definition: XML schema document]
 
@@ -762,11 +764,13 @@ Rule 3-2. Subset Schema Namespace Is a Reference Schema Namespace
 
    This section applies to NIEM IEPDs and EIEMs. NIEM releases, core updates, and domain updates do not contain schema subsets.
 
-   Previous sections defined a single schema subset derived from a reference schema document set. In general, an IEPD or EIEM contains a single cohesive schema subset (which may be a rather large set of files) based on one numbered NIEM release or domain update.
+   In general, an IEPD or EIEM contains a single cohesive schema subset (which may be rather large) based on one numbered NIEM release (and possibly [domain updates] and [core updates]). Subsetting allows the user to employ only those [data components] needed in an IEPD (rather than forcing use of an entire release). Different subsets derived from the same release may or may not overlap. However, in this case, at least overlaps will contain the same data components (though cardinalities may differ). This is not necessarily true for subsets derived from different releases. Mixing subsets derived from different releases has the potential to introduce semantic duplication and subtle ambiguities which can have a negative impact on interoperability.
 
-   However, this specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM. Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM. However, exercising this degree of flexibility makes it critically important that developers understand the potential consequences. NIEM subsets represent a compromise between flexibility and interoperability. On the one hand, a set of IEPDs based on the same subset and numbered release use identical data components, thereby enhancing interoperability. On the other hand, mixing dissimilar subsets from the same numbered release or mixing subsets derived from various numbered releases has the potential to introduce semantic duplication and subtle ambiguity. This, in turn, can have a negative impact on interoperability.
+   This specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM. Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM. This is because cases may exist that require some minimal degree of subset mixing.
 
-   The NIEM mandate that every schema have a unique target namespace prevents name conflicts between reference schema document sets and between two subsets derived from different reference sets. In spite of namespace distinction, mixing subsets of multiple reference schema document sets can still introduce multiple versions of semantically equivalent data components, a potentially ambiguous situation. Even employing multiple subsets together that have been derived from the same reference set has the potential to create a similar result. Above all, it is the developer's responsibility to ensure that, if mixing subsets from one or more numbered releases within a single IEPD or EIEM, these artifacts are carefully coordinated and clearly documented to ensure the various versions of semantically equivalent data components and different schemas with the same namespaces will not cause conflicts, confusion, and/or failure during validation or exchange implementation.
+   Furthermore, the NIEM mandate that every schema have a unique target namespace prevents name conflicts between subsets derived from different reference schema document sets. In spite of this, mixing subsets can still introduce multiple versions of semantically equivalent data components, a potentially ambiguous situation. Even employing multiple subsets together that have been derived from the same reference schema document set has the potential to create a similar result.
+
+   That said, mixing dissimilar subsets whether from the same or different releases is highly discouraged. A user who designs an IEPD or EIEM with multiple NIEM subsets should ensure the rationale for doing so is solid, the artifacts involved are carefully coordinated, and the guidance documentation for implementing is explicitly clear.
 
 3.3. Extension Schema Documents
 
