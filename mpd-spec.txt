@@ -430,15 +430,29 @@ Remaining work
 
 2.8.5. Enterprise Information Exchange Model (EIEM)
 
-   This section is only applicable to an MPD that is an EIEM.
+   This section only applies to an MPD that is an EIEM.
 
-   As an organization develops IEPDs, it may realize that many of its IEPDs have similar business content. A collection of closely related business data could be organized at an object level and defined as extension data components. In NIEM, an extension component is referred to as a [Business Information Exchange Component] (BIEC), because it is either specific to an organization's business or it represents a more general line of business that crosses organizational lines. Often a business data component is developed and used by multiple organizations within the same community of interest (COI). So, instead of an organization, it is more appropriate and provides better context if we use the term [information sharing enterprise].
+   Organizations that need to exchange or share information regularly can save time and cost by standardizing data vocabulary and representations.
 
    [Definition: information sharing enterprise]
 
-      A group of organizations with business interactions that agree to exchange information, often using multiple types of information exchanges. The member organizations have similar business definitions for objects used in an information exchange and can usually agree on their common [BIEC] names and definitions.
+      A group of organizations with common business interactions that agree to exchange information, often using multiple types of information exchanges. The member organizations have similar (or standard) business definitions for objects used in an information exchange.
 
-   An [information sharing enterprise] may cross various levels of government and involve multiple business domains. It may be self-defining and can be formal (with specific governance) or informal and ad hoc. An [information sharing enterprise] is the primary entity that supports the development and management of [BIECs] and an associated [Enterprise Information Exchange Model] (EIEM) (to be discussed next). Henceforth, unless otherwise stated, all references to an enterprise will implicitly mean [information sharing enterprise].
+   Henceforth, unless otherwise stated, all references to an enterprise will implicitly mean [information sharing enterprise].
+
+   An organization that develops IEPDs may discover that many have similar business content. A collection of closely related business data could be organized at an object level and defined as extension data components. In NIEM, an extension component is referred to as a [Business Information Exchange Component] (BIEC), because it is either specific to an organization's business or it represents a more general line of business that crosses organizational lines. Often a business data component is developed and used by multiple organizations within the same community of interest (COI). So, instead of an organization, it is more appropriate and provides better context if we use the term [information sharing enterprise].
+
+   An [information sharing enterprise] may cross various levels of government and involve multiple business domains. It may be self-defining and can be formal (with specific governance) or informal and ad hoc.
+
+   An [information sharing enterprise] is the primary entity that supports the development and management of [BIECs] and an associated [Enterprise Information Exchange Model] (EIEM) (to be discussed next). 
+
+   [Definition: Business Information Exchange Component]
+
+      A NIEM-conformant XML schema data component definition or declaration (for a type, element, attribute, or other XML construct) reused, subsetted, extended, and/or created from NIEM that meets a particular recurring business requirement for an information sharing enterprise. (Abbreviated BIEC)
+
+   The use of BIECs has the potential for simplifying IEPD development and increasing consistency of the business object definitions at all steps in the process, including exchange content modeling, mapping to NIEM, creating NIEM extension components, and generating XML schema documents.
+
+   ISE's can usually agree on their common [BIEC] names and definitions.
 
    A [Business Information Exchange Component] (BIEC) [NIEM BIEC] is a NIEM-conformant [data component] in XML Schema that meets the specific business needs of an [information sharing enterprise] for exchanging data about something that is a part of one or more information exchanges. This data component is tailored and intended to be used consistently across multiple IEPDs built by an enterprise. A BIEC is a NIEM-conformant data component that is:
 
@@ -448,11 +462,9 @@ Remaining work
 
       *  Created per the [NIEM NDR] as a new data component that does not duplicate existing NIEM components within a release in use.
 
-   [Definition: Business Information Exchange Component]
+   [Definition: Enterprise Information Exchange Model]
 
-      A NIEM-conformant XML schema data component definition or declaration (for a type, element, attribute, or other XML construct) reused, subsetted, extended, and/or created from NIEM that meets a particular recurring business requirement for an information sharing enterprise. (Abbreviated BIEC)
-
-   The use of BIECs has the potential for simplifying IEPD development and increasing consistency of the business object definitions at all steps in the process, including exchange content modeling, mapping to NIEM, creating NIEM extension components, and generating XML schema documents.
+      An MPD that contains a NIEM-conformant schema document set that defines and declares data components to be consistently reused in the IEPDs of an [enterprise]. An EIEM is a content model, i.e., a collection of BIECs organized into a schema document set. An EIEM can include subset, extension, constraint, and external (non-NIEM-conformant) XML schema documents.
 
    An [Enterprise Information Exchange Model] (EIEM) is an MPD that incorporates BIECs that meet enterprise business needs for exchanging data using [NIEM BIEC]s. An EIEM is an adaptation of NIEM schema documents, tailored and constrained for and by an enterprise. An EIEM contains the following schema documents that are commonly used or expected to be used by the authoring enterprise:
 
@@ -463,10 +475,6 @@ Remaining work
       *  Optionally, one or more NIEM [constraint schema document] sets (usually based on a [schema document subset]).
 
       *  Optionally, one or more XML schema documents for non-NIEM (i.e., non-conformant) standards with associated extension schema documents that contain adapter types for the data components that will be used from those non-NIEM XML schema documents (per [NIEM NDR]).
-
-   [Definition: Enterprise Information Exchange Model]
-
-      An MPD that contains a NIEM-conformant schema document set that defines and declares data components to be consistently reused in the IEPDs of an enterprise. An EIEM is a collection of BIECs organized into a schema document subset. As options, an EIEM can include extension, constraint, and external (non-NIEM-conformant) XML schema documents.
 
    An [information sharing enterprise] that creates and maintains an EIEM authors IEPDs by reusing its EIEM content instead of (re)subsetting reference schema documents sets and (re)creating extensions. An EIEM may also contain business rules or constraint schema document sets tailored to enterprise requirements and designed to restrict variability in use of NIEM data components. This not only saves time, but it also ensures that enterprise IEPDs reuse NIEM and associated extensions consistently. (XML schema document subsets, extension schema documents, and constraint schema document sets will be defined and discussed in more detail later in this document). Figure 2-2, BIECs, EIEM, and a small family of IEPDs., below, generally illustrates how BIECs, an EIEM, and an IEPD family relate (Constraint schema document sets are optional and not depicted in this figure).
 
