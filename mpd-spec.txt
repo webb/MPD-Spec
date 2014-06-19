@@ -106,9 +106,9 @@ Beta 4
 
       4. Relaxed mpdName attribute pattern to allow upper case and spaces.
 
-      5. Added Section 4.2.1, c:mpdName Syntax, below, to highlight difference with MPD file name syntax and to recommend non-normative practices. 
+      5. Added Section 4.2.1, MPD Name Syntax (c:mpdName), below, to highlight difference between mpdName and MPD file name syntax, and to recommend non-normative practices. 
 
-      6. Added Section 4.2.2, c:mpdClass, below, to ensure completeness; now one section for each of the four primary MPD metadata attributes: mpdURI, mpdName, mpdVersionID, and mpdClass.
+      6. Added Section 4.2.2, MPD Class (c:mpdClass), below, to ensure completeness; now one section for each of the four primary MPD metadata attributes: mpdURI, mpdName, mpdVersionID, and mpdClass.
 
       7. Rewrote Section 2.8.5, Enterprise Information Exchange Model (EIEM), below, to eliminate duplication of definitions and to improve sequencing of explanations of concepts enterprise, BIEC, and EIEM.
 
@@ -382,7 +382,7 @@ Remaining work
 
    A [micro release] is a NIEM release that adds new data components to the Core, domains, or both without removing or modifying existing Core and domain schemas or content. Figure 2-1, Examples of NIEM numbered releases, below, illustrates both real (v1.0, v2.0, v2.1, and v3.0) and fictitious (v2.1.1 and v2.1.2) examples of major, minor, and micro release composition.
 
-   Note that a given NIEM [reference schema document] (target namespace) can exist in multiple numbered releases. For example, as illustrated in Figure 2-1, Examples of NIEM numbered releases, below, both NIEM 2.0 and 2.1 contain (and reuse) the same NIEM Core 2.0 schema document. The [NIEM High-Level Version Architecture] defines the processes for numbering releases and identifying the schema documents that compose these sets. This specification outlines a similar version numbering scheme for MPDs and their artifacts Section 4.2.3, Version Numbering Scheme (c:mpdVersionID), below.
+   Note that a given NIEM [reference schema document] (target namespace) can exist in multiple numbered releases. For example, as illustrated in Figure 2-1, Examples of NIEM numbered releases, below, both NIEM 2.0 and 2.1 contain (and reuse) the same NIEM Core 2.0 schema document. The [NIEM High-Level Version Architecture] defines the processes for numbering releases and identifying the schema documents that compose these sets. This specification outlines a similar version numbering scheme for MPDs and their artifacts Section 4.2.3, MPD Version Numbering Scheme (c:mpdVersionID), below.
 
    Figure 2-1: Examples of NIEM numbered releases
 
@@ -1034,7 +1034,7 @@ Rule 4-9. MPD Schema Document Extension Support Schemas Are Supersets of Spec Su
 
    The MPD catalog also contains both required and optional metadata for the MPD and its artifacts and artifact sets. The following subsections specify the syntax, formats, and semantics for that metadata.
 
-4.2.1. c:mpdName Syntax
+4.2.1. MPD Name Syntax (c:mpdName)
 
    Note that the syntax for c:mpdName herein is not the same as the MPD file name syntaxpresented in Section 7.2, MPD File Name Syntax, below.
 
@@ -1042,9 +1042,9 @@ Rule 4-9. MPD Schema Document Extension Support Schemas Are Supersets of Spec Su
 
    [A-Za-z]([-_ ]?[A-Za-z0-9]+)*
 
-4.2.2. c:mpdClass
+4.2.2. MPD Class (c:mpdClass)
 
-4.2.3. Version Numbering Scheme (c:mpdVersionID)
+4.2.3. MPD Version Numbering Scheme (c:mpdVersionID)
 
    Published MPDs may be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred. In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices. This is the same version numbering scheme that is used for NIEM releases.
 
@@ -1137,7 +1137,7 @@ Rule 4-10. MPD Version Number Syntax
 
       A function (or action) that takes a URI string of the form xs:anyURI and returns the resource it identifies. If the URI is local (i.e., within an MPD) and the resource does not exist, then this function fails. If a URI is remote or of unknown location (e.g., a URN), then this function (or action) may require human assistance to determine if a resource associated with the URI exists (pass) or not (fail).
 
-4.2.4.1. URI Scheme for MPDs (mpdURI)
+4.2.4.1. MPD URI Scheme (mpdURI)
 
    To facilitate MPD sharing and reuse, the assignment of a URI (Uniform Resource Identifier) to an MPD is essential. This is enforced by the MPD catalog schema document Appendix A, MPD Catalog XML Schema Document, below. It is also important to ensure that an MPD URI is absolute.
 
@@ -1349,7 +1349,7 @@ Rule 4-31. c:pathURI for c:RequiredFile
 
    The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an MPD catalog. The URI scheme for MPDs and their artifacts and sets enables a graph of relationships. An MPD may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.
 
-   The next few paragraphs require that you understand URIs for MPDs and MPD artifacts. See Section 4.2.4.1, URI Scheme for MPDs (mpdURI), above, and Section 4.2.4.2, URI Scheme for MPD Artifacts (externalURI), above.
+   The next few paragraphs require that you understand URIs for MPDs and MPD artifacts. See Section 4.2.4.1, MPD URI Scheme (mpdURI), above, and Section 4.2.4.2, URI Scheme for MPD Artifacts (externalURI), above.
 
    The MPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:descriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one MPD may relate to another. This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:descriptionText element is provided to further explain the nature of any of the eight c:relationshipCode values available. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:descriptionText (for example, if its value is adapts).
 
@@ -3792,8 +3792,8 @@ Appendix J. Index of Rules
    Rule 4-7, MPD Catalog Extension Schema Document Conforms to NDR Extension Rules: Section 4.1.3, Extending an MPD Catalog
    Rule 4-8, MPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules: Section 4.1.3, Extending an MPD Catalog
    Rule 4-9, MPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets: Section 4.1.3, Extending an MPD Catalog
-   Rule 4-10, MPD Version Number Syntax: Section 4.2.3, Version Numbering Scheme (c:mpdVersionID)
-   Rule 4-11, MPD URI Is Absolute: Section 4.2.4.1, URI Scheme for MPDs (mpdURI)
+   Rule 4-10, MPD Version Number Syntax: Section 4.2.3, MPD Version Numbering Scheme (c:mpdVersionID)
+   Rule 4-11, MPD URI Is Absolute: Section 4.2.4.1, MPD URI Scheme (mpdURI)
    Rule 4-12, MPD URI Supports Fragment: Section 4.2.4.2, URI Scheme for MPD Artifacts (externalURI)
    Rule 4-13, MPD URI Has No Fragment: Section 4.2.4.2, URI Scheme for MPD Artifacts (externalURI)
    Rule 4-14, MPD Artifact URI Syntax: Section 4.2.4.2, URI Scheme for MPD Artifacts (externalURI)
