@@ -1302,11 +1302,19 @@
 <section id="Name-Syntax">
 	<title>MPD Name Syntax (<code>c:mpdName</code>)</title>
 
-	<p>Note that the syntax for <code>c:mpdName</code> herein is not the same as the MPD file name syntaxpresented in <ref idref="MPD-File-Name-Syntax"/>.</p>
+	<p>Note that syntax for <code>c:mpdName</code> detailed in this section is not applicable to MPD file name syntax presented in <ref idref="MPD-File-Name-Syntax"/>.  MPD file name syntax is constrained only by the file system in which an MPD resides.</p>
 
-	<p>The difference is upper case and spaces.</p>
+	<p>An MPD's official name is the value of the <code>c:mpdName</code> attribute owned by the <code>c:MPD</code> element in the MPD's catalog document.  This value is constrained by the regular expression pattern on <code>c:mpdName</code> within the MPD catalog schema <ref idref="MPD-Catalog-XSD"/>:</p>
+	<blockquote>[A-Za-z]([-_ ]?[A-Za-z0-9]+)*</blockquote>
 
-	<p>[A-Za-z]([-_ ]?[A-Za-z0-9]+)*</p>
+	<p>The regular expression above indicates that an MPD name:</p>
+	<ul>
+		<li><p>Begins with an alpha character (upper or lower case).</p></li>
+		<li><p>Ends with an alphanumeric character (upper or lower case).</p></li>
+		<li><p>May contain alphanumeric characters.</p></li>
+		<li><p>May contain single spaces, single dashes, and single underscores as separators.</p></li>
+
+		<p>IEPD author's often like to reuse the official MPD name in metadata within the file name.  Note that <code>c:mpdName</code> is of <code>xs:token</code> type and allows single spaces and upper case alpha characters.  That said, be sure to consider differences in operating system / file system treatment of spaces and character case within file and directory names.  This is the reason that releases, domain updates, and core updates restrict use of spaces or upper case characters within <code>c:mpdName</code> and MPD file names (Refer to <ref idref="r-name-syntax"/> and <ref idref"r-mpd-match"/>.).</p>
 
 </section>
 
@@ -1314,6 +1322,19 @@
 
 <section id="mpdClass">
 	<title>MPD Class (<code>c:mpdClass</code>)</title>
+
+	<p>MPD Class generally identifies an MPD as one of the five basic types introduced in <ref idref="MPD-Types"/>.  The enumerated values for the <code>c:mdpClass</code> attribute owned by a <code>c:MPD</code> element in the MPD catalog document are:</p>
+		   <ul>
+			   <li><p><code>rel</code> = <termRef>release</termRef></p></li>
+			   <li><p><code>cu</code> = <termRef>core update</termRef></p></li>
+			   <li><p><code>du</code> = <termRef>domain update</termRef></p></li>
+			   <li><p><code>iepd</code> = <termRef>Information Exchange Package Documentation</termRef></p></li>
+			   <li><p><code>eiem</code> = <termRef>Enterprise Information Exchange Model</termRef></p></li>
+		   </ul>
+
+		   <p>However, the <code>c:mpdClass</code> attribute is an XML list type that allows an MPD class value beyond the basic five (See <ref idref="MPD-Catalog-XSD"/> for structure).  An author can establish a new type of MPD with a URI that represents the new class.</p>
+
+		   <p>The list structure also allows membership in multiple MPD classes.  For example, an author might use another classification system for IEPDs.  Use of the value <code>iepd</code> and a URI representing the author's class would indicate the MPD is a member of both.</p>
 
 </section>
 
@@ -2497,6 +2518,8 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<title>MPD File Name Syntax</title>
 
 	<p>This section is applicable to all MPDs.  However, it is only normative for releases, core updates, and domain updates.  For IEPDs and EIEMs, this section describes non-normative guidance that is highly recommended, but not mandatory.  Additional non-normative guidance that relates to directory naming for IEPDs and EIEMs is in <ref idref="Guidance-IEPD-Directories"/>.</p>
+
+	<p>It is important to understand that this section does not apply to the syntax for the <code>c:mpdName</code> attribute in the MPD catalog document.  This section is about MPD file naming.  Refer to <ref idref="Name-Syntax"/> for details regarding the <code>c:mpdName</code> metadata attribute.</p>
 
 	<p>The MPD Specification is intended to help facilitate tool support for processing MPDs.  Providing tools and search mechanisms basic information about an MPD as early as possible will help reduce processing time and complexity.  So, if the MPD name, version, and class can be identified from its file name, then a tool would not have to open the archive and parse the MPD catalog to determine such.  Of course, ultimately, to do anything useful, a tool will have to open the MPD archive.  However, standard file name syntax allows a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each.  File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.</p> 
 
