@@ -181,7 +181,7 @@
     <xs:element name="XMLSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
       <xs:annotation>
 	      <xs:documentation>
-		 An MPD artifact that is a an XML schema document (i.e., an XSD that
+		 An MPD artifact that is an XML schema document (i.e., an XSD that
 		 is not necessarily a NIEM subset, extension, or reference schema).
 	      </xs:documentation>
       </xs:annotation>
@@ -314,6 +314,8 @@
       </xs:complexContent>
     </xs:complexType>
 
+    <!-- Should this be BaseSchemaDocumentSet (and BaseSchemaDocumentSetType) to make it clear this set is used to validate NIEM conformance?  and so it is consistent with non-normative guidance about directory organization and naming -->
+
     <xs:element name="SchemaDocumentSet"
              type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
       <xs:annotation>
@@ -339,15 +341,7 @@
 	      </xs:documentation>
       </xs:annotation>
       <xs:complexContent>
-        <xs:restriction base="c:FileSetType">
-	  <xs:sequence>
-	    <xs:element ref="nc:DescriptionText"  minOccurs="0"/>
-	    <xs:element ref="c:XMLCatalog"/>
-	    <xs:element ref="c:Wantlist"          minOccurs="0"/>
-	    <xs:element ref="c:XMLSchemaDocument" minOccurs="0"
-		                               maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:restriction>
+	      <xs:extension base="c:FileSetType"/>  <!-- Sets up for application of Schematron rules -->
       </xs:complexContent>
     </xs:complexType>
 
@@ -399,7 +393,7 @@
 		</xs:documentation>
       </xs:annotation>
       <xs:restriction base="xs:token">
-	<xs:pattern value="[a-z]([-_]?[a-z0-9]+)*"/>
+	<xs:pattern value="[A-Za-z]([-_ ]?[A-Za-z0-9]+)*"/>
       </xs:restriction>
     </xs:simpleType>
 
@@ -648,7 +642,7 @@
 	  <xs:sequence>
 	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
 	    <xs:element ref="c:ValidityConstraintWithContext" minOccurs="0" maxOccurs="unbounded"/>
-<!--	    <xs:element ref="c:IEPSampleXMLDocument" minOccurs="1" maxOccurs="unbounded"/> MUST have min one for each IEP CT -->
+<!--	    <xs:element ref="c:IEPSampleXMLDocument" minOccurs="1" maxOccurs="unbounded"/> MUST have min one for each c:IEP ConformanceTarget -->
 	    <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
     	  </xs:sequence>
 	</xs:extension>
@@ -1010,7 +1004,7 @@
     <xs:element name="ExchangePartnerName" type="niem-xs:string">
       <xs:annotation>
 	      <xs:documentation>
-		      A name of an entity or organization that uses this MPD (generally, only applicable to IEPDsP).
+		      A name of an entity or organization that uses this MPD (generally, only applicable to IEPDs).
 	      </xs:documentation>
       </xs:annotation>
     </xs:element>
