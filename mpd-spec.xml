@@ -105,7 +105,7 @@
 		<li><p>Changed MPD catalog <code>c:mpdClassCode</code> to <code>c:mpdClass</code> because it is a union of class codes (enumerations) and <code>xs:anyURI</code> for easy extension.</p></li>
 		<li><p>Relaxed <code>mpdName</code> attribute pattern to allow upper case and spaces.</p></li>
 		<li><p>Added <ref idref="mpdName-Syntax"/> to highlight difference with MPD file name syntax and to recommend non-normative practices. </p></li>
-		<li><p>Added <ref idref=""/> to ensure completeness; now one section for each of the four primary MPD metadata attributes:  <code>mpdURI, mpdName, mpdVersionID,</code> and <code>mpdClass</code>.</p></li>
+		<li><p>Added <ref idref="mpdClass"/> to ensure completeness; now one section for each of the four primary MPD metadata attributes:  <code>mpdURI, mpdName, mpdVersionID,</code> and <code>mpdClass</code>.</p></li>
 		<li><p>Rewrote <ref idref="Enterprise-Information-Exchange-Model"/> to eliminate duplication of definitions and to improve sequencing of explanations of concepts enterprise, BIEC, and EIEM.</p></li>
 		<li><p>Fixed UPA error in MPD catalog schema document by changing <code>xs:restriction</code> on <code>c:SchemaDocumentSetType</code> to <code>xs:extension</code> (of <code>c:FileSetType</code>).  (Note: By intent, there are no new elements added; <code>c:SchemaDocumentSetType</code> extends <code>c:FileSetType</code> in name only.  This eliminates UPA errors and sets up for application of Schematron rules.)</p></li>
 		<li><p>Added Schematron rules to ensure that <code>c:SchemaDocumentSetType</code> contains a <code>c:XMLCatalog</code> or a <code>c:XMLSchemaDocument</code>.</p></li>
@@ -1324,6 +1324,8 @@
 
 	<p>Published MPDs may be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred.  In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices.  This is the same version numbering scheme that is used for NIEM releases.</p>
 
+	<p>An MPD version number is the value of the <code>c:mpdVersionID</code> attribute owned by the <code>c:MPD</code> element within its <termRef>MPD catalog document</termRef>.  A consistent version number syntax is enforced by the MPD catalog schema <ref idref="MPD-Catalog-Schema"/>.  The syntax rule is as follows:</p>
+
 <ruleSection>
 	<title>MPD Version Number Syntax</title>
 	<rule id="r-mpd-vers-syntax" applicability="WF-MPD" class="Constraint">
@@ -1347,7 +1349,7 @@
 
 	<p>Note that the absence of a <code>status</code> string in the version number indicates that the version has been baselined and published.</p>
 
-	<p>The regular expression in <ref idref="r-mpd-vers-syntax"/> is enforced by the MPD catalog schema document <ref idref="MPD-Catalog-XSD"/>.  The following examples are valid MPD version numbers:</p>
+	<p>The following examples are valid MPD version numbers:</p>
 		<ul>
 			<li><p><code>1</code></p></li>
 			<li><p><code>1.2</code></p></li>
@@ -2645,7 +2647,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 <section id="MPD-Catalog-XSD" isAppendix="true">
 	<title>MPD Catalog XML Schema Document</title>
-	<pre><include-text href="xsd/mpd-catalog-3.0.xsd"/></pre>
+	<pre><include-text href="Toolkit/mpd-catalog-3.0.xsd"/></pre>
 
 	<p> <char name="nbsp"/> </p>
 </section>
@@ -2654,7 +2656,9 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 <section id="MPD-Catalog-Sch" isAppendix="true">
 	<title>Schematron Rules for MPD Catalog</title>
-	<pre>[TBD]</pre>
+	<pre><include-text href="mpd-catalog.sch"/></pre>
+	<pre><include-text href="mpd-catalog-in-wf-mpd.sch"/></pre>
+	<pre><include-text href="xml-catalog-wf-mpd"/></pre>
 
 	<p> <char name="nbsp"/> </p>
 </section>
