@@ -62,7 +62,7 @@ Beta 1
 
 Beta 2
 
-      1. Major: Added new Section 4.2.3, URI Schemes, below, and reorganized subsections and rules related to URIs under it.
+      1. Major: Added new Section 4.2.4, URI Schemes, below, and reorganized subsections and rules related to URIs under it.
 
       2. Added one-line titles for each rule (~67).
 
@@ -98,9 +98,23 @@ Beta 3
 
 Beta 4
 
-      1. Applied many small adjustments suggested by Ted Stout's review of Beta2.
+      1. Applied many minor adjustments suggested by Ted's review of Beta2.
 
       2. Rewrote Section 3.2.4, Multiple Schema Document Subsets in a Single IEPD or EIEM, below, for clarity and simplicity.
+
+      3. Changed MPD catalog c:mpdClassCode to c:mpdClass because it is a union of class codes (enumerations) and xs:anyURI for easy extension.
+
+      4. Relaxed mpdName attribute pattern to allow upper case and spaces.
+
+      5. Added Section 4.2.1, c:mpdName Syntax, below, to highlight difference with MPD file name syntax and to recommend non-normative practices. 
+
+      6. Added Section 4.2.2, c:mpdClass, below, to ensure completeness; now one section for each of the four primary MPD metadata attributes: mpdURI, mpdName, mpdVersionID, and mpdClass.
+
+      7. Rewrote Section 2.8.5, Enterprise Information Exchange Model (EIEM), below, to eliminate duplication of definitions and to improve sequencing of explanations of concepts enterprise, BIEC, and EIEM.
+
+      8. Fixed UPA error in MPD catalog schema document by changing xs:restriction on c:SchemaDocumentSetType to xs:extension (of c:FileSetType). (Note: By intent, there are no new elements added; c:SchemaDocumentSetType extends c:FileSetType in name only. This eliminates UPA errors and sets up for application of Schematron rules.)
+
+      9. Added Schematron rules to ensure that c:SchemaDocumentSetType contains a c:XMLCatalog or a c:XMLSchemaDocument.
 
 Remaining work
 
@@ -368,7 +382,7 @@ Remaining work
 
    A [micro release] is a NIEM release that adds new data components to the Core, domains, or both without removing or modifying existing Core and domain schemas or content. Figure 2-1, Examples of NIEM numbered releases, below, illustrates both real (v1.0, v2.0, v2.1, and v3.0) and fictitious (v2.1.1 and v2.1.2) examples of major, minor, and micro release composition.
 
-   Note that a given NIEM [reference schema document] (target namespace) can exist in multiple numbered releases. For example, as illustrated in Figure 2-1, Examples of NIEM numbered releases, below, both NIEM 2.0 and 2.1 contain (and reuse) the same NIEM Core 2.0 schema document. The [NIEM High-Level Version Architecture] defines the processes for numbering releases and identifying the schema documents that compose these sets. This specification outlines a similar version numbering scheme for MPDs and their artifacts Section 4.2.2, Version Numbering Scheme, below.
+   Note that a given NIEM [reference schema document] (target namespace) can exist in multiple numbered releases. For example, as illustrated in Figure 2-1, Examples of NIEM numbered releases, below, both NIEM 2.0 and 2.1 contain (and reuse) the same NIEM Core 2.0 schema document. The [NIEM High-Level Version Architecture] defines the processes for numbering releases and identifying the schema documents that compose these sets. This specification outlines a similar version numbering scheme for MPDs and their artifacts Section 4.2.3, Version Numbering Scheme, below.
 
    Figure 2-1: Examples of NIEM numbered releases
 
@@ -1020,13 +1034,21 @@ Rule 4-9. MPD Schema Document Extension Support Schemas Are Supersets of Spec Su
 
    The MPD catalog also contains both required and optional metadata for the MPD and its artifacts and artifact sets. The following subsections specify the syntax, formats, and semantics for that metadata.
 
-4.2.1. mpdName Syntax
+4.2.1. c:mpdName Syntax
 
-   
+   Note that the syntax for c:mpdName herein is not the same as the MPD file name syntaxpresented in Section 7.2, MPD File Name Syntax, below.
 
-4.2.2. Version Numbering Scheme
+   The difference is upper case and spaces.
+
+   [A-Za-z]([-_ ]?[A-Za-z0-9]+)*
+
+4.2.2. c:mpdClass
+
+4.2.3. Version Numbering Scheme
 
    Published MPDs may be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred. In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices. This is the same version numbering scheme that is used for NIEM releases.
+
+   An MPD version number is the value of the c:mpdVersionID attribute owned by the c:MPD element within its [MPD catalog document]. A consistent version number syntax is enforced by the MPD catalog schema Appendix A, MPD Catalog XML Schema Document, below. The syntax rule is as follows:
 
 Rule 4-10. MPD Version Number Syntax
 
@@ -1053,7 +1075,7 @@ Rule 4-10. MPD Version Number Syntax
 
    Note that the absence of a status string in the version number indicates that the version has been baselined and published.
 
-   The regular expression in Rule 4-10, MPD Version Number Syntax is enforced by the MPD catalog schema document Appendix A, MPD Catalog XML Schema Document, below. The following examples are valid MPD version numbers:
+   The following examples are valid MPD version numbers:
 
       *  1
 
@@ -1101,7 +1123,7 @@ Rule 4-10. MPD Version Number Syntax
 
    Version number syntax applies to MPDs only; there is no requirement to apply this syntax to artifact versioning.
 
-4.2.3. URI Schemes
+4.2.4. URI Schemes
 
    All MPDs use Uniform Resource Identifiers (URIs) to identify artifacts and other resources. Several kinds of URIs are employed by MPDs to reference other MPDs, MPD artifacts (internally and externally), conformance targets, documents, and other resources. For each type of URI used in an MPD catalog document, this section describes its purpose, options, and syntax based on [RFC 3986 URI].
 
@@ -1115,7 +1137,7 @@ Rule 4-10. MPD Version Number Syntax
 
       A function (or action) that takes a URI string of the form xs:anyURI and returns the resource it identifies. If the URI is local (i.e., within an MPD) and the resource does not exist, then this function fails. If a URI is remote or of unknown location (e.g., a URN), then this function (or action) may require human assistance to determine if a resource associated with the URI exists (pass) or not (fail).
 
-4.2.3.1. URI Scheme for MPDs (mpdURI)
+4.2.4.1. URI Scheme for MPDs (mpdURI)
 
    To facilitate MPD sharing and reuse, the assignment of a URI (Uniform Resource Identifier) to an MPD is essential. This is enforced by the MPD catalog schema document Appendix A, MPD Catalog XML Schema Document, below. It is also important to ensure that an MPD URI is absolute.
 
@@ -1139,7 +1161,7 @@ Rule 4-11. MPD URI Is Absolute
 
    This specification does not mandate that basic MPD catalog metadata be designed into an MPD URI. However, including such can obviously provide convenient visual recognition. That said, an author should ensure any metadata embedded in the URI accurately reflect the MPD catalog metadata (in particular, the values of c:mpdURI, c:mpdName, c:mpdVersionID, and c:mpdClass defined in the MPD catalog document).
 
-4.2.3.2. URI Scheme for MPD Artifacts (externalURI)
+4.2.4.2. URI Scheme for MPD Artifacts (externalURI)
 
    Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (signify reuse, one aspect of lineage). To support this concept, the following MPD URI rules are necessary:
 
@@ -1203,7 +1225,7 @@ Rule 4-14. MPD Artifact URI Syntax
 
    The value of c:externalURI is an identifier for a remote resource that is not necessarily accessible online. For this reason, even though such URIs should be correct (i.e. a resource with that URI should exist), their verification is not within the scope of this specification.
 
-4.2.3.3. URI Scheme for Local MPD Artifacts (pathURI)
+4.2.4.3. URI Scheme for Local MPD Artifacts (pathURI)
 
    An MPD uses the file directory system of path names and file names to identify local artifacts and artifact sets. All local URIs are relative to the location of the [MPD catalog document], and therefore, they are also relative to the [MPD root directory] since the MPD catalog document resides in the MPD root directory.
 
@@ -1321,27 +1343,27 @@ Rule 4-31. c:pathURI for c:RequiredFile
 
       Within an [MPD catalog document] the value of a c:pathURI attribute owned by a c:RequiredFile element MUST [resolve] to a resource.
 
-4.2.3.4. MPD Relationships and Lineage (resourceURI)
+4.2.4.4. MPD Relationships and Lineage (resourceURI)
 
    An important business requirement is transparency of MPD lineage. Data lineage is also referred to as data provenance, how data are derived or where it came from. There are two basic views of data provenance: (1) as data annotations; and (2) as a graph of data relationships [Principles of Data Integration], Chapter 14 "Data Provenance".
 
    The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an MPD catalog. The URI scheme for MPDs and their artifacts and sets enables a graph of relationships. An MPD may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.
 
-   The next few paragraphs require that you understand URIs for MPDs and MPD artifacts. See Section 4.2.3.1, URI Scheme for MPDs (mpdURI), above, and Section 4.2.3.2, URI Scheme for MPD Artifacts (externalURI), above.
+   The next few paragraphs require that you understand URIs for MPDs and MPD artifacts. See Section 4.2.4.1, URI Scheme for MPDs (mpdURI), above, and Section 4.2.4.2, URI Scheme for MPD Artifacts (externalURI), above.
 
    The MPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:descriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one MPD may relate to another. This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:descriptionText element is provided to further explain the nature of any of the eight c:relationshipCode values available. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:descriptionText (for example, if its value is adapts).
 
-   As was described in Section 4.2.3.2, URI Scheme for MPD Artifacts (externalURI), above, the MPD catalog also enables an author to record more fine-grained ancestry between MPDs using the c:externalURI attribute. This attribute records an explicit equivalence relationship between artifacts reused across MPDs.
+   As was described in Section 4.2.4.2, URI Scheme for MPD Artifacts (externalURI), above, the MPD catalog also enables an author to record more fine-grained ancestry between MPDs using the c:externalURI attribute. This attribute records an explicit equivalence relationship between artifacts reused across MPDs.
 
    Some MPDs are designed for more extensive reuse than others. For example, families of IEPDs are expected to reuse a given EIEM. In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references. This is expected. The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs. Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.
 
    Note that a c:resourceURI attribute is used to identify a remote resource that is related to the MPD whose catalog declares it. Therefore, the MPD is not required to contain this resource. As in the case of c:externalURI, the value of a c:resourceURI should be correct (i.e., a resource with that URI should exist). However, verification of this is considered outside the scope of this specfication.
 
-4.2.3.5. Conformance Target URI (conformanceTargetURI)
+4.2.4.5. Conformance Target URI (conformanceTargetURI)
 
    A declared c:IEPConformanceTarget also has a URI. 
 
-4.2.3.6. Resolving an MPD URI with a Fragment
+4.2.4.6. Resolving an MPD URI with a Fragment
 
 Rule 4-32. Resolve MPD URI with Fragment
 
@@ -1359,9 +1381,9 @@ Rule 4-32. Resolve MPD URI with Fragment
 
          3. Return the element, directory, or file found.
 
-4.2.3.7. URI Resolution Involving Reference Elements
+4.2.4.7. URI Resolution Involving Reference Elements
 
-   In the presence of NIEM [reference elements] URI resolution may require an additional step to account for indirect references. Be sure to review Section 4.2.3.7, URI Resolution Involving Reference Elements, above, if this case applies.
+   In the presence of NIEM [reference elements] URI resolution may require an additional step to account for indirect references. Be sure to review Section 4.2.4.7, URI Resolution Involving Reference Elements, above, if this case applies.
 
    Note that a NIEM element can indirectly reference its content rather than carry or encapsulate it. So, a NIEM element of type xs:anyURI may not contain a URI, but instead refer to another element that contains it for both elements. Under some circumstances, this might have an impact on URI resolution.
 
@@ -1375,7 +1397,7 @@ Rule 4-32. Resolve MPD URI with Fragment
 
    The [MPD catalog document] reuses NIEM Core and so it conforms to NIEM. Therefore, one or more NIEM [reference elements] from various locations may refer to a single content bearing instance of the same element (with a unique structures:id). The definition of [resolve URI] and the URI-related rules in this section assume content bearing elements. If a URI resolution rule applies to an element in [reference element] form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).
 
-4.2.3.8. XML Catalog URI
+4.2.4.8. XML Catalog URI
 
    An [XML catalog document] conforms to [XML Catalogs]. For the purpose of MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.
 
@@ -1391,7 +1413,7 @@ Rule 4-34. XML Catalog uri Value Resolves to Resource with Correct Target Namesp
 
       Within an [XML catalog document], given an [XML schema document] resolved by the value of a uri attribute owned by a er:uri element, the [XML schema document] target namespace MUST equal the value of the name (a namespace string) attribute owned by the er:uri element.
 
-4.2.3.9. Summary of MPD URIs
+4.2.4.9. Summary of MPD URIs
 
    This section summarizes the various URIs used in the MPD catalog document. It also presents a summary of [RFC 3986 URI]. See that reference for explanation and details of URI syntax.
 
@@ -1443,13 +1465,13 @@ Rule 4-35. Releases and Core/Domain Updates Require changelog.xml
 
    [Rule 4-35] (WF-MPD)
 
-      An MPD with a c:mpdClassCode attribute value from the set {rel, cu, du} MUST contain a changelog.xml artifact in its [MPD root directory].
+      An MPD with a c:mpdClass attribute value from the set {rel, cu, du} MUST contain a changelog.xml artifact in its [MPD root directory].
 
 Rule 4-36. Release and Core/Domain Update changelog.xml Valid to mpd-changelog-1.0.xsd
 
    [Rule 4-36] (M-Chg-Log)
 
-      A changelog.xml artifact for an MPD with a c:mpdClassCode attribute value from the set {rel, cu, du} MUST validate with the NIEM change log schemas mpd-changelog-1.0.xsd and niem-model-1.0.xsd.
+      A changelog.xml artifact for an MPD with a c:mpdClass attribute value from the set {rel, cu, du} MUST validate with the NIEM change log schemas mpd-changelog-1.0.xsd and niem-model-1.0.xsd.
 
    The most current versions of the resources referenced in the rule above are available here:
 
@@ -1467,7 +1489,7 @@ Rule 4-37. IEPD and EIEM Have Change Log in Root Directory
 
    [Rule 4-37] (N-IEPD, N-EIEM)
 
-      An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST contain a change log artifact in its [MPD root directory]
+      An MPD with a c:mpdClass attribute value from the set {iepd, eiem} MUST contain a change log artifact in its [MPD root directory]
 
    The format of an IEPD or EIEM change log is left to the discretion of the author. The use of mpd-changelog-1.0.xsd for IEPD and EIEM schemas is not required. Relaxing the change log format encourages and facilitates easier and more rapid development. IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges. As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats. A consistent standard change log would be very difficult to specify.
 
@@ -1485,7 +1507,7 @@ Rule 4-38. IEPD and EIEM Have read-me.* in Root Directory
 
    [Rule 4-38] (N-IEPD, N-EIEM)
 
-      An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST contain a read-me.* file artifact in its [MPD root directory].
+      An MPD with a c:mpdClass attribute value from the set {iepd, eiem} MUST contain a read-me.* file artifact in its [MPD root directory].
 
    The read-me artifact may replicate some of the metadata in the MPD catalog. However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal. It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.
 
@@ -1599,7 +1621,7 @@ Rule 4-40. IEPD and EIEM Resolve Namespaces to URIs With XML Catalog Documents
 
    [Rule 4-40] (WF-MPD)
 
-      An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST [resolve] each namespace it uses to a URI through one or more [XML catalog documents].
+      An MPD with a c:mpdClass attribute value from the set {iepd, eiem} MUST [resolve] each namespace it uses to a URI through one or more [XML catalog documents].
 
    This rule implies that er:NextCatalog elements may be used within [XML catalog documents] to connect them and control their parsing sequence. An IEPD must contain at least one [XML catalog document] because it is the only MPD that can specify an IEP [Definition: Information Exchange Package], above, and provide validation instructions that would require schema assembly from XML schema documents. Section 4.6, Information Exchange Packages, below, provides more specifics about using [XML catalog documents] within IEPDs.
 
@@ -1779,7 +1801,7 @@ Rule 4-47. IEPD and EIEM Have Conformance Assertion in Root Directory
 
    [Rule 4-47] (N-IEPD, N-EIEM)
 
-      An MPD with a c:mpdClassCode attribute value from the set {iepd, eiem} MUST contain a [conformance assertion] artifact in its [MPD root directory].
+      An MPD with a c:mpdClass attribute value from the set {iepd, eiem} MUST contain a [conformance assertion] artifact in its [MPD root directory].
 
 Rule 4-48. Conformance Assertion File Name Is conformance-assertion.*
 
@@ -1843,7 +1865,7 @@ Rule 4-48. Conformance Assertion File Name Is conformance-assertion.*
 
       An MPD that:
 
-         *  Has c:mpdClassCode="iepd", and
+         *  Has c:mpdClass="iepd", and
 
          *  Has one or more c:IEPConformanceTarget elements within its [MPD catalog document], and
 
@@ -1859,7 +1881,7 @@ Rule 4-48. Conformance Assertion File Name Is conformance-assertion.*
 
       An MPD that:
 
-         *  Has c:mpdClassCode="eiem", and
+         *  Has c:mpdClass="eiem", and
 
          *  Satisfies all applicable rules and mandatory requirements in:
 
@@ -2015,7 +2037,7 @@ Rule 7-4. Release and Core/Domain Update File Name Syntax
 
    [Rule 7-4] (WF-MPD)
 
-      Given an MPD whose c:mpdClassCode value is in the set {rel, cu, du}, its file name MUST adhere to the syntax defined by the regular expression:
+      Given an MPD whose c:mpdClass value is in the set {rel, cu, du}, its file name MUST adhere to the syntax defined by the regular expression:
 
       
       	mpd-filename ::= name '-' version '.' class '.zip'       
@@ -2054,7 +2076,7 @@ Rule 7-5. Release and Core/Domain Update File Name Matches Metadata
 
    [Rule 7-5] (WF-MPD)
 
-      Given an MPD with a c:mpdClassCode attribute value from the set {rel, cu, du}, its file name substrings for name, version, and class, as defined in Rule 7-4, Release and Core/Domain Update File Name Syntax, MUST exactly match its MPD catalog values for c:MPD attributes c:mpdName, c:mpdVersionID, and c:mpdClassCode respectively.
+      Given an MPD with a c:mpdClass attribute value from the set {rel, cu, du}, its file name substrings for name, version, and class, as defined in Rule 7-4, Release and Core/Domain Update File Name Syntax, MUST exactly match its MPD catalog values for c:MPD attributes c:mpdName, c:mpdVersionID, and c:mpdClass respectively.
 
    And finally, in HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.
 
@@ -2072,7 +2094,7 @@ Rule 7-6. MPD MIME Type Syntax
 
 7.3. Artifact Links to Other Resources
 
-   It is important to understand that the URI scheme defined in Section 4.2.3.2, URI Scheme for MPD Artifacts (externalURI), above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM NDR], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative [path name] references when needed. The following rule applies when absolute references to Internet resources are required.
+   It is important to understand that the URI scheme defined in Section 4.2.4.2, URI Scheme for MPD Artifacts (externalURI), above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM NDR], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative [path name] references when needed. The following rule applies when absolute references to Internet resources are required.
 
 Rule 7-7. MPD References to Resources Use Common Transfer Protocols
 
@@ -2477,15 +2499,7 @@ Appendix A. MPD Catalog XML Schema Document
    	      </xs:documentation>
          </xs:annotation>
          <xs:complexContent>
-           <xs:restriction base="c:FileSetType">
-   	  <xs:sequence>
-   	    <xs:element ref="nc:DescriptionText"  minOccurs="0"/>
-   	    <xs:element ref="c:XMLCatalog"/>
-   	    <xs:element ref="c:Wantlist"          minOccurs="0"/>
-   	    <xs:element ref="c:XMLSchemaDocument" minOccurs="0"
-   		                               maxOccurs="unbounded"/>
-             </xs:sequence>
-           </xs:restriction>
+   	      <xs:extension base="c:FileSetType"/>  <!-- Sets up for application of Schematron rules -->
          </xs:complexContent>
        </xs:complexType>
    
@@ -2537,7 +2551,7 @@ Appendix A. MPD Catalog XML Schema Document
    		</xs:documentation>
          </xs:annotation>
          <xs:restriction base="xs:token">
-   	<xs:pattern value="[a-z]([-_]?[a-z0-9]+)*"/>
+   	<xs:pattern value="[A-Za-z]([-_ ]?[A-Za-z0-9]+)*"/>
          </xs:restriction>
        </xs:simpleType>
    
@@ -2562,10 +2576,11 @@ Appendix A. MPD Catalog XML Schema Document
    
    <!-- =========================================================================== -->
    
-       <xs:attribute name="mpdClassCode" type="c:MPDClassListSimpleType">
+       <xs:attribute name="mpdClass" type="c:MPDClassListSimpleType">
          <xs:annotation>
    		<xs:documentation>
-   			A classification for an MPD; values drawn from the set {rel, cu, du, iepd, eiem}.
+   			A classification for an MPD from the set {rel, cu, du, iepd, eiem}
+   			or an assigned URI for a new mpdClass.
    		</xs:documentation>
          </xs:annotation>
        </xs:attribute>
@@ -3148,7 +3163,7 @@ Appendix A. MPD Catalog XML Schema Document
        <xs:element name="ExchangePartnerName" type="niem-xs:string">
          <xs:annotation>
    	      <xs:documentation>
-   		      A name of an entity or organization that uses this MPD (generally, only applicable to IEPDsP).
+   		      A name of an entity or organization that uses this MPD (generally, only applicable to IEPDs).
    	      </xs:documentation>
          </xs:annotation>
        </xs:element>
@@ -3161,7 +3176,167 @@ Appendix A. MPD Catalog XML Schema Document
 
 Appendix B. Schematron Rules for MPD Catalog
 
-   [TBD]
+   <?xml version="1.0" encoding="UTF-8"?>
+   <schema 
+      queryBinding="xslt2"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns="http://purl.oclc.org/dsdl/schematron">
+   
+   <title>Rules about MPD catalog artifacts</title>
+   
+   <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+   <ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+   <ns prefix="c" uri="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"/>
+   <ns prefix="structures" uri="http://release.niem.gov/niem/structures/3.0/"/>
+   
+   <pattern>
+     <rule context="c:IEPConformanceTarget">
+       <assert test="exists(@structures:id)"
+         >Rule 4-41: A c:IEPConformanceTarget element MUST own a structures:id attribute.</assert>
+   </pattern>
+   
+   </schema>
+   <!-- 
+     Local Variables:
+     mode: sgml
+     indent-tabs-mode: nil
+     fill-column: 9999
+     End:
+   -->
+   
+
+   <?xml version="1.0" encoding="UTF-8"?>
+   <schema 
+      queryBinding="xslt2"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns="http://purl.oclc.org/dsdl/schematron">
+      xmlns:lf="http://niem.gtri.gatech.edu/local-functions/2014-04-30-1349">
+   
+   <title>Rules about an MPD catalog document in a well-formed MPD</title>
+   
+   <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+   <ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+   <ns prefix="c" uri="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"/>
+   <ns prefix="structures" uri="http://release.niem.gov/niem/structures/3.0/"/>
+   <ns prefix="xmlcatalog" uri="urn:oasis:names:tc:entity:xmlns:xml:catalog"/>>
+   <ns prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
+   
+   <xsl:function name="lf:has-effective-conformance-target-identifier" as="xs:boolean">
+     <xsl:param name="context" as="element()"/>
+     <xsl:param name="match" as="xs:anyURI"/>
+     <xsl:variable name="effective-conformance-targets-attribute" 
+               as="attribute()?"
+               select="(root($context)//*[exists(@ct:conformanceTargets)])[1]/@ct:conformanceTargets"/>
+     <xsl:sequence select="if (empty($effective-conformance-targets-attribute))
+                       then false()
+                       else some $effective-conformance-target-string
+                            in tokenize(normalize-space(string($effective-conformance-targets-attribute)), ' ')
+                            satisfies (
+                              $effective-conformance-target-string castable as xs:anyURI
+                              and xs:anyURI($effective-conformance-target-string) = $match)"/>
+   </xsl:function>
+   
+   
+   <pattern>
+     <rule context="c:*[exists(@c:pathURI)]">
+       <assert test="unparsed-text-available(resolve-uri(@c:pathURI, base-uri(.)))"
+         >Rule 4-15: The value of a c:pathURI attribute MUST resolve to a resource.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:XMLCatalog[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/xmlcatalog:catalog)"
+         >Rule 4-16: The value of a c:pathURI attribute owned by an element c:XMLCatalog MUST resolve to an XML catalog document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:IEPSampleXMLDocument[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies
+                       doc-available($uri)"
+         >Rule 4-19: The value of a c:pathURI attribute owned by an element c:IEPSampleXMLDocument MUST resolve to an XML document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:ExternalSchemaDocument[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/xs:schema)"
+         >Rule 4-21: The value of a c:pathURI attribute owned by an element c:ExternalSchemaDocument MUST resolve to an XML schema document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:ReferenceSchemaDocument[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/xs:schema
+                       and lf:has-effective-conformance-target-identifier(doc($uri)/xs:schema,
+                               'http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument'))"
+         >Rule 4-22: The value of a c:pathURI attribute owned by an element c:ReferenceSchemaDocument MUST resolve to a NIEM reference schema document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:ExtensionSchemaDocument[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/xs:schema
+                       and lf:has-effective-conformance-target-identifier(doc($uri)/xs:schema,
+                               'http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ExtensionSchemaDocument'))"
+         >Rule 4-23: The value of a c:pathURI attribute owned by an element c:ExtensionSchemaDocument MUST resolve to a NIEM extension schema document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:SubsetSchemaDocument[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/xs:schema)"
+         >Rule 4-24: The value of a c:pathURI attribute owned by an element c:SubsetSchemaDocument MUST resolve to an XML schema document.</assert>
+   </pattern>
+   
+   <pattern>
+     <rule context="c:SchematronSchema[exists(@c:pathURI)]">
+       <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
+                       doc-available($uri)
+                       and doc($uri)/sch:schema)"
+         >Rule 4-26: The value of a c:pathURI attribute owned by an element c:SchematronSchema MUST resolve to a Schematron schema.</assert>
+   </pattern>
+   
+   </schema>
+   <!-- 
+     Local Variables:
+     mode: sgml
+     indent-tabs-mode: nil
+     fill-column: 9999
+     End:
+   -->
+   
+
+   <?xml version="1.0" encoding="UTF-8"?>
+   <schema 
+      queryBinding="xslt2"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns="http://purl.oclc.org/dsdl/schematron">
+      xmlns:lf="http://niem.gtri.gatech.edu/local-functions/2014-04-30-1349">
+   
+   <title>Rules about an XML catalog document in a well-formed MPD</title>
+   
+   <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+   <ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+   <ns prefix="c" uri="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"/>
+   <ns prefix="structures" uri="http://release.niem.gov/niem/structures/3.0/"/>
+   <ns prefix="xmlcatalog" uri="urn:oasis:names:tc:entity:xmlns:xml:catalog"/>>
+   <ns prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
+   
+   </schema>
+   <!-- 
+     Local Variables:
+     mode: sgml
+     indent-tabs-mode: nil
+     fill-column: 9999
+     End:
+   -->
+   
 
       
 
@@ -3777,31 +3952,31 @@ Appendix K. Index of Rules
    Rule 4-7, MPD Catalog Extension Schema Document Conforms to NDR Extension Rules: Section 4.1.3, Extending an MPD Catalog
    Rule 4-8, MPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules: Section 4.1.3, Extending an MPD Catalog
    Rule 4-9, MPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets: Section 4.1.3, Extending an MPD Catalog
-   Rule 4-10, MPD Version Number Syntax: Section 4.2.2, Version Numbering Scheme
-   Rule 4-11, MPD URI Is Absolute: Section 4.2.3.1, URI Scheme for MPDs (mpdURI)
-   Rule 4-12, MPD URI Supports Fragment: Section 4.2.3.2, URI Scheme for MPD Artifacts (externalURI)
-   Rule 4-13, MPD URI Has No Fragment: Section 4.2.3.2, URI Scheme for MPD Artifacts (externalURI)
-   Rule 4-14, MPD Artifact URI Syntax: Section 4.2.3.2, URI Scheme for MPD Artifacts (externalURI)
-   Rule 4-15, c:pathURI Resolves to a Resource: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-16, c:pathURI for c:XMLCatalog: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-17, c:pathURI for c:MPDChangeLog: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-18, c:pathURI for c:ReadME: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-19, c:pathURI for c:IEPSampleXMLDocument: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-20, c:pathURI for c:BusinessRulesArtifact: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-21, c:pathURI for c:ExternalSchemaDocument: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-22, c:pathURI for c:ReferenceSchemaDocument: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-23, c:pathURI for c:ExtensionSchemaDocument: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-24, c:pathURI for c:SubsetSchemaDocument: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-25, c:pathURI for c:Wantlist: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-26, c:pathURI for c:SchematronSchema: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-27, c:pathURI for c:RelaxNGSchema: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-28, c:pathURI for c:SchemaDocumentSet: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-29, c:pathURI for c:ConstraintSchemaDocumentSet: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-30, c:pathURI for c:ReferenceSchemaDocumentSet: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-31, c:pathURI for c:RequiredFile: Section 4.2.3.3, URI Scheme for Local MPD Artifacts (pathURI)
-   Rule 4-32, Resolve MPD URI with Fragment: Section 4.2.3.6, Resolving an MPD URI with a Fragment
-   Rule 4-33, XML Catalog uri Value Resolves to Resource: Section 4.2.3.8, XML Catalog URI
-   Rule 4-34, XML Catalog uri Value Resolves to Resource with Correct Target Namespace: Section 4.2.3.8, XML Catalog URI
+   Rule 4-10, MPD Version Number Syntax: Section 4.2.3, Version Numbering Scheme
+   Rule 4-11, MPD URI Is Absolute: Section 4.2.4.1, URI Scheme for MPDs (mpdURI)
+   Rule 4-12, MPD URI Supports Fragment: Section 4.2.4.2, URI Scheme for MPD Artifacts (externalURI)
+   Rule 4-13, MPD URI Has No Fragment: Section 4.2.4.2, URI Scheme for MPD Artifacts (externalURI)
+   Rule 4-14, MPD Artifact URI Syntax: Section 4.2.4.2, URI Scheme for MPD Artifacts (externalURI)
+   Rule 4-15, c:pathURI Resolves to a Resource: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-16, c:pathURI for c:XMLCatalog: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-17, c:pathURI for c:MPDChangeLog: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-18, c:pathURI for c:ReadME: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-19, c:pathURI for c:IEPSampleXMLDocument: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-20, c:pathURI for c:BusinessRulesArtifact: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-21, c:pathURI for c:ExternalSchemaDocument: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-22, c:pathURI for c:ReferenceSchemaDocument: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-23, c:pathURI for c:ExtensionSchemaDocument: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-24, c:pathURI for c:SubsetSchemaDocument: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-25, c:pathURI for c:Wantlist: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-26, c:pathURI for c:SchematronSchema: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-27, c:pathURI for c:RelaxNGSchema: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-28, c:pathURI for c:SchemaDocumentSet: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-29, c:pathURI for c:ConstraintSchemaDocumentSet: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-30, c:pathURI for c:ReferenceSchemaDocumentSet: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-31, c:pathURI for c:RequiredFile: Section 4.2.4.3, URI Scheme for Local MPD Artifacts (pathURI)
+   Rule 4-32, Resolve MPD URI with Fragment: Section 4.2.4.6, Resolving an MPD URI with a Fragment
+   Rule 4-33, XML Catalog uri Value Resolves to Resource: Section 4.2.4.8, XML Catalog URI
+   Rule 4-34, XML Catalog uri Value Resolves to Resource with Correct Target Namespace: Section 4.2.4.8, XML Catalog URI
    Rule 4-35, Releases and Core/Domain Updates Require changelog.xml: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-36, Release and Core/Domain Update changelog.xml Valid to mpd-changelog-1.0.xsd: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-37, IEPD and EIEM Have Change Log in Root Directory: Section 4.3.2, Change Log for IEPDs and EIEMs
