@@ -100,8 +100,15 @@
 <subsection>
 	<title>Beta 4</title>
 	<ol>
-		<li><p>Applied many small adjustments suggested by Ted Stout's review of Beta2.</p></li>
+		<li><p>Applied many minor adjustments suggested by Ted's review of Beta2.</p></li>
 		<li><p>Rewrote <ref idref="Multiple-Subsets-in-a-Single-IEPD-or-EIEM"/> for clarity and simplicity.</p></li>
+		<li><p>Changed MPD catalog <code>c:mpdClassCode</code> to <code>c:mpdClass</code> because it is a union of class codes (enumerations) and <code>xs:anyURI</code> for easy extension.</p></li>
+		<li><p>Relaxed <code>mpdName</code> attribute pattern to allow upper case and spaces.</p></li>
+		<li><p>Added <ref idref="mpdName-Syntax"/> to highlight difference with MPD file name syntax and to recommend non-normative practices. </p></li>
+		<li><p>Added <ref idref=""/> to ensure completeness; now one section for each of the four primary MPD metadata attributes:  <code>mpdURI, mpdName, mpdVersionID,</code> and <code>mpdClass</code>.</p></li>
+		<li><p>Rewrote <ref idref="Enterprise-Information-Exchange-Model"/> to eliminate duplication of definitions and to improve sequencing of explanations of concepts enterprise, BIEC, and EIEM.</p></li>
+		<li><p>Fixed UPA error in MPD catalog schema document by changing <code>xs:restriction</code> on <code>c:SchemaDocumentSetType</code> to <code>xs:extension</code> (of <code>c:FileSetType</code>).  (Note: By intent, there are no new elements added; <code>c:SchemaDocumentSetType</code> extends <code>c:FileSetType</code> in name only.  This eliminates UPA errors and sets up for application of Schematron rules.)</p></li>
+		<li><p>Added Schematron rules to ensure that <code>c:SchemaDocumentSetType</code> contains a <code>c:XMLCatalog</code> or a <code>c:XMLSchemaDocument</code>.</p></li>
 	</ol>
 </subsection>
 
@@ -1294,7 +1301,20 @@
 
 <section id="mpdName-syntax">
 	<title><code>c:mpdName</code> Syntax</title>
-	<p>Note the syntax for c:mpdName is not the same as the MPD file name addressed in <ref idref="MPD-File-Name-Syntax"/>.</p>
+
+	<p>Note that the syntax for <code>c:mpdName</code> herein is not the same as the MPD file name syntaxpresented in <ref idref="MPD-File-Name-Syntax"/>.</p>
+
+	<p>The difference is upper case and spaces.</p>
+
+	<p>[A-Za-z]([-_ ]?[A-Za-z0-9]+)*</p>
+
+</section>
+
+
+
+<section id="mpdClass">
+	<title><code>c:mpdClass</code></title>
+
 </section>
 
 
@@ -1799,14 +1819,14 @@
 <ruleSection>
 	<title>Releases and Core/Domain Updates Require <code>changelog.xml</code></title>
 		<rule id="r-mpd-ref-changelog" applicability="WF-MPD" class="Constraint">
-			<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{rel, cu, du}</code> MUST contain a <code>changelog.xml</code> artifact in its <termRef>MPD root directory</termRef>.</p>
+			<p>An MPD with a <code>c:mpdClass</code> attribute value from the set <code>{rel, cu, du}</code> MUST contain a <code>changelog.xml</code> artifact in its <termRef>MPD root directory</termRef>.</p>
 		</rule>
 </ruleSection>
 
 <ruleSection>
 	<title>Release and Core/Domain Update <code>changelog.xml</code> Valid to <code>mpd-changelog-1.0.xsd</code></title>
 	<rule id="r-changelog-ref" applicability="M-Chg-Log" class="Constraint">
-			<p>A <code>changelog.xml</code> artifact for an MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{rel, cu, du}</code> MUST validate with the NIEM change log schemas <code>mpd-changelog-1.0.xsd</code> and <code>niem-model-1.0.xsd</code>.</p>
+			<p>A <code>changelog.xml</code> artifact for an MPD with a <code>c:mpdClass</code> attribute value from the set <code>{rel, cu, du}</code> MUST validate with the NIEM change log schemas <code>mpd-changelog-1.0.xsd</code> and <code>niem-model-1.0.xsd</code>.</p>
 	</rule>
 </ruleSection>
 		
@@ -1829,7 +1849,7 @@
 <ruleSection>
 	<title>IEPD and EIEM Have Change Log in Root Directory</title>
 		<rule id="r-mpd-changelog-iepd" applicability="N-IEPD N-EIEM" class="Constraint">
-			<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a change log artifact in its <termRef>MPD root directory</termRef></p>
+			<p>An MPD with a <code>c:mpdClass</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a change log artifact in its <termRef>MPD root directory</termRef></p>
 		</rule>
 </ruleSection>
 
@@ -1854,7 +1874,7 @@
 <ruleSection>
 	<title>IEPD and EIEM Have <code>read-me.*</code> in Root Directory</title>
 		<rule id="r-mpd-read-me" applicability="N-IEPD N-EIEM" class="Constraint">
-			<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a <code>read-me.*</code> file artifact in its <termRef>MPD root directory</termRef>.</p>
+			<p>An MPD with a <code>c:mpdClass</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a <code>read-me.*</code> file artifact in its <termRef>MPD root directory</termRef>.</p>
 		</rule>
 </ruleSection>
 
@@ -1959,7 +1979,7 @@
 <ruleSection>
 	<title>IEPD and EIEM Resolve Namespaces to URIs With XML Catalog Documents</title>
 	<rule id="r-xml-cat-resolution" applicability="WF-MPD" class="Constraint">
-		<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST <termRef term="resolve URI">resolve</termRef> each namespace it uses to a URI through one or more <termRef term="XML catalog document">XML catalog documents</termRef>.</p>
+		<p>An MPD with a <code>c:mpdClass</code> attribute value from the set <code>{iepd, eiem}</code> MUST <termRef term="resolve URI">resolve</termRef> each namespace it uses to a URI through one or more <termRef term="XML catalog document">XML catalog documents</termRef>.</p>
 	</rule>
 </ruleSection>
 
@@ -2198,7 +2218,7 @@
 <ruleSection>
 	<title>IEPD and EIEM Have Conformance Assertion in Root Directory</title>
 	<rule id="r1-conform-assert" applicability="N-IEPD N-EIEM" class="Constraint">
-		<p>An MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a <termRef>conformance assertion</termRef> artifact in its <termRef>MPD root directory</termRef>.</p>
+		<p>An MPD with a <code>c:mpdClass</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a <termRef>conformance assertion</termRef> artifact in its <termRef>MPD root directory</termRef>.</p>
 	</rule>
 </ruleSection>
 
@@ -2273,7 +2293,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <definition term="NIEM IEPD">
 	<p>An MPD that:</p>
 	<ul>
-		<li><p>Has <code>c:mpdClassCode="iepd"</code>, and</p></li>
+		<li><p>Has <code>c:mpdClass="iepd"</code>, and</p></li>
 		<li><p>Has one or more <code>c:IEPConformanceTarget</code> elements within its <termRef>MPD catalog document</termRef>, and</p></li>
 		<li><p>Satisfies all applicable rules and mandatory requirements in:</p>
 			<ul>
@@ -2288,7 +2308,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <definition term="NIEM EIEM">
 	<p>An MPD that:</p>
 	<ul>
-		<li><p>Has <code>c:mpdClassCode="eiem"</code>, and</p></li>
+		<li><p>Has <code>c:mpdClass="eiem"</code>, and</p></li>
 		<li><p>Satisfies all applicable rules and mandatory requirements in:</p>
 			<ul>
 				<li><p><ref idref="NIEM-MPD-3.0"/> (i.e., This MPD Specification)</p></li>
@@ -2483,7 +2503,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <ruleSection>
 	<title>Release and Core/Domain Update File Name Syntax</title>
 	<rule id="r-name-syntax" applicability="WF-MPD" class="Constraint">
-		<p>Given an MPD whose <code>c:mpdClassCode</code> value is in the set <code>{rel, cu, du}</code>, its file name MUST adhere to the syntax defined by the regular expression:</p>
+		<p>Given an MPD whose <code>c:mpdClass</code> value is in the set <code>{rel, cu, du}</code>, its file name MUST adhere to the syntax defined by the regular expression:</p>
 	<pre>
 	mpd-filename ::= name '-' version '.' class '.zip'       
 	Where: 
@@ -2519,7 +2539,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <ruleSection>
 	<title>Release and Core/Domain Update File Name Matches Metadata</title>
 	<rule id="r-mpd-match" applicability="WF-MPD" class="Constraint">
-		<p>Given an MPD with a <code>c:mpdClassCode</code> attribute value from the set <code>{rel, cu, du}</code>, its file name substrings for <code>name</code>, <code>version</code>, and <code>class</code>, as defined in <ref idref="r-name-syntax"/>, MUST exactly match its MPD catalog values for <code>c:MPD</code> attributes <code>c:mpdName</code>, <code>c:mpdVersionID</code>, and <code>c:mpdClassCode</code> respectively.</p>
+		<p>Given an MPD with a <code>c:mpdClass</code> attribute value from the set <code>{rel, cu, du}</code>, its file name substrings for <code>name</code>, <code>version</code>, and <code>class</code>, as defined in <ref idref="r-name-syntax"/>, MUST exactly match its MPD catalog values for <code>c:MPD</code> attributes <code>c:mpdName</code>, <code>c:mpdVersionID</code>, and <code>c:mpdClass</code> respectively.</p>
 	</rule>
 </ruleSection>
 
