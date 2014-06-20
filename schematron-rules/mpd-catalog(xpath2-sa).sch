@@ -9,7 +9,6 @@
 <ns prefix="c" uri="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"/>
 <ns prefix="structures" uri="http://release.niem.gov/niem/structures/3.0/"/>
 
-
 <title>Rule for an MPD catalog document (Requires XPath2 schema aware app; covers an extended MPD catalog)</title>
 
 <pattern>
