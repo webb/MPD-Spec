@@ -108,7 +108,8 @@
 		<li><p>Added <ref idref="mpdClass"/> to ensure completeness; now one section for each of the four primary MPD metadata attributes:  <code>mpdURI, mpdName, mpdVersionID,</code> and <code>mpdClass</code>.</p></li>
 		<li><p>Rewrote <ref idref="Enterprise-Information-Exchange-Model"/> to eliminate duplication of definitions and to improve sequencing of explanations of concepts enterprise, BIEC, and EIEM.</p></li>
 		<li><p>Fixed UPA errors in MPD catalog schema document by changing <code>xs:restriction</code> on <code>c:SchemaDocumentSetType</code> to <code>xs:extension</code> (of <code>c:FileSetType</code>).  (By intent, no extension elements were added; <code>c:SchemaDocumentSetType</code> extends <code>c:FileSetType</code> in name only; fixes UPA errors and sets up for application of Schematron rules.)</p></li>
-		<li><p>Added Schematron rules to ensure that <code>c:SchemaDocumentSetType</code> contains a <code>c:XMLCatalog</code> or a <code>c:XMLSchemaDocument</code>.</p></li>
+		<li><p>Added Schematron rules to ensure that <code>c:SchemaDocumentSetType</code> contains a <code>c:XMLCatalog</code> or a <code>c:XMLSchemaDocument</code> (two rules - both designed by Webb - one rule handles all cases even extended MPD catalog documents; the other handles only unextended catalogs.  The unextended catalog version requires an XPath2-Schema-Aware app (e.g., paid version of Saxon); the other only requires an XPath2 app (e.g., free version of Saxon).</p></li>
+		<li><p>Removed <code>c:ReferenceSchemaDocumentSetType</code> and <code>c:ReferenceSchemaDocumentSet</code>.  No purpose for such.  If an MPD's <code>mpdClass</code> value is in <code>{rel, du, cu}</code> then its schemas are all reference schema documents.  Left <code>c:ReferenceSchemaDocument</code> in case it is needed for some reason.</p></li>
 	</ol>
 </subsection>
 
@@ -116,6 +117,7 @@
 <subsection>
 	<title>Remaining work</title>
 	<ol>
+		<li><p>Add rule for <code>c:SchemaDocumentSetType</code> MUST own a <code>c:XMLCatalog</code> or a <code>c:SchemaDocument</code>.</p></li>
 		<li><p>Review 63 rules and 11 conformance targets (CT):</p><ul>
 				<li><p>Missing rules or CTs? (or superfluous?)</p></li> 
 				<li><p>Rules or CTs to fork?</p></li>
