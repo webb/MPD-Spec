@@ -98,27 +98,31 @@ Beta 3
 
 Beta 4
 
-      1. Applied many minor adjustments suggested by Ted's review of Beta2.
+      1.  Applied many minor adjustments suggested by Ted's review of Beta2.
 
-      2. Rewrote Section 3.2.4, Multiple Schema Document Subsets in a Single IEPD or EIEM, below, for clarity and simplicity.
+      2.  Rewrote Section 3.2.4, Multiple Schema Document Subsets in a Single IEPD or EIEM, below, for clarity and simplicity.
 
-      3. Changed MPD catalog c:mpdClassCode to c:mpdClass because it is a union of class codes (enumerations) and xs:anyURI for easy extension.
+      3.  Changed MPD catalog c:mpdClassCode to c:mpdClass because it is a union of class codes (enumerations) and xs:anyURI for easy extension.
 
-      4. Relaxed mpdName attribute pattern to allow upper case and spaces.
+      4.  Relaxed mpdName attribute pattern to allow upper case and spaces.
 
-      5. Added Section 4.2.1, MPD Name Syntax (c:mpdName), below, to highlight difference between mpdName and MPD file name syntax, and to recommend non-normative practices. 
+      5.  Added Section 4.2.1, MPD Name Syntax (c:mpdName), below, to highlight difference between mpdName and MPD file name syntax, and to recommend non-normative practices. 
 
-      6. Added Section 4.2.2, MPD Class (c:mpdClass), below, to ensure completeness; now one section for each of the four primary MPD metadata attributes: mpdURI, mpdName, mpdVersionID, and mpdClass.
+      6.  Added Section 4.2.2, MPD Class (c:mpdClass), below, to ensure completeness; now one section for each of the four primary MPD metadata attributes: mpdURI, mpdName, mpdVersionID, and mpdClass.
 
-      7. Rewrote Section 2.8.5, Enterprise Information Exchange Model (EIEM), below, to eliminate duplication of definitions and to improve sequencing of explanations of concepts enterprise, BIEC, and EIEM.
+      7.  Rewrote Section 2.8.5, Enterprise Information Exchange Model (EIEM), below, to eliminate duplication of definitions and to improve sequencing of explanations of concepts enterprise, BIEC, and EIEM.
 
-      8. Fixed UPA errors in MPD catalog schema document by changing xs:restriction on c:SchemaDocumentSetType to xs:extension (of c:FileSetType). (By intent, no extension elements were added; c:SchemaDocumentSetType extends c:FileSetType in name only; fixes UPA errors and sets up for application of Schematron rules.)
+      8.  Fixed UPA errors in MPD catalog schema document by changing xs:restriction on c:SchemaDocumentSetType to xs:extension (of c:FileSetType). (By intent, no extension elements were added; c:SchemaDocumentSetType extends c:FileSetType in name only; fixes UPA errors and sets up for application of Schematron rules.)
 
-      9. Added Schematron rules to ensure that c:SchemaDocumentSetType contains a c:XMLCatalog or a c:XMLSchemaDocument.
+      9.  Added Schematron rules to ensure that c:SchemaDocumentSetType contains a c:XMLCatalog or a c:XMLSchemaDocument (two rules - both designed by Webb - one rule handles all cases even extended MPD catalog documents; the other handles only unextended catalogs. The unextended catalog version requires an XPath2-Schema-Aware app (e.g., paid version of Saxon); the other only requires an XPath2 app (e.g., free version of Saxon).
+
+      10. Removed c:ReferenceSchemaDocumentSetType and c:ReferenceSchemaDocumentSet. No purpose for such. If an MPD's mpdClass value is in {rel, du, cu} then its schemas are all reference schema documents. Left c:ReferenceSchemaDocument in case it is needed for some reason.
 
 Remaining work
 
-      1. Review 63 rules and 11 conformance targets (CT):
+      1. Add rule for c:SchemaDocumentSetType MUST own a c:XMLCatalog or a c:SchemaDocument.
+
+      2. Review 63 rules and 11 conformance targets (CT):
 
             *  Missing rules or CTs? (or superfluous?)
 
@@ -128,11 +132,11 @@ Remaining work
 
             *  Rule class="Constraint" or "Interpretation"?
 
-      2. TBDs: pub dates on new specs Appendix H, References, below.
+      3. TBDs: pub dates on new specs Appendix H, References, below.
 
-      3. Final QA/validity: MPD catalog XSD, catalog subset, MPD Toolkit, CoT IEPD, other appendices, etc.
+      4. Final QA/validity: MPD catalog XSD, catalog subset, MPD Toolkit, CoT IEPD, other appendices, etc.
 
-      4. Final QA: typos, spell, punctuation, acronyms, abbreviations, format, missing refs or termRefs, etc.
+      5. Final QA: typos, spell, punctuation, acronyms, abbreviations, format, missing refs or termRefs, etc.
 
 1. Introduction
 
@@ -2371,14 +2375,6 @@ Appendix A. MPD Catalog XML Schema Document
          </xs:annotation>
        </xs:element>
    
-       <xs:element name="ReferenceSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
-         <xs:annotation>
-   	      <xs:documentation>
-   		 An MPD artifact that is a NIEM reference schema document.
-   	      </xs:documentation>
-         </xs:annotation>
-       </xs:element>
-   
        <xs:element name="ExtensionSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
          <xs:annotation>
    	<xs:documentation>An MPD artifact that is a NIEM extension schema document.
@@ -2389,6 +2385,13 @@ Appendix A. MPD Catalog XML Schema Document
        <xs:element name="SubsetSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
          <xs:annotation>
    	<xs:documentation>An MPD artifact that is a subset schema document.
+   	</xs:documentation>
+         </xs:annotation>
+       </xs:element>
+   
+       <xs:element name="ReferenceSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+         <xs:annotation>
+   	<xs:documentation>An MPD artifact that is a reference schema document (from a release, domain update, or core update).
    	</xs:documentation>
          </xs:annotation>
        </xs:element>
@@ -2492,8 +2495,7 @@ Appendix A. MPD Catalog XML Schema Document
    
        <!-- Should this be BaseSchemaDocumentSet (and BaseSchemaDocumentSetType) to make it clear this set is used to validate NIEM conformance?  and so it is consistent with non-normative guidance about directory organization and naming -->
    
-       <xs:element name="SchemaDocumentSet"
-                type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
+       <xs:element name="SchemaDocumentSet" type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
          <xs:annotation>
    	      <xs:documentation>
    		      An MPD artifact set that may include subset schema documents, extension and external schema documents, and other supporting artifacts.
@@ -2501,8 +2503,7 @@ Appendix A. MPD Catalog XML Schema Document
          </xs:annotation>
        </xs:element>
    
-       <xs:element name="ConstraintSchemaDocumentSet"
-                type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
+       <xs:element name="ConstraintSchemaDocumentSet" type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
          <xs:annotation>
    	      <xs:documentation>
    		      An MPD artifact set of constraint schema documents and other supporting artifacts.
@@ -2518,30 +2519,6 @@ Appendix A. MPD Catalog XML Schema Document
          </xs:annotation>
          <xs:complexContent>
    	      <xs:extension base="c:FileSetType"/>  <!-- Sets up for application of Schematron rules -->
-         </xs:complexContent>
-       </xs:complexType>
-   
-       <xs:element name="ReferenceSchemaDocumentSet" type="c:ReferenceSchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
-         <xs:annotation>
-   	      <xs:documentation>
-   		      An MPD artifact set of reference schema documents and other supporting artifacts.
-   	      </xs:documentation>
-         </xs:annotation>
-       </xs:element>
-   
-       <xs:complexType name="ReferenceSchemaDocumentSetType">
-         <xs:annotation>
-   	      <xs:documentation>
-   		      A data type for an MPD artifact set that is a reference schema document set.
-   	      </xs:documentation>
-         </xs:annotation>
-         <xs:complexContent>
-           <xs:restriction base="c:FileSetType">
-   	  <xs:sequence>
-   	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
-               <xs:element ref="c:ReferenceSchemaDocument" maxOccurs="unbounded"/>
-             </xs:sequence>
-           </xs:restriction>
          </xs:complexContent>
        </xs:complexType>
    
