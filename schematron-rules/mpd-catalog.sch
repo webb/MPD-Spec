@@ -4,7 +4,7 @@
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns="http://purl.oclc.org/dsdl/schematron">
 
-<title>Rules about MPD catalog artifacts</title>
+<title>Rules for an MPD catalog document (XPath2 only - does NOT cover an extended MPD catalog)</title>
 
 <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
 <ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
@@ -12,10 +12,19 @@
 <ns prefix="structures" uri="http://release.niem.gov/niem/structures/3.0/"/>
 
 <pattern>
-  <rule context="c:IEPConformanceTarget">
-    <assert test="exists(@structures:id)"
-      >Rule 4-41: A c:IEPConformanceTarget element MUST own a structures:id attribute.</assert>
+	<rule context="c:IEPConformanceTarget">
+		<assert test="exists(@structures:id)"
+		>Rule 4-41: A c:IEPConformanceTarget element MUST own a structures:id attribute.</assert>
+	</rule>
 </pattern>
+
+<pattern>
+	<rule context="c:SchemaDocumentSet|c:ConstraintSchemaDocumentSet">
+		<assert test="c:SchemaDocument or c:XMLCatalog"
+		>Rule ###: An element information item with a type definition validly derived from c:SchemaDocumentSetType MUST have a child element with an element declaration that is in the substitution group of c:XMLCatalog or c:SchemaDocument.</assert>
+	</rule>
+</pattern>
+
 
 </schema>
 <!-- 
@@ -24,4 +33,5 @@
   indent-tabs-mode: nil
   fill-column: 9999
   End:
--->
+  -->
+
