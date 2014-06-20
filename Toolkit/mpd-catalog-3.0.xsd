@@ -195,14 +195,6 @@
       </xs:annotation>
     </xs:element>
 
-    <xs:element name="ReferenceSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
-      <xs:annotation>
-	      <xs:documentation>
-		 An MPD artifact that is a NIEM reference schema document.
-	      </xs:documentation>
-      </xs:annotation>
-    </xs:element>
-
     <xs:element name="ExtensionSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
       <xs:annotation>
 	<xs:documentation>An MPD artifact that is a NIEM extension schema document.
@@ -316,8 +308,7 @@
 
     <!-- Should this be BaseSchemaDocumentSet (and BaseSchemaDocumentSetType) to make it clear this set is used to validate NIEM conformance?  and so it is consistent with non-normative guidance about directory organization and naming -->
 
-    <xs:element name="SchemaDocumentSet"
-             type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
+    <xs:element name="SchemaDocumentSet" type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
       <xs:annotation>
 	      <xs:documentation>
 		      An MPD artifact set that may include subset schema documents, extension and external schema documents, and other supporting artifacts.
@@ -325,8 +316,7 @@
       </xs:annotation>
     </xs:element>
 
-    <xs:element name="ConstraintSchemaDocumentSet"
-             type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
+    <xs:element name="ConstraintSchemaDocumentSet" type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
       <xs:annotation>
 	      <xs:documentation>
 		      An MPD artifact set of constraint schema documents and other supporting artifacts.
@@ -342,30 +332,6 @@
       </xs:annotation>
       <xs:complexContent>
 	      <xs:extension base="c:FileSetType"/>  <!-- Sets up for application of Schematron rules -->
-      </xs:complexContent>
-    </xs:complexType>
-
-    <xs:element name="ReferenceSchemaDocumentSet" type="c:ReferenceSchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
-      <xs:annotation>
-	      <xs:documentation>
-		      An MPD artifact set of reference schema documents and other supporting artifacts.
-	      </xs:documentation>
-      </xs:annotation>
-    </xs:element>
-
-    <xs:complexType name="ReferenceSchemaDocumentSetType">
-      <xs:annotation>
-	      <xs:documentation>
-		      A data type for an MPD artifact set that is a reference schema document set.
-	      </xs:documentation>
-      </xs:annotation>
-      <xs:complexContent>
-        <xs:restriction base="c:FileSetType">
-	  <xs:sequence>
-	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
-            <xs:element ref="c:ReferenceSchemaDocument" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:restriction>
       </xs:complexContent>
     </xs:complexType>
 
