@@ -1036,13 +1036,41 @@ Rule 4-9. MPD Schema Document Extension Support Schemas Are Supersets of Spec Su
 
 4.2.1. MPD Name Syntax (c:mpdName)
 
-   Note that the syntax for c:mpdName herein is not the same as the MPD file name syntaxpresented in Section 7.2, MPD File Name Syntax, below.
+   Note that syntax for c:mpdName detailed in this section is not applicable to MPD file name syntax presented in Section 7.2, MPD File Name Syntax, below. MPD file name syntax is constrained only by the file system in which an MPD resides.
 
-   The difference is upper case and spaces.
+   An MPD's official name is the value of the c:mpdName attribute owned by the c:MPD element in the MPD's catalog document. This value is constrained by the regular expression pattern on c:mpdName within the MPD catalog schema Appendix A, MPD Catalog XML Schema Document, below:
 
-   [A-Za-z]([-_ ]?[A-Za-z0-9]+)*
+      [A-Za-z]([-_ ]?[A-Za-z0-9]+)*
+
+   The regular expression above indicates that an MPD name:
+
+      *  Begins with an alpha character (upper or lower case).
+
+      *  Ends with an alphanumeric character (upper or lower case).
+
+      *  May contain alphanumeric characters.
+
+      *  May contain single spaces, single dashes, and single underscores as separators.
+
+   IEPD author's often like to reuse the official MPD name in metadata within the file name. Note that c:mpdName is of xs:token type and allows single spaces and upper case alpha characters. That said, be sure to consider differences in operating system / file system treatment of spaces and character case within file and directory names. This is the reason that releases, domain updates, and core updates restrict use of spaces and upper case characters within both c:mpdName and MPD file names (See Rule 7-4, Release and Core/Domain Update File Name Syntax and Rule 7-5, Release and Core/Domain Update File Name Matches Metadata.).
 
 4.2.2. MPD Class (c:mpdClass)
+
+   MPD Class generally identifies an MPD as one of the five basic types introduced in Section 2.8, MPD Types, above. The enumerated values for the c:mdpClass attribute owned by a c:MPD element in the MPD catalog document are:
+
+      *  rel = [release]
+
+      *  cu = [core update]
+
+      *  du = [domain update]
+
+      *  iepd = [Information Exchange Package Documentation]
+
+      *  eiem = [Enterprise Information Exchange Model]
+
+   However, the c:mpdClass attribute is an XML list type that allows an MPD class value beyond the basic five (See Appendix A, MPD Catalog XML Schema Document, below, for structure). An author can establish a new type of MPD with a URI that represents the new class.
+
+   The list structure also allows membership in multiple MPD classes. For example, an author might use another classification system for IEPDs. Use of the value iepd and a URI representing the author's class would indicate the MPD is a member of both.
 
 4.2.3. MPD Version Numbering Scheme (c:mpdVersionID)
 
@@ -2029,6 +2057,8 @@ Rule 7-3. MPD Archive Uncompresses to a Single Root Directory
 
    This section is applicable to all MPDs. However, it is only normative for releases, core updates, and domain updates. For IEPDs and EIEMs, this section describes non-normative guidance that is highly recommended, but not mandatory. Additional non-normative guidance that relates to directory naming for IEPDs and EIEMs is in Appendix F, Guidance for IEPD Directories (non-normative), below.
 
+   It is important to understand that this section does not apply to the syntax for the c:mpdName attribute in the MPD catalog document. This section is about MPD file naming. Refer to Section 4.2.1, MPD Name Syntax (c:mpdName), above, for details regarding the c:mpdName metadata attribute.
+
    The MPD Specification is intended to help facilitate tool support for processing MPDs. Providing tools and search mechanisms basic information about an MPD as early as possible will help reduce processing time and complexity. So, if the MPD name, version, and class can be identified from its file name, then a tool would not have to open the archive and parse the MPD catalog to determine such. Of course, ultimately, to do anything useful, a tool will have to open the MPD archive. However, standard file name syntax allows a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each. File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.
 
    The following rule applies to releases, core updates, and domain updates:
@@ -2253,7 +2283,7 @@ Appendix A. MPD Catalog XML Schema Document
               <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
              </xs:sequence>
              <xs:attribute ref="c:mpdURI"       use="required"/>
-             <xs:attribute ref="c:mpdClassCode" use="required"/>
+             <xs:attribute ref="c:mpdClass"     use="required"/>
              <xs:attribute ref="c:mpdName"      use="required"/>
              <xs:attribute ref="c:mpdVersionID" use="required"/>
            </xs:extension>
