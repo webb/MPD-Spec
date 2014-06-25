@@ -110,13 +110,13 @@
 		<li><p>Fixed UPA errors in MPD catalog schema document by changing <code>xs:restriction</code> on <code>c:SchemaDocumentSetType</code> to <code>xs:extension</code> (of <code>c:FileSetType</code>).  (By intent, no extension elements were added; <code>c:SchemaDocumentSetType</code> extends <code>c:FileSetType</code> in name only; fixes UPA errors and sets up for application of Schematron rules.)</p></li>
 		<li><p>Added Schematron rules to ensure that <code>c:SchemaDocumentSetType</code> contains a <code>c:XMLCatalog</code> or a <code>c:XMLSchemaDocument</code> (two rules - both designed by Webb - one rule handles all cases even extended MPD catalog documents; the other handles only unextended catalogs.  The unextended catalog version requires an XPath2-Schema-Aware app (e.g., paid version of Saxon); the other only requires an XPath2 app (e.g., free version of Saxon).</p></li>
 		<li><p>Removed <code>c:ReferenceSchemaDocumentSetType</code> and <code>c:ReferenceSchemaDocumentSet</code>.  No purpose for such.  If an MPD's <code>mpdClass</code> value is in <code>{rel, du, cu}</code> then its schemas are all reference schema documents.  Left <code>c:ReferenceSchemaDocument</code> in case it is needed for some reason.</p></li>
+		<li><p>Globally replaced all "read-me" with "readme" (more consistent with common practice).</p></li>
 	</ol>
 </subsection>
 
 <subsection>
 	<title>Remaining work</title>
 	<ol>
-		<li><p>Add rule:  An element information item with a type definition validly derived from <code>c:SchemaDocumentSetType</code> MUST have a child element with an element declaration that is in the substitution group of <code>c:XMLCatalog</code> or <code>c:SchemaDocument</code>.</p></li>
 		<li><p>Review 63 rules and 11 conformance targets (CT):</p><ul>
 			<li><p>Missing rules or CTs? (or superfluous?)</p></li> 
 			<li><p>Rules or CTs to fork?</p></li>
@@ -1561,7 +1561,7 @@
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:ReadME</code></title>
+	<ruleSection><title><code>c:pathURI</code> for <code>c:ReadMe</code></title>
 		<rule id="wfm5" applicability="WF-MPD" class="Constraint">
 			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReadMe</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>readme artifact</termRef>.</p>
 		</rule>
@@ -1885,8 +1885,8 @@
 
 
 
-<section id="Read-Me-Artifact">
-	<title>Read-Me Artifact</title>
+<section id="ReadMe-Artifact">
+	<title>ReadMe Artifact</title>
 
 	<p>This section is applicable to IEPDs and EIEMs.</p>
 
@@ -1918,8 +1918,8 @@
 
 
 
-	<section id="Read-Me-Content">
-		<title>Read-me Content</title>
+	<section id="Readme-Content">
+		<title>Readme Content</title>
 
 		<p>This section is non-normative and applies to IEPDs and EIEMs.</p>
 
@@ -1941,7 +1941,7 @@
 		<p>Many document formats (e.g., HTML, PDF) can display hot links to local files within the MPD archive as well as URLs to files on the Internet.  Employing such a format is highly recommended but not mandatory.</p> 
 
 <ruleSection>
-	<title>Read-me Describes Purpose, Scope, Business Value, etc.</title>
+	<title>Readme Describes Purpose, Scope, Business Value, etc.</title>
 		<rule id="r-mpd-readme-purpose" applicability="WF-MPD" class="Interpretation">
 			<p>A readme artifact SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.</p>
 		</rule>
@@ -2473,11 +2473,11 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	</rule>
 </ruleSection>
 
-<p>NIEM releases, core updates, and domain updates maintain a relatively consistent directory organization <ref idref="NIEM-DomainUpdate"/>.  But there are many ways to organize IEPD and EIEM directories that may depend on a number of factors including (not limited to) business purpose and complexity.  For this reason, strict rules for IEPD and EIEM directory structure are difficult to establish.  Therefore, IEPD and EIEM authors may create their own logical directory structures subject to the rules of this section.</p>
+	<p>NIEM releases, core updates, and domain updates maintain a relatively consistent directory organization <ref idref="NIEM-DomainUpdate"/>.  But there are many ways to organize IEPD and EIEM directories that may depend on a number of factors including (not limited to) business purpose and complexity.  For this reason, strict rules for IEPD and EIEM directory structure are difficult to establish.  Therefore, IEPD and EIEM authors may create their own logical directory structures subject to the rules of this section.</p>
 
 	<definition term="MPD root directory">
-	<p>The top level file directory relative to all MPD artifacts and subdirectories.</p>
-</definition>
+		<p>The top level file directory relative to all MPD artifacts and subdirectories.</p>
+	</definition>
 
 <ruleSection>
 	<title>MPD Archive Uncompresses to a Single Root Directory</title>
@@ -2502,16 +2502,33 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p><ref idref="XML-Catalogs"/> describes how NIEM employs an <termRef>XML catalog document</termRef> to assemble an <termRef>XML Schema</termRef> from <termRef term="XML schema document">XML schema documents</termRef>.  This is one important method for grouping XML schema documents into sets.  In fact, this is the required standard technique for grouping schema documents for assembling them into a schema.  For user convenience, this method is now used in each <termRef>release</termRef>, <termRef>core update</termRef>, and <termRef>domain update</termRef>.  Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).</p>
 
-	<p>Another reason for grouping artifacts into sets is a common need for humans to review, identify, and navigate the artifacts of an IEPD (particularly, if it's complicated).  An <termRef>XML catalog document</termRef> has a relatively focused purpose, to select and assemble a set of XML schema documents into an <termRef>XML Schema</termRef>.  It is not intended to index artifacts in general (other than XML schema documents to assigned target namespaces).  So, it does not classify or describe the artifacts it identifies.</p>
+	<p>Another reason for grouping artifacts into sets is a common need for humans to review, identify, and navigate the artifacts of an IEPD (particularly, if it's complicated).  An <termRef>XML catalog document</termRef> has a relatively focused purpose, to identify (by namespace) and assemble a set of XML schema documents into an <termRef>XML Schema</termRef>.  It is not intended to index artifacts in general (other than XML schema documents to assigned target namespaces).  So, it does not classify or describe the artifacts it identifies.</p>
 
-	<p>On the other hand, the <termRef>MPD catalog document</termRef> is designed to record, index, classify, and describe (as needed) any or all MPD artifacts (not just schema documents).  The MPD catalog provides a more flexible method for grouping all artifacts.</p>
+	<p>On the other hand, the <termRef>MPD catalog document</termRef> is designed to record, index, classify, and describe (as needed) any or all MPD artifacts (not just schema documents).  The MPD catalog provides a flexible method for grouping all kinds artifacts.</p>
 
 	<p>The MPD catalog schema <ref idref="MPD-Catalog-XSD"/> defines a large set of common artifact classifiers and a smaller set of artifact set classifiers.  In summary, per <ref idref="MPD-Catalog-XSD"/>, define sets by substituting the appropriate artifact classifier (of type <code>c:FileType</code>) into the abstract element <code>c:Artifact</code>, within the appropriate artifact set classifier (of type <code>c:FileSetType</code>).  Use the most specific classifiers available for your artifacts and artifact sets.  Otherwise, as needed, use generic <code>c:File</code> and <code>c:FileSet</code> classifiers with <code>nc:DescriptionText</code>.</p>
+
 
 	<p>Note that the <code>c:pathURI</code> value for an artifact is its operating system relative directory <termRef>path name</termRef> with file name.  The <code>c:pathURI</code> value for an artifact set is its operating system relative <termRef>path name</termRef>.</p>
 
 	<p>Another way the MPD catalog schema can group artifacts is through the use of the <code>c:RequiredFile</code> element.  Use this construct to signify there are strong dependencies among artifacts.  For example, documentation may be prepared as a set of hyperlinked HTML files.  These HTML files may also incorporate separate GIF or JPG images.  Regardless of file location within the MPD, these files depend on one another through hyperlinks.  As a result, they tend to operate as a single artifact; removal of a file will cause one or more broken links within the set.  This set of artifacts should be grouped using <code>c:RequiredFile</code>.  If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the <code>c:File</code> element while all others are values for <code>c:RequiredFile</code> child elements).</p>
 
+
+
+	<section id="Constraint-SchemaDocumentSet">
+		<title>Constraint on Elements of Type <code>c:SchemaDocumentSetType</code></title>
+
+		<p>In order to accomodate the <termRef>well-formed MPD</termRef> concept, the design of the MPD catalog schema does not enforce a rule that is required to ensure a <code>c:SchemaDocumentSet</code> within an <termRef>MPD catalog document</code> is used correctly for an IEPD.  This rule assumes that within the IEPD's MPD catalog any <code>c:SchemaDocumentSet</code> element identifies <termRef term="XML schema document">XML schema documents<termRef> to be assembled into an <termRef>XML Schema</termRef>.</p>
+
+<ruleSection>
+	<title>Constraint on Elements of Type <code>c:SchemaDocumentSetType</code></title>
+	<rule id="r-constraint-schemadocumentset">
+		<p>An element information item with a type definition validly derived from <code>c:SchemaDocumentSetType</code> MUST have a child element with an element declaration that is in the substitution group of <code>c:XMLCatalog</code> or <code>c:SchemaDocument</code>.</p>
+	</rule>
+	<p>This rule ensures that a <code>c:SchemaDocumentSet</code> element always has at least one child element that is an <termRef>XML catalog document</termRef> (which itself defines an <termRef>XML schema document set</termRef>), or an <termRef>XML schema document</termRef> (which constitutes a set of at least one schema document).  This rule cannot be enforced within the MPD catalog schema without introducing a UPA error.  Thus, it is enforced as a Schematron rule.</p> 
+</ruleSection>
+
+</section>
 </section>
 
 
