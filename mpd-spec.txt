@@ -662,11 +662,11 @@ Remaining work
 
       [constraint schema document]|Constraint-schema
 
-      [MPD catalog document]|M-Cat
+      [MPD catalog document]|MPD-Cat
 
-      [XML catalog document]|X-Cat
+      [XML catalog document]|XML-Cat
 
-      MPD [change log]|M-Chg-Log
+      MPD [change log]|MPD-ChLg
 
 3. MPD XML Schema Document Artifacts
 
@@ -1511,7 +1511,7 @@ Rule 4-36. Releases and Core/Domain Updates Require changelog.xml
 
 Rule 4-37. Release and Core/Domain Update changelog.xml Valid to mpd-changelog-1.0.xsd
 
-   [Rule 4-37] (M-Chg-Log)
+   [Rule 4-37] (MPD-ChLg)
 
       A changelog.xml artifact for an MPD with a c:mpdClass attribute value from the set {rel, cu, du} MUST validate with the NIEM change log schemas mpd-changelog-1.0.xsd and niem-model-1.0.xsd.
 
@@ -1911,6 +1911,8 @@ Rule 4-49. Conformance Assertion File Name Is conformance-assertion.*
 
          *  Has one or more c:IEPConformanceTarget elements within its [MPD catalog document], and
 
+         *  Conforms to all WF-MPD conformance target rules.
+
          *  Satisfies all applicable rules and mandatory requirements in:
 
                *  [NIEM MPD Specification 3.0] (i.e., This MPD Specification)
@@ -1924,6 +1926,8 @@ Rule 4-49. Conformance Assertion File Name Is conformance-assertion.*
       An MPD that:
 
          *  Has c:mpdClass="eiem", and
+
+         *  Conforms to all WF-MPD conformance target rules.
 
          *  Satisfies all applicable rules and mandatory requirements in:
 
@@ -2061,7 +2065,7 @@ Rule 7-3. MPD Archive Uncompresses to a Single Root Directory
 
    On the other hand, the [MPD catalog document] is designed to record, index, classify, and describe (as needed) any or all MPD artifacts (not just schema documents). The MPD catalog provides a flexible method for grouping all kinds artifacts.
 
-   The MPD catalog schema Appendix A, MPD Catalog XML Schema Document, below, defines a large set of common artifact classifiers and a smaller set of artifact set classifiers. In summary, per Appendix A, MPD Catalog XML Schema Document, below, define sets by substituting the appropriate artifact classifier (of type c:FileType) into the abstract element c:Artifact, within the appropriate artifact set classifier (of type c:FileSetType). Use the most specific classifiers available for your artifacts and artifact sets. Otherwise, as needed, use generic c:File and c:FileSet classifiers with nc:DescriptionText.
+   The MPD catalog schema Appendix A, MPD Catalog XML Schema Document, below, defines a large set of common artifact classifiers and a smaller set of artifact set classifiers. In summary, per Appendix A, MPD Catalog XML Schema Document, below, define sets by substituting the appropriate artifact classifier (of type c:FileType) into the abstract element c:ArtifactOrArtifactSet, within the appropriate artifact set classifier (of type c:FileSetType). Use the most specific classifiers available for your artifacts and artifact sets. Otherwise, as needed, use generic c:File and c:FileSet classifiers with nc:DescriptionText.
 
    Note that the c:pathURI value for an artifact is its operating system relative directory [path name] with file name. The c:pathURI value for an artifact set is its operating system relative [path name].
 
@@ -3548,7 +3552,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
 
       10. Maintain a [NIEM wantlist] within the same subdirectory as the subset it generates (Rule 6-1, Wantlist Location).
 
-      11. Maintain an xml-catalog.xml closest to the XML schema document set it relates to. Use nextCatalog elements as needed to help maintain this proximity (Rule 4-41, IEPD and EIEM Resolve Namespaces to URIs With XML Catalog Documents).
+      11. Maintain an xml-catalog.xml closest to the XML schema document set it relates to. Use er:nextCatalog elements as needed to help maintain this proximity (Rule 4-41, IEPD and EIEM Resolve Namespaces to URIs With XML Catalog Documents).
 
       12. Finally, if it becomes necessary to maintain multiple constraint-xsd or extension subdirectories (or any other subdirectories) together in the same directory, then simply suffix each directory name with a distinct character string (for example, extension1, extension2, etc.; or extension-abc, extension-zyx, etc.)
 
