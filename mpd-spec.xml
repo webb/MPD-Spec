@@ -100,7 +100,7 @@
 <subsection>
 	<title>Beta 4</title>
 	<ol>
-		<li><p>Applied many minor adjustments suggested by Ted's review of Beta2.</p></li>
+		<li><p>Applied many minor adjustments suggested by Ted's review of Beta2.  Major adjustments are listed below.</p></li>
 		<li><p>Rewrote <ref idref="Multiple-Subsets-in-a-Single-IEPD-or-EIEM"/> for clarity and simplicity.</p></li>
 		<li><p>Changed MPD catalog <code>c:mpdClassCode</code> to <code>c:mpdClass</code> because it is a union of class codes (enumerations) and <code>xs:anyURI</code> for easy extension.</p></li>
 		<li><p>Relaxed <code>mpdName</code> attribute pattern to allow upper case and spaces.</p></li>
@@ -112,12 +112,14 @@
 		<li><p>Added <ref idref="Constraint-SchemaDocumentSet"/> for new Schematron rule above.</p></li>
 		<li><p>Removed <code>c:ReferenceSchemaDocumentSetType</code> and <code>c:ReferenceSchemaDocumentSet</code>.  No purpose for such.  If an MPD's <code>mpdClass</code> value is in <code>{rel, du, cu}</code> then its schemas are all reference schema documents.  Left <code>c:ReferenceSchemaDocument</code> in case it is needed for some reason.</p></li>
 		<li><p>Globally replaced all "read-me" with "readme" (more consistent with common practice).</p></li>
+		<li><p>Applied Priscilla's suggestions.</p></li>
 	</ol>
 </subsection>
 
 <subsection>
 	<title>Remaining work</title>
 	<ol>
+		<li><p>Check ruleSections for rationales that should be inside this tag.</p></li>
 		<li><p>Review 63 rules and 11 conformance targets (CT):</p><ul>
 			<li><p>Missing rules or CTs? (or superfluous?)</p></li> 
 			<li><p>Rules or CTs to fork?</p></li>
@@ -1179,7 +1181,14 @@
 <ruleSection>
 	<title>MPD Has One and Only One <code>mpd-catalog.xml</code> in Root Directory</title>
 <rule id="r1-mpd-cat" applicability="WF-MPD" class="Constraint">
-	<p>An MPD MUST contain one and only one <code>mpd-catalog.xml</code> artifact in its <termRef term="MPD root directory">root directory</termRef>.</p>
+	<p>An MPD MUST contain one and only one <termRef>MPD catalog document</termRef> artifact.</p>
+</rule>
+</ruleSection>
+
+<ruleSection>
+	<title>MPD Has One and Only One <code>mpd-catalog.xml</code> in Root Directory</title>
+<rule id="r1-mpd-cat" applicability="WF-MPD" class="Constraint">
+	<p>An <termRef>MPD catalog document</termRef> MUST be named <code>mpd-catalog.xml</code> and appear in the <termRef>MPD root directory</termRef>.</p>
 </rule>
 </ruleSection>
 
@@ -1660,7 +1669,7 @@
 
 	<p>The next few paragraphs require that you understand URIs for MPDs and MPD artifacts.  See <ref idref="mpdURI"/> and <ref idref="externalURI"/>.</p>
 
-	<p>The MPD catalog provides a <code>c:Relationship</code> element with two attributes (<code>c:resourceURI</code> and <code>c:relationshipCode</code>) and an optional element (<code>nc:descriptionText</code>) to identify ancestry and other relationships to other MPDs.  There are many ways that one MPD may relate to another.  This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>nc:descriptionText</code> element is provided to further explain the nature of any of the eight <code>c:relationshipCode</code> values available.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>c:relationshipCode</code> may be generic enough to require a more detailed explanation in <code>nc:descriptionText</code> (for example, if its value is <code>adapts</code>).</p>
+	<p>The MPD catalog provides a <code>c:Relationship</code> element with two attributes (<code>c:resourceURI</code> and <code>c:relationshipCode</code>) and an optional element (<code>nc:DescriptionText</code>) to identify ancestry and other relationships to other MPDs.  There are many ways that one MPD may relate to another.  This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>nc:DescriptionText</code> element is provided to further explain the nature of any of the eight <code>c:relationshipCode</code> values available.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>c:relationshipCode</code> may be generic enough to require a more detailed explanation in <code>nc:DescriptionText</code> (for example, if its value is <code>adapts</code>).</p>
 
 	<p>As was described in <ref idref="externalURI"/>, the MPD catalog also enables an author to record more fine-grained ancestry between MPDs using the <code>c:externalURI</code> attribute.  This attribute records an explicit equivalence relationship between artifacts reused across MPDs.</p>
 
@@ -1998,7 +2007,7 @@
 
 	<p>IEPD authors must employ <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs to facilitate validation of IEPs.</p>
 
-	<p>Assembling a schema or building an <termRef>XML catalog document</termRef> from the XML schema documents of non-conformant external standards that contain <code>xs:include</code> statements can be problematic.  Be aware that if an xml-catalog (resulting from processing a set of external XML schema documents) contains any two <code>er:uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation.  It will have to be modified to ensure that each namespace resolves to one and only one unique <termRef>XML catalog document</termRef> <code>er:uri</code> attribute value.</p>
+	<p>Assembling a schema or building an <termRef>XML catalog document</termRef> from the XML schema documents of non-conformant external standards that contain <code>xs:include</code> statements can be problematic.  Be aware that if an xml-catalog (resulting from processing a set of external XML schema documents) contains any two <code>er:uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation.  It will have to be modified to ensure that each namespace resolves to one and only one unique <termRef>XML catalog document</termRef> <code>uri</code> attribute value.</p>
 
 	<p>In order to support <termRef>XML schema assembly</termRef> for the purpose of <termRef>XML schema validation</termRef>, the following rule requires that the namespaces of all XML schema documents used within an IEPD <termRef term="resolve URI">resolve</termRef> to a locally-unique artifact:</p>
 
@@ -2009,7 +2018,7 @@
 	</rule>
 </ruleSection>
 
-	<p>This rule implies that <code>er:NextCatalog</code> elements may be used within <termRef term="XML catalog document">XML catalog documents</termRef> to connect them and control their parsing sequence.  An IEPD must contain at least one <termRef>XML catalog document</termRef> because it is the only MPD that can specify an IEP <ref idref="IEP"/> and provide validation instructions that would require schema assembly from XML schema documents.  <ref idref="Information-Exchange-Packages"/> provides more specifics about using <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs.</p>
+	<p>This rule implies that <code>er:nextCatalog</code> elements may be used within <termRef term="XML catalog document">XML catalog documents</termRef> to connect them and control their parsing sequence.  An IEPD must contain at least one <termRef>XML catalog document</termRef> because it is the only MPD that can specify an IEP <ref idref="IEP"/> and provide validation instructions that would require schema assembly from XML schema documents.  <ref idref="Information-Exchange-Packages"/> provides more specifics about using <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs.</p>
 
 	<p>The practical reality of <termRef>XML schema assembly</termRef> is that the process is based on several methods for identifying the correct <termRef term="XML schema document">XML schema documents</termRef>, and these methods may be applied in no particular order.  For the purpose of this MPD Specification, the first and primary method for MPDs is the use of XML catalogs, even though NIEM schema documents often have valid URIs in <code>schemaLocation</code> attributes.</p>
 
@@ -2088,7 +2097,7 @@
 <section id="ValidityConstraintWithContext">
 	<title>c:ValidityConstraintWithContext</title>
 
-	<p><code>c:ValidityConstraintWithContext</code> is an abstract element into which various validity constraints will be substituted, depending upon the IEPD author's intent.  In the absence of an explicit context (declared by an <code>xPathText</code> attribute), validity constraint context defaults to <em>document</em> as defined in <ref idref="W3-XML-InfoSet"/>, <a href="http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.document"> <char name="sect"/>2.1, <q>The Document Information Item</q></a>.  In this default case, a specific validity constraint will substitute for <code>c:ValidityConstraint</code> which in turn, substitutes for <code>c:ValidityConstraintWithContext</code>.</p>
+	<p><code>c:ValidityConstraintWithContext</code> is an abstract element into which various validity constraints will be substituted, depending upon the IEPD author's intent.  In the absence of an explicit context (declared by an <code>c:xPathText</code> attribute), validity constraint context defaults to <em>document</em> as defined in <ref idref="W3-XML-InfoSet"/>, <a href="http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.document"> <char name="sect"/>2.1, <q>The Document Information Item</q></a>.  In this default case, a specific validity constraint will substitute for <code>c:ValidityConstraint</code> which in turn, substitutes for <code>c:ValidityConstraintWithContext</code>.</p>
 
 </section>
 
@@ -2205,7 +2214,7 @@
 
 <ruleSection>
 	<title>IEPD Has One or More Samples for Each <code>c:IEPConformanceTarget</code></title>
-	<rule id="r-iep-samples" applicability="IEP NF-IEP" class="Interpretation">
+	<rule id="r-iep-samples" applicability="IEP FN-IEP" class="Interpretation">
 		<p>An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared <code>c:IEPConformanceTarget</code>.  If applicable, a single IEP sample MAY exemplify multiple conformance targets.</p>
 	</rule>
 </ruleSection>
@@ -2413,7 +2422,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <ruleSection>
 	<title>Wantlist Location</title>	
 	<rule id="r-wantlist-base" applicability="WF-MPD" class="Constraint">
-		<p>If present, a NIEM wantlist MUST reside within the root of the MPD (<code>niem</code>) subdirectory that groups and defines its corresponding subset schema document set.</p>
+		<p>If present, a NIEM wantlist MUST reside within the root of the MPD subdirectory that groups and defines its corresponding subset schema document set (e.g., <code>niem</code>).</p>
 	</rule>
 </ruleSection>
 
@@ -2615,7 +2624,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <ruleSection>
 	<title>IEPD Family Members Reference Parent EIEM</title>
 	<rule id="r-mpd-link-eiem" applicability="N-IEPD" class="Constraint">
-		<p>An <termRef>MPD catalog document</termRef> for an IEPD that is a member of a family of IEPDs derived from a given EIEM, MUST have a <code>c:MPDInformation/c:Relationship</code> element that owns a <code>c:RelationshipCode="derived_from"</code> attribute and a <code>c:resourceURI</code> attribute with a URI value that <termRef term="resolve URI">resolves</termRef> to an EIEM resource.</p>
+		<p>An <termRef>MPD catalog document</termRef> for an IEPD that is a member of a family of IEPDs derived from a given EIEM, MUST have a <code>c:MPDInformation/c:Relationship</code> element that owns a <code>c:relationshipCode="derives_from"</code> attribute and a <code>c:resourceURI</code> attribute with a URI value that <termRef term="resolve URI">resolves</termRef> to an EIEM resource.</p>
 	</rule>
 </ruleSection>
 
