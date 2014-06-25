@@ -540,7 +540,7 @@ Remaining work
 
       Requires a formal XML change log (specified by XSD)| X | X | X | | 
 
-      Requires a read-me artifact| | | | X | X 
+      Requires a readme artifact| | | | X | X 
 
       Its XML schema document set defines reusable data components| X | X | X | | X 
 
@@ -896,7 +896,7 @@ Rule 3-3. Constraint Schema Namespace Is a Reference Schema Namespace
 
    A variety of documentation files may be incorporated into a NIEM MPD. However, in addition to XML schema documents, there are only two mandatory documentation artifacts required by every MPD: the mpd-catalog and the change log. An MPD catalog (mpd-catalog.xml) contains basic metadata, relationship and lineage data, and validation information. The change log provides a history of modifications.
 
-   A [read-me artifact] (formerly known as a master document) is mandatory for IEPDs and EIEMs. These MPD classes may be built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary. An IEPD or EIEM read-me file is the primary source and starting point for human readable documentation, and should reference (and describe) any other separate documentation artifacts. This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.
+   A [readme artifact] (formerly known as a master document) is mandatory for IEPDs and EIEMs. These MPD classes may be built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary. An IEPD or EIEM readme file is the primary source and starting point for human readable documentation, and should reference (and describe) any other separate documentation artifacts. This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.
 
    The following subsections will address these artifacts and the concepts, metadata, and content each supports.
 
@@ -976,7 +976,7 @@ Rule 4-3. MPD Catalog Document Valid to Schematron Rules
 
    The classifier elements are designed to identify, categorize, and describe any artifacts and artifact sets (including its [path name], dependencies, and lineage). Employing XSLT, mpd-catalog.xml can be transformed into an index.html artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.
 
-   In general, only an IEPD or EIEM would contain c:Documentation and c:ApplicationInfo artifacts. So, for an IEPD and EIEM, a best practice is to use the read-me artifact (i.e., the [read-me artifact] required in the [MPD root directory]) to reference c:Documentation and c:ApplicationInfo artifacts whether or not they have been classified in the MPD catalog.
+   In general, only an IEPD or EIEM would contain c:Documentation and c:ApplicationInfo artifacts. So, for an IEPD and EIEM, a best practice is to use the readme artifact (i.e., the [readme artifact] required in the [MPD root directory]) to reference c:Documentation and c:ApplicationInfo artifacts whether or not they have been classified in the MPD catalog.
 
    Release, core update, and domain update catalogs are required to record all artifacts. However, IEPD and EIEM MPD catalogs are not. The IEPD or EIEM author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog. The author may choose to classify all, some, or none in the catalog.
 
@@ -1291,7 +1291,7 @@ Rule 4-18. c:pathURI for c:ReadME
 
    [Rule 4-18] (WF-MPD)
 
-      Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ReadMe element MUST [resolve] to a [read-me artifact].
+      Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ReadMe element MUST [resolve] to a [readme artifact].
 
 Rule 4-19. c:pathURI for c:IEPSampleXMLDocument
 
@@ -1527,21 +1527,21 @@ Rule 4-37. IEPD and EIEM Have Change Log in Root Directory
 
    This section is applicable to IEPDs and EIEMs.
 
-   [Definition: read-me artifact]
+   [Definition: readme artifact]
 
-      An informal documentation artifact contained in an IEPD or EIEM that serves as the initial general source of human readable descriptive or instructional information. A read-me artifact or file (formerly known as a master document) may index or reference other more specific documentation or other explanatory materials within the MPD.
+      An informal documentation artifact contained in an IEPD or EIEM that serves as the initial general source of human readable descriptive or instructional information. A readme artifact or file (formerly known as a master document) may index or reference other more specific documentation or other explanatory materials within the MPD.
 
-   A read-me artifact is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed. On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.
+   A readme artifact is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed. On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.
 
-Rule 4-38. IEPD and EIEM Have read-me.* in Root Directory
+Rule 4-38. IEPD and EIEM Have readme.* in Root Directory
 
    [Rule 4-38] (N-IEPD, N-EIEM)
 
-      An MPD with a c:mpdClass attribute value from the set {iepd, eiem} MUST contain a read-me.* file artifact in its [MPD root directory].
+      An MPD with a c:mpdClass attribute value from the set {iepd, eiem} MUST contain a readme.* file artifact in its [MPD root directory].
 
-   The read-me artifact may replicate some of the metadata in the MPD catalog. However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal. It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.
+   The readme artifact may replicate some of the metadata in the MPD catalog. However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal. It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.
 
-   The primary purposes of the [read-me artifact] include:
+   The primary purposes of the [readme artifact] include:
 
       *  To help facilitate understanding and reuse of IEPDs and EIEMs.
 
@@ -1551,17 +1551,17 @@ Rule 4-38. IEPD and EIEM Have read-me.* in Root Directory
 
       *  To provide an initial source within an IEPD or EIEM for human consumable documentation and/or references to other business or technical documentation needed for understanding.
 
-   The read-me artifact is not intended to be the only source of written documentation for an MPD (though it can be). It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference. Many organizations have their own customized formats and operating procedures for documenting their work and products. This specification does not attempt to standardize read-me format or layout. Only the file name and relative path within the MPD archive are strictly specified. The following section will generally describe minimal content that should be in the read-me artifact. This guidance is non-normative, so adherence is a subjective judgment by the author. 
+   The readme artifact is not intended to be the only source of written documentation for an MPD (though it can be). It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference. Many organizations have their own customized formats and operating procedures for documenting their work and products. This specification does not attempt to standardize readme format or layout. Only the file name and relative path within the MPD archive are strictly specified. The following section will generally describe minimal content that should be in the readme artifact. This guidance is non-normative, so adherence is a subjective judgment by the author. 
 
 4.4.1. Read-me Content
 
    This section is non-normative and applies to IEPDs and EIEMs.
 
-   This section is neither a cookbook nor a normative specification for a read-me artifact. It simply suggests typical topics that a read-me artifact should or might address, and provides some non-normative guidance.
+   This section is neither a cookbook nor a normative specification for a readme artifact. It simply suggests typical topics that a readme artifact should or might address, and provides some non-normative guidance.
 
-   The read-me file should help another user or developer to understand the content and use of an IEPD or EIEM, as well as determine potential for reuse or adaptation. It should describe what implementers need to understand and what the author considers is important to understanding an IEPD or EIEM. There is no limit or constraint on its content.
+   The readme file should help another user or developer to understand the content and use of an IEPD or EIEM, as well as determine potential for reuse or adaptation. It should describe what implementers need to understand and what the author considers is important to understanding an IEPD or EIEM. There is no limit or constraint on its content.
 
-   At a minimum, the read-me file should contain several fundamental elements of information about the MPD:
+   At a minimum, the readme file should contain several fundamental elements of information about the MPD:
 
       *  Purpose of this MPD.
 
@@ -1583,11 +1583,11 @@ Rule 4-39. Read-me Describes Purpose, Scope, Business Value, etc.
 
    [Rule 4-39] (WF-MPD)
 
-      A read-me artifact SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.
+      A readme artifact SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.
 
-   MPD documentation types and formats will vary with the methodologies and tools used to develop them. Most of this documentation will likely be typical of that generated for data-oriented software projects. Some documentation may only require sections in the [read-me artifact]. Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the read-me artifact (such as diagrams, large tables, data dictionaries, test results/reports, etc.). The following are some common examples of sections in or separate artifacts associated with the read-me artifact:
+   MPD documentation types and formats will vary with the methodologies and tools used to develop them. Most of this documentation will likely be typical of that generated for data-oriented software projects. Some documentation may only require sections in the [readme artifact]. Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the readme artifact (such as diagrams, large tables, data dictionaries, test results/reports, etc.). The following are some common examples of sections in or separate artifacts associated with the readme artifact:
 
-      *  Executive summary (especially for a lengthy read-me artifact>
+      *  Executive summary (especially for a lengthy readme artifact>
 
       *  Use cases
 
@@ -3414,7 +3414,7 @@ Appendix D. Common MPD Artifacts
 
       (R) [MPD catalog document]|mpd-catalog.xml|(ref)
 
-      (R) [read-me artifact]|read-me.*|(ref)
+      (R) [readme artifact]|readme.*|(ref)
 
       (R) [change log]|changelog.*|(ref)
 
@@ -3470,7 +3470,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
 
              *  changelog.* (Rule 4-37, IEPD and EIEM Have Change Log in Root Directory)
 
-             *  read-me.* (Rule 4-38, IEPD and EIEM Have read-me.* in Root Directory)
+             *  readme.* (Rule 4-38, IEPD and EIEM Have readme.* in Root Directory)
 
              *  conformance-assertion.* (Rule 4-47, IEPD and EIEM Have Conformance Assertion in Root Directory)
 
@@ -3500,9 +3500,9 @@ Appendix F. Guidance for IEPD Directories (non-normative)
 
       7.  Create an iep-sample subdirectory for sample IEPs (Rule 4-45, IEPD Has One or More Samples for Each c:IEPConformanceTarget).
 
-      8.  If more documentation artifacts (e.g., text, graphics, media) are necessary, create a documentation subdirectory for miscellaneous explanatory documentation. As needed, create additional subdirectories within this one to organize documentation artifacts. The read-me.* artifact in the [MPD root directory] should refer to or index documentation in this subdirectory.
+      8.  If more documentation artifacts (e.g., text, graphics, media) are necessary, create a documentation subdirectory for miscellaneous explanatory documentation. As needed, create additional subdirectories within this one to organize documentation artifacts. The readme.* artifact in the [MPD root directory] should refer to or index documentation in this subdirectory.
 
-      9.  If necessary, create an application-info subdirectory for tool-specific artifacts (inputs, outputs, imports, exports, models, etc.). Again, as needed, use additional subdirectories to organize artifacts of this nature. read-me.* can and should also refer to or index artifacts in this subdirectory.
+      9.  If necessary, create an application-info subdirectory for tool-specific artifacts (inputs, outputs, imports, exports, models, etc.). Again, as needed, use additional subdirectories to organize artifacts of this nature. readme.* can and should also refer to or index artifacts in this subdirectory.
 
       10. Maintain a [NIEM wantlist] within the same subdirectory as the subset it generates (Rule 6-1, Wantlist Location).
 
@@ -3522,7 +3522,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
    		mpd-catalog-extension-xml-catalog.xml
    		changelog.*
    		conformance-assertion.*
-   		read-me.*
+   		readme.*
    
    		/base-xsd
    
@@ -3815,7 +3815,7 @@ Appendix J. Index of Rules
    Rule 4-35, Releases and Core/Domain Updates Require changelog.xml: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-36, Release and Core/Domain Update changelog.xml Valid to mpd-changelog-1.0.xsd: Section 4.3.1, Change Log for Releases and Core/Domain Updates
    Rule 4-37, IEPD and EIEM Have Change Log in Root Directory: Section 4.3.2, Change Log for IEPDs and EIEMs
-   Rule 4-38, IEPD and EIEM Have read-me.* in Root Directory: Section 4.4, Read-Me Artifact
+   Rule 4-38, IEPD and EIEM Have readme.* in Root Directory: Section 4.4, Read-Me Artifact
    Rule 4-39, Read-me Describes Purpose, Scope, Business Value, etc.: Section 4.4.1, Read-me Content
    Rule 4-40, IEPD and EIEM Resolve Namespaces to URIs With XML Catalog Documents: Section 4.5, XML Catalogs
    Rule 4-41, IEP Conformance Target Has a structures:id: Section 4.6, Information Exchange Packages
