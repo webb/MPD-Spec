@@ -33,7 +33,7 @@
 <pattern>
   <rule context="c:*[exists(@c:pathURI)]">
     <assert test="unparsed-text-available(resolve-uri(@c:pathURI, base-uri(.)))"
-      >Rule 4-15: The value of a c:pathURI attribute MUST resolve to a resource.</assert>
+      >Rule 4-16: The value of a c:pathURI attribute MUST resolve to a resource.</assert>
 </pattern>
 
 <pattern>
@@ -41,14 +41,14 @@
     <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
                     doc-available($uri)
                     and doc($uri)/xmlcatalog:catalog)"
-      >Rule 4-16: The value of a c:pathURI attribute owned by an element c:XMLCatalog MUST resolve to an XML catalog document.</assert>
+      >Rule 4-17: The value of a c:pathURI attribute owned by an element c:XMLCatalog MUST resolve to an XML catalog document.</assert>
 </pattern>
 
 <pattern>
   <rule context="c:IEPSampleXMLDocument[exists(@c:pathURI)]">
     <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies
                     doc-available($uri)"
-      >Rule 4-19: The value of a c:pathURI attribute owned by an element c:IEPSampleXMLDocument MUST resolve to an XML document.</assert>
+      >Rule 4-20: The value of a c:pathURI attribute owned by an element c:IEPSampleXMLDocument MUST resolve to an XML document.</assert>
 </pattern>
 
 <pattern>
@@ -56,7 +56,7 @@
     <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
                     doc-available($uri)
                     and doc($uri)/xs:schema)"
-      >Rule 4-21: The value of a c:pathURI attribute owned by an element c:ExternalSchemaDocument MUST resolve to an XML schema document.</assert>
+      >Rule 4-22: The value of a c:pathURI attribute owned by an element c:ExternalSchemaDocument MUST resolve to an XML schema document.</assert>
 </pattern>
 
 <pattern>
@@ -66,7 +66,7 @@
                     and doc($uri)/xs:schema
                     and lf:has-effective-conformance-target-identifier(doc($uri)/xs:schema,
                             'http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument'))"
-      >Rule 4-22: The value of a c:pathURI attribute owned by an element c:ReferenceSchemaDocument MUST resolve to a NIEM reference schema document.</assert>
+      >Rule 4-23: The value of a c:pathURI attribute owned by an element c:ReferenceSchemaDocument MUST resolve to a NIEM reference schema document.</assert>
 </pattern>
 
 <pattern>
@@ -76,7 +76,7 @@
                     and doc($uri)/xs:schema
                     and lf:has-effective-conformance-target-identifier(doc($uri)/xs:schema,
                             'http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ExtensionSchemaDocument'))"
-      >Rule 4-23: The value of a c:pathURI attribute owned by an element c:ExtensionSchemaDocument MUST resolve to a NIEM extension schema document.</assert>
+      >Rule 4-24: The value of a c:pathURI attribute owned by an element c:ExtensionSchemaDocument MUST resolve to a NIEM extension schema document.</assert>
 </pattern>
 
 <pattern>
@@ -84,7 +84,7 @@
     <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
                     doc-available($uri)
                     and doc($uri)/xs:schema)"
-      >Rule 4-24: The value of a c:pathURI attribute owned by an element c:SubsetSchemaDocument MUST resolve to an XML schema document.</assert>
+      >Rule 4-25: The value of a c:pathURI attribute owned by an element c:SubsetSchemaDocument MUST resolve to an XML schema document.</assert>
 </pattern>
 
 <pattern>
@@ -92,7 +92,7 @@
     <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
                     doc-available($uri)
                     and doc($uri)/sch:schema)"
-      >Rule 4-26: The value of a c:pathURI attribute owned by an element c:SchematronSchema MUST resolve to a Schematron schema.</assert>
+      >Rule 4-27: The value of a c:pathURI attribute owned by an element c:SchematronSchema MUST resolve to a Schematron schema.</assert>
 </pattern>
 
 </schema>
