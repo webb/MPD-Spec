@@ -108,7 +108,8 @@
 		<li><p>Added <ref idref="mpdClass"/> to ensure completeness; now one section for each of the four primary MPD metadata attributes:  <code>mpdURI, mpdName, mpdVersionID,</code> and <code>mpdClass</code>.</p></li>
 		<li><p>Rewrote <ref idref="Enterprise-Information-Exchange-Model"/> to eliminate duplication of definitions and to improve sequencing of explanations of concepts enterprise, BIEC, and EIEM.</p></li>
 		<li><p>Fixed UPA errors in MPD catalog schema document by changing <code>xs:restriction</code> on <code>c:SchemaDocumentSetType</code> to <code>xs:extension</code> (of <code>c:FileSetType</code>).  (By intent, no extension elements were added; <code>c:SchemaDocumentSetType</code> extends <code>c:FileSetType</code> in name only; fixes UPA errors and sets up for application of Schematron rules.)</p></li>
-		<li><p>Added Schematron rules to ensure that <code>c:SchemaDocumentSetType</code> contains a <code>c:XMLCatalog</code> or a <code>c:XMLSchemaDocument</code> (two rules - both designed by Webb - one rule handles all cases even extended MPD catalog documents; the other handles only unextended catalogs.  The unextended catalog version requires an XPath2-Schema-Aware app (e.g., paid version of Saxon); the other only requires an XPath2 app (e.g., free version of Saxon).</p></li>
+		<li><p>Added Schematron rule to ensure that <code>c:SchemaDocumentSetType</code> contains a <code>c:XMLCatalog</code> or a <code>c:XMLSchemaDocument</code> (two rules - both designed by Webb - one rule handles all cases even extended MPD catalog documents; the other handles only unextended catalogs.  The unextended catalog version requires an XPath2-Schema-Aware app (e.g., paid version of Saxon); the other only requires an XPath2 app (e.g., free version of Saxon).</p></li>
+		<li><p>Added <ref idref="Constraint-SchemaDocumentSet"/> for new Schematron rule above.</p></li>
 		<li><p>Removed <code>c:ReferenceSchemaDocumentSetType</code> and <code>c:ReferenceSchemaDocumentSet</code>.  No purpose for such.  If an MPD's <code>mpdClass</code> value is in <code>{rel, du, cu}</code> then its schemas are all reference schema documents.  Left <code>c:ReferenceSchemaDocument</code> in case it is needed for some reason.</p></li>
 		<li><p>Globally replaced all "read-me" with "readme" (more consistent with common practice).</p></li>
 	</ol>
@@ -2515,10 +2516,10 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 
 
-	<section id="Constraint-SchemaDocumentSet">
-		<title>Constraint on Elements of Type <code>c:SchemaDocumentSetType</code></title>
+<section id="Constraint-SchemaDocumentSet">
+	<title>Constraint on Elements of Type <code>c:SchemaDocumentSetType</code></title>
 
-		<p>In order to accomodate the <termRef>well-formed MPD</termRef> concept, the design of the MPD catalog schema does not enforce a rule that is required to ensure a <code>c:SchemaDocumentSet</code> within an <termRef>MPD catalog document</termRef> is used correctly for an IEPD.  This rule assumes that within the IEPD's MPD catalog any <code>c:SchemaDocumentSet</code> element identifies <termRef term="XML schema document">XML schema documents</termRef> to be assembled into an <termRef>XML Schema</termRef>.</p>
+	<p>In order to accomodate the <termRef>well-formed MPD</termRef> concept, the design of the MPD catalog schema does not enforce a rule that is required to ensure a <code>c:SchemaDocumentSet</code> within an <termRef>MPD catalog document</termRef> is used correctly for an IEPD.  This rule assumes that within the IEPD's MPD catalog any <code>c:SchemaDocumentSet</code> element identifies <termRef term="XML schema document">XML schema documents</termRef> to be assembled into an <termRef>XML Schema</termRef>.</p>
 
 <ruleSection>
 	<title>Constraint on Elements of Type <code>c:SchemaDocumentSetType</code></title>
