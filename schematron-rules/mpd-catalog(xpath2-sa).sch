@@ -14,7 +14,7 @@
 <pattern>
 	<rule context="element(*,c:SchemaDocumentSetType)">
 		<assert test="schema-element(c:SchemaDocument) or schema-element(c:XMLCatalog)"
-		>Rule ###: An element information item with a type definition validly derived from c:SchemaDocumentSetType MUST have a child element with an element declaration that is in the substitution group of c:XMLCatalog or c:SchemaDocument.</assert>
+		>Rule 7-4: An element information item with a type definition validly derived from c:SchemaDocumentSetType MUST have a child element with an element declaration that is in the substitution group of c:XMLCatalog or c:SchemaDocument.</assert>
 	</rule>
 </pattern>
 
