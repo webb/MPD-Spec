@@ -3,7 +3,7 @@
    xmlns="https://iead.ittl.gtri.org/wr24/doc/2011-09-30-2258"
    xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/"
    xmlns:html="http://www.w3.org/1999/xhtml"
-   xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+   xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/
    xmlns:doc="https://iead.ittl.gtri.org/wr24/doc/2011-09-30-2258"
    xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
@@ -826,13 +826,13 @@
 	    <td>Constraint-schema</td>
 	</tr><tr>
 	    <td><termRef>MPD catalog document</termRef></td>
-	    <td>M-Cat</td>
+	    <td>MPD-Cat</td>
 	</tr><tr>
 	    <td><termRef>XML catalog document</termRef></td>
-	    <td>X-Cat</td>
+	    <td>XML-Cat</td>
 	</tr><tr>
 	    <td>MPD <termRef>change log</termRef></td>
-	    <td>M-Chg-Log</td>
+	    <td>MPD-ChLg</td>
         </tr>
 </table>
 
@@ -1860,11 +1860,11 @@
 
 <ruleSection>
 	<title>Release and Core/Domain Update <code>changelog.xml</code> Valid to <code>mpd-changelog-1.0.xsd</code></title>
-	<rule id="r-changelog-ref" applicability="M-Chg-Log" class="Constraint">
+	<rule id="r-changelog-ref" applicability="MPD-ChLg" class="Constraint">
 			<p>A <code>changelog.xml</code> artifact for an MPD with a <code>c:mpdClass</code> attribute value from the set <code>{rel, cu, du}</code> MUST validate with the NIEM change log schemas <code>mpd-changelog-1.0.xsd</code> and <code>niem-model-1.0.xsd</code>.</p>
 	</rule>
 </ruleSection>
-		
+
 	<p>The most current versions of the resources referenced in the rule above are available here:</p>
 		<blockquote>
 			<p><link>http://reference.niem.gov/niem/resource/mpd/changelog/</link></p>
@@ -2330,6 +2330,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<ul>
 		<li><p>Has <code>c:mpdClass="iepd"</code>, and</p></li>
 		<li><p>Has one or more <code>c:IEPConformanceTarget</code> elements within its <termRef>MPD catalog document</termRef>, and</p></li>
+		<li><p>Conforms to all WF-MPD conformance target rules.</p></li>
 		<li><p>Satisfies all applicable rules and mandatory requirements in:</p>
 			<ul>
 				<li><p><ref idref="NIEM-MPD-3.0"/> (i.e., This MPD Specification)</p></li>
@@ -2344,6 +2345,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<p>An MPD that:</p>
 	<ul>
 		<li><p>Has <code>c:mpdClass="eiem"</code>, and</p></li>
+		<li><p>Conforms to all WF-MPD conformance target rules.</p></li>
 		<li><p>Satisfies all applicable rules and mandatory requirements in:</p>
 			<ul>
 				<li><p><ref idref="NIEM-MPD-3.0"/> (i.e., This MPD Specification)</p></li>
@@ -2516,7 +2518,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>On the other hand, the <termRef>MPD catalog document</termRef> is designed to record, index, classify, and describe (as needed) any or all MPD artifacts (not just schema documents).  The MPD catalog provides a flexible method for grouping all kinds artifacts.</p>
 
-	<p>The MPD catalog schema <ref idref="MPD-Catalog-XSD"/> defines a large set of common artifact classifiers and a smaller set of artifact set classifiers.  In summary, per <ref idref="MPD-Catalog-XSD"/>, define sets by substituting the appropriate artifact classifier (of type <code>c:FileType</code>) into the abstract element <code>c:Artifact</code>, within the appropriate artifact set classifier (of type <code>c:FileSetType</code>).  Use the most specific classifiers available for your artifacts and artifact sets.  Otherwise, as needed, use generic <code>c:File</code> and <code>c:FileSet</code> classifiers with <code>nc:DescriptionText</code>.</p>
+	<p>The MPD catalog schema <ref idref="MPD-Catalog-XSD"/> defines a large set of common artifact classifiers and a smaller set of artifact set classifiers.  In summary, per <ref idref="MPD-Catalog-XSD"/>, define sets by substituting the appropriate artifact classifier (of type <code>c:FileType</code>) into the abstract element <code>c:ArtifactOrArtifactSet</code>, within the appropriate artifact set classifier (of type <code>c:FileSetType</code>).  Use the most specific classifiers available for your artifacts and artifact sets.  Otherwise, as needed, use generic <code>c:File</code> and <code>c:FileSet</code> classifiers with <code>nc:DescriptionText</code>.</p>
 
 
 	<p>Note that the <code>c:pathURI</code> value for an artifact is its operating system relative directory <termRef>path name</termRef> with file name.  The <code>c:pathURI</code> value for an artifact set is its operating system relative <termRef>path name</termRef>.</p>
@@ -2828,7 +2830,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<li><p>Maintain a <termRef>NIEM wantlist</termRef> within the same subdirectory as the subset it generates (<ref idref="r-wantlist-base"/>).</p></li>
 
-	<li><p>Maintain an <code>xml-catalog.xml</code> closest to the XML schema document set it relates to.  Use <code>nextCatalog</code> elements as needed to help maintain this proximity (<ref idref="r-xml-cat-resolution"/>).</p></li>
+	<li><p>Maintain an <code>xml-catalog.xml</code> closest to the XML schema document set it relates to.  Use <code>er:nextCatalog</code> elements as needed to help maintain this proximity (<ref idref="r-xml-cat-resolution"/>).</p></li>
 
 	<li><p>Finally, if it becomes necessary to maintain multiple <code>constraint-xsd</code> or <code>extension</code> subdirectories (or any other subdirectories) together in the same directory, then simply suffix each directory name with a distinct character string (for example, <code>extension1</code>, <code>extension2</code>, etc.; or <code>extension-abc</code>, <code>extension-zyx</code>, etc.)</p></li>
 
