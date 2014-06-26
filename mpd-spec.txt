@@ -102,7 +102,7 @@ Beta 4
 
       2.  Rewrote Section 3.2.4, Multiple Schema Document Subsets in a Single IEPD or EIEM, below, for clarity and simplicity.
 
-      3.  Changed MPD catalog c:mpdClassCode to c:mpdClass because it is a union of class codes (enumerations) and xs:anyURI for easy extension.
+      3.  Changed MPD catalog c:mpdClassCode to c:mpdClassCodeList because it is now a list that is a union of class codes (enumerations) and xs:anyURI for easy extension.
 
       4.  Relaxed mpdName attribute pattern to allow upper case and spaces.
 
@@ -2308,10 +2308,10 @@ Appendix A. MPD Catalog XML Schema Document
    	   <xs:element ref="c:IEPConformanceTarget" minOccurs="0" maxOccurs="unbounded"/>
               <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
              </xs:sequence>
-             <xs:attribute ref="c:mpdURI"       use="required"/>
-             <xs:attribute ref="c:mpdClass"     use="required"/>
-             <xs:attribute ref="c:mpdName"      use="required"/>
-             <xs:attribute ref="c:mpdVersionID" use="required"/>
+             <xs:attribute ref="c:mpdURI"           use="required"/>
+             <xs:attribute ref="c:mpdClassCodeList" use="required"/>
+             <xs:attribute ref="c:mpdName"          use="required"/>
+             <xs:attribute ref="c:mpdVersionID"     use="required"/>
            </xs:extension>
          </xs:complexContent>
        </xs:complexType>
@@ -2319,7 +2319,7 @@ Appendix A. MPD Catalog XML Schema Document
        <xs:element name="ArtifactOrArtifactSet" abstract="true">
          <xs:annotation>
    	      <xs:documentation>
-   		 A concept for a file or file set in an MPD.
+   		 A data concept for a file or file set in an MPD.
    	      </xs:documentation>
          </xs:annotation>
        </xs:element>
@@ -2605,11 +2605,11 @@ Appendix A. MPD Catalog XML Schema Document
    
    <!-- =========================================================================== -->
    
-       <xs:attribute name="mpdClass" type="c:MPDClassListSimpleType">
+       <xs:attribute name="mpdClassCodeList" type="c:MPDClassListSimpleType">
          <xs:annotation>
    		<xs:documentation>
-   			A classification for an MPD from the set {rel, cu, du, iepd, eiem}
-   			or an assigned URI for a new mpdClass.
+   			A list of classifications for an MPD from the set {rel, cu, du, iepd, eiem}
+   			or a URI that represents a new or alternate classification for an MPD.
    		</xs:documentation>
          </xs:annotation>
        </xs:attribute>
@@ -3215,7 +3215,7 @@ Appendix B. Example MPD Catalog Document for Cursor on Target
        xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
        <c:MPD 
            c:mpdURI="http://example.com/cot-iepd/0.8beta1/" 
-           c:mpdClassCode="iepd"
+           c:mpdClassCodeList="iepd"
            c:mpdName="cot-iepd" 
            c:mpdVersionID="0.8beta1">
            <c:MPDInformation>
@@ -3248,7 +3248,7 @@ Appendix B. Example MPD Catalog Document for Cursor on Target
                </c:EXISchema> -->
                <c:IEPSampleXMLDocument c:pathURI="iep-samples/cot-iep1.xml"/>
            </c:IEPConformanceTarget>
-           <c:ReadMe c:pathURI="read-me.txt"/>
+           <c:ReadMe c:pathURI="readme.txt"/>
            <c:MPDChangeLog c:pathURI="changelog.txt"></c:MPDChangeLog>
            <c:Wantlist c:pathURI="niem/wantlist.xml"/>
            <c:ExtensionSchemaDocument c:pathURI="extension/cot-niem.xsd"/>
