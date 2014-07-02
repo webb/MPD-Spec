@@ -2086,7 +2086,7 @@
 
 <ruleSection>
 	<title>IEPD Declares One or More IEP Conformance Targets</title>
-	<rule id="validity-constraints" applicability="MPD-Cat" class="Interpretation">
+	<rule id="validity-constraints" applicability="MPD-Cat" class="Constraint">
 		<p>An IEPD MUST explicitly declare all intended validity constraints by employing the <code>c:IEPConformanceTarget</code> element in its <termRef>MPD catalog document</termRef>.</p>
 	</rule>
 </ruleSection>
@@ -2132,7 +2132,7 @@
 	<p>When employing <code>c:HasDocumentElement</code> the following rule applies:</p>
 
 <ruleSection>
-	<title>Validating a Qualified Name List</title>
+	<title>Identifying the Document Element of an IEP</title>
 <rule id="i2" applicability="IEP" class="Constraint">
 	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, ONLY IF its XML document element's name is a member of that list of <em>QNames</em>.</p>
 	</rule>
@@ -2328,28 +2328,13 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>The five standard NIEM MPD classes can be partitioned into two general groups based on control.  In the first group are NIEM releases, Core updates, and domain updates; and in the second, IEPDs and EIEMs.  The first group is developed, controlled, and published by the NIEM PMO.  However, the second group is developed by organizations or individuals that are not under PMO control.  Control of these MPDs is widely distributed and subject only to NIEM specifications (e.g., the NIEM NDR, the NIEM MPD Specification, the NIEM Conformance Specification, etc.).  In some cases, this may mean interpretation of subjective rules that are not testable (for example, rules for new data component definitions).</p>
 
-	<p>Furthermore, most rules in this MPD Specification are applicable to a <termRef>well-formed MPD</termRef> <termRef>conformance target</termRef>.  Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts.  Adherence to these rules can produce an IEPD or EIEM that is well-formed, but that does not necessarily satisfy all general and specific requirements for a NIEM IEPD or EIEM.  While some rules in this MPD Specification may imply general and specific NIEM-conformance, the following rules ensure that a complete <em>NIEM-IEPD</em> and <em>NIEM-EIEM</em> adhere to all applicable NIEM conformance rules.</p>
+	<p>Furthermore, most rules in this MPD Specification are applicable to a <termRef>well-formed MPD</termRef> <termRef>conformance target</termRef>.  Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts.  Adherence to these rules can produce an IEPD that is well-formed, but that does not necessarily satisfy all general and specific requirements for a NIEM IEPD.  While some rules in this MPD Specification may imply general and specific NIEM-conformance, the following rule ensures that a complete <em>NIEM-IEPD</em> adhere to all applicable NIEM conformance rules.</p>
 
 <definition term="NIEM IEPD">
 	<p>An MPD that:</p>
 	<ul>
 		<li><p>Has <code>c:mpdClass="iepd"</code>, and</p></li>
 		<li><p>Has one or more <code>c:IEPConformanceTarget</code> elements within its <termRef>MPD catalog document</termRef>, and</p></li>
-		<li><p>Conforms to all WF-MPD conformance target rules.</p></li>
-		<li><p>Satisfies all applicable rules and mandatory requirements in:</p>
-			<ul>
-				<li><p><ref idref="NIEM-MPD-3.0"/> (i.e., This MPD Specification)</p></li>
-				<li><p><ref idref="NIEM-NDR"/></p></li>
-				<li><p><ref idref="NIEM-Conformance"/></p></li>
-			</ul>
-		</li>
-	</ul>
-</definition>
-
-<definition term="NIEM EIEM">
-	<p>An MPD that:</p>
-	<ul>
-		<li><p>Has <code>c:mpdClass="eiem"</code>, and</p></li>
 		<li><p>Conforms to all WF-MPD conformance target rules.</p></li>
 		<li><p>Satisfies all applicable rules and mandatory requirements in:</p>
 			<ul>
@@ -2372,15 +2357,15 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p><ref idref="Information-Exchange-Package-Documentation"/> introduced the only MPD class that defines an information exchange <char name="mdash"/> <termRef>Information Exchange Package Documentation</termRef> (IEPD).  This section also introduced an <termRef>Information Exchange Package</termRef>, which is an information exchange instance defined by an IEPD.  An IEP is also a <termRef>conformance target</termRef> and in that connotation is defined as follows:</p>
 
-<definition term="information exchange package">
-		<p>An XML <termRef>instance XML document</termRef> defined by a <code>c:IEPConformanceTarget</code> element in an IEPD's <termRef>MPD catalog document</termRef>.</p>
-</definition>
+	<definition term="information exchange package">
+		<p>An XML <termRef>instance XML document</termRef> defined by a <code>c:IEPConformanceTarget</code> element in an IEPD's <termRef>MPD catalog document</termRef>.  (abbreviated IEP)</p>
+	</definition>
 
-<p>The definition of an <termRef>information exchange package</termRef> conformance target is not strong enough to ensure that an IEP artifact uses NIEM.  Thus, there is a need for a conformance target that distinguishes a general IEP from an IEP that represents a valid NIEM information exchange.  This is somewhat analogous to the need for <termRef>well-formed MPD</termRef> and <termRef>NIEM IEPD</termRef> conformance targets.  The following defines a <em>full NIEM IEP</em> <termRef>conformance target</termRef>:</p>
+	<p>The definition of an <termRef>information exchange package</termRef> conformance target is not strong enough to ensure that an IEP artifact uses NIEM.  Thus, there is a need for a conformance target that distinguishes a general IEP from an IEP that represents a valid NIEM information exchange.  This is somewhat analogous to the need for <termRef>well-formed MPD</termRef> and <termRef>NIEM IEPD</termRef> conformance targets.  The following defines a <em>full NIEM IEP</em> <termRef>conformance target</termRef>:</p>
 
-<definition term="full NIEM IEP">
-	<p>An XML document (i.e., an IEP) that satisfies all the validity constraints for its class as defined by a NIEM IEPD, and that has an XML document element that is declared in either a NIEM reference or extension schema document.</p>
-</definition>
+	<definition term="full NIEM information exchange package">
+	<p>An XML document (i.e., an IEP) that satisfies all the validity constraints for its class as defined by a NIEM IEPD, and that has an XML document element that is declared in either a NIEM reference or extension schema document.  (abbreviated FN-IEP)</p>
+	</definition>
 
 </section>
 </section>
@@ -2474,21 +2459,21 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	
 	<p>An MPD is a logical set of electronic files aggregated and organized to fulfill a specific purpose in NIEM.  Directory organization and packaging of an MPD should be designed around major themes in NIEM:  reuse, sharing, interoperability, and efficiency.</p>
 
-<ruleSection>
-	<title>MPD Is a Zip Archive</title>
- 	<rule id="r-mpd-archive" applicability="WF-MPD" class="Constraint">
-		<p>An MPD is packaged as a single compressed archive of files that represents a sub-tree of a file system in standard <ref idref="PKZIP"/> format.  This archive MUST preserve and store the logical directory structure intended by its author.</p>
-	</rule>
-</ruleSection>
+	<ruleSection>
+		<title>MPD Is a Zip Archive</title>
+	 	<rule id="r-mpd-archive" applicability="WF-MPD" class="Constraint">
+			<p>An MPD is packaged as a single compressed archive of files that represents a sub-tree of a file system in standard <ref idref="PKZIP"/> format.  This archive MUST preserve and store the logical directory structure intended by its author.</p>
+		</rule>
+	</ruleSection>
 
-	<p>MPD NIEM schema artifacts must be valid for both XML Schema and NIEM.</p>
+	<p>NIEM XSD and XML artifacts in an MPD must be valid for both XML Schema and NIEM.  This also implies these artifacts must adhere to applicable <ref idref="NIEM-NDR"/> conformance target rules.</p>
 
-<ruleSection>
-	<title>XSD and XML Documents are Valid to Corresponding NDR Conformance Targets</title>
-	<rule id="r-mpd-conform-tgts" applicability="WF-MPD" class="Constraint">
-		<p>Within an MPD archive, all XSD and XML artifacts MUST be valid against and follow all rules for their respective <ref idref="NIEM-NDR"/> conformance targets; this includes being well-formed and valid XML Schema documents.</p>
-	</rule>
-</ruleSection>
+	<ruleSection>
+		<title>XSD and XML Documents Conform to Applicable NDR Conformance Targets</title>
+		<rule id="r-mpd-conform-tgts" applicability="WF-MPD" class="Constraint">
+			<p>Within an MPD archive, each XML schema document (XSD) or instance XML document (XML) artifact that uses a conformance targets attribute (as defined by <ref idref="NIEM-CTAS"/>) MUST satisfy the <ref idref="NIEM-NDR"/> rules for the conformance targets it declares.</p>
+		</rule>
+	</ruleSection>
 
 	<p>NIEM releases, core updates, and domain updates maintain a relatively consistent directory organization <ref idref="NIEM-DomainUpdate"/>.  But there are many ways to organize IEPD and EIEM directories that may depend on a number of factors including (not limited to) business purpose and complexity.  For this reason, strict rules for IEPD and EIEM directory structure are difficult to establish.  Therefore, IEPD and EIEM authors may create their own logical directory structures subject to the rules of this section.</p>
 
@@ -2496,12 +2481,12 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 		<p>The top level file directory relative to all MPD artifacts and subdirectories.</p>
 	</definition>
 
-<ruleSection>
-	<title>MPD Archive Uncompresses to a Single Root Directory</title>
-	<rule id="r-mpd-archive-one-root" applicability="WF-MPD" class="Constraint">
-		<p>An MPD archive MUST uncompress (unzip) to one and only one <termRef>MPD root directory</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection>
+		<title>MPD Archive Uncompresses to a Single Root Directory</title>
+		<rule id="r-mpd-archive-one-root" applicability="WF-MPD" class="Constraint">
+			<p>An MPD archive MUST uncompress (unzip) to one and only one <termRef>MPD root directory</termRef>.</p>
+		</rule>
+	</ruleSection>
 
 	<p>The foregoing rule ensures that:</p>
 	<ul>
