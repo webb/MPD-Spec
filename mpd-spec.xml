@@ -1190,14 +1190,7 @@
 <ruleSection>
 	<title>MPD Has One and Only One <code>mpd-catalog.xml</code> in Root Directory</title>
 <rule id="r2-mpd-cat" applicability="WF-MPD" class="Constraint">
-	<p>An MPD MUST contain one and only one <termRef>MPD catalog document</termRef> artifact.</p>
-</rule>
-</ruleSection>
-
-<ruleSection>
-	<title>MPD Has One and Only One <code>mpd-catalog.xml</code> in Root Directory</title>
-<rule id="r1-mpd-cat" applicability="WF-MPD" class="Constraint">
-	<p>An <termRef>MPD catalog document</termRef> MUST be named <code>mpd-catalog.xml</code> and appear in the <termRef>MPD root directory</termRef>.</p>
+	<p>Within its <termRef term="MPD root directory">root directory</termRef>, an MPD MUST contain an <termRef>MPD catalog document</termRef> artifact with name <code>mpd-catalog.xml</code>.</p>
 </rule>
 </ruleSection>
 
@@ -1485,7 +1478,7 @@
 	<p>Artifacts in other MPDs can be referenced from within an MPD to identify equivalence (signify reuse, one aspect of lineage).  To support this concept, the following MPD URI rules are necessary:</p>
 
 <ruleSection><title>MPD URI Supports Fragment</title>
-	<rule id="r-uri-frag" applicability="WF-MPD" class="Interpretation">
+	<rule id="r-uri-frag" applicability="WF-MPD" class="Constraint">
 		<p>A valid MPD URI MUST support the inclusion of a <em>fragment identifier</em> (as a suffix) <ref idref="RFC3986-URI"/>.</p>
 	</rule>
 </ruleSection>
@@ -1503,7 +1496,7 @@
 	<p>By the following rule, each file artifact or artifact set is uniquely identified by its <termRef>path name</termRef> relative to the <termRef>MPD root directory</termRef>.</p>
 
 <ruleSection><title>MPD Artifact URI Syntax</title>
-	<rule id="r-mpd-uri-syntax" applicability="WF-MPD" class="Constraint">
+	<rule id="r-mpd-uri-syntax" applicability="WF-MPD" class="Interpretation">
 		<p>Within an MPD a URI reference to an artifact in another external MPD (i.e., an MPD artifact URI) is the concatenation of:</p>
 		<ul>
 			<li><p>The URI of the MPD that contains the artifact.</p></li>
@@ -1770,7 +1763,7 @@
 			<p>This section summarizes the various URIs used in the MPD catalog document.  It also presents a summary of <ref idref="RFC3986-URI"/>.  See that reference for explanation and details of URI syntax.</p>
 
 		<table id="uri-syntax">
-			<title>Summary of<link href="http://tools.ietf.org/html/rfc3986"><em> RFC 3986 URI: Generic Syntax</em></link></title>
+			<title>Summary of<link href="http://tools.ietf.org/html/rfc3986"> <q>RFC 3986 URI: Generic Syntax</q></link>.</title>
 			<theadr>
 			    <th>Id</th>
 			    <th>URI Syntax</th>
@@ -2044,18 +2037,21 @@
 		<p>A class or category of IEPs which has a set of one or more validity constraints and a unique identifier.  Every IEP is an instance of one or more IEP conformance targets.</p>
 	</definition>
 
-	<p>This definition requires that an IEP conformance target be assigned a unique identifier, a <em>Conformance Target URI</em> that distinguishes it from all other IEP conformance targets.  Similar to a URI for an MPD artifact, construct a <em>conformance target URI</em> by concatenating the IEPD's URI, the pound sign character (<code>#</code>), and a locally unique (within the IEPD) NCName (non-colonized name, as defined by <ref idref="W3-XML-Schema-Structures"/>, <a href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NCName"><char name="sect"/>3.3.7, <q>NCName</q></a>).</p>
+	<p>This definition requires that an IEP conformance target be assigned a unique identifier, a <em>Conformance Target URI</em>, that distinguishes it from all other IEP conformance targets.  Construct a <em>Conformance Target URI</em> using a fragment identifier (similar to an MPD artifact URI) per this rule:</p>
 
-	<definition term="IEP conformance target URI" id="iep-conformance-target-uri">
-		<p>A <termRef>conformance target identifier</termRef> for an IEP conformance target declared in an IEPD, formed by concatenating:</p>
+	<ruleSection>
+		<title>Conformance Target URI</title>
+		<rule id="r-iep-ct-uri" applicability="MPD-Cat" class="Interpretation">
+		<p>A URI for an IEP conformance target declared in an IEPD is formed by concatenating the following in sequence:</p>
 		<ol>
-			<li><p>the IEPD URI and</p></li>
-			<li><p>the pound sign character (<code>#</code>) and</p></li>
-			<li><p>a locally unique NCName.</p></li>
+			<li><p>the IEPD URI</p></li>
+			<li><p>the pound sign character (<code>#</code>)</p></li>
+			<li><p>a locally unique NCName (i.e., a non-colonized name, as defined by <ref idref="W3-XML-Schema-Structures"/>, <a href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NCName"><char name="sect"/>3.3.7, <q>NCName</q></a>).</p></li>
 		</ol>
-	</definition>	
+		</rule>
+	</ruleSection>
 
-	<p>The foregoing definition requires that an IEP conformance target class have a URI.  As a result, the following rule is also required for an <termRef>MPD catalog document</termRef>:</p>
+	<p>The foregoing rule requires that an IEP conformance target class have a URI.  As a result, the following rule is also required for an <termRef>MPD catalog document</termRef>:</p>
 
 <ruleSection>
 	<title>IEP Conformance Target Has a <code>structures:id</code></title>
@@ -2802,7 +2798,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<li><p>The following artifacts are required to be in the <termRef>MPD root directory</termRef> (Note: <code>.*</code> indicates any format):</p>
 		<ul>
-			<li><p><code>mpd-catalog.xml</code> (<ref idref="r1-mpd-cat"/>)</p></li> 
+			<li><p><code>mpd-catalog.xml</code> (<ref idref="r2-mpd-cat"/>)</p></li> 
 			<li><p><code>changelog.*</code> (<ref idref="r-mpd-changelog-iepd"/>)</p></li>
 			<li><p><code>readme.*</code> (<ref idref="r-mpd-readme"/>)</p></li>
 			<li><p><code>conformance-assertion.* (<ref idref="r1-conform-assert"/>)</code></p></li>
