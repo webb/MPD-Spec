@@ -205,7 +205,7 @@
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="c:MasterDocument"/>
+         <xsl:when test="c:ReadMe"/>
          <xsl:otherwise>
             <xsl:value-of xmlns:sch="http://www.ascc.net/xml/schematron" select="base-uri(.)"/>
             <xsl:value-of xmlns:sch="http://www.ascc.net/xml/schematron"
@@ -213,7 +213,7 @@
                <xsl:text>:</xsl:text>
                <xsl:value-of select="saxon:line-number()"/>
             </xsl:value-of>
-            <xsl:text xmlns:sch="http://www.ascc.net/xml/schematron">:assert:</xsl:text>A c:MPD MUST have a c:MasterDocument.<xsl:value-of xmlns:sch="http://www.ascc.net/xml/schematron" select="string('&#xA;')"/>
+            <xsl:text xmlns:sch="http://www.ascc.net/xml/schematron">:assert:</xsl:text>A c:MPD MUST have a c:ReadMe.<xsl:value-of xmlns:sch="http://www.ascc.net/xml/schematron" select="string('&#xA;')"/>
          </xsl:otherwise>
       </xsl:choose>
       <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M5"/>
