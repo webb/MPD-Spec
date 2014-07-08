@@ -628,13 +628,9 @@ Remaining work
 
 2.11.2. Conformance Target Codes
 
-   There are several purposes for defining conformance targets in NIEM specifications. A conformance target establishes a class of artifact. A class of artifact identified by a conformance target is associated with a set of rules. Based on these rules, tools and operations may be developed. However, a conformance target also provides purposes outside the environment of rules and tools.
+   There are several purposes for defining conformance targets in NIEM specifications. A [conformance target] establishes and identifies a class of artifact associated with a set of rules. Based on these rules, tools and operations may be developed. However, a conformance target has other purposes.
 
-   Conformance targets satisfy a need to ensure developers do not conform to NIEM in name only. Once committed to using NIEM, developers and organizations need well-defined conformance targets and rules to know exactly how to conform to NIEM. Funding agencies require conformance targets that correspond to interoperability goals. An agency funding development of a set of systems will need to ensure it funds development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs. Tools and system developers need conformance targets that identify real world requirements corresponding to their use cases and tool capabilities. Many of these tools are not yet developed. And so, this specification attempts to cover a broad range of general use cases.
-
-   It is important to understand that IEPDs themselves are capable of declaring their own conformance targets
-
-   Section 5, Conformance Targets, below, defines MPD Specification conformance targets and associated rules in more detail. In this section we simply present a table of [conformance target] codes used in this specification.
+   Conformance targets satisfy a need to ensure developers do not conform to NIEM in name only. Once committed to using NIEM, developers and organizations need well-defined conformance targets and rules to know exactly how to conform to NIEM. Funding agencies require conformance targets that correspond to interoperability goals. An agency funding development of a set of systems will need to ensure it funds development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs. Tools and system developers need conformance targets that identify real world requirements corresponding to their use cases and tool capabilities. Many of these tools are not yet developed. And so, this specification attempts to cover a broad range of general use cases. Section 5, Conformance Targets, below, defines MPD Specification conformance targets and associated rules in more detail. Here, we simply present a table of [conformance target] codes used in this specification.
 
    Table 2-2: Conformance Target Codes
 
@@ -659,6 +655,8 @@ Remaining work
       [XML catalog document]|XML-Cat
 
       MPD [change log]|MPD-ChLg
+
+   The codes above represent conformance targets used in this specification. An IEPD author can also declare and assign identifiers to IEP conformance targets within the [MPD catalog document] for an IEPD.
 
 3. MPD XML Schema Document Artifacts
 
@@ -1669,7 +1667,7 @@ Rule 4-41. Conformance Target URI
 
    [Rule 4-41] (MPD-Cat)
 
-      A URI for an IEP conformance target declared in an IEPD is formed by concatenating the following in sequence:
+      A URI for an IEP conformance target (i.e., a [conformance target identifier]) declared in an IEPD is formed by concatenating the following in sequence:
 
          1. the IEPD URI
 
@@ -1677,7 +1675,9 @@ Rule 4-41. Conformance Target URI
 
          3. a locally unique NCName (i.e., a non-colonized name, as defined by [W3C XML Schema Structures], section 3.3.7, "NCName").
 
-   The foregoing rule requires that an IEP conformance target class have a URI. As a result, the following rule is also required for an [MPD catalog document]:
+   This rule requires that an IEP conformance target class has a URI, its [conformance target identifier].
+
+   The following rule is required for an [MPD catalog document]. It supplements the rule above.
 
 Rule 4-42. IEP Conformance Target Has a structures:id
 
@@ -1685,7 +1685,9 @@ Rule 4-42. IEP Conformance Target Has a structures:id
 
       A c:IEPConformanceTarget element MUST own a structures:id attribute.
 
-   An IEPD defines IEP conformance targets by explicitly declaring them within its MPD catalog. The rule above ensures that conformance targets can be referenced between IEPDs (not just within an IEPD).
+   This rule ensures that a conformance targets can be referenced between IEPDs (not just within an IEPD). The value of the structures:id attribute is the NCName in Rule 4-41, Conformance Target URI.
+
+   An IEPD defines IEP conformance targets by explicitly declaring them within its MPD catalog per the rules above.
 
    The following subsections detail the concepts, artifacts, and procedures for declaring and identifying IEP conformance targets in IEPDs.
 
