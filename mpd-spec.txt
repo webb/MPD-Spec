@@ -200,7 +200,7 @@ Remaining work
 
 1.1. Background
 
-   Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose. Examples of such sets include, but in the future may not necessarily be limited to, a NIEM [release], [core update] (CU), [domain update] (DU), [Information Exchange Package Documentation] (IEPD), and [Enterprise Information Exchange Model] (EIEM). Each of these examples is a NIEM [Model Package Description] (abbreviated MPD).
+   Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose. Examples of such sets include, but in the future may not necessarily be limited to, a NIEM [release], [core update] (CU), [domain update] (DU), [Information Exchange Package Documentation] (IEPD), and [Enterprise Information Exchange Model] (EIEM). Each of these examples is a NIEM [Model Package Description] (MPD).
 
    [Definition: Model Package Description]
 
@@ -466,7 +466,7 @@ Remaining work
 
    [Definition: Information Exchange Package]
 
-      An [XML document] that satisfies all the validity constraints for its class as defined by a NIEM IEPD. (Information Exchange Package is abbreviated IEP.)
+      An [XML document] that satisfies all the validity constraints for its class as defined by a NIEM IEPD. (abbreviated IEP)
 
    How to declare validity constraints for one or more IEP classes within an IEPD will be covered in more depth in Section 4.6, Information Exchange Packages, below.
 
@@ -1867,21 +1867,11 @@ Rule 4-49. Conformance Assertion File Name Is conformance-assertion.*
 
 5. Conformance Targets
 
-   [Conformance targets] were introduced earlier in Section 2.11, Conformance Target Concepts, above, because they are necessary to understand the rules this specification subsequently defines. This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.
+   [Conformance targets] and their brevity codes were introduced earlier in Section 2.11, Conformance Target Concepts, above, because they are necessary to understand rule applicability. This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.
 
-      *  [Well-formed MPD] -- An MPD that satisfies the need for a [PKZIP] file with an [MPD catalog document] that validates with the MPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an MPD by iteratively adding artifacts and expanding the MPD catalog to reference them.
+   From a conformance target perspective, NIEM releases, Core and Domain updates, IEPDs, and EIEMs are all specialized MPDs, and this establishes an IS-A relationship.
 
-      *  [NIEM IEPD] -- An IEPD class of MPD that establishes at least one conformance target for a class of [Information Exchange Packages] (IEP) (i.e., contains an [MPD catalog document] that declares one or more c:IEPConformanceTarget elements). 
-
-      *  [Information Exchange Package] (IEP) -- An [instance XML document] that conforms to a conformance target defined by an IEPD.
-
-      *  [Full NIEM IEP] -- An [instance XML document] with an XML document element that is declared in either a NIEM [reference] or [extension schema document].
-
-      *  Other conformance targets internal to an MPD include: [schema document subset], [subset schema document], [constraint schema document], [MPD catalog document], [XML catalog document], and MPD [change log].
-
-   There are numerous use cases for MPDs, and in particular, IEPDs. These use cases, and the rules associated with each, direct the list of conformance targets specified by this MPD Specification. From a conformance target perspective, NIEM releases, Core and Domain updates, IEPDs, and EIEMs are all special kinds of MPDs, and this establishes an IS-A relationship.
-
-   The [conformance targets] in this specification support a variety of use cases:
+   [Conformance targets] in this specification support a variety of use cases:
 
       *  An XML document with a NIEM-defined XML document (root) element.
 
@@ -1913,11 +1903,15 @@ Rule 4-49. Conformance Assertion File Name Is conformance-assertion.*
 
    [Definition: well-formed MPD]
 
-      A valid [PKZIP] archive file that adheres to the rules defined for a [well-formed MPD] [conformance target] in this MPD specification. (Abbreviated WF-MPD)
+      A valid [PKZIP] archive file that adheres to the rules defined for a [well-formed MPD] [conformance target] in this MPD specification.
+
+      (brevity code: WF-MPD)
+
+   A [well-formed MPD] satisfies the need for a [PKZIP] file with an [MPD catalog document] that validates with the MPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an MPD by iteratively adding artifacts and expanding the MPD catalog to reference them.
 
    The five standard NIEM MPD classes can be partitioned into two general groups based on control. In the first group are NIEM releases, Core updates, and domain updates; and in the second, IEPDs and EIEMs. The first group is developed, controlled, and published by the NIEM PMO. However, the second group is developed by organizations or individuals that are not under PMO control. Control of these MPDs is widely distributed and subject only to NIEM specifications (e.g., the NIEM NDR, the NIEM MPD Specification, the NIEM Conformance Specification, etc.). In some cases, this may mean interpretation of subjective rules that are not testable (for example, rules for new data component definitions).
 
-   Furthermore, most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts. Adherence to these rules can produce an IEPD that is well-formed, but that does not necessarily satisfy all general and specific requirements for a NIEM IEPD. While some rules in this MPD Specification may imply general and specific NIEM-conformance, the following rule ensures that a complete NIEM-IEPD adhere to all applicable NIEM conformance rules.
+   Furthermore, most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts. Adherence to these rules can produce an IEPD that is well-formed (WR-MPD), but that does not necessarily satisfy all general and specific requirements for a NIEM IEPD (N-IEPD). While some rules in this MPD Specification may imply general and specific NIEM conformance, the following rule ensures that a complete NIEM IEPD adheres to all applicable NIEM conformance rules.
 
    [Definition: NIEM IEPD]
 
@@ -1939,19 +1933,41 @@ Rule 4-49. Conformance Assertion File Name Is conformance-assertion.*
 
                *  [NIEM Conformance]
 
+      (brevity code: N-IEPD)
+
 5.2. IEP Conformance Targets
 
    Section 2.8.4, Information Exchange Package Documentation (IEPD), above, introduced the only MPD class that defines an information exchange -- [Information Exchange Package Documentation] (IEPD). This section also introduced an [Information Exchange Package], which is an information exchange instance defined by an IEPD. An IEP is also a [conformance target] and in that connotation is defined as follows:
 
    [Definition: information exchange package]
 
-      An XML [instance XML document] defined by a c:IEPConformanceTarget element in an IEPD's [MPD catalog document]. (abbreviated IEP)
+      An XML [instance XML document] defined by a c:IEPConformanceTarget element in an IEPD's [MPD catalog document].
+
+      (brevity code: IEP)
 
    The definition of an [information exchange package] conformance target is not strong enough to ensure that an IEP artifact uses NIEM. Thus, there is a need for a conformance target that distinguishes a general IEP from an IEP that represents a valid NIEM information exchange. This is somewhat analogous to the need for [well-formed MPD] and [NIEM IEPD] conformance targets. The following defines a full NIEM IEP [conformance target]:
 
    [Definition: full NIEM information exchange package]
 
-      An XML document (i.e., an IEP) that satisfies all the validity constraints for its class as defined by a NIEM IEPD, and that has an XML document element that is declared in either a NIEM reference or extension schema document. (abbreviated FN-IEP)
+      An [instance XML document] (i.e., an IEP) that satisfies all the validity constraints for its class as defined by a NIEM IEPD (N-IEPD), and that has an XML document element that is declared in either a NIEM reference or extension schema document.
+
+      (brevity code: FN-IEP)
+
+5.3. Artifact Conformance Targets
+
+   Other conformance targets internal to an MPD include:
+
+      *  [schema document subset]
+
+      *  [subset schema document]
+
+      *  [constraint schema document]
+
+      *  [MPD catalog document]
+
+      *  [XML catalog document]
+
+      *  MPD [change log]
 
 6. Optional MPD Artifacts
 
