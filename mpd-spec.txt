@@ -1,8 +1,8 @@
 National Information Exchange Model -- Model Package Description Specification
 
-Version 3.0beta5
+Version 3.0
 
-July 9, 2014
+July 31, 2014
 
 NIEM Technical Architecture Committee (NTAC)
 
@@ -16,139 +16,31 @@ Abstract
 
 Status
 
-   This document is a draft of the specification for NIEM Model Package Descriptions (MPDs). It represents the design that has evolved from the collaborative work of the NIEM Business Architecture Committee (NBAC) and the NIEM Technical Architecture Committee (NTAC) and their predecessors.
+   This document is the normative specification for NIEM Model Package Descriptions (MPDs). Although some Schematron rules that implement corresponding English rules are included in Appendix C, Schematron Rules for MPDs, below, these Schematron rules are incomplete and untested. They are considered examples only and subject to change. At some time in the future NTAC will design, test, and publish a more complete set of Schematron rules for this specification.
 
-   This specification is a product of the NIEM Program Management Office (PMO).
+   The MPD Specification represents a design that has evolved from the collaborative work of the NIEM Business Architecture Committee (NBAC), the NIEM Technical Architecture Committee (NTAC), and their predecessors. It is a product of the NIEM Program Management Office (PMO).
 
    Email comments on this specification to niem-comments@lists.gatech.edu.
 
-Beta 1
-
-      1.  Added Rule 4-9, MPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets and text above it.
-
-      2.  Removed first two sentences of first paragraph of Section 7.3, Artifact Links to Other Resources, below.
-
-      3.  Changed Rule 7-10, IEPD Completeness from MUST to SHOULD.
-
-      4.  Lots of minor corrections to Appendix F, Guidance for IEPD Directories (non-normative), below.
-
-      5.  Revised Section 5, Conformance Targets, below.
-
-      6.  Added Section 7.4, IEPD Completeness, below.
-
-      7.  Added definition for [XML schema assembly].
-
-      8.  Added statement that the MPD method for [XML schema assembly] is use of XML catalogs.
-
-      9.  Added Appendix for Appendix D, Common MPD Artifacts, below.
-
-      10. Revised wording of Rule 7-9, IEPD Family Members Reference Parent EIEM for Schematron.
-
-      11. Added "derives_from" to mpd-catalog-3.0.xsd to support revision to Rule 7-9, IEPD Family Members Reference Parent EIEM.
-
-      12. Added EXI subdirectory to non-normative guidance.
-
-      13. Fixed Rule 4-11, MPD URI Is Absolute: only c:mpdURI attributes must adhere to absolute-URI production.
-
-      14. Added simple example of informal conformance assertion. Appendix E, Conformance Assertion Example, below
-
-      15. Added example MPD catalog document from Cursor on Target (Dr Renner). Appendix B, Example MPD Catalog Document for Cursor on Target, below
-
-      16. Added ref to MPD Toolkit that will contain entire CoT IEPD.
-
-      17. Added 3 Schematron rule files for a few conformance targets; declared them "alpha" and untested. Appendix C, Schematron Rules for MPDs, below
-
-      18. Assembled MPD Toolkit; initial version available at http://reference.niem.gov/niem/resource/mpd/3.0/; includes: mpd-spec-3.0beta1.pdf, mpd-catalog-3.0beta1.xsd, mpd catalog NIEM subset, Schematron rules (alpha), example IEPD for CoT, example conformance-assertion (template).
-
-Beta 2
-
-      1. Major: Added new Section 4.2.4, URI Schemes, below, and reorganized subsections and rules related to URIs under it.
-
-      2. Added one-line titles for each rule (~67).
-
-      3. Removed rule for Effective Conformance Target Identifier; not needed.
-
-      4. Removed duplicate rule requiring MPD catalog artifact in root directory.
-
-      5. See TOC; reordered subsections in Section 2 (Basic Concepts and Terminology).
-
-      6. Refined Section 2.10, Rules, below, for clarity.
-
-      7. Refined Section 2.11, Conformance Target Concepts, below.
-
-      8. Updated rule numbers in Schematron rules (in Toolkit).
-
-      9. Simplified Section 5 and organized into two subsections: MPD CTs and IEP CTs.
-
-Beta 3
-
-      1. Added more detail and explanations for Section 5, Conformance Targets, below.
-
-      2. Adjusted several conformance targets (applicability: what some rules apply to).
-
-      3. Removed rules re resolution of URIs for c:externalURI and c:resourceURI that are not easily enforced and essentially out of scope.
-
-      4. Eliminated reference redundancy in Section 1, Introduction, below.
-
-      5. Fixed error in mpd-catalog-3.0.xsd; removed extra tags: /xs:restriction and /xs:simpleType.
-
-      6. Reviewed first 500 lines in XML file representation of spec and applied many minor refinements to improve clarity, etc.
-
-Beta 4
-
-      1.  Applied many minor adjustments resultion from Ted Stout's review of Beta2. Major adjustments are listed below.
-
-      2.  Rewrote Section 3.2.4, Multiple Schema Document Subsets in a Single IEPD or EIEM, below, for clarity and simplicity.
-
-      3.  Changed MPD catalog c:mpdClassCode to c:mpdClassCodeList because it is now a list that is a union of class codes (enumerations) and xs:anyURI for easy extension.
-
-      4.  Relaxed mpdName attribute pattern to allow upper case and spaces.
-
-      5.  Added Section 4.2.1, MPD Name Syntax (c:mpdName), below, to highlight difference between mpdName and MPD file name syntax, and to recommend non-normative practices. 
-
-      6.  Added Section 4.2.2, MPD Class (c:mpdClassCodeList), below, to ensure completeness; now one section for each of the four primary MPD metadata attributes: mpdURI, mpdName, mpdVersionID, and mpdClassCodeList.
-
-      7.  Rewrote Section 2.8.5, Enterprise Information Exchange Model (EIEM), below, to eliminate duplication of definitions and to improve sequencing of explanations of concepts enterprise, BIEC, and EIEM.
-
-      8.  Fixed UPA errors in MPD catalog schema document by changing xs:restriction on c:SchemaDocumentSetType to xs:extension (of c:FileSetType). (By intent, no extension elements were added; c:SchemaDocumentSetType extends c:FileSetType in name only; fixes UPA errors and sets up for application of Schematron rules.)
-
-      9.  Added Schematron rule to ensure that c:SchemaDocumentSetType contains a c:XMLCatalog or a c:XMLSchemaDocument (two rules - both designed by Webb - one rule handles all cases even extended MPD catalog documents; the other handles only unextended catalogs. The unextended catalog version requires an XPath2-Schema-Aware app (e.g., paid version of Saxon); the other only requires an XPath2 app (e.g., free version of Saxon).
-
-      10. Added Section 7.1.1, Constraint on Elements of Type c:SchemaDocumentSetType, below, for new Schematron rule above.
-
-      11. Removed c:ReferenceSchemaDocumentSetType and c:ReferenceSchemaDocumentSet. No purpose for such. If an MPD's mpdClassCodeList value is in {rel, du, cu} then its schemas are all reference schema documents. Left c:ReferenceSchemaDocument in case it is needed for some reason.
-
-      12. Globally replaced all "read-me" with "readme" kmore consistent with common practice).
-
-      13. Applied all of Priscilla's minor corrections (the easy stuff). Still have a number of more difficult adjustments, some of which may require discussion in open meeting.
-
-Beta 5
-
-      1. Added requirement for a NIEM IEPD to satisfy the rules for MPD-Cat conformance target (per Priscilla).
-
-      2. Changed some rule classes between "Constraint" and "Interpretation" (per Webb).
-
-      3. Rewrote Rules 4-1 and 4-2 into single Rule 4-1, MPD Has mpd-catalog.xml in Root Directory (per Webb) (shift Rule 4-n numbers n-1).
-
-      4. Rewrote Rule 7-2, XSD and XML Documents Conform to Applicable NDR Conformance Targets to use language more consistent with [NIEM Conformance Target Attribute Specification].
-
-      5. Pruned back some text in Section 2.11.2, Conformance Target Codes, below, to eliminate some confusion with duplicate definitions. Refocused theme of that section to conformance target codes.
-
 Remaining work
 
-      1.  Priscilla Walmsley: address issues re rules, conformance targets, intentions, etc. at NCCT issue numbers 835-843 (http://tools.niem.gov/ncct/show_bug.cgi?id=835 change suffix to appropriate NCCT number).
+      1.  check rule numbers in Schematron (combined 4-1 and 4-2).
 
-      2.  Add conformance-assertion.* to CoT.
+      2.  validate mpd-catalog
 
-      3.  Mike Hulme: review/feedback on EIEM section.
+      3.  Fix FileSet rules and definitions.
 
-      4.  Ted Stout: review/feedback on MPD URI and MPD artifact URI rules may appear to conflict -- http://tools.niem.gov/ncct/show_bug.cgi?id=844.
+      4.  IEP vs FN-IEP ... HasDocumentElement. The payload of an IEP is a NIEM model.
 
-      5.  Consistency of section organizations.
+      5.  Fix FileSet rules and definitions.
 
-      6.  Check ruleSections for rationales that should be inside this tag.
+      6.  Priscilla Walmsley: address issues re rules, conformance targets, intentions, etc. at NCCT issue numbers 835-843 (http://tools.niem.gov/ncct/show_bug.cgi?id=835 change suffix to appropriate NCCT number).
 
-      7.  Review 63 rules and 11 conformance targets (CT):
+      7.  Add conformance-assertion.* to CoT.
+
+      8.  Check ruleSections for rationales that should be inside this tag.
+
+      9.  Review 63 rules and 11 conformance targets (CT):
 
              *  Missing rules or CTs? (or superfluous?)
 
@@ -158,13 +50,13 @@ Remaining work
 
              *  Rule class="Constraint" or "Interpretation"? (a few changes suggested by Webb)
 
-      8.  TBDs: pub dates on new specs Appendix H, References, below. (consider 4-doc set: NDR, MPD, CTAS, Conformance)
+      10. TBDs: pub dates on new specs Appendix H, References, below. (consider 4-doc set: NDR, MPD, CTAS, Conformance)
 
-      9.  Final QA/validity: MPD catalog XSD, catalog subset, MPD Toolkit, CoT IEPD, other appendices, etc.
+      11. Final QA/validity: MPD catalog XSD, catalog subset, MPD Toolkit, CoT IEPD, other appendices, etc.
 
-      10. Final QA: typos, spell, punctuation, acronyms, abbreviations, format, missing refs or termRefs, etc.
+      12. Final QA: typos, spell, punctuation, acronyms, abbreviations, format, missing refs or termRefs, etc.
 
-      11. NOTE: Schematron rules for MPDs will be refined and tested AFTER this MPD Spec 3.0 has been released. Schematron within appendices herein is considered Alpha and should not be used for normative conformance.
+      13. NOTE: Schematron rules for MPDs will be refined and tested AFTER this MPD Spec 3.0 has been released. Schematron within appendices herein is considered Alpha and should not be used for normative conformance.
 
 1. Introduction
 
@@ -446,7 +338,7 @@ Remaining work
 
    [Definition: Information Exchange Package Documentation]
 
-      An MPD that defines one or more (generally) recurring data or information exchanges, each in the form of an instance XML document.
+      An MPD that defines one or more recurring data or information exchanges, each in the form of an instance XML document.
 
    [Definition: instance XML document]
 
