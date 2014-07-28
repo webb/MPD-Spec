@@ -15,8 +15,8 @@
    xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/">
  
    <title>National Information Exchange Model <char name="mdash"/> Model Package Description Specification</title>
-   <version>3.0beta5</version>
-   <date>2014-07-09</date>
+   <version>3.0</version>
+   <date>2014-07-31</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
  
   <subsection>
@@ -30,116 +30,27 @@
   </subsection>
 
 
-
-<subsection>
+  <subsection>
     	<title>Status</title>
-    	<p>This document is a draft of the specification for NIEM Model Package Descriptions (MPDs).  It represents the design that has evolved from the collaborative work of the NIEM Business Architecture Committee (NBAC) and the NIEM Technical Architecture Committee (NTAC) and their predecessors.</p>
-    	<p>This specification is a product of the NIEM Program Management Office (PMO).</p>
+	<p>This document is the normative specification for NIEM Model Package Descriptions (MPDs).  Although some Schematron rules that implement corresponding English rules are included in <ref idref="MPD-Schematron-Rules"/>, these Schematron rules are incomplete and untested.  They are considered examples only and subject to change.  At some time in the future NTAC will design, test, and publish a more complete set of Schematron rules for this specification.</p>  
+	<p>The MPD Specification represents a design that has evolved from the collaborative work of the NIEM Business Architecture Committee (NBAC), the NIEM Technical Architecture Committee (NTAC), and their predecessors.  It is a product of the NIEM Program Management Office (PMO).</p>
     	<p>Email comments on this specification to <link href="mailto:niem-comments%40lists.gatech.edu?subject=NIEM%20MPD%20Specification%20Version%203.0">niem-comments@lists.gatech.edu</link>.</p>
-	</subsection>
+  </subsection>
 
 
-
-<subsection>
-	<title>Beta 1</title>
-	<ol>
-		<li><p>Added <ref idref="r3-mpd-cat-ext-xsd"/> and text above it.</p></li>
-		<li><p>Removed first two sentences of first paragraph of <ref idref="Artifact-Links-to-Other-Resources"/>.</p></li>
-		<li><p>Changed <ref idref="r-mpd-documents"/> from MUST to SHOULD.</p></li>
-		<li><p>Lots of minor corrections to <ref idref="Guidance-IEPD-Directories"/>.</p></li>
-		<li><p>Revised <ref idref="Conformance-Targets"/>.</p></li>
-		<li><p>Added <ref idref="IEPD-Completeness"/>.</p></li>
-		<li><p>Added definition for <termRef>XML schema assembly</termRef>.</p></li>
-		<li><p>Added statement that the MPD method for <termRef>XML schema assembly</termRef> is use of XML catalogs.</p></li>
-		<li><p>Added Appendix for <ref idref="MPD-Artifacts"/>.</p></li>
-		<li><p>Revised wording of <ref idref="r-mpd-link-eiem"/> for Schematron.</p></li>
-		<li><p>Added "derives_from" to mpd-catalog-3.0.xsd to support revision to <ref idref="r-mpd-link-eiem"/>.</p></li>
-		<li><p>Added EXI subdirectory to non-normative guidance.</p></li>
-		<li><p>Fixed <ref idref="r-mpduri"/>: only <code>c:mpdURI</code> attributes must adhere to absolute-URI production.</p></li>
-		<li><p>Added simple example of informal conformance assertion. <ref idref="Conformance-Assertion-Example"/></p></li>
-		<li><p>Added example MPD catalog document from Cursor on Target (Dr Renner).  <ref idref="MPD-Catalog-Document-CoT"/></p></li>
-		<li><p>Added ref to MPD Toolkit that will contain entire CoT IEPD.</p></li>
-		<li><p>Added 3 Schematron rule files for a few conformance targets; declared them "alpha" and untested. <ref idref="MPD-Schematron-Rules"/></p></li>
-		<li><p>Assembled MPD Toolkit; initial version available at <link>http://reference.niem.gov/niem/resource/mpd/3.0/</link>; includes: mpd-spec-3.0beta1.pdf, mpd-catalog-3.0beta1.xsd, mpd catalog NIEM subset, Schematron rules (alpha), example IEPD for CoT, example conformance-assertion (template).</p></li>
-	</ol>
-</subsection>
-
-
-
-<subsection>
-	<title>Beta 2</title>
-	<ol>
-		<li><p>Major: Added new <ref idref="URI-Schemes"/>, and reorganized subsections and rules related to URIs under it.</p></li>
-		<li><p>Added one-line titles for each rule (~67).</p></li>
-		<li><p>Removed rule for Effective Conformance Target Identifier; not needed.</p></li>
-		<li><p>Removed duplicate rule requiring MPD catalog artifact in root directory.</p></li>
-		<li><p>See TOC; reordered subsections in Section 2 (Basic Concepts and Terminology).</p></li>
-		<li><p>Refined <ref idref="Rules"/> for clarity.</p></li>
-		<li><p>Refined <ref idref="Conformance-Target-Concepts"/>.</p></li>
-		<li><p>Updated rule numbers in Schematron rules (in Toolkit).</p></li>
-		<li><p>Simplified Section 5 and organized into two subsections:  MPD CTs and IEP CTs.</p></li>
-	</ol>
-</subsection>
-
-
-<subsection>
-	<title>Beta 3</title>
-	<ol>
-		<li><p>Added more detail and explanations for <ref idref="Conformance-Targets"/>.</p></li>
-		<li><p>Adjusted several conformance targets (applicability:  what some rules apply to).</p></li>
-		<li><p>Removed rules re resolution of URIs for <code>c:externalURI</code> and <code>c:resourceURI</code> that are not easily enforced and essentially out of scope.</p></li>
-		<li><p>Eliminated reference redundancy in <ref idref="Introduction"/>.</p></li>
-		<li><p>Fixed error in <code>mpd-catalog-3.0.xsd</code>; removed extra tags: <code>/xs:restriction</code> and <code>/xs:simpleType</code>.</p></li>
-		<li><p>Reviewed first 500 lines in XML file representation of spec and applied many minor refinements to improve clarity, etc.</p></li>
-	</ol>
-</subsection>
-
-
-
-<subsection>
-	<title>Beta 4</title>
-	<ol>
-		<li><p>Applied many minor adjustments resultion from Ted Stout's review of Beta2.  Major adjustments are listed below.</p></li>
-		<li><p>Rewrote <ref idref="Multiple-Subsets-in-a-Single-IEPD-or-EIEM"/> for clarity and simplicity.</p></li>
-		<li><p>Changed MPD catalog <code>c:mpdClassCode</code> to <code>c:mpdClassCodeList</code> because it is now a list that is a union of class codes (enumerations) and <code>xs:anyURI</code> for easy extension.</p></li>
-		<li><p>Relaxed <code>mpdName</code> attribute pattern to allow upper case and spaces.</p></li>
-		<li><p>Added <ref idref="Name-Syntax"/> to highlight difference between <code>mpdName</code> and MPD file name syntax, and to recommend non-normative practices. </p></li>
-		<li><p>Added <ref idref="mpdClass"/> to ensure completeness; now one section for each of the four primary MPD metadata attributes:  <code>mpdURI, mpdName, mpdVersionID,</code> and <code>mpdClassCodeList</code>.</p></li>
-		<li><p>Rewrote <ref idref="Enterprise-Information-Exchange-Model"/> to eliminate duplication of definitions and to improve sequencing of explanations of concepts enterprise, BIEC, and EIEM.</p></li>
-		<li><p>Fixed UPA errors in MPD catalog schema document by changing <code>xs:restriction</code> on <code>c:SchemaDocumentSetType</code> to <code>xs:extension</code> (of <code>c:FileSetType</code>).  (By intent, no extension elements were added; <code>c:SchemaDocumentSetType</code> extends <code>c:FileSetType</code> in name only; fixes UPA errors and sets up for application of Schematron rules.)</p></li>
-		<li><p>Added Schematron rule to ensure that <code>c:SchemaDocumentSetType</code> contains a <code>c:XMLCatalog</code> or a <code>c:XMLSchemaDocument</code> (two rules - both designed by Webb - one rule handles all cases even extended MPD catalog documents; the other handles only unextended catalogs.  The unextended catalog version requires an XPath2-Schema-Aware app (e.g., paid version of Saxon); the other only requires an XPath2 app (e.g., free version of Saxon).</p></li>
-		<li><p>Added <ref idref="Constraint-SchemaDocumentSet"/> for new Schematron rule above.</p></li>
-		<li><p>Removed <code>c:ReferenceSchemaDocumentSetType</code> and <code>c:ReferenceSchemaDocumentSet</code>.  No purpose for such.  If an MPD's <code>mpdClassCodeList</code> value is in <code>{rel, du, cu}</code> then its schemas are all reference schema documents.  Left <code>c:ReferenceSchemaDocument</code> in case it is needed for some reason.</p></li>
-		<li><p>Globally replaced all "read-me" with "readme" kmore consistent with common practice).</p></li>
-		<li><p>Applied all of Priscilla's minor corrections (the easy stuff).  Still have a number of more difficult adjustments, some of which may require discussion in open meeting.</p></li>
-	</ol>
-</subsection>
-
-
-
-<!-- ########################### Beta 5 ################################ -->
-<subsection>
-	<title>Beta 5</title>
-	<ol>
-		<li><p>Added requirement for a NIEM IEPD to satisfy the rules for MPD-Cat conformance target (per Priscilla).</p></li>
-		<li><p>Changed some rule classes between "Constraint" and "Interpretation" (per Webb).</p></li>
-		<li><p>Rewrote Rules 4-1 and 4-2 into single <ref idref="r-wf-mpd"/> (per Webb) (shift Rule 4-n numbers n-1).</p></li>
-		<li><p>Rewrote <ref idref="r-mpd-conform-tgts"/> to use language more consistent with <ref idref="NIEM-CTAS"/>.</p></li>
-		<li><p>Pruned back some text in <ref idref="CT-Codes"/> to eliminate some confusion with duplicate definitions.  Refocused theme of that section to conformance target codes.</p></li>
-	</ol>
-</subsection>
-
+<!-- ########################### FINAL 3.0 ################################ -->
 
 <subsection>
 	<title>Remaining work</title>
 	<ol>
+		<li><p>check rule numbers in Schematron (combined 4-1 and 4-2).</p></li>
+		<li><p>validate mpd-catalog</p></li>
+		<li><p>Fix FileSet rules and definitions.</p></li>
+		<li><p>IEP vs FN-IEP ... HasDocumentElement.  The payload of an IEP is a NIEM model.</p></li>
+		<li><p>Fix FileSet rules and definitions.</p></li>
 		<li><p>Priscilla Walmsley:  address issues re rules, conformance targets, intentions, etc. at NCCT issue numbers 835-843 
 			(<link>http://tools.niem.gov/ncct/show_bug.cgi?id=835</link> change suffix to appropriate NCCT number).</p></li>
 		<li><p>Add conformance-assertion.* to CoT.</p></li>
-		<li><p>Mike Hulme:  review/feedback on EIEM section.</p></li>
-		<li><p>Ted Stout:   review/feedback on MPD URI and MPD artifact URI rules may appear to conflict -- 
-			<link>http://tools.niem.gov/ncct/show_bug.cgi?id=844</link>.</p></li>
-		<li><p>Consistency of section organizations.</p></li>
 		<li><p>Check ruleSections for rationales that should be inside this tag.</p></li>
 		<li><p>Review 63 rules and 11 conformance targets (CT):</p><ul>
 			<li><p>Missing rules or CTs? (or superfluous?)</p></li>
