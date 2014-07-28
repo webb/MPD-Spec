@@ -24,23 +24,19 @@ Status
 
 Remaining work
 
-      1.  check rule numbers in Schematron (combined 4-1 and 4-2).
+      1.  validate mpd-catalog
 
-      2.  validate mpd-catalog
+      2.  Fix FileSet rules and definitions.
 
-      3.  Fix FileSet rules and definitions.
+      3.  IEP vs FN-IEP ... HasDocumentElement. The payload of an IEP is a NIEM model.
 
-      4.  IEP vs FN-IEP ... HasDocumentElement. The payload of an IEP is a NIEM model.
+      4.  Check ruleSections for rationales that should be inside this tag.
 
-      5.  Fix FileSet rules and definitions.
+      5.  Priscilla Walmsley: address issues re rules, conformance targets, intentions, etc. at NCCT issue numbers 835-843 (http://tools.niem.gov/ncct/show_bug.cgi?id=835 change suffix to appropriate NCCT number).
 
-      6.  Priscilla Walmsley: address issues re rules, conformance targets, intentions, etc. at NCCT issue numbers 835-843 (http://tools.niem.gov/ncct/show_bug.cgi?id=835 change suffix to appropriate NCCT number).
+      6.  Add conformance-assertion.* to CoT.
 
-      7.  Add conformance-assertion.* to CoT.
-
-      8.  Check ruleSections for rationales that should be inside this tag.
-
-      9.  Review 63 rules and 11 conformance targets (CT):
+      7.  Review 63 rules and 11 conformance targets (CT):
 
              *  Missing rules or CTs? (or superfluous?)
 
@@ -50,13 +46,11 @@ Remaining work
 
              *  Rule class="Constraint" or "Interpretation"? (a few changes suggested by Webb)
 
-      10. TBDs: pub dates on new specs Appendix H, References, below. (consider 4-doc set: NDR, MPD, CTAS, Conformance)
+      8.  TBDs: pub dates on new specs Appendix H, References, below. (consider 4-doc set: NDR, MPD, CTAS, Conformance)
 
-      11. Final QA/validity: MPD catalog XSD, catalog subset, MPD Toolkit, CoT IEPD, other appendices, etc.
+      9.  Final QA/validity: MPD catalog XSD, catalog subset, MPD Toolkit, CoT IEPD, other appendices, etc.
 
-      12. Final QA: typos, spell, punctuation, acronyms, abbreviations, format, missing refs or termRefs, etc.
-
-      13. NOTE: Schematron rules for MPDs will be refined and tested AFTER this MPD Spec 3.0 has been released. Schematron within appendices herein is considered Alpha and should not be used for normative conformance.
+      10. Final QA: typos, spell, punctuation, acronyms, abbreviations, format, missing refs or termRefs, etc.
 
 1. Introduction
 
@@ -3186,7 +3180,7 @@ Appendix C. Schematron Rules for MPDs
    <pattern>
    	<rule context="c:IEPConformanceTarget">
    		<assert test="exists(@structures:id)"
-   		>Rule 4-41: A c:IEPConformanceTarget element MUST own a structures:id attribute.</assert>
+   		>Rule 4-42: A c:IEPConformanceTarget element MUST own a structures:id attribute.</assert>
    	</rule>
    </pattern>
    
@@ -3282,7 +3276,7 @@ Appendix C. Schematron Rules for MPDs
    <pattern>
      <rule context="c:*[exists(@c:pathURI)]">
        <assert test="unparsed-text-available(resolve-uri(@c:pathURI, base-uri(.)))"
-         >Rule 4-16: The value of a c:pathURI attribute MUST resolve to a resource.</assert>
+         >Rule 4-15: The value of a c:pathURI attribute MUST resolve to a resource.</assert>
    </pattern>
    
    <pattern>
@@ -3290,14 +3284,14 @@ Appendix C. Schematron Rules for MPDs
        <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
                        doc-available($uri)
                        and doc($uri)/xmlcatalog:catalog)"
-         >Rule 4-17: The value of a c:pathURI attribute owned by an element c:XMLCatalog MUST resolve to an XML catalog document.</assert>
+         >Rule 4-16: The value of a c:pathURI attribute owned by an element c:XMLCatalog MUST resolve to an XML catalog document.</assert>
    </pattern>
    
    <pattern>
      <rule context="c:IEPSampleXMLDocument[exists(@c:pathURI)]">
        <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies
                        doc-available($uri)"
-         >Rule 4-20: The value of a c:pathURI attribute owned by an element c:IEPSampleXMLDocument MUST resolve to an XML document.</assert>
+         >Rule 4-19: The value of a c:pathURI attribute owned by an element c:IEPSampleXMLDocument MUST resolve to an XML document.</assert>
    </pattern>
    
    <pattern>
@@ -3305,7 +3299,7 @@ Appendix C. Schematron Rules for MPDs
        <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
                        doc-available($uri)
                        and doc($uri)/xs:schema)"
-         >Rule 4-22: The value of a c:pathURI attribute owned by an element c:ExternalSchemaDocument MUST resolve to an XML schema document.</assert>
+         >Rule 4-21: The value of a c:pathURI attribute owned by an element c:ExternalSchemaDocument MUST resolve to an XML schema document.</assert>
    </pattern>
    
    <pattern>
@@ -3315,7 +3309,7 @@ Appendix C. Schematron Rules for MPDs
                        and doc($uri)/xs:schema
                        and lf:has-effective-conformance-target-identifier(doc($uri)/xs:schema,
                                'http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument'))"
-         >Rule 4-23: The value of a c:pathURI attribute owned by an element c:ReferenceSchemaDocument MUST resolve to a NIEM reference schema document.</assert>
+         >Rule 4-22: The value of a c:pathURI attribute owned by an element c:ReferenceSchemaDocument MUST resolve to a NIEM reference schema document.</assert>
    </pattern>
    
    <pattern>
@@ -3325,7 +3319,7 @@ Appendix C. Schematron Rules for MPDs
                        and doc($uri)/xs:schema
                        and lf:has-effective-conformance-target-identifier(doc($uri)/xs:schema,
                                'http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ExtensionSchemaDocument'))"
-         >Rule 4-24: The value of a c:pathURI attribute owned by an element c:ExtensionSchemaDocument MUST resolve to a NIEM extension schema document.</assert>
+         >Rule 4-23: The value of a c:pathURI attribute owned by an element c:ExtensionSchemaDocument MUST resolve to a NIEM extension schema document.</assert>
    </pattern>
    
    <pattern>
@@ -3333,7 +3327,7 @@ Appendix C. Schematron Rules for MPDs
        <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
                        doc-available($uri)
                        and doc($uri)/xs:schema)"
-         >Rule 4-25: The value of a c:pathURI attribute owned by an element c:SubsetSchemaDocument MUST resolve to an XML schema document.</assert>
+         >Rule 4-24: The value of a c:pathURI attribute owned by an element c:SubsetSchemaDocument MUST resolve to an XML schema document.</assert>
    </pattern>
    
    <pattern>
@@ -3341,7 +3335,7 @@ Appendix C. Schematron Rules for MPDs
        <assert test="some $uri in resolve-uri(@c:pathURI, base-uri(.)) satisfies (
                        doc-available($uri)
                        and doc($uri)/sch:schema)"
-         >Rule 4-27: The value of a c:pathURI attribute owned by an element c:SchematronSchema MUST resolve to a Schematron schema.</assert>
+         >Rule 4-26: The value of a c:pathURI attribute owned by an element c:SchematronSchema MUST resolve to a Schematron schema.</assert>
    </pattern>
    
    </schema>
