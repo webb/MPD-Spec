@@ -12,9 +12,9 @@
     xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <xs:import namespace="http://release.niem.gov/niem/structures/3.0/"/>
-    <xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
-    <xs:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
+    <xs:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="niem/structures/3.0/structures.xsd"/>
+    <xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="niem/niem-core/3.0/niem-core.xsd"/>
+    <xs:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="niem/proxy/xsd/3.0/xs.xsd"/>
 
     <xs:annotation>
 
@@ -299,7 +299,7 @@
 
     <xs:complexType name="FileSetType">
       <xs:annotation>
-        <xs:documentation>A data type for an MPD file artifact set.</xs:documentation>
+        <xs:documentation>A data type for a set of MPD file artifacts.</xs:documentation>
       </xs:annotation>
       <xs:complexContent>
         <xs:extension base="structures:ObjectType">
@@ -312,9 +312,6 @@
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
-
-<!-- Do we need BaseSchemaDocumentSet to make it clear this set is used to validate NIEM conformance?  
-    (consistent with non-normative guidance re directory organization and naming -->
 
     <xs:element name="SchemaDocumentSet" type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
       <xs:annotation>
@@ -715,7 +712,7 @@
 	  <xs:sequence>
 	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
 	    <xs:element ref="c:XMLCatalog"/>
-	    <xs:element ref="c:XMLSchemaDocument"/> 
+	    <xs:element ref="c:XMLSchemaDocument" minOccurs="0"/>
           </xs:sequence>
         </xs:extension>
       </xs:complexContent>
