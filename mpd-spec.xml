@@ -38,7 +38,7 @@
   </subsection>
 
 
-<!-- ########################### FINAL 3.0 ################################ -->
+<!-- ########################### FINAL 3.0 ########################### -->
 
 <subsection>
 	<title>Remaining work</title>
@@ -46,18 +46,17 @@
 		<li><p>validate mpd-catalog</p></li>
 		<li><p>Fix mpdClassURIList</p></li>
 		<li><p>Fix FileSet rules and definitions.</p></li>
-		<li><p>IEP vs FN-IEP ... HasDocumentElement.  The payload of an IEP is a NIEM model.</p></li>
+		<li><p>Hello World (HW) IEPD</p></li>
+		<li><p>Fixed Rule 4-44 and explanation to clarify application of <code>HasDocumentElement</code>.</p></li>
 		<li><p>Check ruleSections for rationales that should be inside this tag.</p></li>
-		<li><p>Priscilla Walmsley:  address issues re rules, conformance targets, intentions, etc. at NCCT issue numbers 835-843 
-			(<link>http://tools.niem.gov/ncct/show_bug.cgi?id=835</link> change suffix to appropriate NCCT number).</p></li>
-		<li><p>Add conformance-assertion.* to CoT.</p></li>
-		<li><p>Review 63 rules and 11 conformance targets (CT):</p><ul>
+		<li><p>Add conformance-assertion.* to CoT and HW.</p></li>
+		<li><p>Review rules and conformance targets (CT):</p><ul>
 			<li><p>Missing rules or CTs? (or superfluous?)</p></li>
 			<li><p>Rules or CTs to fork?</p></li>
 			<li><p>Rule applicability="(correct CT)"?</p></li>
 			<li><p>Rule class="Constraint" or "Interpretation"?  (a few changes suggested by Webb)</p></li></ul></li>
 		<li><p>TBDs: pub dates on new specs <ref idref="References"/>.  (consider 4-doc set: NDR, MPD, CTAS, Conformance)</p></li>
-		<li><p>Final QA/validity: MPD catalog XSD, catalog subset, MPD Toolkit, CoT IEPD, other appendices, etc.</p></li>
+		<li><p>Final QA/validity: MPD catalog XSD, catalog subset, MPD Toolkit, CoT/HW IEPD, other appendices, etc.</p></li>
 		<li><p>Final QA: typos, spell, punctuation, acronyms, abbreviations, format, missing refs or termRefs, etc.</p></li>
 	</ol>
 </subsection>
@@ -2015,18 +2014,20 @@
 
 	<p><code>c:HasDocumentElement</code> is a validity constraint that identifies all intended XML document elements for an IEP conformance target, and it is directly substitutable for <code>c:ValidityConstraintWithContext</code>.  This constraint ensures that an IEP artifact is rooted by one XML document element that is a member of the list of elements in its <code>c:qualifiedNameList</code> attribute.  This is a common validity constraint employed by simple IEPDs that declare one or more intended XML document elements.</p>
 
-	<p>Note that the context of this validity constraint is always <em>document</em> as defined in <ref idref="W3-XML-InfoSet"/>, <a href="http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.document"> <char name="sect"/>2.1, <q>The Document Information Item</q></a>.  This is because it can only declare XML document elements.  So, if an IEPD defines an IEP as a payload within an envelope, then <code>c:ValidityContext</code> must be used with another specific validity constraint and an explicit context declaration (<code>c:xPathText</code>).</p>
+	<p>Note that the context of <code>c:HasDocumentElement</code> is always on a <em>document</em> as defined in <ref idref="W3-XML-InfoSet"/>, <a href="http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.document"> <char name="sect"/>2.1, <q>The Document Information Item</q></a>.  This is because it can only declare XML document elements.  So, if an IEP defines a payload that may be included in some XML envelope, then <code>c:HasDocumentElement</code> should not be used.  Instead, use <code>c:ValidityContext</code> with another specific validity constraint and an explicit <code>c:xPathText</code> to declare context.</p>
 
 	<p>When employing <code>c:HasDocumentElement</code> the following rule applies:</p>
 
 <ruleSection>
 	<title>Identifying the Document Element of an IEP</title>
 <rule id="i2" applicability="IEP" class="Constraint">
-	<p>Within an <termRef>MPD catalog document</termRef> with a <code>c:qualifiedNameList</code> attribute owned by a <code>c:HasDocumentElement</code> element, a candidate IEP is a valid IEP, ONLY IF its XML document element's name is a member of that list of <em>QNames</em>.</p>
+	<p>If the IEP conformance target definition for an IEP contains a <code>c:HasDocumentElement</code> element containing a <code>c:qualifiedNameList</code> attribute with a value of <code>$list</code>, then the document element of the IEP MUST have a <em>QName</em> that is a member of <code>$list</code>.</p>
 	</rule>
 </ruleSection>
 
 </section>
+
+
 
 <section id="ValidToXPath">
 	<title>c:ValidToXPath</title>
