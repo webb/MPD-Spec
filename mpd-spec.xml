@@ -2424,7 +2424,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="Artifact-Sets">
 	<title>Artifact Sets</title>
 
-	<p>This specification defines different ways to group MPD artifacts into <termRef term="artifact set">sets</termRef>.  In general, all sets are established through an <termRef>XML catalog document</termRef> or the <termRef>MPD catalog document</termRef>.</p>
+	<p>This specification defines different ways to group MPD artifacts into <termRef term="artifact set">sets</termRef>.  In general, all sets are established through an <termRef>XML catalog document</termRef> (<termRef term="schema document set">schema document sets</termRef>) and the <termRef>MPD catalog document</termRef> (all artifact sets).</p>
 
 	<p><ref idref="XML-Catalogs"/> describes how NIEM employs an <termRef>XML catalog document</termRef> to assemble an <termRef>XML Schema</termRef> from <termRef term="XML schema document">XML schema documents</termRef>.  This is one important method for grouping XML schema documents into sets.  In fact, this is the required standard technique for grouping schema documents for assembling them into a schema.  For user convenience, this method is now used in each <termRef>release</termRef>, <termRef>core update</termRef>, and <termRef>domain update</termRef>.  Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).</p>
 
@@ -2432,12 +2432,33 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>On the other hand, the <termRef>MPD catalog document</termRef> is designed to record, index, classify, and describe (as needed) any or all MPD artifacts (not just schema documents).  The MPD catalog provides a flexible method for grouping all kinds artifacts.</p>
 
-	<p>The MPD catalog schema <ref idref="MPD-Catalog-XSD"/> defines a large set of common artifact classifiers and a smaller set of artifact set classifiers.  In summary, per <ref idref="MPD-Catalog-XSD"/>, define sets by substituting the appropriate artifact classifier (of type <code>c:FileType</code>) into the abstract element <code>c:ArtifactOrArtifactSet</code>, within the appropriate artifact set classifier (of type <code>c:FileSetType</code>).  Use the most specific classifiers available for your artifacts and artifact sets.  Otherwise, as needed, use generic <code>c:File</code> and <code>c:FileSet</code> classifiers with <code>nc:DescriptionText</code>.</p>
-
+	<p>The MPD catalog schema <ref idref="MPD-Catalog-XSD"/> defines a set of common artifact classifiers and artifact set classifiers.  In summary, per <ref idref="MPD-Catalog-XSD"/>, define sets by substituting the appropriate artifact classifier (of type <code>c:FileType</code>) into the abstract element <code>c:ArtifactOrArtifactSet</code>, within the appropriate artifact set classifier (of type <code>c:FileSetType</code>).  Use the most specific classifiers available for your artifacts and artifact sets.  Otherwise, as needed, use generic <code>c:File</code> and <code>c:FileSet</code> classifiers with <code>nc:DescriptionText</code>.</p>
 
 	<p>Note that the <code>c:pathURI</code> value for an artifact is its operating system relative directory <termRef>path name</termRef> with file name.  The <code>c:pathURI</code> value for an artifact set is its operating system relative <termRef>path name</termRef>.</p>
 
-	<p>Another way the MPD catalog schema can group artifacts is through the use of the <code>c:RequiredFile</code> element.  Use this construct to signify there are strong dependencies among artifacts.  For example, documentation may be prepared as a set of hyperlinked HTML files.  These HTML files may also incorporate separate GIF or JPG images.  Regardless of file location within the MPD, these files depend on one another through hyperlinks.  As a result, they tend to operate as a single artifact; removal of a file will cause one or more broken links within the set.  This set of artifacts should be grouped using <code>c:RequiredFile</code>.  If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the <code>c:File</code> element while all others are values for <code>c:RequiredFile</code> child elements).</p>
+	<p>Artifact sets can be assembled in the MPD Catalog by using c:FileSet with or without a <code>c:pathURI</code> attribute.</p>
+
+	<p>If a single directory contains all the artifacts in a set, then the following simple form of <code>c:FileSet</code> can be used:</p>
+
+	<c:FileSet c:pathURI="samples/">
+		<nc:DescriptionText>All IEP samples within this IEPD.</nc:DescriptionText>
+	</c:FileSet>
+
+	<p>This simple form of <code>c:FileSet</code> associates an operating system directory with a set of artifacts that also includes all artifacts within subdirectories under the directory named in the value of the <code>c:pathURI</code> attribute.  Note that the interpretation of this XML schema component (as implied by <code>nc:DescriptionText</code>) is that all artifacts in the <code>samples/</code> directory are sample IEPs, and no other IEP samples exist in other locations within the IEPD.  The author must construct MPD catalog entries that are clear and correct.  So, in this case, if other artifacts exist within this directory that are not sample IEPs or if sample IEPs exist in other directories, then use of this simple directory association form is not appropriate.</p>
+
+	<p>However, multiple artifact sets and artifacts can be nested within a <code>c:FileSet</c:FileSet> element to organize artifacts into a logical group of files in many locations.  For example, an author may identify a set of artifacts in several locations using the following more complicated form of <code>c:FileSet</code> with the MPD catalog:</p>
+
+	<c:FileSet>
+		<nc:DescriptionText>All IEP samples in this IEPD</nc:DescriptionText>
+		<c:FileSet c:pathURI="samples/" />
+		<c:FileSet c:pathURI="iep-samples-1/" />
+		<c:FileSet c:pathURI="iep-samples-2/" />
+		<c:FileSet c:pathURI="iep-samples-supplement/" />
+		<c:File c:pathURI="iep/test-case1.xml" c:mimeMediaTypeText="text/xml" />
+		<c:File c:pathURI="test/test-case2.xml" c:mimeMediaTypeText="text/xml" />
+	</c:FileSet>
+
+	<p>Another way the MPD catalog schema groups artifacts is through the use of the <code>c:RequiredFile</code> element.  Use this construct to signify there are strong dependencies among artifacts.  For example, documentation may be prepared as a set of hyperlinked HTML files.  These HTML files may also incorporate separate GIF or JPG images.  Regardless of file location within the MPD, these files depend on one another through hyperlinks.  As a result, they tend to operate as a single artifact; removal of a file will cause one or more broken links within the set.  This set of artifacts should be grouped using <code>c:RequiredFile</code>.  If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the <code>c:File</code> element while all others are values for <code>c:RequiredFile</code> child elements).</p>
 
 
 
