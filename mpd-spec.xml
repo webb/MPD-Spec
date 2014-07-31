@@ -1214,35 +1214,35 @@
 
 
 
-<section id="mpdClassURI">
-	<title>MPD Class URI (<code>c:mpdClassURIList</code>)</title>
+<section id="mpdClass">
+	<title>MPD Class (<qName>c:mpdClassURIList</qName>)</title>
 
-	<p>An MPD Class identifies a <termRef>conformance target</termRef> class to which a given MPD conforms.  So, the MPD catalog <code>c:mpdClassURIList</code> attribute declares a list of all conformance target URIs to which an MPD conforms.<ref idref="MPD-Types"/>.</p>
+	<p>An MPD class is a <termRef>conformance target</termRef> identifier to which the given MPD conforms.  The MPD catalog <qName>c:mpdClassURIList</qName>attribute declares a list of conformance target identifiers, identifying the conformance targets to which the MPD claims to conform.</p>
 	
-	<p>This MPD Specification defines two basic conformance target URIs.  The first URI is common to all MPDs:</p>
+	<p>The rules below defines two basic conformance target identifiers.  The first is common to all MPDs:</p>
 
 	<ruleSection>
 		<title></title>
 		<rule id="r-ct-mpd" Applicability="WF-MPD" Class="Constraint">
-			<title>MPD Conformance Target Class URI</title>
-			<p>An MPD MUST have an effective conformance target class URI of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code> as one value in its MPD Catalog mpdClassURIList attribute.</p>
+			<title>MPD Conformance Target Identifier</title>
+			<p>An MPD MUST have the conformance target identifier <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code> as a value in its MPD Catalog <qName>c:mpdClassURIList</qName> attribute.</p>
 		</rule>
 	</ruleSection>
 
-	<p>The second URI is used to identify an IEPD:
+	<p>The second identifier is used for an IEPD:
 
 	<ruleSection>
-		<title>IEPD Conformance Target Class URI</title>
-		<rule id="r-ct-iepd" Applicability="NIEM-IEPD" Class="Constraint">
-			<p>An MPD is classified as Information Exchange Package Documentation (IEPD) if and only if it has an effective conformance target URI of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code> as one value in its MPD Catalog mpdClassURIList attribute.</p>
+		<title>IEPD Conformance Target Identifier</title>
+		<rule id="r-ct-iepd" Applicability="N-IEPD" Class="Constraint">
+			<p>An IEPD MUST have the conformance target identifier  <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code> as a value of its <qName>c:mpdClassURIList</qName> attribute.</p>
 		</rule>
 	</ruleSection>
 
-	<p>It should be clear that an MPD that is an IEPD should have a value for its <code>c:mpdClassURIList</code> attribute that contains both of the <termRef>conformance target</termRef> class URIs above.  In the future, additional conformance target class URIs will be assigned by other appropriate NIEM specifications that specialize MPDs.</p>
+	<p>It should be clear that an MPD that is an IEPD should have a value for its <code>c:mpdClassURIList</code> attribute that contains both <termRef>conformance target</termRef> identifiers above.  In the future, additional conformance target identifiers will be assigned by other appropriate NIEM specifications that specialize MPDs.</p>
 
-	<p>The <code>c:mpdClassURIList</code> attribute is an XML list type that may declare that an MPD conforms to multiple conformance target classes.  An MPD developer can establish a new MPD <termRef>conformance target</termRef> class URI in addition to those provided by this and other NIEM specifications.  The URI represents the new class which should be associated with one or more rules or constraints to which an MPD must conform if it is assigned that conformance target class URI.</p>
+	<p>The <code>c:mpdClassURIList</code> attribute is an XML list type that may declare that an MPD conforms to multiple conformance targets.  An MPD developer can establish a new MPD <termRef>conformance target</termRef> identifier in addition to those provided by this and other NIEM specifications.  The identifier represents the new conformance target which should be associated with one or more rules or constraints to which an MPD must conform if it is assigned that identifier.</p>
 
-	<p>For example, an author might use another classification system for IEPDs.  Use of the value <code>iepd</code> and a URI representing the author's class would indicate the MPD is a member of both.</p>
+	<p>For example, an author might use another classification system for IEPDs.  Use of the IEPD identifier (<code>http://reference.../#IEPD</code>) and an identifier representing the author's conformance target would indicate the MPD conforms to both.</p>
 
 </section>
 
