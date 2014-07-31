@@ -35,29 +35,23 @@
 	<p>This document is the normative specification for NIEM Model Package Descriptions (MPDs).  Although some Schematron rules that implement corresponding English rules are included in <ref idref="MPD-Schematron-Rules"/>, these Schematron rules are incomplete and untested.  They are considered examples only and subject to change.  At some time in the future NTAC will design, test, and publish a more complete set of Schematron rules for this specification.</p>  
 	<p>The MPD Specification represents a design that has evolved from the collaborative work of the NIEM Business Architecture Committee (NBAC), the NIEM Technical Architecture Committee (NTAC), and their predecessors.  It is a product of the NIEM Program Management Office (PMO).</p>
     	<p>Email comments on this specification to <link href="mailto:niem-comments%40lists.gatech.edu?subject=NIEM%20MPD%20Specification%20Version%203.0">niem-comments@lists.gatech.edu</link>.</p>
-  </subsection>
+	</subsection>
 
 
 <!-- ########################### FINAL 3.0 ########################### -->
 
 <subsection>
-	<title>Remaining work</title>
+	<title>Remaining:</title>
 	<ol>
+		<li><p>mpdClassURIList</p></li>
 		<li><p>validate mpd-catalog</p></li>
-		<li><p>Fix mpdClassURIList</p></li>
-		<li><p>Fix FileSet rules and definitions.</p></li>
 		<li><p>Hello World (HW) IEPD</p></li>
-		<li><p>Fixed Rule 4-44 and explanation to clarify application of <code>HasDocumentElement</code>.</p></li>
-		<li><p>Check ruleSections for rationales that should be inside this tag.</p></li>
 		<li><p>Add conformance-assertion.* to CoT and HW.</p></li>
+		<li><p>Check ruleSections for rationales that should be inside this tag.</p></li>
 		<li><p>Review rules and conformance targets (CT):</p><ul>
-			<li><p>Missing rules or CTs? (or superfluous?)</p></li>
-			<li><p>Rules or CTs to fork?</p></li>
-			<li><p>Rule applicability="(correct CT)"?</p></li>
-			<li><p>Rule class="Constraint" or "Interpretation"?  (a few changes suggested by Webb)</p></li></ul></li>
-		<li><p>TBDs: pub dates on new specs <ref idref="References"/>.  (consider 4-doc set: NDR, MPD, CTAS, Conformance)</p></li>
-		<li><p>Final QA/validity: MPD catalog XSD, catalog subset, MPD Toolkit, CoT/HW IEPD, other appendices, etc.</p></li>
-		<li><p>Final QA: typos, spell, punctuation, acronyms, abbreviations, format, missing refs or termRefs, etc.</p></li>
+		<li><p>TBDs: pub dates on new specs <ref idref="References"/>.  (4-doc set: NDR, MPD, CTAS, Conform)</p></li>
+		<li><p>Final QA/validity: MPD catalog XSD, catalog subset, MPD Toolkit, CoT/HW IEPD, appendices, etc.</p></li>
+		<li><p>Final QA: typos, spell, punct, acros, abbrevs, format, missing refs or termRefs, etc.</p></li>
 	</ol>
 </subsection>
 
@@ -1219,21 +1213,35 @@
 
 
 
-<section id="mpdClass">
-	<title>MPD Class (<code>c:mpdClassCodeList</code>)</title>
+<section id="mpdClassURI">
+	<title>MPD Class URI (<code>c:mpdClassURIList</code>)</title>
 
-	<p>MPD Class generally identifies an MPD as one of the five basic types introduced in <ref idref="MPD-Types"/>.  The enumerated values for the <code>c:mdpClass</code> attribute owned by a <code>c:MPD</code> element in the MPD catalog document are:</p>
-		   <ul>
-			   <li><p><code>rel</code> = <termRef>release</termRef></p></li>
-			   <li><p><code>cu</code> = <termRef>core update</termRef></p></li>
-			   <li><p><code>du</code> = <termRef>domain update</termRef></p></li>
-			   <li><p><code>iepd</code> = <termRef>Information Exchange Package Documentation</termRef></p></li>
-			   <li><p><code>eiem</code> = <termRef>Enterprise Information Exchange Model</termRef></p></li>
-		   </ul>
+	<p>An MPD Class identifies a <termRef>conformance target</termRef> class to which a given MPD conforms.  So, the MPD catalog <code>c:mpdClassURIList</code> attribute declares a list of all conformance target URIs to which an MPD conforms.<ref idref="MPD-Types"/>.</p>
+	
+	<p>This MPD Specification defines two basic conformance target URIs.  The first URI is common to all MPDs:</p>
 
-		   <p>However, the <code>c:mpdClassCodeList</code> attribute is an XML list type that allows an MPD class value beyond the basic five (See <ref idref="MPD-Catalog-XSD"/> for structure).  An author can establish a new type of MPD with a URI that represents the new class.</p>
+	<ruleSection>
+		<title></title>
+		<rule id="r-ct-mpd" Applicability="WF-MPD" Class="Constraint">
+			<title>MPD Conformance Target Class URI</title>
+			<p>An MPD MUST have an effective conformance target class URI of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code> as one value in its MPD Catalog mpdClassURIList attribute.</p>
+		</rule>
+	</ruleSection>
 
-		   <p>The list structure also allows membership in multiple MPD classes.  For example, an author might use another classification system for IEPDs.  Use of the value <code>iepd</code> and a URI representing the author's class would indicate the MPD is a member of both.</p>
+	<p>The second URI is used to identify an IEPD:
+
+	<ruleSection>
+		<title>IEPD Conformance Target Class URI</title>
+		<rule id="r-ct-iepd" Applicability="NIEM-IEPD" Class="Constraint">
+			<p>An MPD is classified as Information Exchange Package Documentation (IEPD) if and only if it has an effective conformance target URI of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code> as one value in its MPD Catalog mpdClassURIList attribute.</p>
+		</rule>
+	</ruleSection>
+
+	<p>It should be clear that an MPD that is an IEPD should have a value for its <code>c:mpdClassURIList</code> attribute that contains both of the <termRef>conformance target</termRef> class URIs above.  In the future, additional conformance target class URIs will be assigned by other appropriate NIEM specifications that specialize MPDs.</p>
+
+	<p>The <code>c:mpdClassURIList</code> attribute is an XML list type that may declare that an MPD conforms to multiple conformance target classes.  An MPD developer can establish a new MPD <termRef>conformance target</termRef> class URI in addition to those provided by this and other NIEM specifications.  The URI represents the new class which should be associated with one or more rules or constraints to which an MPD must conform if it is assigned that conformance target class URI.</p>
+
+	<p>For example, an author might use another classification system for IEPDs.  Use of the value <code>iepd</code> and a URI representing the author's class would indicate the MPD is a member of both.</p>
 
 </section>
 
@@ -2440,13 +2448,24 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>If a single directory contains all the artifacts in a set, then the following simple form of <code>c:FileSet</code> can be used:</p>
 
+	<figure>
+		<title></title>
+		<pre><xmlBlurb id="xml-fileset-simple">
+
 	<c:FileSet c:pathURI="samples/">
 		<nc:DescriptionText>All IEP samples within this IEPD.</nc:DescriptionText>
 	</c:FileSet>
 
+		</xmlBlurb></pre>
+	</figure>
+
 	<p>This simple form of <code>c:FileSet</code> associates an operating system directory with a set of artifacts that also includes all artifacts within subdirectories under the directory named in the value of the <code>c:pathURI</code> attribute.  Note that the interpretation of this XML schema component (as implied by <code>nc:DescriptionText</code>) is that all artifacts in the <code>samples/</code> directory are sample IEPs, and no other IEP samples exist in other locations within the IEPD.  The author must construct MPD catalog entries that are clear and correct.  So, in this case, if other artifacts exist within this directory that are not sample IEPs or if sample IEPs exist in other directories, then use of this simple directory association form is not appropriate.</p>
 
 	<p>However, multiple artifact sets and artifacts can be nested within a <code>c:FileSet</c:FileSet> element to organize artifacts into a logical group of files in many locations.  For example, an author may identify a set of artifacts in several locations using the following more complicated form of <code>c:FileSet</code> with the MPD catalog:</p>
+
+	<figure>
+		<title></title>
+		<pre><xmlBlurb id="xml-fileset-complex">
 
 	<c:FileSet>
 		<nc:DescriptionText>All IEP samples in this IEPD</nc:DescriptionText>
@@ -2454,9 +2473,12 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 		<c:FileSet c:pathURI="iep-samples-1/" />
 		<c:FileSet c:pathURI="iep-samples-2/" />
 		<c:FileSet c:pathURI="iep-samples-supplement/" />
-		<c:File c:pathURI="iep/test-case1.xml" c:mimeMediaTypeText="text/xml" />
-		<c:File c:pathURI="test/test-case2.xml" c:mimeMediaTypeText="text/xml" />
+		<c:IEPSampleXMLDocument c:pathURI="iep/test-case1.xml" c:mimeMediaTypeText="text/xml" />
+		<c:IEPSampleXMLDocument c:pathURI="test/test-case2.xml" c:mimeMediaTypeText="text/xml" />
 	</c:FileSet>
+
+		</xmlBlurb></pre>
+	</figure>
 
 	<p>Another way the MPD catalog schema groups artifacts is through the use of the <code>c:RequiredFile</code> element.  Use this construct to signify there are strong dependencies among artifacts.  For example, documentation may be prepared as a set of hyperlinked HTML files.  These HTML files may also incorporate separate GIF or JPG images.  Regardless of file location within the MPD, these files depend on one another through hyperlinks.  As a result, they tend to operate as a single artifact; removal of a file will cause one or more broken links within the set.  This set of artifacts should be grouped using <code>c:RequiredFile</code>.  If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the <code>c:File</code> element while all others are values for <code>c:RequiredFile</code> child elements).</p>
 
@@ -2508,7 +2530,14 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 		<p>The <code>status</code> values are as defined in <ref idref="r-mpd-vers-syntax"/>.</p>
 
-		<p>The <code>class</code> values are as defined in <ref idref="mpdClass"/>.</p>
+		<p>The <code>class</code> values are defined as follows:</p>
+		   <ul>
+			   <li><p><code>rel</code> = <termRef>release</termRef></p></li>
+			   <li><p><code>cu</code> = <termRef>core update</termRef></p></li>
+			   <li><p><code>du</code> = <termRef>domain update</termRef></p></li>
+			   <li><p><code>iepd</code> = <termRef>Information Exchange Package Documentation</termRef></p></li>
+			   <li><p><code>eiem</code> = <termRef>Enterprise Information Exchange Model</termRef></p></li>
+		   </ul>
 	</rule>
 </ruleSection>
 
