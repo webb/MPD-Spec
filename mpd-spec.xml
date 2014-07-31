@@ -2448,6 +2448,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 
 	<p>If a single directory contains all the artifacts in a set, then the following simple form of <code>c:FileSet</code> can be used:</p>
 
+	<!--
 	<figure>
 		<title>Simple <qName>c:FileSet</qName> form for a direectory-associated artifact set.</title>
 		<pre><xmlBlurb id="xml-fileset-simple">
@@ -2456,11 +2457,13 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	</c:FileSet>
 		</xmlBlurb></pre>
 	</figure>
+	-->
 
 	<p>This simple form of <code>c:FileSet</code> associates an operating system directory with a set of artifacts that also includes all artifacts within subdirectories under the directory named in the value of the <code>c:pathURI</code> attribute.  Note that the interpretation of this XML schema component (as implied by <code>nc:DescriptionText</code>) is that all artifacts in the <code>samples/</code> directory are sample IEPs, and no other IEP samples exist in other locations within the IEPD.  The author must construct MPD catalog entries that are clear and correct.  So, in this case, if other artifacts exist within this directory that are not sample IEPs or if sample IEPs exist in other directories, then use of this simple directory association form is not appropriate.</p>
 
 	<p>However, multiple artifact sets and artifacts can be nested within a <qName>c:FileSet</qName> element to organize artifacts into a logical group of files in many locations.  For example, an author may identify a set of artifacts in several locations using the following more complicated form of <code>c:FileSet</code> with the MPD catalog:</p>
 
+	<!--
 	<figure>
 		<title><qName>c:FileSet</qName> form for a more complex artifact set.</title>
 		<pre><xmlBlurb id="xml-fileset-complex">
@@ -2475,6 +2478,7 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	</c:FileSet>
 		</xmlBlurb></pre>
 	</figure>
+	-->
 
 	<p>Another way the MPD catalog schema groups artifacts is through the use of the <code>c:RequiredFile</code> element.  Use this construct to signify there are strong dependencies among artifacts.  For example, documentation may be prepared as a set of hyperlinked HTML files.  These HTML files may also incorporate separate GIF or JPG images.  Regardless of file location within the MPD, these files depend on one another through hyperlinks.  As a result, they tend to operate as a single artifact; removal of a file will cause one or more broken links within the set.  This set of artifacts should be grouped using <code>c:RequiredFile</code>.  If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the <code>c:File</code> element while all others are values for <code>c:RequiredFile</code> child elements).</p>
 
