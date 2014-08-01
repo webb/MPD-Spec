@@ -1584,26 +1584,26 @@
 		</rule>
 	</ruleSection>
 
+	<p>In the presence of NIEM <termRef term="reference element">reference elements</termRef> URI resolution may require an additional step to account for indirect references.  Be sure to review <ref idref="URI-Resolution-Ref-Elements"/> if this case applies.</p>
+
 </section>
 
 
 
 <section id="URI-Resolution-Ref-Elements">
 	<title>URI Resolution Involving Reference Elements</title>
-		
-		<p>In the presence of NIEM <termRef term="reference element">reference elements</termRef> URI resolution may require an additional step to account for indirect references.  Be sure to review <ref idref="URI-Resolution-Ref-Elements"/> if this case applies.</p>
+	
+	<p>A NIEM element can indirectly reference its content rather than carry or encapsulate it.  So, a NIEM element of type <code>xs:anyURI</code> may not contain a URI, but instead refer to another element that contains it for both elements.  Under some circumstances, this might impact URI resolution described in <ref idref="r-resolve-uri"/>.</p> 
 
-		<p>Note that a NIEM element can indirectly reference its content rather than carry or encapsulate it.  So, a NIEM element of type <code>xs:anyURI</code> may not contain a URI, but instead refer to another element that contains it for both elements.  Under some circumstances, this might have an impact on URI resolution.</p> 
-
-		<p><ref idref="NIEM-NDR"/>, <a href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha9/NIEM-NDR-3.0alpha9-2014-04-02.html#definition_reference_element"> <char name="sect"/>12.3, <q>Reference Elements</q></a> defines a NIEM <termRef>reference element</termRef> as follows:</p>
+	<p><ref idref="NIEM-NDR"/>, <a href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha9/NIEM-NDR-3.0alpha9-2014-04-02.html#definition_reference_element"> <char name="sect"/>12.3, <q>Reference Elements</q></a> defines a NIEM <termRef>reference element</termRef> as follows:</p>
 
 	<definition term="reference element">
 		<p>A reference element is an element information item that has an attribute <code>structures:ref</code>.  A reference element refers to its value by reference, instead of carrying it as content.</p>
 	</definition>
 
-		<p>Thus, the <code>structures:ref</code> attribute value refers to another element that carries the content (for both elements) and owns a <code>structures:id</code> attribute with a value equal to that of <code>structures:ref</code>.</p>
+	<p>Thus, the <code>structures:ref</code> attribute value refers to another element that carries the content (for both elements) and owns a <code>structures:id</code> attribute with a value equal to that of <code>structures:ref</code>.</p>
 
-		<p>The <termRef>MPD catalog document</termRef> reuses NIEM Core and so it conforms to NIEM.  Therefore, one or more NIEM <termRef term="reference element">reference elements</termRef> from various locations may refer to a single content bearing instance of the same element (with a unique <code>structures:id</code>).  The definition of <termRef>resolve URI</termRef> and the URI-related rules in this section assume content bearing elements.  If a URI resolution rule applies to an element in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).</p>
+	<p>The <termRef>MPD catalog document</termRef> reuses NIEM Core and so it conforms to NIEM.  Therefore, one or more NIEM <termRef term="reference element">reference elements</termRef> from various locations may refer to a single content bearing instance of the same element (with a unique <code>structures:id</code>).  The definition of <termRef>resolve URI</termRef> and the URI-related rules in this section assume content bearing elements.  If a URI resolution rule applies to an element in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).</p>
 
 </section>
 
