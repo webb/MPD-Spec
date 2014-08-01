@@ -408,7 +408,7 @@ Remaining:
 
       *  Each MPD is packaged as a self-contained [PKZIP] archive. Self-contained simply means that an MPD has copies of (not just URLs or references to) all schema documents needed to validate instance XML documents it defines.
 
-      *  Each MPD may contain optional alternate representations in addition to XML Schema (for example, generic diagram, UML diagram, XMI, database format, spreadsheet, etc.).
+      *  Each MPD may contain optional alternate representations in addition to XML Schema (for example, generic diagram, UML/XMI, database format, spreadsheet, etc.).
 
    MPD class differences:
 
@@ -416,11 +416,9 @@ Remaining:
 
       *  An IEPD must declare at least one [IEP conformance target] within its MPD Catalog Section 4.1, NIEM MPD Catalog, below. Other MPD classes do not have this requirement.
 
-      *  IEPDs, EIEMs and domain updates may optionally contain sample instance XML documents and associated XSLT files to display them.
+      *  IEPDs and EIEMs contain sample instance XML documents.
 
-      *  A domain update may supersede and replace another published schema document/namespace. It may also add to or modify content in another published schema document/namespace without including the unchanged content. Core updates may only add to or supplement; and never replaces or modifies a NIEM Core.
-
-      *  IEPDs, EIEMs, and NIEM releases are independently complete. A Core update can be issued as a new complete standalone reference schema document to be used with a NIEM Core.
+      *  A domain update may supersede and replace another published schema document/namespace. It may also add to or modify content in another published schema document/namespace without including the unchanged content. A core update may only add to or supplement, and never replaces or modifies a NIEM core.
 
    Table Table 2-1, Comparison of MPD classes, below, summarizes many of the similarities and differences of MPD classes by indicating characteristics for each:
 
@@ -453,8 +451,6 @@ Remaining:
       Must declare at least one or more [IEP conformance targets]| | | | X | 
 
       May contain sample instance XML documents that validate to XML schema document set| | | X | X | X 
-
-      Required to be independently complete standalone XML schema document set| X | | | X | X 
 
 2.10. Rules
 
@@ -534,7 +530,7 @@ Remaining:
 
    [XML schema document] artifacts are the essential content of MPDs because they normatively define and declare data components. The purpose of an MPD is determined by the [XML schema document] or document set(s) it contains; furthermore, each [ XML schema document] may have a different purpose. The [NIEM NDR] addresses some schema documents as [conformance targets] including reference schema documents, extension schema documents, and schema document sets. Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules. Consult the [NIEM NDR] for these rules. NIEM also employs a special technique that relies on [constraint schema documents] and document sets Section 3.5, Constraint Schema Documents and Document Sets, below.
 
-   The following subsections will define each type of NIEM schema document and document set, and will identify the types of MPDs that contain them.
+   The following subsections define each type of NIEM schema document and document set, and identify the types of MPDs that contain them.
 
 3.1. Reference Schema Documents
 
@@ -624,7 +620,7 @@ Rule 3-1. Fundamental NIEM Subset Rule
 
       13. Add or apply a constraining facet to an xs:simpleType.
 
-      14. Remove an xs:import and its associated schema document (if the schema document is not used within the document set).
+      14. Remove an xs:import and its associated schema document if the schema document is not used within the document set.
 
       15. Change a concrete xs:element declaration to @abstract="true".
 
@@ -766,7 +762,7 @@ Rule 3-3. Constraint Schema Namespace Is a Reference Schema Namespace
 
    A [readme artifact] (formerly known as a master document) is mandatory for IEPDs and EIEMs. These MPD classes may be built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary. An IEPD or EIEM readme file is the primary source and starting point for human readable documentation, and should reference (and describe) any other separate documentation artifacts. This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.
 
-   The following subsections will address these artifacts and the concepts, metadata, and content each supports.
+   The following subsections address these artifacts and the concepts, metadata, and content each supports.
 
 4.1. NIEM MPD Catalog
 
@@ -810,7 +806,7 @@ Rule 3-3. Constraint Schema Namespace Is a Reference Schema Namespace
 
       *  Definition, identification, and validation of IEP conformance targets
 
-Rule 4-1. MPD Has mpd-catalog.xml in Root Directory
+Rule 4-1. MPD Has an mpd-catalog.xml in its Root Directory
 
    [Rule 4-1] (WF-MPD)
 
@@ -820,11 +816,11 @@ Rule 4-2. MPD Catalog Document Valid to mpd-catalog-3.0.xsd
 
    [Rule 4-2] (MPD-Cat)
 
-      An [MPD catalog document] MUST be valid to mpd-catalog-3.0.xsd Appendix A, MPD Catalog XML Schema Document and the associated NIEM 3.0 schema subset.
+      An [MPD catalog document] MUST be valid to mpd-catalog-3.0.xsd Appendix A, MPD Catalog XML Schema Document and its associated NIEM schema subset.
 
    Schemas required to validate an MPD catalog XML document are available in the [NIEM MPD Toolkit].
 
-   This rule only requires validation with mpd-catalog-3.0.xsd and the NIEM schema subset that supplements it. Validation of the MPD catalog XML document must be done in the context of both the catalog schema document and its associated NIEM subset. This does not require that the MPD contain a copy of the catalog schema document or the schema subset. However, tools that validate mpd-catalog.xml should all access the same schema document to perform validation (available as referenced in the rule above).
+   This rule only requires validation with mpd-catalog-3.0.xsd and the NIEM schema subset that it imports. Validation of the MPD catalog XML document must be done in the context of both the catalog schema document and its associated NIEM subset. This does not require that the MPD contain a copy of the catalog schema document or the schema subset. However, tools that validate mpd-catalog.xml should all access the same schema document to perform validation (available as referenced in the rule above).
 
 Rule 4-3. MPD Catalog Document Valid to Schematron Rules
 
@@ -838,7 +834,7 @@ Rule 4-3. MPD Catalog Document Valid to Schematron Rules
 
 4.1.1. NIEM Core Schema Document Subset that Supports MPD Catalog
 
-   Appendix A, MPD Catalog XML Schema Document, below, is a NIEM-conformant schema document. It reuses a schema document subset of NIEM 3.0 (primarily from NIEM Core). [NIEM MPD Toolkit] contains the NIEM 3.0 schema document subset used by mpd-catalog-3.0.xsd.
+   Appendix A, MPD Catalog XML Schema Document, below, is a NIEM-conformant schema document. It reuses a schema document subset of NIEM. [NIEM MPD Toolkit] contains the NIEM schema document subset used by mpd-catalog-3.0.xsd.
 
    As is the case with mpd-catalog-3.0.xsd, MPDs are not required to contain this schema document subset since it is always available here: http://reference.niem.gov/niem/resource/mpd/3.0/
 
@@ -1975,9 +1971,31 @@ Rule 7-3. MPD Archive Uncompresses to a Single Root Directory
 
    If a single directory contains all the artifacts in a set, then the following simple form of c:FileSet can be used:
 
+   Figure 7-1: Simple c:FileSet form for a direectory-associated artifact set.
+
+      
+      	<c:FileSet c:pathURI="samples/">
+      		<nc:DescriptionText>All IEP samples within this IEPD.</nc:DescriptionText>
+      	</c:FileSet>
+      		
+
    This simple form of c:FileSet associates an operating system directory with a set of artifacts that also includes all artifacts within subdirectories under the directory named in the value of the c:pathURI attribute. Note that the interpretation of this XML schema component (as implied by nc:DescriptionText) is that all artifacts in the samples/ directory are sample IEPs, and no other IEP samples exist in other locations within the IEPD. The author must construct MPD catalog entries that are clear and correct. So, in this case, if other artifacts exist within this directory that are not sample IEPs or if sample IEPs exist in other directories, then use of this simple directory association form is not appropriate.
 
    However, multiple artifact sets and artifacts can be nested within a c:FileSet element to organize artifacts into a logical group of files in many locations. For example, an author may identify a set of artifacts in several locations using the following more complicated form of c:FileSet with the MPD catalog:
+
+   Figure 7-2: c:FileSet form for a more complex artifact set.
+
+      
+      	<c:FileSet>
+      		<nc:DescriptionText>All IEP samples in this IEPD</nc:DescriptionText>
+      		<c:FileSet c:pathURI="samples/" />
+      		<c:FileSet c:pathURI="iep-samples-1/" />
+      		<c:FileSet c:pathURI="iep-samples-2/" />
+      		<c:FileSet c:pathURI="iep-samples-supplement/" />
+      		<c:IEPSampleXMLDocument c:pathURI="iep/test-case1.xml" c:mimeMediaTypeText="text/xml" />
+      		<c:IEPSampleXMLDocument c:pathURI="test/test-case2.xml" c:mimeMediaTypeText="text/xml" />
+      	</c:FileSet>
+      		
 
    Another way the MPD catalog schema groups artifacts is through the use of the c:RequiredFile element. Use this construct to signify there are strong dependencies among artifacts. For example, documentation may be prepared as a set of hyperlinked HTML files. These HTML files may also incorporate separate GIF or JPG images. Regardless of file location within the MPD, these files depend on one another through hyperlinks. As a result, they tend to operate as a single artifact; removal of a file will cause one or more broken links within the set. This set of artifacts should be grouped using c:RequiredFile. If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the c:File element while all others are values for c:RequiredFile child elements).
 
@@ -3432,7 +3450,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
 
       2.  The following artifacts are required to be in the [MPD root directory] (Note: .* indicates any format):
 
-             *  mpd-catalog.xml (Rule 4-1, MPD Has mpd-catalog.xml in Root Directory)
+             *  mpd-catalog.xml (Rule 4-1, MPD Has an mpd-catalog.xml in its Root Directory)
 
              *  changelog.* (Rule 4-39, IEPD and EIEM Have Change Log in Root Directory)
 
@@ -3746,7 +3764,7 @@ Appendix J. Index of Rules
    Rule 3-1, Fundamental NIEM Subset Rule: Section 3.2.1, Basic Subset Concepts
    Rule 3-2, Subset Schema Namespace Is a Reference Schema Namespace: Section 3.2.3, Subset Schema Document Namespaces
    Rule 3-3, Constraint Schema Namespace Is a Reference Schema Namespace: Section 3.5, Constraint Schema Documents and Document Sets
-   Rule 4-1, MPD Has mpd-catalog.xml in Root Directory: Section 4.1, NIEM MPD Catalog
+   Rule 4-1, MPD Has an mpd-catalog.xml in its Root Directory: Section 4.1, NIEM MPD Catalog
    Rule 4-2, MPD Catalog Document Valid to mpd-catalog-3.0.xsd: Section 4.1, NIEM MPD Catalog
    Rule 4-3, MPD Catalog Document Valid to Schematron Rules: Section 4.1, NIEM MPD Catalog
    Rule 4-4, MPD Catalog Extension XML Catalog Document in Root Directory: Section 4.1.3, Extending an MPD Catalog
