@@ -1066,31 +1066,21 @@
 
 <ruleSection><title>MPD Catalog Document Valid to <code>mpd-catalog-3.0.xsd</code></title>
 	<rule id="r1-mpd-cat" applicability="MPD-Cat" class="Constraint">
-		<p>An <termRef>MPD catalog document</termRef> MUST be valid to <code>mpd-catalog-3.0.xsd</code> <ref idref="MPD-Catalog-XSD"/> and its associated NIEM schema subset.</p>
-	</rule>
-	<p>Schemas required to validate an MPD catalog XML document are available in the <ref idref="NIEM-MPD-Toolkit"/>.</p>
-</ruleSection>
-
-	<p>This rule only requires validation with <code>mpd-catalog-3.0.xsd</code> and the NIEM schema subset that it imports.  Validation of the MPD catalog XML document must be done in the context of both the catalog schema document and its associated NIEM subset.  This does not require that the MPD contain a copy of the catalog schema document or the schema subset.  However, tools that validate <code>mpd-catalog.xml</code> should all access the same schema document to perform validation (available as referenced in the rule above).</p>
-	<!-- ################## -->
-<ruleSection><title>MPD Catalog Document Valid to Schematron Rules</title>
-	<rule id="r2-mpd-cat" applicability="MPD-Cat" class="Constraint">
-		<p>An <termRef>MPD catalog document</termRef> MUST be valid to the NIEM MPD catalog Schematron rules in <ref idref="MPD-Schematron-Rules"/>.</p>
+		<p>An <termRef>MPD catalog document</termRef> MUST be valid to <code>mpd-catalog-3.0.xsd</code> <ref idref="MPD-Catalog-XSD"/>.</p>
 	</rule>
 </ruleSection>
 
-	<p>Note that <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML schema definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef term="well-formed MPD">well-formed</termRef> IEPD from a <termRef>NIEM IEPD</termRef> during incremental stages of development.  This is explained in more detail in <ref idref="Conformance-Targets"/>.</p>
+	<p>This rule requires validation with <code>mpd-catalog-3.0.xsd</code>, which also imports a NIEM schema subset.  So, validation of the MPD catalog XML document must be done in the context of the catalog schema document, its associated NIEM subset, and <code>mpd-catalog.xml</code>.  This does not require the MPD to contain copies of the catalog schema document or the schema subset (since these are standard for all MPDs).  However, a validation tool must have access to all three XML documents.</p>
 
-	<p>Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a <termRef>NIEM IEPD</termRef>, special Schematron rules also apply to an MPD catalog to ensure its validity or completeness.</p>
+	<p>The XML schema documents required to validate an MPD catalog XML document are available in the <ref idref="NIEM-MPD-Toolkit"/>.  Note that validators often require references to schemas and their imports.  This may be done through a command line instruction or by adding a <code>schemaLocation</code> attribute to <qName>xs:import</qName> statements.</p>
 
 
 
-<section id="MPD-Catalog-Subset">
-	<title>NIEM Core Schema Document Subset that Supports MPD Catalog</title>
+<section id="MPD-Catalog-Schematron">
+	
+	<p>Note that <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML schema definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef term="well-formed MPD">well-formed</termRef> MPD from a <termRef>NIEM IEPD</termRef> during incremental stages of development.  This is explained in more detail in <ref idref="Conformance-Targets"/>.</p>
 
-	<p><ref idref="MPD-Catalog-XSD"/> is a NIEM-conformant schema document.  It reuses a schema document subset of NIEM.  <ref idref="NIEM-MPD-Toolkit"/> contains the NIEM schema document subset used by <code>mpd-catalog-3.0.xsd</code>.</p>
-
-	<p>As is the case with <code>mpd-catalog-3.0.xsd</code>, MPDs are not required to contain this schema document subset since it is always available here: <link>http://reference.niem.gov/niem/resource/mpd/3.0/</link></p>
+	<p>Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a <termRef>NIEM IEPD</termRef>, special Schematron rules will also apply to an MPD catalog to ensure its validity or completeness.  These rules are not yet available and will be published sometime in the future when completed and tested.</p>
 
 </section>
 
@@ -1290,12 +1280,12 @@
 	<ul>
 		<li><p>Series 2 is {2.2, 2.3, 2.4}</p></li>
 		<li><p>Series 3 is {3.0, 3.1, 3.2}</p></li>
-		<li><p>Series 2.2 is {2.2(.0), 2.2.1, 2.2.2, 2.2.3, 2.2.4}</p></li>
-		<li><p>Series 2.3 is {2.3(.0), 2.3.1}</p></li>
-		<li><p>Series 2.4 is {2.4(.0), 2.4.1}</p></li>
-		<li><p>Series 3.0 is {3.0(.0), 3.0.1, 3.0.2}</p></li>
-		<li><p>Series 3.1 is {3.1(.0), 3.1.1}</p></li>
-		<li><p>Series 3.2 is {3.2(.0), 3.2.1, 3.2.2}</p></li>
+		<li><p>Series 2.2 is {2.2, 2.2.1, 2.2.2, 2.2.3, 2.2.4}</p></li>
+		<li><p>Series 2.3 is {2.3, 2.3.1}</p></li>
+		<li><p>Series 2.4 is {2.4, 2.4.1}</p></li>
+		<li><p>Series 3.0 is {3.0, 3.0.1, 3.0.2}</p></li>
+		<li><p>Series 3.1 is {3.1, 3.1.1}</p></li>
+		<li><p>Series 3.2 is {3.2, 3.2.1, 3.2.2}</p></li>
 	</ul>
 
 	<p>The second implication of <ref idref="r-mpd-vers-syntax"/> is that pre-releases are easily identified by the strings <code>alpha</code>, <code>beta</code>, and <code>rc</code>.  These strings are simple visible indicators of MPD status or stage of development.</p>
@@ -1365,17 +1355,15 @@
 	<rule id="r-uri-frag" applicability="WF-MPD" class="Constraint">
 		<p>A valid MPD URI MUST support the inclusion of a <em>fragment identifier</em> (as a suffix) <ref idref="RFC3986-URI"/>.</p>
 	</rule>
+	<p>This rule ensures that an MPD can always uniquely identify and refer to each artifact within another MPD.  This MPD specification follows <ref idref="RFC3986-URI"/> which forbids a URI to contain more than a single fragment identifier.  To construct an MPD artifact URI, add a fragment (that locally identifies the artifact) to an MPD URI, and therefore, an MPD URI cannot already contain a fragment.</p>
 </ruleSection>
-
-	<p><ref idref="r-uri-frag"/> ensures that any MPD can always uniquely identify and refer to each artifact within another MPD (not just an MPD).  This MPD specification follows <ref idref="RFC3986-URI"/> which forbids a URI to contain more than a single fragment identifier.  To construct an MPD artifact URI, add a fragment (that locally identifies the artifact) to an MPD URI, and therefore, an MPD URI cannot already contain a fragment.</p>
 
 <ruleSection><title>MPD URI Has No Fragment</title>
 	<rule id="r-uri-nofrag" applicability="WF-MPD" class="Constraint">
 		<p>A valid MPD URI MUST NOT contain a <em>fragment identifier</em> <ref idref="RFC3986-URI"/>.</p>
 	</rule>
+	<p>Rationale:  If a URI for an MPD (do NOT confuse this with a URI for an MPD artifact) already contains a fragment identifier, then that URI cannot be employed as an MPD artifact URI, because <ref idref="RFC3986-URI"/> only allows a single fragment identifier.</p>
 </ruleSection>
-
-	<p>The rationale for <ref idref="r-uri-nofrag"/> should now be clear.  Again, if a URI to an MPD contains a fragment identifier, then that URI cannot be employed as an MPD artifact URI because <ref idref="RFC3986-URI"/> allows only a single fragment identifier.</p>
 
 	<p>By the following rule, each file artifact or artifact set is uniquely identified by its <termRef>path name</termRef> relative to the <termRef>MPD root directory</termRef>.</p>
 
@@ -1424,121 +1412,121 @@
 
 
 <section id="pathURI">
-	<title>URI Scheme for Local MPD Artifacts (<code>pathURI</code>)</title>
-
+	<title>URI Scheme for Local MPD Artifacts (<qName>c:pathURI</qName>)</title>
+
 	<p>An MPD uses the file directory system of path names and file names to identify local artifacts and artifact sets.  All local URIs are relative to the location of the <termRef>MPD catalog document</termRef>, and therefore, they are also relative to the <termRef>MPD root directory</termRef> since the MPD catalog document resides in the MPD root directory.</p>
 
-	<p>In general, every value of attribute <code>c:pathURI</code> in an MPD catalog document will be a relative <termRef>path name</termRef> to a directory (i.e., an artifact set), or to a file (i.e., an artifact).  The following are typical examples of each:</p>
+	<p>In general, every value of attribute <qName>c:pathURI</qName> in an MPD catalog document will be a relative <termRef>path name</termRef> to a directory (i.e., an artifact set), or to a file (i.e., an artifact).  The following are typical examples of each:</p>
 		<blockquote>
-			<p>Artifact Set: <code>pathURI="base-xsd/niem/niem-core/3.0"</code></p>	
+			<p>Artifact Set: <qName>c:pathURI="base-xsd/niem/niem-core/3.0"</qName></p>	
 			<p>Artifact: <char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/>
-					 <code>pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"</code></p>
+					 <qName>c:pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"</qName></p>
 		</blockquote>
 
-	<p>Note that per <ref idref="uri-syntax"/> and <ref idref="uri-summary"/> a local URI may contain an optional fragment.  Although <code>c:pathURI</code> has no use for a URI with a fragment, MPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.</p>
+	<p>Note that per <ref idref="uri-syntax"/> and <ref idref="uri-summary"/> a local URI may contain an optional fragment.  Although <qName>c:pathURI</qName> has no use for a URI with a fragment, MPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.</p>
 
-	<p>Despite its simplicity, <code>c:pathURI</code> comes with over a dozen rules that help to define a <termRef>well-formed MPD</termRef>.  These rules ensure that every <code>c:pathURI</code> attribute value in a well-formed MPD resolves to a correct local resource:</p>
+	<p>Despite its simplicity, <qName>c:pathURI</qName> comes with over a dozen rules that help to define a <termRef>well-formed MPD</termRef>.  These rules ensure that every <qName>c:pathURI</qName> attribute value in a well-formed MPD resolves to a correct local resource:</p>
 
-	<ruleSection><title><code>c:pathURI</code> Resolves to a Resource</title>
+	<ruleSection><title><qName>c:pathURI</qName> Resolves to a Resource</title>
 		<rule id="wfm2" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:XMLCatalog</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:XMLCatalog</qName></title>
 		<rule id="wfm3" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:XMLCatalog</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML catalog document</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:XMLCatalog</qName> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML catalog document</termRef>.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:MPDChangeLog</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:MPDChangeLog</qName></title>
 		<rule id="wfm4" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:MPDChangeLog</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>change log</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:MPDChangeLog</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>change log</termRef>.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:ReadMe</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:ReadMe</qName></title>
 		<rule id="wfm5" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReadMe</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>readme artifact</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:ReadMe</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>readme artifact</termRef>.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:IEPSampleXMLDocument</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:IEPSampleXMLDocument</qName></title>
 		<rule id="wfm6" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:IEPSampleXMLDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML document</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:IEPSampleXMLDocument</qName> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML document</termRef>.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:BusinessRulesArtifact</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:BusinessRulesArtifact</qName></title>
 		<rule id="wfm7" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:BusinessRulesArtifact</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:BusinessRulesArtifact</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>business rule schema</termRef> or <termRef>business rules</termRef> artifact.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:ExternalSchemaDocument</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:ExternalSchemaDocument</qName></title>
 		<rule id="wfm8" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExternalSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:ExternalSchemaDocument</qName> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef>.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:ReferenceSchemaDocument</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:ReferenceSchemaDocument</qName></title>
 		<rule id="wfm9" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:ReferenceSchemaDocument</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document</termRef>.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:ExtensionSchemaDocument</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:ExtensionSchemaDocument</qName></title>
 		<rule id="wfm10" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ExtensionSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>extension schema document</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:ExtensionSchemaDocument</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>extension schema document</termRef>.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:SubsetSchemaDocument</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:SubsetSchemaDocument</qName></title>
 		<rule id="wfm11" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SubsetSchemaDocument</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>subset schema document</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:SubsetSchemaDocument</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>subset schema document</termRef>.</p>
 		</rule>
 		<p>Note: It is not possible for a Schematron rule to verify that the URI resolves to a NIEM subset schema document, only that it is a schema document.</p>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:Wantlist</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:Wantlist</qName></title>
 		<rule id="wfm12" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:Wantlist</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>NIEM wantlist</termRef> XML document.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:Wantlist</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>NIEM wantlist</termRef> XML document.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:SchematronSchema</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:SchematronSchema</qName></title>
 		<rule id="wfm13" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchematronSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>Schematron schema</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:SchematronSchema</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>Schematron schema</termRef>.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:RelaxNGSchema</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:RelaxNGSchema</qName></title>
 		<rule id="wfm14" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RelaxNGSchema</code> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>RelaxNG schema</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:RelaxNGSchema</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>RelaxNG schema</termRef>.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:SchemaDocumentSet</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:SchemaDocumentSet</qName></title>
 		<rule id="wfm15" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:SchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef> set.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:SchemaDocumentSet</qName> element MUST <termRef term="resolve URI">resolve</termRef> to an <termRef>XML schema document</termRef> set.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:ConstraintSchemaDocumentSet</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:ConstraintSchemaDocumentSet</qName></title>
 		<rule id="wfm16" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ConstraintSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>constraint schema document set</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:ConstraintSchemaDocumentSet</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>constraint schema document set</termRef>.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:ReferenceSchemaDocumentSet</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:ReferenceSchemaDocumentSet</qName></title>
 		<rule id="wfm17" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:ReferenceSchemaDocumentSet</code> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document set</termRef>.</p>
+			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:ReferenceSchemaDocumentSet</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document set</termRef>.</p>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><code>c:pathURI</code> for <code>c:RequiredFile</code></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:RequiredFile</qName></title>
 		<rule id="wfm18" applicability="WF-MPD" class="Constraint">
-			<p>Within an <termRef>MPD catalog document</termRef> the value of a <code>c:pathURI</code> attribute owned by a <code>c:RequiredFile</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+			<p>Within an <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:RequiredFile</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
 		</rule>
 	</ruleSection>
 
@@ -1547,7 +1535,7 @@
 
 
 <section id="MPD-Relationships">
-	<title>MPD Relationships and Lineage (<code>resourceURI</code>)</title>
+	<title>MPD Relationships and Lineage (<qName>c:resourceURI</qName>)</title>
 
 	<p>An important business requirement is transparency of MPD lineage.  Data lineage is also referred to as <em>data provenance</em>, how data are derived or where it came from.  There are two basic views of data provenance:  (1) as data annotations; and (2) as a graph of data relationships <ref idref="Principles-of-Data-Integration"/>, Chapter 14 <q>Data Provenance</q>.</p>
 
