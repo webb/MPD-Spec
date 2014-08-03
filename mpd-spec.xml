@@ -1709,12 +1709,9 @@
 	</section>
 
 
+
 <section id="Change-Log">
 	<title>Change Log</title>
-
-
-<section id="Change-Log-Releases-Core-Domain-Updates">
-	<title>Change Log for Releases and Core/Domain Updates</title>
 
 	<p>A version identifier is a useful and simple visual indicator that an MPD has changed.  However, a <em>change log</em> is needed to understand the volume, complexity, and possible impact of changes.</p>
 
@@ -1722,7 +1719,26 @@
 		<p>An artifact that describes the changes applied to an MPD since its previous version.</p>
 	</definition>
 
-	<p>Once published, NIEM releases always exist.  This ensures that IEPDs and EIEMs built from a given release will always be usable, and may be updated to a new NIEM release only when convenient or absolutely necessary to take advantage of new or modified data components.  Though not encouraged, nothing prohibits a developer from building an IEPD based on a NIEM release that is older than the most current version.  There may be potential disadvantages related to interoperability levels achievable with others developing to the latest release.  Nonetheless, an older version might meet the business needs of a particular organization quite well.</p>
+<ruleSection>
+	<title>An MPD Requires a <code>changelog.*</code> Artifact</title>
+		<rule id="r-mpd-ref-changelog" applicability="WF-MPD" class="Constraint">
+			<p>An MPD with a <code>c:mpdClassURIList</code> attribute value from the set <code>{rel, cu, du}</code> MUST contain a <code>changelog.xml</code> artifact in its <termRef>MPD root directory</termRef>.</p>
+		</rule>
+</ruleSection>
+
+<ruleSection>
+	<title>Release and Core/Domain Update <code>changelog.xml</code> Valid to <code>mpd-changelog-1.0.xsd</code></title>
+	<rule id="r-changelog-ref" applicability="MPD-ChLg" class="Constraint">
+			<p>A <code>changelog.xml</code> artifact for an MPD with a <code>c:mpdClassURIList</code> attribute value from the set <code>{rel, cu, du}</code> MUST validate with the NIEM change log schemas <code>mpd-changelog-1.0.xsd</code> and <code>niem-model-1.0.xsd</code>.</p>
+	</rule>
+</ruleSection>
+
+
+
+<section id="Change-Log-Releases-Core-Domain-Updates">
+	<title>Change Log for Releases and Core/Domain Updates</title>
+
+	<p>Once published, a NIEM release always exists.  This ensures that IEPDs and EIEMs built from a given release will always be usable, and may be updated to a new NIEM release only when convenient or absolutely necessary to take advantage of new or modified data components.  Though not encouraged, nothing prohibits a developer from building an IEPD based on a NIEM release that is older than the most current version.  There may be potential disadvantages related to interoperability levels achievable with others developing to the latest release.  Nonetheless, an older version might meet the business needs of a particular organization quite well.</p>
 
 	<p>In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change.  New versions of reference schema document sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs and EIEMs.  Developers must understand in detail how changes will affect their IEPD and EIEM products and the tools used to build them.  To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs.  A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users.  All of the foregoing reasons dictate that NIEM require a normative change log for reference schema document sets.</p>
 
