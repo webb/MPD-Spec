@@ -487,9 +487,6 @@
 		    <td><termRef>subset schema document</termRef></td>
 		    <td>Subset-schema</td>
 	        </tr><tr>
-		    <td><termRef>constraint schema document</termRef></td>
-		    <td>Constraint-schema</td>
-		</tr><tr>
 		    <td><termRef>MPD catalog document</termRef></td>
 		    <td>MPD-Cat</td>
 		</tr><tr>
@@ -653,7 +650,7 @@
 			<ul>
               <li><p>a <termRef>reference schema document</termRef>,</p></li>
               <li><p>an <termRef>extension schema document</termRef>, or</p></li>
-              <li><p>an <termRef>XML schema document</termRef> that has the <termRef>structures namespace</termRef> as its target namespace.</p></li>
+	      <li><p>an <termRef>XML schema document</termRef> that has the <code>structures</code> namespace as its target namespace.</p></li>
 			</ul>
 		</blockquote>
           </definition>
@@ -674,7 +671,7 @@
 
 
 <section id="Constraint-Schemas">
-	<title>Constraint Schema Documents and Document Sets</title>
+	<title>Constraint Schema Document Sets</title>
 
 	<definition term="constraint schema document set">
 		<p>A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.</p>
@@ -682,7 +679,7 @@
 
 	<p>A <em>constraint schema document</em> (in a set) is an XML schema document set that is used to express business rules for a class of instance XML documents, and is not assumed to be a definition for the semantics of the components it contains and describes.  Instead, a constraint schema document uses the XML Schema Definition Language to add constraints to components defined or declared by other schema documents, usually a schema document subset (but they can be applied to extension schema documents as well).</p>
 	
-	<p>A constraint schema document or document set validates additional constraints imposed on an instance XML document only after it is known to be NIEM-conformant (i.e., has been validated with a reference schema document set, or schema document subset, and applicable extension schema documents).</p>  
+	<p>A <termRef>constraint schema document set</termRef> validates additional constraints imposed on an instance XML document only after it is known to be NIEM-conformant (i.e., has been validated with a reference schema document set, or schema document subset, and applicable extension schema documents).</p>  
 
 	<p>To use a <termRef>constraint schema document set</termRef> to tighten constraints on an IEP, a two-pass validation technique is employed.  In the first pass, an IEP is validated against the schema document subset and extension schema documents.  This pass ensures that IEP semantics and structure conform to the NIEM model and NDR.  In the second pass, an IEP is checked against a constraint schema document set, which may contain constrained versions of the <termRef term="subset schema document">subset schema documents</termRef> and <termRef term="extension schema document">extension schema documents</termRef>.  This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate).  A constraint schema document need not validate constraints that are applied by other schema documents.</p>
 
@@ -692,17 +689,9 @@
 
 	<p>Constraint schema documents are generally designed and employed in sets, similar to reference schema document set or schema document subsets.  A common practice for creating an IEPD or EIEM constraint schema document set is to start with a valid NIEM schema document subset and modify it to further restrict the class of instance XML documents (IEPs) that will validate with this constraint schema set.  However, an extension schema document can also be used to derive a constraint schema document.  The namespace of a constraint schema document is established the same way the namespace of a subset schema document is established, by reusing the target namespace of the schema document from which it is derived.</p>
 
-<ruleSection><title>Constraint Schema Namespace Is a Reference Schema Namespace</title>
-	<rule id="r-constraint-tgt-ns" applicability="Constraint-schema" class="Constraint">
-		<p>A <termRef>constraint schema document</termRef> MUST have a target namespace that has been previously assigned to a <termRef term="reference schema document">reference</termRef> or <termRef>extension schema document</termRef>, or is a <termRef>constraint schema document</termRef> intended to support another <termRef>constraint schema document</termRef> that has such a target namespace.</p>
-	</rule>
-</ruleSection>
-
 	<p>There is no restriction on the number of constraint schema document sets that an IEPD or EIEM can employ.  As in other advanced situations, developers must clearly document their intentions for and use of multiple constraint schema document sets.</p>
 
 	<p>In general, constraint schema documents have far fewer requirements than other classes of NIEM schema documents.  Since they work in tandem with NIEM normative schema documents, constraint schema documents are allowed to use the XML Schema Definition language in any way necessary to express business rules.  This means that to constrain instance XML documents, constraint schema documents can employ XML Schema constructs that are not allowed in other classes of NIEM schema documents.</p>
-
-	<p>BIECs in particular may have additional business rules in constraint schema documents.  A normative NIEM BIEC Specification (not available at the time of the publication of this MPD Specification), will supplement or obviate constraint schema documents with consistent and formal techniques for representing business rules within NIEM components.  However, as already mentioned, the MPD Specification does not prohibit or restrict the application of formal business rule techniques (such as <ref idref="ISO-Schematron"/> or any other form of business rules) to MPDs now.</p>
 
 </section>
 
@@ -2051,7 +2040,6 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 	<ul>
 		<li><p><termRef>schema document subset</termRef></p></li>
 		<li><p><termRef>subset schema document</termRef></p></li>
-		<li><p><termRef>constraint schema document</termRef></p></li>
 		<li><p><termRef>MPD catalog document</termRef></p></li>
 		<li><p><termRef>XML catalog document</termRef></p></li>
 		<li><p>MPD <termRef>change log</termRef></p></li>
