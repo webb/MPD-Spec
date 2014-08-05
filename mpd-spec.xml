@@ -286,23 +286,25 @@
 
 <section id="Reference-Schema-Document">
 	<title>Reference Schema Documents</title>
-
-	<p>A NIEM <termRef>reference schema document</termRef> is an <termRef>XML schema document</termRef> that is intended to be the authoritative definition of business semantics for components within its target namespace.  Reference schema documents include the NIEM Core schema documents, NIEM domain schema documents, and NIEM domain update schema documents.  The normative definition for a <termRef>reference schema document</termRef> and applicable conformance rules are found in the <ref idref="NIEM-NDR"/>.  The definition is repeated here:</p>
 		
 	<definition term="reference schema document">
-		<p>An XML Schema document that meets all of the following criteria:</p>
-		<ul>
-			<li><p>It is a conformant schema document.</p></li>
-			<li><p>It is explicitly designated as a reference schema document.  This may be declared by an <termRef>MPD catalog document</termRef>or by a tool-specific mechanism outside the schema document.</p></li> 
-			<li><p>It provides the broadest, most fundamental definitions of data components in its namespace.</p></li> 
-			<li><p>It provides the authoritative definition of business semantics for data components in its namespace.</p></li> 
-			<li><p>It is intended to serve as the basis for components in IEPD schema documents, including <termRef term="subset schema document">subset</termRef>, <termRef term="constraint schema document">constraint</termRef>, and <termRef term="extension schema document">extension schema documents</termRef>.</p></li> 
-		</ul>
-		<p>See also <termRef>reference schema document set</termRef>.</p>
+		<p>As defined by <ref idref="NIEM-NDR"/>:</p>
+			<blockquote>
+				<p>An <termRef>XMLschema document</termRef> that is intended to provide the authoritative definitions of broadly reusable <termRef term="schema component">schema components</termRef>.  It is a <termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>.  A reference schema document MUST conform to all rules of <ref idref="NIEM-NDR"/> that apply to this conformance target.  An <termRef>instance XML document</termRef> with a <termRef>conformance target identifier</termRef> of <code>http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument</code> MUST be a conformant reference schema document.</p>
+			</blockquote>
 	</definition>
 
+	<p>A NIEM <termRef>reference schema document</termRef> is an <termRef>XML schema document</termRef> that is intended to be the authoritative definition of business semantics for components within its target namespace.  Reference schema documents include the NIEM Core schema documents, NIEM domain schema documents, and NIEM domain update schema documents.  A reference schema document meets all of the following criteria:</p>
+	<ul>
+		<li><p>It is a NIEM conformant schema document.</p></li>
+		<li><p>It is explicitly designated as a reference schema document (by its own conformance targets attribute).  This can be declared by an <termRef>MPD catalog document</termRef>or by a tool-specific mechanism outside the schema document.</p></li> 
+		<li><p>It provides the broadest, most fundamental definitions of data components in its namespace.</p></li> 
+		<li><p>It provides the authoritative definition of business semantics for data components in its namespace.</p></li> 
+		<li><p>It is intended to serve as a basis for components in IEPD schema documents, including <termRef term="schema document subset">schema document subsets</termRef>, <termRef term="constraint schema document set">constraint schema document sets</termRef>, and <termRef term="extension schema document">extension schema documents</termRef>.</p></li> 
+	</ul>
+
 	<definition term="reference schema document set">
-		<p>A set of related reference schema documents, such as a NIEM release.  See also <termRef>reference schema document</termRef>.</p>
+		<p>A set of related reference schema documents, such as a NIEM release.</p>
 	</definition>
 
 	<p>The <ref idref="NIEM-NDR"/> conformance rules for reference schema documents are generally stricter than those for other classes of NIEM-conformant schema documents.  For example, they are not allowed to employ particular XML Schema model groups such as <code>xs:choice</code> or <code>xs:any</code> that other schema documents may contain.</p>
@@ -614,15 +616,16 @@
 <section id="Extension-Schemas">
 	<title>Extension Schema Documents</title>
 
-	<p>This section applies to NIEM IEPDs and EIEMs.  NIEM releases, core updates, and domain updates do not contain extension schema documents.</p> 
-
 	<definition term="extension schema document">
-		<p>A NIEM-conformant schema document that adds domain or application specific content to the base NIEM model.</p>
+		<p>As defined by <ref idref="NIEM-NDR"/>:</p>
+		<blockquote>
+			<p>A <termRef>schema document</termRef> that is intended to provide definitions of <termRef term="schema component">schema components</termRef> that are intended for reuse within a more narrow scope than those defined by a <termRef>reference schema document</termRef>.  It is a <termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>.  An extension schema document MUST conform to all rules of <ref idref="NIEM-NDR"/> that apply to this conformance target.  An XML document with a <termRef>conformance target identifier</termRef> of <code>http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ExtensionSchemaDocument</code> MUST be an extension schema document.</p>
+	  	</blockquote>
 	</definition>
 
-	<p>The <ref idref="NIEM-NDR"/> defines an IEPD <termRef>extension schema document</termRef> as a <termRef>conformance target</termRef>.  In general, an extension schema document contains components that use or are derived from the components in reference schema documents.  It is intended to express the additional vocabulary required for an IEPD, above and beyond the vocabulary available from reference schema documents.</p>
+	<p>In general, an <termRef>extension schema document</termRef> contains components that use or are derived from the components in reference schema documents.  It is intended to express additional vocabulary above and beyond the vocabulary available from reference schema documents.</p>
 
-	<p>An IEPD or EIEM developer who determines that NIEM is missing elements required for a given information exchange has several options to account for such requirement shortfalls.  Using rules and techniques defined in the <ref idref="NIEM-NDR"/>:</p>
+	<p>A developer who determines that NIEM is missing elements required for a given information exchange has several options to account for such requirement shortfalls.  Using rules and techniques defined in the <ref idref="NIEM-NDR"/>:</p>
 	<ul>
 		<li><p>Extend an existing NIEM data component (if possible).</p></li>
 		<li><p>Augment an existing NIEM data type (through NIEM Type Augmentation).</p></li>
@@ -632,7 +635,7 @@
 
 	<p>A NIEM extension schema document may contain data components built from any of the options above.  Employment of extension schema documents in an IEPD is entirely optional.</p>
 
-	<p>Multiple extension schema documents are allowed in a single IEPD.  Developers will likely want to reuse many of their extension schema documents in other IEPDs.  Therefore, the best practice for extension is to group all data components designed to reuse into one extension schema document or document set, and group IEPD-specific data components into another.  Then the reusable extension components can be more easily redeployed in other IEPDs as needed.</p> 
+	<p>Multiple extension schema documents are allowed in a single IEPD.  Developers will likely want to reuse many of their extension schema documents in other IEPDs.  Therefore, the best practice for extension is to group all data components designed to be reused into one extension schema document or document set, and group IEPD-specific data components into another.  Then the reusable extension components can be more easily redeployed in other IEPDs as needed.</p> 
 
 	<p>Extension schema documents generally contain new data component declarations that may (though not necessarily) be derived from or reference existing NIEM data components.  This being the case, reference schema documents do not exist for new data components found within extension schema documents.  Therefore, extension schema documents must satisfy the more rigorous documentation requirements of reference schema documents.  Per the <ref idref="NIEM-NDR"/>, the definition or declaration of each new data component in an extension schema document must include an <code>xs:annotation</code> element that provides its semantics and NIEM-specific relationships.</p>
 
@@ -643,13 +646,28 @@
 <section id="External-Schemas">
 	<title>External Schema Documents</title>
 
-	<p>In all MPD classes NIEM allows the use of <em>external schema documents</em> that do not conform to NIEM.  Data components declared and defined in external schema documents require NIEM <em>adapter types</em> to identify the fact they do not conform to NIEM.</p>
-
 	<definition term="external schema document">
-		<p>An XML schema document that is not a NIEM-supporting schema and that is not NIEM-conformant.</p>
-	</definition>	
+			<p>As defined by <ref idref="NIEM-NDR"/>:</p>
+		<blockquote>
+			<p>Any <termRef>XML schema document</termRef> that is not one of:</p>
+			<ul>
+              <li><p>a <termRef>reference schema document</termRef>,</p></li>
+              <li><p>an <termRef>extension schema document</termRef>, or</p></li>
+              <li><p>a <termRef>schema document</termRef> that has the <termRef>structures namespace</termRef> as its target namespace.</p></li>
+			</ul>
+		</blockquote>
+          </definition>
 
-	<p>Refer to the <ref idref="NIEM-NDR"/> for details about external schemas, adapter types, and the rules defining their use.</p> 
+	  <p>All MPD classes may contain <em>external schema documents</em> that do not conform to NIEM.  Data components declared and defined in external schema documents require NIEM <em>external adapter types</em> to identify the fact they do not conform to NIEM.</p>
+
+	  <definition term="external adapter type">
+		  <p>As defined by <ref idref="NIEM-NDR"/>:</p>
+		  <blockquote>
+			  <p>A NIEM-conformant type that adapts external components for use within NIEM.  An external adapter type creates a new class of object that embodies a single concept composed of external components.  A NIEM-conformant schema defines an external adapter type.</p>
+		  </blockquote>
+ 	 </definition>
+
+	<p>Refer to the <ref idref="NIEM-NDR"/> for details about external schema documents, external adapter types, and the rules defining their use.</p> 
 
 </section>
 
@@ -659,11 +677,6 @@
 	<title>Constraint Schema Documents and Document Sets</title>
 
 	<p>This section only applies to NIEM IEPDs and EIEMs that may use <em>constraint schema documents</em>.  NIEM releases, core updates, and domain updates do not contain <em>constraint schema documents</em>.</p>
-
-	<definition term="constraint schema document">
-		<p>An <termRef>XML schema document</termRef> that imposes additional constraints on NIEM-conformant instance XML documents; constraint schema documents are not required to conform to NIEM. </p>
-		<p>See also <termRef>constraint schema document set</termRef>.</p>
-	</definition>
 
 	<definition term="constraint schema document set">
 		<p>A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.</p>
@@ -690,7 +703,7 @@
 
 	<p>There is no restriction on the number of constraint schema document sets that an IEPD or EIEM can employ.  As in other advanced situations, developers must clearly document their intentions for and use of multiple constraint schema document sets.</p>
 
-	<p>In general, <termRef term="constraint schema document">constraint schema documents</termRef> have far fewer requirements than other classes of NIEM schema documents.  Since they work in tandem with NIEM normative schema documents, constraint schema documents are allowed to use the XML Schema Definition language in any way necessary to express business rules.  This means that to constrain instance XML documents, constraint schema documents can employ XML Schema constructs that are not allowed in other classes of NIEM schema documents.</p>
+	<p>In general, constraint schema documents have far fewer requirements than other classes of NIEM schema documents.  Since they work in tandem with NIEM normative schema documents, constraint schema documents are allowed to use the XML Schema Definition language in any way necessary to express business rules.  This means that to constrain instance XML documents, constraint schema documents can employ XML Schema constructs that are not allowed in other classes of NIEM schema documents.</p>
 
 	<p>BIECs in particular may have additional business rules in constraint schema documents.  A normative NIEM BIEC Specification (not available at the time of the publication of this MPD Specification), will supplement or obviate constraint schema documents with consistent and formal techniques for representing business rules within NIEM components.  However, as already mentioned, the MPD Specification does not prohibit or restrict the application of formal business rule techniques (such as <ref idref="ISO-Schematron"/> or any other form of business rules) to MPDs now.</p>
 
@@ -2105,9 +2118,9 @@ For now, inclusion of a conformance assertion in an IEPD or EIEM is at the discr
 <section id="Business-Rules">
 	<title>Business Rules</title>
 
-	<p>For simplicity and consistency, NIEM employs a profile of the XML Schema language <ref idref="W3-XML-Schema-Structures"/>, <ref idref="W3-XML-Schema-Datatypes"/>.  Thus, some constraints on NIEM XML documents cannot be enforced by NIEM.  <termRef term="constraint schema document">Constraint schema documents</termRef> provide a convenient technique for enforcing some additional constraints.  However, even the full XML Schema language cannot validate and enforce all possible constraints that may be required of an XML document.</p>
+	<p>For simplicity and consistency, NIEM employs a profile of the XML Schema language <ref idref="W3-XML-Schema-Structures"/>, <ref idref="W3-XML-Schema-Datatypes"/>.  Thus, some constraints on NIEM XML documents cannot be enforced by NIEM.  <termRef term="constraint schema document set">Constraint schema document sets</termRef> provide a convenient technique for enforcing some additional constraints.  However, even the full XML Schema language cannot validate and enforce all possible constraints that may be required of an XML document.</p>
 
-	<p>That said, NIEM allows (even encourages) the use of formal or informal <em>business rules</em> to supplement MPDs (in particular IEPDs).</p>
+	<p>So, NIEM allows (even encourages) the use of formal or informal <em>business rules</em> to supplement MPDs (in particular IEPDs).</p>
 
 	<definition term="business rules">
 		<p>Formal or informal statements that describe business policy or procedure, and in doing so define or constrain some aspect of a process or procedure in order to impose control.</p>
