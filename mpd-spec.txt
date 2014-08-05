@@ -22,21 +22,19 @@ Status
 
    Email comments on this specification to niem-comments@lists.gatech.edu.
 
-Remaining:
+Remaining
 
-      1. refs to NDR terms?
-
-      2. validate mpd-catalog
-
-      3. Check ruleSections for rationales that should be inside this tag.
-
-      4. Review rules and conformance targets (CT)
-
-      5. TBDs: pub dates on new specs Appendix H, References, below. (4-doc set: NDR, MPD, CTAS, Conform)
-
-      6. Final QA/validity: MPD catalog XSD, catalog subset, MPD Toolkit, CoT/HW IEPD, appendices, etc.
-
-      7. Final QA: typos, spell, punct, acros, abbrevs, format, missing refs or termRefs, etc.
+   
+   		- N-IEPD or IEPD?
+   		- refs to NDR terms?
+   		- refs to sections?
+   		- validate mpd-catalog
+   		- Check ruleSections for rationales that should be inside this tag.
+   		- Review rules and conformance targets (CT)
+   		- TBDs: pub dates on new specs Appendix H, References, below.
+   		- Final QA/validity: MPD cat XSD, cat subset, MPD Toolkit, CoT/HW IEPD, appendices, etc.
+   		- Final QA: typos, spell, punct, acros, abbrevs, format, missing refs or termRefs, etc.
+   	
 
 1. Introduction
 
@@ -244,7 +242,7 @@ Remaining:
 
          *  It provides the authoritative definition of business semantics for data components in its namespace.
 
-         *  It is intended to serve as the basis for components in IEPD and EIEM schema documents, including [subset], [constraint], and [extension schema documents].
+         *  It is intended to serve as the basis for components in IEPD schema documents, including [subset], [constraint], and [extension schema documents].
 
       See also [reference schema document set].
 
@@ -420,17 +418,33 @@ Rule 2-1. Information Exchange Package Documentation
 
    A NIEM [reference schema document] is intended to be the authoritative definition schema document for a NIEM target namespace, therefore, all NIEM releases, core updates, and domain updates are composed of a reference schema document set and associated namespaces. As a standalone artifact set, a reference schema document set is always harmonized such that all types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within the set).
 
-   As authoritative definitions, NIEM reference schema document sets satisfy more rigorous documentation requirements. The [NIEM NDR 3.0] requires that each type definition, and element and attribute declaration in a reference schema document contain an xs:annotation element that defines its semantic meaning. As will be explained later, [extension schema documents] are also authoritative definitions, but in a local sense. They are authoritative within a given IEPD or EIEM, and therefore, must also satisfy the same rigorous documentation rules as reference schema documents.
+   As authoritative definitions, NIEM reference schema document sets satisfy more rigorous documentation requirements. The [NIEM NDR 3.0] requires that each type definition, and element and attribute declaration in a reference schema document contain an xs:annotation element that defines its semantic meaning. As will be explained later, [extension schema documents] are also authoritative definitions, but in a local sense. They are authoritative within a given IEPD, and therefore, must also satisfy the same rigorous documentation rules as reference schema documents.
 
    Typically reference schema documents contain data components with the most relaxed cardinality (0 to unbounded). However, this is not an absolute requirement. If necessary, cardinality in reference schema documents may be constrained to model reality. For example, in NIEM 3.0 a nc:Location2DGeospatialCoordinateType contains both a nc:GeographicCoordinateLatitude element and a nc:GeographicCoordinateLongitude element. Each of these elements has cardinality minOccurs="1" and maxOccurs="1". Any other cardinality for these elements has no meaning. On the other hand, one might claim that NIEM should constrain PersonType to a single occurrence of the element PersonBirthDate. Every person has one and only one birth date. Unfortunately, also in reality, criminal persons often present multiple identities with multiple birth dates; and so the capability to represent such is an important data requirement for NIEM.
 
 3.2. Subset Document Schemas
 
-   This section applies to IEPDs and EIEMs. NIEM releases, core updates, and domain updates do not contain schema document subsets (only reference schema document sets).
+   This section applies to IEPDs, which are generally designed with [schema document subsets].
 
 3.2.1. Basic Subset Concepts
 
-   A NIEM schema document subset is a set of XML schema documents that constitutes a reduced set of components derived from a NIEM reference schema document or document set associated with a given numbered release or domain update. Any given XML schema document within a schema document subset is referred to as a subset schema document (terms reversed).
+   A NIEM schema document subset is a set of XML schema documents that constitutes a reduced set of components derived from a NIEM reference schema document or document set associated with a given numbered release or domain update.
+
+   [Definition: schema document subset]
+
+      An XML schema document set based on a reference schema document set intended to ensure that any [instance XML document] valid to the schema document subset is also valid to the reference schema document set.
+
+   The primary purpose for a schema document subset is to reduce and constrain the scope and size of a full NIEM reference schema document set for use within an IEPD. A schema document subset is derived from a reference schema document set (such as a NIEM release) by applying subset operations (See Section 3.2.2, Constructing a Schema Document Subset, below). Also, note that employing a subset of a reference schema document set within an IEPD is optional; it is completely valid to reuse NIEM reference schema documents as-is within IEPDs.
+
+   The fundamental rule for a valid NIEM schema document subset is formally stated follows:
+
+Rule 3-1. Fundamental NIEM Subset Rule
+
+   [Rule 3-1] (Schema-subset)
+
+      A schema document subset ($SUBSET) for a given reference schema document set ($REFERENCE) MUST be defined such that for all instance XML documents ($XML), where $XML is valid to $SUBSET, $XML is valid to $REFERENCE.
+
+   A [schema document subset] is composed of [XML schema documents]. A [schema document subset] can essentially be a [reference schema document set] (i.e., a NIEM release) that has been modified by applying subset operations to support business requirements represented in an IEPD. A subset derived from a reference schema document set may differ from that reference such that its content has been reduced and/or constrained.
 
    [Definition: subset schema document]
 
@@ -448,33 +462,15 @@ Rule 2-1. Information Exchange Package Documentation
 
          *  It is intended to express the limited vocabulary necessary for an IEPD or EIEM and to support XML Schema validation for an IEPD.
 
-      See also [schema document subset].
+3.2.2. Constructing a Schema Document Subset
 
-   [Definition: schema document subset]
-
-      An XML schema document set built from a reference schema document set by applying subset operations to the reference schema documents in that set.
-
-      See also [subset schema document].
-
-   The primary purpose for a schema document subset is to reduce and constrain the scope and size of a full NIEM reference schema document set for use within an IEPD or EIEM. Thus, a schema document subset is derived from a reference schema document set (such as a NIEM release) by applying subset operations (See Section 3.2.2, Subset Operations, below). Also, note that the process of deriving a schema document subset from a NIEM reference schema document set is optional; it is completely valid to reuse NIEM reference schema documents as-is within IEPDs or EIEMs.
-
-   Because NIEM adopts an optional and over-inclusive data representation strategy, most elements in a NIEM reference schema have zero to unbounded cardinality. So, elements with cardinality minOccurs="0" are optional and may be omitted from a subset schema document if not needed for business reasons. It is also valid to constrain element cardinality within a subset schema document, as long as doing so does not break the subset relationship with the reference schema document set. For example, a reference schema document element with cardinality (minOccurs="0", maxOccurs="unbounded") may be constrained to (0,1) or (1,1) in a subset schema document. However, if a reference schema document element's cardinality is (1,unbounded), it may not be constrained to (0,1) since this breaks the subset relationship. The interval (0,1) is not contained within, and instead, overlaps the interval (1,unbounded).
-
-   The fundamental rule for a valid NIEM schema document subset is as follows:
-
-Rule 3-1. Fundamental NIEM Subset Rule
-
-   [Rule 3-1] (Schema-subset)
-
-      A subset schema assembled from a [schema document subset] derived from a NIEM [reference schema document set] is a valid subset schema, if and only if any instance XML document that validates with the subset schema also validates with the reference schema assembled from the [reference schema document set].
-
-3.2.2. Subset Operations
-
-   This section applies to IEPDs and EIEMs.
+   This section is non-normative. It is intended to be useful. Nonetheless, use the subset operations in this section with caution.
 
    NIEM subset operations are essentially reduction operations that remove or constrain portions of a reference schema document set, thereby building a profile of the set. They do not expand the scope (i.e., relax constraints) or change the semantics of reference schema document set content.
 
-   The following list describes valid operations that, if applied to a schema document set will result in a corresponding [schema document subset]:
+   Because NIEM adopts an optional and over-inclusive data representation strategy, most elements in a NIEM reference schema have zero to unbounded cardinality. So, elements with cardinality minOccurs="0" are optional and may be omitted from a subset schema document if not needed for business reasons. It is also valid to constrain element cardinality within a subset schema document, as long as doing so does not break the subset relationship with the reference schema document set. For example, a reference schema document element with cardinality (minOccurs="0", maxOccurs="unbounded") may be constrained to (0,1) or (1,1) in a subset schema document. However, if a reference schema document element's cardinality is (1,unbounded), it may not be constrained to (0,1) since this breaks the subset relationship. The interval (0,1) is not contained within, and instead, overlaps the interval (1,unbounded).
+
+   The following list describes valid subset operations that are considered non-normative and informative only. In most cases, they can be applied to a schema document set and result in a corresponding [schema document subset]. However, it is possible to apply them in combinations that will break the subset relationship, or even result in invalid schemas. Apply these operations carefully and thoughtfully!
 
       1.  Remove an XML comment.
 
@@ -513,30 +509,6 @@ Rule 3-1. Fundamental NIEM Subset Rule
       18. Substitute a composition of xs:element/@substitutionGroup members for their associated substitution head (subject to cardinality and unique particle attribution (UPA) constraints [W3C XML Schema Structures],  section  "Schema Component Constraint: Unique Particle Attribution"). The composition is an ordered sequence of the @substitutionGroup member elements. Each substitute element may bound its cardinality such that the total cardinality sum is within the bounds of the @substitutionGroup head cardinality. Order and cardinality of the replacement sequence must conform to XML Schema UPA constraints.
 
       19. Replace a wildcard (subject to cardinality, UPA, and namespace constraints) with a composition, i.e., an ordered sequence of elements. Each element may further bound cardinality within the bounds of the wildcard. Order and cardinality of replacement sequence must conform to XML Schema UPA constraints. The namespace of each element must conform with namespace constraints specified by the wildcard (if any).
-
-3.2.3. Subset Schema Document Namespaces
-
-   This section applies to IEPDs and EIEMs.
-
-   A [schema document subset] is essentially a [reference schema document set] (i.e., a numbered release) that has been modified by applying the foregoing subset operations Section 3.2.2, Subset Operations, above, to support business requirements represented in an IEPD or EIEM. A subset derived from a reference schema document set may differ from that reference set only in that its content has been reduced and/or constrained. For this reason, each [subset schema document] adopts the target namespace of its corresponding [reference schema document].
-
-Rule 3-2. Subset Schema Namespace Is a Reference Schema Namespace
-
-   [Rule 3-2] (Subset-schema)
-
-      A [subset schema document] in a [schema document subset] derived from a [reference schema document set] MUST have the same target namespace as the schema document in the [reference schema document set] on which it is based.
-
-3.2.4. Multiple Schema Document Subsets in a Single IEPD or EIEM
-
-   This section applies to NIEM IEPDs and EIEMs. NIEM releases, core updates, and domain updates do not contain schema subsets.
-
-   In general, an IEPD or EIEM contains a single cohesive schema subset (which may be rather large) based on one numbered NIEM release (and possibly domain updates and core updates). Subsetting allows the user to employ only those [data components] needed in an IEPD (rather than forcing use of an entire release). Different subsets derived from the same release may or may not overlap. However, in this case, at least overlaps will contain the same data components (though cardinalities may differ). This is not necessarily true for subsets derived from different releases. Mixing subsets derived from different releases has the potential to introduce semantic duplication and subtle ambiguities which can have a negative impact on interoperability.
-
-   This specification does not restrict the number of different subsets that may be employed within a single IEPD or EIEM. Furthermore, it does not restrict the employment of subsets from different numbered releases within a single IEPD or EIEM. This is because cases may exist that require some minimal degree of subset mixing.
-
-   Furthermore, the NIEM mandate that every schema have a unique target namespace prevents name conflicts between subsets derived from different reference schema document sets. In spite of this, mixing subsets can still introduce multiple versions of semantically equivalent data components, a potentially ambiguous situation. Even employing multiple subsets together that have been derived from the same reference schema document set has the potential to create a similar result.
-
-   That said, mixing dissimilar subsets whether from the same or different releases is highly discouraged. A user who designs an IEPD or EIEM with multiple NIEM subsets should ensure the rationale for doing so is solid, the artifacts involved are carefully coordinated, and the guidance documentation for implementing is explicitly clear.
 
 3.3. Extension Schema Documents
 
@@ -602,9 +574,9 @@ Rule 3-2. Subset Schema Namespace Is a Reference Schema Namespace
 
    Constraint schema documents are generally designed and employed in sets, similar to reference schema document set or schema document subsets. A common practice for creating an IEPD or EIEM constraint schema document set is to start with a valid NIEM schema document subset and modify it to further restrict the class of instance XML documents (IEPs) that will validate with this constraint schema set. However, an extension schema document can also be used to derive a constraint schema document. The namespace of a constraint schema document is established the same way the namespace of a subset schema document is established, by reusing the target namespace of the schema document from which it is derived.
 
-Rule 3-3. Constraint Schema Namespace Is a Reference Schema Namespace
+Rule 3-2. Constraint Schema Namespace Is a Reference Schema Namespace
 
-   [Rule 3-3] (Constraint-schema)
+   [Rule 3-2] (Constraint-schema)
 
       A [constraint schema document] MUST have a target namespace that has been previously assigned to a [reference] or [extension schema document], or is a [constraint schema document] intended to support another [constraint schema document] that has such a target namespace.
 
@@ -3647,8 +3619,7 @@ Appendix J. Index of Rules
 
    Rule 2-1, Information Exchange Package Documentation: Section 2.9.1, Information Exchange Package Documentation (IEPD)
    Rule 3-1, Fundamental NIEM Subset Rule: Section 3.2.1, Basic Subset Concepts
-   Rule 3-2, Subset Schema Namespace Is a Reference Schema Namespace: Section 3.2.3, Subset Schema Document Namespaces
-   Rule 3-3, Constraint Schema Namespace Is a Reference Schema Namespace: Section 3.5, Constraint Schema Documents and Document Sets
+   Rule 3-2, Constraint Schema Namespace Is a Reference Schema Namespace: Section 3.5, Constraint Schema Documents and Document Sets
    Rule 4-1, MPD Has an mpd-catalog.xml in its Root Directory: Section 4.1, NIEM MPD Catalog
    Rule 4-2, MPD Catalog Document Valid to mpd-catalog-3.0.xsd: Section 4.1, NIEM MPD Catalog
    Rule 4-3, MPD Catalog Extension XML Catalog Document in Root Directory: Section 4.1.3, Extending an MPD Catalog
