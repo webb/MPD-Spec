@@ -16,8 +16,8 @@
    xmlns:nc="http://release.niem.gov/niem/3.0/">
  
    <title>National Information Exchange Model <char name="mdash"/> Model Package Description Specification</title>
-   <version>3.0</version>
-   <date>2014-07-31</date>
+   <version>3.0rc1</version>
+   <date>2014-08-06</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
  
   <subsection>
@@ -204,6 +204,33 @@
 </section>
 
 
+
+<section id="Namespaces">
+	<title>Namespaces Used in this Specification</title>
+
+	<p>The following namespaces are referenced and used in this specification:</p>
+
+	<figure>
+		<title>Namespaces Used</title>
+		<pre>
+	appinfo		http://release.niem.gov/niem/appinfo/3.0/
+	c		http://reference.niem.gov/niem/resource/mpd/catalog/3.0/
+	ct		http://release.niem.gov/niem/conformanceTargets/3.0/
+	er		urn:oasis:names:tc:entity:xmlns:xml:catalog
+	html		http://www.w3.org/1999/xhtml
+	j		http://release.niem.gov/niem/domains/jxdm/5.0/
+	nc		http://release.niem.gov/niem/3.0/
+	sch		http://purl.oclc.org/dsdl/schematron
+	structures	http://release.niem.gov/niem/structures/3.0/
+	xs		http://www.w3.org/2001/XMLSchema
+	xsi		http://www.w3.org/2001/XMLSchema-instance
+		</pre>
+	</figure>
+
+</section>
+
+
+
 <section id="Harmonization">
 	<title>Harmonization</title>
 
@@ -313,14 +340,14 @@
 	<p>This section only applies to an MPD that is an IEPD.</p>
 
 	<definition term="Information Exchange Package Documentation">
-		<p>An MPD that defines one or more recurring data or information exchanges, each in the form of an <em>instance XML document</em>.</p>
+		<p>An MPD that defines one or more recurring data or information exchanges, each in the form of an <termRef>Information Exchange Package</termRef>.</p>
 	</definition>
 
 	<definition term="instance XML document">
-		<p>An <termRef>XML document</termRef> that is valid against an <termRef>XML Schema</termRef>.</p>
+		<p>(of an <termRef>XML Schema</termRef> is) an <termRef>XML document</termRef> that is valid against an <termRef>XML Schema</termRef>.</p>
 	</definition>
 
-	<p>A NIEM IEPD contains a NIEM-conformant <termRef>XML schema document</termRef> set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents.   Furthermore, a NIEM IEPD declares at least one <termRef>IEP conformance target</termRef> within its <termRef>MPD catalog document</termRef> <ref idref="MPD-Catalog"/>.  The XML schema documents contained in an IEPD work together to define one or more classes of <termRef term="instance XML document">instance XML documents</termRef> that consistently encapsulate data for meaningful information exchanges.  Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated <termRef>IEP conformance target</termRef> (declared in the IEPD's MPD catalog) is considered a member of that <termRef>IEP conformance target</termRef> class.  XML schema documents in a NIEM IEPD conform to the <ref idref="NIEM-NDR"/> and may use or extend data component definitions drawn from NIEM.  An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See <ref idref="NIEM-NDR"/> for details.)</p>
+	<p>A NIEM IEPD contains a NIEM-conformant <termRef>XML schema document</termRef> set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents.   Furthermore, a NIEM IEPD declares at least one <termRef>IEP conformance target</termRef> within its <termRef>MPD catalog document</termRef> (See <ref idref="MPD-Catalog"/>).  The XML schema documents contained in an IEPD work together to define one or more classes of <termRef term="instance XML document">instance XML documents</termRef> that consistently encapsulate data for meaningful information exchanges.  Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated <termRef>IEP conformance target</termRef> (declared in the IEPD's MPD catalog) is considered a member of that <termRef>IEP conformance target</termRef> class.  XML schema documents in a NIEM IEPD conform to the <ref idref="NIEM-NDR"/> and may use or extend data component definitions drawn from NIEM.  An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See <ref idref="NIEM-NDR"/> for details.)</p>
 
 	<p>An IEPD consists of a set of artifacts (XML schema documents, documentation, sample <termRef term="instance XML document">instance XML documents</termRef>, etc.) that together define and describe an implementable NIEM information exchange.  An IEPD should contain an <termRef>XML schema document</termRef> set and instructional material necessary to:</p>
 	<ul>
@@ -333,6 +360,15 @@
 	<definition id="IEP" term="Information Exchange Package">
 		<p>An <termRef>XML document</termRef> that satisfies all the validity constraints for its class as defined by a NIEM IEPD.  (abbreviated IEP)</p>
 	</definition>
+
+	<p>The following rule specifies an IEPD as a <termRef>conformance target</termRef>:</p>
+
+	<ruleSection>
+		<rule id="IEPD" applicability="N-IEPD" class="constraint">
+		<title>Information Exchange Package Documentation</title>
+		<p>An MPD that defines one or more Information Exchange Packages (<termRef term="instance XML document">instance XML documents</termRef>.  It is a <termRef>conformance target<termRef> of this specification.  An IEPD MUST conform to all rules of this specification that apply to this conformance target.  An MPD with a <termRef>conformance target identifier</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code> MUST be an <termRef>Information Exchange Package Documentation</termRef> MPD.</p>
+		</rule>
+	</ruleSection>
 
 	<p>How to declare validity constraints for one or more IEP classes within an IEPD will be covered in more depth in <ref idref="Information-Exchange-Packages"/>.</p>
 
