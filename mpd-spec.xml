@@ -290,7 +290,7 @@
 	<definition term="reference schema document">
 		<p>As defined by <ref idref="NIEM-NDR"/>:</p>
 			<blockquote>
-				<p>An <termRef>XMLschema document</termRef> that is intended to provide the authoritative definitions of broadly reusable <termRef term="schema component">schema components</termRef>.  It is a <termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>.  A reference schema document MUST conform to all rules of <ref idref="NIEM-NDR"/> that apply to this conformance target.  An <termRef>instance XML document</termRef> with a <termRef>conformance target identifier</termRef> of <code>http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument</code> MUST be a conformant reference schema document.</p>
+				<p>An <termRef>XML schema document</termRef> that is intended to provide the authoritative definitions of broadly reusable <termRef term="schema component">schema components</termRef>.  It is a <termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>.  A reference schema document MUST conform to all rules of <ref idref="NIEM-NDR"/> that apply to this conformance target.  An <termRef>instance XML document</termRef> with a <termRef>conformance target identifier</termRef> of <code>http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument</code> MUST be a conformant reference schema document.</p>
 			</blockquote>
 	</definition>
 
@@ -514,12 +514,12 @@
 <section id="MPD-XML-Schema-Artifacts">
 	<title>MPD XML Schema Document Artifacts</title>
 
-	<p><termRef>XML schema document</termRef> artifacts are the essential content of MPDs because they normatively define and declare data components.  The purpose of an MPD is determined by the <termRef>XML schema document</termRef> or document set(s) it contains; furthermore, each <termRef> XML schema document</termRef> may have a different purpose.  The <ref idref="NIEM-NDR"/> addresses some schema documents as <termRef term="conformance target">conformance targets</termRef> including reference schema documents, extension schema documents, and schema document sets.  Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules.  Consult the <ref idref="NIEM-NDR"/> for these rules.  NIEM also employs a special technique that relies on <termRef term="constraint schema document">constraint schema documents</termRef> and document sets <ref idref="Constraint-Schemas"/>.</p>
+	<p><termRef>XML schema document</termRef> artifacts are the essential content of MPDs because they normatively define and declare data components.  The purpose of an MPD is determined by the <termRef>XML schema document</termRef> or document set(s) it contains; furthermore, each <termRef> XML schema document</termRef> may have a different purpose.  The <ref idref="NIEM-NDR"/> addresses some schema documents as <termRef term="conformance target">conformance targets</termRef> including reference schema documents, extension schema documents, and schema document sets.  Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules.  Consult the <ref idref="NIEM-NDR"/> for these rules.  NIEM also employs a special technique that relies on <termRef term="constraint schema document set">constraint schema document sets</termRef> (See <ref idref="Constraint-Schemas"/>).</p>
 
 	<p>The following subsections define each type of NIEM schema document and document set, and identify the types of MPDs that contain them.</p>
 
 
-<section id="Reference-Schemas">
+	<section id="Reference-Schemas">
 	<title>Reference Schema Documents</title>
 
 	<p>This section generally applies to NIEM releases, core updates, and domain updates.  Though not common, it is also valid to use a <termRef>reference schema document</termRef> or document set within an IEPD or EIEM.  The <termRef>reference schema document</termRef> and <termRef>reference schema document set</termRef> were defined earlier in <ref idref="Reference-Schema-Document"/>.</p>
@@ -619,7 +619,7 @@
 	<definition term="extension schema document">
 		<p>As defined by <ref idref="NIEM-NDR"/>:</p>
 		<blockquote>
-			<p>A <termRef>schema document</termRef> that is intended to provide definitions of <termRef term="schema component">schema components</termRef> that are intended for reuse within a more narrow scope than those defined by a <termRef>reference schema document</termRef>.  It is a <termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>.  An extension schema document MUST conform to all rules of <ref idref="NIEM-NDR"/> that apply to this conformance target.  An XML document with a <termRef>conformance target identifier</termRef> of <code>http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ExtensionSchemaDocument</code> MUST be an extension schema document.</p>
+			<p>An <termRef>XML schema document</termRef> that is intended to provide definitions of <termRef term="schema component">schema components</termRef> that are intended for reuse within a more narrow scope than those defined by a <termRef>reference schema document</termRef>.  It is a <termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>.  An extension schema document MUST conform to all rules of <ref idref="NIEM-NDR"/> that apply to this conformance target.  An XML document with a <termRef>conformance target identifier</termRef> of <code>http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ExtensionSchemaDocument</code> MUST be an extension schema document.</p>
 	  	</blockquote>
 	</definition>
 
@@ -653,7 +653,7 @@
 			<ul>
               <li><p>a <termRef>reference schema document</termRef>,</p></li>
               <li><p>an <termRef>extension schema document</termRef>, or</p></li>
-              <li><p>a <termRef>schema document</termRef> that has the <termRef>structures namespace</termRef> as its target namespace.</p></li>
+              <li><p>an <termRef>XML schema document</termRef> that has the <termRef>structures namespace</termRef> as its target namespace.</p></li>
 			</ul>
 		</blockquote>
           </definition>
@@ -676,14 +676,11 @@
 <section id="Constraint-Schemas">
 	<title>Constraint Schema Documents and Document Sets</title>
 
-	<p>This section only applies to NIEM IEPDs and EIEMs that may use <em>constraint schema documents</em>.  NIEM releases, core updates, and domain updates do not contain <em>constraint schema documents</em>.</p>
-
 	<definition term="constraint schema document set">
 		<p>A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.</p>
-		<p>See also <termRef>constraint schema document</termRef>.</p>
 	</definition>
 
-	<p>A <em>constraint schema document</em> is an optional IEPD or EIEM artifact that is used to express business rules for a class of instance XML documents, and is not assumed to be a definition for the semantics of the components it contains and describes.  Instead, a constraint schema document uses the XML Schema Definition Language to add constraints to components defined or declared by other schema documents, usually a schema document subset (but they can be applied to extension schema documents as well).</p>
+	<p>A <em>constraint schema document</em> (in a set) is an XML schema document set that is used to express business rules for a class of instance XML documents, and is not assumed to be a definition for the semantics of the components it contains and describes.  Instead, a constraint schema document uses the XML Schema Definition Language to add constraints to components defined or declared by other schema documents, usually a schema document subset (but they can be applied to extension schema documents as well).</p>
 	
 	<p>A constraint schema document or document set validates additional constraints imposed on an instance XML document only after it is known to be NIEM-conformant (i.e., has been validated with a reference schema document set, or schema document subset, and applicable extension schema documents).</p>  
 
