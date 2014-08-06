@@ -167,17 +167,11 @@ Status
    Figure 2-1: Namespaces Used
 
       
-      	appinfo		http://release.niem.gov/niem/appinfo/3.0/
       	c		http://reference.niem.gov/niem/resource/mpd/catalog/3.0/
-      	ct		http://release.niem.gov/niem/conformanceTargets/3.0/
       	er		urn:oasis:names:tc:entity:xmlns:xml:catalog
-      	html		http://www.w3.org/1999/xhtml
-      	j		http://release.niem.gov/niem/domains/jxdm/5.0/
       	nc		http://release.niem.gov/niem/3.0/
-      	sch		http://purl.oclc.org/dsdl/schematron
       	structures	http://release.niem.gov/niem/structures/3.0/
       	xs		http://www.w3.org/2001/XMLSchema
-      	xsi		http://www.w3.org/2001/XMLSchema-instance
       		
 
 2.6. Harmonization
@@ -318,7 +312,7 @@ Rule 2-1. Information Exchange Package Documentation
 
       An MPD that defines one or more Information Exchange Packages ([instance XML documents]. It is a [conformance target] of this specification. An IEPD MUST conform to all rules of this specification that apply to this conformance target. An MPD with a [conformance target identifier] of http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD MUST be an [Information Exchange Package Documentation] MPD.
 
-   How to declare validity constraints for one or more IEP classes within an IEPD will be covered in more depth in Section 4.6, Information Exchange Packages, below.
+   How to declare validity constraints for one or more IEP classes within an IEPD will be covered in more depth in Section 4.6, Defining Information Exchange Packages, below.
 
    Note that NIEM conformance does not require that an IEP be native XML on the transmission medium. A NIEM-conformant IEP may be encrypted, compressed (e.g., using [PKZIP], [RAR], [W3-EXI], etc.), or wrapped within an envelope mechanism, as long as its original native XML form can be retrieved by the receiver.
 
@@ -1306,7 +1300,7 @@ Rule 4-39. IEPD Has a readme.* in Root Directory
 
 4.5. XML Catalogs
 
-   This section is applicable to all MPDs. However, it is of particular importance to IEPDs and IEP validation (to be covered in more detail in Section 4.6, Information Exchange Packages, below.
+   This section is applicable to all MPDs. However, it is of particular importance to IEPDs and IEP validation (to be covered in more detail in Section 4.6, Defining Information Exchange Packages, below.
 
    [Definition: XML catalog document]
 
@@ -1322,35 +1316,35 @@ Rule 4-39. IEPD Has a readme.* in Root Directory
 
    In order to support [XML schema assembly] for the purpose of [XML schema validation], the namespaces of all XML schema documents used within an IEPD should [resolve] to a locally-unique artifact. A correctly constructed [XML catalog document] can guarantee such.
 
-   er:nextCatalog elements may be used within [XML catalog documents] to connect them and control the parsing sequence. Section 4.6, Information Exchange Packages, below, discusses more about using [XML catalog documents] within IEPDs.
+   er:nextCatalog elements may be used within [XML catalog documents] to connect them and control the parsing sequence. Section 4.6, Defining Information Exchange Packages, below, discusses more about using [XML catalog documents] within IEPDs.
 
    The practical reality of [XML schema assembly] is that the process is based on several methods for identifying the correct [XML schema documents], and these methods may be applied in no particular order. For most cases, this specification recommends the use of XML catalog documents as the preferred method for organizing [XML schema documents] so that a tool can assemble them into a schema (for validation or other purposes).
 
    The MPD catalog schema document specifies a c:XMLSchemaType that contains both a c:XMLCatalog and a c:XMLSchemaDocument element. c:XMLCatalog identifies the starting XML catalog document when employing XML catalogs. For simpler cases that use all NIEM-conforming schema documents (i.e., schema documents that are well-behaved and do not use xs:include statements), the c:XMLSchemaDocument identifies a root schema document for a given [XML schema document] set.
 
-4.6. Information Exchange Packages
+4.6. Defining Information Exchange Packages
 
-   This section only applies to IEPDs. An IEPD is the only MPD that can define an [IEP]. It does this by explicitly declaring one or more IEP conformance targets within its [MPD catalog document].
+   An MPD may declare one or more IEP conformance targets within its [MPD catalog document].
 
    [Definition: IEP conformance target]
 
-      A class or category of IEPs which has a set of one or more validity constraints and a unique identifier. Every IEP is an instance of one or more IEP conformance targets.
+      A [conformance target] that is a class or category of IEP which has a set of one or more validity constraints and a [conformance target identifier]. Every IEP is an instance of one or more IEP conformance targets.
 
-   This definition requires that an IEP conformance target be assigned a unique identifier, a Conformance Target URI, that distinguishes it from all other IEP conformance targets. Construct a Conformance Target URI using a fragment identifier (similar to an MPD artifact URI) per this rule:
+   This definition requires that an IEP conformance target be assigned a [conformance target identifier] that distinguishes it from all other [IEP conformance targets]. Construct a [conformance target identifier] using a fragment identifier (similar to an MPD artifact URI) per this rule:
 
-Rule 4-40. Conformance Target URI
+Rule 4-40. Conformance Target Identifier
 
    [Rule 4-40] (MPD-Cat)
 
-      A URI for an IEP conformance target (i.e., a [conformance target identifier]) declared in an IEPD is formed by concatenating the following in sequence:
+      A [conformance target identifier] for an [IEP conformance target] declared in an MPD is formed by concatenating the following in sequence:
 
-         1. the IEPD URI
+         1. the MPD URI
 
          2. the pound sign character (#)
 
          3. a locally unique NCName (i.e., a non-colonized name, as defined by [W3C XML Schema Structures], section 3.3.7, "NCName").
 
-   This rule requires that an IEP conformance target class has a URI, its [conformance target identifier].
+   This rule requires that an [IEP conformance target] has a URI, i.e., its [conformance target identifier].
 
    The following rule is required for an [MPD catalog document]. It supplements the rule above.
 
@@ -1360,7 +1354,7 @@ Rule 4-41. IEP Conformance Target Has a structures:id
 
       A c:IEPConformanceTarget element MUST own a structures:id attribute.
 
-   This rule ensures that a conformance targets can be referenced between IEPDs (not just within an IEPD). The value of the structures:id attribute is the NCName in Rule 4-40, Conformance Target URI.
+   This rule ensures that a [conformance target] can be referenced between MPDs (not just within an MPD). The value of the structures:id attribute is the NCName in Rule 4-40, Conformance Target Identifier.
 
    An IEPD defines IEP conformance targets by explicitly declaring them within its MPD catalog per the rules above.
 
@@ -1456,7 +1450,7 @@ Rule 4-44. Validating an XPath Expression
 
    c:ConformsToConformanceTarget enables an IEPD author to effectively subclass and relate conformance target classes. For example, using this constraint, a given conformance target class defined by a c:IEPConformanceTarget structures:id="A2" can be required to also conform to another class structures:id="A1". This creates an IS-A relationship. We say that A2 IS-AN A1, or that A2 IS-A specialization of A1.
 
-   Conformance target classes are related through the c:conformanceTargetURI attribute owned by c:ConformsToConformanceTarget. Recall that per Rule 4-40, Conformance Target URI a conformance target uri is formed by the concatenating the IEPD URI (the value of c:mpdURI), the pound character ("#"), and the value of the conformance class (structures:id) of the [IEP conformance target].
+   Conformance target classes are related through the c:conformanceTargetURI attribute owned by c:ConformsToConformanceTarget. Recall that per Rule 4-40, Conformance Target Identifier a conformance target uri is formed by the concatenating the IEPD URI (the value of c:mpdURI), the pound character ("#"), and the value of the conformance class (structures:id) of the [IEP conformance target].
 
 4.6.2.10. c:ConformsToRule
 
@@ -3595,8 +3589,8 @@ Appendix J. Index of Rules
    Rule 4-37, IEPD Has a Change Log in Root Directory: Section 4.3.2, Change Log for IEPDs
    Rule 4-38, Readme Describes Purpose, Scope, Business Value, etc.: Section 4.4, ReadMe Artifact
    Rule 4-39, IEPD Has a readme.* in Root Directory: Section 4.4, ReadMe Artifact
-   Rule 4-40, Conformance Target URI: Section 4.6, Information Exchange Packages
-   Rule 4-41, IEP Conformance Target Has a structures:id: Section 4.6, Information Exchange Packages
+   Rule 4-40, Conformance Target Identifier: Section 4.6, Defining Information Exchange Packages
+   Rule 4-41, IEP Conformance Target Has a structures:id: Section 4.6, Defining Information Exchange Packages
    Rule 4-42, IEPD Declares One or More IEP Conformance Targets: Section 4.6.2, Declaring Validity Constraints
    Rule 4-43, Identifying the Document Element of an IEP: Section 4.6.2.4, c:HasDocumentElement
    Rule 4-44, Validating an XPath Expression: Section 4.6.2.5, c:ValidToXPath
