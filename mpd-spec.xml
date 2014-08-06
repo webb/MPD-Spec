@@ -677,87 +677,25 @@
 		<p>A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.</p>
 	</definition>
 
-	<p>A <em>constraint schema document</em> (in a set) is an XML schema document set that is used to express business rules for a class of instance XML documents, and is not assumed to be a definition for the semantics of the components it contains and describes.  Instead, a constraint schema document uses the XML Schema Definition Language to add constraints to components defined or declared by other schema documents, usually a schema document subset (but they can be applied to extension schema documents as well).</p>
+	<p>A <termRef>constraint schema document set</termRef> is an <termRef>XML schema document set</termRef> that is used to express business rules for a class of <termRef>instance XML documents</termRef>, and is not assumed to be a definition for the semantics of the components it contains and describes.  Instead, a constraint schema document set uses the XML Schema Definition Language to add constraints to components defined or declared by other schema documents, usually a <termRef>schema document subset</termRef>; but they can be applied to <termRef term="extension schema document">extension schema documents</termRef> as well.</p>
 	
-	<p>A <termRef>constraint schema document set</termRef> validates additional constraints imposed on an instance XML document only after it is known to be NIEM-conformant (i.e., has been validated with a reference schema document set, or schema document subset, and applicable extension schema documents).</p>  
+	<p>A <termRef>constraint schema document set</termRef> validates additional constraints imposed on an <termRef>instance XML document</termRef> only after it is known to be NIEM-conformant (i.e., has been validated with a <termRef>reference schema document set</termRef>, or <termRef>schema document subset</termRef>, and applicable <termRef term="extension schema document">extension schema documents</termRef>).</p>  
 
-	<p>To use a <termRef>constraint schema document set</termRef> to tighten constraints on an IEP, a two-pass validation technique is employed.  In the first pass, an IEP is validated against the schema document subset and extension schema documents.  This pass ensures that IEP semantics and structure conform to the NIEM model and NDR.  In the second pass, an IEP is checked against a constraint schema document set, which may contain constrained versions of the <termRef term="subset schema document">subset schema documents</termRef> and <termRef term="extension schema document">extension schema documents</termRef>.  This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate).  A constraint schema document need not validate constraints that are applied by other schema documents.</p>
+	<p>To use a <termRef>constraint schema document set</termRef> to tighten constraints on an IEP, a two-pass validation technique is employed.  In the first pass, an IEP is validated against the schema document subset and extension schema documents.  This pass ensures that IEP semantics and structure conform to the NIEM model and <ref idref="NIEM-NDR"/>.  In the second pass, an IEP is checked against a constraint schema document set, which may contain constrained versions of the <termRef term="subset schema document">subset schema documents</termRef> and <termRef term="extension schema document">extension schema documents</termRef>.  This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate).  A constraint schema document set need not validate constraints that are applied by other schema documents.</p>
 
-	<p>Constraint schema documents are generally useful when it is necessary to impose restrictions that are more complex than cardinality.  If only cardinality restrictions are needed, then it is easier and more efficient to set these directly in the subset schema documents and avoid the use of constraint schema documents.  Otherwise, constraint schema documents may be necessary.  Note however, that any cardinality restrictions placed on NIEM release components within schema document subsets must not violate the rules established in <ref idref="Basic-Subset-Concepts"/> which define the relationship of the reference schema document to a subset schema document derived from it.</p>  
-		
-	<p>Use of constraint schemas is one valid option for tightening constraints on NIEM IEPs beyond what NIEM itself provides.  This particular technique uses the XML Schema Definition Language <ref idref="W3-XML-Schema-Datatypes"/>, <ref idref="W3-XML-Schema-Structures"/>.  NIEM also allows other methods that do not use XML Schema.  For example, the use of <ref idref="ISO-Schematron"/> is the preferred method for applying business rules.  However, other constraint or business rule methods are also acceptable.  That said, at this time there are no normative rules for how these business rule techniques should be employed in NIEM IEPDs or EIEMs.  Therefore, if other techniques are used, it is a developer responsibility to incorporate appropriate artifacts and clear documentation.</p>
+	<p>Constraint schema document sets are generally useful when it is necessary to impose restrictions that are more complex than cardinality.  If only cardinality restrictions are needed, then it is easier and more efficient to set these directly in the subset schema documents and avoid the use of a constraint schema document set.  Otherwise, a constraint schema document set may be necessary.</p>  
 
-	<p>Constraint schema documents are generally designed and employed in sets, similar to reference schema document set or schema document subsets.  A common practice for creating an IEPD or EIEM constraint schema document set is to start with a valid NIEM schema document subset and modify it to further restrict the class of instance XML documents (IEPs) that will validate with this constraint schema set.  However, an extension schema document can also be used to derive a constraint schema document.  The namespace of a constraint schema document is established the same way the namespace of a subset schema document is established, by reusing the target namespace of the schema document from which it is derived.</p>
+	<p>Use of a constraint schema document set is one option for tightening constraints on NIEM IEPs beyond what NIEM itself provides.  This particular technique uses the XML Schema Definition Language <ref idref="W3-XML-Schema-Datatypes"/>, <ref idref="W3-XML-Schema-Structures"/>.  NIEM also allows other methods that do not use XML Schema.  For example, the use of <ref idref="ISO-Schematron"/> is the preferred method for applying business rules.  However, other constraint or business rule methods are also acceptable.  That said, at this time there are no normative rules for how these business rule techniques should be employed in NIEM IEPDs.  Therefore, if other techniques are used, it is a developer responsibility to incorporate appropriate artifacts and clear documentation.</p>
 
-	<p>There is no restriction on the number of constraint schema document sets that an IEPD or EIEM can employ.  As in other advanced situations, developers must clearly document their intentions for and use of multiple constraint schema document sets.</p>
+	<p>Note that one disadvantage to use of constraint schema document sets is that they do not provide clear visibility or explanation of the constraints they enforce; nor do they provide clear validation failure messages.  On the other hand, a standard business rule language such as <ref idref="ISO-Schematron"/> provides facilities for better understanding of the business rules, their intent, and error handling of failures.</p>
+	
+	<p>A common practice for creating an IEPD constraint schema document set is to start with a valid NIEM schema document subset and modify it to further restrict the class of instance XML documents (IEPs) that will validate with this constraint schema set.  However, an extension schema document can also be used to derive a constraint schema document.  Using this technique, the namespace of that schema document would reuse the target namespace of the schema document from which it is derived.</p>
 
-	<p>In general, constraint schema documents have far fewer requirements than other classes of NIEM schema documents.  Since they work in tandem with NIEM normative schema documents, constraint schema documents are allowed to use the XML Schema Definition language in any way necessary to express business rules.  This means that to constrain instance XML documents, constraint schema documents can employ XML Schema constructs that are not allowed in other classes of NIEM schema documents.</p>
+	<p>There is no restriction on the number of constraint schema document sets (and passes) that an IEPD can employ.  As in other advanced situations, developers must clearly document their intentions for and use of multiple constraint schema document sets.</p>
+
+	<p>In general, constraint schema documents in a <termRef>constraint schema document set</termRef> have far fewer requirements than other classes of NIEM schema documents.  Since they work in tandem with NIEM normative schema documents, these schema documents are allowed to use the XML Schema Definition language in any way necessary to express business rules.  This means that to constrain instance XML documents, these schema document can employ XML Schema constructs that are not allowed in NIEM conformant schema documents.</p>
 
 </section>
-
-
-
-<section id="Classes-of-MPDs-vs.-Classes-of-Schemas">
-	<title>Classes of MPDs vs. Classes of Schema Documents</title>
-
-	<p>The chart in <ref idref="classes-mpds-xsds"/> summarizes the types of schema documents that:  (1) can be contained in an instance of each MPD class, and (2) the (<em>minimum, maximum</em>) cardinalities of those schema documents.  In some cases, certain types of schema documents are never contained in particular class of MPD.  These are labeled <em>N/A</em>, i.e. <em>not applicable</em>.</p>
-
-	<p>Notice that only NIEM releases, core updates, and domain updates contain reference schema document sets, while only IEPDs and EIEMs contain the user-developed schema document sets.  Plus (+) indicates that a NIEM-conformant IEPD or EIEM should contain and use at least one schema document that is either a NIEM <termRef>reference schema document</termRef> or a NIEM <termRef>subset schema document</termRef> from such.</p>
-
-<table id="classes-mpds-xsds">
-	<title>Schema document classes vs. MPD classes</title>
-        <theadr>
-            <th>Schema Document Classes</th>
-	    <th>Release</th>
-	    <th>CU</th>
-	    <th>DU</th>
-	    <th>IEPD</th>
-	    <th>EIEM</th>
-        </theadr>
-	<tr>
-            <td>Reference </td>
-	    <td>(1, unbounded)</td>
-	    <td>(1, unbounded)</td>
-	    <td>(1, unbounded)</td>
-	    <td>(0<strong>+</strong>, unbounded)</td>
-	    <td>(0<strong>+</strong>, unbounded)</td>
-	</tr>
-	<tr>
-            <td>Subset </td>
-	    <td>N/A</td>
-	    <td>N/A</td>
-	    <td>N/A</td>
-	    <td>(0<strong>+</strong>, unbounded)</td>
-	    <td>(0<strong>+</strong>, unbounded)</td>
-	</tr>
-	<tr>
-            <td>Constraint </td>
-	    <td>N/A</td>
-	    <td>N/A</td>
-	    <td>N/A</td>
-	    <td>(0, unbounded)</td>
-	    <td>(0, unbounded)</td>
-	</tr>
-	<tr>
-            <td>Extension </td>
-	    <td>N/A</td>
-	    <td>N/A</td>
-	    <td>N/A</td>
-	    <td>(0, unbounded)</td>
-	    <td>(0, unbounded)</td>
-    	</tr>
-    	<tr>
-	    <td>External </td>
-	    <td>(0, unbounded)</td>
-	    <td>(0, unbounded)</td>
-	    <td>(0, unbounded)</td>
-	    <td>(0, unbounded)</td>
-	    <td>(0, unbounded)</td>
-    	</tr>
-</table>
-
-	<p><char name="nbsp"/></p>
-
 </section>
 </section>
 
@@ -768,13 +706,11 @@
 <section id="MPD-Documentation-Artifacts">
 	<title>MPD Documentation Artifacts</title>
 	
-	<p>XML schema documents (and the schemas that result from them) are the essence of a NIEM MPD.  All other artifacts are considered documentation.</p>
+	<p>XML schema documents (and the schemas that result from them) are the essence of a NIEM MPD.  However, a variety of documentation files may be incorporated into a NIEM MPD.  However, in addition to XML schema documents, there is one mandatory documentation artifact required by every MPD:  the <termRef>MPD catalog document</termRef>.  An <code>mpd-catalog.xml</code>) contains basic metadata, relationship and lineage data, <termRef>conformance target</termRef> specifications, and validation information.</p>
 
-	<p>A variety of documentation files may be incorporated into a NIEM MPD.  However, in addition to XML schema documents, there are only two mandatory documentation artifacts required by every MPD:  the <em>mpd-catalog</em> and the <em>change log</em>.  An MPD catalog (<code>mpd-catalog.xml</code>) contains basic metadata, relationship and lineage data, and validation information.  The change log provides a history of modifications.</p>
+	<p>A <termRef>readme artifact</termRef> (formerly known as a <em>master document</em>) is mandatory for IEPDs.  This MPD class may be built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD readme file is the primary source and starting point for human readable documentation, and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each MPD.</p>
 
-	<p>A <termRef>readme artifact</termRef> (formerly known as a <em>master document</em>) is mandatory for IEPDs and EIEMs.  These MPD classes may be built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary.  An IEPD or EIEM readme file is the primary source and starting point for human readable documentation, and should reference (and describe) any other separate documentation artifacts.  This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each IEPD and EIEM.</p>
-
-	<p>The following subsections address these artifacts and the concepts, metadata, and content each supports.</p>
+	<p>The following subsections address these documentation artifacts and the concepts, metadata, and content each supports.</p>
 
 
 
@@ -793,9 +729,7 @@
 	</ul>
 	</definition>
 
-	<p>All MPDs require an <code>mpd-catalog.xml</code> artifact.  So, the <termRef>MPD catalog document</termRef> is tailored to accommodate all MPD classes.  However, each MPD class has different catalog requirements.  The catalog metadata are formally defined and declared in an XML schema <ref idref="MPD-Catalog-XSD"/>.</p>
-
-	<p>This metadata is designed to be the minimal needed to facilitate human understanding, tool support, and machine processing.  The metadata can support a number of MPD uses and functions including (but not limited to):</p>
+	<p>Each MPD class may have somewhat different catalog requirements.  The catalog metadata are formally defined by the XML Schema document in <ref idref="MPD-Catalog-XSD"/>.  MPD catalog metadata are designed to be the minimal needed to facilitate human understanding, tool support, and machine processing.  The metadata can support a number of MPD uses and functions including (but not limited to):</p>
 	<ul>
 		<li><p>Identification of key artifacts</p></li>
 		<li><p>Generation of a hyperlinked content display using XSLT</p></li>
@@ -827,27 +761,16 @@
 
 
 
-<section id="MPD-Catalog-Schematron">
-	<title>MPD Catalog Schematron Rules</title>
-	
-	<p>Note that <ref idref="MPD-Catalog-XSD"/> is a fairly relaxed XML schema definition with very few mandatory properties.  The reason for this is to support tools that must identify and distiguish a <termRef term="well-formed MPD">well-formed</termRef> MPD from a <termRef>NIEM IEPD</termRef> during incremental stages of development.  This is explained in more detail in <ref idref="Conformance-Targets"/>.</p>
-
-	<p>Because the baseline XML Schema definition for an MPD catalog is more relaxed than is required for a <termRef>NIEM IEPD</termRef>, special Schematron rules will also apply to an MPD catalog to ensure its validity or completeness.  These rules are not yet available and will be published sometime in the future when completed and tested.</p>
-
-</section>
-
-
-
 <section id="MPD-Catalog-TOC">
 	<title>MPD Catalog as a Table of Contents</title>
 
-	<p>One function of the MPD catalog is to serve as a table of contents that identifies, locates, and classifies key artifacts and artifact sets.  For that purpose <ref idref="MPD-Catalog-XSD"/> provides a number of classifier elements for most common artifacts and artifact sets in MPDs.  For other less common or generic artifacts two general classifiers exist:  <code>c:Documentation</code> and <code>c:ApplicationInfo</code>.  These elements loosely correspond to the meaning of the XML Schema <code>xs:annotation</code> child elements, <code>xs:documentation</code> and <code>xs:appinfo</code>.  General visual, audio, and textual explanatory documentation should be classified as <code>c:Documentation</code>, while tool-specific artifacts (such as imports, exports, executables, etc.) should be classified as <code>c:ApplicationInfo</code>.</p>
+	<p>One function of the MPD catalog is to serve as a table of contents that identifies, locates, and classifies key artifacts and artifact sets.  For that purpose <ref idref="MPD-Catalog-XSD"/> provides a number of classifier elements for most common artifacts and artifact sets in MPDs.  For other less common or generic artifacts two general classifiers exist:  <qName>c:Documentation</qName> and <qName>c:ApplicationInfo</qNamee>.  These elements loosely correspond to the meaning of the XML Schema <qName>xs:annotation</qName> child elements, <qName>xs:documentation</qName> and <qName>xs:appinfo</qName>.  General visual, audio, and textual explanatory documentation should be classified as <qName>c:Documentation</qName>, while tool-specific artifacts (such as imports, exports, executables, etc.) should be classified as <qName>c:ApplicationInfo</qName>.</p>
 
 	<p>The classifier elements are designed to identify, categorize, and describe any artifacts and artifact sets (including its <termRef>path name</termRef>, dependencies, and lineage).  Employing XSLT, <code>mpd-catalog.xml</code> can be transformed into an <code>index.html</code> artifact that displays a hyperlinked MPD table of contents and metadata summary in a browser.</p>
 
-	<p>In general, only an IEPD or EIEM would contain <code>c:Documentation</code> and <code>c:ApplicationInfo</code> artifacts.  So, for an IEPD and EIEM, a best practice is to use the <code>readme</code> artifact (i.e., the <termRef>readme artifact</termRef> required in the <termRef>MPD root directory</termRef>) to reference <code>c:Documentation</code> and <code>c:ApplicationInfo</code> artifacts whether or not they have been classified in the MPD catalog.</p>
+	<p>In general, only an IEPD would contain <code>c:Documentation</code> and <code>c:ApplicationInfo</code> artifacts.  So, for an IEPD, a best practice is to use the <code>readme</code> artifact (i.e., the <termRef>readme artifact</termRef> required in the <termRef>MPD root directory</termRef>) to reference <code>c:Documentation</code> and <code>c:ApplicationInfo</code> artifacts whether or not they have been classified in the MPD catalog.</p>
 
-	<p>Release, core update, and domain update catalogs are required to record all artifacts.  However, IEPD and EIEM MPD catalogs are not.  The IEPD or EIEM author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog.  The author may choose to classify all, some, or none in the catalog.</p>
+	<p>An IEPD's MPD catalog is not required to record all its artifacts.  The IEPD author decides which artifacts (both files and sets) are important enough to explicitly include in the MPD catalog.  The author may choose to classify all, some, or none in the catalog.</p>
 
 	<p>The MPD catalog provides a supplement or an alternative to organizing MPD artifacts and sets with a standard file directory.  An author can use it to identify, classify, and describe particular artifacts or sets, instead of having to do so with only file names and directory structure.  An author can also employ the guidance in <ref idref="Guidance-IEPD-Directories"/>.</p>
 
