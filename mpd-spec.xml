@@ -456,7 +456,7 @@
 
 
 
-<!-- ####################### Conformance Targets for MPDs ########################### -->
+<!-- ####################### Conformance Target Codes ########################### -->
 
 
 
@@ -1007,7 +1007,7 @@
 
 
 <section id="mpdURI">
-	<title>MPD URI Scheme (<code>mpdURI</code>)</title>
+	<title>MPD URI Scheme (<qName>c:mpdURI</qName>)</title>
 
 	<p>To facilitate MPD sharing and reuse, the assignment of a URI (Uniform Resource Identifier) to an MPD is essential.  This is enforced by the MPD catalog schema document <ref idref="MPD-Catalog-XSD"/>.  It is also important to ensure that an MPD URI is absolute.</p>
 
@@ -1234,24 +1234,13 @@
 
 	<p>The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an MPD catalog.  The URI scheme for MPDs and their artifacts and sets enables a graph of relationships.  An MPD may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.</p>
 
-	<p>The next few paragraphs require that you understand URIs for MPDs and MPD artifacts.  See <ref idref="mpdURI"/> and <ref idref="externalURI"/>.</p>
+	<p>The next few paragraphs require understanding of URIs for MPDs and MPD artifacts.  See <ref idref="mpdURI"/> and <ref idref="externalURI"/>.</p>
 
 	<p>The MPD catalog provides a <code>c:Relationship</code> element with two attributes (<code>c:resourceURI</code> and <code>c:relationshipCode</code>) and an optional element (<code>nc:DescriptionText</code>) to identify ancestry and other relationships to other MPDs.  There are many ways that one MPD may relate to another.  This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <code>nc:DescriptionText</code> element is provided to further explain the nature of any of the eight <code>c:relationshipCode</code> values available.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <code>c:relationshipCode</code> may be generic enough to require a more detailed explanation in <code>nc:DescriptionText</code> (for example, if its value is <code>adapts</code>).</p>
 
 	<p>As was described in <ref idref="externalURI"/>, the MPD catalog also enables an author to record more fine-grained ancestry between MPDs using the <code>c:externalURI</code> attribute.  This attribute records an explicit equivalence relationship between artifacts reused across MPDs.</p>
 
-	<p>Some MPDs are designed for more extensive reuse than others.  For example, families of IEPDs are expected to reuse a given EIEM.  In such cases, the MPD catalogs for these IEPDs and the corresponding EIEM may overlap in or duplicate a large number of metadata and references.  This is expected.  The MPD catalog can contain many references to and semantics for artifacts, artifact sets, and MPDs.  Correct and consistent use of these references and semantics will create networks of related MPDs so that tools can locate, parse, and process them as needed and when available in shared repositories.</p>
-
-	<p>Note that a <code>c:resourceURI</code> attribute is used to identify a remote resource that is related to the MPD whose catalog declares it.  Therefore, the MPD is not required to contain this resource.  As in the case of <code>c:externalURI</code>, the value of a <code>c:resourceURI</code> should be correct (i.e., a resource with that URI should exist).  However, verification of this is considered outside the scope of this specfication.</p>
-
-</section>
-
-
-
-<section id="Conform-Tgt-URI">
-	<title>Conformance Target URI (conformanceTargetURI)</title>
-
-	<p>A declared <code>c:IEPConformanceTarget</code> also has a URI.  </p>
+	<p>Note that a <code>c:resourceURI</code> attribute is used to identify a remote resource that is only related to the MPD whose catalog declares it.  The resource is not required for validation.  Therefore, the MPD is not required to contain this resource.  As in the case of <code>c:externalURI</code>, the value of a <code>c:resourceURI</code> should be correct (i.e., a resource with that URI should exist).  However, in this case, existence verification is considered outside the scope of this specfication.</p>
 
 </section>
 
@@ -1328,7 +1317,7 @@
 			<p>This section summarizes the various URIs used in the MPD catalog document.  It also presents a summary of <ref idref="RFC3986-URI"/>.  See that reference for explanation and details of URI syntax.</p>
 
 		<table id="uri-syntax">
-			<title>Summary of<link href="http://tools.ietf.org/html/rfc3986"> <q>RFC 3986 URI: Generic Syntax</q></link>.</title>
+			<title>Summary of<link href="http://tools.ietf.org/html/rfc3986"> <q>RFC 3986 URI: Generic Syntax</q></link></title>
 			<theadr>
 			    <th>Id</th>
 			    <th>URI Syntax</th>
@@ -1370,25 +1359,20 @@
 			    <th>URI Syntax (per table above)</th>
 			</theadr>
 			<tr>
-			    <td>mpdURI</td>
+			    <td><qName>c:mpdURI</qName></td>
 			    <td>&lt;absolute-URI&gt;</td>
 			</tr>
 			<tr>
-			    <td>pathURI</td>
+			    <td><qName>c:pathURI</qName></td>
 			    <td>&lt;relative-reference&gt; (relative to MPD catalog document)</td>
 			</tr>
 			<tr>
-			    <td>externalURI</td>
+			    <td><qName>c:externalURI</qName></td>
 			    <td>&lt;URI&gt;</td>
 			</tr>
 			<tr>
-			    <td>resourceURI</td>
+			    <td><qName>c:resourceURI</qName></td>
 			    <td>&lt;URI&gt;</td>
-			    <td></td>
-			</tr>
-			<tr>
-			    <td>conformanceTargetURI</td>
-			    <td>&lt;URI-reference&gt;</td>
 			    <td></td>
 			</tr>
 		</table>
