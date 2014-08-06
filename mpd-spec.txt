@@ -25,6 +25,7 @@ Status
 Remaining
 
    
+   		- apostrophe's '
    		- N-IEPD or IEPD?
    		- refs to NDR terms?
    		- refs to sections?
@@ -730,19 +731,19 @@ Rule 4-8. MPD Schema Document Extension Support Schemas Are Supersets of Spec Su
 
       *  May contain single spaces, single dashes, and single underscores as separators.
 
-   IEPD author's often like to reuse the official MPD name in metadata within the file name. Note that c:mpdName is of xs:token type and allows single spaces and upper case alpha characters. That said, be sure to consider differences in operating system / file system treatment of spaces and character case within file and directory names. This is the reason that releases, domain updates, and core updates restrict use of spaces and upper case characters within both c:mpdName and MPD file names (See Rule 7-5, Release and Core/Domain Update File Name Syntax and Rule 7-6, Release and Core/Domain Update File Name Matches Metadata.).
+   IEPD author's often reuse the official MPD name in metadata within the file name. Note that c:mpdName is of xs:token type and allows single spaces and upper case alpha characters. That said, be sure to consider differences in operating system or file system treatment of spaces and character case within file and directory names. (See Rule 7-5, Release and Core/Domain Update File Name Syntax and Rule 7-6, Release and Core/Domain Update File Name Matches Metadata.).
 
 4.2.2. MPD Class (c:mpdClassURIList)
 
-   An MPD class is a [conformance target] identifier to which the given MPD conforms. The MPD catalog c:mpdClassURIListattribute declares a list of conformance target identifiers, identifying the conformance targets to which the MPD claims to conform.
+   An MPD class is a [conformance target identifier] to which the given MPD conforms. The MPD catalog c:mpdClassURIList attribute declares a list of [conformance target identifiers], identifying the [conformance targets] to which the MPD claims to conform.
 
-   The rules below defines two basic conformance target identifiers. The first is common to all MPDs:
+   The rules below defines two basic [conformance target identifiers]. The first is common to all MPDs:
 
 Rule 4-9. MPD Conformance Target Identifier
 
    [Rule 4-9] (WF-MPD)
 
-      An MPD MUST have the conformance target identifier http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD as a value in its MPD Catalog c:mpdClassURIList attribute.
+      An MPD MUST have the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD as a value in its MPD Catalog c:mpdClassURIList attribute.
 
    The second identifier is used for an IEPD:
 
@@ -750,13 +751,22 @@ Rule 4-10. IEPD Conformance Target Identifier
 
    [Rule 4-10] (N-IEPD)
 
-      An IEPD MUST have the conformance target identifier http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD as a value of its c:mpdClassURIList attribute.
+      An IEPD MUST have the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD as a value of its c:mpdClassURIList attribute.
 
-   It should be clear that an MPD that is an IEPD should have a value for its c:mpdClassURIList attribute that contains both [conformance target] identifiers above. In the future, additional conformance target identifiers will be assigned by other appropriate NIEM specifications that specialize MPDs.
+   It should be clear that an MPD that is an IEPD should have a value for its c:mpdClassURIList attribute that contains both [conformance target identifiers] above. In the future, additional conformance target identifiers will be assigned by other appropriate NIEM specifications that specialize MPDs (for example, releases, domain updates, core updates, etc.).
 
    The c:mpdClassURIList attribute is an XML list type that may declare that an MPD conforms to multiple conformance targets. An MPD developer can establish a new MPD [conformance target] identifier in addition to those provided by this and other NIEM specifications. The identifier represents the new conformance target which should be associated with one or more rules or constraints to which an MPD must conform if it is assigned that identifier.
 
-   For example, an author might use another classification system for IEPDs. Use of the IEPD conformance target identifier (i.e., http://reference.niem ... /#IEPD) and an identifier representing the author's conformance target would indicate the MPD conforms to both.
+   An IEPD authoring organization might use another classification system for its IEPDs. For example, the organization ABC might establish the [conformance target identifier] http://example.org/niem-iepd/1.0/#abc-org to indicate its IEPDs also conform to its own stricter set of IEPD conformance rules. Thus, an MPD catalog document for its published IEPDs would contain the c:mpdClassURIList component shown in Figure 4-1, MPD catalog c:mpdClassURIList attribute for organization ABC., below, indicating conformance to three [conformance targets].
+
+   Figure 4-1: MPD catalog c:mpdClassURIList attribute for organization ABC.
+
+      
+      			<c:mpdClassURIList>=
+      				"http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD
+      				 http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD
+      				 http://example.org/niem-iepd/1.0/#abc-org"
+      		
 
 4.2.3. MPD Version Numbering Scheme (c:mpdVersionID)
 
@@ -803,13 +813,13 @@ Rule 4-11. MPD Version Number Syntax
 
    There are two implications in Rule 4-11, MPD Version Number Syntax. The first is that in some cases this version scheme implies and confirms a chronology of releases. For example, a given product labeled version 2.3 must have been released before the same product labeled 2.3.1. Therefore, version 2.3.1 is more current than version 2.3.
 
-   However, this is a multi-series version scheme, and chronological relationships exist only within a given series. So, for example, nothing can be said about a chronological relationship between versions 2.2.4 and 2.3. This is because version 2.2.4 is in a different series (i.e., 2.2) and could actually have been released after 2.3. Figure 4-1, Example versioning system, below, illustrates a system of versions that uses the numbering scheme of Rule 4-11, MPD Version Number Syntax.
+   However, this is a multi-series version scheme, and chronological relationships exist only within a given series. So, for example, nothing can be said about a chronological relationship between versions 2.2.4 and 2.3. This is because version 2.2.4 is in a different series (i.e., 2.2) and could actually have been released after 2.3. Figure 4-2, Example versioning system, below, illustrates a system of versions that uses the numbering scheme of Rule 4-11, MPD Version Number Syntax.
 
-   Figure 4-1: Example versioning system
+   Figure 4-2: Example versioning system
 
       Images are omitted from this edition.
 
-   Figure 4-1, Example versioning system, above, illustrates eight different version series. Within this illustration these are the only sequences that have chronological relationships that can be identified through version numbers.
+   Figure 4-2, Example versioning system, above, illustrates eight different version series. Within this illustration these are the only sequences that have chronological relationships that can be identified through version numbers.
 
       *  Series 2 is {2.2, 2.3, 2.4}
 
