@@ -1553,28 +1553,28 @@
 
 
 
-<section id="Information-Exchange-Packages">
-	<title>Information Exchange Packages</title>
+<section id="Defining-Information-Exchange-Packages">
+	<title>Defining Information Exchange Packages</title>
 
-	<p>This section only applies to IEPDs.  An IEPD is the only MPD that can define an <termRef term="Information Exchange Package">IEP</termRef>.  It does this by explicitly declaring one or more <em>IEP conformance targets</em> within its <termRef>MPD catalog document</termRef>.</p>
+	<p>An MPD may declare one or more <em>IEP conformance targets</em> within its <termRef>MPD catalog document</termRef>.</p>
 
 	<definition term="IEP conformance target" id="iep-conformance-target">
-		<p>A class or category of IEPs which has a set of one or more validity constraints and a unique identifier.  Every IEP is an instance of one or more IEP conformance targets.</p>
+		<p>A <termRef>conformance target</termRef> that is a class or category of IEP which has a set of one or more validity constraints and a <termRef>conformance target identifier</termRef>.  Every IEP is an instance of one or more <em>IEP conformance targets</em>.</p>
 	</definition>
 
-	<p>This definition requires that an IEP conformance target be assigned a unique identifier, a <em>Conformance Target URI</em>, that distinguishes it from all other IEP conformance targets.  Construct a <em>Conformance Target URI</em> using a fragment identifier (similar to an MPD artifact URI) per this rule:</p>
+	<p>This definition requires that an IEP conformance target be assigned a <termRef>conformance target identifier</termRef> that distinguishes it from all other <termRef term="IEP conformance target">IEP conformance targets</termRef>.  Construct a <termRef>conformance target identifier</termRef> using a fragment identifier (similar to an MPD artifact URI) per this rule:</p>
 
 	<ruleSection>
-		<title>Conformance Target URI</title>
+		<title>Conformance Target Identifier</title>
 		<rule id="r-iep-ct-uri" applicability="MPD-Cat" class="Interpretation">
-			<p>A URI for an IEP conformance target (i.e., a <termRef>conformance target identifier</termRef>) declared in an IEPD is formed by concatenating the following in sequence:</p>
+			<p>A <termRef>conformance target identifier</termRef> for an <termRef>IEP conformance target</termRef> declared in an MPD is formed by concatenating the following in sequence:</p>
 		<ol>
-			<li><p>the IEPD URI</p></li>
+			<li><p>the MPD URI</p></li>
 			<li><p>the pound sign character (<code>#</code>)</p></li>
 			<li><p>a locally unique NCName (i.e., a non-colonized name, as defined by <ref idref="W3-XML-Schema-Structures"/>, <a href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NCName"><char name="sect"/>3.3.7, <q>NCName</q></a>).</p></li>
 		</ol>
 		</rule>
-		<p>This rule requires that an IEP conformance target class has a URI, its <termRef>conformance target identifier</termRef>.</p>
+		<p>This rule requires that an <termRef>IEP conformance target</termRef> has a URI, i.e., its <termRef>conformance target identifier</termRef>.</p>
 	</ruleSection>
 
 	<p>The following rule is required for an <termRef>MPD catalog document</termRef>.  It supplements the rule above.</p>
@@ -1584,7 +1584,7 @@
 	<rule id="iep-conformance-target-id" applicability="MPD-Cat" class="Constraint">
 		<p>A <code>c:IEPConformanceTarget</code> element MUST own a <code>structures:id</code> attribute.</p>
 	</rule>
-	<p>This rule ensures that a conformance targets can be referenced between IEPDs (not just within an IEPD).  The value of the <code>structures:id</code> attribute is the NCName in <ref idref="r-iep-ct-uri"/>.</p> 
+	<p>This rule ensures that a <termRef>conformance target</termRef> can be referenced between MPDs (not just within an MPD).  The value of the <code>structures:id</code> attribute is the NCName in <ref idref="r-iep-ct-uri"/>.</p> 
 </ruleSection>
 
 	<p>An IEPD defines IEP conformance targets by explicitly declaring them within its MPD catalog per the rules above.</p>
