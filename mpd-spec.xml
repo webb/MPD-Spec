@@ -1432,46 +1432,52 @@
 <section id="ReadMe-Artifact">
 	<title>ReadMe Artifact</title>
 
-	<p>This section is applicable to IEPDs and EIEMs.</p>
+	<p>This section is applicable to IEPDs.</p>
 
 	<definition term="readme artifact">
-		<p>An informal documentation artifact contained in an IEPD or EIEM that serves as the initial general source of human readable descriptive or instructional information.  A <em>readme</em> artifact or file (formerly known as a <em>master document</em>) may index or reference other more specific documentation or other explanatory materials within the MPD.</p>
+		<p>An informal documentation artifact contained in an IEPD that serves as the initial general source of human readable descriptive or instructional information.  A <em>readme</em> artifact or file (formerly known as a <em>master document</em>) may index or reference other more specific documentation or other explanatory materials within the MPD.</p>
 	</definition>
 
-	<p>A <code>readme</code> artifact is only required for IEPDs and EIEMs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.</p>
+	<p>A <termRef>readme artifact</termRef> is only required for IEPDs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.</p>
 
 <ruleSection>
-	<title>IEPD and EIEM Have <code>readme.*</code> in Root Directory</title>
-		<rule id="r-mpd-readme" applicability="N-IEPD N-EIEM" class="Constraint">
-			<p>An MPD with a <code>c:mpdClassURIList</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a <code>readme.*</code> file artifact in its <termRef>MPD root directory</termRef>.</p>
+	<title>Readme Describes Purpose, Scope, Business Value, etc.</title>
+		<rule id="r-mpd-readme-purpose" applicability="WF-MPD" class="Interpretation">
+			<p>A <termRef>readme artifact</termRef> SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.</p>
 		</rule>
 </ruleSection>
 
-		<p>The readme artifact may replicate some of the metadata in the MPD catalog.  However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal.  It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.</p>
+<ruleSection>
+	<title>IEPD Has a <code>readme.*</code> in Root Directory</title>
+		<rule id="r-mpd-readme" applicability="N-IEPD" class="Constraint">
+			<p>An IEPD MUST contain a <code>readme.*</code> file artifact in its <termRef>MPD root directory</termRef>.</p>
+		</rule>
+</ruleSection>
 
-		<p>The primary purposes of the <termRef>readme artifact</termRef> include:</p>
-			<ul>
+	<p>The <termRef>readme artifact</termRef> may replicate some of the metadata in the MPD catalog.  However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal.  It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.</p>
+
+	<p>The primary purposes of the <termRef>readme artifact</termRef> include:</p>
+		<ul>
 			<li><p>To help facilitate understanding and reuse of IEPDs and EIEMs.</p></li>
 			<li><p>To ensure that fundamental and detailed business-level information about an IEPD or EIEM are documented for human understanding.</p></li>
 			<li><p>To ensure the IEPD or EIEM author has considered and conveys such fundamental information.</p></li>
 			<li><p>To provide an initial source within an IEPD or EIEM for human consumable documentation and/or references to other business or technical documentation needed for understanding.</p></li>
-			</ul>
+		</ul>
 
-			<p>The readme artifact is not intended to be the only source of written documentation for an MPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference.  Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize readme format or layout.  Only the file name and relative path within the MPD archive are strictly specified.  The following section will generally describe minimal content that should be in the readme artifact.  This guidance is non-normative, so adherence is a subjective judgment by the author.
-	</p>
-
+		<p>The <termRef>readme artifact</termRef> is not intended to be the only source of written documentation for an MPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference.  Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize readme format or layout.  Only the file name and relative path within the MPD archive are strictly specified.  The following section will generally describe minimal content that should be in the <termRef>readme artifact</termRef>.  This guidance is non-normative, so adherence is a subjective judgment by the author.</p>
 
 
-	<section id="Readme-Content">
-		<title>Readme Content</title>
 
-		<p>This section is non-normative and applies to IEPDs and EIEMs.</p>
+<section id="Readme-Content">
+	<title>Readme Content</title>
 
-		<p>This section is neither a cookbook nor a normative specification for a readme artifact.  It simply suggests typical topics that a readme artifact should or might address, and provides some non-normative guidance.</p>
+	<p>This section is non-normative and applies to IEPDs.</p>
 
-		<p>The readme file should help another user or developer to understand the content and use of an IEPD or EIEM, as well as determine potential for reuse or adaptation.  It should describe what implementers need to understand and what the author considers is important to understanding an IEPD or EIEM.  There is no limit or constraint on its content.</p>
+	<p>This section is neither a cookbook nor a normative specification for a <termRef>readme artifact<termRef>.  It simply suggests typical topics that a readme artifact should or might address, and provides some non-normative guidance.</p>
 
-		<p>At a minimum, the readme file should contain several fundamental elements of information about the MPD:</p>
+	<p>The readme file should help another user or developer to understand the content and use of an IEPD, as well as determine potential for reuse or adaptation.  It should describe what implementers need to understand and what the author considers is important to understanding an IEPD.  There is no limit or constraint on its content.</p>
+
+	<p>At a minimum, the <termRef>readme artifact</termRef> should contain several fundamental elements of information about the MPD:</p>
 		<ul>
 		<li><p>Purpose of this MPD.</p></li>
 		<li><p>Scope of its deployment, usage, and information content.</p></li>
@@ -1482,19 +1488,12 @@
 		<li><p>References to other documentation within the MPD, and links to external documents that may be needed to understand and implement it.</p></li>
 		</ul>
 
-		<p>Many document formats (e.g., HTML, PDF) can display hot links to local files within the MPD archive as well as URLs to files on the Internet.  Employing such a format is highly recommended but not mandatory.</p> 
+	<p>Many document formats (e.g., HTML, PDF) can display hyperlinks to local files within the MPD archive as well as URLs to files on the Internet.  Employing such a format is highly recommended but not mandatory.</p> 
 
-<ruleSection>
-	<title>Readme Describes Purpose, Scope, Business Value, etc.</title>
-		<rule id="r-mpd-readme-purpose" applicability="WF-MPD" class="Interpretation">
-			<p>A readme artifact SHOULD (at a minimum) describe the MPD purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.</p>
-		</rule>
-</ruleSection>
-
-		<p>MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the <termRef>readme artifact</termRef>.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the readme artifact (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the readme artifact:</p>
+	<p>MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the <termRef>readme artifact</termRef>.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the <termRef>readme artifact</termRef> (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the <termRef>readme artifact</termRef>:</p>
 
 	<ul>
-		<li><p>Executive summary (especially for a lengthy readme artifact></p></li>
+	<li><p>Executive summary (especially for a lengthy readme artifact></p></li>
 	<li><p>Use cases</p></li>
 	<li><p>Business processes</p></li>
 	<li><p>Business requirements</p></li>
@@ -1529,32 +1528,26 @@
 <section id="XML-Catalogs">
 	<title>XML Catalogs</title>
 
-	<p>This section is applicable to all MPDs.  However, it is of particular importance to IEPDs and IEP validation (to be covered in more detail in <ref idref="Information-Exchange-Packages"/>.</p> 
-
-	<p><ref idref="OASIS-XML-Catalogs"/> are XML documents used in MPDs to <termRef term="resolve URI">resolve</termRef> XML schema document target namespaces to local URIs.  This is especially useful when assembling an XML schema from an XML schema document set.  Some validators (e.g., <link href="http://xerces.apache.org/xerces2-j/faq-xcatalogs.html">Xerces</link>) and other tools utilize <em>XML catalogs</em> for this purpose.</p>
+	<p>This section is applicable to all MPDs.  However, it is of particular importance to IEPDs and IEP validation (to be covered in more detail in <ref idref="Information-Exchange-Packages"/>.</p>
 
 	<definition term="XML catalog document">
-		<p>An XML document defined by the semantics of <ref idref="OASIS-XML-Catalogs"/>.</p>
+		<p>As described by <link>http://en.wikipedia.org/wiki/XML_Catalog</link> and specified by <ref idref="OASIS-XML-Catalogs"/>:</p>
+		<p>An XML document describing a mapping between external entity references and locally-cached equivalents.  It associates a URI reference with information about an external reference that appears in an XML document.  An XML catalog can be used to locate the replacement text for an external entity, or an alternate URI reference for a resource.</p>
 	</definition>
+ 
+	<p><ref idref="OASIS-XML-Catalogs"/> are XML documents used in MPDs to <termRef term="resolve URI">resolve</termRef> XML schema document target namespaces to local URIs.  This is especially useful when assembling an XML schema from an XML schema document set.  Some validators (e.g., <link href="http://xerces.apache.org/xerces2-j/faq-xcatalogs.html">Xerces</link>) and other tools utilize <em>XML catalogs</em> for this purpose.</p>
 
-	<p>The <ref idref="NIEM-SSGT"/> (for NIEM 3.0) automatically adds an <code>xml-catalog.xml</code> artifact to each schema document subset it generates.  The NIEM 3.0 release also includes such an artifact.  These <termRef term="XML catalog document">XML catalog documents</termRef> are provided for user convenience in the case these schema document sets must be assembled into a schema.</p>
+	<p>IEPD authors are encouraged to employ <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs to facilitate validation of IEPs.</p>
 
-	<p>IEPD authors must employ <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs to facilitate validation of IEPs.</p>
+	<p>Note that schema assembly or <termRef>XML catalog document</termRef> design from non-conformant <termRef term="external schema document">external schema documents</termRef> that may contain <qName>xs:include</qName> statements can be problematic.</p>
 
-	<p>Assembling a schema or building an <termRef>XML catalog document</termRef> from the XML schema documents of non-conformant external standards that contain <code>xs:include</code> statements can be problematic.  Be aware that if an xml-catalog (resulting from processing a set of external XML schema documents) contains any two <code>er:uri</code> element entries with identical namespaces, then that xml-catalog cannot be used for XML validation.  It will have to be modified to ensure that each namespace resolves to one and only one unique <termRef>XML catalog document</termRef> <code>uri</code> attribute value.</p>
+	<p>In order to support <termRef>XML schema assembly</termRef> for the purpose of <termRef>XML schema validation</termRef>, the namespaces of all XML schema documents used within an IEPD should <termRef term="resolve URI">resolve</termRef> to a locally-unique artifact.  A correctly constructed <termRef>XML catalog document</termRef> can guarantee such.</p>
 
-	<p>In order to support <termRef>XML schema assembly</termRef> for the purpose of <termRef>XML schema validation</termRef>, the following rule requires that the namespaces of all XML schema documents used within an IEPD <termRef term="resolve URI">resolve</termRef> to a locally-unique artifact:</p>
+	<p><code>er:nextCatalog</code> elements may be used within <termRef term="XML catalog document">XML catalog documents</termRef> to connect them and control the parsing sequence.  <ref idref="Information-Exchange-Packages"/> discusses more about using <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs.</p>
 
-<ruleSection>
-	<title>IEPD and EIEM Resolve Namespaces to URIs With XML Catalog Documents</title>
-	<rule id="r-xml-cat-resolution" applicability="WF-MPD" class="Constraint">
-		<p>An MPD with a <code>c:mpdClassURIList</code> attribute value from the set <code>{iepd, eiem}</code> MUST <termRef term="resolve URI">resolve</termRef> each namespace it uses to a URI through one or more <termRef term="XML catalog document">XML catalog documents</termRef>.</p>
-	</rule>
-</ruleSection>
+	<p>The practical reality of <termRef>XML schema assembly</termRef> is that the process is based on several methods for identifying the correct <termRef term="XML schema document">XML schema documents</termRef>, and these methods may be applied in no particular order.  For most cases, this specification recommends the use of XML catalog documents as the preferred method for organizing <termRef term="XML schema document">XML schema documents</termRef> so that a tool can assemble them into a schema (for validation or other purposes).</p>
 
-<p>This rule implies that <code>er:nextCatalog</code> elements may be used within <termRef term="XML catalog document">XML catalog documents</termRef> to connect them and control their parsing sequence.  An IEPD must contain at least one <termRef>XML catalog document</termRef> because it is the only MPD that can specify an <termRef>Information Exchange Package</termRef> (IEP) and provide validation instructions that would require schema assembly from XML schema documents.  <ref idref="Information-Exchange-Packages"/> provides more specifics about using <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs.</p>
-
-	<p>The practical reality of <termRef>XML schema assembly</termRef> is that the process is based on several methods for identifying the correct <termRef term="XML schema document">XML schema documents</termRef>, and these methods may be applied in no particular order.  For the purpose of this MPD Specification, the first and primary method for MPDs is the use of XML catalogs, even though NIEM schema documents often have valid URIs in <code>schemaLocation</code> attributes.</p>
+	<p>The MPD catalog schema document specifies a <qName>c:XMLSchemaType</qName> that contains both a <qName>c:XMLCatalog</qName> and a <qName>c:XMLSchemaDocument</qName> element.  <qName>c:XMLCatalog</qName> identifies the starting XML catalog document when employing XML catalogs.  For simpler cases that use all NIEM-conforming schema documents (i.e., schema documents that are well-behaved and do not use <qName>xs:include</qName> statements), the <qName>c:XMLSchemaDocument</qName> identifies a root schema document for a given <termRef>XML schema document</termRef> set.</p>
 
 </section>
 
