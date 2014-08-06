@@ -1256,7 +1256,7 @@
 				<li><p>Resolve the base URI (per <ref idref="RFC3986-URI"/>) to retrieve the resource MPD.  If the resource MPD does not exist, then fail (existence error).</p></li>
 				<li><p>Apply the fragment (without "#") to the MPD resource:</p>
 					<ol>
-						<li><p>Locate a <code>structures:id</code> attribute value that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then continue.</p></li>
+						<li><p>Locate a <qName>structures:id</qName> attribute value that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then continue.</p></li>
 						<li><p>Locate a <termRef>path name</termRef> (for a directory or file) that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then fail (existence error).</p></li>
 					</ol>
 				</li>	
@@ -1274,17 +1274,17 @@
 <section id="URI-Resolution-Ref-Elements">
 	<title>URI Resolution Involving Reference Elements</title>
 	
-	<p>A NIEM element can indirectly reference its content rather than carry or encapsulate it.  So, a NIEM element of type <code>xs:anyURI</code> may not contain a URI, but instead refer to another element that contains it for both elements.  Under some circumstances, this might impact URI resolution described in <ref idref="r-resolve-uri"/>.</p> 
+	<p>A NIEM element can indirectly reference its content rather than carry or encapsulate it.  So, a NIEM element of type <qName>xs:anyURI</qName> may not contain a URI, but instead refer to another element that contains it for both elements.  Under some circumstances, this might impact URI resolution described in <ref idref="r-resolve-uri"/>.</p> 
 
 	<p><ref idref="NIEM-NDR"/>, <a href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha9/NIEM-NDR-3.0alpha9-2014-04-02.html#definition_reference_element"> <char name="sect"/>12.3, <q>Reference Elements</q></a> defines a NIEM <termRef>reference element</termRef> as follows:</p>
 
 	<definition term="reference element">
-		<p>A reference element is an element information item that has an attribute <code>structures:ref</code>.  A reference element refers to its value by reference, instead of carrying it as content.</p>
+		<p>A reference element is an element information item that has an attribute <qName>structures:ref</qName>.  A reference element refers to its value by reference, instead of carrying it as content.</p>
 	</definition>
 
-	<p>Thus, the <code>structures:ref</code> attribute value refers to another element that carries the content (for both elements) and owns a <code>structures:id</code> attribute with a value equal to that of <code>structures:ref</code>.</p>
+	<p>Thus, the <qName>structures:ref</qName> attribute value refers to another element that carries the content (for both elements) and owns a <qName>structures:id</qName> attribute with a value equal to that of <qName>structures:ref</qName>.</p>
 
-	<p>The <termRef>MPD catalog document</termRef> reuses NIEM Core and so it conforms to NIEM.  Therefore, one or more NIEM <termRef term="reference element">reference elements</termRef> from various locations may refer to a single content bearing instance of the same element (with a unique <code>structures:id</code>).  The definition of <termRef>resolve URI</termRef> and the URI-related rules in this section assume content bearing elements.  If a URI resolution rule applies to an element in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).</p>
+	<p>The <termRef>MPD catalog document</termRef> reuses NIEM Core and so it conforms to NIEM.  Therefore, one or more NIEM <termRef term="reference element">reference elements</termRef> from various locations may refer to a single content bearing instance of the same element (with a unique <qName>structures:id</qName>).  The definition of <termRef>resolve URI</termRef> and the URI-related rules in this section assume content bearing elements.  If a URI resolution rule applies to an element in <termRef>reference element</termRef> form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).</p>
 
 </section>
 
@@ -1297,13 +1297,13 @@
 
 	<ruleSection><title>XML Catalog <code>uri</code> Value Resolves to Resource</title>
 		<rule id="xc1" applicability="XML-Cat" class="Constraint">
-			<p>Within an <termRef>XML catalog document</termRef> the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
+			<p>Within an <termRef>XML catalog document</termRef> the value of a <code>uri</code> attribute owned by a <qName>er:uri</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
 			</rule>
 	</ruleSection>
 
 	<ruleSection><title>XML Catalog <code>uri</code> Value Resolves to Resource with Correct Target Namespace</title>
 		<rule id="xc2" applicability="XML-Cat" class="Constraint">
-			<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of a <code>uri</code> attribute owned by a <code>er:uri</code> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>name</code> (a namespace string) attribute owned by the <code>er:uri</code> element.</p> 
+			<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of a <code>uri</code> attribute owned by a <qName>er:uri</qName> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>name</code> (a namespace string) attribute owned by the <qName>er:uri</qName> element.</p> 
 		</rule>
 	</ruleSection>
 
@@ -1395,67 +1395,34 @@
 		<p>An artifact that describes the changes applied to an MPD since its previous version.</p>
 	</definition>
 
-<ruleSection>
-	<title>An MPD Requires a <code>changelog.*</code> Artifact</title>
-		<rule id="r1-mpd-ref-changelog" applicability="WF-MPD" class="Constraint">
-			<p>An MPD with a <code>c:mpdClassURIList</code> attribute value from the set <code>{rel, cu, du}</code> MUST contain a <code>changelog.xml</code> artifact in its <termRef>MPD root directory</termRef>.</p>
-		</rule>
-</ruleSection>
-
-<ruleSection>
-	<title>Release and Core/Domain Update <code>changelog.xml</code> Valid to <code>mpd-changelog-1.0.xsd</code></title>
-	<rule id="r1-changelog-ref" applicability="MPD-ChLg" class="Constraint">
-			<p>A <code>changelog.xml</code> artifact for an MPD with a <code>c:mpdClassURIList</code> attribute value from the set <code>{rel, cu, du}</code> MUST validate with the NIEM change log schemas <code>mpd-changelog-1.0.xsd</code> and <code>niem-model-1.0.xsd</code>.</p>
-	</rule>
-</ruleSection>
-
 
 
 <section id="Change-Log-Releases-Core-Domain-Updates">
 	<title>Change Log for Releases and Core/Domain Updates</title>
 
-	<p>Once published, a NIEM release always exists.  This ensures that IEPDs and EIEMs built from a given release will always be usable, and may be updated to a new NIEM release only when convenient or absolutely necessary to take advantage of new or modified data components.  Though not encouraged, nothing prohibits a developer from building an IEPD based on a NIEM release that is older than the most current version.  There may be potential disadvantages related to interoperability levels achievable with others developing to the latest release.  Nonetheless, an older version might meet the business needs of a particular organization quite well.</p>
+	<p>Once published, a NIEM release always exists.  This ensures that IEPDs built from a given release will always be usable, and may be updated to a new NIEM release only when convenient or absolutely necessary to take advantage of new or modified data components.  Though not encouraged, nothing prohibits a developer from building an IEPD based on a NIEM release that is older than the most current version.  There may be potential disadvantages related to interoperability levels achievable with others developing to the latest release.  Nonetheless, an older version might meet the business needs of a particular organization quite well.</p>
 
-	<p>In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change.  New versions of reference schema document sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs and EIEMs.  Developers must understand in detail how changes will affect their IEPD and EIEM products and the tools used to build them.  To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs.  A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users.  All of the foregoing reasons dictate that NIEM require a normative change log for reference schema document sets.</p>
+	<p>In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change.  New versions of reference schema document sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs.  Developers must understand in detail how changes will affect their IEPD products and the tools used to build them.  To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs.  A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users.  All of the foregoing reasons dictate that a NIEM reference schema document set requires a normative change log.</p>
 
-<ruleSection>
-	<title>Releases and Core/Domain Updates Require <code>changelog.xml</code></title>
-		<rule id="r2-mpd-ref-changelog" applicability="WF-MPD" class="Constraint">
-			<p>An MPD with a <code>c:mpdClassURIList</code> attribute value from the set <code>{rel, cu, du}</code> MUST contain a <code>changelog.xml</code> artifact in its <termRef>MPD root directory</termRef>.</p>
-		</rule>
-</ruleSection>
-
-<ruleSection>
-	<title>Release and Core/Domain Update <code>changelog.xml</code> Valid to <code>mpd-changelog-1.0.xsd</code></title>
-	<rule id="r2-changelog-ref" applicability="MPD-ChLg" class="Constraint">
-			<p>A <code>changelog.xml</code> artifact for an MPD with a <code>c:mpdClassURIList</code> attribute value from the set <code>{rel, cu, du}</code> MUST validate with the NIEM change log schemas <code>mpd-changelog-1.0.xsd</code> and <code>niem-model-1.0.xsd</code>.</p>
-	</rule>
-</ruleSection>
-
-	<p>The most current versions of the resources referenced in the rule above are available here:</p>
-		<blockquote>
-			<p><link>http://reference.niem.gov/niem/resource/mpd/changelog/</link></p>
-			<p><link>http://reference.niem.gov/niem/resource/model/</link></p>
-		</blockquote>
-
-	<p>Since the schemas are the authority for a release or update and because almost all tool support depends on the schemas, the change log is only designed to audit transactional changes to the reference schema documents.  There is no provision for logging changes to support documentation or other non-schema artifacts.  Non-schema changes are generally handled non-normatively in the form of release notes.</p>
+	<p>Formal change logs for releases, core updates and domain updates will be detailed in future NIEM specifications related to these MPDs.</p>
 
 </section>
 
 
-<section id="Change-Log-IEPD-EIEM">
-	<title>Change Log for IEPDs and EIEMs</title>
 
-	<p>IEPD and EIEM change log requirements are less strict and are not required to conform to the naming and XML schema specifications in <ref idref="r1-changelog-ref"/>.  However, a change log is still required.</p>
+<section id="Change-Log-IEPD">
+	<title>Change Log for IEPDs</title>
+
+	<p>An IEPD change log is not required to conform to any particular XML schema or other format specification.  However, a change log is still required for an IEPD.</p>
 
 <ruleSection>
-	<title>IEPD and EIEM Have Change Log in Root Directory</title>
-		<rule id="r-mpd-changelog-iepd" applicability="N-IEPD N-EIEM" class="Constraint">
-			<p>An MPD with a <code>c:mpdClassURIList</code> attribute value from the set <code>{iepd, eiem}</code> MUST contain a change log artifact in its <termRef>MPD root directory</termRef></p>
+	<title>IEPD Has a Change Log in Root Directory</title>
+		<rule id="r-mpd-changelog-iepd" applicability="N-IEPD" class="Constraint">
+			<p>An IEPD MUST contain a change log artifact in its <termRef>MPD root directory</termRef>.</p>
 		</rule>
 </ruleSection>
 
-	<p>The format of an IEPD or EIEM change log is left to the discretion of the author.  The use of <code>mpd-changelog-1.0.xsd</code> for IEPD and EIEM schemas is not required.  Relaxing the change log format encourages and facilitates easier and more rapid development.  IEPDs and EIEMs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, IEPDs and EIEMs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  A consistent standard change log would be very difficult to specify.</p>
+	<p>The format of an IEPD change log is left to the discretion of the author.   A flexible change log format encourages and facilitates easier and more rapid development.  IEPDs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, IEPDs may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  As a result, a consistent standard change log would be very difficult to specify.</p> 
 
 </section>
 </section>
