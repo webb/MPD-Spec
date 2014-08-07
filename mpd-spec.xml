@@ -1546,8 +1546,11 @@
 </section>
 
 
+<!-- ######################### Defining Information Exchange Packages ######################## -->
 
-<section id="Defining-Information-Exchange-Packages">
+
+<!-- ##### 4.6 ##### -->
+<section id="Defining-Information-Exochange-Packages">
 	<title>Defining Information Exchange Packages</title>
 
 	<p>An MPD may declare one or more <em>IEP conformance targets</em> within its <termRef>MPD catalog document</termRef>.</p>
@@ -1574,27 +1577,43 @@
 	<p>The following rule is required for an <termRef>MPD catalog document</termRef>.  It supplements the rule above.</p>
 
 <ruleSection>
-	<title>IEP Conformance Target Has a <code>structures:id</code></title>
+	<title>IEP Conformance Target Has a <qName>structures:id</qName></title>
 	<rule id="iep-conformance-target-id" applicability="MPD-Cat" class="Constraint">
 		<p>A <code>c:IEPConformanceTarget</code> element MUST own a <code>structures:id</code> attribute.</p>
 	</rule>
-	<p>This rule ensures that a <termRef>conformance target</termRef> can be referenced between MPDs (not just within an MPD).  The value of the <code>structures:id</code> attribute is the NCName in <ref idref="r-iep-ct-uri"/>.</p> 
+	<p>This rule ensures that a <termRef>conformance target</termRef> can be referenced between MPDs (not just within an MPD).  The value of the <qName>structures:id</qName> attribute is the NCName in <ref idref="r-iep-ct-uri"/>.</p> 
 </ruleSection>
 
 	<p>An IEPD defines IEP conformance targets by explicitly declaring them within its MPD catalog per the rules above.</p>
 
-	<p>The following subsections detail the concepts, artifacts, and procedures for declaring and identifying IEP conformance targets in IEPDs.</p>
+<ruleSection>
+	<title>IEPD Declares One or More IEP Conformance Targets</title>
+	<rule id="validity-constraints" applicability="N-IEPD" class="Constraint">
+		<p>The <termRef>MPD catalog document</termRef> of an IEPD MUST contain one or more <code>c:IEPConformanceTarget</code> elements.</p>
+	</rule>
+</ruleSection>
+
+	<p>The following subsections detail the concepts, artifacts, and procedures for declaring and identifying <termRef term="IEP conformance target">IEP conformance targets</termRef> in IEPDs.</p>
 
 
+<!-- ##### 4.6.1 ##### -->
+<section id="Validity-Context-Constraints">
+	<title>Validity Context and Constraints</title>
 
-<section id="Schema-Validation">
-	<title>Schema Validation</title>
+	<p>Explicit declaration of validity constraints is far more flexible and precise than relying on conventions that can easily be misinterpreted.  The <qName>c:IEPConformanceTarget</qName> element within the <termRef>MPD catalog document</termRef> can apply several common constraints by explicitly declaring the information required for a given constraint.  This information may include the conformance target, context, and type of validation, location of validation artifact(s), and specific tests to perform.  It can also identify IEP samples known to satisfy the validity constraints.</p>
+	
+	<p><ref idref="MPD-Catalog-XSD"/> provides XML elements for various validity constraints.  These constraints are employed by element substitution using two abstract elements, <qName>c:ValidityConstraintWithContext</qName> and <qName>c:ValidityConstraint</qName>.  <ref idref="MPD-Catalog-XSD"/> normatively specifies how this works.</p>
 
-	<p>NIEM employs the W3C XML Schema Definition (XSD) Language (<ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>), one of several XML schema definition languages designed to define an instance XML document and enable its validation.  In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema (<ref idref="W3-XML-Schema-Structures"/>, <a href="http://www.w3.org/TR/xmlschema11-1/#sec-schema-validity-and-docs"> <char name="sect"/>2.5, <q>Schema-validity and documents</q></a>).</p>
+	<p>Note that there may exist multiple ways to declare the same validity constraint with these elements.  This rule only requires that each required validity constraint be declared once in a single form.  For example, it may be possible to use either <qName>c:HasDocumentElement</qName> and <qName>c:ValidToXPath</qName> to declare the same XML document elements.  However, it is only required that an IEPD author use one or the other.</p>
 
-	<p>So, a NIEM IEPD is an MPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing XML catalogs to <termRef>resolve URI</termRef> values in namespace attributes owned by <code>xs:import</code> elements and similar XML Schema constructs).  In turn, the resulting XML schema can be used to validate one or more <termRef term="instance XML document">instance XML documents</termRef> for NIEM conformance.</p>
+	<ruleSection><title>Validity Constraint Context</title>
+		<rule>
+			<p>A set of information items that establishes the applicability of certain validity constraints.</p>
+		</rule>
+		<p>Validity constraint context can refer to multiple information items (e.g., XML elements, attributes, etc.) within an IEP.  Note that validity constraint context can evaluate to no information items.  In this cases, the validity constraints (within the in scope validity constraint context) will not fire and the test passes.</p>
+	</ruleSection>
 
-	<p>NIEM is based on XML Schema, and so the term "schema validation" usually refers to "XML Schema validation".  However, an IEPD author may also choose to include artifacts to validate with other types of schemas or rules, including but not limited to <ref idref="ISO-Schematron"/> and <ref idref="ISO-RelaxNG"/>.  IEPD authors may also include artifacts for NIEM constraint schema validation, which, of course, is XML Schema validation (See <ref idref="Constraint-Schemas"/>.</p>
+	<p>The following subsections explain in more detail the purpose and use of each <qName>c:IEPConformanceTarget</qName> validity constraint.</p>
 
 </section>
 
@@ -1603,23 +1622,7 @@
 <section id="Declaring-Validity-Constraints">
 	<title>Declaring Validity Constraints</title>
 
-	<p>Explicit declaration of validity constraints is far more flexible and precise than relying on conventions that can easily be misinterpreted.  The <code>c:IEPConformanceTarget</code> element within the <termRef>MPD catalog document</termRef> can apply several common constraints by explicitly declaring the information required for a given constraint.  This information may include the conformance target, context, and type of validation, location of validation artifact(s), and specific tests to perform.  It can also identify IEP samples known to satisfy the validity constraints.</p>
-
-<ruleSection>
-	<title>IEPD Declares One or More IEP Conformance Targets</title>
-	<rule id="validity-constraints" applicability="MPD-Cat" class="Constraint">
-		<p>An IEPD MUST explicitly declare all intended validity constraints by employing the <code>c:IEPConformanceTarget</code> element in its <termRef>MPD catalog document</termRef>.</p>
-	</rule>
-</ruleSection>
-
-	<p><ref idref="MPD-Catalog-XSD"/> provides XML elements for various validity constraints.  These constraints are employed by element substitution using two abstract elements, <code>c:ValidityConstraintWithContext</code> and <code>c:ValidityConstraint</code>.  <ref idref="MPD-Catalog-XSD"/> normatively specifies how this works.</p>
-
-	<p>Note that there may exist multiple ways to declare the same validity constraint with these elements.  This rule only requires that each required validity constraint be declared once in a single form.  For example, it may be possible to use either <code>c:HasDocumentElement</code> and <code>c:ValidToXPath</code> to declare the same XML document elements.  However, it is only required that an IEPD author use one or the other.</p> 
-
-	<p>Recall that this section does not apply to an MPD that is an EIEM, because it does not define an information exchange.  That said, an EIEM author may have good rationales for providing validity constraints with an EIEM.  However, this is not required for an EIEM.</p>
-
-	<p>The following subsections explain in more detail the purpose and use of each <code>c:IEPConformanceTarget</code> validity constraint.</p>
-
+<!-- ##### 4.6.1.1 ##### -->
 <section id="ValidityConstraintWithContext">
 	<title>c:ValidityConstraintWithContext</title>
 
@@ -1693,6 +1696,12 @@
 <section id="XMLSchemaValid">
 	<title>c:XMLSchemaValid</title>
 
+	<p>NIEM employs the W3C XML Schema Definition (XSD) Language (<ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>), one of several XML schema definition languages designed to define an instance XML document and enable its validation.  In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema (<ref idref="W3-XML-Schema-Structures"/>, <a href="http://www.w3.org/TR/xmlschema11-1/#sec-schema-validity-and-docs"> <char name="sect"/>2.5, <q>Schema-validity and documents</q></a>).</p>
+
+	<p>So, a NIEM IEPD is an MPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing XML catalogs to <termRef>resolve URI</termRef> values in namespace attributes owned by <code>xs:import</code> elements and similar XML Schema constructs).  In turn, the resulting XML schema can be used to validate one or more <termRef term="instance XML document">instance XML documents</termRef> for NIEM conformance.</p>
+
+	<p>NIEM is based on XML Schema, and so the term "schema validation" usually refers to "XML Schema validation".  However, an IEPD author may also choose to include artifacts to validate with other types of schemas or rules, including but not limited to <ref idref="ISO-Schematron"/> and <ref idref="ISO-RelaxNG"/>.  IEPD authors may also include artifacts for NIEM constraint schema validation, which, of course, is XML Schema validation (See <ref idref="Constraint-Schemas"/>.</p>
+
 	<p>Because NIEM is based on XML Schema, then <code>c:XMLSchemaValid</code> will likely be employed by almost all IEPDs.  This constraint simply ensures that an IEP artifact is schema valid to an XML schema described by and assembled with an XML Catalog.  The starting XML Catalog artifact is identified by the <code>c:XMLCatalog</code> element.  Note that it is possible for a starting XML catalog to link (through <code>er:nextCatalog</code>) to one or more cascading XML catalogs.</p>
 </section>
 
@@ -1723,7 +1732,6 @@
 	<p>Sometimes it is not possible to formally declare an executable validity constraint.  For example, we can mandate that a data component definition must be present, must be in English, and must follow <ref idref="ISO-11179-4"/>.  Validating that text is present is easy, and validating that it is in English is more difficult, but validating that it obeys <ref idref="ISO-11179-4"/> is essentially intractable.  Thus, <code>c:ConformsToRule</code> provides an IEPD author with English text representation as an alternative when it is not possible or not easy to define more formal validation rules or validity constraints.</p>
 
 </section>
-
 </section>
 
 
