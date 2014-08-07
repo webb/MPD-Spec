@@ -94,10 +94,10 @@
 	   <xs:element ref="c:IEPConformanceTarget" minOccurs="0" maxOccurs="unbounded"/>
            <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
           </xs:sequence>
-          <xs:attribute ref="c:mpdURI"           use="required"/>
-          <xs:attribute ref="c:mpdClassCodeList" use="required"/>
-          <xs:attribute ref="c:mpdName"          use="required"/>
-          <xs:attribute ref="c:mpdVersionID"     use="required"/>
+          <xs:attribute ref="c:mpdURI"          use="required"/>
+          <xs:attribute ref="c:mpdClassURIList" use="required"/>
+          <xs:attribute ref="c:mpdName"         use="required"/>
+          <xs:attribute ref="c:mpdVersionID"    use="required"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -270,18 +270,18 @@
     <xs:element name="ApplicationInfo" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
       <xs:annotation>
 	      <xs:documentation>
-		      An MPD artifact that is used by a software tool (e.g., import, export, input, output, etc.).
+		An MPD artifact that is used by a software tool (e.g., import, export, input, output, etc.).
 	      </xs:documentation>
       </xs:annotation>
     </xs:element>
 
 
-<!-- For declaring file dependencies ============================================= -->
+<!-- For declaring sets of dependent artifacts =================================== -->
 
     <xs:element name="RequiredFile" type="c:FileType">
       <xs:annotation>
 	      <xs:documentation>
-		      An MPD file artifact that another artifact depends on and should not be separated from.
+		An MPD file artifact that another artifact depends on and should not be separated from.
 	      </xs:documentation>
       </xs:annotation>
     </xs:element>
@@ -292,7 +292,7 @@
     <xs:element name="FileSet" type="c:FileSetType" substitutionGroup="c:ArtifactOrArtifactSet">
       <xs:annotation>
 	      <xs:documentation>
-		      A generic MPD artifact set; used to group artifacts that are not accounted for by other set classifiers.
+		A generic MPD artifact set; used to group artifacts that are not accounted for by other set classifiers.
 	      </xs:documentation>
       </xs:annotation>
     </xs:element>
@@ -389,7 +389,7 @@
 
 <!-- =========================================================================== -->
 
-    <xs:attribute name="mpdClassCodeList" type="c:MPDClassListSimpleType">
+    <xs:attribute name="mpdClassURIList" type="c:MPDClassURIListSimpleType">
       <xs:annotation>
 		<xs:documentation>
 			A list of classifications for an MPD from the set {rel, cu, du, iepd, eiem}
@@ -398,68 +398,26 @@
       </xs:annotation>
     </xs:attribute>
 
-    <xs:simpleType name="MPDClassListSimpleType">
+    <xs:simpleType name="MPDClassURIListSimpleType">
 	<xs:annotation>
 	  	<xs:documentation>
-			A data type that ensures at least one class is identified for an MPD.
+			A data type that ensures at least one class is identified as an MPD conformance target.
 	  	</xs:documentation>
 	</xs:annotation>
-	<xs:restriction base="c:ClassListSimpleType">
+	<xs:restriction base="c:MPDClassListSimpleType">
 	    <xs:minLength value="1"/>
 	</xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="ClassListSimpleType">
+    <xs:simpleType name="MPDClassListSimpleType">
 	<xs:annotation>
 		<xs:documentation>
-			A data type for one or more codes or URIs for MPD classes.
+			A data type for one or more URIs that are MPD conformance target classes.
 		</xs:documentation>
 	</xs:annotation>
-        <xs:list itemType="c:ClassUnionSimpleType"/>
+        <xs:list itemType="xs:anyURI"/>
     </xs:simpleType>
 
-    <xs:simpleType name="ClassUnionSimpleType">
-	<xs:annotation>
-		<xs:documentation>
-			A data type for one of five MPD classes or a new class identified by URI.
-		</xs:documentation>
-	</xs:annotation>
-        <xs:union memberTypes="c:MPDClassCodeSimpleType xs:anyURI"/>
-    </xs:simpleType>
-
-    <xs:simpleType name="MPDClassCodeSimpleType">
-      <xs:annotation>
-	 <xs:documentation>A data type for the classification of an MPD.</xs:documentation>
-      </xs:annotation>
-        <xs:restriction base="xs:token">
-            <xs:enumeration value="rel">
-		<xs:annotation>
-		  <xs:documentation>release</xs:documentation>
-		</xs:annotation>
-	    </xs:enumeration>
-            <xs:enumeration value="cu">
-		<xs:annotation>
-		  <xs:documentation>core update</xs:documentation>
-		</xs:annotation>
-	    </xs:enumeration>
-            <xs:enumeration value="du">
-		<xs:annotation>
-		  <xs:documentation>domain update</xs:documentation>
-		</xs:annotation>
-	    </xs:enumeration>
-            <xs:enumeration value="iepd">
-		<xs:annotation>
-		  <xs:documentation>information exchange package documentation
-		  </xs:documentation>
-		</xs:annotation>
-	    </xs:enumeration>
-            <xs:enumeration value="eiem">
-		<xs:annotation>
-		  <xs:documentation>enterprise information exchange model</xs:documentation>
-		</xs:annotation>
-	    </xs:enumeration>
-        </xs:restriction>
-    </xs:simpleType>
 
 <!-- =========================================================================== -->
 
@@ -614,7 +572,8 @@
 	  <xs:sequence>
 	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
 	    <xs:element ref="c:ValidityConstraintWithContext" minOccurs="0" maxOccurs="unbounded"/>
-<!--	    <xs:element ref="c:IEPSampleXMLDocument" minOccurs="1" maxOccurs="unbounded"/> MUST have min one for each c:IEP ConformanceTarget -->
+<!--	    <xs:element ref="c:IEPSampleXMLDocument" maxOccurs="unbounded"/> 
+	           MUST have minimum one for each c:IEPConformanceTarget -->
 	    <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
     	  </xs:sequence>
 	</xs:extension>
@@ -696,23 +655,21 @@
     <xs:element name="XMLSchemaValid" type="c:XMLSchemaType" substitutionGroup="c:ValidityConstraint">
       <xs:annotation>
 	      <xs:documentation>
-		      A validity constraint that indicates that an artifact must be locally XML Schema valid against an XML schema described by an XML Catalog file, starting with a given validation root.
+		      A validity constraint that indicates that an artifact must be locally XML Schema valid against an XML schema described/asssembled using one or more XML catalog documents or (more explicitly) one or more XML schema documents.
 	      </xs:documentation>
       </xs:annotation>
     </xs:element>
 
     <xs:complexType name="XMLSchemaType">
       <xs:annotation>
-	      <xs:documentation>
-		      A data type for an XML Schema, indicating an XML Schema against which an artifact may be validated, or which can be used for other purposes.  c:XMLSchemaDocument identifies the root or starting XML schema document.
-	      </xs:documentation>
+	      <xs:documentation>A data type for a validity constraint that  indicating an XML Schema against which an artifact may be validated, or which can be used for other purposes.  c:XMLSchemaDocument identifies the root or starting XML schema document.</xs:documentation>
       </xs:annotation>
       <xs:complexContent>
         <xs:extension base="structures:ObjectType">
 	  <xs:sequence>
-	    <xs:element ref="nc:DescriptionText" minOccurs="0"/>
-	    <xs:element ref="c:XMLCatalog"/>
-	    <xs:element ref="c:XMLSchemaDocument" minOccurs="0"/>
+	    <xs:element ref="nc:DescriptionText"  minOccurs="0"/>
+	    <xs:element ref="c:XMLCatalog"	  minOccurs="0" maxOccurs="unbounded"/>
+	    <xs:element ref="c:XMLSchemaDocument" minOccurs="0" maxOccurs="unbounded"/>
           </xs:sequence>
         </xs:extension>
       </xs:complexContent>
@@ -720,9 +677,7 @@
 
     <xs:element name="SchematronValid" type="c:SchematronValidationType" substitutionGroup="c:ValidityConstraint">
       <xs:annotation>
-	      <xs:documentation>
-		      A validity constraint that indicates that an artifact must be valid against the rules carried by a Schematron file, starting with the identified validation roots.
-	      </xs:documentation>
+	      <xs:documentation>A validity constraint that indicates that an artifact must be valid against the rules carried by a Schematron file, starting with the identified validation roots.</xs:documentation>
       </xs:annotation>
     </xs:element>
 
