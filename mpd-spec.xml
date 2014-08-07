@@ -202,7 +202,7 @@
 <section id="Schema-Namespace-Correspondence-in-NIEM">
 	<title>Schema Document and Namespace Correspondence in NIEM</title>
 
-	<p>To simplify automatic schema processing and reduce the potential for confusion and error, <ref idref="NIEM-NDR"/> principles state that each NIEM-conformant namespace SHOULD be defined by exactly one reference or extension schema document.  To support this concept, the <ref idref="NIEM-NDR"/> disallows the use of <qName>xs:include</qName>, and mandates the use of the <qName>xs:schema/@targetNamespace</qName> attribute in NIEM-conformant schema documents.</p>
+	<p>To simplify automatic schema processing and reduce the potential for confusion and error, <ref idref="NIEM-NDR"/> principles state that each NIEM-conformant namespace SHOULD be defined by exactly one reference or extension schema document.  To support this concept, the <ref idref="NIEM-NDR"/> disallows the use of <qName>xs:include</qName>, and mandates the use of the <code>xs:schema/@targetNamespace</code> attribute in NIEM-conformant schema documents.</p>
 
 	<p>So, (1) each NIEM namespace is defined by a single NIEM-conformant schema document, and (2) each NIEM-conformant schema document declares a target namespace.  NIEM does not permit schema documents without target namespaces, unless they are from sources outside of NIEM (e.g., an <termRef>external schema document</termRef>).</p>
 
@@ -1078,7 +1078,7 @@
 		
 	<p>The author of IEPD (2) has decided to reuse the <code>base-xsd/extension/req1.xsd</code> artifact in IEPD (1) as-is.  He/she can optionally create an MPD catalog <qName>c:ExtensionSchemaDocument</qName> entry for this artifact (assuming it is an extension schema document), and add the attribute:</p> 
 		<blockquote>
-			<p><qName>c:externalURI="http://example.org/niem-iepd/pmix/3.0/#base-xsd/extension/req1.xsd"</qName></p>
+			<p><code>c:externalURI="http://example.org/niem-iepd/pmix/3.0/#base-xsd/extension/req1.xsd"</code></p>
 		</blockquote>
 
 	<p>Additional <qName>c:externalURI</qName> attributes may be added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.</p>
@@ -1098,9 +1098,9 @@
 
 	<p>In general, every value of attribute <qName>c:pathURI</qName> in an MPD catalog document will be a relative <termRef>path name</termRef> to a directory (i.e., an artifact set), or to a file (i.e., an artifact).  The following are typical examples of each:</p>
 		<blockquote>
-			<p>Artifact Set: <qName>c:pathURI="base-xsd/niem/niem-core/3.0"</qName></p>	
+			<p>Artifact Set: <code>c:pathURI="base-xsd/niem/niem-core/3.0"</code></p>	
 			<p>Artifact: <char name="nbsp"/><char name="nbsp"/><char name="nbsp"/><char name="nbsp"/>
-					 <qName>c:pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"</qName></p>
+					 <code>c:pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"</code></p>
 		</blockquote>
 
 	<p>Note that per <ref idref="uri-syntax"/> and <ref idref="uri-summary"/> a local URI may contain an optional fragment.  Although <qName>c:pathURI</qName> has no use for a URI with a fragment, MPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.</p>
@@ -1889,7 +1889,7 @@ For now, inclusion of a conformance assertion in an IEPD is at the discretion of
 <definition term="NIEM IEPD">
 	<p>An MPD that:</p>
 	<ul>
-		<li><p>Has <qName>c:mpdClassURIList="iepd"</qName>, and</p></li>
+		<li><p>Has <code>c:mpdClassURIList="iepd"</code>, and</p></li>
 		<li><p>Has one or more <qName>c:IEPConformanceTarget</qName> elements within its <termRef>MPD catalog document</termRef>, and</p></li>
 		<li><p>Satisfies all WF-MPD conformance target rules, and</p></li>
 		<li><p>Satisfies all MPD-Cat conformance target rules, and</p></li>
@@ -2228,7 +2228,7 @@ For now, inclusion of a conformance assertion in an IEPD is at the discretion of
 <ruleSection>
 	<title>IEPD Family Members Reference Parent EIEM</title>
 	<rule id="r-mpd-link-eiem" applicability="N-IEPD" class="Constraint">
-		<p>An <termRef>MPD catalog document</termRef> for an IEPD that is a member of a family of IEPDs derived from a given EIEM, MUST have a <qName>c:MPDInformation/c:Relationship</qName> element that owns a <qName>c:relationshipCode="derives_from"</qName> attribute and a <qName>c:resourceURI</qName> attribute with a URI value that <termRef term="resolve URI">resolves</termRef> to an EIEM resource.</p>
+		<p>An <termRef>MPD catalog document</termRef> for an IEPD that is a member of a family of IEPDs derived from a given EIEM, MUST have a <code>c:MPDInformation/c:Relationship</code> element that owns a <code>c:relationshipCode="derives_from"</code> attribute and a <qName>c:resourceURI</qName> attribute with a URI value that <termRef term="resolve URI">resolves</termRef> to an EIEM resource.</p>
 	</rule>
 </ruleSection>
 
