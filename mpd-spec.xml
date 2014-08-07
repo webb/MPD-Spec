@@ -1524,11 +1524,13 @@
 	<p>This section is applicable to all MPDs.  However, it is of particular importance to IEPDs and IEP validation (to be covered in more detail in <ref idref="Defining-Information-Exchange-Packages"/>.</p>
 
 	<definition term="XML catalog document">
-		<p>As described by <link>http://en.wikipedia.org/wiki/XML_Catalog</link> and specified by <ref idref="OASIS-XML-Catalogs"/>:</p>
-		<p>An XML document describing a mapping between external entity references and locally-cached equivalents.  It associates a URI reference with information about an external reference that appears in an XML document.  An XML catalog can be used to locate the replacement text for an external entity, or an alternate URI reference for a resource.</p>
+		<p>As defined by <ref idref="OASIS-XML-Catalogs"/>:</p>
+		<blockquote>An entity catalog.</blockquote> 
 	</definition>
+
+	<p>An <termRef>XML catalog document</termRef> is an <termRef>instance XML document</termRef> that describes a mapping between external entity references and locally-cached equivalents.  It associates a URI reference with information about an external reference that appears in an XML document.  An <termRef>XML catalog document</termRef> can be used to locate the replacement text for an external entity, or an alternate URI reference for a resource.</p>
  
-	<p><ref idref="OASIS-XML-Catalogs"/> are XML documents used in MPDs to <termRef term="resolve URI">resolve</termRef> XML schema document target namespaces to local URIs.  This is especially useful when assembling an XML schema from an XML schema document set.  Some validators (e.g., <link href="http://xerces.apache.org/xerces2-j/faq-xcatalogs.html">Xerces</link>) and other tools utilize <em>XML catalogs</em> for this purpose.</p>
+	<p>An MPD can use an <termRef>XML catalog document</termRef> to <termRef term="resolve URI">resolve</termRef> XML schema document target namespaces to local URIs.  This is especially useful when assembling an XML schema from an XML schema document set.  Some validators (e.g., <link href="http://xerces.apache.org/xerces2-j/faq-xcatalogs.html">Xerces</link>) and other tools utilize <termRef>XML catalogs</termRef> for this purpose.</p>
 
 	<p>IEPD authors are encouraged to employ <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs to facilitate validation of IEPs.</p>
 
@@ -1542,13 +1544,14 @@
 
 	<p>The MPD catalog schema document specifies a <qName>c:XMLSchemaType</qName> that contains both a <qName>c:XMLCatalog</qName> and a <qName>c:XMLSchemaDocument</qName> element.  <qName>c:XMLCatalog</qName> identifies the starting XML catalog document when employing XML catalogs.  For simpler cases that use all NIEM-conforming schema documents (i.e., schema documents that are well-behaved and do not use <qName>xs:include</qName> statements), the <qName>c:XMLSchemaDocument</qName> identifies a root schema document for a given <termRef>XML schema document</termRef> set.</p>
 
+	<p>Use of both the <qName>c:XMLCatalog</qName> and <qName>c:XMLSchemaDocument</qName> elements within the same <qName>c:IEPConformanceTarget</qName> may resolve the namespaces in an unexpected order.  There is no good way to use both catalog resolution and schema resolution concurrently, so it has to be undefined.</p>
+
 </section>
 
 
 <!-- ######################### Defining Information Exchange Packages ######################## -->
 
 
-<!-- ##### 4.6 ##### -->
 <section id="Defining-Information-Exchange-Packages">
 	<title>Defining Information Exchange Packages</title>
 
@@ -1565,8 +1568,6 @@
 		<rule id="r-iep-ct-uri" applicability="MPD-Cat" class="Interpretation">
 			<p>A <termRef>conformance target identifier</termRef> for an <termRef>IEP conformance target</termRef> declared in an MPD is formed by concatenating the following in sequence:</p>
 		<ol>
-			<li><p>the MPD URI</p></li>
-			<li><p>the pound sign character (<code>#</code>)</p></li>
 			<li><p>a locally unique NCName (i.e., a non-colonized name, as defined by <ref idref="W3-XML-Schema-Structures"/>, <a href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NCName"><char name="sect"/>3.3.7, <q>NCName</q></a>).</p></li>
 		</ol>
 		</rule>
@@ -1595,7 +1596,7 @@
 	<p>The following subsections detail the concepts, artifacts, and procedures for declaring and identifying <termRef term="IEP conformance target">IEP conformance targets</termRef> in IEPDs.</p>
 
 
-<!-- ##### 4.6.1 ##### -->
+
 <section id="Validity-Context-Constraints">
 	<title>Validity Context and Constraints</title>
 
@@ -1620,7 +1621,8 @@
 <section id="Declaring-Validity-Constraints">
 	<title>Declaring Validity Constraints</title>
 
-<!-- ##### 4.6.1.1 ##### -->
+
+
 <section id="ValidityConstraintWithContext">
 	<title>c:ValidityConstraintWithContext</title>
 
