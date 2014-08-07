@@ -1749,23 +1749,24 @@
 <section id="IEP-Samples">
 	<title>IEP Sample Instance XML Documents</title>
 
-	<p>Sample IEP <termRef term="instance XML document">instance XML documents</termRef> are representations of actual or example exchange data instances and can be extremely valuable artifacts in an IEPD.  Sample IEPs can:</p>
+	<p>This section discusses sample IEPs in the context of an IEPD.  However, this is not meant to imply that sample IEPs are not useful in other MPDs.</p>
+
+	<p>A sample IEP <termRef>instance XML document</termRef> is a representation of an actual or example exchange data instance.  Sample instances can be extremely valuable artifacts in an IEPD.  Sample IEPs:</p>
 	<ul>
 		<li><p>Help an IEPD implementer to understand the original intent of the IEPD author.</p></li>
-		<li><p>Be used by an implementer as a data point for validation of IEP conformance targets.</p></li>
-		<li><p>Indicate or imply IEPD quality.</p></li>
+		<li><p>Can be used by an implementer as a data point for validation of IEP conformance targets.</p></li>
+		<li><p>can indicate or imply IEPD quality.</p></li>
 	</ul>
 
-	<p>For these reasons, IEP samples are required for IEPDs:</p>
+	<p>For these reasons, the following rule applies to an IEPD:</p>
 
-<ruleSection>
-	<title>IEPD Has One or More Samples for Each <qName>c:IEPConformanceTarget</qName></title>
-	<rule id="r-iep-samples" applicability="IEP FN-IEP" class="Interpretation">
-		<p>An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared <qName>c:IEPConformanceTarget</qName>.  If applicable, a single IEP sample MAY exemplify multiple conformance targets.</p>
+	<ruleSection><title>IEPD Has an IEP Sample for Each <qName>c:IEPConformanceTarget</qName></title>
+		<rule id="r-iep-samples" applicability="N-IEPD" class="Constraint">
+			<p>Within the MPD catalog document of an IEPD, a <qName>c:IEPConformanceTarget</qName> element MUST contain a <qName>c:IEPSampleXMLDocument</qName> child element.</p>
 	</rule>
-</ruleSection>
+	</ruleSection>
 
-	<p>Note that this rule requires that each IEP conformance target be covered by at least one IEP sample document instance.  This does not necessarily mandate a different IEP sample for each IEP conformance target.  It may be possible, and is therefore acceptable, for a given IEP sample to serve as an example of one or more IEP conformance targets.</p>
+	<p>The rule above requires that each declared <termRef>IEP conformance target</termRef> be covered (exemplified or correctly demonstrated) by at least one IEP sample instance XML document.  This does not necessarily mandate a different IEP sample for each <termRef>IEP conformance target</termRef>.  It may be possible, and is therefore acceptable, for a given IEP sample to serve as an example of one or more <termRef term="IEP conformance target">IEP conformance targets</termRef>.</p>
 	
 	<p>The purpose of this rule is not to provide a test for all possible IEP permutations given the schema definitions and validity constraint declarations; rather, it is to encourage IEPD authors to test their own designs, and to provide implementers with examples for additional understanding, guidance, and testing.  To the extent possible, IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges, and (2) exercise as many data components and validity constraints as possible.  Where it makes sense, an IEPD author should strive to provide enough sample IEPs to exercise all the XML document elements (or payload root elements).  If a single IEP cannot provide enough example coverage, an author may include multiple IEPs (but is not required to do so).</p>
 
