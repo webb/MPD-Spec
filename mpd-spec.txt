@@ -1302,11 +1302,13 @@ Rule 4-39. IEPD Has a readme.* in Root Directory
 
    [Definition: XML catalog document]
 
-      As described by http://en.wikipedia.org/wiki/XML_Catalog and specified by [XML Catalogs]:
+      As defined by [XML Catalogs]:
 
-      An XML document describing a mapping between external entity references and locally-cached equivalents. It associates a URI reference with information about an external reference that appears in an XML document. An XML catalog can be used to locate the replacement text for an external entity, or an alternate URI reference for a resource.
+         An entity catalog.
 
-   [XML Catalogs] are XML documents used in MPDs to [resolve] XML schema document target namespaces to local URIs. This is especially useful when assembling an XML schema from an XML schema document set. Some validators (e.g., Xerces) and other tools utilize XML catalogs for this purpose.
+   An [XML catalog document] is an [instance XML document] that describes a mapping between external entity references and locally-cached equivalents. It associates a URI reference with information about an external reference that appears in an XML document. An [XML catalog document] can be used to locate the replacement text for an external entity, or an alternate URI reference for a resource.
+
+   An MPD can use an [XML catalog document] to [resolve] XML schema document target namespaces to local URIs. This is especially useful when assembling an XML schema from an XML schema document set. Some validators (e.g., Xerces) and other tools utilize [XML catalog documents] for this purpose.
 
    IEPD authors are encouraged to employ [XML catalog documents] within IEPDs to facilitate validation of IEPs.
 
@@ -1319,6 +1321,8 @@ Rule 4-39. IEPD Has a readme.* in Root Directory
    The practical reality of [XML schema assembly] is that the process is based on several methods for identifying the correct [XML schema documents], and these methods may be applied in no particular order. For most cases, this specification recommends the use of XML catalog documents as the preferred method for organizing [XML schema documents] so that a tool can assemble them into a schema (for validation or other purposes).
 
    The MPD catalog schema document specifies a c:XMLSchemaType that contains both a c:XMLCatalog and a c:XMLSchemaDocument element. c:XMLCatalog identifies the starting XML catalog document when employing XML catalogs. For simpler cases that use all NIEM-conforming schema documents (i.e., schema documents that are well-behaved and do not use xs:include statements), the c:XMLSchemaDocument identifies a root schema document for a given [XML schema document] set.
+
+   Use of both the c:XMLCatalog and c:XMLSchemaDocument elements within the same c:IEPConformanceTarget may resolve the namespaces in an unexpected order. There is no good way to use both catalog resolution and schema resolution concurrently, so it has to be undefined.
 
 4.6. Defining Information Exchange Packages
 
@@ -1336,11 +1340,7 @@ Rule 4-40. Conformance Target Identifier
 
       A [conformance target identifier] for an [IEP conformance target] declared in an MPD is formed by concatenating the following in sequence:
 
-         1. the MPD URI
-
-         2. the pound sign character (#)
-
-         3. a locally unique NCName (i.e., a non-colonized name, as defined by [W3C XML Schema Structures], section 3.3.7, "NCName").
+         1. a locally unique NCName (i.e., a non-colonized name, as defined by [W3C XML Schema Structures], section 3.3.7, "NCName").
 
    This rule requires that an [IEP conformance target] has a URI, i.e., its [conformance target identifier].
 
@@ -1444,7 +1444,7 @@ Rule 4-45. Validating an XPath Expression
 
    NIEM is based on XML Schema, and so the term "schema validation" usually refers to "XML Schema validation". However, an IEPD author may also choose to include artifacts to validate with other types of schemas or rules, including but not limited to [ISO Schematron] and [ISO RelaxNG]. IEPD authors may also include artifacts for NIEM constraint schema validation, which, of course, is XML Schema validation (See Section 3.5, Constraint Schema Document Sets, above.
 
-   Because NIEM is XML Schema based, then c:XMLSchemaValid (of type c:XMLSchemaType) will likely be employed by most IEPDs. This validity constraint ensures that an IEP artifact is schema valid to an XML schema that can be assembled correctly from the schema documents that comprise it. To do this c:XMLSchemaValid provides two methods to choose from based on its child elements, c:XMLCatalog and c:XMLSchemaDocument, both zero to unbounded cardinality. The MPD author can use (1) c:XMLCatlog to identify one or more XML catalog documents that map the correct schema documents; or (2) c:XMLSchemaDocument to explicitly identify the one or more XML schema documents to be retrieved. In each case, depending on the nature of the XML schema document set from which the schema documents are coming, it may be possible to identify a single XML catalog document or a single XML schema document. That catalog or schema document will be the starting point or root document and will contain enough information to explicitly identify or cascade to the rest.
+   Because NIEM is XML Schema based, then c:XMLSchemaValid (of type c:XMLSchemaType) will likely be employed by most IEPDs. This validity constraint ensures that an IEP artifact is schema valid to an XML schema that can be assembled correctly from the schema documents that comprise it. To do this c:XMLSchemaValid provides two methods to choose from based on its child elements, c:XMLCatalog and c:XMLSchemaDocument, both zero to unbounded cardinality. The MPD author can use (1) c:XMLCatlog to identify one or more XML catalog documents that map the correct schema documents; or (2) c:XMLSchemaDocument to explicitly identify the one or more XML schema documents to be retrieved. In each case, depending on the nature of the XML schema document set from which the schema documents are coming, it may be possible to identify a single XML catalog document or a single XML schema document. That catalog or schema document will be the starting point or root document and will contain enough information to explicitly identify or cascade to the rest. (See also Section 4.5, XML Catalogs, above)
 
    It is the MPD author's responsibility to ensure that the method used (XML catalogs or XML schema document identification) is configured correctly per the appropriate specification ([XML Catalogs] or [W3C XML Schema Structures]).
 
@@ -1468,23 +1468,25 @@ Rule 4-45. Validating an XPath Expression
 
 4.6.3. IEP Sample Instance XML Documents
 
-   Sample IEP [instance XML documents] are representations of actual or example exchange data instances and can be extremely valuable artifacts in an IEPD. Sample IEPs can:
+   This section discusses sample IEPs in the context of an IEPD. However, this is not meant to imply that sample IEPs are not useful in other MPDs.
+
+   A sample IEP [instance XML document] is a representation of an actual or example exchange data instance. Sample instances can be extremely valuable artifacts in an IEPD. Sample IEPs:
 
       *  Help an IEPD implementer to understand the original intent of the IEPD author.
 
-      *  Be used by an implementer as a data point for validation of IEP conformance targets.
+      *  Can be used by an implementer as a data point for validation of IEP conformance targets.
 
-      *  Indicate or imply IEPD quality.
+      *  can indicate or imply IEPD quality.
 
-   For these reasons, IEP samples are required for IEPDs:
+   For these reasons, the following rule applies to an IEPD:
 
-Rule 4-46. IEPD Has One or More Samples for Each c:IEPConformanceTarget
+Rule 4-46. IEPD Has an IEP Sample for Each c:IEPConformanceTarget
 
-   [Rule 4-46] (IEP, FN-IEP)
+   [Rule 4-46] (N-IEPD)
 
-      An IEPD MUST contain at least one IEP sample XML document instance that exemplifies each declared c:IEPConformanceTarget. If applicable, a single IEP sample MAY exemplify multiple conformance targets.
+      Within the MPD catalog document of an IEPD, a c:IEPConformanceTarget element MUST contain a c:IEPSampleXMLDocument child element.
 
-   Note that this rule requires that each IEP conformance target be covered by at least one IEP sample document instance. This does not necessarily mandate a different IEP sample for each IEP conformance target. It may be possible, and is therefore acceptable, for a given IEP sample to serve as an example of one or more IEP conformance targets.
+   The rule above requires that each declared [IEP conformance target] be covered (exemplified or correctly demonstrated) by at least one IEP sample instance XML document. This does not necessarily mandate a different IEP sample for each [IEP conformance target]. It may be possible, and is therefore acceptable, for a given IEP sample to serve as an example of one or more [IEP conformance targets].
 
    The purpose of this rule is not to provide a test for all possible IEP permutations given the schema definitions and validity constraint declarations; rather, it is to encourage IEPD authors to test their own designs, and to provide implementers with examples for additional understanding, guidance, and testing. To the extent possible, IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges, and (2) exercise as many data components and validity constraints as possible. Where it makes sense, an IEPD author should strive to provide enough sample IEPs to exercise all the XML document elements (or payload root elements). If a single IEP cannot provide enough example coverage, an author may include multiple IEPs (but is not required to do so).
 
@@ -3279,7 +3281,7 @@ Appendix F. Guidance for IEPD Directories (non-normative)
 
       6.  If using EXI schema documents, create a exi-xsd subdirectory for these.
 
-      7.  Create an iep-sample subdirectory for sample IEPs (Rule 4-46, IEPD Has One or More Samples for Each c:IEPConformanceTarget).
+      7.  Create an iep-sample subdirectory for sample IEPs (Rule 4-46, IEPD Has an IEP Sample for Each c:IEPConformanceTarget).
 
       8.  If more documentation artifacts (e.g., text, graphics, media) are necessary, create a documentation subdirectory for miscellaneous explanatory documentation. As needed, create additional subdirectories within this one to organize documentation artifacts. The readme.* artifact in the [MPD root directory] should refer to or index documentation in this subdirectory.
 
@@ -3605,7 +3607,7 @@ Appendix J. Index of Rules
    Rule 4-43, : Section 4.6.2.3, c:ValidityContext
    Rule 4-44, Identifying the Document Element of an IEP: Section 4.6.2.4, c:HasDocumentElement
    Rule 4-45, Validating an XPath Expression: Section 4.6.2.5, c:ValidToXPath
-   Rule 4-46, IEPD Has One or More Samples for Each c:IEPConformanceTarget: Section 4.6.3, IEP Sample Instance XML Documents
+   Rule 4-46, IEPD Has an IEP Sample for Each c:IEPConformanceTarget: Section 4.6.3, IEP Sample Instance XML Documents
    Rule 4-47, Validating an IEP Sample XML Document: Section 4.6.3, IEP Sample Instance XML Documents
    Rule 4-48, IEPD Have Conformance Assertion in Root Directory: Section 4.7, Conformance Assertion
    Rule 4-49, Conformance Assertion File Name Is conformance-assertion.*: Section 4.7, Conformance Assertion
