@@ -70,7 +70,7 @@ Status
 
    [Definition: Model Package Description]
 
-      A set of logically cohesive W3C XML Schema documents and other supporting files that represents a reusable or implementable NIEM-conformant information model. An MPD is packaged as a single [PKZIP] archive file.
+      A set of logically cohesive W3C XML Schema documents and other supporting files that represents a reusable or implementable NIEM-conformant information model. An MPD is packaged as a single [Zip file].
 
    A key NIEM concept used throughout this specification is data component.
 
@@ -298,7 +298,7 @@ Status
 
       *  Requires the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD.
 
-      *  Packaged as [PKZIP] archive.
+      *  Packaged as a [Zip file].
 
       *  Has a copy of (not just URLs or references to) all schema documents needed to validate any [instance XML document] class it defines.
 
@@ -380,7 +380,15 @@ Rule 2-1. Information Exchange Package Documentation
 
          An internationalized resource identifier [RFC 3987 IRI] that uniquely identifies a conformance target.
 
-3.2. MPD Conformance Targets
+3.2. MPD Class
+
+   It will be useful to define the following term:
+
+   [Definition: MPD class]
+
+      A [conformance target identifier] to which a given MPD claims to conform.
+
+3.3. MPD Conformance Targets
 
    This specification establishes two primary MPD [conformance targets]: [well-formed MPD] and [IEPD].
 
@@ -426,7 +434,7 @@ Rule 2-1. Information Exchange Package Documentation
 
       (rule applicability code: WF-MPD)
 
-   A [well-formed MPD] satisfies the need for a [PKZIP] file with an [MPD catalog document] that validates to the MPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an MPD by iteratively adding artifacts and expanding the MPD catalog to reference them.
+   A [well-formed MPD] satisfies the need for a [Zip file] with an [MPD catalog document] that validates to the MPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an MPD by iteratively adding artifacts and expanding the MPD catalog to reference them.
 
    Most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts. Adherence to these rules can produce an IEPD that is well-formed (WF-MPD), but that does not necessarily satisfy all general and specific requirements for a [IEPD]. The following rule ensures that a complete [IEPD] adheres to all applicable NIEM conformance rules.
 
@@ -452,7 +460,7 @@ Rule 2-1. Information Exchange Package Documentation
 
       (rule applicability code: IEPD)
 
-3.3. IEP Conformance Targets
+3.4. IEP Conformance Targets
 
    Section 2.10.1, Information Exchange Package Documentation (IEPD), above, introduced the only MPD class that defines an information exchange -- [Information Exchange Package Documentation] (IEPD). This section also introduced an [Information Exchange Package], which is an information exchange instance defined by an IEPD. An IEP is also a [conformance target] and in that connotation is defined as follows:
 
@@ -470,7 +478,7 @@ Rule 2-1. Information Exchange Package Documentation
 
       (rule applicability code: FN-IEP)
 
-3.4. Artifact Conformance Targets
+3.5. Artifact Conformance Targets
 
    Conformance targets that correspond to artifacts internal to an MPD include:
 
@@ -480,7 +488,7 @@ Rule 2-1. Information Exchange Package Documentation
 
       *  [XML catalog document] (rule applicability code: XML-Cat)
 
-3.5. Rul Applicability Codes for Conformance Targets
+3.6. Rul Applicability Codes for Conformance Targets
 
    The table below lists the codes that represent standard [conformance targets] used in this specification and that appear in the applicability attribute for each rule.
 
@@ -1714,7 +1722,7 @@ Rule 7-1. MPD Is a Zip Archive
 
    [Rule 7-1] (WF-MPD)
 
-      An MPD is packaged as a single compressed archive of files that represents a sub-tree of a file system in standard [PKZIP] format. This archive MUST preserve and store the logical directory structure intended by its author.
+      An MPD is packaged as a single compressed archive of files that represents a sub-tree of a file system in standard [Zip file] format. This archive MUST preserve and store the logical directory structure intended by its author.
 
    NIEM XSD and XML artifacts in an MPD must be valid for both XML Schema and NIEM. This also implies these artifacts must adhere to applicable [NIEM NDR 3.0] conformance target rules.
 
