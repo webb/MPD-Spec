@@ -280,7 +280,63 @@ Status
 
    Rules are numbered according to the section in which they appear and the order in which they appear within that section. For example, Rule 4-1 is the first rule in Section 4.
 
-2.10. Model Package Descriptions
+3. Conformance Targets
+
+   This section introduces [conformance targets], a concept fundamental to understanding the normative rules defined in this specification. This section also defines and explains [conformance targets] used in this specification.
+
+   There are several purposes for defining conformance targets in NIEM specifications. A [conformance target] establishes and identifies a class of artifact associated with a set of rules. Based on these rules, tools and operations may be developed to process or use these artifacts consistently.
+
+   Conformance targets also satisfy a need to ensure developers do not conform to NIEM in name only. Once committed to using NIEM, developers and organizations need well-defined conformance targets and rules to know exactly how to conform. Funding agencies require conformance targets that correspond to interoperability goals. An agency that is funding development of a set of systems will need to ensure it funds the development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs. Tools and system developers need conformance targets that identify real world requirements corresponding to their use cases and tool capabilities. Many of these tools have not yet been developed. Therefore, this specification attempts to cover a broad range of general use cases.
+
+3.1. Conformance Target Terminology
+
+   [NIEM Conformance Targets Attribute Specification 3.0] defines two terms used normatively and often within this specification.
+
+   [Definition: conformance target]
+
+      As defined by [NIEM Conformance Targets Attribute Specification 3.0]:
+
+         A class of artifact, such as an interface, protocol, document, platform, process or service, that is the subject of conformance clauses and normative statements. There may be several conformance targets defined within a specification, and these targets may be diverse so as to reflect different aspects of a specification. For example, a protocol message and a protocol engine may be different conformance targets.
+
+   [Definition: conformance target identifier]
+
+      As defined by [NIEM Conformance Targets Attribute Specification 3.0]:
+
+         An internationalized resource identifier [RFC 3987 IRI] that uniquely identifies a conformance target.
+
+   It will also be useful to define [MPD class].
+
+   [Definition: MPD class]
+
+      A [conformance target identifier] to which a given MPD claims to conform.
+
+3.2. MPD Conformance Targets
+
+   This specification establishes two primary MPD [conformance targets]: [well-formed MPD] and [IEPD].
+
+   An MPD may be constructed manually, but it is far more efficient to generate its parts or its entirety using one or more NIEM-aware software tools. The existence of a [well-formed MPD] [conformance target] has several advantages:
+
+      *  Facilitates the existence of many incremental states from start to finish that are checkpoints for well-formedness.
+
+      *  Enables multiple paths to completion; no single pre-determined sequence of rule applications is required.
+
+      *  Provides tool developers with the flexibility to construct an MPD incrementally in many different sequences.
+
+      *  Avoids a need to build a complete MPD before automated correctness checks can be applied (since [MPD well-formedness] can be checked at many developmental stages).
+
+      *  Facilitates the interoperability and use of multiple tools that can export/import a [well-formed MPD].
+
+      *  A [well-formed MPD] is a basis for consistency across all MPD classes.
+
+   Because they are almost always file sets, MPDs are packaged as [Zip files].
+
+   [Definition: Zip file]
+
+      As defined by [PKZIP]:
+
+         An electronic file in the most widely used, cross-platform, interoperable file storage and transfer format. Zip format is used to aggregate, compress, and encrypt files into a single interoperable container.
+
+3.2.1. The MPD Conformance Target
 
    The concept of [Model Package Description] provides a common framework for classes of NIEM file sets, each with a specific purpose. A NIEM release is a harmonized [reference schema document] set that defines and declares all content for a single (major, minor, or micro) version of NIEM (See [NIEM High-Level Version Architecture 1.0]). A domain update is a [reference schema document] set that represents changes to one or more domains in a NIEM release. A core update is a [reference schema document] set of changes that supplement the core of a NIEM release. An Enterprise Information Exchange Model (EIEM) is a [XML schema document] set that may contain one or more [subset schema documents], [extension schema documents], and [external schema documents] that are employed to construct IEPDs.
 
@@ -306,7 +362,51 @@ Status
 
       *  May contain miscellaneous other documentation or file artifacts for assisting with usage or implementation.
 
-2.10.1. Information Exchange Package Documentation (IEPD)
+   [Definition: well-formed MPD]
+
+      A [Zip file] that:
+
+         *  Adheres to the rules for a [well-formed MPD] [conformance target], and
+
+         *  Has the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD, and
+
+         *  Satisfies all relevant rules and requirements defined by:
+
+               *  [NIEM MPD Specification 3.0]
+
+               *  [NIEM NDR 3.0]
+
+               *  [NIEM Conformance Targets Attribute Specification 3.0]
+
+               *  [NIEM Conformance 3.0]
+
+      (rule applicability code: WF-MPD)
+
+   A [well-formed MPD] satisfies the need for a [Zip file] with an [MPD catalog document] that validates to the MPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an MPD by iteratively adding artifacts and expanding the MPD catalog to reference them.
+
+   Most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts. Adherence to these rules can produce an IEPD that is well-formed (WF-MPD), but that does not necessarily satisfy all general and specific requirements for a [IEPD]. The following rule ensures that a complete [IEPD] adheres to all applicable NIEM conformance rules.
+
+3.2.2. IEPD Conformance Target
+
+   [Definition: IEPD]
+
+      An MPD that:
+
+         *  Has an [MPD class] of http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD, and
+
+         *  Has one or more c:IEPConformanceTarget elements within its [MPD catalog document], and
+
+         *  Satisfies all relevant rules and requirements defined by:
+
+               *  [NIEM MPD Specification 3.0]
+
+               *  [NIEM NDR 3.0]
+
+               *  [NIEM Conformance Targets Attribute Specification 3.0]
+
+               *  [NIEM Conformance 3.0]
+
+      (rule applicability code: IEPD)
 
    [Definition: Information Exchange Package Documentation]
 
@@ -334,9 +434,9 @@ Status
 
    The following rule specifies an IEPD as a [conformance target]:
 
-Rule 2-1. Information Exchange Package Documentation
+Rule 3-1. Information Exchange Package Documentation
 
-   [Rule 2-1] (IEPD)
+   [Rule 3-1] (IEPD)
 
       An MPD that defines one or more Information Exchange Packages ([instance XML documents]. It is a [conformance target] of this specification. An IEPD MUST conform to all rules of this specification that apply to this conformance target. An MPD with a [conformance target identifier] of http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD MUST be an [Information Exchange Package Documentation] MPD.
 
@@ -356,113 +456,9 @@ Rule 2-1. Information Exchange Package Documentation
 
       *  Contains sample instance XML documents that validate to XML schema document set.
 
-3. Conformance Targets
+3.3. IEP Conformance Targets
 
-   This section introduces [conformance targets], a concept fundamental to understanding the normative rules defined in this specification. This section also defines and explains [conformance targets] used in this specification.
-
-   There are several purposes for defining conformance targets in NIEM specifications. A [conformance target] establishes and identifies a class of artifact associated with a set of rules. Based on these rules, tools and operations may be developed. However, a conformance target has other purposes.
-
-   Conformance targets satisfy a need to ensure developers do not conform to NIEM in name only. Once committed to using NIEM, developers and organizations need well-defined conformance targets and rules to know exactly how to conform. Funding agencies require conformance targets that correspond to interoperability goals. An agency that is funding development of a set of systems will need to ensure it funds the development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs. Tools and system developers need conformance targets that identify real world requirements corresponding to their use cases and tool capabilities. Many of these tools are not yet developed. Therefore, this specification attempts to cover a broad range of general use cases.
-
-3.1. Conformance Targets Attribute Specification terminology
-
-   [NIEM Conformance Targets Attribute Specification 3.0] defines two terms used normatively and often within this specification.
-
-   [Definition: conformance target]
-
-      As defined by [NIEM Conformance Targets Attribute Specification 3.0]:
-
-         A class of artifact, such as an interface, protocol, document, platform, process or service, that is the subject of conformance clauses and normative statements. There may be several conformance targets defined within a specification, and these targets may be diverse so as to reflect different aspects of a specification. For example, a protocol message and a protocol engine may be different conformance targets.
-
-   [Definition: conformance target identifier]
-
-      As defined by [NIEM Conformance Targets Attribute Specification 3.0]:
-
-         An internationalized resource identifier [RFC 3987 IRI] that uniquely identifies a conformance target.
-
-3.2. MPD Class
-
-   It will be useful to define the following term:
-
-   [Definition: MPD class]
-
-      A [conformance target identifier] to which a given MPD claims to conform.
-
-3.3. MPD Conformance Targets
-
-   This specification establishes two primary MPD [conformance targets]: [well-formed MPD] and [IEPD].
-
-   An MPD may be constructed manually, but it is far more efficient to generate its parts or its entirety using one or more NIEM-aware software tools. The existence of a [well-formed MPD] [conformance target] has several advantages:
-
-      *  Facilitates the existence of many incremental states from start to finish that are checkpoints for well-formedness.
-
-      *  Enables multiple paths to completion; no single pre-determined sequence of rule applications is required.
-
-      *  Provides tool developers with the flexibility to construct an MPD incrementally in many different sequences.
-
-      *  Avoids a need to build a complete MPD before automated correctness checks can be applied (since [MPD well-formedness] can be checked at many developmental stages).
-
-      *  Facilitates the interoperability and use of multiple tools that can export/import a [well-formed MPD].
-
-      *  A [well-formed MPD] is a basis for consistency across all MPD classes.
-
-   Because they are almost always file sets, MPDs are packaged as [Zip files].
-
-   [Definition: Zip file]
-
-      As defined by [PKZIP]:
-
-         An electronic file in the most widely used, cross-platform, interoperable file storage and transfer format. Zip format is used to aggregate, compress, and encrypt files into a single interoperable container.
-
-   [Definition: well-formed MPD]
-
-      A [Zip file] that:
-
-         *  Adheres to the rules for a [well-formed MPD] [conformance target] in this MPD specification, and
-
-         *  Has the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD, and
-
-         *  Satisfies all relevant rules and requirements defined by:
-
-               *  [NIEM MPD Specification 3.0] (i.e., This MPD Specification)
-
-               *  [NIEM NDR 3.0]
-
-               *  [NIEM Conformance Targets Attribute Specification 3.0]
-
-               *  [NIEM Conformance 3.0]
-
-      (rule applicability code: WF-MPD)
-
-   A [well-formed MPD] satisfies the need for a [Zip file] with an [MPD catalog document] that validates to the MPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an MPD by iteratively adding artifacts and expanding the MPD catalog to reference them.
-
-   Most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts. Adherence to these rules can produce an IEPD that is well-formed (WF-MPD), but that does not necessarily satisfy all general and specific requirements for a [IEPD]. The following rule ensures that a complete [IEPD] adheres to all applicable NIEM conformance rules.
-
-   [Definition: IEPD]
-
-      An MPD that:
-
-         *  Has the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD, and
-
-         *  Has the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD, and
-
-         *  Has one or more c:IEPConformanceTarget elements within its [MPD catalog document], and
-
-         *  Satisfies all relevant rules and requirements defined by:
-
-               *  [NIEM MPD Specification 3.0] (i.e., This MPD Specification)
-
-               *  [NIEM NDR 3.0]
-
-               *  [NIEM Conformance Targets Attribute Specification 3.0]
-
-               *  [NIEM Conformance 3.0]
-
-      (rule applicability code: IEPD)
-
-3.4. IEP Conformance Targets
-
-   Section 2.10.1, Information Exchange Package Documentation (IEPD), above, introduced the only MPD class that defines an information exchange -- [Information Exchange Package Documentation] (IEPD). This section also introduced an [Information Exchange Package], which is an information exchange instance defined by an IEPD. An IEP is also a [conformance target] and in that connotation is defined as follows:
+   In NIEM an information exchange instance is an [Information Exchange Package] (IEP). An IEP is also a [conformance target] and in that connotation is defined as follows:
 
    [Definition: information exchange package]
 
@@ -478,7 +474,7 @@ Rule 2-1. Information Exchange Package Documentation
 
       (rule applicability code: FN-IEP)
 
-3.5. Artifact Conformance Targets
+3.4. Artifact Conformance Targets
 
    Conformance targets that correspond to artifacts internal to an MPD include:
 
@@ -488,7 +484,7 @@ Rule 2-1. Information Exchange Package Documentation
 
       *  [XML catalog document] (rule applicability code: XML-Cat)
 
-3.6. Rul Applicability Codes for Conformance Targets
+3.5. Rul Applicability Codes for Conformance Targets
 
    The table below lists the codes that represent standard [conformance targets] used in this specification and that appear in the applicability attribute for each rule.
 
@@ -3276,7 +3272,7 @@ Appendix H. Index of Definitions
 
 Appendix I. Index of Rules
 
-   Rule 2-1, Information Exchange Package Documentation: Section 2.10.1, Information Exchange Package Documentation (IEPD)
+   Rule 3-1, Information Exchange Package Documentation: Section 3.2.2, IEPD Conformance Target
    Rule 4-1, Fundamental NIEM Subset Rule: Section 4.2.1, Basic Subset Concepts
    Rule 5-1, MPD Has an mpd-catalog.xml in its Root Directory: Section 5.1, NIEM MPD Catalog
    Rule 5-2, MPD Catalog Document Valid to mpd-catalog-3.0.xsd: Section 5.1, NIEM MPD Catalog
