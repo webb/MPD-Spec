@@ -419,12 +419,32 @@
 </section>
 </section>
 
+
 <!-- ################################ Conformance Targets ################################ -->
 
-<section id="CT">
-	<title>Conformance Targets</title>
+
+<section id="CT"><title>Conformance Targets</title>
 
 	<p>This section introduces the concept of <termRef>conformance target</termRef>, a concept fundamental to understanding the normative rules defined in this specification.  This section will also define various <termRef term="conformance target">conformance targets</termRef> used in this specification.</p>
+
+
+	<p><termRef term="conformance target">Conformance targets</termRef> and their applicability codes were introduced earlier in <ref idref="CT"/> because they are necessary to understand rule applicability.  This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.</p>
+
+	<p>From a conformance target perspective, NIEM releases, Core and Domain updates, IEPDs, and EIEMs are all specialized MPDs, and this establishes an <em>IS-A</em> relationship.</p>
+
+	<p><termRef term="conformance target">Conformance targets</termRef> in this specification support a variety of use cases:</p>
+	<ul>
+		<li><p>An XML document with a NIEM-defined XML document (root) element.</p></li>
+		<li><p>An XML document that contains a NIEM-defined document wrapped in a non-NIEM element (e.g. an envelope, which includes SOAP, LEXS, ULEX, Trusted Data Format, OGC Web Services, etc.).</p></li>
+		<li><p>Use of multiple NIEM-defined payloads together, in an envelope, or as a composite package.</p></li>
+		<li><p>Use of NIEM-defined data annotating and providing details to a non-NIEM format, such as an OGC standard.</p></li>
+		<li><p>Use of a non-NIEM format, where NIEM annotations and details may or may not occur depending on usage (e.g., NIEM details are provided for hospitals, but the message instance contains no hospitals).</p></li>
+		<li><p>The use of non-NIEM data annotating and providing details on NIEM data.</p></li>
+	</ul>
+
+	<p>There are several purposes for defining conformance targets in NIEM specifications.  A <termRef>conformance target</termRef> establishes and identifies a class of artifact associated with a set of rules.  Based on these rules, tools and operations may be developed.  However, a conformance target has other purposes.</p>
+
+	<p>Conformance targets satisfy a need to ensure developers do not conform to NIEM in name only.  Once committed to using NIEM, developers and organizations need well-defined conformance targets and rules to know exactly how to conform.  Funding agencies require conformance targets that correspond to interoperability goals.  An agency that is funding development of a set of systems will need to ensure it funds the development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs.  Tools and system developers need conformance targets that identify real world requirements corresponding to their use cases and tool capabilities.  Many of these tools are not yet developed.  Therefore, this specification attempts to cover a broad range of general use cases.</p>
 
 
 
@@ -448,14 +468,11 @@
 
 </section>
 
+
 <!-- ############## Conformance Target Codes ############## -->
 
-<section id="CT-Codes">
-	<title>Conformance Target Codes</title>
 
-	<p>There are several purposes for defining conformance targets in NIEM specifications.  A <termRef>conformance target</termRef> establishes and identifies a class of artifact associated with a set of rules.  Based on these rules, tools and operations may be developed.  However, a conformance target has other purposes.</p>
-
-	<p>Conformance targets satisfy a need to ensure developers do not conform to NIEM in name only.  Once committed to using NIEM, developers and organizations need well-defined conformance targets and rules to know exactly how to conform.  Funding agencies require conformance targets that correspond to interoperability goals.  An agency that is funding development of a set of systems will need to ensure it funds the development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs.  Tools and system developers need conformance targets that identify real world requirements corresponding to their use cases and tool capabilities.  Many of these tools are not yet developed.  Therefore, this specification attempts to cover a broad range of general use cases.</p>
+<section id="CT-Codes"><title>Conformance Target Codes</title>
 
 	<p>The table below lists the codes that represent standard <termRef term="conformance target">conformance targets</termRef> used in this specification and that appear in the <code>applicability</code> attribute of each rule.</p>
 
@@ -492,34 +509,10 @@
 </section>
 
 
-
-<!-- ####################### Conformance Targets ########################### -->
-
-
-<section id="Conformance-Targets">
-	<title>Conformance Targets</title>
-
-	<p><termRef term="conformance target">Conformance targets</termRef> and their applicability codes were introduced earlier in <ref idref="CT"/> because they are necessary to understand rule applicability.  This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.</p>
-
-	<p>From a conformance target perspective, NIEM releases, Core and Domain updates, IEPDs, and EIEMs are all specialized MPDs, and this establishes an <em>IS-A</em> relationship.</p>
-
-	<p><termRef term="conformance target">Conformance targets</termRef> in this specification support a variety of use cases:</p>
-	<ul>
-		<li><p>An XML document with a NIEM-defined XML document (root) element.</p></li>
-		<li><p>An XML document that contains a NIEM-defined document wrapped in a non-NIEM element (e.g. an envelope, which includes SOAP, LEXS, ULEX, Trusted Data Format, OGC Web Services, etc.).</p></li>
-		<li><p>Use of multiple NIEM-defined payloads together, in an envelope, or as a composite package.</p></li>
-		<li><p>Use of NIEM-defined data annotating and providing details to a non-NIEM format, such as an OGC standard.</p></li>
-		<li><p>Use of a non-NIEM format, where NIEM annotations and details may or may not occur depending on usage (e.g., NIEM details are provided for hospitals, but the message instance contains no hospitals).</p></li>
-		<li><p>The use of non-NIEM data annotating and providing details on NIEM data.</p></li>
-	</ul>
+<!-- ######################## MPD CTs ########################## -->
 
 
-
-<!-- ######################## MPD ########################## -->
-
-
-<section id="MPD-Conformance-Targets">
-	<title>MPD Conformance Targets</title>
+<section id="CT-MPD"><title>MPD Conformance Targets</title>
 
 	<p>This specification establishes two primary MPD <termRef term="conformance target">conformance targets</termRef>: <termRef>well-formed MPD</termRef> and <termRef>NIEM IEPD</termRef>.</p>
 
@@ -563,11 +556,10 @@
 </section>
 
 
-<!-- ####################### IEP ########################### -->
+<!-- ####################### IEP CTs ########################### -->
 
 
-<section id="IEP-Conformance-Targets">
-	<title>IEP Conformance Targets</title>
+<section id="CT-IEP"><title>IEP Conformance Targets</title>
 
 	<p><ref idref="Information-Exchange-Package-Documentation"/> introduced the only MPD class that defines an information exchange <char name="mdash"/> <termRef>Information Exchange Package Documentation</termRef> (IEPD).  This section also introduced an <termRef>Information Exchange Package</termRef>, which is an information exchange instance defined by an IEPD.  An IEP is also a <termRef>conformance target</termRef> and in that connotation is defined as follows:</p>
 
@@ -585,7 +577,7 @@
 
 </section>
 
-<section id="Artifact-Conformance-Targets">
+<section id="CT-Artifact">
 	<title>Artifact Conformance Targets</title>
 
 	<p>Conformance targets correspond to artifacts internal to an MPD include:</p>
@@ -595,7 +587,6 @@
 		<li><p><termRef>XML catalog document</termRef> (applicability code = XML-Cat)</p></li>
 	</ul>
 
-</section>
 </section>
 </section>
 
@@ -1926,7 +1917,7 @@
 </section>
 
 
-<!-- ################################################## -->
+<!-- ###################### Optional MPD Artifacts ############################ -->
 
 
 <section id="Optional-MPD-Artifacts">
@@ -2002,7 +1993,7 @@
 </section>
 
 
-<!-- ################################################## -->
+<!-- ###################### Organization, Packaging, Other Criteria ############################ -->
 
 
 <section id="Organization-Packaging-Other-Criteria">
