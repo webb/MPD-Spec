@@ -3,6 +3,12 @@ ifeq ($(IEAD_TOOLS_ROOT),)
 $(error Environment variable "IEAD_TOOLS_ROOT" is unset)
 endif
 
+ifeq ($(USE_SAXON_EE),true)
+CHECK_DOC_COMMAND_FLAGS += --saxon-ee 
+PROCESS_DOC_COMMAND_FLAGS += --saxon-ee
+SAXON_COMMAND_FLAGS += -ee -l:on
+endif
+
 TMP_DIR := tmp
 TOKENS_DIR := tmp/tokens
 
@@ -39,11 +45,11 @@ help:
 all: $(DOC_DEST_HTML) $(DOC_DEST_TEXT)
 
 $(DOC_DEST_HTML): $(DOC_SRC) $(DOC_HTML_REQUIRED_FILES)
-	$(PROCESS_DOC) -html -in $< -out $@
+	$(PROCESS_DOC) $(PROCESS_DOC_COMMAND_FLAGS) -html -in $< -out $@
 	$(RM) tmp.$(DOC_SRC).html $(DOC_SRC).xhtml
 
 $(DOC_DEST_TEXT): $(DOC_SRC) $(DOC_TEXT_REQUIRED_FILES)
-	$(PROCESS_DOC) -plaintext -in $< -out $@
+	$(PROCESS_DOC) $(PROCESS_DOC_COMMAND_FLAGS) -plaintext -in $< -out $@
 
 valid: $(VALID_TOKENS) conformance-report.txt
 
@@ -85,7 +91,7 @@ depend: $(DEPEND_MK)
 
 $(DEPEND_MK): $(DOC_SRC)
 	mkdir -p $(dir $@)
-	$(PROCESS_DOC) -makedepend -in $< -out $@
+	$(PROCESS_DOC) $(PROCESS_DOC_COMMAND_FLAGS) -makedepend -in $< -out $@
 
 img/%.png.width.txt:
 	touch $@
