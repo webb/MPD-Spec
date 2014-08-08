@@ -1998,13 +1998,13 @@
 
 	<p>For simplicity and consistency, NIEM employs a profile of the XML Schema language <ref idref="W3-XML-Schema-Structures"/>, <ref idref="W3-XML-Schema-Datatypes"/>.  Thus, some constraints on NIEM XML documents cannot be enforced by NIEM.  <termRef term="constraint schema document set">Constraint schema document sets</termRef> provide a convenient technique for enforcing some additional constraints.  However, even the full XML Schema language cannot validate and enforce all possible constraints that may be required of an XML document.</p>
 
-	<p>So, NIEM allows (even encourages) the use of formal or informal <em>business rules</em> to supplement MPDs (in particular IEPDs).</p>
+	<p>So, NIEM allows (even encourages) the use of formal or informal <termRef>business rules</termRef> to supplement MPDs (in particular IEPDs).</p>
 
 	<definition term="business rules">
 		<p>Formal or informal statements that describe business policy or procedure, and in doing so define or constrain some aspect of a process or procedure in order to impose control.</p>
 	</definition>
 
-	<p><termRef term="business rules">Business rules</termRef> may be represented as informal English statements, or as formally coded machine-readable and processible statements.  For example, an IEPD may use a Schematron schema <ref idref="ISO-Schematron"/>, a RelaxNG schema <ref idref="ISO-RelaxNG"/>, or any other formal representation for <termRef>business rules</termRef>.</p>
+	<p><termRef term="business rules">Business rules</termRef> may be represented as informal English statements, or as formally coded machine-readable and processible statements.  For example, an IEPD may use a <termRef>Schematron schema</termRef> <ref idref="ISO-Schematron"/> or any other formal representation for <termRef>business rules</termRef>.</p>
 
 	<definition term="business rule schema">
 		<p>An artifact that contains <termRef>business rules</termRef> in a formal representation language with the intent to automatically process them on an XML document to enforce business constraints.</p>
@@ -2012,10 +2012,6 @@
 
 	<definition term="Schematron schema">
 		<p>A <termRef>business rule schema</termRef> that adheres to <ref idref="ISO-Schematron"/>.</p>
-	</definition>
-
-	<definition term="RelaxNG schema">
-		<p>A <termRef>business rule schema</termRef> that adheres to <ref idref="ISO-RelaxNG"/>.</p>
 	</definition>
 
 </section>
@@ -2126,10 +2122,10 @@
 
 <ruleSection>
 	<title>Constraint on Elements of Type <qName>c:SchemaDocumentSetType</qName></title>
-	<rule id="r-constraint-schemadocumentset">
+	<rule id="r-constraint-schemadocumentset" applicability="MPD-Cat" class="Constraint">
 		<p>An element information item with a type definition validly derived from <qName>c:SchemaDocumentSetType</qName> MUST have a child element with an element declaration that is in the substitution group of <qName>c:XMLCatalog</qName> or <qName>c:SchemaDocument</qName>.</p>
 	</rule>
-	<p>This rule ensures that a <qName>c:SchemaDocumentSet</qName> element always has at least one child element that is an <termRef>XML catalog document</termRef> (which itself defines an <termRef>XML schema document</termRef>) set, or an <termRef>XML schema document</termRef> (which constitutes a set of at least one schema document).  This rule cannot be enforced within the MPD catalog schema without introducing a UPA error.  Thus, it is enforced as a Schematron rule.</p> 
+	<p>This rule ensures that a <qName>c:SchemaDocumentSet</qName> element always has at least one child element that is an <termRef>XML catalog document</termRef> (which itself defines an <termRef>XML schema document</termRef>) set, or an <termRef>XML schema document</termRef> (which constitutes a set of at least one schema document).  This rule cannot be enforced within the MPD catalog schema without introducing a UPA error, but it could be enforced by a Schematron rule.</p> 
 </ruleSection>
 
 </section>
@@ -2137,71 +2133,36 @@
 
 
 
-<section id="MPD-File-Name-Syntax">
-	<title>MPD File Name Syntax</title>
+<section id="IEPD-File-Name-Syntax">
+	<title>IEPD File Name Syntax</title>
 
-	<p>This section is applicable to all MPDs.  However, it is only normative for releases, core updates, and domain updates.  For IEPDs, this section describes non-normative guidance that is highly recommended, but not mandatory.  Additional non-normative guidance that relates to directory naming for IEPDs is in <ref idref="Guidance-IEPD-Directories"/>.</p>
+	<p>This section is applicable to IEPDs.  Additional non-normative for directory naming and organization for IEPDs is in <ref idref="Guidance-IEPD-Directories"/>.</p>
 
-	<p>It is important to understand that this section does not apply to the syntax for the <qName>c:mpdName</qName> attribute in the MPD catalog document.  This section is about MPD file naming.  Refer to <ref idref="Name-Syntax"/> for details regarding the <qName>c:mpdName</qName> metadata attribute.</p>
+	<p>It is important to understand that this section does not apply to the syntax for the <qName>c:mpdName</qName> attribute in the <termRef>MPD catalog document</termRef>.  This section is about IEPD file naming.  Refer to <ref idref="Name-Syntax"/> for details regarding the <qName>c:mpdName</qName> metadata attribute.</p>
 
-	<p>The MPD Specification is intended to help facilitate tool support for processing MPDs.  Providing tools and search mechanisms basic information about an MPD as early as possible will help reduce processing time and complexity.  So, if the MPD name, version, and class can be identified from its file name, then a tool would not have to open the archive and parse the MPD catalog to determine such.  Of course, ultimately, to do anything useful, a tool will have to open the MPD archive.  However, standard file name syntax allows a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each.  File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.</p> 
-
-	<p>The following rule applies to releases, core updates, and domain updates:</p>
+	<p>The MPD Specification is intended to help facilitate tool support for processing MPDs.  Providing tools and search mechanisms the basic information about an MPD as early as possible will help reduce processing time and complexity.  So, if an MPD name, version, and class can be identified from its file name, then a tool would not have to open the archive and parse the MPD catalog to determine such.  Of course, to do anything useful, a tool will eventually have to open the MPD archive.  However, standard file name syntax allows a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each.  File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.</p> 
 
 <ruleSection>
-	<title>Release and Core/Domain Update File Name Syntax</title>
-	<rule id="r-name-syntax" applicability="WF-MPD" class="Constraint">
-		<p>Given an MPD whose <qName>c:mpdClassURIList</qName> value is in the set <code>{rel, cu, du}</code>, its file name MUST adhere to the syntax defined by the regular expression:</p>
+	<title>IEPD File Name Syntax</title>
+	<rule id="r-iepd-name-syntax" applicability="N-IEPD" class="Constraint">
+		<p>The file name of an IEPD (<code>iepd-filename</code>) SHOULD adhere to the syntax defined by the regular expression:</p>
 	<pre>
-	mpd-filename ::= name '-' version '.' class '.zip'       
+	iepd-filename ::= name '-' version '.iepd.zip'       
 	Where: 
 		name     ::= alphanum ((alphanum | special)* alphanum)?
 		alphanum ::= [a-z0-9]
 		special  ::= '.' | '-' | '_'
 		version  ::= digit+ ('.' digit+)* (status digit+)?
 		digit    ::= [0-9]
-		status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
-		class    ::= 'rel' | 'cu' | 'du' | 'iepd' | 'eiem'</pre>
+		status   ::= 'alpha' | 'beta' | 'rc' | 'rev'</pre>
 
 		<p>The <code>status</code> values are as defined in <ref idref="r-mpd-vers-syntax"/>.</p>
 
 		<p>The <code>class</code> values are defined as follows:</p>
-		   <ul>
-			   <li><p><code>rel</code> = release</p></li>
-			   <li><p><code>cu</code> = core update</p></li>
-			   <li><p><code>du</code> = domain update</p></li>
-			   <li><p><code>iepd</code> = <termRef>Information Exchange Package Documentation</termRef></p></li>
-			   <li><p><code>eiem</code> = Enterprise Information Exchange Model</p></li>
-		   </ul>
 	</rule>
-</ruleSection>
-
-	<p>The regular expression notation in the rule above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>.</p>
-
+	<p>Regular expression notation in the rule above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>.</p>
 	<p>Alphabetic characters are lower case to reduce complications across various file systems.</p>
-
-	<p>An example of an intermediate release file name that follows these rules is:  <code>niem-3.0beta1.rel.zip</code></p>
-
-	<p>MPD file names for releases, core updates, and domain updates also adhere to this rule:</p>
-
-<ruleSection>
-	<title>Release and Core/Domain Update File Name Matches Metadata</title>
-	<rule id="r-mpd-match" applicability="WF-MPD" class="Constraint">
-		<p>Given an MPD with a <qName>c:mpdClassURIList</qName> attribute value from the set <code>{rel, cu, du}</code>, its file name substrings for <code>name</code>, <code>version</code>, and <code>class</code>, as defined in <ref idref="r-name-syntax"/>, MUST exactly match its MPD catalog values for <qName>c:MPD</qName> attributes <qName>c:mpdName</qName>, <qName>c:mpdVersionID</qName>, and <qName>c:mpdClassURIList</qName> respectively.</p>
-	</rule>
-</ruleSection>
-
-	<p>And finally, in HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.</p>
-
-<ruleSection>
-	<title>MPD MIME Type Syntax</title>
-	<rule id="r-mpd-mime" applicability="WF-MPD" class="Constraint">
-		<p>When represented on the Internet, an MPD archive SHOULD use the following MIME Type:</p>
-<pre>	application/zip+[class]
-		where [class] is one member from the value set 
-		{rel, cu, du, iepd, eiem}.</pre>
-		<p>Use of the generic Zip MIME type <code>application/zip</code> is allowed, but discouraged.  No other MIME types are allowed when representing MPD archives.</p>
-	</rule>
+	<p>An example of an IEPD file name that follows this rule is:  <code>abc-query-2.0beta1.iepd.zip</code></p>
 </ruleSection>
 
 </section>
@@ -2214,17 +2175,9 @@
 	<p>It is important to understand that the URI scheme defined in <ref idref="externalURI"/> can only be used to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD.  In accordance with the <ref idref="NIEM-NDR"/>, if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative <termRef>path name</termRef> references when needed.  The following rule applies when absolute references to Internet resources are required.</p>
 
 <ruleSection>
-	<title>MPD References to Resources Use Common Transfer Protocols</title>
+	<title>MPD Reference to Resource Uses Common URI Scheme</title>
 	<rule id="r-mpd-protocol" applicability="WF-MPD" class="Constraint">
-		<p>Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST <termRef term="resolve URI">resolve</termRef> (If applicable, documentation SHOULD describe how to <termRef term="resolve URI">resolve</termRef> with security, account, and/or password issues).</p>
-	</rule>
-</ruleSection>
-	<p>Releases, core updates, and domain updates must adhere to packaging rules to enable development tools to process them consistently and efficiently.  The NIEM PMO controls the format and documentation for these MPDs and publishes them at <link>http://release.niem.gov/niem/</link>.  However, many different organizations author IEPDs and EIEMs.  As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others.  Furthermore, EIEMs are the basis for families of IEPDs.  Therefore, it is important that both of these MPD classes are well documented for understanding and use.  An IEPD that has been derived from an EIEM should identify that relationship through its MPD catalog.</p>
-
-<ruleSection>
-	<title>IEPD Family Members Reference Parent EIEM</title>
-	<rule id="r-mpd-link-eiem" applicability="N-IEPD" class="Constraint">
-		<p>An <termRef>MPD catalog document</termRef> for an IEPD that is a member of a family of IEPDs derived from a given EIEM, MUST have a <code>c:MPDInformation/c:Relationship</code> element that owns a <code>c:relationshipCode="derives_from"</code> attribute and a <qName>c:resourceURI</qName> attribute with a URI value that <termRef term="resolve URI">resolves</termRef> to an EIEM resource.</p>
+		<p>An absolute reference to an Internet resource MUST use a well-known URI scheme (e.g., http, https, ftp, ftps) and MUST <termRef term="resolve URI">resolve</termRef>.  If applicable, documentation SHOULD describe how to <termRef term="resolve URI">resolve</termRef> with security, account, and/or password information.</p>
 	</rule>
 </ruleSection>
 
