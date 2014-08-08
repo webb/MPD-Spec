@@ -353,6 +353,28 @@ Rule 2-1. Information Exchange Package Documentation
 
    This section introduces the concept of [conformance target], a concept fundamental to understanding the normative rules defined in this specification. This section will also define various [conformance targets] used in this specification.
 
+   [Conformance targets] and their applicability codes were introduced earlier in Section 3, Conformance Targets, above, because they are necessary to understand rule applicability. This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.
+
+   From a conformance target perspective, NIEM releases, Core and Domain updates, IEPDs, and EIEMs are all specialized MPDs, and this establishes an IS-A relationship.
+
+   [Conformance targets] in this specification support a variety of use cases:
+
+      *  An XML document with a NIEM-defined XML document (root) element.
+
+      *  An XML document that contains a NIEM-defined document wrapped in a non-NIEM element (e.g. an envelope, which includes SOAP, LEXS, ULEX, Trusted Data Format, OGC Web Services, etc.).
+
+      *  Use of multiple NIEM-defined payloads together, in an envelope, or as a composite package.
+
+      *  Use of NIEM-defined data annotating and providing details to a non-NIEM format, such as an OGC standard.
+
+      *  Use of a non-NIEM format, where NIEM annotations and details may or may not occur depending on usage (e.g., NIEM details are provided for hospitals, but the message instance contains no hospitals).
+
+      *  The use of non-NIEM data annotating and providing details on NIEM data.
+
+   There are several purposes for defining conformance targets in NIEM specifications. A [conformance target] establishes and identifies a class of artifact associated with a set of rules. Based on these rules, tools and operations may be developed. However, a conformance target has other purposes.
+
+   Conformance targets satisfy a need to ensure developers do not conform to NIEM in name only. Once committed to using NIEM, developers and organizations need well-defined conformance targets and rules to know exactly how to conform. Funding agencies require conformance targets that correspond to interoperability goals. An agency that is funding development of a set of systems will need to ensure it funds the development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs. Tools and system developers need conformance targets that identify real world requirements corresponding to their use cases and tool capabilities. Many of these tools are not yet developed. Therefore, this specification attempts to cover a broad range of general use cases.
+
 3.1. Conformance Targets Attribute Specification terminology
 
    [NIEM Conformance Targets Attribute Specification 3.0] defines several terms used normatively within this specification.
@@ -370,10 +392,6 @@ Rule 2-1. Information Exchange Package Documentation
          An internationalized resource identifier [RFC 3987 IRI] that uniquely identifies a conformance target.
 
 3.2. Conformance Target Codes
-
-   There are several purposes for defining conformance targets in NIEM specifications. A [conformance target] establishes and identifies a class of artifact associated with a set of rules. Based on these rules, tools and operations may be developed. However, a conformance target has other purposes.
-
-   Conformance targets satisfy a need to ensure developers do not conform to NIEM in name only. Once committed to using NIEM, developers and organizations need well-defined conformance targets and rules to know exactly how to conform. Funding agencies require conformance targets that correspond to interoperability goals. An agency that is funding development of a set of systems will need to ensure it funds the development of NIEM-conformant IEPDs that support the exchange of NIEM-conformant IEPs. Tools and system developers need conformance targets that identify real world requirements corresponding to their use cases and tool capabilities. Many of these tools are not yet developed. Therefore, this specification attempts to cover a broad range of general use cases.
 
    The table below lists the codes that represent standard [conformance targets] used in this specification and that appear in the applicability attribute of each rule.
 
@@ -395,27 +413,7 @@ Rule 2-1. Information Exchange Package Documentation
 
       [XML catalog document]|XML-Cat
 
-3.3. Conformance Targets
-
-   [Conformance targets] and their applicability codes were introduced earlier in Section 3, Conformance Targets, above, because they are necessary to understand rule applicability. This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.
-
-   From a conformance target perspective, NIEM releases, Core and Domain updates, IEPDs, and EIEMs are all specialized MPDs, and this establishes an IS-A relationship.
-
-   [Conformance targets] in this specification support a variety of use cases:
-
-      *  An XML document with a NIEM-defined XML document (root) element.
-
-      *  An XML document that contains a NIEM-defined document wrapped in a non-NIEM element (e.g. an envelope, which includes SOAP, LEXS, ULEX, Trusted Data Format, OGC Web Services, etc.).
-
-      *  Use of multiple NIEM-defined payloads together, in an envelope, or as a composite package.
-
-      *  Use of NIEM-defined data annotating and providing details to a non-NIEM format, such as an OGC standard.
-
-      *  Use of a non-NIEM format, where NIEM annotations and details may or may not occur depending on usage (e.g., NIEM details are provided for hospitals, but the message instance contains no hospitals).
-
-      *  The use of non-NIEM data annotating and providing details on NIEM data.
-
-3.3.1. MPD Conformance Targets
+3.3. MPD Conformance Targets
 
    This specification establishes two primary MPD [conformance targets]: [well-formed MPD] and [NIEM IEPD].
 
@@ -463,7 +461,7 @@ Rule 2-1. Information Exchange Package Documentation
 
       (applicability code: IEPD)
 
-3.3.2. IEP Conformance Targets
+3.4. IEP Conformance Targets
 
    Section 2.9.1, Information Exchange Package Documentation (IEPD), above, introduced the only MPD class that defines an information exchange -- [Information Exchange Package Documentation] (IEPD). This section also introduced an [Information Exchange Package], which is an information exchange instance defined by an IEPD. An IEP is also a [conformance target] and in that connotation is defined as follows:
 
@@ -481,7 +479,7 @@ Rule 2-1. Information Exchange Package Documentation
 
       (applicability code: FN-IEP)
 
-3.3.3. Artifact Conformance Targets
+3.5. Artifact Conformance Targets
 
    Conformance targets correspond to artifacts internal to an MPD include:
 
