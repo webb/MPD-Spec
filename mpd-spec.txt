@@ -9,7 +9,6 @@ NIEM Technical Architecture Committee (NTAC)
 Remaining
 
    
-   		- duplicate rules for #MPD + #IEPD (if mpdClassURIList contains CTI, then MPD and IEPD)
    		- TBDs: spec pub dates.
    		- QA/validity: MPD cat XSD, cat subset, MPD Toolkit, CoT/HW IEPD, appendices, etc.
    		- QA: typos, spell, punct, acros, abbrevs, format, missing refs or termRefs, etc.
@@ -101,9 +100,23 @@ Status
 
       *  A NIEM core update to a NIEM release.
 
-      *  A NIEM Enterprise Information Exchange Model (EIEM) on which one or more NIEM IEPDs can be based.
+      *  A NIEM Enterprise Information Exchange Model (EIEM) on which one or more IEPDs can be based.
 
    This document is the baseline specification for all MPDs, and in particular, it focuses on the normative rules for IEPDs. In the future, detailed rules that apply to other MPDs (listed above) will be published in other NIEM specifications. Also in the future, other types of MPDs may be added to this list.
+
+   This specification supports a variety of IEPD use cases:
+
+      *  An XML document with a NIEM-defined XML document (root) element.
+
+      *  An XML document that contains a NIEM-defined document wrapped in a non-NIEM element (e.g. an envelope, which includes SOAP, LEXS, ULEX, Trusted Data Format, OGC Web Services, etc.).
+
+      *  Use of multiple NIEM-defined payloads together, in an envelope, or as a composite package.
+
+      *  Use of NIEM-defined data annotating and providing details to a non-NIEM format, such as an OGC standard.
+
+      *  Use of a non-NIEM format, where NIEM annotations and details may or may not occur depending on usage (e.g., NIEM details are provided for hospitals, but the message instance contains no hospitals).
+
+      *  The use of non-NIEM data annotating and providing details on NIEM data.
 
    This specification is designed to be useful for developing MPDs iteratively so that many stages of conformance to this specification exist on the path to completeness. This enables a tool to check and verify conformance at many discrete, rational states during development, rather than at the end of development. Thus, tool vendors should be able to build, adapt, and/or integrate software tools that will assist in MPD development and assembly from raw parts to finished product.
 
@@ -245,7 +258,29 @@ Status
 
    NIEM reference schemas are very uniform in their structure. As they are the primary definitions for data components, they do not need to restrict other data definitions, and they are not allowed to use XML Schema's complex type restriction mechanisms.
 
-2.9. Model Package Descriptions
+2.9. Rules
+
+   Rules define specific constraints on artifacts or on the interpretation of artifacts. The classes of artifacts are identified by [conformance targets] that are enumerated by this document in Section 3, Conformance Targets, below. Rules are normative.
+
+   [Rule <section>-<number>] (<applicability>)
+
+      An enforceable rule for NIEM.
+
+   Each rule has a classification, which is either Constraint or Interpretation. These terms are defined below:
+
+   [Definition: constraint rule]
+
+      A rule that sets a requirement on an artifact with respect to its conformance to a [conformance target].
+
+   [Definition: interpretation rule]
+
+      A rule that sets the methodology, pattern, or procedure for understanding or using some aspect of an instance of a conformance target.
+
+   Each rule may apply to one or more [conformance targets]. Each rule lists its applicable [conformance target(s)] encoded per Table Table 3-1, Rule Applicability Codes, below. The conformance targets for this specification are detailed in Section 3, Conformance Targets, below.
+
+   Rules are numbered according to the section in which they appear and the order in which they appear within that section. For example, Rule 4-1 is the first rule in Section 4.
+
+2.10. Model Package Descriptions
 
    The concept of [Model Package Description] provides a common framework for classes of NIEM file sets, each with a specific purpose. A NIEM release is a harmonized [reference schema document] set that defines and declares all content for a single (major, minor, or micro) version of NIEM (See [NIEM High-Level Version Architecture 1.0]). A domain update is a [reference schema document] set that represents changes to one or more domains in a NIEM release. A core update is a [reference schema document] set of changes that supplement the core of a NIEM release. An Enterprise Information Exchange Model (EIEM) is a [XML schema document] set that may contain one or more [subset schema documents], [extension schema documents], and [external schema documents] that are employed to construct IEPDs.
 
@@ -271,9 +306,7 @@ Status
 
       *  May contain miscellaneous other documentation or file artifacts for assisting with usage or implementation.
 
-2.9.1. Information Exchange Package Documentation (IEPD)
-
-   This section only applies to an MPD that is an IEPD.
+2.10.1. Information Exchange Package Documentation (IEPD)
 
    [Definition: Information Exchange Package Documentation]
 
@@ -283,7 +316,7 @@ Status
 
       (of an [XML Schema] is) an [XML document] that is valid against an [XML Schema].
 
-   A NIEM IEPD contains a NIEM-conformant [XML schema document] set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents. Furthermore, a NIEM IEPD declares at least one [IEP conformance target] within its [MPD catalog document] (See Section 5.1, NIEM MPD Catalog, below). The XML schema documents contained in an IEPD work together to define one or more classes of [instance XML documents] that consistently encapsulate data for meaningful information exchanges. Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated [IEP conformance target] (declared in the IEPD's MPD catalog) is considered a member of that [IEP conformance target] class. XML schema documents in a NIEM IEPD conform to the [NIEM NDR 3.0] and may use or extend data component definitions drawn from NIEM. An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See [NIEM NDR 3.0] for details.)
+   An IEPD contains a NIEM-conformant [XML schema document] set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents. Furthermore, an IEPD declares at least one [IEP conformance target] within its [MPD catalog document] (See Section 5.1, NIEM MPD Catalog, below). The XML schema documents contained in an IEPD work together to define one or more classes of [instance XML documents] that consistently encapsulate data for meaningful information exchanges. Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated [IEP conformance target] (declared in the IEPD's MPD catalog) is considered a member of that [IEP conformance target] class. XML schema documents in an IEPD conform to the [NIEM NDR 3.0] and may use or extend data component definitions drawn from NIEM. An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See [NIEM NDR 3.0] for details.)
 
    An IEPD consists of a set of artifacts (XML schema documents, documentation, sample [instance XML documents], etc.) that together define and describe an implementable NIEM information exchange. An IEPD should contain an [XML schema document] set and instructional material necessary to:
 
@@ -293,11 +326,11 @@ Status
 
       *  Identify the lineage of the IEPD itself and optionally its artifacts.
 
-   A NIEM IEPD defines one or more classes of [instance XML documents]. In NIEM each of these instances is called an [Information Exchange Package] (or IEP) that satisfies all validity constraints for its class as defined by the IEPD. An IEP is an information message payload serialized as XML and transmitted in some way, for example over a communications network. ([FEA Data Reference Model 1.0] and [GJXDM IEPD Guidelines 1.1] are the original sources of the terms information exchange package and information exchange package documentation, respectively).
+   An IEPD defines one or more classes of [instance XML documents]. In NIEM each of these instances is called an [Information Exchange Package] (or IEP) that satisfies all validity constraints for its class as defined by the IEPD. An IEP is an information message payload serialized as XML and transmitted in some way, for example over a communications network. ([FEA Data Reference Model 1.0] and [GJXDM IEPD Guidelines 1.1] are the original sources of the terms information exchange package and information exchange package documentation, respectively).
 
    [Definition: Information Exchange Package]
 
-      An [XML document] that satisfies all the validity constraints for its class as defined by a NIEM IEPD. (abbreviated IEP)
+      An [XML document] that satisfies all the validity constraints for its class as defined by an IEPD. (abbreviated IEP)
 
    The following rule specifies an IEPD as a [conformance target]:
 
@@ -309,7 +342,7 @@ Rule 2-1. Information Exchange Package Documentation
 
    How to declare validity constraints for one or more IEP classes within an IEPD will be covered in more depth in Section 5.6, Defining Information Exchange Packages, below.
 
-   Note that NIEM conformance does not require that an IEP be native XML on the transmission medium. A NIEM-conformant IEP may be encrypted, compressed (e.g., using [PKZIP], [RAR], [EXI Format 1.0], etc.), or wrapped within an envelope mechanism, as long as its original native XML form can be retrieved by the receiver.
+   Note that NIEM conformance does not require that an IEP be native XML on the transmission medium. A NIEM-conformant IEP may be encrypted, compressed (e.g., using [PKZIP], [EXI Format 1.0], etc.), or wrapped within an envelope mechanism, as long as its original native XML form can be retrieved by the receiver.
 
    Common to IEPD MPDs:
 
@@ -323,45 +356,9 @@ Rule 2-1. Information Exchange Package Documentation
 
       *  Contains sample instance XML documents that validate to XML schema document set.
 
-2.10. Rules
-
-   Rules define specific constraints on artifacts or on the interpretation of artifacts. The classes of artifacts are identified by [conformance targets] that are enumerated by this document in Section 3, Conformance Targets, below. Rules are normative.
-
-   [Rule <section>-<number>] (<applicability>)
-
-      An enforceable rule for NIEM.
-
-   Each rule has a classification, which is either Constraint or Interpretation. These terms are defined below:
-
-   [Definition: constraint rule]
-
-      A rule that sets a requirement on an artifact with respect to its conformance to a [conformance target].
-
-   [Definition: interpretation rule]
-
-      A rule that sets the methodology, pattern, or procedure for understanding or using some aspect of an instance of a conformance target.
-
-   Each rule may apply to one or more [conformance targets]. Each rule lists its applicable [conformance target(s)] encoded per Table Table 3-1, Conformance Target Codes, below. The conformance targets for this specification are detailed in Section 3, Conformance Targets, below.
-
-   Rules are numbered according to the section in which they appear and the order in which they appear within that section. For example, Rule 4-1 is the first rule in Section 4.
-
 3. Conformance Targets
 
    This section introduces [conformance targets], a concept fundamental to understanding the normative rules defined in this specification. This section also defines and explains [conformance targets] used in this specification.
-
-   [Conformance targets] in this specification support a variety of use cases:
-
-      *  An XML document with a NIEM-defined XML document (root) element.
-
-      *  An XML document that contains a NIEM-defined document wrapped in a non-NIEM element (e.g. an envelope, which includes SOAP, LEXS, ULEX, Trusted Data Format, OGC Web Services, etc.).
-
-      *  Use of multiple NIEM-defined payloads together, in an envelope, or as a composite package.
-
-      *  Use of NIEM-defined data annotating and providing details to a non-NIEM format, such as an OGC standard.
-
-      *  Use of a non-NIEM format, where NIEM annotations and details may or may not occur depending on usage (e.g., NIEM details are provided for hospitals, but the message instance contains no hospitals).
-
-      *  The use of non-NIEM data annotating and providing details on NIEM data.
 
    There are several purposes for defining conformance targets in NIEM specifications. A [conformance target] establishes and identifies a class of artifact associated with a set of rules. Based on these rules, tools and operations may be developed. However, a conformance target has other purposes.
 
@@ -385,7 +382,7 @@ Rule 2-1. Information Exchange Package Documentation
 
 3.2. MPD Conformance Targets
 
-   This specification establishes two primary MPD [conformance targets]: [well-formed MPD] and [NIEM IEPD].
+   This specification establishes two primary MPD [conformance targets]: [well-formed MPD] and [IEPD].
 
    An MPD may be constructed manually, but it is far more efficient to generate its parts or its entirety using one or more NIEM-aware software tools. The existence of a [well-formed MPD] [conformance target] has several advantages:
 
@@ -399,9 +396,19 @@ Rule 2-1. Information Exchange Package Documentation
 
       *  Facilitates the interoperability and use of multiple tools that can export/import a [well-formed MPD].
 
+      *  A [well-formed MPD] is a basis for consistency across all MPD classes.
+
+   Because they are almost always file sets, MPDs are packaged as [Zip files].
+
+   [Definition: Zip file]
+
+      As defined by [PKZIP]:
+
+         An electronic file in the most widely used, cross-platform, interoperable file storage and transfer format. Zip format is used to aggregate, compress, and encrypt files into a single interoperable container.
+
    [Definition: well-formed MPD]
 
-      A [PKZIP] archive file that:
+      A [Zip file] that:
 
          *  Adheres to the rules for a [well-formed MPD] [conformance target] in this MPD specification, and
 
@@ -421,9 +428,9 @@ Rule 2-1. Information Exchange Package Documentation
 
    A [well-formed MPD] satisfies the need for a [PKZIP] file with an [MPD catalog document] that validates to the MPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an MPD by iteratively adding artifacts and expanding the MPD catalog to reference them.
 
-   Most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts. Adherence to these rules can produce an IEPD that is well-formed (WF-MPD), but that does not necessarily satisfy all general and specific requirements for a [NIEM IEPD]. The following rule ensures that a complete [NIEM IEPD] adheres to all applicable NIEM conformance rules.
+   Most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts. Adherence to these rules can produce an IEPD that is well-formed (WF-MPD), but that does not necessarily satisfy all general and specific requirements for a [IEPD]. The following rule ensures that a complete [IEPD] adheres to all applicable NIEM conformance rules.
 
-   [Definition: NIEM IEPD]
+   [Definition: IEPD]
 
       An MPD that:
 
@@ -447,7 +454,7 @@ Rule 2-1. Information Exchange Package Documentation
 
 3.3. IEP Conformance Targets
 
-   Section 2.9.1, Information Exchange Package Documentation (IEPD), above, introduced the only MPD class that defines an information exchange -- [Information Exchange Package Documentation] (IEPD). This section also introduced an [Information Exchange Package], which is an information exchange instance defined by an IEPD. An IEP is also a [conformance target] and in that connotation is defined as follows:
+   Section 2.10.1, Information Exchange Package Documentation (IEPD), above, introduced the only MPD class that defines an information exchange -- [Information Exchange Package Documentation] (IEPD). This section also introduced an [Information Exchange Package], which is an information exchange instance defined by an IEPD. An IEP is also a [conformance target] and in that connotation is defined as follows:
 
    [Definition: information exchange package]
 
@@ -459,7 +466,7 @@ Rule 2-1. Information Exchange Package Documentation
 
    [Definition: full NIEM information exchange package]
 
-      An [instance XML document] (i.e., an IEP) that satisfies all the validity constraints for its class as defined by a [NIEM IEPD], and that has an XML document element that is declared in either a NIEM reference or extension schema document.
+      An [instance XML document] (i.e., an IEP) that satisfies all the validity constraints for its class as defined by a [IEPD], and that has an XML document element that is declared in either a NIEM reference or extension schema document.
 
       (rule applicability code: FN-IEP)
 
@@ -473,17 +480,17 @@ Rule 2-1. Information Exchange Package Documentation
 
       *  [XML catalog document] (rule applicability code: XML-Cat)
 
-3.5. Conformance Target Codes
+3.5. Rul Applicability Codes for Conformance Targets
 
    The table below lists the codes that represent standard [conformance targets] used in this specification and that appear in the applicability attribute for each rule.
 
-   Table 3-1: Conformance Target Codes
+   Table 3-1: Rule Applicability Codes
 
       Conformance Target|Rule Applicability Code
 
       [well-formed MPD]|WF-MPD
 
-      [NIEM IEPD]|IEPD
+      [IEPD]|IEPD
 
       [Information Exchange Package]|IEP
 
@@ -3139,8 +3146,6 @@ Appendix F. Acronyms and Abbreviations
 
       QName|Qualified Name (in XML Schema: qualified by a namespace prefix and colon character)
 
-      RAR |Roshal Archive; a compressed archive file format named for its developer, Eugene Roshal
-
       Rel |Release (NIEM)
 
       RFC |Request for Comment
@@ -3229,8 +3234,6 @@ Appendix G. References
 
    [Principles of Data Integration]: Doan, A., Halevy, A., and Ives, X. (2012), Principles of Data Integration, New York, NY: Morgan Kaufmann.
 
-   [RAR]: RARLAB WinRAR, http://win-rar.com
-
    [RFC 2119 Key Words]: Bradner, S., Key words for use in RFCs to Indicate Requirement Levels, IETF RFC 2119, March 1997. Available from http://www.ietf.org/rfc/rfc2119.txt.
 
    [RFC 2141 URN Syntax]: Moats, R., URN Syntax, IETF Request For Comment 2141, May 1997. Available from http://tools.ietf.org/html/rfc2141.
@@ -3265,7 +3268,7 @@ Appendix H. Index of Definitions
 
 Appendix I. Index of Rules
 
-   Rule 2-1, Information Exchange Package Documentation: Section 2.9.1, Information Exchange Package Documentation (IEPD)
+   Rule 2-1, Information Exchange Package Documentation: Section 2.10.1, Information Exchange Package Documentation (IEPD)
    Rule 4-1, Fundamental NIEM Subset Rule: Section 4.2.1, Basic Subset Concepts
    Rule 5-1, MPD Has an mpd-catalog.xml in its Root Directory: Section 5.1, NIEM MPD Catalog
    Rule 5-2, MPD Catalog Document Valid to mpd-catalog-3.0.xsd: Section 5.1, NIEM MPD Catalog
