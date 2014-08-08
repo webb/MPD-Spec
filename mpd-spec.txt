@@ -151,7 +151,7 @@ Status
 
       A collection of artifacts logically grouped for a defined purpose.
 
-   An MPD is itself an [artifact set], the purpose for which is to define and document the intended use of the MPD. While the key MPD artifacts are its [XML schema document] artifacts, there are also other kinds of MPD artifacts. These may include (but are not limited to) HTML, XSLT, text, or graphic files used for human-readable documentation. An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD. For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts. Appendix C, Common MPD Artifacts, below, contains a listing of mandatory and common optional artifacts for the five types of MPDs. Common types of artifacts are described in more detail in subsequent sections. Section 8.1, Artifact Sets, below, discusses the different methods for grouping MPD artifacts into sets.
+   An MPD is itself an [artifact set], the purpose for which is to define and document the intended use of the MPD. While the key MPD artifacts are its [XML schema document] artifacts, there are also other kinds of MPD artifacts. These may include (but are not limited to) HTML, XSLT, text, or graphic files used for human-readable documentation. An MPD may also have artifacts intended to help assist in or accelerate the use and implementation of the MPD. For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the MPD or its schema document artifacts. Appendix C, Common MPD Artifacts, below, contains a listing of mandatory and common optional artifacts for the five types of MPDs. Common types of artifacts are described in more detail in subsequent sections. Section 7.1, Artifact Sets, below, discusses the different methods for grouping MPD artifacts into sets.
 
 2.4. Schema Document and Namespace Correspondence in NIEM
 
@@ -394,6 +394,102 @@ Rule 2-1. Information Exchange Package Documentation
       [MPD catalog document]|MPD-Cat
 
       [XML catalog document]|XML-Cat
+
+3.3. Conformance Targets
+
+   [Conformance targets] and their applicability codes were introduced earlier in Section 3, Conformance Targets, above, because they are necessary to understand rule applicability. This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.
+
+   From a conformance target perspective, NIEM releases, Core and Domain updates, IEPDs, and EIEMs are all specialized MPDs, and this establishes an IS-A relationship.
+
+   [Conformance targets] in this specification support a variety of use cases:
+
+      *  An XML document with a NIEM-defined XML document (root) element.
+
+      *  An XML document that contains a NIEM-defined document wrapped in a non-NIEM element (e.g. an envelope, which includes SOAP, LEXS, ULEX, Trusted Data Format, OGC Web Services, etc.).
+
+      *  Use of multiple NIEM-defined payloads together, in an envelope, or as a composite package.
+
+      *  Use of NIEM-defined data annotating and providing details to a non-NIEM format, such as an OGC standard.
+
+      *  Use of a non-NIEM format, where NIEM annotations and details may or may not occur depending on usage (e.g., NIEM details are provided for hospitals, but the message instance contains no hospitals).
+
+      *  The use of non-NIEM data annotating and providing details on NIEM data.
+
+3.3.1. MPD Conformance Targets
+
+   This specification establishes two primary MPD [conformance targets]: [well-formed MPD] and [NIEM IEPD].
+
+   An MPD may be constructed manually, but it is far more efficient to generate its parts or its entirety using one or more NIEM-aware software tools. The existence of a [well-formed MPD] [conformance target] has several advantages:
+
+      *  Facilitates the existence of many incremental states from start to finish that are checkpoints for well-formedness.
+
+      *  Enables multiple paths to completion; no single pre-determined sequence of rule applications is required.
+
+      *  Provides tool developers with the flexibility to construct an MPD incrementally in many different sequences.
+
+      *  Avoids a need to build a complete MPD before automated correctness checks can be applied (since [MPD well-formedness] can be checked at many developmental stages).
+
+      *  Facilitates the interoperability and use of multiple tools that can export/import a [well-formed MPD].
+
+   [Definition: well-formed MPD]
+
+      A [PKZIP] archive file that adheres to the rules for a [well-formed MPD] [conformance target] in this MPD specification.
+
+      (applicability code: WF-MPD)
+
+   A [well-formed MPD] satisfies the need for a [PKZIP] file with an [MPD catalog document] that validates to the MPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an MPD by iteratively adding artifacts and expanding the MPD catalog to reference them.
+
+   Most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts. Adherence to these rules can produce an IEPD that is well-formed (WF-MPD), but that does not necessarily satisfy all general and specific requirements for a [NIEM IEPD]. The following rule ensures that a complete [NIEM IEPD] adheres to all applicable NIEM conformance rules.
+
+   [Definition: NIEM IEPD]
+
+      An MPD that:
+
+         *  Has the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD, and
+
+         *  Has the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD, and
+
+         *  Has one or more c:IEPConformanceTarget elements within its [MPD catalog document], and
+
+         *  Satisfies all relevant rules and requirements defined by:
+
+               *  [NIEM MPD Specification 3.0] (i.e., This MPD Specification)
+
+               *  [NIEM NDR 3.0]
+
+               *  [NIEM Conformance Targets Attribute Specification 3.0]
+
+               *  [NIEM Conformance 3.0]
+
+      (applicability code: IEPD)
+
+3.3.2. IEP Conformance Targets
+
+   Section 2.9.1, Information Exchange Package Documentation (IEPD), above, introduced the only MPD class that defines an information exchange -- [Information Exchange Package Documentation] (IEPD). This section also introduced an [Information Exchange Package], which is an information exchange instance defined by an IEPD. An IEP is also a [conformance target] and in that connotation is defined as follows:
+
+   [Definition: information exchange package]
+
+      An XML [instance XML document] defined by a c:IEPConformanceTarget element in an IEPD's [MPD catalog document].
+
+      (applicability code: IEP)
+
+   The definition of an [information exchange package] conformance target is not strong enough to ensure that an IEP artifact uses NIEM. Thus, there is a need for a conformance target that distinguishes a general IEP from an IEP that represents a valid NIEM information exchange. The following defines a full NIEM IEP [conformance target]:
+
+   [Definition: full NIEM information exchange package]
+
+      An [instance XML document] (i.e., an IEP) that satisfies all the validity constraints for its class as defined by a [NIEM IEPD], and that has an XML document element that is declared in either a NIEM reference or extension schema document.
+
+      (applicability code: FN-IEP)
+
+3.3.3. Artifact Conformance Targets
+
+   Conformance targets correspond to artifacts internal to an MPD include:
+
+      *  [schema document subset] (applicability code = Schema-subset)
+
+      *  [MPD catalog document] (applicability code = MPD-Cat)
+
+      *  [XML catalog document] (applicability code = XML-Cat)
 
 4. MPD XML Schema Document Artifacts
 
@@ -703,7 +799,7 @@ Rule 5-8. MPD Schema Document Extension Support Schemas Are Supersets of Spec Su
 
 5.2.1. MPD Name Syntax (c:mpdName)
 
-   Note that syntax for c:mpdName detailed in this section is not applicable to MPD file name syntax presented in Section 8.2, IEPD File Name Syntax, below. MPD file name syntax is constrained only by the file system in which an MPD resides.
+   Note that syntax for c:mpdName detailed in this section is not applicable to MPD file name syntax presented in Section 7.2, IEPD File Name Syntax, below. MPD file name syntax is constrained only by the file system in which an MPD resides.
 
    An MPD's official name is the value of the c:mpdName attribute owned by the c:MPD element in the MPD's catalog document. This value is constrained by the regular expression pattern on c:mpdName within the MPD catalog schema Appendix A, MPD Catalog XML Schema Document, below:
 
@@ -719,7 +815,7 @@ Rule 5-8. MPD Schema Document Extension Support Schemas Are Supersets of Spec Su
 
       *  May contain single spaces, single dashes, and single underscores as separators.
 
-   IEPD author's often reuse the official MPD name in metadata within the file name. Note that c:mpdName is of xs:token type and allows single spaces and upper case alpha characters. That said, be sure to consider differences in operating system or file system treatment of spaces and character case within file and directory names. (See Rule 8-5, IEPD File Name Syntax.
+   IEPD author's often reuse the official MPD name in metadata within the file name. Note that c:mpdName is of xs:token type and allows single spaces and upper case alpha characters. That said, be sure to consider differences in operating system or file system treatment of spaces and character case within file and directory names. (See Rule 7-5, IEPD File Name Syntax.
 
 5.2.2. MPD Class (c:mpdClassURIList)
 
@@ -1537,103 +1633,7 @@ Rule 5-48. IEPD Has Conformance Assertion in Root Directory
 
    In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts. A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and IEPD identity (i.e., that the IEPD is an unaltered copy of the original). For now, inclusion of an informal [conformance assertion] in an IEPD is the only requirement.
 
-6. Conformance Targets
-
-   [Conformance targets] and their applicability codes were introduced earlier in Section 3, Conformance Targets, above, because they are necessary to understand rule applicability. This section provides formal definitions for MPD and IEP conformance targets, and more explanation and perspectives for each.
-
-   From a conformance target perspective, NIEM releases, Core and Domain updates, IEPDs, and EIEMs are all specialized MPDs, and this establishes an IS-A relationship.
-
-   [Conformance targets] in this specification support a variety of use cases:
-
-      *  An XML document with a NIEM-defined XML document (root) element.
-
-      *  An XML document that contains a NIEM-defined document wrapped in a non-NIEM element (e.g. an envelope, which includes SOAP, LEXS, ULEX, Trusted Data Format, OGC Web Services, etc.).
-
-      *  Use of multiple NIEM-defined payloads together, in an envelope, or as a composite package.
-
-      *  Use of NIEM-defined data annotating and providing details to a non-NIEM format, such as an OGC standard.
-
-      *  Use of a non-NIEM format, where NIEM annotations and details may or may not occur depending on usage (e.g., NIEM details are provided for hospitals, but the message instance contains no hospitals).
-
-      *  The use of non-NIEM data annotating and providing details on NIEM data.
-
-6.1. MPD Conformance Targets
-
-   This specification establishes two primary MPD [conformance targets]: [well-formed MPD] and [NIEM IEPD].
-
-   An MPD may be constructed manually, but it is far more efficient to generate its parts or its entirety using one or more NIEM-aware software tools. The existence of a [well-formed MPD] [conformance target] has several advantages:
-
-      *  Facilitates the existence of many incremental states from start to finish that are checkpoints for well-formedness.
-
-      *  Enables multiple paths to completion; no single pre-determined sequence of rule applications is required.
-
-      *  Provides tool developers with the flexibility to construct an MPD incrementally in many different sequences.
-
-      *  Avoids a need to build a complete MPD before automated correctness checks can be applied (since [MPD well-formedness] can be checked at many developmental stages).
-
-      *  Facilitates the interoperability and use of multiple tools that can export/import a [well-formed MPD].
-
-   [Definition: well-formed MPD]
-
-      A [PKZIP] archive file that adheres to the rules for a [well-formed MPD] [conformance target] in this MPD specification.
-
-      (applicability code: WF-MPD)
-
-   A [well-formed MPD] satisfies the need for a [PKZIP] file with an [MPD catalog document] that validates to the MPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an MPD by iteratively adding artifacts and expanding the MPD catalog to reference them.
-
-   Most rules in this MPD Specification are applicable to a [well-formed MPD] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts. Adherence to these rules can produce an IEPD that is well-formed (WF-MPD), but that does not necessarily satisfy all general and specific requirements for a [NIEM IEPD]. The following rule ensures that a complete [NIEM IEPD] adheres to all applicable NIEM conformance rules.
-
-   [Definition: NIEM IEPD]
-
-      An MPD that:
-
-         *  Has the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD, and
-
-         *  Has the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD, and
-
-         *  Has one or more c:IEPConformanceTarget elements within its [MPD catalog document], and
-
-         *  Satisfies all relevant rules and requirements defined by:
-
-               *  [NIEM MPD Specification 3.0] (i.e., This MPD Specification)
-
-               *  [NIEM NDR 3.0]
-
-               *  [NIEM Conformance Targets Attribute Specification 3.0]
-
-               *  [NIEM Conformance 3.0]
-
-      (applicability code: IEPD)
-
-6.2. IEP Conformance Targets
-
-   Section 2.9.1, Information Exchange Package Documentation (IEPD), above, introduced the only MPD class that defines an information exchange -- [Information Exchange Package Documentation] (IEPD). This section also introduced an [Information Exchange Package], which is an information exchange instance defined by an IEPD. An IEP is also a [conformance target] and in that connotation is defined as follows:
-
-   [Definition: information exchange package]
-
-      An XML [instance XML document] defined by a c:IEPConformanceTarget element in an IEPD's [MPD catalog document].
-
-      (applicability code: IEP)
-
-   The definition of an [information exchange package] conformance target is not strong enough to ensure that an IEP artifact uses NIEM. Thus, there is a need for a conformance target that distinguishes a general IEP from an IEP that represents a valid NIEM information exchange. The following defines a full NIEM IEP [conformance target]:
-
-   [Definition: full NIEM information exchange package]
-
-      An [instance XML document] (i.e., an IEP) that satisfies all the validity constraints for its class as defined by a [NIEM IEPD], and that has an XML document element that is declared in either a NIEM reference or extension schema document.
-
-      (applicability code: FN-IEP)
-
-6.3. Artifact Conformance Targets
-
-   Conformance targets correspond to artifacts internal to an MPD include:
-
-      *  [schema document subset] (applicability code = Schema-subset)
-
-      *  [MPD catalog document] (applicability code = MPD-Cat)
-
-      *  [XML catalog document] (applicability code = XML-Cat)
-
-7. Optional MPD Artifacts
+6. Optional MPD Artifacts
 
    Aside from the required artifacts, MPD content is relatively flexible. A variety of other optional documentation files may be incorporated into an MPD. When applicable, these may include (but are not limited to) files that describe or explain:
 
@@ -1657,7 +1657,7 @@ Rule 5-48. IEPD Has Conformance Assertion in Root Directory
 
    In particular, this specification does not discourage use of Microsoft file formats for documentation and other optional artifacts. Microsoft Office products are in common use, and free viewers are available for many of them (See http://office.microsoft.com/en-us/downloads/office-online-file-converters-and-viewers-HA001044981.aspx).
 
-7.1. NIEM Wantlist
+6.1. NIEM Wantlist
 
    A NIEM schema document subset is often associated with a NIEM wantlist. A wantlist is an abbreviated XML representation of a NIEM schema document subset, and identifies only the data components a user selected (as requirements) to build a schema document subset. To reconstruct the complete schema document subset there are usually a number of additional data components that the user selections depend upon. These must be computed from the appropriate NIEM reference model and added to reconstruct the complete schema document subset. For example, a user may select nc:Person for the subset. In this case, the wantlist will only contain that component, but the associated full subset must contain both nc:Person and nc:PersonType. A software tool that understands how to process NIEM wantlists and schema document subsets (such as the NIEM Schema Subset Generator Tool [NIEM SSGT]) can rebuild an accurate schema document subset from a wantlist (and the reverse).
 
@@ -1669,13 +1669,13 @@ Rule 5-48. IEPD Has Conformance Assertion in Root Directory
 
    A wantlist is always associated with a schema document subset. A wantlist may also be associated with a [constraint schema document set], because constraint schema documents are often built from a [schema document subset]. For a simple IEPD, it can sometimes be trivial to identify a single schema document subset. However, this MPD Specification does not prohibit building complex IEPDs that contain schema document sets supported by multiple schema document subsets and associated wantlists. As with other complex cases, the IEPD author is responsible to clearly document the associations between wantlists and schema document sets. In order to maintain a minimal degree of consistency for placement of a wantlist within an IEPD the following rule applies.
 
-Rule 7-1. Wantlist Location
+Rule 6-1. Wantlist Location
 
-   [Rule 7-1] (WF-MPD)
+   [Rule 6-1] (WF-MPD)
 
       If present, a NIEM wantlist MUST reside within the root of the MPD subdirectory that groups and defines its corresponding subset schema document set (e.g., niem).
 
-7.2. Business Rules
+6.2. Business Rules
 
    For simplicity and consistency, NIEM employs a profile of the XML Schema language [W3C XML Schema Part 1 Structures], [W3C XML Schema Part 2 Datatypes]. Thus, some constraints on NIEM XML documents cannot be enforced by NIEM. [Constraint schema document sets] provide a convenient technique for enforcing some additional constraints. However, even the full XML Schema language cannot validate and enforce all possible constraints that may be required of an XML document.
 
@@ -1695,21 +1695,21 @@ Rule 7-1. Wantlist Location
 
       A [business rule schema] that adheres to [ISO Schematron].
 
-8. Organization, Packaging, and Other Criteria
+7. Organization, Packaging, and Other Criteria
 
    An MPD is a logical set of electronic files aggregated and organized to fulfill a specific purpose in NIEM. Directory organization and packaging of an MPD should be designed around major themes in NIEM: reuse, sharing, interoperability, and efficiency.
 
-Rule 8-1. MPD Is a Zip Archive
+Rule 7-1. MPD Is a Zip Archive
 
-   [Rule 8-1] (WF-MPD)
+   [Rule 7-1] (WF-MPD)
 
       An MPD is packaged as a single compressed archive of files that represents a sub-tree of a file system in standard [PKZIP] format. This archive MUST preserve and store the logical directory structure intended by its author.
 
    NIEM XSD and XML artifacts in an MPD must be valid for both XML Schema and NIEM. This also implies these artifacts must adhere to applicable [NIEM NDR 3.0] conformance target rules.
 
-Rule 8-2. XSD and XML Documents Conform to Applicable NDR Conformance Targets
+Rule 7-2. XSD and XML Documents Conform to Applicable NDR Conformance Targets
 
-   [Rule 8-2] (WF-MPD)
+   [Rule 7-2] (WF-MPD)
 
       Within an MPD archive, each XML schema document (XSD) or instance XML document (XML) artifact that uses a conformance targets attribute (as defined by [NIEM Conformance Targets Attribute Specification 3.0]) MUST satisfy the [NIEM NDR 3.0] rules for the conformance targets it declares.
 
@@ -1719,9 +1719,9 @@ Rule 8-2. XSD and XML Documents Conform to Applicable NDR Conformance Targets
 
       The top level file directory relative to all MPD artifacts and subdirectories.
 
-Rule 8-3. MPD Archive Uncompresses to a Single Root Directory
+Rule 7-3. MPD Archive Uncompresses to a Single Root Directory
 
-   [Rule 8-3] (WF-MPD)
+   [Rule 7-3] (WF-MPD)
 
       An MPD archive MUST uncompress (unzip) to one and only one [MPD root directory].
 
@@ -1733,7 +1733,7 @@ Rule 8-3. MPD Archive Uncompresses to a Single Root Directory
 
       *  mpd-catalog and change log artifacts will always be found in the [MPD root directory].
 
-8.1. Artifact Sets
+7.1. Artifact Sets
 
    This specification defines different ways to group MPD artifacts into [sets]. In general, all sets are established through an [XML catalog document] ([XML schema document] sets) and the [MPD catalog document] (all artifact sets).
 
@@ -1751,7 +1751,7 @@ Rule 8-3. MPD Archive Uncompresses to a Single Root Directory
 
    If a single directory contains all the artifacts in a set, then the following simple form of c:FileSet can be used:
 
-   Figure 8-1: Simple c:FileSet form for a direectory-associated artifact set.
+   Figure 7-1: Simple c:FileSet form for a direectory-associated artifact set.
 
       
       	<c:FileSet c:pathURI="samples/">
@@ -1763,7 +1763,7 @@ Rule 8-3. MPD Archive Uncompresses to a Single Root Directory
 
    However, multiple artifact sets and artifacts can be nested within a c:FileSet element to organize artifacts into a logical group of files in many locations. For example, an author may identify a set of artifacts in several locations using the following more complicated form of c:FileSet with the MPD catalog:
 
-   Figure 8-2: c:FileSet form for a more complex artifact set.
+   Figure 7-2: c:FileSet form for a more complex artifact set.
 
       
       	<c:FileSet>
@@ -1779,19 +1779,19 @@ Rule 8-3. MPD Archive Uncompresses to a Single Root Directory
 
    Another way the MPD catalog schema groups artifacts is through the use of the c:RequiredFile element. Use this construct to signify there are strong dependencies among artifacts. For example, documentation may be prepared as a set of hyperlinked HTML files. These HTML files may also incorporate separate GIF or JPG images. Regardless of file location within the MPD, these files depend on one another through hyperlinks. As a result, they tend to operate as a single artifact; removal of a file will cause one or more broken links within the set. This set of artifacts should be grouped using c:RequiredFile. If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the c:File element while all others are values for c:RequiredFile child elements).
 
-8.1.1. Constraint on Elements of Type c:SchemaDocumentSetType
+7.1.1. Constraint on Elements of Type c:SchemaDocumentSetType
 
    In order to accomodate the [well-formed MPD] concept, the design of the MPD catalog schema does not enforce a rule that is required to ensure a c:SchemaDocumentSet within an [MPD catalog document] is used correctly for an IEPD. This rule assumes that within the IEPD's MPD catalog any c:SchemaDocumentSet element identifies [XML schema documents] to be assembled into an [XML Schema].
 
-Rule 8-4. Constraint on Elements of Type c:SchemaDocumentSetType
+Rule 7-4. Constraint on Elements of Type c:SchemaDocumentSetType
 
-   [Rule 8-4] (MPD-Cat)
+   [Rule 7-4] (MPD-Cat)
 
       An element information item with a type definition validly derived from c:SchemaDocumentSetType MUST have a child element with an element declaration that is in the substitution group of c:XMLCatalog or c:SchemaDocument.
 
    This rule ensures that a c:SchemaDocumentSet element always has at least one child element that is an [XML catalog document] (which itself defines an [XML schema document]) set, or an [XML schema document] (which constitutes a set of at least one schema document). This rule cannot be enforced within the MPD catalog schema without introducing a UPA error, but it could be enforced by a Schematron rule.
 
-8.2. IEPD File Name Syntax
+7.2. IEPD File Name Syntax
 
    This section is applicable to IEPDs. Additional non-normative for directory naming and organization for IEPDs is in Appendix E, Guidance for IEPD Directories (non-normative), below.
 
@@ -1799,9 +1799,9 @@ Rule 8-4. Constraint on Elements of Type c:SchemaDocumentSetType
 
    The MPD Specification is intended to help facilitate tool support for processing MPDs. Providing tools and search mechanisms the basic information about an MPD as early as possible will help reduce processing time and complexity. So, if an MPD name, version, and class can be identified from its file name, then a tool would not have to open the archive and parse the MPD catalog to determine such. Of course, to do anything useful, a tool will eventually have to open the MPD archive. However, standard file name syntax allows a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each. File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.
 
-Rule 8-5. IEPD File Name Syntax
+Rule 7-5. IEPD File Name Syntax
 
-   [Rule 8-5] (IEPD)
+   [Rule 7-5] (IEPD)
 
       The file name of an IEPD (iepd-filename) SHOULD adhere to the syntax defined by the regular expression:
 
@@ -1825,25 +1825,25 @@ Rule 8-5. IEPD File Name Syntax
 
    An example of an IEPD file name that follows this rule is: abc-query-2.0beta1.iepd.zip
 
-   File names can easily be changed by a person or process that executes a download on the Internet. Nonetheless, IEPD authors and publishers should ensure that their application of Rule 8-5, IEPD File Name Syntax is consistent with an IEPD's catalog. The basic metadata in the [MPD catalog document] (e.g., IEPD name, version, class, URI, etc.) should match any such information incorporated into the file name.
+   File names can easily be changed by a person or process that executes a download on the Internet. Nonetheless, IEPD authors and publishers should ensure that their application of Rule 7-5, IEPD File Name Syntax is consistent with an IEPD's catalog. The basic metadata in the [MPD catalog document] (e.g., IEPD name, version, class, URI, etc.) should match any such information incorporated into the file name.
 
-8.3. Artifact Links to Other Resources
+7.3. Artifact Links to Other Resources
 
    It is important to understand that the URI scheme defined in Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI), above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM NDR 3.0], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative [path name] references when needed. The following rule applies when absolute references to Internet resources are required.
 
-Rule 8-6. MPD Reference to Resource Uses Common URI Scheme
+Rule 7-6. MPD Reference to Resource Uses Common URI Scheme
 
-   [Rule 8-6] (WF-MPD)
+   [Rule 7-6] (WF-MPD)
 
       An absolute reference to an Internet resource MUST use a well-known URI scheme (e.g., http, https, ftp, ftps) and MUST [resolve]. If applicable, documentation SHOULD describe how to [resolve] with security, account, and/or password information.
 
-8.4. IEPD Completeness
+7.4. IEPD Completeness
 
    Since an IEPD defines an information exchange and is often implemented by persons other than the original author, it is important to ensure that they are relatively complete and provide all artifacts needed to use the IEPD.
 
-Rule 8-7. IEPD Completeness
+Rule 7-7. IEPD Completeness
 
-   [Rule 8-7] (IEPD)
+   [Rule 7-7] (IEPD)
 
       An IEPD SHOULD contain all artifacts needed to understand it and facilitate its correct implementation.
 
@@ -1851,13 +1851,13 @@ Rule 8-7. IEPD Completeness
 
    On the other hand, an IEPD whose author has extended the MPD catalog schema is clearly required to contain the catalog extension schema document, since this is a specialized customization created by the author. If a different NIEM schema subset is also used, then the IEPD must also contain its superset (i.e., a complete subset that incorporates both the original subset with additional NIEM components used to extend the catalog schema document; see Rule 5-8, MPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets.)
 
-   The rationale for "SHOULD" in Rule 8-7, IEPD Completeness relates to issues of security. Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validation and implementation, instead of circulating them within a public IEPD. Implementers would then be expected to know how and where to obtain the required documents.
+   The rationale for "SHOULD" in Rule 7-7, IEPD Completeness relates to issues of security. Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validation and implementation, instead of circulating them within a public IEPD. Implementers would then be expected to know how and where to obtain the required documents.
 
    The [NIEM NDR 3.0] explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant. Other standards may use xs:import without requiring schemaLocation attributes (instead, relying only on the namespace value). These standards may also use xs:include. This XML Schema construct is disallowed by NIEM. When standards external to NIEM are required within MPDs, the following rule applies:
 
-Rule 8-8. MPD External Schema Documents Are Local Resources
+Rule 7-8. MPD External Schema Documents Are Local Resources
 
-   [Rule 8-8] (WF-MPD)
+   [Rule 7-8] (WF-MPD)
 
       Within an MPD, a non-NIEM-conformant external schema document reference to another schema document and/or namespace MUST [resolve] to a local resource. schemaLocation attributes or XML catalogs can be used to ensure resolution.
 
@@ -1865,17 +1865,17 @@ Rule 8-8. MPD External Schema Documents Are Local Resources
 
    XML schemas are the heart of MPDs since they formally specify normative structure and semantics for data components. However, in general, an MPD is a closed set of artifacts. This means that all hyperlink references within artifacts should [resolve] to the appropriate artifact.
 
-Rule 8-9. Key MPD Resources Are Local Resources
+Rule 7-9. Key MPD Resources Are Local Resources
 
-   [Rule 8-9] (WF-MPD)
+   [Rule 7-9] (WF-MPD)
 
       Within any artifact of an MPD archive, any direct reference to another resource (i.e., another artifact such as an image, schema, stylesheet, etc.) that is required to process or display an artifact SHOULD exist within the archive at the location specified by that reference.
 
    This means that MPD artifacts, including documentation artifacts, should be complete. For example, if an HTML document within an MPD contains a hyperlink reference (href) to an artifact that is part of or used by the MPD, then the file associated with that hyperlink should be present in the MPD; likewise for a sourced (src) image. Authors should exercise good judgment with this rule. For example, it does not require an MPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents. The key operating words in this rule are: "another resource is required to process or display an artifact SHOULD exist within the archive."
 
-   In some cases, it may not be possible to include all artifacts, even schemas, in an MPD without violating laws, regulations, or policies. For example, an IEPD may require use of a schema document that is not publicly accessible; it might be classified or controlled unclassified information (CUI). This is a valid reason for exception to Rule 8-9, Key MPD Resources Are Local Resources. If the IEPD is placed in the public domain, the author should omit the non-public schema document, and if appropriate, document the omission, and explain where and/or how the missing schema document can be obtained.
+   In some cases, it may not be possible to include all artifacts, even schemas, in an MPD without violating laws, regulations, or policies. For example, an IEPD may require use of a schema document that is not publicly accessible; it might be classified or controlled unclassified information (CUI). This is a valid reason for exception to Rule 7-9, Key MPD Resources Are Local Resources. If the IEPD is placed in the public domain, the author should omit the non-public schema document, and if appropriate, document the omission, and explain where and/or how the missing schema document can be obtained.
 
-8.5. Duplication of Artifacts
+7.5. Duplication of Artifacts
 
    Within an MPD, the replication of files or entire file sets should be avoided. However, replication is allowed if a reasonable rationale exists. In some cases, file replication may make it easier to use, validate, implement, or automatically process an MPD. For example, multiple subsets and/or constraint sets may overlap in many identical schema documents. Yet, allowing this duplication may be easier or necessary to accommodate a validation tool, rather than removing duplicate schema documents, and forcing the tool to search for them. Whenever possible, use XML catalogs to coordinate schema assembly.
 
@@ -2946,7 +2946,7 @@ Appendix E. Guidance for IEPD Directories (non-normative)
 
    Guidance for directory structuring may be useful to authors, especially in the case of a relatively simple IEPD with a single schema document subset, and a few extension and external schema documents. The following are common non-normative practice for IEPD directories:
 
-      1.  Create a root directory for the IEPD from the name and version identifier of the IEPD. For example my_iepd-3.2rev4. (Rule 8-3, MPD Archive Uncompresses to a Single Root Directory)
+      1.  Create a root directory for the IEPD from the name and version identifier of the IEPD. For example my_iepd-3.2rev4. (Rule 7-3, MPD Archive Uncompresses to a Single Root Directory)
 
       2.  The following artifacts are required to be in the [MPD root directory] (Note: .* indicates any format):
 
@@ -2988,7 +2988,7 @@ Appendix E. Guidance for IEPD Directories (non-normative)
 
       9.  If necessary, create an application-info subdirectory for tool-specific artifacts (inputs, outputs, imports, exports, models, etc.). Again, as needed, use additional subdirectories to organize artifacts of this nature. readme.* can and should also refer to or index artifacts in this subdirectory.
 
-      10. Maintain a [NIEM wantlist] within the same subdirectory as the subset it generates (Rule 7-1, Wantlist Location).
+      10. Maintain a [NIEM wantlist] within the same subdirectory as the subset it generates (Rule 6-1, Wantlist Location).
 
       11. Maintain an xml-catalog.xml closest to the XML schema document set it relates to. Use er:nextCatalog elements as needed to help maintain this proximity).
 
@@ -3311,14 +3311,14 @@ Appendix I. Index of Rules
    Rule 5-46, IEPD Has an IEP Sample for Each c:IEPConformanceTarget: Section 5.6.3, IEP Sample Instance XML Documents
    Rule 5-47, Validating an IEP Sample XML Document: Section 5.6.3, IEP Sample Instance XML Documents
    Rule 5-48, IEPD Has Conformance Assertion in Root Directory: Section 5.7, Conformance Assertion
-   Rule 7-1, Wantlist Location: Section 7.1, NIEM Wantlist
-   Rule 8-1, MPD Is a Zip Archive: Section 8, Organization, Packaging, and Other Criteria
-   Rule 8-2, XSD and XML Documents Conform to Applicable NDR Conformance Targets: Section 8, Organization, Packaging, and Other Criteria
-   Rule 8-3, MPD Archive Uncompresses to a Single Root Directory: Section 8, Organization, Packaging, and Other Criteria
-   Rule 8-4, Constraint on Elements of Type c:SchemaDocumentSetType: Section 8.1.1, Constraint on Elements of Type c:SchemaDocumentSetType
-   Rule 8-5, IEPD File Name Syntax: Section 8.2, IEPD File Name Syntax
-   Rule 8-6, MPD Reference to Resource Uses Common URI Scheme: Section 8.3, Artifact Links to Other Resources
-   Rule 8-7, IEPD Completeness: Section 8.4, IEPD Completeness
-   Rule 8-8, MPD External Schema Documents Are Local Resources: Section 8.4, IEPD Completeness
-   Rule 8-9, Key MPD Resources Are Local Resources: Section 8.4, IEPD Completeness
+   Rule 6-1, Wantlist Location: Section 6.1, NIEM Wantlist
+   Rule 7-1, MPD Is a Zip Archive: Section 7, Organization, Packaging, and Other Criteria
+   Rule 7-2, XSD and XML Documents Conform to Applicable NDR Conformance Targets: Section 7, Organization, Packaging, and Other Criteria
+   Rule 7-3, MPD Archive Uncompresses to a Single Root Directory: Section 7, Organization, Packaging, and Other Criteria
+   Rule 7-4, Constraint on Elements of Type c:SchemaDocumentSetType: Section 7.1.1, Constraint on Elements of Type c:SchemaDocumentSetType
+   Rule 7-5, IEPD File Name Syntax: Section 7.2, IEPD File Name Syntax
+   Rule 7-6, MPD Reference to Resource Uses Common URI Scheme: Section 7.3, Artifact Links to Other Resources
+   Rule 7-7, IEPD Completeness: Section 7.4, IEPD Completeness
+   Rule 7-8, MPD External Schema Documents Are Local Resources: Section 7.4, IEPD Completeness
+   Rule 7-9, Key MPD Resources Are Local Resources: Section 7.4, IEPD Completeness
 
