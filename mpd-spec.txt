@@ -710,7 +710,7 @@ Rule 4-8. MPD Schema Document Extension Support Schemas Are Supersets of Spec Su
 
 4.2.1. MPD Name Syntax (c:mpdName)
 
-   Note that syntax for c:mpdName detailed in this section is not applicable to MPD file name syntax presented in Section 7.2, MPD File Name Syntax, below. MPD file name syntax is constrained only by the file system in which an MPD resides.
+   Note that syntax for c:mpdName detailed in this section is not applicable to MPD file name syntax presented in Section 7.2, IEPD File Name Syntax, below. MPD file name syntax is constrained only by the file system in which an MPD resides.
 
    An MPD's official name is the value of the c:mpdName attribute owned by the c:MPD element in the MPD's catalog document. This value is constrained by the regular expression pattern on c:mpdName within the MPD catalog schema Appendix A, MPD Catalog XML Schema Document, below:
 
@@ -726,7 +726,7 @@ Rule 4-8. MPD Schema Document Extension Support Schemas Are Supersets of Spec Su
 
       *  May contain single spaces, single dashes, and single underscores as separators.
 
-   IEPD author's often reuse the official MPD name in metadata within the file name. Note that c:mpdName is of xs:token type and allows single spaces and upper case alpha characters. That said, be sure to consider differences in operating system or file system treatment of spaces and character case within file and directory names. (See Rule 7-5, Release and Core/Domain Update File Name Syntax and Rule 7-6, Release and Core/Domain Update File Name Matches Metadata.).
+   IEPD author's often reuse the official MPD name in metadata within the file name. Note that c:mpdName is of xs:token type and allows single spaces and upper case alpha characters. That said, be sure to consider differences in operating system or file system treatment of spaces and character case within file and directory names. (See Rule 7-5, IEPD File Name Syntax.
 
 4.2.2. MPD Class (c:mpdClassURIList)
 
@@ -1036,7 +1036,7 @@ Rule 4-28. c:pathURI for c:RelaxNGSchema
 
    [Rule 4-28] (WF-MPD)
 
-      Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:RelaxNGSchema element MUST [resolve] to a [RelaxNG schema].
+      Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:RelaxNGSchema element MUST [resolve] to a RelaxNG schema.
 
 Rule 4-29. c:pathURI for c:SchemaDocumentSet
 
@@ -1692,13 +1692,13 @@ Rule 6-1. Wantlist Location
 
    For simplicity and consistency, NIEM employs a profile of the XML Schema language [W3C XML Schema Structures], [W3C XML Schema Datatypes]. Thus, some constraints on NIEM XML documents cannot be enforced by NIEM. [Constraint schema document sets] provide a convenient technique for enforcing some additional constraints. However, even the full XML Schema language cannot validate and enforce all possible constraints that may be required of an XML document.
 
-   So, NIEM allows (even encourages) the use of formal or informal business rules to supplement MPDs (in particular IEPDs).
+   So, NIEM allows (even encourages) the use of formal or informal [business rules] to supplement MPDs (in particular IEPDs).
 
    [Definition: business rules]
 
       Formal or informal statements that describe business policy or procedure, and in doing so define or constrain some aspect of a process or procedure in order to impose control.
 
-   [Business rules] may be represented as informal English statements, or as formally coded machine-readable and processible statements. For example, an IEPD may use a Schematron schema [ISO Schematron], a RelaxNG schema [ISO RelaxNG], or any other formal representation for [business rules].
+   [Business rules] may be represented as informal English statements, or as formally coded machine-readable and processible statements. For example, an IEPD may use a [Schematron schema] [ISO Schematron] or any other formal representation for [business rules].
 
    [Definition: business rule schema]
 
@@ -1707,10 +1707,6 @@ Rule 6-1. Wantlist Location
    [Definition: Schematron schema]
 
       A [business rule schema] that adheres to [ISO Schematron].
-
-   [Definition: RelaxNG schema]
-
-      A [business rule schema] that adheres to [ISO RelaxNG].
 
 7. Organization, Packaging, and Other Criteria
 
@@ -1802,30 +1798,28 @@ Rule 7-3. MPD Archive Uncompresses to a Single Root Directory
 
 Rule 7-4. Constraint on Elements of Type c:SchemaDocumentSetType
 
-   [Rule 7-4]
+   [Rule 7-4] (MPD-Cat)
 
       An element information item with a type definition validly derived from c:SchemaDocumentSetType MUST have a child element with an element declaration that is in the substitution group of c:XMLCatalog or c:SchemaDocument.
 
-   This rule ensures that a c:SchemaDocumentSet element always has at least one child element that is an [XML catalog document] (which itself defines an [XML schema document]) set, or an [XML schema document] (which constitutes a set of at least one schema document). This rule cannot be enforced within the MPD catalog schema without introducing a UPA error. Thus, it is enforced as a Schematron rule.
+   This rule ensures that a c:SchemaDocumentSet element always has at least one child element that is an [XML catalog document] (which itself defines an [XML schema document]) set, or an [XML schema document] (which constitutes a set of at least one schema document). This rule cannot be enforced within the MPD catalog schema without introducing a UPA error, but it could be enforced by a Schematron rule.
 
-7.2. MPD File Name Syntax
+7.2. IEPD File Name Syntax
 
-   This section is applicable to all MPDs. However, it is only normative for releases, core updates, and domain updates. For IEPDs, this section describes non-normative guidance that is highly recommended, but not mandatory. Additional non-normative guidance that relates to directory naming for IEPDs is in Appendix E, Guidance for IEPD Directories (non-normative), below.
+   This section is applicable to IEPDs. Additional non-normative for directory naming and organization for IEPDs is in Appendix E, Guidance for IEPD Directories (non-normative), below.
 
-   It is important to understand that this section does not apply to the syntax for the c:mpdName attribute in the MPD catalog document. This section is about MPD file naming. Refer to Section 4.2.1, MPD Name Syntax (c:mpdName), above, for details regarding the c:mpdName metadata attribute.
+   It is important to understand that this section does not apply to the syntax for the c:mpdName attribute in the [MPD catalog document]. This section is about IEPD file naming. Refer to Section 4.2.1, MPD Name Syntax (c:mpdName), above, for details regarding the c:mpdName metadata attribute.
 
-   The MPD Specification is intended to help facilitate tool support for processing MPDs. Providing tools and search mechanisms basic information about an MPD as early as possible will help reduce processing time and complexity. So, if the MPD name, version, and class can be identified from its file name, then a tool would not have to open the archive and parse the MPD catalog to determine such. Of course, ultimately, to do anything useful, a tool will have to open the MPD archive. However, standard file name syntax allows a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each. File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.
+   The MPD Specification is intended to help facilitate tool support for processing MPDs. Providing tools and search mechanisms the basic information about an MPD as early as possible will help reduce processing time and complexity. So, if an MPD name, version, and class can be identified from its file name, then a tool would not have to open the archive and parse the MPD catalog to determine such. Of course, to do anything useful, a tool will eventually have to open the MPD archive. However, standard file name syntax allows a tool to search through a set of MPDs to find a particular MPD name, version, or class without having to open each. File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.
 
-   The following rule applies to releases, core updates, and domain updates:
+Rule 7-5. IEPD File Name Syntax
 
-Rule 7-5. Release and Core/Domain Update File Name Syntax
+   [Rule 7-5] (N-IEPD)
 
-   [Rule 7-5] (WF-MPD)
-
-      Given an MPD whose c:mpdClassURIList value is in the set {rel, cu, du}, its file name MUST adhere to the syntax defined by the regular expression:
+      The file name of an IEPD (iepd-filename) SHOULD adhere to the syntax defined by the regular expression:
 
       
-      	mpd-filename ::= name '-' version '.' class '.zip'       
+      	iepd-filename ::= name '-' version '.iepd.zip'       
       	Where: 
       		name     ::= alphanum ((alphanum | special)* alphanum)?
       		alphanum ::= [a-z0-9]
@@ -1833,75 +1827,36 @@ Rule 7-5. Release and Core/Domain Update File Name Syntax
       		version  ::= digit+ ('.' digit+)* (status digit+)?
       		digit    ::= [0-9]
       		status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
-      		class    ::= 'rel' | 'cu' | 'du' | 'iepd' | 'eiem'
 
       The status values are as defined in Rule 4-11, MPD Version Number Syntax.
 
       The class values are defined as follows:
 
-         *  rel = release
-
-         *  cu = core update
-
-         *  du = domain update
-
-         *  iepd = [Information Exchange Package Documentation]
-
-         *  eiem = Enterprise Information Exchange Model
-
-   The regular expression notation in the rule above is from [W3-XML] #sec-notation.
+   Regular expression notation in the rule above is from [W3-XML] #sec-notation.
 
    Alphabetic characters are lower case to reduce complications across various file systems.
 
-   An example of an intermediate release file name that follows these rules is: niem-3.0beta1.rel.zip
+   An example of an IEPD file name that follows this rule is: abc-query-2.0beta1.iepd.zip
 
-   MPD file names for releases, core updates, and domain updates also adhere to this rule:
-
-Rule 7-6. Release and Core/Domain Update File Name Matches Metadata
-
-   [Rule 7-6] (WF-MPD)
-
-      Given an MPD with a c:mpdClassURIList attribute value from the set {rel, cu, du}, its file name substrings for name, version, and class, as defined in Rule 7-5, Release and Core/Domain Update File Name Syntax, MUST exactly match its MPD catalog values for c:MPD attributes c:mpdName, c:mpdVersionID, and c:mpdClassURIList respectively.
-
-   And finally, in HTTP-based Web Services environments, the MIME type designation of a MPD archive is important to facilitate processing by service consumers.
-
-Rule 7-7. MPD MIME Type Syntax
-
-   [Rule 7-7] (WF-MPD)
-
-      When represented on the Internet, an MPD archive SHOULD use the following MIME Type:
-
-      	application/zip+[class]
-      		where [class] is one member from the value set 
-      		{rel, cu, du, iepd, eiem}.
-
-      Use of the generic Zip MIME type application/zip is allowed, but discouraged. No other MIME types are allowed when representing MPD archives.
+   File names can easily be changed by a person or process that executes a download on the Internet. Nonetheless, IEPD authors and publishers should ensure that their application of Rule 7-5, IEPD File Name Syntax is consistent with an IEPD's catalog. The basic metadata in the [MPD catalog document] (e.g., IEPD name, version, class, URI, etc.) should match any such information incorporated into the file name.
 
 7.3. Artifact Links to Other Resources
 
    It is important to understand that the URI scheme defined in Section 4.2.4.2, URI Scheme for MPD Artifacts (c:externalURI), above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM NDR 3.0], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative [path name] references when needed. The following rule applies when absolute references to Internet resources are required.
 
-Rule 7-8. MPD References to Resources Use Common Transfer Protocols
+Rule 7-6. MPD Reference to Resource Uses Common URI Scheme
 
-   [Rule 7-8] (WF-MPD)
+   [Rule 7-6] (WF-MPD)
 
-      Absolute references to Internet resources MUST use a well-known transfer protocol (http, https, ftp, ftps) and MUST [resolve] (If applicable, documentation SHOULD describe how to [resolve] with security, account, and/or password issues).
-
-   Releases, core updates, and domain updates must adhere to packaging rules to enable development tools to process them consistently and efficiently. The NIEM PMO controls the format and documentation for these MPDs and publishes them at http://release.niem.gov/niem/. However, many different organizations author IEPDs and EIEMs. As such, they may be distributed, published in repositories (possibly to a limited community), and reused by others. Furthermore, EIEMs are the basis for families of IEPDs. Therefore, it is important that both of these MPD classes are well documented for understanding and use. An IEPD that has been derived from an EIEM should identify that relationship through its MPD catalog.
-
-Rule 7-9. IEPD Family Members Reference Parent EIEM
-
-   [Rule 7-9] (N-IEPD)
-
-      An [MPD catalog document] for an IEPD that is a member of a family of IEPDs derived from a given EIEM, MUST have a c:MPDInformation/c:Relationship element that owns a c:relationshipCode="derives_from" attribute and a c:resourceURI attribute with a URI value that [resolves] to an EIEM resource.
+      An absolute reference to an Internet resource MUST use a well-known URI scheme (e.g., http, https, ftp, ftps) and MUST [resolve]. If applicable, documentation SHOULD describe how to [resolve] with security, account, and/or password information.
 
 7.4. IEPD Completeness
 
    Since an IEPD defines an information exchange and is often implemented by persons other than the original author, it is important to ensure that they are relatively complete and provide all artifacts needed to use the IEPD.
 
-Rule 7-10. IEPD Completeness
+Rule 7-7. IEPD Completeness
 
-   [Rule 7-10] (N-IEPD)
+   [Rule 7-7] (N-IEPD)
 
       An IEPD SHOULD contain all artifacts needed to understand it and facilitate its correct implementation.
 
@@ -1909,13 +1864,13 @@ Rule 7-10. IEPD Completeness
 
    On the other hand, an IEPD whose author has extended the MPD catalog schema is clearly required to contain the catalog extension schema document, since this is a specialized customization created by the author. If a different NIEM schema subset is also used, then the IEPD must also contain its superset (i.e., a complete subset that incorporates both the original subset with additional NIEM components used to extend the catalog schema document; see Rule 4-8, MPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets.)
 
-   The rationale for "SHOULD" in Rule 7-10, IEPD Completeness relates to issues of security. Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validation and implementation, instead of circulating them within a public IEPD. Implementers would then be expected to know how and where to obtain the required documents.
+   The rationale for "SHOULD" in Rule 7-7, IEPD Completeness relates to issues of security. Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validation and implementation, instead of circulating them within a public IEPD. Implementers would then be expected to know how and where to obtain the required documents.
 
    The [NIEM NDR 3.0] explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant. Other standards may use xs:import without requiring schemaLocation attributes (instead, relying only on the namespace value). These standards may also use xs:include. This XML Schema construct is disallowed by NIEM. When standards external to NIEM are required within MPDs, the following rule applies:
 
-Rule 7-11. MPD External Schema Documents Are Local Resources
+Rule 7-8. MPD External Schema Documents Are Local Resources
 
-   [Rule 7-11] (WF-MPD)
+   [Rule 7-8] (WF-MPD)
 
       Within an MPD, a non-NIEM-conformant external schema document reference to another schema document and/or namespace MUST [resolve] to a local resource. schemaLocation attributes or XML catalogs can be used to ensure resolution.
 
@@ -1923,15 +1878,15 @@ Rule 7-11. MPD External Schema Documents Are Local Resources
 
    XML schemas are the heart of MPDs since they formally specify normative structure and semantics for data components. However, in general, an MPD is a closed set of artifacts. This means that all hyperlink references within artifacts should [resolve] to the appropriate artifact.
 
-Rule 7-12. Key MPD Resources Are Local Resources
+Rule 7-9. Key MPD Resources Are Local Resources
 
-   [Rule 7-12] (WF-MPD)
+   [Rule 7-9] (WF-MPD)
 
       Within any artifact of an MPD archive, any direct reference to another resource (i.e., another artifact such as an image, schema, stylesheet, etc.) that is required to process or display an artifact SHOULD exist within the archive at the location specified by that reference.
 
    This means that MPD artifacts, including documentation artifacts, should be complete. For example, if an HTML document within an MPD contains a hyperlink reference (href) to an artifact that is part of or used by the MPD, then the file associated with that hyperlink should be present in the MPD; likewise for a sourced (src) image. Authors should exercise good judgment with this rule. For example, it does not require an MPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents. The key operating words in this rule are: "another resource is required to process or display an artifact SHOULD exist within the archive."
 
-   In some cases, it may not be possible to include all artifacts, even schemas, in an MPD without violating laws, regulations, or policies. For example, an IEPD may require use of a schema document that is not publicly accessible; it might be classified or controlled unclassified information (CUI). This is a valid reason for exception to Rule 7-12, Key MPD Resources Are Local Resources. If the IEPD is placed in the public domain, the author should omit the non-public schema document, and if appropriate, document the omission, and explain where and/or how the missing schema document can be obtained.
+   In some cases, it may not be possible to include all artifacts, even schemas, in an MPD without violating laws, regulations, or policies. For example, an IEPD may require use of a schema document that is not publicly accessible; it might be classified or controlled unclassified information (CUI). This is a valid reason for exception to Rule 7-9, Key MPD Resources Are Local Resources. If the IEPD is placed in the public domain, the author should omit the non-public schema document, and if appropriate, document the omission, and explain where and/or how the missing schema document can be obtained.
 
 7.5. Duplication of Artifacts
 
@@ -3374,12 +3329,9 @@ Appendix I. Index of Rules
    Rule 7-2, XSD and XML Documents Conform to Applicable NDR Conformance Targets: Section 7, Organization, Packaging, and Other Criteria
    Rule 7-3, MPD Archive Uncompresses to a Single Root Directory: Section 7, Organization, Packaging, and Other Criteria
    Rule 7-4, Constraint on Elements of Type c:SchemaDocumentSetType: Section 7.1.1, Constraint on Elements of Type c:SchemaDocumentSetType
-   Rule 7-5, Release and Core/Domain Update File Name Syntax: Section 7.2, MPD File Name Syntax
-   Rule 7-6, Release and Core/Domain Update File Name Matches Metadata: Section 7.2, MPD File Name Syntax
-   Rule 7-7, MPD MIME Type Syntax: Section 7.2, MPD File Name Syntax
-   Rule 7-8, MPD References to Resources Use Common Transfer Protocols: Section 7.3, Artifact Links to Other Resources
-   Rule 7-9, IEPD Family Members Reference Parent EIEM: Section 7.3, Artifact Links to Other Resources
-   Rule 7-10, IEPD Completeness: Section 7.4, IEPD Completeness
-   Rule 7-11, MPD External Schema Documents Are Local Resources: Section 7.4, IEPD Completeness
-   Rule 7-12, Key MPD Resources Are Local Resources: Section 7.4, IEPD Completeness
+   Rule 7-5, IEPD File Name Syntax: Section 7.2, IEPD File Name Syntax
+   Rule 7-6, MPD Reference to Resource Uses Common URI Scheme: Section 7.3, Artifact Links to Other Resources
+   Rule 7-7, IEPD Completeness: Section 7.4, IEPD Completeness
+   Rule 7-8, MPD External Schema Documents Are Local Resources: Section 7.4, IEPD Completeness
+   Rule 7-9, Key MPD Resources Are Local Resources: Section 7.4, IEPD Completeness
 
