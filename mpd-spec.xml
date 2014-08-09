@@ -442,6 +442,15 @@
 	<p>(rule applicability code: <strong>WF-MPD</strong>)</p> 
 	</definition>
 
+	<p>The following rule applies to all MPDs:</p>
+
+	<ruleSection>
+		<title>MPD Conformance Target Identifier</title>
+		<rule id="r-ct-mpd" applicability="WF-MPD" class="Constraint">
+			<p>An MPD MUST have the <termRef>conformance target identifier</termRef> <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code> as a value in its MPD Catalog <qName>c:mpdClassURIList</qName> attribute.</p>
+		</rule>
+	</ruleSection>
+
 	<p>A <termRef>model package description</termRef> satisfies the need for a <termRef>ZIP file</termRef> with an <termRef>MPD catalog document</termRef> that validates to the MPD catalog schema, and contains no broken links to local artifacts it references.  This definition enables a developer to build an MPD by iteratively adding artifacts and expanding the MPD catalog to reference them.</p>
 
 	<p>Most rules in this MPD Specification are applicable to a <termRef>model package description</termRef> <termRef>conformance target</termRef>.  Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts.  Adherence to these rules can produce an IEPD that is well-formed (WF-MPD), but that does not necessarily satisfy all general and specific requirements for an IEPD.  The following rule ensures that a complete IEPD adheres to all applicable NIEM conformance rules.</p>
@@ -496,6 +505,15 @@
 		<title>Information Exchange Package Documentation</title>
 		<rule id="IEPD" applicability="IEPD" class="Constraint">
 		<p>An MPD that defines one or more information exchange packages, each an <termRef term="instance XML document">instance XML document</termRef>.  It is a <termRef>conformance target</termRef> of this specification.  An IEPD MUST conform to all rules of this specification that apply to this conformance target.  An MPD with a <termRef>conformance target identifier</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code> MUST be an <termRef>information exchange package documentation</termRef> MPD.</p>
+		</rule>
+	</ruleSection>
+
+	<p>The following rule is applicable to all IEPDs:</p>
+
+	<ruleSection>
+		<title>IEPD Conformance Target Identifier</title>
+		<rule id="r-ct-iepd" applicability="IEPD" class="Constraint">
+			<p>An IEPD MUST have the <termRef>conformance target identifier</termRef> <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code> as a value of its <qName>c:mpdClassURIList</qName> attribute.</p>
 		</rule>
 	</ruleSection>
 
@@ -964,24 +982,6 @@
 		</rule>
 	</ruleSection>
 	
-	<p>The rules below define two basic <termRef term="conformance target identifier">conformance target identifiers</termRef>.  The first is common to all MPDs:</p>
-
-	<ruleSection>
-		<title>MPD Conformance Target Identifier</title>
-		<rule id="r-ct-mpd" applicability="WF-MPD" class="Constraint">
-			<p>An MPD MUST have the <termRef>conformance target identifier</termRef> <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code> as a value in its MPD Catalog <qName>c:mpdClassURIList</qName> attribute.</p>
-		</rule>
-	</ruleSection>
-
-	<p>The second identifier is used for an IEPD:</p>
-
-	<ruleSection>
-		<title>IEPD Conformance Target Identifier</title>
-		<rule id="r-ct-iepd" applicability="IEPD" class="Constraint">
-			<p>An IEPD MUST have the <termRef>conformance target identifier</termRef> <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code> as a value of its <qName>c:mpdClassURIList</qName> attribute.</p>
-		</rule>
-	</ruleSection>
-
 	<p>It should be clear that an MPD that is an IEPD should have a value for its <qName>c:mpdClassURIList</qName> attribute that contains both <termRef term="conformance target identifier">conformance target identifiers</termRef> above.  In the future, additional conformance target identifiers will be assigned by other appropriate NIEM specifications that specialize MPDs (for example, releases, domain updates, core updates, etc.).</p>
 
 	<p>The <qName>c:mpdClassURIList</qName> attribute is an XML list type that may declare that an MPD conforms to multiple conformance targets.  An MPD developer can establish a new MPD <termRef>conformance target</termRef> identifier in addition to those provided by this and other NIEM specifications.  The identifier represents the new conformance target which should be associated with one or more rules or constraints to which an MPD must conform if it is assigned that identifier.</p>
