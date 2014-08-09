@@ -2,7 +2,7 @@ National Information Exchange Model -- Model Package Description Specification
 
 Version 3.0rc1
 
-August 6, 2014
+August 8, 2014
 
 NIEM Technical Architecture Committee (NTAC)
 
@@ -60,13 +60,7 @@ Status
 
    Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose. Examples of such sets include, but are not necessarily limited to, a NIEM release, core update (CU), domain update (DU), [information exchange package documentation] (IEPD), and Enterprise Information Exchange Model (EIEM). Each of these is an example of a NIEM [model package description] (MPD).
 
-   A key NIEM concept used throughout this specification is data component.
-
-   [Definition: data component]
-
-      An XML Schema type or attribute group definition; or an XML Schema element or attribute declaration.
-
-   An MPD is a normative specification for XML data components in the format of the World Wide Web Consortium (W3C) XML Schema Definition Language [W3C XML Schema Part 2 Datatypes], [W3C XML Schema Part 1 Structures]. MPD schema documents either (1) define the semantics and structure for NIEM reusable data components, or (2) define implementable NIEM exchange instance XML documents in W3C Extensible Markup Language (XML) [W3C XML 1.0].
+   An MPD is a normative specification for XML [data components] in the format of the World Wide Web Consortium (W3C) XML Schema Definition Language [W3C XML Schema Part 2 Datatypes], [W3C XML Schema Part 1 Structures]. MPD schema documents either (1) define the semantics and structure for NIEM reusable [data components], or (2) define implementable NIEM exchange instance XML documents in W3C Extensible Markup Language (XML) [W3C XML 1.0].
 
    An MPD is ready to publish and use when it conforms to NIEM specifications, and has been properly packaged with the schemas, documentation, and supplemental files needed to implement or reuse it. MPD content design, development, and assembly may be difficult and time-consuming, especially if done manually. Software tools can significantly reduce the complexity of designing, constructing, changing, and managing MPDs. In order to reduce ambiguity and to facilitate interoperable and effective tool support, this baseline specification imposes some degree of consistency on the terminology, syntax, semantics, and composition of MPDs.
 
@@ -172,11 +166,17 @@ Status
 
 2.6. Harmonization
 
-   Harmonization is a process that NIEM governance committees and domain stewards iteratively apply to NIEM content (specifically, its semantics, structure, and relationships) during the preparation of a NIEM major or minor release. On a more restricted scale a domain steward harmonizes his/her own content (schema documents) in preparation for a domain update MPD. Multiple domain stewards may collaborate in a coordinated domain update. In this case, to the extent possible, harmonization may be applied across the content of all the collaborating domains. Harmonization results in model change and evolution with the intent of removing semantic duplication and overlap while improving representational quality and usability.
+   A key NIEM concept important to [harmonization] and used throughout this specification is [data component].
+
+   [Definition: data component]
+
+      An XML Schema type or attribute group definition; or an XML Schema element or attribute declaration.
+
+   [Harmonization] is a process that NIEM governance committees and domain stewards iteratively apply to NIEM content (specifically, its semantics, structure, and relationships) during the preparation of a NIEM major or minor release. On a more restricted scale a domain steward harmonizes his/her own content (schema documents) in preparation for a domain update MPD. Multiple domain stewards may collaborate in a coordinated domain update. In this case, to the extent possible, harmonization may be applied across the content of all the collaborating domains. Harmonization results in model change and evolution with the intent of removing semantic duplication and overlap while improving representational quality and usability.
 
    [Definition: harmonization]
 
-      The process of reviewing a data model's existing data definitions and declarations; reviewing how it structures and represents data; integrating new data components; and refactoring data components as necessary to remove (or reduce to the maximum extent) semantic duplication and/or overlap among all data structures and definitions resulting in quality improvements to representation and usability.
+      The process of reviewing a data model's existing data definitions and declarations; reviewing how it structures and represents data; integrating new [data components]; and refactoring [data components] as necessary to remove (or reduce to the maximum extent) semantic duplication and/or overlap among all data structures and definitions resulting in quality improvements to representation and usability.
 
 2.7. XML Validation
 
@@ -232,9 +232,9 @@ Status
 
       *  It is explicitly designated as a reference schema document (by its own conformance targets attribute). This can be declared by an [MPD catalog document]or by a tool-specific mechanism outside the schema document.
 
-      *  It provides the broadest, most fundamental definitions of data components in its namespace.
+      *  It provides the broadest, most fundamental definitions of [data components] in its namespace.
 
-      *  It provides the authoritative definition of business semantics for data components in its namespace.
+      *  It provides the authoritative definition of business semantics for [data components] in its namespace.
 
       *  It is intended to serve as a basis for components in IEPD schema documents, including [schema document subsets], [constraint schema document sets], and [extension schema documents].
 
@@ -244,7 +244,7 @@ Status
 
    The [NIEM NDR 3.0] conformance rules for reference schema documents are generally stricter than those for other classes of NIEM-conformant schema documents. For example, they are not allowed to employ particular XML Schema model groups such as xs:choice or xs:any that other schema documents may contain.
 
-   NIEM reference schemas are very uniform in their structure. As they are the primary definitions for data components, they do not need to restrict other data definitions, and they are not allowed to use XML Schema's complex type restriction mechanisms.
+   NIEM reference schemas are very uniform in their structure. As they are the primary definitions for [data components], they do not need to restrict other data definitions, and they are not allowed to use XML Schema's complex type restriction mechanisms.
 
 2.9. Rules
 
@@ -330,7 +330,7 @@ Status
 
    All MPDs share several commonalities:
 
-      *  Principal content is [XML schema documents] (XSD), the purpose for which is to define and declare reusable data components for information exchanges or to define the exchanges themselves.
+      *  Principal content is [XML schema documents] (XSD), the purpose for which is to define and declare reusable [data components] for information exchanges or to define the exchanges themselves.
 
       *  Requires a self-documenting mpd-catalog.xml artifact containing metadata and a listing of its key artifacts. This artifact establishes identification metadata, [conformance targets], purpose, general content, lineage, and other metadata.
 
@@ -402,7 +402,7 @@ Status
 
       (of an [XML Schema] is) an [XML document] that is valid against an [XML Schema].
 
-   An IEPD contains a NIEM-conformant [XML schema document] set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents. Furthermore, an IEPD declares at least one [IEP conformance target] within its [MPD catalog document] (See Section 5.1, NIEM MPD Catalog, below). The XML schema documents contained in an IEPD work together to define one or more classes of [instance XML documents] that consistently encapsulate data for meaningful information exchanges. Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated [IEP conformance target] (declared in the IEPD's MPD catalog) is considered a member of that [IEP conformance target] class. XML schema documents in an IEPD conform to the [NIEM NDR 3.0] and may use or extend data component definitions drawn from NIEM. An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See [NIEM NDR 3.0] for details.)
+   An IEPD contains a NIEM-conformant [XML schema document] set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), enterprise-specific or IEPD-specific extension schema documents. Furthermore, an IEPD declares at least one [IEP conformance target] within its [MPD catalog document] (See Section 5.1, NIEM MPD Catalog, below). The XML schema documents contained in an IEPD work together to define one or more classes of [instance XML documents] that consistently encapsulate data for meaningful information exchanges. Furthermore, any instance XML document that is valid for an XML schema document set (in the IEPD) and an associated [IEP conformance target] (declared in the IEPD's MPD catalog) is considered a member of that [IEP conformance target] class. XML schema documents in an IEPD conform to the [NIEM NDR 3.0] and may use or extend [data component] definitions drawn from NIEM. An IEPD may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See [NIEM NDR 3.0] for details.)
 
    An IEPD consists of a set of artifacts (XML schema documents, documentation, sample [instance XML documents], etc.) that together define and describe an implementable NIEM information exchange. An IEPD should contain an [XML schema document] set and instructional material necessary to:
 
@@ -490,7 +490,7 @@ Rule 3-1. Information Exchange Package Documentation
 
 4. MPD XML Schema Document Artifacts
 
-   [XML schema document] artifacts are the essential content of MPDs because they normatively define and declare data components. The purpose of an MPD is determined by the [XML schema document] or document set(s) it contains; furthermore, each [ XML schema document] may have a different purpose. The [NIEM NDR 3.0] addresses some schema documents as [conformance targets] including reference schema documents, extension schema documents, and schema document sets. Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules. Consult the [NIEM NDR 3.0] for these rules. NIEM also employs a special technique that relies on [constraint schema document sets] (See Section 4.5, Constraint Schema Document Sets, below).
+   [XML schema document] artifacts are the essential content of MPDs because they normatively define and declare [data components]. The purpose of an MPD is determined by the [XML schema document] or document set(s) it contains; furthermore, each [ XML schema document] may have a different purpose. The [NIEM NDR 3.0] addresses some schema documents as [conformance targets] including reference schema documents, extension schema documents, and schema document sets. Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules. Consult the [NIEM NDR 3.0] for these rules. NIEM also employs a special technique that relies on [constraint schema document sets] (See Section 4.5, Constraint Schema Document Sets, below).
 
    The following subsections define each type of NIEM schema document and document set, and identify the types of MPDs that contain them.
 
@@ -502,7 +502,7 @@ Rule 3-1. Information Exchange Package Documentation
 
    As authoritative definitions, NIEM reference schema document sets satisfy more rigorous documentation requirements. The [NIEM NDR 3.0] requires that each type definition, and element and attribute declaration in a reference schema document contain an xs:annotation element that defines its semantic meaning. As will be explained later, [extension schema documents] are also authoritative definitions, but in a local sense. They are authoritative within a given IEPD, and therefore, must also satisfy the same rigorous documentation rules as reference schema documents.
 
-   Typically reference schema documents contain data components with the most relaxed cardinality (zero to unbounded). However, this is not an absolute requirement. If necessary, cardinality in reference schema documents may be constrained to model reality. For example, in NIEM 3.0 a nc:Location2DGeospatialCoordinateType contains both a nc:GeographicCoordinateLatitude element and a nc:GeographicCoordinateLongitude element. Each of these elements has cardinality minOccurs="1" and maxOccurs="1". Any other cardinality for these elements has no meaning. On the other hand, one might claim that NIEM should constrain nc:PersonType to a single occurrence of the element nc:PersonBirthDate. Every person has one and only one birth date. Unfortunately, also in reality, criminal persons often present multiple identities with multiple birth dates; and so the capability to represent such is an important data requirement for NIEM.
+   Typically reference schema documents contain [data components] with the most relaxed cardinality (zero to unbounded). However, this is not an absolute requirement. If necessary, cardinality in reference schema documents may be constrained to model reality. For example, in NIEM 3.0 a nc:Location2DGeospatialCoordinateType contains both a nc:GeographicCoordinateLatitude element and a nc:GeographicCoordinateLongitude element. Each of these elements has cardinality minOccurs="1" and maxOccurs="1". Any other cardinality for these elements has no meaning. On the other hand, one might claim that NIEM should constrain nc:PersonType to a single occurrence of the element nc:PersonBirthDate. Every person has one and only one birth date. Unfortunately, also in reality, criminal persons often present multiple identities with multiple birth dates; and so the capability to represent such is an important data requirement for NIEM.
 
 4.2. Subset Document Schemas
 
@@ -604,7 +604,7 @@ Rule 4-1. Fundamental NIEM Subset Rule
 
    A developer who determines that NIEM is missing elements required for a given information exchange has several options to account for such requirement shortfalls. Using rules and techniques defined in the [NIEM NDR 3.0]:
 
-      *  Extend an existing NIEM data component (if possible).
+      *  Extend an existing NIEM [data component] (if possible).
 
       *  Augment an existing NIEM data type (through NIEM Type Augmentation).
 
@@ -612,11 +612,11 @@ Rule 4-1. Fundamental NIEM Subset Rule
 
       *  Employ NIEM adapter types for components from an external standard that does not conform to NIEM.
 
-   A NIEM extension schema document may contain data components built from any of the options above. Employment of extension schema documents in an IEPD is entirely optional.
+   A NIEM extension schema document may contain [data components] built from any of the options above. Employment of extension schema documents in an IEPD is entirely optional.
 
-   Multiple extension schema documents are allowed in a single IEPD. Developers will likely want to reuse many of their extension schema documents in other IEPDs. Therefore, the best practice for extension is to group all data components designed to be reused into one extension schema document or document set, and group IEPD-specific data components into another. Then the reusable extension components can be more easily redeployed in other IEPDs as needed.
+   Multiple extension schema documents are allowed in a single IEPD. Developers will likely want to reuse many of their extension schema documents in other IEPDs. Therefore, the best practice for extension is to group all [data components] designed to be reused into one extension schema document or document set, and group IEPD-specific [data components] into another. Then the reusable extension components can be more easily redeployed in other IEPDs as needed.
 
-   Extension schema documents generally contain new data component declarations that may (though not necessarily) be derived from or reference existing NIEM data components. This being the case, reference schema documents do not exist for new data components found within extension schema documents. Therefore, extension schema documents must satisfy the more rigorous documentation requirements of reference schema documents. Per the [NIEM NDR 3.0], the definition or declaration of each new data component in an extension schema document must include an xs:annotation element that provides its semantics and NIEM-specific relationships.
+   Extension schema documents generally contain new [data component] declarations that may (though not necessarily) be derived from or reference existing NIEM [data components]. This being the case, reference schema documents do not exist for new [data components] found within extension schema documents. Therefore, extension schema documents must satisfy the more rigorous documentation requirements of reference schema documents. Per the [NIEM NDR 3.0], the definition or declaration of each new [data component] in an extension schema document must include an xs:annotation element that provides its semantics and NIEM-specific relationships.
 
 4.4. External Schema Documents
 
@@ -744,7 +744,7 @@ Rule 5-2. MPD Catalog Document Valid to mpd-catalog-3.0.xsd
 
    An MPD Catalog may be extended to accommodate new or additional metadata, artifact classifiers, or validity constraints that are not already defined in Appendix A, MPD Catalog XML Schema Document, below.
 
-   To extend the MPD catalog, an MPD author must provide both an XML catalog extension document (XML) and one or more MPD extension schema documents (XSD). The XML catalog extension identifies that one or more MPD catalog extensions are present, and resolves their namespaces to local URIs. The MPD catalog extension is a schema that defines and declares the new data components for metadata, classifiers, and/or constraints. Both general [NIEM Conformance 3.0] and specific [NIEM NDR 3.0] conformance rules apply to these components. The XML catalog extension document must reside in the [MPD root directory]. The MPD extension schema documents may bear any file name and reside anywhere in the MPD. This is because the XML catalog is expected to [resolve] all local URIs. MPD processing tools are expected to look for and recognize the XML catalog (that identifies MPD catalog extensions exist) by its file name.
+   To extend the MPD catalog, an MPD author must provide both an XML catalog extension document (XML) and one or more MPD extension schema documents (XSD). The XML catalog extension identifies that one or more MPD catalog extensions are present, and resolves their namespaces to local URIs. The MPD catalog extension is a schema that defines and declares the new [data components] for metadata, classifiers, and/or constraints. Both general [NIEM Conformance 3.0] and specific [NIEM NDR 3.0] conformance rules apply to these components. The XML catalog extension document must reside in the [MPD root directory]. The MPD extension schema documents may bear any file name and reside anywhere in the MPD. This is because the XML catalog is expected to [resolve] all local URIs. MPD processing tools are expected to look for and recognize the XML catalog (that identifies MPD catalog extensions exist) by its file name.
 
    The following rules specify the requirements for an MPD catalog extension XML catalog document:
 
@@ -782,7 +782,7 @@ Rule 5-7. MPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules
 
    Whether extending an MPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, Appendix A, MPD Catalog XML Schema Document, below, provides an abstract element as a substitution group head in each case. The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group. Whenever possible, the user should reuse types, elements, and attributes that are already defined/declared within the Appendix A, MPD Catalog XML Schema Document, below.
 
-   If an MPD catalog schema document extension uses NIEM data components that are not already contained in the NIEM Core subset provided with [NIEM MPD Toolkit], then the additional components must be additive. In other words:
+   If an MPD catalog schema document extension uses NIEM [data components] that are not already contained in the NIEM Core subset provided with [NIEM MPD Toolkit], then the additional components must be additive. In other words:
 
 Rule 5-8. MPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets
 
@@ -1266,7 +1266,7 @@ Rule 5-37. XML Catalog uri Value Resolves to Resource with Correct Target Namesp
 
 5.3.1. Change Log for Releases and Core/Domain Updates
 
-   Once published, a NIEM release always exists. This ensures that IEPDs built from a given release will always be usable, and may be updated to a new NIEM release only when convenient or absolutely necessary to take advantage of new or modified data components. Though not encouraged, nothing prohibits a developer from building an IEPD based on a NIEM release that is older than the most current version. There may be potential disadvantages related to interoperability levels achievable with others developing to the latest release. Nonetheless, an older version might meet the business needs of a particular organization quite well.
+   Once published, a NIEM release always exists. This ensures that IEPDs built from a given release will always be usable, and may be updated to a new NIEM release only when convenient or absolutely necessary to take advantage of new or modified [data components]. Though not encouraged, nothing prohibits a developer from building an IEPD based on a NIEM release that is older than the most current version. There may be potential disadvantages related to interoperability levels achievable with others developing to the latest release. Nonetheless, an older version might meet the business needs of a particular organization quite well.
 
    In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change. New versions of reference schema document sets such as NIEM releases, core updates, and domain updates can have significant impacts on future IEPDs. Developers must understand in detail how changes will affect their IEPD products and the tools used to build them. To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs. A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users. All of the foregoing reasons dictate that a NIEM reference schema document set requires a normative change log.
 
@@ -1382,7 +1382,7 @@ Rule 5-40. IEPD Has a readme.* in Root Directory
 
             *  How these are coordinated in the implementation
 
-            *  Caveats regarding duplicate data components (which can occur with multiple subsets)
+            *  Caveats regarding duplicate [data components] (which can occur with multiple subsets)
 
       *  If an IEPD employs multiple IEP conformance targets:
 
@@ -1558,7 +1558,7 @@ Rule 5-46. Validating an XPath Expression
 
 5.6.2.10. c:ConformsToRule
 
-   Sometimes it is not possible to formally declare an executable validity constraint. For example, we can mandate that a data component definition must be present, must be in English, and must follow [ISO 11179-4]. Validating that text is present is easy, and validating that it is in English is more difficult, but validating that it obeys [ISO 11179-4] is essentially intractable. Thus, c:ConformsToRule provides an IEPD author with English text representation as an alternative when it is not possible or not easy to define more formal validation rules or validity constraints.
+   Sometimes it is not possible to formally declare an executable validity constraint. For example, we can mandate that a [data component] definition must be present, must be in English, and must follow [ISO 11179-4]. Validating that text is present is easy, and validating that it is in English is more difficult, but validating that it obeys [ISO 11179-4] is essentially intractable. Thus, c:ConformsToRule provides an IEPD author with English text representation as an alternative when it is not possible or not easy to define more formal validation rules or validity constraints.
 
 5.6.3. IEP Sample Instance XML Documents
 
@@ -1582,7 +1582,7 @@ Rule 5-47. IEPD Has an IEP Sample for Each c:IEPConformanceTarget
 
    The rule above requires that each declared [IEP conformance target] be covered (exemplified or correctly demonstrated) by at least one IEP sample instance XML document. This does not necessarily mandate a different IEP sample for each [IEP conformance target]. It may be possible, and is therefore acceptable, for a given IEP sample to serve as an example of one or more [IEP conformance targets].
 
-   The purpose of this rule is not to provide a test for all possible IEP permutations given the schema definitions and validity constraint declarations; rather, it is to encourage IEPD authors to test their own designs, and to provide implementers with examples for additional understanding, guidance, and testing. To the extent possible, IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges, and (2) exercise as many data components and validity constraints as possible. Where it makes sense, an IEPD author should strive to provide enough sample IEPs to exercise all the XML document elements (or payload root elements). If a single IEP cannot provide enough example coverage, an author may include multiple IEPs (but is not required to do so).
+   The purpose of this rule is not to provide a test for all possible IEP permutations given the schema definitions and validity constraint declarations; rather, it is to encourage IEPD authors to test their own designs, and to provide implementers with examples for additional understanding, guidance, and testing. To the extent possible, IEPD authors should strive to include sample IEPs that (1) capture real world business cases of data exchanges, and (2) exercise as many [data components] and validity constraints as possible. Where it makes sense, an IEPD author should strive to provide enough sample IEPs to exercise all the XML document elements (or payload root elements). If a single IEP cannot provide enough example coverage, an author may include multiple IEPs (but is not required to do so).
 
    Each sample IEP usually illustrates a single view of the data based on a chosen set of conditions. Other views based on different conditions likely exist. An implementer will still need to review the IEPD documentation to ensure understanding of all potential conditions. Therefore, as appropriate, the author should not rely exclusively on sample IEPs to convey implementation understanding, since they will probably not account for all possible permutations.
 
@@ -1662,13 +1662,13 @@ Rule 5-49. IEPD Has Conformance Assertion in Root Directory
 
 6.1. NIEM Wantlist
 
-   A NIEM schema document subset is often associated with a NIEM wantlist. A wantlist is an abbreviated XML representation of a NIEM schema document subset, and identifies only the data components a user selected (as requirements) to build a schema document subset. To reconstruct the complete schema document subset there are usually a number of additional data components that the user selections depend upon. These must be computed from the appropriate NIEM reference model and added to reconstruct the complete schema document subset. For example, a user may select nc:Person for the subset. In this case, the wantlist will only contain that component, but the associated full subset must contain both nc:Person and nc:PersonType. A software tool that understands how to process NIEM wantlists and schema document subsets (such as the NIEM Schema Subset Generator Tool [NIEM SSGT]) can rebuild an accurate schema document subset from a wantlist (and the reverse).
+   A NIEM schema document subset is often associated with a NIEM wantlist. A wantlist is an abbreviated XML representation of a NIEM schema document subset, and identifies only the [data components] a user selected (as requirements) to build a schema document subset. To reconstruct the complete schema document subset there are usually a number of additional [data components] that the user selections depend upon. These must be computed from the appropriate NIEM reference model and added to reconstruct the complete schema document subset. For example, a user may select nc:Person for the subset. In this case, the wantlist will only contain that component, but the associated full subset must contain both nc:Person and nc:PersonType. A software tool that understands how to process NIEM wantlists and schema document subsets (such as the NIEM Schema Subset Generator Tool [NIEM SSGT]) can rebuild an accurate schema document subset from a wantlist (and the reverse).
 
    [Definition: NIEM wantlist]
 
       An XML document that represents a complete NIEM schema document subset.
 
-   A NIEM wantlist identifies the data component requirements declared by the subset author; it does not identify the data component dependencies required to reconstitute the complete subset. The complete subset can be computed with the reference schema document set from which the subset was derived.
+   A NIEM wantlist identifies the [data component] requirements declared by the subset author; it does not identify the [data component] dependencies required to reconstitute the complete subset. The complete subset can be computed with the reference schema document set from which the subset was derived.
 
    A wantlist is always associated with a schema document subset. A wantlist may also be associated with a [constraint schema document set], because constraint schema documents are often built from a [schema document subset]. For a simple IEPD, it can sometimes be trivial to identify a single schema document subset. However, this MPD Specification does not prohibit building complex IEPDs that contain schema document sets supported by multiple schema document subsets and associated wantlists. As with other complex cases, the IEPD author is responsible to clearly document the associations between wantlists and schema document sets. In order to maintain a minimal degree of consistency for placement of a wantlist within an IEPD the following rule applies.
 
@@ -1866,7 +1866,7 @@ Rule 7-8. MPD External Schema Documents Are Local Resources
 
    For the case of non-NIEM-conformant schemas, this rule ensures that all schemas (or corresponding artifacts and namespaces) from external standards required for definition, validation, and use of the MPD are present within the archive.
 
-   XML schemas are the heart of MPDs since they formally specify normative structure and semantics for data components. However, in general, an MPD is a closed set of artifacts. This means that all hyperlink references within artifacts should [resolve] to the appropriate artifact.
+   XML schemas are the heart of MPDs since they formally specify normative structure and semantics for [data components]. However, in general, an MPD is a closed set of artifacts. This means that all hyperlink references within artifacts should [resolve] to the appropriate artifact.
 
 Rule 7-9. Key MPD Resources Are Local Resources
 
