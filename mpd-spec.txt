@@ -78,7 +78,7 @@ Status
 
       *  A NIEM release (including a major, minor, or micro release) [NIEM High-Level Version Architecture 1.0].
 
-      *  A NIEM domain update [NIEM Domain Update Specification 1.0]. (Note these are NOT the same as a NIEM domain schema document that ois a part of a NIEM release).
+      *  A NIEM domain update [NIEM Domain Update Specification 1.0]. (Note these are NOT the same as a NIEM domain schema document that is a part of a NIEM release).
 
       *  A NIEM core update to a NIEM release.
 
@@ -157,7 +157,7 @@ Status
       
       	c		http://reference.niem.gov/niem/resource/mpd/catalog/3.0/
       	er		urn:oasis:names:tc:entity:xmlns:xml:catalog
-      	nc		http://release.niem.gov/niem/3.0/
+      	nc		http://release.niem.gov/niem/niem-core/3.0/
       	structures	http://release.niem.gov/niem/structures/3.0/
       	xs		http://www.w3.org/2001/XMLSchema
       		
@@ -666,7 +666,7 @@ Rule 4-1. Fundamental NIEM Subset Rule
 
       A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.
 
-   A [constraint schema document set] is an [XML schema document] sset that is used to express business rules for a class of [instance XML documents], and is not assumed to be a definition for the semantics of the components it contains and describes. Instead, a constraint schema document set uses the XML Schema Definition Language to add constraints to components defined or declared by other schema documents, usually a [schema document subset]; but they can be applied to [extension schema documents] as well.
+   A [constraint schema document set] is an [XML schema document] set that is used to express business rules for a class of [instance XML documents], and is not assumed to be a definition for the semantics of the components it contains and describes. Instead, a constraint schema document set uses the XML Schema Definition Language to add constraints to components defined or declared by other schema documents, usually a [schema document subset]; but they can be applied to [extension schema documents] as well.
 
    A [constraint schema document set] validates additional constraints imposed on an [instance XML document] only after it is known to be NIEM-conformant (i.e., has been validated with a [reference schema document set], or [schema document subset], and applicable [extension schema documents]).
 
@@ -1150,15 +1150,9 @@ Rule 5-30.
 
       Any [XML schema document] set whose c:pathURI attribute resolves to a [constraint schema document set] MUST be interpreted to be a [constraint schema document set].
 
-Rule 5-31. c:pathURI for c:ReferenceSchemaDocumentSet
+Rule 5-31. c:pathURI for c:RequiredFile
 
    [Rule 5-31] (WF-MPD)
-
-      Within the [MPD catalog document] the value of a c:pathURI attribute owned by a c:ReferenceSchemaDocumentSet element MUST [resolve] to a NIEM [reference schema document set].
-
-Rule 5-32. c:pathURI for c:RequiredFile
-
-   [Rule 5-32] (WF-MPD)
 
       Within an [MPD catalog document] the value of a c:pathURI attribute owned by a c:RequiredFile element MUST [resolve] to a resource.
 
@@ -1174,13 +1168,13 @@ Rule 5-32. c:pathURI for c:RequiredFile
 
    As was described in Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI), above, the MPD catalog also enables an author to record more fine-grained ancestry between MPDs using the c:externalURI attribute. This attribute records an explicit equivalence relationship between artifacts reused across MPDs.
 
-   Note that a c:resourceURI attribute is used to identify a remote resource that is only related to the MPD whose catalog declares it. The resource is not required for validation. Therefore, the [MPD] is not required to contain this resource. As in the case of c:externalURI, the value of a c:resourceURI should be correct (i.e., a resource with that URI should exist). However, in this case, existence verification is considered outside the scope of this specfication.
+   Note that a c:resourceURI attribute is used to identify a remote resource that is only related to the MPD whose catalog declares it. The resource is not required for validation. Therefore, the [MPD] is not required to contain this resource. As in the case of c:externalURI, the value of a c:resourceURI should be correct (i.e., a resource with that URI should exist). However, in this case, existence verification is considered outside the scope of this specification.
 
 5.2.4.5. Resolving an MPD URI with a Fragment
 
-Rule 5-33. Resolve MPD URI with Fragment
+Rule 5-32. Resolve MPD URI with Fragment
 
-   [Rule 5-33] (WF-MPD)
+   [Rule 5-32] (WF-MPD)
 
       Given an absolute MPD URI [RFC 3986 URI],  section 4.3, "Absolute URI" with a fragment, resolve this URI as follows:
 
@@ -1198,7 +1192,7 @@ Rule 5-33. Resolve MPD URI with Fragment
 
 5.2.4.6. URI Resolution Involving Reference Elements
 
-   A NIEM element can indirectly reference its content rather than carry or encapsulate it. So, a NIEM element of type xs:anyURI may not contain a URI, but instead refer to another element that contains it for both elements. Under some circumstances, this might impact URI resolution described in Rule 5-33, Resolve MPD URI with Fragment.
+   A NIEM element can indirectly reference its content rather than carry or encapsulate it. So, a NIEM element of type xs:anyURI may not contain a URI, but instead refer to another element that contains it for both elements. Under some circumstances, this might impact URI resolution described in Rule 5-32, Resolve MPD URI with Fragment.
 
    [NIEM NDR 3.0],  section 12.3, "Reference Elements" defines a NIEM [reference element] as follows:
 
@@ -1214,15 +1208,15 @@ Rule 5-33. Resolve MPD URI with Fragment
 
    An [XML catalog document] conforms to [XML Catalogs 1.1]. For the purpose of MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.
 
-Rule 5-34. XML Catalog uri Value Resolves to Resource
+Rule 5-33. XML Catalog uri Value Resolves to Resource
 
-   [Rule 5-34] (XML-Cat)
+   [Rule 5-33] (XML-Cat)
 
       Within an [XML catalog document] the value of a uri attribute owned by a er:uri element MUST [resolve] to a resource.
 
-Rule 5-35. XML Catalog uri Value Resolves to Resource with Correct Target Namespace
+Rule 5-34. XML Catalog uri Value Resolves to Resource with Correct Target Namespace
 
-   [Rule 5-35] (XML-Cat)
+   [Rule 5-34] (XML-Cat)
 
       Within an [XML catalog document], given an [XML schema document] resolved by the value of a uri attribute owned by a er:uri element, the [XML schema document] target namespace MUST equal the value of the name (a namespace string) attribute owned by the er:uri element.
 
@@ -1278,9 +1272,9 @@ Rule 5-35. XML Catalog uri Value Resolves to Resource with Correct Target Namesp
 
    An [IEPD] change log is not required to conform to any particular XML schema or other format specification. However, a change log is still required for an [IEPD].
 
-Rule 5-36. IEPD Has a Change Log in Root Directory
+Rule 5-35. IEPD Has a Change Log in Root Directory
 
-   [Rule 5-36] (IEPD)
+   [Rule 5-35] (IEPD)
 
       An [IEPD] MUST contain a change log artifact in its [MPD root directory].
 
@@ -1296,15 +1290,15 @@ Rule 5-36. IEPD Has a Change Log in Root Directory
 
    A [readme artifact] is only required for IEPDs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed. On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.
 
-Rule 5-37. Readme Describes Purpose, Scope, Business Value, etc.
+Rule 5-36. Readme Describes Purpose, Scope, Business Value, etc.
 
-   [Rule 5-37] (WF-MPD)
+   [Rule 5-36] (WF-MPD)
 
       A [readme artifact] SHOULD (at a minimum) describe the [MPD] purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.
 
-Rule 5-38. IEPD Has a readme.* in Root Directory
+Rule 5-37. IEPD Has a readme.* in Root Directory
 
-   [Rule 5-38] (IEPD)
+   [Rule 5-37] (IEPD)
 
       An IEPD MUST contain a readme.* file artifact in its [MPD root directory].
 
@@ -1430,9 +1424,9 @@ Rule 5-38. IEPD Has a readme.* in Root Directory
 
    This definition requires that an IEP conformance target be assigned a [conformance target identifier] that distinguishes it from all other [IEP conformance targets]. Construct a [conformance target identifier] using a fragment identifier (similar to an MPD artifact URI) per this rule:
 
-Rule 5-39. Conformance Target Identifier
+Rule 5-38. Conformance Target Identifier
 
-   [Rule 5-39] (MPD-Cat)
+   [Rule 5-38] (MPD-Cat)
 
       A [conformance target identifier] for an [IEP conformance target] declared in an MPD is formed by concatenating the following in sequence:
 
@@ -1442,19 +1436,19 @@ Rule 5-39. Conformance Target Identifier
 
    The following rule is required for an [MPD catalog document]. It supplements the rule above.
 
-Rule 5-40. IEP Conformance Target Has a structures:id
+Rule 5-39. IEP Conformance Target Has a structures:id
 
-   [Rule 5-40] (MPD-Cat)
+   [Rule 5-39] (MPD-Cat)
 
       A c:IEPConformanceTarget element MUST own a structures:id attribute.
 
-   This rule ensures that a [conformance target] can be referenced between MPDs (not just within an MPD). The value of the structures:id attribute is the NCName in Rule 5-39, Conformance Target Identifier.
+   This rule ensures that a [conformance target] can be referenced between MPDs (not just within an MPD). The value of the structures:id attribute is the NCName in Rule 5-38, Conformance Target Identifier.
 
    An [IEPD] defines IEP conformance targets by explicitly declaring them within its MPD catalog per the rules above.
 
-Rule 5-41. [IEPD] Declares One or More IEP Conformance Targets
+Rule 5-40. [IEPD] Declares One or More IEP Conformance Targets
 
-   [Rule 5-41] (IEPD)
+   [Rule 5-40] (IEPD)
 
       The [MPD catalog document] of an [IEPD] MUST contain one or more c:IEPConformanceTarget elements.
 
@@ -1488,13 +1482,13 @@ Rule 5-41. [IEPD] Declares One or More IEP Conformance Targets
 
 5.6.2.3. c:ValidityContext
 
-   [Validity constraint context] is explicity declared by an XPath expression that is the value of c:xPathText. c:ValidityContext can contain any of the specific validity constraints that are substitutable for c:ValidityConstraint.
+   [Validity constraint context] is explicitly declared by an XPath expression that is the value of c:xPathText. c:ValidityContext can contain any of the specific validity constraints that are substitutable for c:ValidityConstraint.
 
-Rule 5-42. 
+Rule 5-41. 
 
-   [Rule 5-42] (MPD-Cat)
+   [Rule 5-41] (MPD-Cat)
 
-      Given a c:xPathText attribute owned by c:ValidityContext, the [validity constraint context] for the descendent's validity constraint SHALL be the value of c:xPathText evaluated against the IEP's document information item (See [W3-XML-InfoSet],  section 2.1, "The Document Information Item").
+      Given a c:xPathText attribute owned by c:ValidityContext, the [validity constraint context] for the descendant's validity constraint SHALL be the value of c:xPathText evaluated against the IEP's document information item (See [W3-XML-InfoSet],  section 2.1, "The Document Information Item").
 
 5.6.2.4. c:HasDocumentElement
 
@@ -1504,9 +1498,9 @@ Rule 5-42.
 
    When employing c:HasDocumentElement the following rule applies:
 
-Rule 5-43. Identifying the Document Element of an IEP
+Rule 5-42. Identifying the Document Element of an IEP
 
-   [Rule 5-43] (IEP)
+   [Rule 5-42] (IEP)
 
       Within an MPD catalog document, if an c:IEPConformanceTarget element for an IEP has a c:HasDocumentElement child element owning a c:qualifiedNameList attribute with a value of $LIST, then the document element of the IEP MUST have a QName that is a member of $LIST.
 
@@ -1526,9 +1520,9 @@ Rule 5-43. Identifying the Document Element of an IEP
 
    When employing c:ValidToXPath the following rule applies:
 
-Rule 5-44. Validating an XPath Expression
+Rule 5-43. Validating an XPath Expression
 
-   [Rule 5-44] (IEP)
+   [Rule 5-43] (IEP)
 
       Within an [MPD catalog document] with a c:xPathText attribute owned by a c:ValidToXPath element, a candidate IEP is a valid IEP, ONLY IF the value of c:ValidToXPath applied to the candidate IEP (an [XML document]) has an effective Boolean value (EBV) equal to true. EBV is defined by [W3C XPath 2.0],  section 2.4.3, "Effective Boolean Value".
 
@@ -1540,7 +1534,7 @@ Rule 5-44. Validating an XPath Expression
 
    NIEM is based on XML Schema, and so the term "schema validation" usually refers to "XML Schema validation". However, an [IEPD] author may also choose to include artifacts to validate with other types of schemas or rules, including but not limited to [ISO Schematron] and [ISO RelaxNG]. [IEPD] authors may also include artifacts for NIEM constraint schema validation, which, of course, is XML Schema validation (See Section 4.5, Constraint Schema Document Sets, above.
 
-   Because NIEM is XML Schema based, then c:XMLSchemaValid (of type c:XMLSchemaType) will likely be employed by most IEPDs. This validity constraint ensures that an IEP artifact is schema valid to an XML schema that can be assembled correctly from the schema documents that comprise it. To do this c:XMLSchemaValid provides two methods to choose from based on its child elements, c:XMLCatalog and c:XMLSchemaDocument, both zero to unbounded cardinality. The MPD author can use (1) c:XMLCatlog to identify one or more XML catalog documents that map the correct schema documents; or (2) c:XMLSchemaDocument to explicitly identify the one or more XML schema documents to be retrieved. In each case, depending on the nature of the XML schema document set from which the schema documents are coming, it may be possible to identify a single XML catalog document or a single XML schema document. That catalog or schema document will be the starting point or root document and will contain enough information to explicitly identify or cascade to the rest. (See also Section 5.5, XML Catalogs, above)
+   Because NIEM is XML Schema based, then c:XMLSchemaValid (of type c:XMLSchemaType) will likely be employed by most IEPDs. This validity constraint ensures that an IEP artifact is schema valid to an XML schema that can be assembled correctly from the schema documents that comprise it. To do this c:XMLSchemaValid provides two methods to choose from based on its child elements, c:XMLCatalog and c:XMLSchemaDocument, both zero to unbounded cardinality. The MPD author can use (1) c:XMLCatalog to identify one or more XML catalog documents that map the correct schema documents; or (2) c:XMLSchemaDocument to explicitly identify the one or more XML schema documents to be retrieved. In each case, depending on the nature of the XML schema document set from which the schema documents are coming, it may be possible to identify a single XML catalog document or a single XML schema document. That catalog or schema document will be the starting point or root document and will contain enough information to explicitly identify or cascade to the rest. (See also Section 5.5, XML Catalogs, above)
 
    It is the MPD author's responsibility to ensure that the method used (XML catalogs or XML schema document identification) is configured correctly per the appropriate specification ([XML Catalogs 1.1] or [W3C XML Schema Part 1 Structures]).
 
@@ -1556,7 +1550,7 @@ Rule 5-44. Validating an XPath Expression
 
    c:ConformsToConformanceTarget enables an [IEPD] author to effectively subclass and relate conformance target classes. For example, using this constraint, a given conformance target class defined by a c:IEPConformanceTarget structures:id="A2" can be required to also conform to another class structures:id="A1". This creates an IS-A relationship. We say that A2 IS-AN A1, or that A2 IS-A specialization of A1.
 
-   Conformance target classes are related through the c:conformanceTargetURI attribute owned by c:ConformsToConformanceTarget. Recall that per Rule 5-39, Conformance Target Identifier a conformance target uri is formed by the concatenating the [IEPD] URI (the value of c:mpdURI), the pound character ("#"), and the value of the conformance class (structures:id) of the [IEP conformance target].
+   Conformance target classes are related through the c:conformanceTargetURI attribute owned by c:ConformsToConformanceTarget. Recall that per Rule 5-38, Conformance Target Identifier a conformance target uri is formed by the concatenating the [IEPD] URI (the value of c:mpdURI), the pound character ("#"), and the value of the conformance class (structures:id) of the [IEP conformance target].
 
 5.6.2.10. c:ConformsToRule
 
@@ -1576,9 +1570,9 @@ Rule 5-44. Validating an XPath Expression
 
    For these reasons, the following rule applies to an [IEPD]:
 
-Rule 5-45. IEPD Has an IEP Sample for Each c:IEPConformanceTarget
+Rule 5-44. IEPD Has an IEP Sample for Each c:IEPConformanceTarget
 
-   [Rule 5-45] (IEPD)
+   [Rule 5-44] (IEPD)
 
       Within the MPD catalog document of an [IEPD], a c:IEPConformanceTarget element MUST contain a c:IEPSampleXMLDocument child element.
 
@@ -1590,9 +1584,9 @@ Rule 5-45. IEPD Has an IEP Sample for Each c:IEPConformanceTarget
 
    The following rule relates to validity of an IEP Sample XML Document:
 
-Rule 5-46. Validating an IEP Sample XML Document
+Rule 5-45. Validating an IEP Sample XML Document
 
-   [Rule 5-46] (IEP)
+   [Rule 5-45] (IEP)
 
       Within an [MPD catalog document] with a c:pathURI attribute owned by a c:IEPSampleXMLDocument, the artifact resolved by the value of c:pathURI MUST be valid for the validity constraints of the c:IEPConformanceTarget parent of c:IEPSampleXMLDocument.
 
@@ -1606,9 +1600,9 @@ Rule 5-46. Validating an IEP Sample XML Document
 
       An artifact that provides a formal or informal declaration that an MPD conforms to relevant NIEM specifications and associated rules, including [NIEM Conformance 3.0], [NIEM NDR 3.0], [NIEM Conformance Targets Attribute Specification 3.0] and [NIEM MPD Specification 3.0] (this NIEM MPD Specification).
 
-Rule 5-47. IEPD Has Conformance Assertion in Root Directory
+Rule 5-46. IEPD Has Conformance Assertion in Root Directory
 
-   [Rule 5-47] (IEPD)
+   [Rule 5-46] (IEPD)
 
       An [IEPD] MUST contain a [conformance assertion] artifact in its [MPD root directory] that is identified by the c:ConformanceAssertion element in the [MPD catalog document].
 
@@ -1756,7 +1750,7 @@ Rule 7-3. MPD Archive Uncompresses to a Single Root Directory
 
    If a single directory contains all the artifacts in a set, then the following simple form of c:FileSet can be used:
 
-   Figure 7-1: Simple c:FileSet form for a direectory-associated artifact set.
+   Figure 7-1: Simple c:FileSet form for a directory-associated artifact set.
 
       
       	<c:FileSet c:pathURI="samples/">
@@ -1786,13 +1780,13 @@ Rule 7-3. MPD Archive Uncompresses to a Single Root Directory
 
 7.1.1. Constraint on Elements of Type c:SchemaDocumentSetType
 
-   In order to accomodate the [model package description] concept, the design of the MPD catalog schema does not enforce a rule that is required to ensure a c:SchemaDocumentSet within an [MPD catalog document] is used correctly for an [IEPD]. This rule assumes that within the IEPD's MPD catalog any c:SchemaDocumentSet element identifies [XML schema documents] to be assembled into an [XML Schema].
+   In order to accommodate the [model package description] concept, the design of the MPD catalog schema does not enforce a rule that is required to ensure a c:SchemaDocumentSet within an [MPD catalog document] is used correctly for an [IEPD]. This rule assumes that within the IEPD's MPD catalog any c:SchemaDocumentSet element identifies [XML schema documents] to be assembled into an [XML Schema].
 
 Rule 7-4. Constraint on Elements of Type c:SchemaDocumentSetType
 
    [Rule 7-4] (MPD-Cat)
 
-      An element information item with a type definition validly derived from c:SchemaDocumentSetType MUST have a child element with an element declaration that is in the substitution group of c:XMLCatalog or c:SchemaDocument.
+      An element information item with a type definition validly derived from c:SchemaDocumentSetType MUST have a child element with an element declaration that is in the substitution group of c:XMLCatalog or c:XMLSchemaDocument.
 
    This rule ensures that a c:SchemaDocumentSet element always has at least one child element that is an [XML catalog document] (which itself defines an [XML schema document]) set, or an [XML schema document] (which constitutes a set of at least one schema document). This rule cannot be enforced within the MPD catalog schema without introducing a UPA error, but it could be enforced by a Schematron rule.
 
@@ -2957,11 +2951,11 @@ Appendix E. Guidance for IEPD Directories (non-normative)
 
              *  mpd-catalog.xml (Rule 5-1, MPD Has an mpd-catalog.xml in its Root Directory)
 
-             *  changelog.* (Rule 5-36, IEPD Has a Change Log in Root Directory)
+             *  changelog.* (Rule 5-35, IEPD Has a Change Log in Root Directory)
 
-             *  readme.* (Rule 5-38, IEPD Has a readme.* in Root Directory)
+             *  readme.* (Rule 5-37, IEPD Has a readme.* in Root Directory)
 
-             *  conformance-assertion.* (Rule 5-47, IEPD Has Conformance Assertion in Root Directory)
+             *  conformance-assertion.* (Rule 5-46, IEPD Has Conformance Assertion in Root Directory)
 
       3.  If extending the [MPD catalog document], then per Rule 5-3, MPD Catalog Extension XML Catalog Document in Root Directory mpd-catalog-extension-xml-catalog.xml must reside in the same relative directory as the mpd-catalog.xml it supports (normally, the [MPD root directory]). mpd-catalog-extension.xsd can be anywhere in the MPD because mpd-catalog-extension-xml-catalog.xml must correlate its namespace to its URI. However, we recommend both artifacts be co-located in the MPD root directory for visibility:
 
@@ -2987,7 +2981,7 @@ Appendix E. Guidance for IEPD Directories (non-normative)
 
       6.  If using EXI schema documents, create a exi-xsd subdirectory for these.
 
-      7.  Create an iep-sample subdirectory for sample IEPs (Rule 5-45, IEPD Has an IEP Sample for Each c:IEPConformanceTarget).
+      7.  Create an iep-sample subdirectory for sample IEPs (Rule 5-44, IEPD Has an IEP Sample for Each c:IEPConformanceTarget).
 
       8.  If more documentation artifacts (e.g., text, graphics, media) are necessary, create a documentation subdirectory for miscellaneous explanatory documentation. As needed, create additional subdirectories within this one to organize documentation artifacts. The readme artifact in the [MPD root directory] should refer to or index documentation in this subdirectory.
 
@@ -3296,23 +3290,22 @@ Appendix I. Index of Rules
    Rule 5-28, c:pathURI for c:SchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
    Rule 5-29, c:pathURI for c:ConstraintSchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
    Rule 5-30, : Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-31, c:pathURI for c:ReferenceSchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-32, c:pathURI for c:RequiredFile: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-33, Resolve MPD URI with Fragment: Section 5.2.4.5, Resolving an MPD URI with a Fragment
-   Rule 5-34, XML Catalog uri Value Resolves to Resource: Section 5.2.4.7, XML Catalog URI
-   Rule 5-35, XML Catalog uri Value Resolves to Resource with Correct Target Namespace: Section 5.2.4.7, XML Catalog URI
-   Rule 5-36, IEPD Has a Change Log in Root Directory: Section 5.3.2, Change Log for IEPDs
-   Rule 5-37, Readme Describes Purpose, Scope, Business Value, etc.: Section 5.4, ReadMe Artifact
-   Rule 5-38, IEPD Has a readme.* in Root Directory: Section 5.4, ReadMe Artifact
-   Rule 5-39, Conformance Target Identifier: Section 5.6, Defining Information Exchange Packages
-   Rule 5-40, IEP Conformance Target Has a structures:id: Section 5.6, Defining Information Exchange Packages
-   Rule 5-41, [IEPD] Declares One or More IEP Conformance Targets: Section 5.6, Defining Information Exchange Packages
-   Rule 5-42, : Section 5.6.2.3, c:ValidityContext
-   Rule 5-43, Identifying the Document Element of an IEP: Section 5.6.2.4, c:HasDocumentElement
-   Rule 5-44, Validating an XPath Expression: Section 5.6.2.5, c:ValidToXPath
-   Rule 5-45, IEPD Has an IEP Sample for Each c:IEPConformanceTarget: Section 5.6.3, IEP Sample Instance XML Documents
-   Rule 5-46, Validating an IEP Sample XML Document: Section 5.6.3, IEP Sample Instance XML Documents
-   Rule 5-47, IEPD Has Conformance Assertion in Root Directory: Section 5.7, Conformance Assertion
+   Rule 5-31, c:pathURI for c:RequiredFile: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-32, Resolve MPD URI with Fragment: Section 5.2.4.5, Resolving an MPD URI with a Fragment
+   Rule 5-33, XML Catalog uri Value Resolves to Resource: Section 5.2.4.7, XML Catalog URI
+   Rule 5-34, XML Catalog uri Value Resolves to Resource with Correct Target Namespace: Section 5.2.4.7, XML Catalog URI
+   Rule 5-35, IEPD Has a Change Log in Root Directory: Section 5.3.2, Change Log for IEPDs
+   Rule 5-36, Readme Describes Purpose, Scope, Business Value, etc.: Section 5.4, ReadMe Artifact
+   Rule 5-37, IEPD Has a readme.* in Root Directory: Section 5.4, ReadMe Artifact
+   Rule 5-38, Conformance Target Identifier: Section 5.6, Defining Information Exchange Packages
+   Rule 5-39, IEP Conformance Target Has a structures:id: Section 5.6, Defining Information Exchange Packages
+   Rule 5-40, [IEPD] Declares One or More IEP Conformance Targets: Section 5.6, Defining Information Exchange Packages
+   Rule 5-41, : Section 5.6.2.3, c:ValidityContext
+   Rule 5-42, Identifying the Document Element of an IEP: Section 5.6.2.4, c:HasDocumentElement
+   Rule 5-43, Validating an XPath Expression: Section 5.6.2.5, c:ValidToXPath
+   Rule 5-44, IEPD Has an IEP Sample for Each c:IEPConformanceTarget: Section 5.6.3, IEP Sample Instance XML Documents
+   Rule 5-45, Validating an IEP Sample XML Document: Section 5.6.3, IEP Sample Instance XML Documents
+   Rule 5-46, IEPD Has Conformance Assertion in Root Directory: Section 5.7, Conformance Assertion
    Rule 6-1, Wantlist Location: Section 6.1, NIEM Wantlist
    Rule 7-1, MPD Is a ZIP File: Section 7, Organization, Packaging, and Other Criteria
    Rule 7-2, XSD and XML Documents Conform to Applicable NDR Conformance Targets: Section 7, Organization, Packaging, and Other Criteria
