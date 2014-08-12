@@ -101,7 +101,7 @@
 	<ul>
 		<li><p>A NIEM <termRef>information exchange package documentation</termRef> (IEPD) that defines a NIEM data exchange.</p></li>
 		<li><p>A NIEM release (including a major, minor, or micro release) <ref idref="NIEM-HLVA"/>.</p></li>
-		<li><p>A NIEM domain update <ref idref="NIEM-DomainUpdate"/>.  (Note these are NOT the same as a NIEM domain schema document that ois a part of a NIEM release).</p></li>
+		<li><p>A NIEM domain update <ref idref="NIEM-DomainUpdate"/>.  (Note these are NOT the same as a NIEM domain schema document that is a part of a NIEM release).</p></li>
 		<li><p>A NIEM core update to a NIEM release.</p></li>
 		<li><p>A NIEM Enterprise Information Exchange Model (EIEM) on which one or more IEPDs can be based.</p></li>
 	</ul>
@@ -204,7 +204,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 		<pre>
 	c		http://reference.niem.gov/niem/resource/mpd/catalog/3.0/
 	er		urn:oasis:names:tc:entity:xmlns:xml:catalog
-	nc		http://release.niem.gov/niem/3.0/
+	nc		http://release.niem.gov/niem/niem-core/3.0/
 	structures	http://release.niem.gov/niem/structures/3.0/
 	xs		http://www.w3.org/2001/XMLSchema
 		</pre>
@@ -780,7 +780,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 		<p>A set of related constraint schema documents that work together, such as a constraint schema document set built by adding constraints to a schema document subset.</p>
 	</definition>
 
-	<p>A <termRef>constraint schema document set</termRef> is an <termRef>XML schema document</termRef> sset that is used to express business rules for a class of <termRef term="instance XML document">instance XML documents</termRef>, and is not assumed to be a definition for the semantics of the components it contains and describes.  Instead, a constraint schema document set uses the XML Schema Definition Language to add constraints to components defined or declared by other schema documents, usually a <termRef>schema document subset</termRef>; but they can be applied to <termRef term="extension schema document">extension schema documents</termRef> as well.</p>
+	<p>A <termRef>constraint schema document set</termRef> is an <termRef>XML schema document</termRef> set that is used to express business rules for a class of <termRef term="instance XML document">instance XML documents</termRef>, and is not assumed to be a definition for the semantics of the components it contains and describes.  Instead, a constraint schema document set uses the XML Schema Definition Language to add constraints to components defined or declared by other schema documents, usually a <termRef>schema document subset</termRef>; but they can be applied to <termRef term="extension schema document">extension schema documents</termRef> as well.</p>
 	
 	<p>A <termRef>constraint schema document set</termRef> validates additional constraints imposed on an <termRef>instance XML document</termRef> only after it is known to be NIEM-conformant (i.e., has been validated with a <termRef>reference schema document set</termRef>, or <termRef>schema document subset</termRef>, and applicable <termRef term="extension schema document">extension schema documents</termRef>).</p>  
 
@@ -1296,12 +1296,6 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:ReferenceSchemaDocumentSet</qName></title>
-		<rule id="wfm17" applicability="WF-MPD" class="Constraint">
-			<p>Within the <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:ReferenceSchemaDocumentSet</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a NIEM <termRef>reference schema document set</termRef>.</p>
-		</rule>
-	</ruleSection>
-
 	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:RequiredFile</qName></title>
 		<rule id="wfm18" applicability="WF-MPD" class="Constraint">
 			<p>Within an <termRef>MPD catalog document</termRef> the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:RequiredFile</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
@@ -1325,7 +1319,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 	<p>As was described in <ref idref="externalURI"/>, the MPD catalog also enables an author to record more fine-grained ancestry between MPDs using the <qName>c:externalURI</qName> attribute.  This attribute records an explicit equivalence relationship between artifacts reused across MPDs.</p>
 
-	<p>Note that a <qName>c:resourceURI</qName> attribute is used to identify a remote resource that is only related to the MPD whose catalog declares it.  The resource is not required for validation.  Therefore, the <termRef term="model package description">MPD</termRef> is not required to contain this resource.  As in the case of <qName>c:externalURI</qName>, the value of a <qName>c:resourceURI</qName> should be correct (i.e., a resource with that URI should exist).  However, in this case, existence verification is considered outside the scope of this specfication.</p>
+	<p>Note that a <qName>c:resourceURI</qName> attribute is used to identify a remote resource that is only related to the MPD whose catalog declares it.  The resource is not required for validation.  Therefore, the <termRef term="model package description">MPD</termRef> is not required to contain this resource.  As in the case of <qName>c:externalURI</qName>, the value of a <qName>c:resourceURI</qName> should be correct (i.e., a resource with that URI should exist).  However, in this case, existence verification is considered outside the scope of this specification.</p>
 
 </section>
 
@@ -1734,11 +1728,11 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 <section id="ValidityContext">
 	<title>c:ValidityContext</title>
 
-	<p><termRef term="validity constraint context">Validity constraint context</termRef> is explicity declared by an XPath expression that is the value of <qName>c:xPathText</qName>.  <qName>c:ValidityContext</qName> can contain any of the specific validity constraints that are substitutable for <qName>c:ValidityConstraint</qName>.</p>
+	<p><termRef term="validity constraint context">Validity constraint context</termRef> is explicitly declared by an XPath expression that is the value of <qName>c:xPathText</qName>.  <qName>c:ValidityContext</qName> can contain any of the specific validity constraints that are substitutable for <qName>c:ValidityConstraint</qName>.</p>
 
 	<ruleSection><title></title>
 		<rule applicability="MPD-Cat" class="Interpretation">
-			<p>Given a <qName>c:xPathText</qName> attribute owned by <qName>c:ValidityContext</qName>, the <termRef>validity constraint context</termRef> for the descendent<char name="rsquo"/>s validity constraint SHALL be the value of <qName>c:xPathText</qName> evaluated against the IEP<char name="rsquo"/>s document information item (See <ref idref="W3-XML-InfoSet"/>, <a href="http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.document"> <char name="sect"/>2.1, <q>The Document Information Item</q></a>).</p>
+			<p>Given a <qName>c:xPathText</qName> attribute owned by <qName>c:ValidityContext</qName>, the <termRef>validity constraint context</termRef> for the descendant<char name="rsquo"/>s validity constraint SHALL be the value of <qName>c:xPathText</qName> evaluated against the IEP<char name="rsquo"/>s document information item (See <ref idref="W3-XML-InfoSet"/>, <a href="http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.document"> <char name="sect"/>2.1, <q>The Document Information Item</q></a>).</p>
 		</rule>
 	</ruleSection>
 
@@ -1801,7 +1795,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 	<p>NIEM is based on XML Schema, and so the term "schema validation" usually refers to "XML Schema validation".  However, an <termRef term="information exchange package documentation">IEPD</termRef> author may also choose to include artifacts to validate with other types of schemas or rules, including but not limited to <ref idref="ISO-Schematron"/> and <ref idref="ISO-RelaxNG"/>.  <termRef term="information exchange package documentation">IEPD</termRef> authors may also include artifacts for NIEM constraint schema validation, which, of course, is XML Schema validation (See <ref idref="Constraint-Schemas"/>.</p>
 
-	<p>Because NIEM is XML Schema based, then <qName>c:XMLSchemaValid</qName> (of type <qName>c:XMLSchemaType</qName>) will likely be employed by most IEPDs.  This validity constraint ensures that an IEP artifact is schema valid to an XML schema that can be assembled correctly from the schema documents that comprise it.  To do this <qName>c:XMLSchemaValid</qName> provides two methods to choose from based on its child elements, <qName>c:XMLCatalog</qName> and <qName>c:XMLSchemaDocument</qName>, both zero to unbounded cardinality.  The MPD author can use (1) <qName>c:XMLCatlog</qName> to identify one or more XML catalog documents that map the correct schema documents; or (2) <qName>c:XMLSchemaDocument</qName> to explicitly identify the one or more XML schema documents to be retrieved.  In each case, depending on the nature of the XML schema document set from which the schema documents are coming, it may be possible to identify a single XML catalog document or a single XML schema document.  That catalog or schema document will be the starting point or root document and will contain enough information to explicitly identify or cascade to the rest.  (See also <ref idref="XML-Catalogs"/>)</p>
+	<p>Because NIEM is XML Schema based, then <qName>c:XMLSchemaValid</qName> (of type <qName>c:XMLSchemaType</qName>) will likely be employed by most IEPDs.  This validity constraint ensures that an IEP artifact is schema valid to an XML schema that can be assembled correctly from the schema documents that comprise it.  To do this <qName>c:XMLSchemaValid</qName> provides two methods to choose from based on its child elements, <qName>c:XMLCatalog</qName> and <qName>c:XMLSchemaDocument</qName>, both zero to unbounded cardinality.  The MPD author can use (1) <qName>c:XMLCatalog</qName> to identify one or more XML catalog documents that map the correct schema documents; or (2) <qName>c:XMLSchemaDocument</qName> to explicitly identify the one or more XML schema documents to be retrieved.  In each case, depending on the nature of the XML schema document set from which the schema documents are coming, it may be possible to identify a single XML catalog document or a single XML schema document.  That catalog or schema document will be the starting point or root document and will contain enough information to explicitly identify or cascade to the rest.  (See also <ref idref="XML-Catalogs"/>)</p>
 
 	<p>It is the MPD author<char name="rsquo"/>s responsibility to ensure that the method used (XML catalogs or XML schema document identification) is configured correctly per the appropriate specification (<ref idref="OASIS-XML-Catalogs"/> or <ref idref="W3-XML-Schema-Structures"/>).</p>
 
@@ -2064,7 +2058,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 	<p>If a single directory contains all the artifacts in a set, then the following simple form of <qName>c:FileSet</qName> can be used:</p>
 
 	<figure>
-		<title>Simple <qName>c:FileSet</qName> form for a direectory-associated artifact set.</title>
+		<title>Simple <qName>c:FileSet</qName> form for a directory-associated artifact set.</title>
 		<pre>
 	&lt;c:FileSet c:pathURI="samples/"&gt;
 		&lt;nc:DescriptionText&gt;All IEP samples within this IEPD.&lt;/nc:DescriptionText&gt;
@@ -2098,12 +2092,12 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 <section id="Constraint-SchemaDocumentSet">
 	<title>Constraint on Elements of Type <qName>c:SchemaDocumentSetType</qName></title>
 
-	<p>In order to accomodate the <termRef>model package description</termRef> concept, the design of the MPD catalog schema does not enforce a rule that is required to ensure a <qName>c:SchemaDocumentSet</qName> within an <termRef>MPD catalog document</termRef> is used correctly for an <termRef term="information exchange package documentation">IEPD</termRef>.  This rule assumes that within the IEPD<char name="rsquo"/>s MPD catalog any <qName>c:SchemaDocumentSet</qName> element identifies <termRef term="XML schema document">XML schema documents</termRef> to be assembled into an <termRef>XML Schema</termRef>.</p>
+	<p>In order to accommodate the <termRef>model package description</termRef> concept, the design of the MPD catalog schema does not enforce a rule that is required to ensure a <qName>c:SchemaDocumentSet</qName> within an <termRef>MPD catalog document</termRef> is used correctly for an <termRef term="information exchange package documentation">IEPD</termRef>.  This rule assumes that within the IEPD<char name="rsquo"/>s MPD catalog any <qName>c:SchemaDocumentSet</qName> element identifies <termRef term="XML schema document">XML schema documents</termRef> to be assembled into an <termRef>XML Schema</termRef>.</p>
 
 <ruleSection>
 	<title>Constraint on Elements of Type <qName>c:SchemaDocumentSetType</qName></title>
 	<rule id="r-constraint-schemadocumentset" applicability="MPD-Cat" class="Constraint">
-		<p>An element information item with a type definition validly derived from <qName>c:SchemaDocumentSetType</qName> MUST have a child element with an element declaration that is in the substitution group of <qName>c:XMLCatalog</qName> or <qName>c:SchemaDocument</qName>.</p>
+		<p>An element information item with a type definition validly derived from <qName>c:SchemaDocumentSetType</qName> MUST have a child element with an element declaration that is in the substitution group of <qName>c:XMLCatalog</qName> or <qName>c:XMLSchemaDocument</qName>.</p>
 	</rule>
 	<p>This rule ensures that a <qName>c:SchemaDocumentSet</qName> element always has at least one child element that is an <termRef>XML catalog document</termRef> (which itself defines an <termRef>XML schema document</termRef>) set, or an <termRef>XML schema document</termRef> (which constitutes a set of at least one schema document).  This rule cannot be enforced within the MPD catalog schema without introducing a UPA error, but it could be enforced by a Schematron rule.</p> 
 </ruleSection>
