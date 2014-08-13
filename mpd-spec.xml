@@ -108,7 +108,7 @@
 
 	<p>This document is the baseline specification for all MPDs, and in particular, it focuses on the normative rules for IEPDs.  In the future, detailed rules that apply to other MPDs (listed above) will be published in other NIEM specifications.  Also in the future, other types of MPDs may be added to this list.</p>
 
-	<p>An <termRef term="information exchange package documentation">IEPD</termRef> defines one or more data exchanges, each occuring in the form
+	<p>An <termRef term="information exchange package documentation">IEPD</termRef> defines one or more data exchanges, each occurring in the form
 of an <termRef>information exchange package</termRef> (IEP).  This specification supports a variety of data exchange use cases, in which the IEP may be:</p>
 	<ul>
 		<li><p>An XML document with a NIEM-defined XML document element.</p></li>
@@ -118,7 +118,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 		<li><p>A non-NIEM format in which NIEM elements may not occur at all (for example, hospital details are provided as a NIEM element, but the message contains no hospital data).</p></li>
 	</ul>
 
-	<p>This specification defines several incremental stages of conformance to support iterative <termRef term="model package description">MPD</termRef> development, with conformace testing possible at each step instead of delayed to the end.  Tool vendors should be able to build, adapt, and integrate software tools to assist in <termRef term="model package description">MPD</termRef> development and assembly, from raw parts to finished product.</p>
+	<p>This specification defines several incremental stages of conformance to support iterative <termRef term="model package description">MPD</termRef> development, with conformance testing possible at each step instead of delayed to the end.  Tool vendors should be able to build, adapt, and integrate software tools to assist in <termRef term="model package description">MPD</termRef> development and assembly, from raw parts to finished product.</p>
 
 	<p>NIEM is a data layer for an information architecture.  Files in an <termRef term="model package description">MPD</termRef> generally define XML Schema types and declare XML elements and attributes to use in payloads for information exchanges.  While an <termRef term="model package description">MPD</termRef> may also contain files from layers beyond the data layer, this specification is not intended to define details of other architectural layers.  Such files are generally present only to provide additional context, understanding, or assistance for implementing the exchange of payloads.</p>
 
@@ -480,7 +480,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 			<p>An <termRef>instance XML document</termRef> is an <termRef>XML document</termRef> that is valid against an <termRef>XML Schema</termRef>. An instance XML document is said to be an instance of the schema to which it validates.</p>
 		</definition>
 
-		<p>An <termRef term="information exchange package documentation">IEPD</termRef> defines one or more data exchanges, each occuring in the form of an XML document known as an <termRef>information exchange package</termRef> (IEP).  A data exchange is specified by an <termRef>IEP conformance target</termRef>, which defines the class of <termRef term="information exchange package">information exchange packages</termRef> (IEPs) that are exchanged at runtime.</p>
+		<p>An <termRef term="information exchange package documentation">IEPD</termRef> defines one or more data exchanges, each occurring in the form of an XML document known as an <termRef>information exchange package</termRef> (IEP).  A data exchange is specified by an <termRef>IEP conformance target</termRef>, which defines the class of <termRef term="information exchange package">information exchange packages</termRef> (IEPs) that are exchanged at runtime.</p>
 
 				<p>An <termRef term="information exchange package documentation">IEPD</termRef> contains a NIEM-conformant XML schema document set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), and enterprise-specific or IEPD-specific <termRef term="extension schema document">extension schema documents</termRef>.  The <termRef term="XML schema document">XML schema documents</termRef> contained in an <termRef term="information exchange package documentation">IEPD</termRef> work together to define one or more classes of <termRef term="instance XML document">instance XML documents</termRef> that consistently encapsulate data for meaningful information exchanges.  Any <termRef>instance XML document</termRef> that is valid for the <termRef>XML schema document</termRef> set and that satisfies the conditions of the <termRef>IEP conformance target</termRef> is a member of that <termRef>IEP conformance target</termRef> class (or IEP Class).</p>
 
@@ -1076,7 +1076,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 	<p>The following definitions will be useful to understanding MPD rules defined in later subsections that involve various kinds of URIs.</p>
 
 <definition term="path name">
-	<p>A general form of the name of a file or directory that specifies a unique location in a file system.  A path name points to a file system location by following the directory tree hierarchy expressed in a string of characters in which path components, separated by a delimiting character, represent each subdirectory.  If a path name terminates in a file name, then it specifies the location of that file (Paraphrased from <link href="http://en.wikipedia.org/wiki/Pathname"><em>Wikipedia: Path (computing)</em>).</link></p>
+	<p>A general form of the name of a file or directory that specifies a unique location in a file system.  A path name points to a file system location by following the directory tree hierarchy expressed in a string of characters in which path components, separated by a delimiting character, represent each subdirectory.  If a path name terminates in a file name, then it specifies the location of that file.</p>
 </definition>
 
 <definition term="resolve URI">
@@ -1528,7 +1528,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 <ruleSection>
 	<title>IEPD Has a <code>readme.*</code> in Root Directory</title>
 		<rule id="r-mpd-readme" applicability="IEPD" class="Constraint">
-			<p>An IEPD MUST contain a <code>readme.*</code> file artifact in its <termRef>MPD root directory</termRef>.</p>
+			<p>An IEPD MUST contain a <termRef>readme artifact</termRef> that is identified by a <qName>c:ReadMe</qName> element in its <termRef>MPD catalog document</termRef>.</p>
 		</rule>
 </ruleSection>
 
@@ -1653,7 +1653,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 		<ol>
 			<li><p>the IEPD URI, and</p></li>
 			<li><p>the pound sign character (#). and</p></li>
-			<li><p>a locally unique NCName (i.e., a non-colonized name, as defined by <ref idref="W3-XML-Schema-Structures"/>, <a href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NCName"><char name="sect"/>3.3.7, <q>NCName</q></a>).</p></li>
+			<li><p>a locally unique NCName (i.e., a non-colonized name, as defined by <ref idref="W3-XML-Schema-Datatypes"/>, <a href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NCName"><char name="sect"/>3.3.7, <q>NCName</q></a>).</p></li>
 		</ol>
 		</rule>
 		<p>This rule requires that an <termRef>IEP conformance target</termRef> has a URI, i.e., its <termRef>conformance target identifier</termRef>.</p>
