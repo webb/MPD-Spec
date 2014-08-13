@@ -371,7 +371,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 	<p>It will also be useful to define <termRef>MPD class</termRef>.</p>
 
 	<definition term="MPD class">
-		<p>A <termRef>conformance target identifier</termRef> to which a given <termRef term="model package description">MPD</termRef> claims to conform.  The class of an <termRef term="model package description">MPD</termRef> is established by <ref idref="r-mpdClassURIList"/>.</p>
+		<p>A <termRef>conformance target identifier</termRef> to which a given <termRef term="model package description">MPD</termRef> claims to conform.  The <termRef>MPD class</termRef> of an <termRef term="model package description">MPD</termRef> is established by <ref idref="r-mpdClassURIList"/>.</p>
 	</definition>
 
 </section>
@@ -398,7 +398,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 	<p>Because they are almost always file sets, MPDs are packaged as <termRef term="ZIP file">ZIP files</termRef>.</p>
 
 	<definition term="ZIP file">
-		<p>As defined by <ref idref="PKZIP"/>:</p>
+		<p>As defined by <ref idref="PKZIP"/>, which states that it defines:</p>
 			<blockquote><p>... a cross-platform, interoperable file storage and transfer format ... used to aggregate, compress, and encrypt files into a single interoperable container.</p></blockquote>
 	</definition>
 
@@ -425,29 +425,29 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 	</ul>
 
 	<definition term="model package description">
-		<p>A set of logically cohesive W3C XML Schema documents and other supporting files that represents a reusable or implementable NIEM-conformant information model.  An <termRef term="model package description">MPD</termRef> is packaged as a single <termRef>ZIP file</termRef>.</p>
-	<p>A <termRef>ZIP file</termRef> that:</p>
-	<ul>
-		<li><p>Adheres to the rules for a <termRef>model package description</termRef> <termRef>conformance target</termRef>, and</p></li>
-		<li><p>Has the <termRef>conformance target identifier</termRef> <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code>, and</p></li>
-		<li><p>Satisfies all relevant rules and requirements defined by:</p>
-			<ul>
-				<li><p><ref idref="NIEM-MPD"/></p></li>
-				<li><p><ref idref="NIEM-NDR"/></p></li>
-				<li><p><ref idref="NIEM-CTAS"/></p></li>
-				<li><p><ref idref="NIEM-Conformance"/></p></li>
-			</ul>
-		</li>
-	</ul>
-	<p>(rule applicability code: <strong>WF-MPD</strong>)</p> 
+          <p>A <termRef>model package description</termRef> is a <termRef>ZIP file</termRef> that:</p>
+          <ul>
+            <li><p>includes a set of logically cohesive W3C XML Schema documents and other supporting files that represent one or more reusable or implementable XML information models, and</p></li>
+	    <li><p>has an <termRef>MPD class</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code>, and</p></li>
+	    <li><p>adheres to all the rules within this specification for the the rules for the <termRef>model package description</termRef> <termRef>conformance target</termRef>.</p></li>
+          </ul>
+	  <p>This term may be abbreviated <q>MPD</q>. Rules specifying this conformance target use the applicability code <q>WF-MPD</q>.</p>
 	</definition>
+
+        <p>The schemas and other files within a <termRef>model package description</termRef> are built on other specifications, including:</p>
+
+	<ul>
+	  <li><p><ref idref="NIEM-NDR"/></p></li>
+	  <li><p><ref idref="NIEM-CTAS"/></p></li>
+	  <li><p><ref idref="NIEM-Conformance"/></p></li>
+	</ul>
 
 	<p>The following rule applies to all MPDs:</p>
 
 	<ruleSection>
 		<title>MPD Conformance Target Identifier</title>
 		<rule id="r-ct-mpd" applicability="WF-MPD" class="Constraint">
-			<p>An <termRef term="model package description">MPD</termRef> MUST have the <termRef>conformance target identifier</termRef> <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code> as a value in its MPD Catalog <qName>c:mpdClassURIList</qName> attribute.</p>
+			<p>An <termRef term="model package description">MPD</termRef> MUST have an <termRef>MPD class</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code>.</p>
 		</rule>
 	</ruleSection>
 
@@ -464,23 +464,20 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 <section id="CT-IEPD"><title>IEPD Conformance Target</title>
 
 	<definition term="information exchange package documentation">
- 		<p>A <termRef>model package description</termRef> defines one or more recurring data or information exchanges, each in the form of an <termRef>information exchange package</termRef>. An information exchange package documentation:</p>				<ul>
-				<li><p>Has an <termRef>MPD class</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code>, and</p></li>
-				<li><p>Has one or more <qName>c:IEPConformanceTarget</qName> elements within its <termRef>MPD catalog document</termRef>, and</p></li>
-				<li><p>Satisfies all relevant rules and requirements defined by:</p>
-					<ul>
-						<li><p><ref idref="NIEM-MPD"/></p></li>
-						<li><p><ref idref="NIEM-NDR"/></p></li>
-						<li><p><ref idref="NIEM-CTAS"/></p></li>
-						<li><p><ref idref="NIEM-Conformance"/></p></li>
-						</ul>
-					</li>
-				</ul>
-			<p>(rule applicability code: <strong>IEPD</strong>)</p>
-		</definition>
+          <p>An <termRef>information exchange package documentation</termRef> is a <termRef>model package description</termRef> that:</p>
+
+	  <ul>
+	    <li><p>has an <termRef>MPD class</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code>, and</p></li>
+            <li><p>conforms to all the rules in this specification for the conformance target <termRef>information exchange package documentation</termRef> (i.e., applicability code <q>IEPD</q>).</p></li>
+          </ul>
+	  <p>This term may be abbreviated <q>IEPD</q>. Rules specifying this conformance target use the applicability code <q>IEPD</q>.</p>
+        </definition>
+
+	<p>An <termRef term="information exchange package documentation">IEPD</termRef> has one or more <qName>c:IEPConformanceTarget</qName> elements within its <termRef>MPD catalog document</termRef>, to define one or more 
+<termRef term="information exchange package">information exchange packages</termRef>, each an <termRef term="instance XML document">instance XML document</termRef>.</p>
 
 		<definition term="instance XML document">
-			<p>(of an <termRef>XML Schema</termRef> is) an <termRef>XML document</termRef> that is valid against an <termRef>XML Schema</termRef>.</p>
+			<p>An <termRef>instance XML document</termRef> is an <termRef>XML document</termRef> that is valid against an <termRef>XML Schema</termRef>. An instance XML document is said to be an instance of the schema to which it validates.</p>
 		</definition>
 
 		<p>An <termRef term="information exchange package documentation">IEPD</termRef> defines one or more data exchanges, each occuring in the form of an XML document known as an <termRef>information exchange package</termRef> (IEP).  A data exchange is specified by an <termRef>IEP conformance target</termRef>, which defines the class of <termRef term="information exchange package">information exchange packages</termRef> (IEPs) that are exchanged at runtime.</p>
@@ -501,9 +498,9 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 	<p>The following rule specifies an <termRef term="information exchange package documentation">IEPD</termRef> as a <termRef>conformance target</termRef>:</p>
 
 	<ruleSection>
-		<title>Information Exchange Package Documentation</title>
-		<rule id="IEPD" applicability="IEPD" class="Constraint">
-			<p>An <termRef term="model package description">MPD</termRef> that defines one or more <termRef term="information exchange package">information exchange packages</termRef>, each an <termRef term="instance XML document">instance XML document</termRef> is an <termRef term="information exchange package documentation">IEPD</termRef>.  An IEPD is a <termRef>conformance target</termRef> of this specification.  An <termRef term="information exchange package documentation">IEPD</termRef> MUST conform to all rules of this specification that apply to this conformance target.  An <termRef term="model package description">MPD</termRef> with a <termRef>conformance target identifier</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code> MUST be an <termRef>information exchange package documentation</termRef>(IEPD).</p>
+		<title>MPD with MPD class of IEPD is an IEPD</title>
+		<rule id="rule-mpd-class-iepd" applicability="MPD" class="Constraint">
+			<p>A <termRef>model package description</termRef> with an <termRef>MPD class</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code> MUST be an <termRef>information exchange package documentation</termRef>.</p>
 		</rule>
 	</ruleSection>
 
@@ -541,14 +538,14 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 	<definition term="information exchange package">
 		<p>An XML <termRef>instance XML document</termRef> that conforms to the conformance target defined by a <qName>c:IEPConformanceTarget</qName> element in the <termRef>MPD catalog document</termRef> of a <termRef>model package description</termRef>.</p>
-	      	<p>(rule applicability code: <strong>IEP</strong>)</p>
+	  <p>This term may be abbreviated <q>IEP</q>. Rules specifying this conformance target use the applicability code <q>IEP</q>.</p>
 	</definition>
 
 	<p>The definition of an <termRef>information exchange package</termRef> conformance target is not strong enough to ensure that an IEP artifact uses NIEM.  Thus, there is a need for a conformance target that distinguishes a general IEP from an IEP that represents a valid NIEM information exchange.   The following defines a <em>full NIEM IEP</em> <termRef>conformance target</termRef>:</p>
 
 	<definition term="full NIEM information exchange package">
 		<p>An <termRef>information exchange package</termRef> that satisfies all the validity constraints for its class as defined by a <termRef>model package description</termRef>, and that has an XML document element that is declared in either a NIEM reference or extension schema document.</p>
-		<p>(rule applicability code: <strong>FN-IEP</strong>)</p>
+	  <p>This term may be abbreviated <q>full NIEM IEP</q>. Rules specifying this conformance target use the applicability code <q>FN-IEP</q>.</p>
 	</definition>
 
 </section>
@@ -1160,8 +1157,15 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query</code> (a set artifact)</p></li>
 	</ul>
 
-	<p><ref idref="RFC2141-URN-Syntax"/> appears to preclude the use of a Uniform Resource Name (URN) as an MPD URI.  URN syntax violates <ref idref="r-uri-frag"/> because it does not support fragment identifiers.</p>
-
+	<p>Since MPD URIs require the support of fragment identifiers (by <ref idref="r-uri-frag"/>), it does not appear that the <q>urn</q> URI scheme may be used as an MPD URI. Fragments use the <q><code>#</code></q> charater, and the specification for the <q>urn</q> scheme (<ref idref="RFC2141-URN-Syntax"/>) indicates that they are not valid in URNs, when it states:</p>
+        <blockquote>
+          <p>RFC 1630 reserves the characters <q>/</q>, <q>?</q>,
+            and <q>#</q> for particular purposes. The URN-WG has not yet
+            debated the applicability and precise semantics of those purposes
+            as applied to URNs. Therefore, these characters are RESERVED for
+            future developments.</p>
+        </blockquote>
+         
 	<p>Artifact URIs are used as values for the <qName>c:externalURI</qName> attribute in the MPD catalog XML document to declare equivalence relationships between artifacts (See <ref idref="MPD-Catalog-XSD"/>).  A simple scenario follows.  Consider two different IEPDs with the following URIs:</p>
 		<ol>
 			<li><p><code>http://example.gov/niem-iepd/pmix/3.0/</code></p></li>
@@ -1511,10 +1515,8 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 <section id="ReadMe-Artifact">
 	<title>ReadMe Artifact</title>
 
-	<p>This section is applicable to an <termRef term="information exchange package documentation">IEPD</termRef>.</p>
-
 	<definition term="readme artifact">
-		<p>An informal documentation artifact contained in an <termRef term="information exchange package documentation">IEPD</termRef> that serves as the initial general source of human readable descriptive or instructional information.  A <em>readme</em> artifact or file (formerly known as a <em>master document</em>) may index or reference other more specific documentation or other explanatory materials within the <termRef term="model package description">MPD</termRef>.</p>
+		<p>An informal documentation artifact contained in a <termRef>model package description</termRef> that serves as the initial general source of human readable descriptive or instructional information.  A <em>readme</em> artifact or file (formerly known as a <em>master document</em>) may index or reference other more specific documentation or other explanatory materials within the <termRef term="model package description">MPD</termRef>.</p>
 	</definition>
 
 	<p>A <termRef>readme artifact</termRef> is only required for IEPDs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.</p>
@@ -1698,7 +1700,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 			<p>A set of information items that establishes the applicability of certain validity constraints.</p>
 	</definition>
 
-	<p>Validity constraint context can refer to multiple information items (e.g., XML elements, attributes, etc.) within an IEP.  Also, note that <termRef>validity constraint context</termRef> can evaluate to no information items.  In this cases, the validity constraints (within the in scope validity constraint context) will not fire and the test passes.</p>
+	<p>Validity constraint context can refer to multiple information items (e.g., XML elements, attributes, etc.) within an IEP.  Also, note that <termRef>validity constraint context</termRef> can evaluate to no information items (e.g., in XPath, <q><code>()</code></q>, for which <q><code>empty-sequence()</code></q> is true).  In this cases, the validity constraints (within the in scope validity constraint context) will not fire and the test passes.</p>
 
 	<p>The following subsections explain in more detail the purpose and context for validity constraints that can be declared in <qName>c:IEPConformanceTarget</qName>.</p>
 
@@ -2574,7 +2576,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 </reference>
 
 <reference id="NIEM-MPD" label="NIEM MPD Specification 3.0">
-	<p><em>NIEM Model Package Description (MPD) Specification</em>, Version 3.0, NIEM Technical Architecture Committee (NTAC), 12 August 2014.  Available from <link>http://reference.niem.gov/niem/specification/model-package-description/3.0/</link>.</p>
+	<p><em>NIEM Model Package Description (MPD) Specification</em>, Version 3.0, NIEM Technical Architecture Committee (NTAC), 12 August 2014<todo>this date is wrong</todo>.  Available from <link>http://reference.niem.gov/niem/specification/model-package-description/3.0/</link>.</p>
 </reference>
 
 <reference id="NIEM-MPD-Toolkit" label="NIEM MPD Toolkit">
