@@ -1,8 +1,8 @@
 National Information Exchange Model -- Model Package Description Specification
 
-Version 3.0rc2
+Version 3.0rc3
 
-August 12, 2014
+August 13, 2014
 
 NIEM Technical Architecture Committee (NTAC)
 
@@ -44,11 +44,9 @@ Status
 
       *  [NIEM User Guide Vol1]
 
-      *  NIEM Business Information Exchange Components [NIEM BIEC 1.0]
-
       *  [NIEM Implementation Guide]
 
-   Even those already knowledgeable of NIEM should be familiar with [NIEM Conformance 3.0], [NIEM NDR 3.0], [NIEM Conformance Targets Attribute Specification 3.0], [NIEM High-Level Version Architecture 1.0] and [NIEM BIEC 1.0].
+   Even those already knowledgeable of NIEM should be familiar with [NIEM Conformance 3.0], [NIEM NDR 3.0], [NIEM Conformance Targets Attribute Specification 3.0], and [NIEM High-Level Version Architecture 1.0].
 
    The NIEM documents listed above are available at http://reference.niem.gov/niem/. See [NIEM Implementation Guide] for the NIEM implementation guidelines Web page.
 
@@ -58,7 +56,7 @@ Status
 
 1.1. Background
 
-   Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose. Examples of such sets include, but are not necessarily limited to, a NIEM release, core update (CU), domain update (DU), [information exchange package documentation] (IEPD), and Enterprise Information Exchange Model (EIEM). Each of these is an example of a NIEM [model package description] (MPD).
+   Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose. Examples of such sets include, but are not necessarily limited to, a NIEM release, core update, domain update, [information exchange package documentation] (IEPD), and Enterprise Information Exchange Model (EIEM). Each of these is an example of a NIEM [model package description] (MPD).
 
    An [MPD] is a normative specification for XML [data components] in the format of the World Wide Web Consortium (W3C) XML Schema Definition Language [W3C XML Schema Part 2 Datatypes], [W3C XML Schema Part 1 Structures]. [MPD] schema documents either (1) define the semantics and structure for NIEM reusable [data components], or (2) define implementable NIEM exchange instance XML documents in W3C Extensible Markup Language (XML) [W3C XML 1.0].
 
@@ -294,7 +292,7 @@ Status
 
    [Definition: MPD class]
 
-      A [conformance target identifier] to which a given [MPD] claims to conform. The class of an [MPD] is established by Rule 5-9, MPD Class Determined by Conformance Target Identifier in c:mpdClassURIList.
+      A [conformance target identifier] to which a given [MPD] claims to conform. The [MPD class] of an [MPD] is established by Rule 5-9, MPD Class Determined by Conformance Target Identifier in c:mpdClassURIList.
 
 3.2. MPD Conformance Targets
 
@@ -318,7 +316,7 @@ Status
 
    [Definition: ZIP file]
 
-      As defined by [PKZIP]:
+      As defined by [PKZIP], which states that it defines:
 
          ... a cross-platform, interoperable file storage and transfer format ... used to aggregate, compress, and encrypt files into a single interoperable container.
 
@@ -350,25 +348,23 @@ Status
 
    [Definition: model package description]
 
-      A set of logically cohesive W3C XML Schema documents and other supporting files that represents a reusable or implementable NIEM-conformant information model. An [MPD] is packaged as a single [ZIP file].
+      A [model package description] is a [ZIP file] that:
 
-      A [ZIP file] that:
+         *  includes a set of logically cohesive W3C XML Schema documents and other supporting files that represent one or more reusable or implementable XML information models, and
 
-         *  Adheres to the rules for a [model package description] [conformance target], and
+         *  has an [MPD class] of http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD, and
 
-         *  Has the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD, and
+         *  adheres to all the rules within this specification for the the rules for the [model package description] [conformance target].
 
-         *  Satisfies all relevant rules and requirements defined by:
+      This term may be abbreviated "MPD". Rules specifying this conformance target use the applicability code "WF-MPD".
 
-               *  [NIEM MPD Specification 3.0]
+   The schemas and other files within a [model package description] are built on other specifications, including:
 
-               *  [NIEM NDR 3.0]
+      *  [NIEM NDR 3.0]
 
-               *  [NIEM Conformance Targets Attribute Specification 3.0]
+      *  [NIEM Conformance Targets Attribute Specification 3.0]
 
-               *  [NIEM Conformance 3.0]
-
-      (rule applicability code: WF-MPD)
+      *  [NIEM Conformance 3.0]
 
    The following rule applies to all MPDs:
 
@@ -376,7 +372,7 @@ Rule 3-1. MPD Conformance Target Identifier
 
    [Rule 3-1] (WF-MPD)
 
-      An [MPD] MUST have the [conformance target identifier] http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD as a value in its MPD Catalog c:mpdClassURIList attribute.
+      An [MPD] MUST have an [MPD class] of http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD.
 
    A [model package description] satisfies the need for a [ZIP file] with an [MPD catalog document] that validates to the MPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an [MPD] by iteratively adding artifacts and expanding the MPD catalog to reference them.
 
@@ -386,27 +382,19 @@ Rule 3-1. MPD Conformance Target Identifier
 
    [Definition: information exchange package documentation]
 
-      A [model package description] defines one or more recurring data or information exchanges, each in the form of an [information exchange package]. An information exchange package documentation:
+      An [information exchange package documentation] is a [model package description] that:
 
-         *  Has an [MPD class] of http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD, and
+         *  has an [MPD class] of http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD, and
 
-         *  Has one or more c:IEPConformanceTarget elements within its [MPD catalog document], and
+         *  conforms to all the rules in this specification for the conformance target [information exchange package documentation] (i.e., applicability code "IEPD").
 
-         *  Satisfies all relevant rules and requirements defined by:
+      This term may be abbreviated "IEPD". Rules specifying this conformance target use the applicability code "IEPD".
 
-               *  [NIEM MPD Specification 3.0]
-
-               *  [NIEM NDR 3.0]
-
-               *  [NIEM Conformance Targets Attribute Specification 3.0]
-
-               *  [NIEM Conformance 3.0]
-
-      (rule applicability code: IEPD)
+   An [IEPD] has one or more c:IEPConformanceTarget elements within its [MPD catalog document], to define one or more [information exchange packages], each an [instance XML document].
 
    [Definition: instance XML document]
 
-      (of an [XML Schema] is) an [XML document] that is valid against an [XML Schema].
+      An [instance XML document] is an [XML document] that is valid against an [XML Schema]. An instance XML document is said to be an instance of the schema to which it validates.
 
    An [IEPD] defines one or more data exchanges, each occuring in the form of an XML document known as an [information exchange package] (IEP). A data exchange is specified by an [IEP conformance target], which defines the class of [information exchange packages] (IEPs) that are exchanged at runtime.
 
@@ -426,11 +414,11 @@ Rule 3-1. MPD Conformance Target Identifier
 
    The following rule specifies an [IEPD] as a [conformance target]:
 
-Rule 3-2. Information Exchange Package Documentation
+Rule 3-2. MPD with MPD class of IEPD is an IEPD
 
-   [Rule 3-2] (IEPD)
+   [Rule 3-2] (MPD)
 
-      An [MPD] that defines one or more [information exchange packages], each an [instance XML document] is an [IEPD]. An IEPD is a [conformance target] of this specification. An [IEPD] MUST conform to all rules of this specification that apply to this conformance target. An [MPD] with a [conformance target identifier] of http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD MUST be an [information exchange package documentation](IEPD).
+      A [model package description] with an [MPD class] of http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD MUST be an [information exchange package documentation].
 
    The following rule is applicable to all IEPDs:
 
@@ -464,7 +452,7 @@ Rule 3-3. IEPD Conformance Target Identifier
 
       An XML [instance XML document] that conforms to the conformance target defined by a c:IEPConformanceTarget element in the [MPD catalog document] of a [model package description].
 
-      (rule applicability code: IEP)
+      This term may be abbreviated "IEP". Rules specifying this conformance target use the applicability code "IEP".
 
    The definition of an [information exchange package] conformance target is not strong enough to ensure that an IEP artifact uses NIEM. Thus, there is a need for a conformance target that distinguishes a general IEP from an IEP that represents a valid NIEM information exchange. The following defines a full NIEM IEP [conformance target]:
 
@@ -472,7 +460,7 @@ Rule 3-3. IEPD Conformance Target Identifier
 
       An [information exchange package] that satisfies all the validity constraints for its class as defined by a [model package description], and that has an XML document element that is declared in either a NIEM reference or extension schema document.
 
-      (rule applicability code: FN-IEP)
+      This term may be abbreviated "full NIEM IEP". Rules specifying this conformance target use the applicability code "FN-IEP".
 
 3.2.4. Artifact Conformance Targets
 
@@ -1020,7 +1008,9 @@ Rule 5-14. MPD Artifact URI Syntax
 
       *  http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query (a set artifact)
 
-   [RFC 2141 URN Syntax] appears to preclude the use of a Uniform Resource Name (URN) as an MPD URI. URN syntax violates Rule 5-12, MPD URI Supports Fragment because it does not support fragment identifiers.
+   Since MPD URIs require the support of fragment identifiers (by Rule 5-12, MPD URI Supports Fragment), it does not appear that the "urn" URI scheme may be used as an MPD URI. Fragments use the "#" charater, and the specification for the "urn" scheme ([RFC 2141 URN Syntax]) indicates that they are not valid in URNs, when it states:
+
+      RFC 1630 reserves the characters "/", "?", and "#" for particular purposes. The URN-WG has not yet debated the applicability and precise semantics of those purposes as applied to URNs. Therefore, these characters are RESERVED for future developments.
 
    Artifact URIs are used as values for the c:externalURI attribute in the MPD catalog XML document to declare equivalence relationships between artifacts (See Appendix A, MPD Catalog XML Schema Document, below). A simple scenario follows. Consider two different IEPDs with the following URIs:
 
@@ -1282,11 +1272,9 @@ Rule 5-35. IEPD Has a Change Log in Root Directory
 
 5.4. ReadMe Artifact
 
-   This section is applicable to an [IEPD].
-
    [Definition: readme artifact]
 
-      An informal documentation artifact contained in an [IEPD] that serves as the initial general source of human readable descriptive or instructional information. A readme artifact or file (formerly known as a master document) may index or reference other more specific documentation or other explanatory materials within the [MPD].
+      An informal documentation artifact contained in a [model package description] that serves as the initial general source of human readable descriptive or instructional information. A readme artifact or file (formerly known as a master document) may index or reference other more specific documentation or other explanatory materials within the [MPD].
 
    A [readme artifact] is only required for IEPDs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed. On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.
 
@@ -1470,7 +1458,7 @@ Rule 5-40. [IEPD] Declares One or More IEP Conformance Targets
 
       A set of information items that establishes the applicability of certain validity constraints.
 
-   Validity constraint context can refer to multiple information items (e.g., XML elements, attributes, etc.) within an IEP. Also, note that [validity constraint context] can evaluate to no information items. In this cases, the validity constraints (within the in scope validity constraint context) will not fire and the test passes.
+   Validity constraint context can refer to multiple information items (e.g., XML elements, attributes, etc.) within an IEP. Also, note that [validity constraint context] can evaluate to no information items (e.g., in XPath, "()", for which "empty-sequence()" is true). In this cases, the validity constraints (within the in scope validity constraint context) will not fire and the test passes.
 
    The following subsections explain in more detail the purpose and context for validity constraints that can be declared in c:IEPConformanceTarget.
 
@@ -1819,8 +1807,6 @@ Rule 7-5. IEPD File Name Syntax
       		status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
 
       The status values are as defined in Rule 5-10, MPD Version Number Syntax.
-
-      The class values are defined as follows:
 
    Regular expression notation in the rule above is from [W3C XML 1.0] #sec-notation.
 
@@ -3090,15 +3076,9 @@ Appendix F. Acronyms and Abbreviations
 
       ASCII|American Standard Code for Information Interchange
 
-      BIEC |Business Information Exchange Component
-
       CSV |Comma Separated Value (file format)
 
-      CU |Core update
-
       CUI |Controlled Unclassified Information
-
-      DU |Domain update
 
       EBV |Effective Boolean Value
 
@@ -3137,8 +3117,6 @@ Appendix F. Acronyms and Abbreviations
       PNG |Portable Network Graphic
 
       QName|Qualified Name (in XML Schema: qualified by a namespace prefix and colon character)
-
-      Rel |Release (NIEM)
 
       RFC |Request for Comment
 
@@ -3186,9 +3164,7 @@ Appendix G. References
 
    [Logical Entity Exchange Specifications]: Logical Entity Exchange Specifications, Version 4.0, 27 July 2011. Available from http://130.207.211.107/content/downloads.
 
-   [NIEM BIEC 1.0]: Business Information Exchange Components (BIEC), Version 1.0, NIEM Technical Architecture Committee (NTAC), March 2011. Available from http://reference.niem.gov/niem/guidance/business-information-exchange-components/1.0/.
-
-   [NIEM Conformance 3.0]: NIEM Conformance, Version 3.0, NIEM Technical Architecture Committee (NTAC), 12 August 2014. Available from http://reference.niem.gov/niem/specification/conformance/3.0/.
+   [NIEM Conformance 3.0]: NIEM Conformance, Version 3.0, NIEM Technical Architecture Committee (NTAC), 14 August 2014. Available from http://reference.niem.gov/niem/specification/conformance/3.0/.
 
    [NIEM Conformance Targets Attribute Specification 3.0]: NIEM Conformance Targets Attribute Specification, Version 3.0, NIEM Technical Architecture Committee (NTAC), 31 July 2014. Available from http://reference.niem.gov/niem/specification/conformance-targets-attribute/3.0/.
 
@@ -3210,7 +3186,7 @@ Appendix G. References
 
    [NIEM MPD Specification 1.1]: NIEM Model Package Description (MPD) Specification, Version 1.1, NIEM Technical Architecture Committee (NTAC), 1 October 2012. Available from http://reference.niem.gov/niem/specification/model-package-description/1.1/.
 
-   [NIEM MPD Specification 3.0]: NIEM Model Package Description (MPD) Specification, Version 3.0, NIEM Technical Architecture Committee (NTAC), 12 August 2014. Available from http://reference.niem.gov/niem/specification/model-package-description/3.0/.
+   [NIEM MPD Specification 3.0]: NIEM Model Package Description (MPD) Specification, Version 3.0, NIEM Technical Architecture Committee (NTAC), 14 August 2014. Available from http://reference.niem.gov/niem/specification/model-package-description/3.0/.
 
    [NIEM MPD Toolkit]: "NIEM Model Package Description Toolkit", Version 3.0, NIEM Technical Architecture Committee (NTAC), 12 August 2014. Available from http://referencce.niem.gov/niem/resource/mpd/3.0/.
 
@@ -3261,7 +3237,7 @@ Appendix H. Index of Definitions
 Appendix I. Index of Rules
 
    Rule 3-1, MPD Conformance Target Identifier: Section 3.2.1, The Model Package Description Conformance Target
-   Rule 3-2, Information Exchange Package Documentation: Section 3.2.2, IEPD Conformance Target
+   Rule 3-2, MPD with MPD class of IEPD is an IEPD: Section 3.2.2, IEPD Conformance Target
    Rule 3-3, IEPD Conformance Target Identifier: Section 3.2.2, IEPD Conformance Target
    Rule 4-1, Fundamental NIEM Subset Rule: Section 4.2.1, Basic Subset Concepts
    Rule 5-1, MPD Has an mpd-catalog.xml in its Root Directory: Section 5.1, NIEM MPD Catalog
