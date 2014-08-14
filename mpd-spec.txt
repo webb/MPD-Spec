@@ -2,7 +2,7 @@ National Information Exchange Model -- Model Package Description Specification
 
 Version 3.0rc3
 
-August 13, 2014
+August 14, 2014
 
 NIEM Technical Architecture Committee (NTAC)
 
@@ -1268,13 +1268,15 @@ Rule 5-34. XML Catalog uri Value Resolves to Resource with Correct Target Namesp
 
    An [IEPD] change log is not required to conform to any particular XML schema or other format specification. However, a change log is still required for an [IEPD].
 
-Rule 5-35. IEPD Has a Change Log in Root Directory
+Rule 5-35. IEPD Has a Change Log
 
    [Rule 5-35] (IEPD)
 
-      An [IEPD] MUST contain a change log artifact in its [MPD root directory].
+      An [IEPD] MUST contain a [change log] artifact that is identified by a c:ChangeLog element in its [MPD catalog document].
 
-   The format of an [IEPD] change log is left to the discretion of the author. A flexible change log format encourages and facilitates easier and more rapid development. IEPDs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges. As a result, an [IEPD] may contain both documentation artifacts and machine readable application artifacts in a large variety of formats. As a result, a consistent standard change log would be very difficult to specify.
+   The [change log] for the first version release of an IEPD simply contains its release date.
+
+   The format of an [IEPD] change log is left to the discretion of the author. A flexible [change log] format encourages and facilitates easier and more rapid development. IEPDs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges. As a result, an [IEPD] may contain both documentation artifacts and machine readable application artifacts in a large variety of formats. As a result, a consistent standard [change log] would be very difficult to specify.
 
 5.4. ReadMe Artifact
 
@@ -1290,7 +1292,7 @@ Rule 5-36. Readme Describes Purpose, Scope, Business Value, etc.
 
       A [readme artifact] SHOULD (at a minimum) describe the [MPD] purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.
 
-Rule 5-37. IEPD Has a readme.* in Root Directory
+Rule 5-37. IEPD Has a ReadMe Artifact
 
    [Rule 5-37] (IEPD)
 
@@ -1308,7 +1310,7 @@ Rule 5-37. IEPD Has a readme.* in Root Directory
 
       *  To provide an initial source within an [IEPD] for human consumable documentation and/or references to other business or technical documentation needed for understanding.
 
-   The [readme artifact] is not intended to be the only source of written documentation for an MPD (though it can be). It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference. Many organizations have their own customized formats and operating procedures for documenting their work and products. This specification does not attempt to standardize readme format or layout. Only the file name and relative path within the MPD [ZIP file] are strictly specified. The following section will generally describe minimal content that should be in the [readme artifact]. This guidance is non-normative, so adherence is a subjective judgment by the author.
+   The [readme artifact] is not intended to be the only source of written documentation for an MPD (though it can be). It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference. Many organizations have their own customized formats and operating procedures for documenting their work and products. This specification does not attempt to standardize readme file name, location, format, or layout; only that it be identified in the [MPD catalog document] of an IEPD. The following section will generally describe minimal content that should be in the [readme artifact]. This guidance is non-normative, so adherence is a subjective judgment by the author.
 
 5.4.1. Readme Content
 
@@ -1598,13 +1600,13 @@ Rule 5-45. Validating an IEP Sample XML Document
 
    [Definition: conformance assertion]
 
-      An artifact that provides a formal or informal declaration that an MPD conforms to relevant NIEM specifications and associated rules, including [NIEM Conformance 3.0], [NIEM NDR 3.0], [NIEM Conformance Targets Attribute Specification 3.0] and [NIEM MPD Specification 3.0] (this NIEM MPD Specification).
+      An artifact that provides a declaration that an MPD conforms to relevant NIEM specifications and associated rules, including [NIEM Conformance 3.0], [NIEM NDR 3.0], [NIEM Conformance Targets Attribute Specification 3.0] and [NIEM MPD Specification 3.0] (this NIEM MPD Specification).
 
-Rule 5-46. IEPD Has Conformance Assertion in Root Directory
+Rule 5-46. IEPD Has Conformance Assertion
 
    [Rule 5-46] (IEPD)
 
-      An [IEPD] MUST contain a [conformance assertion] artifact in its [MPD root directory] that is identified by the c:ConformanceAssertion element in the [MPD catalog document].
+      An [IEPD] MUST contain a [conformance assertion] artifact that is identified by a c:ConformanceAssertion element in its [MPD catalog document].
 
    A [conformance assertion] provides information to increase the level of confidence that an [IEPD] was checked for NIEM conformance and quality. It does NOT constitute a guarantee or contract. In fact, a conformance assertion can be self-asserted.
 
@@ -1630,7 +1632,7 @@ Rule 5-46. IEPD Has Conformance Assertion in Root Directory
 
    Inclusion of a [conformance assertion] made by a reputable, independent, trusted entity (person or organization) would likely increase confidence in conformance. Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact.
 
-   In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts. A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and [IEPD] identity (i.e., that the [IEPD] is an unaltered copy of the original). For now, inclusion of an informal [conformance assertion] in an [IEPD] is the only requirement.
+   In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts. A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and [IEPD] identity (i.e., that the [IEPD] is an unaltered copy of the original). For now, inclusion of an informal [conformance assertion] artifact in an [IEPD] is the only requirement.
 
 6. Optional MPD Artifacts
 
@@ -3291,9 +3293,9 @@ Appendix I. Index of Rules
    Rule 5-32, Resolve MPD URI with Fragment: Section 5.2.4.5, Resolving an MPD URI with a Fragment
    Rule 5-33, XML Catalog uri Value Resolves to Resource: Section 5.2.4.7, XML Catalog URI
    Rule 5-34, XML Catalog uri Value Resolves to Resource with Correct Target Namespace: Section 5.2.4.7, XML Catalog URI
-   Rule 5-35, IEPD Has a Change Log in Root Directory: Section 5.3.2, Change Log for IEPDs
+   Rule 5-35, IEPD Has a Change Log: Section 5.3.2, Change Log for IEPDs
    Rule 5-36, Readme Describes Purpose, Scope, Business Value, etc.: Section 5.4, ReadMe Artifact
-   Rule 5-37, IEPD Has a readme.* in Root Directory: Section 5.4, ReadMe Artifact
+   Rule 5-37, IEPD Has a ReadMe Artifact: Section 5.4, ReadMe Artifact
    Rule 5-38, Conformance Target Identifier: Section 5.6, Defining Information Exchange Packages
    Rule 5-39, IEP Conformance Target Has a structures:id: Section 5.6, Defining Information Exchange Packages
    Rule 5-40, [IEPD] Declares One or More IEP Conformance Targets: Section 5.6, Defining Information Exchange Packages
@@ -3302,7 +3304,7 @@ Appendix I. Index of Rules
    Rule 5-43, Validating an XPath Expression: Section 5.6.2.5, c:ValidToXPath
    Rule 5-44, IEPD Has an IEP Sample for Each c:IEPConformanceTarget: Section 5.6.3, IEP Sample Instance XML Documents
    Rule 5-45, Validating an IEP Sample XML Document: Section 5.6.3, IEP Sample Instance XML Documents
-   Rule 5-46, IEPD Has Conformance Assertion in Root Directory: Section 5.7, Conformance Assertion
+   Rule 5-46, IEPD Has Conformance Assertion: Section 5.7, Conformance Assertion
    Rule 6-1, Wantlist Location: Section 6.1, NIEM Wantlist
    Rule 7-1, MPD Is a ZIP File: Section 7, Organization, Packaging, and Other Criteria
    Rule 7-2, XSD and XML Documents Conform to Applicable NDR Conformance Targets: Section 7, Organization, Packaging, and Other Criteria
