@@ -1921,7 +1921,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 		</li>
 	</ul>
 
-	<p>Inclusion of a <termRef>conformance assertion</termRef> made by a reputable, independent, trusted entity (person or organization) would likely increase confidence in conformance.  Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact.</p>
+	<p>Inclusion of a <termRef>conformance assertion</termRef> made by a reputable, independent, trusted entity (person or organization) would likely increase confidence in conformance.  Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact.  The MPD catalog schema document provides a <qName>c:ConformanceReport</qName> element to identify a conformance report if one is present.</p>
 
 	<p>In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts.  A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and <termRef term="information exchange package documentation">IEPD</termRef> identity (i.e., that the <termRef term="information exchange package documentation">IEPD</termRef> is an unaltered copy of the original).  For now, inclusion of an informal <termRef>conformance assertion</termRef> artifact in an <termRef term="information exchange package documentation">IEPD</termRef> is the only requirement.</p>
 
@@ -2054,11 +2054,13 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 <section id="Artifact-Sets">
 	<title>Artifact Sets</title>
 
-	<p>This specification defines different ways to group MPD artifacts into <termRef term="artifact set">sets</termRef>.  In general, all sets are established through an <termRef>XML catalog document</termRef> (<termRef>XML schema document</termRef> sets) and the <termRef>MPD catalog document</termRef> (all artifact sets).</p>
+	<p>Grouping artifacts into sets is generally optional.  There may be many reasons for identifying artifacts sets in an MPD.  While directory structure is most often the most convenient method for grouping a set of artifacts, there may multiple logical groupings, and these may spread across multiple directories.</p>
 
-	<p><ref idref="XML-Catalogs"/> describes how NIEM employs an <termRef>XML catalog document</termRef> to assemble an <termRef>XML Schema</termRef> from <termRef term="XML schema document">XML schema documents</termRef>.  This is one important method for grouping XML schema documents into sets.  In fact, this is the required standard technique for grouping schema documents for assembling them into a schema.  For user convenience, this method is now used in each release, core update, and domain update.  Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).</p>
+	<p>This specification defines other ways to group MPD artifacts into <termRef term="artifact set">sets</termRef>.  In general, independent of directory organization, sets can be established through one of two methods.  An <termRef>XML catalog document</termRef> can be used to establish an <termRef>XML schema document</termRef> set.  The <termRef>MPD catalog document</termRef> can be used to identify all kinds of artifacts sets (including XML schema documents).</p>
 
-	<p>Another reason for grouping artifacts into sets is a common need for humans to review, identify, and navigate the artifacts of an <termRef term="information exchange package documentation">IEPD</termRef> (particularly, if it<char name="rsquo"/>s complicated).  An <termRef>XML catalog document</termRef> has a relatively focused purpose, to identify (by namespace) and assemble a set of XML schema documents into an <termRef>XML Schema</termRef>.  It is not intended to index artifacts in general (other than XML schema documents to assigned target namespaces).  So, it does not classify or describe the artifacts it identifies.</p>
+	<p><ref idref="XML-Catalogs"/> describes how NIEM employs an <termRef>XML catalog document</termRef> to assemble an <termRef>XML Schema</termRef> from <termRef term="XML schema document">XML schema documents</termRef>.  For user convenience, this method is now used in NIEM releases, core updates, and domain updates.  Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).</p>
+
+	<p>Another reason for grouping artifacts into sets is a need for humans to review, identify, and navigate the artifacts of an <termRef term="information exchange package documentation">IEPD</termRef> (particularly, if it is complicated).  An <termRef>XML catalog document</termRef> has a relatively focused purpose, to identify (by namespace) and assemble a set of XML schema documents into an <termRef>XML Schema</termRef>.  It is not intended to index artifacts in general (other than XML schema documents to assigned target namespaces).  So, it does not classify or describe the artifacts it identifies.</p>
 
 	<p>On the other hand, the <termRef>MPD catalog document</termRef> is designed to record, index, classify, and describe (as needed) any or all MPD artifacts (not just schema documents).  The MPD catalog provides a flexible method for grouping all kinds artifacts.</p>
 
@@ -2276,7 +2278,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 	<tr><td><termRef>XML catalog document</termRef></td><td>*.xml</td><td>(ref)</td></tr>
 	<tr><td>conformance report</td><td>*.*</td><td>a formal detailed report on conformance generated by a NIEM-aware tool or manually prepared (or both)</td></tr>
 	<tr><td>MPD catalog extension <termRef>XML catalog document</termRef></td><td>mpd-catalog-extension-xml-catalog.xml</td><td>an XML catalog that identifies an MPD catalog extension schema document (ref)</td></tr>
-	<tr><td>MPD catalog <termRef>extension schema document</termRef></td><td>*.xsd</td><td>a XML schema document that extends an MPD catalog schema (ref)</td></tr>
+	provides<tr><td>MPD catalog <termRef>extension schema document</termRef></td><td>*.xsd</td><td>a XML schema document that extends an MPD catalog schema (ref)</td></tr>
 	<tr><td><termRef>subset schema document</termRef></td><td>*.xsd</td><td>(ref)</td></tr>
 	<tr><td><termRef>NIEM wantlist</termRef></td><td>*.xml</td><td>(ref)</td></tr>
 	<tr><td><termRef>extension schema document</termRef></td><td>*.xsd</td><td>(ref)</td></tr>
