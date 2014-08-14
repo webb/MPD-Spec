@@ -1244,7 +1244,7 @@ Rule 5-34. XML Catalog uri Value Resolves to Resource with Correct Target Namesp
 
       c:externalURI|<URI>
 
-      c:resourceURI|<URI>|
+      c:resourceURI|<URI>
 
       
 
@@ -1630,7 +1630,7 @@ Rule 5-46. IEPD Has Conformance Assertion
 
             *  Results? (e.g., issues, pass/fails, warnings, confirmations, etc.)
 
-   Inclusion of a [conformance assertion] made by a reputable, independent, trusted entity (person or organization) would likely increase confidence in conformance. Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact.
+   Inclusion of a [conformance assertion] made by a reputable, independent, trusted entity (person or organization) would likely increase confidence in conformance. Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact. The MPD catalog schema document provides a c:ConformanceReport element to identify a conformance report if one is present.
 
    In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts. A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and [IEPD] identity (i.e., that the [IEPD] is an unaltered copy of the original). For now, inclusion of an informal [conformance assertion] artifact in an [IEPD] is the only requirement.
 
@@ -1736,11 +1736,13 @@ Rule 7-3. MPD Archive Uncompresses to a Single Root Directory
 
 7.1. Artifact Sets
 
-   This specification defines different ways to group MPD artifacts into [sets]. In general, all sets are established through an [XML catalog document] ([XML schema document] sets) and the [MPD catalog document] (all artifact sets).
+   Grouping artifacts into sets is generally optional. There may be many reasons for identifying artifacts sets in an MPD. While directory structure is most often the most convenient method for grouping a set of artifacts, there may multiple logical groupings, and these may spread across multiple directories.
 
-   Section 5.5, XML Catalogs, above, describes how NIEM employs an [XML catalog document] to assemble an [XML Schema] from [XML schema documents]. This is one important method for grouping XML schema documents into sets. In fact, this is the required standard technique for grouping schema documents for assembling them into a schema. For user convenience, this method is now used in each release, core update, and domain update. Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).
+   This specification defines other ways to group MPD artifacts into [sets]. In general, independent of directory organization, sets can be established through one of two methods. An [XML catalog document] can be used to establish an [XML schema document] set. The [MPD catalog document] can be used to identify all kinds of artifacts sets (including XML schema documents).
 
-   Another reason for grouping artifacts into sets is a common need for humans to review, identify, and navigate the artifacts of an [IEPD] (particularly, if it's complicated). An [XML catalog document] has a relatively focused purpose, to identify (by namespace) and assemble a set of XML schema documents into an [XML Schema]. It is not intended to index artifacts in general (other than XML schema documents to assigned target namespaces). So, it does not classify or describe the artifacts it identifies.
+   Section 5.5, XML Catalogs, above, describes how NIEM employs an [XML catalog document] to assemble an [XML Schema] from [XML schema documents]. For user convenience, this method is now used in NIEM releases, core updates, and domain updates. Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).
+
+   Another reason for grouping artifacts into sets is a need for humans to review, identify, and navigate the artifacts of an [IEPD] (particularly, if it is complicated). An [XML catalog document] has a relatively focused purpose, to identify (by namespace) and assemble a set of XML schema documents into an [XML Schema]. It is not intended to index artifacts in general (other than XML schema documents to assigned target namespaces). So, it does not classify or describe the artifacts it identifies.
 
    On the other hand, the [MPD catalog document] is designed to record, index, classify, and describe (as needed) any or all MPD artifacts (not just schema documents). The MPD catalog provides a flexible method for grouping all kinds artifacts.
 
