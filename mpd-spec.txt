@@ -390,6 +390,8 @@ Rule 3-1. MPD Conformance Target Identifier
 
       This term may be abbreviated "IEPD". Rules specifying this conformance target use the applicability code "IEPD".
 
+   Because it is an [MPD], an IEPD must also conform to all WF-MPD rules.
+
    An [IEPD] has one or more c:IEPConformanceTarget elements within its [MPD catalog document], to define one or more [information exchange packages], each an [instance XML document].
 
    [Definition: instance XML document]
@@ -1080,73 +1082,73 @@ Rule 5-20. c:pathURI for c:BusinessRulesArtifact
 
       Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:BusinessRulesArtifact element MUST [resolve] to a [business rule schema] or [business rules] artifact.
 
-Rule 5-21. c:pathURI for c:ExternalSchemaDocument
+Rule 5-21. c:pathURI for c:XMLSchemaDocument
 
    [Rule 5-21] (WF-MPD)
 
-      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:ExternalSchemaDocument element MUST [resolve] to an [XML schema document].
+      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:XMLSchemaDocument element MUST [resolve] to an [XML schema document].
 
-Rule 5-22. c:pathURI for c:ReferenceSchemaDocument
+Rule 5-22. c:pathURI for c:ExternalSchemaDocument
 
    [Rule 5-22] (WF-MPD)
 
-      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:ReferenceSchemaDocument element MUST [resolve] to a NIEM [reference schema document].
+      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:ExternalSchemaDocument element MUST [resolve] to an [XML schema document].
 
-Rule 5-23. c:pathURI for c:ExtensionSchemaDocument
+Rule 5-23. c:pathURI for c:ReferenceSchemaDocument
 
    [Rule 5-23] (WF-MPD)
 
-      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:ExtensionSchemaDocument element MUST [resolve] to a NIEM [extension schema document].
+      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:ReferenceSchemaDocument element MUST [resolve] to a NIEM [reference schema document].
 
-Rule 5-24. c:pathURI for c:SubsetSchemaDocument
+Rule 5-24. c:pathURI for c:ExtensionSchemaDocument
 
    [Rule 5-24] (WF-MPD)
+
+      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:ExtensionSchemaDocument element MUST [resolve] to a NIEM [extension schema document].
+
+Rule 5-25. c:pathURI for c:SubsetSchemaDocument
+
+   [Rule 5-25] (WF-MPD)
 
       Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:SubsetSchemaDocument element MUST [resolve] to a NIEM [subset schema document].
 
    Note: It is not possible for a Schematron rule to verify that the URI resolves to a NIEM subset schema document, only that it is a schema document.
 
-Rule 5-25. c:pathURI for c:Wantlist
-
-   [Rule 5-25] (WF-MPD)
-
-      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:Wantlist element MUST [resolve] to a [NIEM wantlist] XML document.
-
-Rule 5-26. c:pathURI for c:SchematronSchema
+Rule 5-26. c:pathURI for c:Wantlist
 
    [Rule 5-26] (WF-MPD)
 
-      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:SchematronSchema element MUST [resolve] to a [Schematron schema].
+      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:Wantlist element MUST [resolve] to a [NIEM wantlist] XML document.
 
-Rule 5-27. c:pathURI for c:RelaxNGSchema
+Rule 5-27. c:pathURI for c:SchematronSchema
 
    [Rule 5-27] (WF-MPD)
 
-      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:RelaxNGSchema element MUST [resolve] to a RelaxNG schema.
+      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:SchematronSchema element MUST [resolve] to a [Schematron schema].
 
-Rule 5-28. c:pathURI for c:SchemaDocumentSet
+Rule 5-28. c:pathURI for c:RelaxNGSchema
 
    [Rule 5-28] (WF-MPD)
 
-      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:SchemaDocumentSet element MUST [resolve] to an [XML schema document] set.
+      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:RelaxNGSchema element MUST [resolve] to a RelaxNG schema.
 
-Rule 5-29. c:pathURI for c:ConstraintSchemaDocumentSet
+Rule 5-29. c:pathURI for c:SchemaDocumentSet
 
    [Rule 5-29] (WF-MPD)
 
-      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:ConstraintSchemaDocumentSet element MUST [resolve] to a NIEM [XML schema document] set.
+      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:SchemaDocumentSet element MUST [resolve] to an [XML schema document] set.
 
-Rule 5-30. 
+Rule 5-30. c:pathURI for c:ConstraintSchemaDocumentSet
 
    [Rule 5-30] (WF-MPD)
 
-      Any [XML schema document] set whose c:pathURI attribute resolves to a [constraint schema document set] MUST be interpreted to be a [constraint schema document set].
+      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:ConstraintSchemaDocumentSet element MUST [resolve] to a NIEM [XML schema document] set.
 
-Rule 5-31. c:pathURI for c:RequiredFile
+Rule 5-31. 
 
    [Rule 5-31] (WF-MPD)
 
-      Within an [MPD catalog document], the value of a c:pathURI attribute owned by a c:RequiredFile element MUST [resolve] to a resource.
+      Any [XML schema document] set whose c:pathURI attribute resolves to a [constraint schema document set] MUST be interpreted to be a [constraint schema document set].
 
 5.2.4.4. MPD Relationships and Lineage (c:resourceURI)
 
@@ -1230,13 +1232,15 @@ Rule 5-34. XML Catalog uri Value Resolves to Resource with Correct Target Namesp
 
       
 
+   As the table above indicates, [RFC 3986 URI] allows a <relative-reference> to contain a fragment or even be a fragment itself. However, a c:pathURI is required to resolve to a local resource. Therefore, rules in this specification preclude a c:pathURI value from taking the fragment-only form of a <relative-reference>.
+
    Table 5-2: Summary of MPD URI attributes
 
-      MPD Attribute|URI Syntax (per table above)
+      MPD Attribute|URI Syntax (refer table above)
 
       c:mpdURI|<absolute-URI>
 
-      c:pathURI|<relative-reference> (relative to MPD catalog document)
+      c:pathURI|<relative-reference> (relative to [MPD catalog document]; excludes fragment-only format.)
 
       c:externalURI|<URI>
 
@@ -3269,17 +3273,17 @@ Appendix I. Index of Rules
    Rule 5-18, c:pathURI for c:ReadMe: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
    Rule 5-19, c:pathURI for c:IEPSampleXMLDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
    Rule 5-20, c:pathURI for c:BusinessRulesArtifact: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-21, c:pathURI for c:ExternalSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-22, c:pathURI for c:ReferenceSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-23, c:pathURI for c:ExtensionSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-24, c:pathURI for c:SubsetSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-25, c:pathURI for c:Wantlist: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-26, c:pathURI for c:SchematronSchema: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-27, c:pathURI for c:RelaxNGSchema: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-28, c:pathURI for c:SchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-29, c:pathURI for c:ConstraintSchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-30, : Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-31, c:pathURI for c:RequiredFile: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-21, c:pathURI for c:XMLSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-22, c:pathURI for c:ExternalSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-23, c:pathURI for c:ReferenceSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-24, c:pathURI for c:ExtensionSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-25, c:pathURI for c:SubsetSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-26, c:pathURI for c:Wantlist: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-27, c:pathURI for c:SchematronSchema: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-28, c:pathURI for c:RelaxNGSchema: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-29, c:pathURI for c:SchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-30, c:pathURI for c:ConstraintSchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-31, : Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
    Rule 5-32, Resolve MPD URI with Fragment: Section 5.2.4.5, Resolving an MPD URI with a Fragment
    Rule 5-33, XML Catalog uri Value Resolves to Resource: Section 5.2.4.7, XML Catalog URI
    Rule 5-34, XML Catalog uri Value Resolves to Resource with Correct Target Namespace: Section 5.2.4.7, XML Catalog URI
