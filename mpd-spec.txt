@@ -84,7 +84,7 @@ Status
 
    This document is the baseline specification for all MPDs, and in particular, it focuses on the normative rules for IEPDs. In the future, detailed rules that apply to other MPDs (listed above) will be published in other NIEM specifications. Also in the future, other types of MPDs may be added to this list.
 
-   An [IEPD] defines one or more data exchanges, each occuring in the form of an [information exchange package] (IEP). This specification supports a variety of data exchange use cases, in which the IEP may be:
+   An [IEPD] defines one or more data exchanges, each occurring in the form of an [information exchange package] (IEP). This specification supports a variety of data exchange use cases, in which the IEP may be:
 
       *  An XML document with a NIEM-defined XML document element.
 
@@ -96,7 +96,7 @@ Status
 
       *  A non-NIEM format in which NIEM elements may not occur at all (for example, hospital details are provided as a NIEM element, but the message contains no hospital data).
 
-   This specification defines several incremental stages of conformance to support iterative [MPD] development, with conformace testing possible at each step instead of delayed to the end. Tool vendors should be able to build, adapt, and integrate software tools to assist in [MPD] development and assembly, from raw parts to finished product.
+   This specification defines several incremental stages of conformance to support iterative [MPD] development, with conformance testing possible at each step instead of delayed to the end. Tool vendors should be able to build, adapt, and integrate software tools to assist in [MPD] development and assembly, from raw parts to finished product.
 
    NIEM is a data layer for an information architecture. Files in an [MPD] generally define XML Schema types and declare XML elements and attributes to use in payloads for information exchanges. While an [MPD] may also contain files from layers beyond the data layer, this specification is not intended to define details of other architectural layers. Such files are generally present only to provide additional context, understanding, or assistance for implementing the exchange of payloads.
 
@@ -396,7 +396,7 @@ Rule 3-1. MPD Conformance Target Identifier
 
       An [instance XML document] is an [XML document] that is valid against an [XML Schema]. An instance XML document is said to be an instance of the schema to which it validates.
 
-   An [IEPD] defines one or more data exchanges, each occuring in the form of an XML document known as an [information exchange package] (IEP). A data exchange is specified by an [IEP conformance target], which defines the class of [information exchange packages] (IEPs) that are exchanged at runtime.
+   An [IEPD] defines one or more data exchanges, each occurring in the form of an XML document known as an [information exchange package] (IEP). A data exchange is specified by an [IEP conformance target], which defines the class of [information exchange packages] (IEPs) that are exchanged at runtime.
 
    An [IEPD] contains a NIEM-conformant XML schema document set that may include portions of a NIEM Core schema document (and updates), portions of NIEM Domain schema documents (and updates), and enterprise-specific or IEPD-specific [extension schema documents]. The [XML schema documents] contained in an [IEPD] work together to define one or more classes of [instance XML documents] that consistently encapsulate data for meaningful information exchanges. Any [instance XML document] that is valid for the [XML schema document] set and that satisfies the conditions of the [IEP conformance target] is a member of that [IEP conformance target] class (or IEP Class).
 
@@ -511,8 +511,6 @@ Rule 3-3. IEPD Conformance Target Identifier
    Typically reference schema documents contain [data components] with the most relaxed cardinality (zero to unbounded). However, this is not an absolute requirement. If necessary, cardinality in reference schema documents may be constrained to model reality. For example, in NIEM 3.0 a nc:Location2DGeospatialCoordinateType contains both a nc:GeographicCoordinateLatitude element and a nc:GeographicCoordinateLongitude element. Each of these elements has cardinality minOccurs="1" and maxOccurs="1". Any other cardinality for these elements has no meaning. On the other hand, one might claim that NIEM should constrain nc:PersonType to a single occurrence of the element nc:PersonBirthDate. Every person has one and only one birth date. Unfortunately, also in reality, criminal persons often present multiple identities with multiple birth dates; and so the capability to represent such is an important data requirement for NIEM.
 
 4.2. Subset Document Schemas
-
-   This section applies to IEPDs, which are generally designed with [schema document subsets].
 
 4.2.1. Basic Subset Concepts
 
@@ -932,7 +930,7 @@ Rule 5-10. MPD Version Number Syntax
 
    [Definition: path name]
 
-      A general form of the name of a file or directory that specifies a unique location in a file system. A path name points to a file system location by following the directory tree hierarchy expressed in a string of characters in which path components, separated by a delimiting character, represent each subdirectory. If a path name terminates in a file name, then it specifies the location of that file (Paraphrased from Wikipedia: Path (computing)).
+      A general form of the name of a file or directory that specifies a unique location in a file system. A path name points to a file system location by following the directory tree hierarchy expressed in a string of characters in which path components, separated by a delimiting character, represent each subdirectory. If a path name terminates in a file name, then it specifies the location of that file.
 
    [Definition: resolve URI]
 
@@ -1288,7 +1286,7 @@ Rule 5-37. IEPD Has a readme.* in Root Directory
 
    [Rule 5-37] (IEPD)
 
-      An IEPD MUST contain a readme.* file artifact in its [MPD root directory].
+      An IEPD MUST contain a [readme artifact] that is identified by a c:ReadMe element in its [MPD catalog document].
 
    The [readme artifact] may replicate some of the metadata in the MPD catalog. However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal. It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.
 
@@ -1376,8 +1374,6 @@ Rule 5-37. IEPD Has a readme.* in Root Directory
 
 5.5. XML Catalogs
 
-   This section is applicable to all MPDs. However, it is of particular importance to IEPDs and IEP validation (to be covered in more detail in Section 5.6, Defining Information Exchange Packages, below.
-
    [Definition: XML catalog document]
 
       As defined by [XML Catalogs 1.1]:
@@ -1422,7 +1418,7 @@ Rule 5-38. Conformance Target Identifier
 
          2. the pound sign character (#). and
 
-         3. a locally unique NCName (i.e., a non-colonized name, as defined by [W3C XML Schema Part 1 Structures], section 3.3.7, "NCName").
+         3. a locally unique NCName (i.e., a non-colonized name, as defined by [W3C XML Schema Part 2 Datatypes], section 3.3.7, "NCName").
 
    This rule requires that an [IEP conformance target] has a URI, i.e., its [conformance target identifier].
 
@@ -1784,7 +1780,7 @@ Rule 7-4. Constraint on Elements of Type c:SchemaDocumentSetType
 
 7.2. IEPD File Name Syntax
 
-   This section is applicable to IEPDs. Additional non-normative for directory naming and organization for IEPDs is in Appendix E, Guidance for IEPD Directories (non-normative), below.
+   Additional non-normative for directory naming and organization for IEPDs is in Appendix E, Guidance for IEPD Directories (non-normative), below.
 
    It is important to understand that this section does not apply to the syntax for the c:mpdName attribute in the [MPD catalog document]. Refer to Section 5.2.1, MPD Name Syntax (c:mpdName), above, for details regarding the c:mpdName metadata attribute.
 
@@ -2822,26 +2818,30 @@ Appendix B. Example MPD Catalog Document for Cursor on Target
 
    <?xml version="1.0" encoding="US-ASCII"?>
    <c:Catalog 
-       xmlns:cot="http://example.com/cot-niem/0.8/"
+       xmlns:cot="http://example.com/cot-niem/0.9/"
        xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
        xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
        xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
        <c:MPD 
-           c:mpdURI="http://example.com/cot-iepd/0.8beta1/" 
-           c:mpdClassCodeList="iepd"
+           c:mpdURI="http://example.com/cot-iepd/0.9rc1/" 
+           c:mpdClassURIList=
+             "http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD
+             http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD"
            c:mpdName="cot-iepd" 
-           c:mpdVersionID="0.8beta1">
+           c:mpdVersionID="0.9rc1">
            <c:MPDInformation>
                <c:AuthoritativeSource> 
                    <nc:EntityOrganization>
                        <nc:OrganizationName>CoT Program Office</nc:OrganizationName>
                        <nc:OrganizationPrimaryContactInformation>
-                           <nc:ContactWebsiteURI>https://partners.mitre.org/sites/CoTUserGroup/</nc:ContactWebsiteURI>
+   			    <nc:ContactWebsiteURI>
+   				    https://partners.mitre.org/sites/CoTUserGroup/
+   			    </nc:ContactWebsiteURI>
                        </nc:OrganizationPrimaryContactInformation>
                    </nc:EntityOrganization>
                </c:AuthoritativeSource>
-               <c:CreationDate>2014-03-13</c:CreationDate>
-               <c:StatusText>Beta</c:StatusText>
+               <c:CreationDate>2014-08-04</c:CreationDate>
+               <c:StatusText>Release Candidate</c:StatusText>
            </c:MPDInformation>
            <c:IEPConformanceTarget structures:id="CoT-NIEM-IEP">
                <nc:DescriptionText>
@@ -2849,24 +2849,23 @@ Appendix B. Example MPD Catalog Document for Cursor on Target
                </nc:DescriptionText>
                <c:HasDocumentElement c:qualifiedNameList="cot:Event"/>
                <c:XMLSchemaValid>
-                   <c:XMLCatalog c:pathURI="xml-catalog.xml"/>
-   		<c:XMLSchemaDocument c:pathURI="extension/cot-neim.xsd"/>
+                   <c:XMLCatalog c:pathURI="base-xsd/xml-catalog.xml"/>
                </c:XMLSchemaValid>
                <c:SchematronValid>
                    <c:SchematronSchema c:pathURI="schematron/business-rules.sch"/>
                </c:SchematronValid>
-          <!-- <c:EXISchema>
-                   <c:XMLCatalog c:pathURI="xml-catalog-exi.xml"/>
+               <c:EXIXMLSchema>
+                   <c:XMLCatalog c:pathURI="exi-xsd/exi-xml-catalog.xml"/>
                    <c:XMLSchemaDocument c:pathURI="extension/cot-niem.xsd"/>
-               </c:EXISchema> -->
-               <c:IEPSampleXMLDocument c:pathURI="iep-samples/cot-iep1.xml"/>
+               </c:EXIXMLSchema>
+               <c:IEPSampleXMLDocument c:pathURI="iep-samples/iep1.xml"/>
            </c:IEPConformanceTarget>
-           <c:ReadMe c:pathURI="readme.txt"/>
-           <c:MPDChangeLog c:pathURI="changelog.txt"></c:MPDChangeLog>
-           <c:Wantlist c:pathURI="niem/wantlist.xml"/>
-           <c:ExtensionSchemaDocument c:pathURI="extension/cot-niem.xsd"/>
-           <c:ExtensionSchemaDocument c:pathURI="extension/cot-niem-codes.xsd"/>
-           <c:ReferenceSchemaDocument c:pathURI="extension/milops-future.xsd"/>
+           <c:ReadMe c:pathURI="00-README.txt"/>
+           <c:MPDChangeLog c:pathURI="01-changelog.txt"></c:MPDChangeLog>
+           <c:Wantlist c:pathURI="base-xsd/niem/wantlist.xml"/>
+           <c:ExtensionSchemaDocument c:pathURI="base-xsd/extension/cot-niem.xsd"/>
+           <c:ExtensionSchemaDocument c:pathURI="base-xsd/extension/cot-niem-codes.xsd"/>
+           <c:ReferenceSchemaDocument c:pathURI="base-xsd/extension/milops-future.xsd"/>
        </c:MPD>
    </c:Catalog>
    
@@ -2877,33 +2876,35 @@ Appendix C. Common MPD Artifacts
 
    Notes:
 
-      *  (R) in artifact name indicates a required artifact for every MPD.
+      *  (MPD) in artifact name indicates a required artifact for all [MPDs].
 
-      *  (ref) in definition indicates name is hotlinked to a definition in specification text.
+      *  (IEPD) in artifact name indicates a required artifact for an [IEPD].
+
+      *  (ref) indicates name is hyperlinked to a defined term in the specification.
 
       *  * in filename syntax indicates wildcard.
 
       Artifact name|Filename syntax|Definition
 
-      (R) [MPD catalog document]|mpd-catalog.xml|(ref)
+      (MPD) [MPD catalog document]|mpd-catalog.xml|(ref)
 
-      (R) [readme artifact]|readme.*|(ref)
+      (MPD) [change log]|*.*|(ref)
 
-      (R) [change log]|changelog.*|(ref)
+      (IEPD) [readme artifact]|*.*|(ref)
 
-      (R) [conformance assertion]|conformance-assertion.*|(ref)
+      (IEPD) [conformance assertion]|*.*|(ref)
 
-      [XML catalog document]|xml-catalog.xml|(ref)
+      [XML catalog document]|*.xml|(ref)
 
-      conformance report|conformance-report.*|a formal report on conformance generated by a NIEM-aware tool
+      conformance report|*.*|a formal report on conformance generated by a NIEM-aware tool
 
       MPD catalog extension [XML catalog document]|mpd-catalog-extension-xml-catalog.xml|an XML catalog that identifies an MPD catalog extension schema document (ref)
 
-      MPD catalog [extension schema document]|mpd-catalog-extension.xsd|a XML schema document that extends an MPD catalog schema (ref)
+      MPD catalog [extension schema document]|*.xsd|a XML schema document that extends an MPD catalog schema (ref)
 
       [subset schema document]|*.xsd|(ref)
 
-      [NIEM wantlist]|wantlist.xml|(ref)
+      [NIEM wantlist]|*.xml|(ref)
 
       [extension schema document]|*.xsd|(ref)
 
@@ -3102,7 +3103,7 @@ Appendix F. Acronyms and Abbreviations
 
       MPD |Model Package Description
 
-      NCName|Non-colonized Name (in XML Schema: unqualified; no colon characters)
+      NCName|Non-colonized Name (in XML Schema: unprefixed and no colon character)
 
       NDR |Naming and Design Rules
 
@@ -3116,7 +3117,7 @@ Appendix F. Acronyms and Abbreviations
 
       PNG |Portable Network Graphic
 
-      QName|Qualified Name (in XML Schema: qualified by a namespace prefix and colon character)
+      QName|Qualified Name (in XML Schema: a name qualified by a namespace prefix and colon character)
 
       RFC |Request for Comment
 
