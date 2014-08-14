@@ -17,7 +17,7 @@
  
    <title>National Information Exchange Model <char name="mdash"/> Model Package Description Specification</title>
    <version>3.0rc3</version>
-   <date>2014-08-13</date>
+   <date>2014-08-14</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
 
 
@@ -1507,14 +1507,15 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 	<p>An <termRef term="information exchange package documentation">IEPD</termRef> change log is not required to conform to any particular XML schema or other format specification.  However, a change log is still required for an <termRef term="information exchange package documentation">IEPD</termRef>.</p>
 
-<ruleSection>
-	<title>IEPD Has a Change Log in Root Directory</title>
+	<ruleSection><title>IEPD Has a Change Log</title>
 		<rule id="r-mpd-changelog-iepd" applicability="IEPD" class="Constraint">
-			<p>An <termRef term="information exchange package documentation">IEPD</termRef> MUST contain a change log artifact in its <termRef>MPD root directory</termRef>.</p>
+			<p>An <termRef term="information exchange package documentation">IEPD</termRef> MUST contain a <termRef>change log</termRef> artifact that is identified by a <qName>c:ChangeLog</qName> element in its <termRef>MPD catalog document</termRef>.</p>
 		</rule>
-</ruleSection>
+	</ruleSection>
 
-	<p>The format of an <termRef term="information exchange package documentation">IEPD</termRef> change log is left to the discretion of the author.   A flexible change log format encourages and facilitates easier and more rapid development.  IEPDs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, an <termRef term="information exchange package documentation">IEPD</termRef> may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  As a result, a consistent standard change log would be very difficult to specify.</p> 
+	<p>The <termRef>change log</termRef> for the first version release of an IEPD simply contains its release date.</p>
+
+	<p>The format of an <termRef term="information exchange package documentation">IEPD</termRef> change log is left to the discretion of the author.   A flexible <termRef>change log</termRef> format encourages and facilitates easier and more rapid development.  IEPDs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, an <termRef term="information exchange package documentation">IEPD</termRef> may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  As a result, a consistent standard <termRef>change log</termRef> would be very difficult to specify.</p> 
 
 </section>
 </section>
@@ -1530,19 +1531,17 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 	<p>A <termRef>readme artifact</termRef> is only required for IEPDs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.</p>
 
-<ruleSection>
-	<title>Readme Describes Purpose, Scope, Business Value, etc.</title>
+	<ruleSection><title>Readme Describes Purpose, Scope, Business Value, etc.</title>
 		<rule id="r-mpd-readme-purpose" applicability="WF-MPD" class="Interpretation">
 			<p>A <termRef>readme artifact</termRef> SHOULD (at a minimum) describe the <termRef term="model package description">MPD</termRef> purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.</p>
 		</rule>
-</ruleSection>
+	</ruleSection>
 
-<ruleSection>
-	<title>IEPD Has a <code>readme.*</code> in Root Directory</title>
+	<ruleSection><title>IEPD Has a ReadMe Artifact</title>
 		<rule id="r-mpd-readme" applicability="IEPD" class="Constraint">
 			<p>An IEPD MUST contain a <termRef>readme artifact</termRef> that is identified by a <qName>c:ReadMe</qName> element in its <termRef>MPD catalog document</termRef>.</p>
 		</rule>
-</ruleSection>
+	</ruleSection>
 
 	<p>The <termRef>readme artifact</termRef> may replicate some of the metadata in the MPD catalog.  However, the MPD catalog is intentionally designed to be efficient, easy to parse, and minimal.  It is intended for search, discovery, registration, and Web page generation, and not to support various types of detailed technical prose often required for human understanding.</p>
 
@@ -1554,7 +1553,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 			<li><p>To provide an initial source within an <termRef term="information exchange package documentation">IEPD</termRef> for human consumable documentation and/or references to other business or technical documentation needed for understanding.</p></li>
 		</ul>
 
-		<p>The <termRef>readme artifact</termRef> is not intended to be the only source of written documentation for an MPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference.  Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize readme format or layout.  Only the file name and relative path within the MPD <termRef>ZIP file</termRef> are strictly specified.  The following section will generally describe minimal content that should be in the <termRef>readme artifact</termRef>.  This guidance is non-normative, so adherence is a subjective judgment by the author.</p>
+		<p>The <termRef>readme artifact</termRef> is not intended to be the only source of written documentation for an MPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference.  Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize readme file name, location, format, or layout; only that it be identified in the <termRef>MPD catalog document</termRef> of an IEPD.  The following section will generally describe minimal content that should be in the <termRef>readme artifact</termRef>.  This guidance is non-normative, so adherence is a subjective judgment by the author.</p>
 
 
 
@@ -1894,16 +1893,15 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 	<p>Independent authors build NIEM IEPDs from NIEM <termRef term="reference schema document set">reference schema document sets</termRef>.  Presently, a formal NIEM conformance certification process for IEPDs does not exist.  Therefore, this specification requires that an <termRef term="information exchange package documentation">IEPD</termRef> contain an artifact that asserts NIEM conformance and provides a small amount of information to support such.</p>
 
-<definition term="conformance assertion">
-	<p>An artifact that provides a formal or informal declaration that an MPD conforms to relevant NIEM specifications and associated rules, including <ref idref="NIEM-Conformance"/>, <ref idref="NIEM-NDR"/>, <ref idref="NIEM-CTAS"/> and <ref idref="NIEM-MPD"/> (this NIEM MPD Specification).</p>
-</definition>
+	<definition term="conformance assertion">
+		<p>An artifact that provides a declaration that an MPD conforms to relevant NIEM specifications and associated rules, including <ref idref="NIEM-Conformance"/>, <ref idref="NIEM-NDR"/>, <ref idref="NIEM-CTAS"/> and <ref idref="NIEM-MPD"/> (this NIEM MPD Specification).</p>
+	</definition>
 
-<ruleSection>
-	<title>IEPD Has Conformance Assertion in Root Directory</title>
-	<rule id="r1-conform-assert" applicability="IEPD" class="Constraint">
-		<p>An <termRef term="information exchange package documentation">IEPD</termRef> MUST contain a <termRef>conformance assertion</termRef> artifact in its <termRef>MPD root directory</termRef> that is identified by the <qName>c:ConformanceAssertion</qName> element in the <termRef>MPD catalog document</termRef>.</p>
-	</rule>
-</ruleSection>
+	<ruleSection><title>IEPD Has Conformance Assertion</title>
+		<rule id="r1-conform-assert" applicability="IEPD" class="Constraint">
+			<p>An <termRef term="information exchange package documentation">IEPD</termRef> MUST contain a <termRef>conformance assertion</termRef> artifact that is identified by a <qName>c:ConformanceAssertion</qName> element in its <termRef>MPD catalog document</termRef>.</p>
+		</rule>
+	</ruleSection>
 
 	<p>A <termRef>conformance assertion</termRef> provides information to increase the level of confidence that an <termRef term="information exchange package documentation">IEPD</termRef> was checked for NIEM conformance and quality.  It does NOT constitute a guarantee or contract.  In fact, a conformance assertion can be self-asserted.</p>
 
@@ -1925,7 +1923,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 	<p>Inclusion of a <termRef>conformance assertion</termRef> made by a reputable, independent, trusted entity (person or organization) would likely increase confidence in conformance.  Another strong case can be made by supplementing a conformance assertion with a formal conformance test report or similar artifact.</p>
 
-	<p>In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts.  A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and <termRef term="information exchange package documentation">IEPD</termRef> identity (i.e., that the <termRef term="information exchange package documentation">IEPD</termRef> is an unaltered copy of the original).  For now, inclusion of an informal <termRef>conformance assertion</termRef> in an <termRef term="information exchange package documentation">IEPD</termRef> is the only requirement.</p>
+	<p>In the future, as NIEM procedures and tools advance, a conformance or quality report and a corresponding certificate may become required artifacts.  A tool might check conformance and issue the report and certificate together as a digitally signed and hashed artifact that reports conformance, and proves both author and <termRef term="information exchange package documentation">IEPD</termRef> identity (i.e., that the <termRef term="information exchange package documentation">IEPD</termRef> is an unaltered copy of the original).  For now, inclusion of an informal <termRef>conformance assertion</termRef> artifact in an <termRef term="information exchange package documentation">IEPD</termRef> is the only requirement.</p>
 
 </section>
 </section>
