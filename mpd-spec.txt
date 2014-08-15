@@ -1,6 +1,6 @@
 National Information Exchange Model -- Model Package Description Specification
 
-Version 3.0rc4
+Version 3.0
 
 August 15, 2014
 
@@ -1402,17 +1402,15 @@ Rule 5-37. IEPD Has a ReadMe Artifact
 
    Note that schema assembly or [XML catalog document] design from non-conformant [external schema documents] that may contain xs:include statements can be problematic.
 
-   In order to support [XML schema assembly] for the purpose of [XML schema validation], the namespaces of all XML schema documents used within an [IEPD] should [resolve] to a locally-unique artifact. A correctly constructed [XML catalog document] can guarantee such.
+   In order to support [XML schema assembly] for the purpose of [XML schema validation], the namespaces of all XML schema documents used within an [IEPD] should [resolve] to a locally-unique artifact. A correctly constructed [XML catalog document] can guarantee this.
 
-   er:nextCatalog elements may be used within [XML catalog documents] to connect them and control the parsing sequence. Section 5.6, Defining Information Exchange Packages, below, discusses more about using [XML catalog documents] within IEPDs.
+   According to [XML Catalogs 1.1], er:nextCatalog elements may be used within [XML catalog documents] to connect them and control the parsing sequence. Section 5.6, Defining Information Exchange Packages, below, discusses more about using [XML catalog documents] within IEPDs.
 
-   The practical reality of [XML schema assembly] is that the process is based on several methods for identifying the correct [XML schema documents], and these methods may be applied in no particular order. For most cases, this specification recommends the use of XML catalog documents as the preferred method for organizing [XML schema documents] so that a tool can assemble them into a schema (for validation or other purposes).
+   According to [W3C XML Schema Part 1 Structures], the assembly of a schema document set into a schema is implementation-dependent. In practice, different tools use different methods for selecting the next schema document in the assembly process. For most cases, this specification recommends the use of [XML catalog documents] as the preferred method for describing the desired schema assembly (for validation or other purposes).
 
-   The MPD catalog schema document specifies a c:XMLSchemaType that contains both a c:XMLCatalog and a c:XMLSchemaDocument element. c:XMLCatalog identifies the starting XML catalog document when employing XML catalogs. For simpler cases that use all NIEM-conforming schema documents (i.e., schema documents that are well-behaved and do not use xs:include statements), the c:XMLSchemaDocument identifies a root schema document for a given [XML schema document] set.
+   The MPD catalog schema document defines a c:XMLSchemaType that contains both c:XMLSchemaDocument elements and c:XMLCatalog elements, which may appear interleaved, or in any order. Occurrences of the c:XMLSchemaDocument identify schema documents to be used in schema assembly. c:XMLCatalog identifies the [XML catalog documents] to be used to identify schema documents, each corresponding to an XML namespace, which may be used in schema assembly. Relative order of c:XMLCatalog entries is considered significant, with catalogs appearing earlier taking precedence over catalogs appearing later. Note that the schema document assembly process does not specify a document element for an [instance XML document]; this may be specified with other mechanisms provided by the MPD catalog, such as Schematron, XPath expressions, or by explicitly setting a document element.
 
-   Use of both the c:XMLCatalog and c:XMLSchemaDocument elements within the same c:IEPConformanceTarget may resolve the namespaces in an unexpected order. There is no good way to use both catalog resolution and schema resolution concurrently, so it has to be undefined.
-
-   This document does not specify schema assembly. Assembly of a schema using c:XMLSchemaDocument or c:XMLCatalog (or other potential methods) may be the subject of a later NIEM specification.
+   This document does not specify the schema assembly process. A deterministic, implementation-independent schema assembly process may be the subject of a later NIEM specification.
 
 5.6. Defining Information Exchange Packages
 
