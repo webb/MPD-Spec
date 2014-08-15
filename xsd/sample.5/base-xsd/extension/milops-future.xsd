@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument"
+    targetNamespace="http://example.com/milops/1.1/" version="1"
+    xmlns:mof="http://example.com/milops/1.1/"
+    xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+    xmlns:geo="http://release.niem.gov/niem/adapters/geospatial/3.0/"
+    xmlns:xls="http://release.niem.gov/niem/external/ogc/xls/1.1.0/dhs-gmo/2.1.0"
+    xmlns:gml="http://www.opengis.net/gml/3.2"
+    xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+    xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+    xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/"
+    xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/" elementFormDefault="qualified">
+
+    <xs:annotation>
+        <xs:documentation> 
+            This is a "MilOps-Future" subset schema.
+            This schema defines elements and types to be proposed for NIEM MilOps, connected 
+            with the general-purpose Event element and the Cursor-on-Target-equivalent 
+            version of that element.
+            This schema document is a subset schema with cardinality established for the NIEM-CoT IEPD.
+            When these components are defined for real in a reference schema, most element references 
+            will include the particles minOccurs="0" and maxOccurs="unbounded". 
+            For development purposes it is convenient to develop the subset schema in stages, and create 
+            the reference schema once the definitions become stable.
+        </xs:documentation>
+        <xs:appinfo>
+            <term:LocalTerm term="OPEX" literal="Operation Exercise"/>
+            <term:LocalTerm term="WGS84"   literal="World Geodetic System 84"/>
+        </xs:appinfo>
+    </xs:annotation>
+
+    <xs:import schemaLocation="../niem/niem-core/3.0/niem-core.xsd"   namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
+    <xs:import schemaLocation="../niem/adapters/geospatial/3.0/geospatial.xsd" namespace="http://release.niem.gov/niem/adapters/geospatial/3.0/"/>
+    <xs:import schemaLocation="../niem/proxy/xsd/3.0/xs.xsd"          namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
+    <xs:import schemaLocation="../niem/structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+    
+    <xs:import schemaLocation="../niem/external/ogc/ols/1.1.0/dhs-gmo/2.1.0/ols.xsd" namespace="http://release.niem.gov/niem/external/ogc/xls/1.1.0/dhs-gmo/2.1.0" appinfo:externalImportIndicator="true">
+        <xs:annotation>
+            <xs:documentation>A profile of OpenGeospatialConsortium (OpenGIS, OGC) OpenLS (Location Services) version 1.1 schemas. A profile of OpenGeospatialConsortium (OpenGIS, OGC) OpenLS (Location Services) version 1.1 schemas that have been edited to use GML version 3.2.1 schemas instead of the GML version 3.0 schemas that were current when OpenLS version 1.1 was promulgated.  See http://www.opengeospatial.org for documentation, http://schemas.opengis.net/ols/ for schemas.</xs:documentation>
+        </xs:annotation>
+    </xs:import>
+    <xs:import schemaLocation="../niem/external/ogc/gml/3.2.1/gml.xsd" namespace="http://www.opengis.net/gml/3.2" appinfo:externalImportIndicator="true">
+        <xs:annotation>
+            <xs:documentation>Geography Markup Language (GML) version 3.2.1 schemas.  See http://www.opengeospatial.org OGC document 07-036 for documentation: "The Geography Markup Language (GML) was originally developed within the Open Geospatial Consortium, Inc. (OGC). ISO 19136 was prepared by ISO/TC 211 jointly with the OGC."  See http://schemas.opengis.net/gml/ for schemas.</xs:documentation>
+        </xs:annotation>
+    </xs:import>
+
+<!-- EventType is designed as a generic base class for the CoT-NIEM Event object, but can be used as-is, or extended
+     for another community (such as emergency management). -->
+    
+<!-- These are the elements defined for EventType in MilOps v1.0.
+     All of these would appear in the milops-future reference schema with minOccurs=0, maxOccurs=unbounded.
+     All of these except EventCategoryAbstract, EventTimeRange and EventLocation would be removed from this subset.
+     Will propose renaming EventTimeRange to EventValidityDateTimeRange.
+         <xs:element ref="mo:EventName" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element ref="mo:EventDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element ref="mo:EventStatusAbstract" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element ref="mo:EventCategoryAbstract" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element ref="mo:EventSymbolAbstract" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element ref="mo:EventLocation" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element ref="mo:EventTimeRange" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element ref="mo:EventAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/> 
+    With the above changes, EventType in the subset schema will be as follows: -->
+ 
+    <xs:element name="Event" type="mof:EventType">
+        <xs:annotation><xs:documentation>
+            An existance of a process or object at a location during a time interval.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    <xs:complexType name="EventType">
+        <xs:annotation><xs:documentation>
+            A data type for the existance of a process or object at a location during a time interval.
+        </xs:documentation></xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="structures:ObjectType">
+                <xs:sequence>
+                    <xs:element ref="mof:EventID" minOccurs="1" maxOccurs="unbounded"/> 
+                    <xs:element ref="mof:EventCategoryAbstract" minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="mof:EventLocation"/>
+                    <xs:element ref="mof:EventValidityDateTimeRange"/>
+                    <xs:element ref="mof:EventMessageDateTime"/>
+                    <xs:element ref="mof:EventMotion" minOccurs="0"/>
+                    <xs:element ref="mof:EventRelativeOrientation" minOccurs="0"/>
+                    <xs:element ref="mof:EventContact" minOccurs="0"/>
+                    <xs:element ref="mof:EventComment" minOccurs="0"/>
+                    <xs:element ref="mof:EventAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+<!-- We use nc:IdentificationType for Event identifiers. We need both the identifier value and the authority who has
+     assigned that value to the thing identified. Other NIEM domains use nc:JurisdictionAbstract to represent 
+     organizations that assign identifiers, so we're not the only one to reuse the type in this way -->
+        
+    <xs:element name="EventID" type="nc:IdentificationType">
+        <xs:annotation><xs:documentation>
+            An identifier of an event.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="AuthorityURI" type="niem-xs:anyURI" substitutionGroup="nc:JurisdictionAbstract">
+        <xs:annotation><xs:documentation>
+           A URI for an organization or other authority that assigns identifiers to things identified.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+<!-- Each kind of Event IEPD can substitute its own event type taxonomy here. The generic Event object allows
+     any number of type code values, each using the code-codespace pattern to designate value and vocabulary. -->
+
+    <xs:element name="EventCategoryAbstract" abstract="true">
+        <xs:annotation><xs:documentation>
+            A data concept for the type or kind of an event.
+        </xs:documentation></xs:annotation>   
+    </xs:element>
+    
+    <xs:element name="EventCategoryCode" type="mof:CodespaceCodePairType" substitutionGroup="mof:EventCategoryAbstract">
+        <xs:annotation><xs:documentation>
+            A type or kind of an event.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:complexType name="CodespaceCodePairType">
+        <xs:annotation><xs:documentation>
+            A data type for a value from a specified controlled vocabulary.
+        </xs:documentation></xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="niem-xs:token">
+                <xs:attribute ref="mof:codespaceID" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:attribute name="codespaceID" type="xs:token">
+        <xs:annotation><xs:documentation>
+            A name or URI for a controlled vocabulary.
+        </xs:documentation></xs:annotation>
+    </xs:attribute>
+
+<!-- We use nc:LocationType in all its power and glory for event location.  IEPD developers will probably subset
+     that a lot.  Expect LocationPoint and maybe LocationArea to be preserved.  We provide ellipse, linestring, and
+     polygon substitutions for nc:AreaRegion within LocationArea.  We provide mof:LocationProbabilityCylinder
+     for use within LocationPoint. Everything is constrained to use WGS84 via Schematron assertions. -->
+    
+    <xs:element name="EventLocation" type="nc:LocationType">
+        <xs:annotation><xs:documentation>
+            A location of a process or object.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="LocationEllipse" type="mof:EllipseType" substitutionGroup="nc:AreaRegion">
+        <xs:annotation><xs:documentation>
+            A  area region described by an ellipse specified by a point, major axis, minor axis and rotation,
+            using WGS84, meters, and decimal degrees.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    <xs:complexType name="EllipseType" appinfo:externalAdapterTypeIndicator="true">
+        <xs:annotation>
+            <xs:documentation> 
+                A data type for an ellipse specified by a point, major axis, minor axis and rotation,
+                using WGS84 coordinates, meters, and decimal degrees.
+            </xs:documentation>
+            <xs:appinfo>
+                <sch:assert test="xls:Ellipse/xls:majorAxis/@uom='meter' and xls:Ellipse/xls:minorAxis/@uom='meter'">
+                    Elements of mof:EllipseType MUST use meters for length values.
+                </sch:assert>
+                <sch:assert test="xls:Ellipse/xls:rotation/@uom='degree'">
+                    Elements of mof:EllipseType MUST use degrees for angle values.
+                </sch:assert>
+                <sch:assert test="xls:Ellipse/gml:pos[ancestor-or-self::*[exists(@srsName)][1]/@srsName = 'http://metadata.ces.mil/mdr/ns/GSIP/crs/WGS84E_3D']"> 
+                    Elements of mof:EllipseType MUST use the WGS84 coordinate reference system. 
+                </sch:assert>
+            </xs:appinfo>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="structures:ObjectType">
+                <xs:sequence>
+                    <xs:element ref="xls:Ellipse">
+                        <xs:annotation>
+                            <xs:documentation>An ellipse specified by a point, major axis, minor axis and rotation.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="LocationLineString" type="mof:LineStringType" substitutionGroup="nc:AreaRegion">
+        <xs:annotation><xs:documentation>
+            A zero-size area region described by a series of connected line segments,
+            using WGS84 coordinates.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    <xs:complexType name="LineStringType" appinfo:externalAdapterTypeIndicator="true">
+        <xs:annotation>
+            <xs:documentation> 
+                A data type for a series of connected line segments, using WGS84 coordinates
+            </xs:documentation>
+            <xs:appinfo>
+                <sch:assert test="count(gml:LineString/gml:pointProperty)+count(gml:LineString/gml:pointRep)+count(gml:LineString/gml:posList)+count(gml:LineString/gml:coordinates)=0">
+                    Elements of mof:LineStringType MUST use gml:pos.
+                </sch:assert>
+                <sch:assert test="gml:LineString/gml:pos[ancestor-or-self::*[exists(@srsName)][1]/@srsName = 'http://metadata.ces.mil/mdr/ns/GSIP/crs/WGS84E_3D']"> 
+                    Elements of mof:LineStringType MUST use the WGS84 coordinate reference system. 
+                </sch:assert>
+            </xs:appinfo>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="structures:ObjectType">
+                <xs:sequence>
+                    <xs:element ref="gml:LineString">
+                        <xs:annotation>
+                            <xs:documentation>A gml:LineString is a special curve that consists of a single segment with linear interpolation. It is defined by two or more coordinate tuples, with linear interpolation between them.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="LocationExternalPolygon" type="mof:ExternalPolygonType" substitutionGroup="nc:AreaRegion">
+        <xs:annotation><xs:documentation>
+            An area region described by a polygon with no interior region, using WGS84 coordinates.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    <xs:complexType name="ExternalPolygonType" appinfo:externalAdapterTypeIndicator="true">
+        <xs:annotation>
+            <xs:documentation> 
+                A data type for a polygon having no interior regions, using WGS84 coordinates.
+            </xs:documentation>
+            <xs:appinfo>
+                <sch:assert test="gml:Polygon/gml:exterior/gml:LinearRing">
+                    Elements of mof:ExternalPolygonType MUST use gml:exterior and gml:LinearRing.
+                </sch:assert>
+                <sch:assert test="not(gml:Polygon/gml:interior)">
+                    Elements of mof:ExternalPolygonType MUST NOT use gml:interior.
+                </sch:assert>
+                <sch:assert test="gml:Polygon/gml:exterior/gml:LinearRing[count(gml:pointProperty)+count(gml:pointRep)+count(gml:posList)+count(gml:coordinates)=0]">
+                    Elements of mof:ExternalPolygonType MUST use gml:pos.
+                </sch:assert>
+                <sch:assert test="gml:Polygon/gml:exterior/gml:LinearRing/gml:pos[ancestor-or-self::*[exists(@srsName)][1]/@srsName = 'http://metadata.ces.mil/mdr/ns/GSIP/crs/WGS84E_3D']"> 
+                    Elements of mof:ExternalPolygonType MUST use the WGS84 coordinate reference system. 
+                </sch:assert>
+            </xs:appinfo>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="structures:ObjectType">
+                <xs:sequence>
+                    <xs:element ref="gml:Polygon">
+                        <xs:annotation>
+                            <xs:documentation>A gml:Polygon is a special surface that is defined by a single surface patch (see D.3.6). The boundary of this patch is coplanar and the polygon uses planar interpolation in its interior.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="LocationCylinder" type="mof:LocationCylinderType" substitutionGroup="nc:LocationGeospatialCoordinate">
+        <xs:annotation><xs:documentation>
+            A location identified by a cylinder oriented vertically and centered on a point described with WGS84
+            coordinates. If it is appropriate for the radius and half-height properties to represent an error value
+            (for example, because the event is a laser-designated target), then the true event location follows a
+            normal distribution such that the cylinder defines the one-sigma (p≈0.67) deviation.  (A cylinder with
+            twice the volume would be the two-sigma (p≈0.95) deviation, etc.)  Otherwise the cylinder encloses the
+            full physical extent of the event.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    <xs:complexType name="LocationCylinderType">
+        <xs:annotation><xs:documentation>
+            A data type for a cylinder described with WGS84 coordinates and meters.
+        </xs:documentation></xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="structures:ObjectType">
+                <xs:sequence>
+                    <xs:element ref="mof:LocationPoint"/>
+                    <xs:element ref="mof:LocationCylinderRadiusValue"/>
+                    <xs:element ref="mof:LocationCylinderHalfHeightValue"/>
+                    <xs:element ref="mof:LocationCreationCodeAbstract" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="LocationPoint" type="mof:LocationPointType">
+        <xs:annotation><xs:documentation>
+            A 3D geometric point, defined by a single coordinate tuple with values from
+            the WGS84 coordinate reference system.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    <xs:complexType name="LocationPointType" appinfo:externalAdapterTypeIndicator="true">
+        <xs:annotation>
+            <xs:documentation>
+                A data type for a 3D geometric point, defined by a single coordinate tuple with values from
+                the WGS84 coordinate reference system.
+            </xs:documentation>
+            <xs:appinfo>
+                <sch:assert test="gml:Point/gml:pos">
+                    Elements of mof:LocationPointType MUST use gml:pos.
+                </sch:assert>
+                <sch:assert test="gml:Point/*[ancestor-or-self::*[exists(@srsName)][1]/@srsName = 'http://metadata.ces.mil/mdr/ns/GSIP/crs/WGS84E_3D']">
+                    Elements of mof:LocationPointType MUST use the WGS84 coordinate reference system.
+                </sch:assert>
+            </xs:appinfo>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="structures:ObjectType">
+                <xs:sequence>
+                    <xs:element ref="gml:Point" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>A gml:Point is defined by a single coordinate tuple. The direct position of a point is specified by the gml:pos element which is of type gml:DirectPositionType.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="LocationCylinderRadiusValue" type="niem-xs:decimal">
+        <xs:annotation><xs:documentation>
+            A radius of a cylinder, measured in meters.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="LocationCylinderHalfHeightValue" type="niem-xs:decimal">
+        <xs:annotation><xs:documentation>
+            One-half of the height of a cylinder, measured in meters.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="LocationCreationCodeAbstract" abstract="true">
+        <xs:annotation><xs:documentation>
+            A data concept for indicating the method used to generate a location.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="LocationCreationCode" type="mof:LocationCreationCodeType" substitutionGroup="mof:LocationCreationCodeAbstract">
+        <xs:annotation><xs:documentation>
+            A code indicating the method used to generate a location.
+        </xs:documentation></xs:annotation>    
+    </xs:element>
+    <xs:complexType name="LocationCreationCodeType">
+        <xs:annotation><xs:documentation>
+            A data type for a code indicating the method used to generate a location.
+        </xs:documentation></xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="mof:LocationCreationCodeSimpleType">
+                <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="LocationCreationCodeSimpleType">
+        <xs:annotation><xs:documentation>
+            A data type for a code indicating the method used to generate a location.
+        </xs:documentation></xs:annotation>
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="HUMAN">
+                <xs:annotation>
+                    <xs:documentation>Human entered or modified</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="HUMAN.ESTIMATED">
+                <xs:annotation>
+                    <xs:documentation>Estimated by user</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="HUMAN.CALCULATED">
+                <xs:annotation>
+                    <xs:documentation>Calculated by user</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="HUMAN.TRANSCRIBED">
+                <xs:annotation>
+                    <xs:documentation>Transcribed by user (from voice, paper, etc.)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="HUMAN.CUTANDPASTE">
+                <xs:annotation>
+                    <xs:documentation>Cut and paste from another window by user</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MACHINE">
+                <xs:annotation>
+                    <xs:documentation>Generated by machine</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MACHINE.MENSURATED">
+                <xs:annotation>
+                    <xs:documentation>Mensurated (from imagery)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MACHINE.GPS">
+                <xs:annotation>
+                    <xs:documentation>Derived from GPS receiver</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MACHINE.MAGNETIC">
+                <xs:annotation>
+                    <xs:documentation>Derived from magnetic sources</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MACHINE.SIMULATED">
+                <xs:annotation>
+                    <xs:documentation>Produced by a simulation</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MACHINE.FUSED">
+                <xs:annotation>
+                    <xs:documentation>Corroborated from multiple sources</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MACHINE.CONFIGURED">
+                <xs:annotation>
+                    <xs:documentation>Obtained from a configuration file</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MACHINE.PREDICTED">
+                <xs:annotation>
+                    <xs:documentation>Prediction of future (e.g., a from a tracker)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MACHINE.RELAYED">
+                <xs:annotation>
+                    <xs:documentation>Imported from another system (gateway)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    
+<!-- Types for motion and relative orientation (relative to motion).  Each value element comes with 
+     an optional attribute for a one-standard-deviation error estimate.  Probably useful for other
+     MilOps things. -->
+    
+    <xs:element name="EventMotion" type="mof:MotionType">
+        <xs:annotation><xs:documentation>
+            A 2D or 3D vector describing the motion of a process or object. 
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    <xs:complexType name="MotionType">
+        <xs:annotation><xs:documentation>
+            A data type for a 2D or 3D vector describing the motion of a process or object. 
+        </xs:documentation></xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="structures:ObjectType">
+                <xs:sequence>
+                    <xs:element ref="mof:CourseValue"/>
+                    <xs:element ref="mof:SlopeValue" minOccurs="0"/>
+                    <xs:element ref="mof:SpeedValue"/>
+                    <xs:element ref="mof:MotionAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="CourseValue" type="mof:Degree360Type">
+        <xs:annotation><xs:documentation>
+            A direction of horizontal motion with respect to true north, measured in degrees.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="SlopeValue" type="mof:Degree90PlusMinusType">
+        <xs:annotation><xs:documentation>
+            A direction of vertial motion, measured in degrees; -90 indicates motion toward the
+            center of the Earth. 
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="SpeedValue" type="mof:SpeedValueType">
+        <xs:annotation><xs:documentation>
+            A magnitude of motion, measured in meters per second. 
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="MotionAugmentationPoint" abstract="true">
+        <xs:annotation><xs:documentation>An augmentation point for MotionType</xs:documentation></xs:annotation>
+    </xs:element>
+      
+    <xs:element name="EventRelativeOrientation" type="mof:RelativeOrientationType">
+        <xs:annotation><xs:documentation>
+            The angles of rotation about the principle axes (normal, lateral, 
+            longitudinal) of a process or object, relative to the Earth and direction
+            of motion, measured in degrees.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    <xs:complexType name="RelativeOrientationType">
+        <xs:annotation><xs:documentation>
+            A data type for the angles of rotation about the principle axes (normal, 
+            lateral, longitudinal) of some thing, relative to the Earth and direction
+            of motion, measured in degrees.
+        </xs:documentation></xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="structures:ObjectType">
+                <xs:sequence>
+                    <xs:element ref="mof:PitchValue"/>
+                    <xs:element ref="mof:RollValue"/>
+                    <xs:element ref="mof:YawValue" minOccurs="0"/>
+                    <xs:element ref="mof:PitchChangeValue" minOccurs="0"/>
+                    <xs:element ref="mof:RollChangeValue" minOccurs="0"/>
+                    <xs:element ref="mof:YawChangeValue" minOccurs="0"/>
+                    <xs:element ref="mof:RelativeOrientationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="PitchValue" type="mof:Degree180PlusMinusType">
+        <xs:annotation><xs:documentation>
+            An angle of rotation of a thing about its lateral axis, measured in degrees
+            between the longitudinal axis and the horizontal plane; negative values indicate 
+            a downward rotation.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="RollValue"  type="mof:Degree180PlusMinusType">
+        <xs:annotation><xs:documentation>
+            An angle of rotation of a thing about its longitudinal axis, measured in degrees
+            between the lateral axis and the horizontal plane; negative values indicate the 
+            left side is rotated downward.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="YawValue"   type="mof:Degree180PlusMinusType">
+        <xs:annotation><xs:documentation>
+            An angle of rotation of a thing about its normal axis, relative to its direction
+            of motion, measured in degrees; negative values indicate rotation to the left.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="PitchChangeValue" type="mof:Degree180PlusMinusType">
+        <xs:annotation><xs:documentation>
+            A rate of change of angle of rotation of a thing about its lateral axis, 
+            measured in degrees per second.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="RollChangeValue"  type="mof:Degree180PlusMinusType">
+        <xs:annotation><xs:documentation>
+            A rate of change of angle of rotation of a thing about its longitudinal axis, 
+            measured in degrees per second.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="YawChangeValue"   type="mof:Degree180PlusMinusType">
+        <xs:annotation><xs:documentation>
+            A rate of change of angle of rotation of a thing about its normal axis, 
+            measured in degrees per second.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="RelativeOrientationAugmentationPoint" abstract="true">
+        <xs:annotation><xs:documentation>An augmentation point for RelativeOrientationType.</xs:documentation></xs:annotation>
+    </xs:element>
+    
+<!-- end of RelativeOrientationType components -->
+    
+    <xs:element name="EventValidityDateTimeRange" type="nc:DateRangeType">
+        <xs:annotation><xs:documentation>
+            A time interval during which the process or object has the specified location.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="EventMessageDateTime" type="nc:DateType">
+        <xs:annotation><xs:documentation>
+            A point in time at which this message was created.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="EventContact" type="nc:ContactInformationType"> 
+        <xs:annotation><xs:documentation>
+            A means of contacting the object or process described in this Event.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="ContactDSNTelephoneNumber" type="nc:FullTelephoneNumberType" substitutionGroup="nc:ContactMeans">
+        <xs:annotation><xs:documentation>
+            A Defense Switched Network (DSN) telephone number for a telecommunications device
+            by which a person or organization may be contacted.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="ContactHostnameText" type="niem-xs:string" substitutionGroup="nc:ContactMeans">
+        <xs:annotation><xs:documentation>
+            A DNS hostname of a system by which a person or organization may be contacted. 
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="EventComment" type="nc:CommentType">
+        <xs:annotation><xs:documentation>
+            A comment about the process or object.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="CommentDestinationText" type="niem-xs:string" substitutionGroup="nc:CommentAugmentationPoint">
+        <xs:annotation><xs:documentation>
+            An intended recipient of the comment.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    
+    <xs:element name="CommentKeywordsText" type="niem-xs:string" substitutionGroup="nc:CommentAugmentationPoint">
+        <xs:annotation><xs:documentation>
+            A comma-separated list of keywords about the comment.
+        </xs:documentation></xs:annotation>
+    </xs:element>  
+
+    <xs:element name="EventAugmentationPoint" abstract="true">
+        <xs:annotation><xs:documentation>An augmentation point for EventType</xs:documentation></xs:annotation>
+    </xs:element>
+
+<!-- MilOps domain needs a Stanag-1241 standard identity type.  We list all the codes.
+     The CoT-NIEM IEPD can subset away the ones it doesn't need. -->
+
+    <xs:complexType name="StandardIdentityCodeType">
+        <xs:annotation><xs:documentation>
+            A data type for a code describing the NATO standard identity of a track;
+            codes defined by STANAG 1241.
+        </xs:documentation></xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="mof:StandardIdentityCodeSimpleType">
+                <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="StandardIdentityCodeSimpleType">
+        <xs:annotation><xs:documentation>
+            A data type for a code describing the NATO standard identity of a track;
+            codes defined by STANAG 1241.
+        </xs:documentation></xs:annotation>
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="UNKNOWN">
+                <xs:annotation><xs:documentation>
+                    An evaluated track that has not been identified.
+                </xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ASSUMED FRIEND">
+                <xs:annotation><xs:documentation>
+                    A track which is assumed to be a friend because of its characteristics,
+                    behavior, or origin.
+                </xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FRIEND">
+                <xs:annotation><xs:documentation>
+                    A track belonging to a declared, presumed or recognized friendly nation, 
+                    faction or group.
+                </xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEUTRAL">
+                <xs:annotation><xs:documentation>
+                    A track whose characteristics, behaviour, origin or nationality indicate 
+                    that it is neither supporting nor opposing friendly forces.
+                </xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SUSPECT">
+                <xs:annotation><xs:documentation>
+                    A track which is potentially hostile because of its characteristics, 
+                    behaviour, origin or nationality.
+                </xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="HOSTILE">
+                <xs:annotation><xs:documentation>
+                    A track whose characteristics, behaviour or origin indicate that it is 
+                    a threat to friendly forces. Designation as hostile does not necessarily 
+                    imply clearance to engage.
+                </xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FAKER">
+                <xs:annotation><xs:documentation>
+                    A friendly track acting as a HOSTILE for exercise purposes.
+                </xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="JOKER">
+                <xs:annotation><xs:documentation>
+                    A friendly track acting as a SUSPECT for exercise purposes.
+                </xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="KILO">
+                <xs:annotation><xs:documentation>
+                    A friendly track of special interest.
+                </xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="TRAVELLER">
+                <xs:annotation><xs:documentation>
+                    A SUSPECT surface track following a recognised traffic route.
+                </xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ZOMBIE">
+                <xs:annotation><xs:documentation>
+                    A SUSPECT air track conforming to ATC rules or following a 
+                    recognised traffic pattern.
+                </xs:documentation></xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="OPEXCodeType">
+        <xs:annotation><xs:documentation>
+            A data type for the operational status of an event.
+        </xs:documentation></xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="mof:OPEXCodeSimpleType">
+                <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="OPEXCodeSimpleType">
+        <xs:annotation><xs:documentation>
+            A data type for the operational status of an event.
+        </xs:documentation></xs:annotation>
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="OPERATIONS">  <xs:annotation><xs:documentation>OPERATIONS</xs:documentation></xs:annotation></xs:enumeration>
+            <xs:enumeration value="EXERCISE">    <xs:annotation><xs:documentation>EXERCISE</xs:documentation></xs:annotation></xs:enumeration>
+            <xs:enumeration value="SIMULATION">  <xs:annotation><xs:documentation>SIMULATION</xs:documentation></xs:annotation></xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+<!-- I wanted to reuse cbrn:OrientationType. Alas, they define Azimuth as (-180,180] degrees, so west = -90
+     Our community expects a range of [0,360), with west = 270.  Rats.  -->
+        
+    <xs:element name="Orientation" type="mof:OrientationType">
+        <xs:annotation><xs:documentation>
+            The angles of rotation about the principle axes (normal, lateral, longitudinal) of a thing, 
+            relative to true north and the horizontal plane, measured in degrees.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+    <xs:complexType name="OrientationType">
+        <xs:annotation><xs:documentation>
+            A data type for the angles of rotation about the principle axes (normal, lateral, longitudinal) 
+            of a thing, relative to true north and the horizontal plane, measured in degrees.
+        </xs:documentation></xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="structures:ObjectType">
+                <xs:sequence>
+                    <xs:element ref="mof:AzimuthValue" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="mof:InclinationValue" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="mof:RollValue" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="AzimuthValue" type="mof:Degree360Type">
+        <xs:annotation><xs:documentation>
+            An angle of rotation of a thing about its normal axis, measured in degrees between
+            the longitudinal axis and true north.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+
+    <xs:element name="InclinationValue" type="mof:Degree90PlusMinusType">
+        <xs:annotation><xs:documentation>
+            An angle of rotation of a thing about its lateral axis, measured in degrees between
+            the longitudinal axis and the horizontal plane; negative values indicate a downward rotation.
+        </xs:documentation></xs:annotation>
+    </xs:element>
+   
+<!-- Angle, speed, distance measure types -->
+<!-- All have schema-defined UOM and optional error estimate attribute -->
+    
+    <xs:complexType name="Degree360Type">
+        <xs:annotation><xs:documentation>
+            A data type for an angle measured in degrees between 0 and 360.
+        </xs:documentation></xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="nc:Degree360Type">
+                <xs:attribute ref="mof:sigmaErrorValue" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    <xs:complexType name="Degree180PlusMinusType">
+        <xs:annotation><xs:documentation>
+            A data type for an angle measured in degrees between -180 and 180.
+        </xs:documentation></xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="mof:Degree180PlusMinusSimpleType">
+                <xs:attribute ref="mof:sigmaErrorValue" use="optional"/>
+                <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="Degree180PlusMinusSimpleType">
+        <xs:annotation><xs:documentation>
+            A data type for an angle measured in degrees between -180 and 180.
+        </xs:documentation></xs:annotation>
+        <xs:restriction base="xs:decimal">
+            <xs:minExclusive value="-180"/>
+            <xs:maxInclusive value="180"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType name="Degree90PlusMinusType">
+        <xs:annotation><xs:documentation>
+            A data type for an angle measured in degrees between 0 and 90.
+        </xs:documentation></xs:annotation>        
+        <xs:simpleContent>
+            <xs:extension base="mof:Degree90PlusMinusSimpleType">
+                <xs:attribute ref="mof:sigmaErrorValue" use="optional"/>
+                <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="Degree90PlusMinusSimpleType">
+        <xs:annotation><xs:documentation>
+            A data type for an angle measured in degrees between 0 and 90.
+        </xs:documentation></xs:annotation> 
+        <xs:restriction base="xs:decimal">
+            <xs:minExclusive value="-90"/>
+            <xs:maxInclusive value="90"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType name="SpeedValueType">
+        <xs:annotation><xs:documentation>
+            A data type for a speed measured in meters per second.
+        </xs:documentation></xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="nc:NonNegativeDecimalSimpleType">
+                <xs:attribute ref="mof:sigmaErrorValue" use="optional"/>
+                <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>               
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    <xs:complexType name="DistanceValueType">
+        <xs:annotation><xs:documentation>
+            A data type for a distance measured in meters.
+        </xs:documentation></xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="nc:NonNegativeDecimalSimpleType">
+                <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    <xs:attribute name="sigmaErrorValue" type="xs:decimal">
+        <xs:annotation><xs:documentation>
+            The magnitude of a one-sigma deviation of a normal (Gaussian) distribution followed
+            by the true value of the quantity.
+        </xs:documentation></xs:annotation>
+    </xs:attribute>
+    
+</xs:schema>
