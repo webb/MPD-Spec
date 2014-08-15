@@ -16,7 +16,7 @@
    xmlns:nc="http://release.niem.gov/niem/3.0/">
  
    <title>National Information Exchange Model <char name="mdash"/> Model Package Description Specification</title>
-   <version>3.0rc4</version>
+   <version>3.0</version>
    <date>2014-08-15</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
 
@@ -1609,17 +1609,15 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 	<p>Note that schema assembly or <termRef>XML catalog document</termRef> design from non-conformant <termRef term="external schema document">external schema documents</termRef> that may contain <qName>xs:include</qName> statements can be problematic.</p>
 
-	<p>In order to support <termRef>XML schema assembly</termRef> for the purpose of <termRef>XML schema validation</termRef>, the namespaces of all XML schema documents used within an <termRef term="information exchange package documentation">IEPD</termRef> should <termRef term="resolve URI">resolve</termRef> to a locally-unique artifact.  A correctly constructed <termRef>XML catalog document</termRef> can guarantee such.</p>
+	<p>In order to support <termRef>XML schema assembly</termRef> for the purpose of <termRef>XML schema validation</termRef>, the namespaces of all XML schema documents used within an <termRef term="information exchange package documentation">IEPD</termRef> should <termRef term="resolve URI">resolve</termRef> to a locally-unique artifact.  A correctly constructed <termRef>XML catalog document</termRef> can guarantee this.</p>
 
-	<p><qName>er:nextCatalog</qName> elements may be used within <termRef term="XML catalog document">XML catalog documents</termRef> to connect them and control the parsing sequence.  <ref idref="Defining-Information-Exchange-Packages"/> discusses more about using <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs.</p>
+	<p>According to <ref idref="XML-Catalogs"/>, <qName>er:nextCatalog</qName> elements may be used within <termRef term="XML catalog document">XML catalog documents</termRef> to connect them and control the parsing sequence.  <ref idref="Defining-Information-Exchange-Packages"/> discusses more about using <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs.</p>
 
-	<p>The practical reality of <termRef>XML schema assembly</termRef> is that the process is based on several methods for identifying the correct <termRef term="XML schema document">XML schema documents</termRef>, and these methods may be applied in no particular order.  For most cases, this specification recommends the use of XML catalog documents as the preferred method for organizing <termRef term="XML schema document">XML schema documents</termRef> so that a tool can assemble them into a schema (for validation or other purposes).</p>
+	<p>According to <ref idref="W3C-XMLSchema-Structures"/>, the assembly of a schema document set into a schema is implementation-dependent.  In practice, different tools use different methods for selecting the next schema document in the assembly process.  For most cases, this specification recommends the use of <termRef term="XML catalog document">XML catalog documents</termRef> as the preferred method for describing the desired schema assembly (for validation or other purposes).</p>
 
-	<p>The MPD catalog schema document specifies a <qName>c:XMLSchemaType</qName> that contains both a <qName>c:XMLCatalog</qName> and a <qName>c:XMLSchemaDocument</qName> element.  <qName>c:XMLCatalog</qName> identifies the starting XML catalog document when employing XML catalogs.  For simpler cases that use all NIEM-conforming schema documents (i.e., schema documents that are well-behaved and do not use <qName>xs:include</qName> statements), the <qName>c:XMLSchemaDocument</qName> identifies a root schema document for a given <termRef>XML schema document</termRef> set.</p>
+	<p>The MPD catalog schema document defines a <qName>c:XMLSchemaType</qName> that contains both <qName>c:XMLSchemaDocument</qName> elements and  <qName>c:XMLCatalog</qName> elements, which may appear interleaved, or in any order.  Occurrences of the <qName>c:XMLSchemaDocument</qName> identify schema documents to be used in schema assembly.  <qName>c:XMLCatalog</qName> identifies the <termRef term="XML catalog document">XML catalog documents</termRef> to be used to identify schema documents, each corresponding to an XML namespace, which may be used in schema assembly.  Relative order of <qName>c:XMLCatalog</qName> entries is considered significant, with catalogs appearing earlier taking precedence over catalogs appearing later.  Note that the schema document assembly process does not specify a document element for an <termRef>instance XML document</termRef>; this may be specified with other mechanisms provided by the MPD catalog, such as Schematron, XPath expressions, or by explicitly setting a document element.</p>
 
-	<p>Use of both the <qName>c:XMLCatalog</qName> and <qName>c:XMLSchemaDocument</qName> elements within the same <qName>c:IEPConformanceTarget</qName> may resolve the namespaces in an unexpected order.  There is no good way to use both catalog resolution and schema resolution concurrently, so it has to be undefined.</p>
-
-	<p>This document does not specify schema assembly.  Assembly of a schema using <qName>c:XMLSchemaDocument</qName> or <qName>c:XMLCatalog</qName> (or other potential methods) may be the subject of a later NIEM specification.</p>
+	<p>This document does not specify the schema assembly process.  A deterministic, implementation-independent schema assembly process may be the subject of a later NIEM specification.</p>
 
 </section>
 
