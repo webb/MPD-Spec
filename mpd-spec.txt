@@ -1906,20 +1906,13 @@ Appendix A. MPD Catalog XML Schema Document
    
        <xs:annotation>
    
-         <xs:documentation>
-             Model Package Description (MPD) Catalog. 
-             This schema defines an mpd-catalog.xml artifact 
-             for NIEM Model Package Descriptions (MPD):
-                NIEM releases, Core updates, domain updates, 
-                NIEM Information Exchange Package Documentation (IEPD), 
-                and NIEM Enterprise Information Exchange Models (EIEM). 
-             The purpose of this schema is to facilitate consistent declaration 
-             of MPD content, metadata, and lineage to process, display, review, 
-             register, search, and discover MPDs efficiently. For IEPDs, the
-             mpd-catalog provides instructions for validating IEPs to schemas. 
-             
-             This XML Schema document is supported by a subset of niem-core v3.0.
-             c:AuthoritativeSource should use NIEM 3.0 schema components.
+         <xs:documentation>Model Package Description (MPD) Catalog schema document. 
+             defines an mpd-catalog.xml artifact for Model Package Descriptions (MPD).
+             The purpose of this schema is to facilitate consistent declaration of MPD
+   	  content, conformance targets, metadata, and lineage to process, display, 
+   	  review, register, search, and discover MPDs efficiently. For IEPDs, this
+             mpd-catalog schema provides instructions for validating IEPs to schemas. 
+   	  This XML Schema document is supported by a subset of niem-core 3.0.
          </xs:documentation>
    
          <xs:appinfo>
@@ -1959,7 +1952,7 @@ Appendix A. MPD Catalog XML Schema Document
            <xs:extension base="structures:ObjectType">
              <xs:sequence>
                <xs:element ref="c:MPD"/>
-                 </xs:sequence>
+             </xs:sequence>
            </xs:extension>
          </xs:complexContent>
        </xs:complexType>
@@ -1997,6 +1990,7 @@ Appendix A. MPD Catalog XML Schema Document
                  </xs:documentation>
          </xs:annotation>
        </xs:element>
+   
    
    <!-- File artifact classifiers for a table of contents =========================== -->
    
@@ -2043,9 +2037,7 @@ Appendix A. MPD Catalog XML Schema Document
    
        <xs:element name="ReadMe" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
          <xs:annotation>
-                 <xs:documentation>
-                    An MPD read-me artifact.
-            </xs:documentation>
+            <xs:documentation>An MPD read-me artifact.</xs:documentation>
          </xs:annotation>
        </xs:element>
    
@@ -2225,7 +2217,7 @@ Appendix A. MPD Catalog XML Schema Document
                  </xs:documentation>
          </xs:annotation>
          <xs:complexContent>
-                 <xs:extension base="c:FileSetType"/>  <!-- Sets up for application of Schematron rules -->
+                 <xs:extension base="c:FileSetType"/>
          </xs:complexContent>
        </xs:complexType>
    
@@ -2275,6 +2267,7 @@ Appendix A. MPD Catalog XML Schema Document
            <xs:pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
          </xs:restriction>
        </xs:simpleType>
+   
    
    <!-- =========================================================================== -->
    
@@ -2439,6 +2432,7 @@ Appendix A. MPD Catalog XML Schema Document
            </xs:restriction>
        </xs:simpleType>
    
+   
    <!-- IEP Conformance Targets ==================================================== -->
    
        <xs:element name="IEPConformanceTarget" type="c:IEPConformanceTargetType">
@@ -2460,8 +2454,6 @@ Appendix A. MPD Catalog XML Schema Document
              <xs:sequence>
                <xs:element ref="nc:DescriptionText" minOccurs="0"/>
                <xs:element ref="c:ValidityConstraintWithContext" minOccurs="0" maxOccurs="unbounded"/>
-   <!--            <xs:element ref="c:IEPSampleXMLDocument" maxOccurs="unbounded"/> 
-                      MUST have minimum one for each c:IEPConformanceTarget -->
                <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
              </xs:sequence>
            </xs:extension>
@@ -2550,7 +2542,8 @@ Appendix A. MPD Catalog XML Schema Document
    
        <xs:complexType name="XMLSchemaType">
          <xs:annotation>
-                 <xs:documentation>A data type for a validity constraint that  indicating an XML Schema against which an artifact may be validated, or which can be used for other purposes.  c:XMLSchemaDocument identifies the root or starting XML schema document.</xs:documentation>
+   	      <xs:documentation>A data type for a validity constraint that  indicating an XML Schema against which an artifact may be validated, or which can be used for other purposes.  c:XMLSchemaDocument identifies the root or starting XML schema document.
+                 </xs:documentation>
          </xs:annotation>
          <xs:complexContent>
            <xs:extension base="structures:ObjectType">
@@ -2565,7 +2558,8 @@ Appendix A. MPD Catalog XML Schema Document
    
        <xs:element name="SchematronValid" type="c:SchematronValidationType" substitutionGroup="c:ValidityConstraint">
          <xs:annotation>
-                 <xs:documentation>A validity constraint that indicates that an artifact must be valid against the rules carried by a Schematron file, starting with the identified validation roots.</xs:documentation>
+   	      <xs:documentation>A validity constraint that indicates that an artifact must be valid against the rules carried by a Schematron file, starting with the identified validation roots.
+                 </xs:documentation>
          </xs:annotation>
        </xs:element>
    
@@ -2648,7 +2642,7 @@ Appendix A. MPD Catalog XML Schema Document
    
        <xs:element name="ConformsToConformanceTarget" type="c:ConformanceTargetType" substitutionGroup="c:ValidityConstraint">
          <xs:annotation>
-                 <xs:documentation>
+   	      <xs:documentation>
                          A validity constraint that indicates that an artifact must conform to the given conformance target.
                  </xs:documentation>
          </xs:annotation>
@@ -2841,7 +2835,7 @@ Appendix B. Example MPD Catalog Document for Cursor on Target
        xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
        xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
        <c:MPD 
-           c:mpdURI="http://example.com/cot-iepd/0.9rc1/" 
+           c:mpdURI="http://example.com/cot-iepd/0.9rc2/" 
            c:mpdClassURIList=
              "http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD
              http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD"
@@ -2852,9 +2846,7 @@ Appendix B. Example MPD Catalog Document for Cursor on Target
                    <nc:EntityOrganization>
                        <nc:OrganizationName>CoT Program Office</nc:OrganizationName>
                        <nc:OrganizationPrimaryContactInformation>
-   			    <nc:ContactWebsiteURI>
-   				    https://partners.mitre.org/sites/CoTUserGroup/
-   			    </nc:ContactWebsiteURI>
+                           <nc:ContactWebsiteURI>https://partners.mitre.org/sites/CoTUserGroup/</nc:ContactWebsiteURI>
                        </nc:OrganizationPrimaryContactInformation>
                    </nc:EntityOrganization>
                </c:AuthoritativeSource>
@@ -2880,10 +2872,11 @@ Appendix B. Example MPD Catalog Document for Cursor on Target
            </c:IEPConformanceTarget>
            <c:ReadMe c:pathURI="00-README.txt"/>
            <c:MPDChangeLog c:pathURI="01-changelog.txt"></c:MPDChangeLog>
+           <c:ConformanceAssertion c:pathURI="02-conformance.txt"/>
            <c:Wantlist c:pathURI="base-xsd/niem/wantlist.xml"/>
            <c:ExtensionSchemaDocument c:pathURI="base-xsd/extension/cot-niem.xsd"/>
            <c:ExtensionSchemaDocument c:pathURI="base-xsd/extension/cot-niem-codes.xsd"/>
-           <c:ReferenceSchemaDocument c:pathURI="base-xsd/extension/milops-future.xsd"/>
+           <c:ReferenceSchemaDocument c:pathURI="base-xsd/extension/milops-future-ref.xsd"/>
        </c:MPD>
    </c:Catalog>
    
