@@ -548,9 +548,9 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 	<p>Conformance targets that correspond to artifacts internal to an <termRef term="model package description">MPD</termRef> include:</p>
 	<ul>
-		<li><p><termRef>schema document subset</termRef> (rule applicability code:  <strong>Schema-subset</strong>)</p></li>
-		<li><p><termRef>MPD catalog document</termRef> (rule applicability code:  <strong>MPD-Cat</strong>)</p></li>
-		<li><p><termRef>XML catalog document</termRef> (rule applicability code:  <strong>XML-Cat</strong>)</p></li>
+		<li><p><termRef>schema document subset</termRef> (rule applicability code:  Schema-subset)</p></li>
+		<li><p><termRef>MPD catalog document</termRef> (rule applicability code:  MPD-catalog)</p></li>
+		<li><p><termRef>XML catalog document</termRef> (rule applicability code:  XML-catalog)</p></li>
 	</ul>
 
 </section>
@@ -587,10 +587,10 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 		    <td>Schema-subset</td>
 	        </tr><tr>
 		    <td><termRef>MPD catalog document</termRef></td>
-		    <td>MPD-Cat</td>
+		    <td>MPD-catalog</td>
 		</tr><tr>
 		    <td><termRef>XML catalog document</termRef></td>
-		    <td>XML-Cat</td>
+		    <td>XML-catalog</td>
 	        </tr>
 	</table>
 
@@ -800,7 +800,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 	<definition term="MPD catalog document">
 		<p>An <termRef>instance XML document</termRef> that:</p>
 			<ul>
-				<li><p>conforms to all the rules in this specification for the conformance target <termRef>MPD catalog document</termRef> (i.e., applicability code <q>MPD-Cat</q>), and</p></li>
+				<li><p>conforms to all the rules in this specification for the conformance target <termRef>MPD catalog document</termRef> (i.e., applicability code <q>MPD-catalog</q>), and</p></li>
 				<li><p>contains metadata describing:</p>
 				<ul>
 				<li><p>MPD unique identification</p></li>
@@ -810,7 +810,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 					<li><p>Relationships to other MPDs and their artifacts</p></li>
 				</ul></li>
 			</ul>
-	  <p>This term may be abbreviated <q>MPD-Cat</q>. Rules specifying this conformance target use the applicability code <q>MPD-Cat</q>.</p>
+	  <p>This term may be abbreviated <q>MPD-catalog</q>. Rules specifying this conformance target use the applicability code <q>MPD-catalog</q>.</p>
 	</definition>
 
 	<p>Each <termRef>MPD class</termRef> may have somewhat different catalog requirements.  The catalog metadata are formally defined by the XML Schema document in <ref idref="MPD-Catalog-XSD"/>.  MPD catalog metadata are designed to be the minimal needed to facilitate human understanding, tool support, and machine processing.  The metadata can support a number of <termRef term="model package description">MPD</termRef> uses and functions including (but not limited to):</p>
@@ -833,7 +833,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 </ruleSection>
 
 <ruleSection><title>MPD Catalog Document Valid to <code>mpd-catalog-3.0.xsd</code></title>
-	<rule id="r1-mpd-cat" applicability="MPD-Cat" class="Constraint">
+	<rule id="r1-mpd-cat" applicability="MPD-catalog" class="Constraint">
 		<p>An <termRef>MPD catalog document</termRef> MUST be valid to <code>mpd-catalog-3.0.xsd</code> <ref idref="MPD-Catalog-XSD"/>.</p>
 	</rule>
 </ruleSection>
@@ -870,21 +870,21 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 <ruleSection>
 	<title>MPD Catalog Extension XML Catalog Document in Root Directory</title>
-	<rule id="r1-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
+	<rule id="r1-mpd-cat-ext-xml-cat" applicability="MPD-catalog" class="Constraint">
 		<p>An MPD catalog extension XML catalog document MUST reside in the same relative directory as the <code>mpd-catalog.xml</code> artifact (normally in the <termRef>MPD root directory</termRef>)</p>
 	</rule>
 </ruleSection>
 
 <ruleSection>
 	<title>MPD Catalog Extension XML Catalog Document Name Is <code>mpd-catalog-extension-xml-catalog.xml</code></title>
-	<rule id="r2-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
+	<rule id="r2-mpd-cat-ext-xml-cat" applicability="MPD-catalog" class="Constraint">
 		<p>An MPD catalog extension XML catalog document MUST bear the file name (and type) <code>mpd-catalog-extension-xml-catalog.xml</code>.</p>
 	</rule>
 </ruleSection>
 
 <ruleSection>
 	<title>MPD Catalog Extension XML Catalog Document Resolves Namespaces to URIs</title>
-	<rule id="r3-mpd-cat-ext-xml-cat" applicability="MPD-Cat" class="Constraint">
+	<rule id="r3-mpd-cat-ext-xml-cat" applicability="MPD-catalog" class="Constraint">
 		<p>An MPD catalog extension XML catalog document MUST <termRef term="resolve URI">resolve</termRef> all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.</p>
 	</rule>
 </ruleSection>
@@ -893,14 +893,14 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 <ruleSection>
 	<title>MPD Catalog Extension Schema Document Conforms to NDR Extension Rules</title>
-	<rule id="r1-mpd-cat-ext-xsd" applicability="MPD-Cat" class="Constraint">
+	<rule id="r1-mpd-cat-ext-xsd" applicability="MPD-catalog" class="Constraint">
 		<p>An MPD catalog extension schema document MUST conform to the <ref idref="NIEM-NDR"/> extension schema conformance target rules.</p>
 	</rule>
 </ruleSection>
 
 <ruleSection>
 	<title>MPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules</title>
-	<rule id="r2-mpd-cat-ext-xsd" applicability="MPD-Cat" class="Constraint">
+	<rule id="r2-mpd-cat-ext-xsd" applicability="MPD-catalog" class="Constraint">
 		<p>Within an MPD, the schema set formed by <code>mpd-catalog-3.0.xsd</code> and all MPD catalog extension schema documents MUST conform to the <ref idref="NIEM-NDR"/> schema set conformance target rules.</p>
 	</rule>
 </ruleSection>
@@ -911,7 +911,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 <ruleSection>
 	<title>MPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets</title>
-	<rule id="r3-mpd-cat-ext-xsd" applicability="MPD-Cat" class="Constraint">
+	<rule id="r3-mpd-cat-ext-xsd" applicability="MPD-catalog" class="Constraint">
 		<p>Subset schema documents provided to support an MPD schema document extension MUST be a superset of the subset schema documents provided with this specification to support the MPD catalog schema document.</p>
 	</rule>
 </ruleSection>
@@ -1362,13 +1362,13 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 	<p>An <termRef>XML catalog document</termRef> conforms to <ref idref="OASIS-XML-Catalogs"/>.  For the purpose of MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.</p>
 
 	<ruleSection><title>XML Catalog <code>uri</code> Value Resolves to Resource</title>
-		<rule id="xc1" applicability="XML-Cat" class="Constraint">
+		<rule id="xc1" applicability="XML-catalog" class="Constraint">
 			<p>Within an <termRef>XML catalog document</termRef>, the value of a <code>uri</code> attribute owned by a <qName>er:uri</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a resource.</p>
 			</rule>
 	</ruleSection>
 
 	<ruleSection><title>XML Catalog <code>uri</code> Value Resolves to Resource with Correct Target Namespace</title>
-		<rule id="xc2" applicability="XML-Cat" class="Constraint">
+		<rule id="xc2" applicability="XML-catalog" class="Constraint">
 			<p>Within an <termRef>XML catalog document</termRef>, given an <termRef>XML schema document</termRef> resolved by the value of a <code>uri</code> attribute owned by a <qName>er:uri</qName> element, the <termRef>XML schema document</termRef> target namespace MUST equal the value of the <code>name</code> (a namespace string) attribute owned by the <qName>er:uri</qName> element.</p> 
 		</rule>
 	</ruleSection>
@@ -1593,12 +1593,12 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 <section id="XML-Catalogs"><title>XML Catalogs</title>
 
 	<definition term="XML catalog document">
-		<p>As defined by <ref idref="OASIS-XML-Catalogs"/>:</p>
+		<p>As defined by <ref idref="OASIS-XML-Catalogs"/>, which states:</p>
 		<blockquote><p>An entity catalog.</p></blockquote>
 
-		<p>An <termRef>XML catalog document</termRef>conforms to all the rules in this specification for the conformance target <termRef>XML catalog document</termRef> (i.e., applicability code <q>XML-Cat</q>).</p>
+		<p>An <termRef>XML catalog document</termRef> MUST conform to all the rules in this specification for the conformance target <termRef>XML catalog document</termRef>.</p>
 
-		<p>This term may be abbreviated <q>XML-Cat</q>.  Rules specifying this conformance target use the applicability code <q>XML-Cat</q>.</p>
+		<p>Rules specifying this conformance target use the applicability code <q>XML-catalog</q>.</p>
 	</definition>
 
 	<p>An <termRef>XML catalog document</termRef> is an <termRef>instance XML document</termRef> that describes a mapping between external entity references and locally-cached equivalents.  It associates a URI reference with information about an external reference that appears in an XML document.  An <termRef>XML catalog document</termRef> can be used to locate the replacement text for an external entity, or an alternate URI reference for a resource.</p>
@@ -1640,7 +1640,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 	<ruleSection>
 		<title>Conformance Target Identifier</title>
-		<rule id="r-iep-ct-uri" applicability="MPD-Cat" class="Interpretation">
+		<rule id="r-iep-ct-uri" applicability="MPD-catalog" class="Interpretation">
 			<p>A <termRef>conformance target identifier</termRef> for an <termRef>IEP conformance target</termRef> declared in an MPD is formed by concatenating in sequence:</p>
 		<ol>
 			<li><p>the IEPD URI, and</p></li>
@@ -1655,7 +1655,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 <ruleSection>
 	<title>IEP Conformance Target Has a <qName>structures:id</qName></title>
-	<rule id="iep-conformance-target-id" applicability="MPD-Cat" class="Constraint">
+	<rule id="iep-conformance-target-id" applicability="MPD-catalog" class="Constraint">
 		<p>A <qName>c:IEPConformanceTarget</qName> element MUST own a <qName>structures:id</qName> attribute.</p>
 	</rule>
 	<p>This rule ensures that a <termRef>conformance target</termRef> can be referenced between MPDs (not just within an MPD).  The value of the <qName>structures:id</qName> attribute is the NCName in <ref idref="r-iep-ct-uri"/>.</p> 
@@ -1717,7 +1717,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 	<p><termRef term="validity constraint context">Validity constraint context</termRef> is explicitly declared by an XPath expression that is the value of <qName>c:xPathText</qName>.  <qName>c:ValidityContext</qName> can contain any of the specific validity constraints that are substitutable for <qName>c:ValidityConstraint</qName>.</p>
 
 	<ruleSection><title></title>
-		<rule applicability="MPD-Cat" class="Interpretation">
+		<rule applicability="MPD-catalog" class="Interpretation">
 			<p>Given a <qName>c:xPathText</qName> attribute owned by <qName>c:ValidityContext</qName>, the <termRef>validity constraint context</termRef> for the descendant<char name="rsquo"/>s validity constraint SHALL be the value of <qName>c:xPathText</qName> evaluated against the IEP<char name="rsquo"/>s document information item (See <ref idref="W3-XML-InfoSet"/>, <a href="http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.document"> <char name="sect"/>2.1, <q>The Document Information Item</q></a>).</p>
 		</rule>
 	</ruleSection>
@@ -2076,7 +2076,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 
 <ruleSection>
 	<title>Constraint on Elements of Type <qName>c:SchemaDocumentSetType</qName></title>
-	<rule id="r-constraint-schemadocumentset" applicability="MPD-Cat" class="Constraint">
+	<rule id="r-constraint-schemadocumentset" applicability="MPD-catalog" class="Constraint">
 		<p>An element information item with a type definition validly derived from <qName>c:SchemaDocumentSetType</qName> MUST have a child element with an element declaration that is in the substitution group of <qName>c:XMLCatalog</qName> or <qName>c:XMLSchemaDocument</qName>.</p>
 	</rule>
 	<p>This rule ensures that a <qName>c:SchemaDocumentSet</qName> element always has at least one child element that is an <termRef>XML catalog document</termRef> (which itself defines an <termRef>XML schema document</termRef>) set, or an <termRef>XML schema document</termRef> (which constitutes a set of at least one schema document).  This rule cannot be enforced within the MPD catalog schema without introducing a UPA error, but it could be enforced by a Schematron rule.</p> 
