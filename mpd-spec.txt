@@ -470,9 +470,9 @@ Rule 3-3. IEPD Conformance Target Identifier
 
       *  [schema document subset] (rule applicability code: Schema-subset)
 
-      *  [MPD catalog document] (rule applicability code: MPD-Cat)
+      *  [MPD catalog document] (rule applicability code: MPD-catalog)
 
-      *  [XML catalog document] (rule applicability code: XML-Cat)
+      *  [XML catalog document] (rule applicability code: XML-catalog)
 
 3.3. Rule Applicability Codes for Conformance Targets
 
@@ -492,9 +492,9 @@ Rule 3-3. IEPD Conformance Target Identifier
 
       [schema document subset]|Schema-subset
 
-      [MPD catalog document]|MPD-Cat
+      [MPD catalog document]|MPD-catalog
 
-      [XML catalog document]|XML-Cat
+      [XML catalog document]|XML-catalog
 
 4. MPD XML Schema Document Artifacts
 
@@ -686,7 +686,7 @@ Rule 4-1. Fundamental NIEM Subset Rule
 
       An [instance XML document] that:
 
-         *  conforms to all the rules in this specification for the conformance target [MPD catalog document] (i.e., applicability code "MPD-Cat"), and
+         *  conforms to all the rules in this specification for the conformance target [MPD catalog document] (i.e., applicability code "MPD-catalog"), and
 
          *  contains metadata describing:
 
@@ -700,7 +700,7 @@ Rule 4-1. Fundamental NIEM Subset Rule
 
                *  Relationships to other MPDs and their artifacts
 
-      This term may be abbreviated "MPD-Cat". Rules specifying this conformance target use the applicability code "MPD-Cat".
+      This term may be abbreviated "MPD-catalog". Rules specifying this conformance target use the applicability code "MPD-catalog".
 
    Each [MPD class] may have somewhat different catalog requirements. The catalog metadata are formally defined by the XML Schema document in Appendix A, MPD Catalog XML Schema Document, below. MPD catalog metadata are designed to be the minimal needed to facilitate human understanding, tool support, and machine processing. The metadata can support a number of [MPD] uses and functions including (but not limited to):
 
@@ -730,7 +730,7 @@ Rule 5-1. MPD Has an mpd-catalog.xml in its Root Directory
 
 Rule 5-2. MPD Catalog Document Valid to mpd-catalog-3.0.xsd
 
-   [Rule 5-2] (MPD-Cat)
+   [Rule 5-2] (MPD-catalog)
 
       An [MPD catalog document] MUST be valid to mpd-catalog-3.0.xsd Appendix A, MPD Catalog XML Schema Document.
 
@@ -760,19 +760,19 @@ Rule 5-2. MPD Catalog Document Valid to mpd-catalog-3.0.xsd
 
 Rule 5-3. MPD Catalog Extension XML Catalog Document in Root Directory
 
-   [Rule 5-3] (MPD-Cat)
+   [Rule 5-3] (MPD-catalog)
 
       An MPD catalog extension XML catalog document MUST reside in the same relative directory as the mpd-catalog.xml artifact (normally in the [MPD root directory])
 
 Rule 5-4. MPD Catalog Extension XML Catalog Document Name Is mpd-catalog-extension-xml-catalog.xml
 
-   [Rule 5-4] (MPD-Cat)
+   [Rule 5-4] (MPD-catalog)
 
       An MPD catalog extension XML catalog document MUST bear the file name (and type) mpd-catalog-extension-xml-catalog.xml.
 
 Rule 5-5. MPD Catalog Extension XML Catalog Document Resolves Namespaces to URIs
 
-   [Rule 5-5] (MPD-Cat)
+   [Rule 5-5] (MPD-catalog)
 
       An MPD catalog extension XML catalog document MUST [resolve] all MPD catalog schema extension document namespaces to the correct corresponding local URIs in the MPD.
 
@@ -780,13 +780,13 @@ Rule 5-5. MPD Catalog Extension XML Catalog Document Resolves Namespaces to URIs
 
 Rule 5-6. MPD Catalog Extension Schema Document Conforms to NDR Extension Rules
 
-   [Rule 5-6] (MPD-Cat)
+   [Rule 5-6] (MPD-catalog)
 
       An MPD catalog extension schema document MUST conform to the [NIEM NDR 3.0] extension schema conformance target rules.
 
 Rule 5-7. MPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules
 
-   [Rule 5-7] (MPD-Cat)
+   [Rule 5-7] (MPD-catalog)
 
       Within an MPD, the schema set formed by mpd-catalog-3.0.xsd and all MPD catalog extension schema documents MUST conform to the [NIEM NDR 3.0] schema set conformance target rules.
 
@@ -796,7 +796,7 @@ Rule 5-7. MPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules
 
 Rule 5-8. MPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets
 
-   [Rule 5-8] (MPD-Cat)
+   [Rule 5-8] (MPD-catalog)
 
       Subset schema documents provided to support an MPD schema document extension MUST be a superset of the subset schema documents provided with this specification to support the MPD catalog schema document.
 
@@ -1204,13 +1204,13 @@ Rule 5-32. Resolve MPD URI with Fragment
 
 Rule 5-33. XML Catalog uri Value Resolves to Resource
 
-   [Rule 5-33] (XML-Cat)
+   [Rule 5-33] (XML-catalog)
 
       Within an [XML catalog document], the value of a uri attribute owned by a er:uri element MUST [resolve] to a resource.
 
 Rule 5-34. XML Catalog uri Value Resolves to Resource with Correct Target Namespace
 
-   [Rule 5-34] (XML-Cat)
+   [Rule 5-34] (XML-catalog)
 
       Within an [XML catalog document], given an [XML schema document] resolved by the value of a uri attribute owned by a er:uri element, the [XML schema document] target namespace MUST equal the value of the name (a namespace string) attribute owned by the er:uri element.
 
@@ -1386,13 +1386,13 @@ Rule 5-37. IEPD Has a ReadMe Artifact
 
    [Definition: XML catalog document]
 
-      As defined by [XML Catalogs 1.1]:
+      As defined by [XML Catalogs 1.1], which states:
 
          An entity catalog.
 
-      An [XML catalog document]conforms to all the rules in this specification for the conformance target [XML catalog document] (i.e., applicability code "XML-Cat").
+      An [XML catalog document] MUST conform to all the rules in this specification for the conformance target [XML catalog document].
 
-      This term may be abbreviated "XML-Cat". Rules specifying this conformance target use the applicability code "XML-Cat".
+      Rules specifying this conformance target use the applicability code "XML-catalog".
 
    An [XML catalog document] is an [instance XML document] that describes a mapping between external entity references and locally-cached equivalents. It associates a URI reference with information about an external reference that appears in an XML document. An [XML catalog document] can be used to locate the replacement text for an external entity, or an alternate URI reference for a resource.
 
@@ -1426,7 +1426,7 @@ Rule 5-37. IEPD Has a ReadMe Artifact
 
 Rule 5-38. Conformance Target Identifier
 
-   [Rule 5-38] (MPD-Cat)
+   [Rule 5-38] (MPD-catalog)
 
       A [conformance target identifier] for an [IEP conformance target] declared in an MPD is formed by concatenating in sequence:
 
@@ -1442,7 +1442,7 @@ Rule 5-38. Conformance Target Identifier
 
 Rule 5-39. IEP Conformance Target Has a structures:id
 
-   [Rule 5-39] (MPD-Cat)
+   [Rule 5-39] (MPD-catalog)
 
       A c:IEPConformanceTarget element MUST own a structures:id attribute.
 
@@ -1490,7 +1490,7 @@ Rule 5-40. [IEPD] Declares One or More IEP Conformance Targets
 
 Rule 5-41. 
 
-   [Rule 5-41] (MPD-Cat)
+   [Rule 5-41] (MPD-catalog)
 
       Given a c:xPathText attribute owned by c:ValidityContext, the [validity constraint context] for the descendant's validity constraint SHALL be the value of c:xPathText evaluated against the IEP's document information item (See [W3-XML-InfoSet],  section 2.1, "The Document Information Item").
 
@@ -1790,7 +1790,7 @@ Rule 7-3. MPD Archive Uncompresses to a Single Root Directory
 
 Rule 7-4. Constraint on Elements of Type c:SchemaDocumentSetType
 
-   [Rule 7-4] (MPD-Cat)
+   [Rule 7-4] (MPD-catalog)
 
       An element information item with a type definition validly derived from c:SchemaDocumentSetType MUST have a child element with an element declaration that is in the substitution group of c:XMLCatalog or c:XMLSchemaDocument.
 
