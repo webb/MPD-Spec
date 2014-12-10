@@ -16,8 +16,8 @@
    xmlns:nc="http://release.niem.gov/niem/3.0/">
  
    <title>National Information Exchange Model <char name="mdash"/> Model Package Description Specification</title>
-   <version>3.0.1</version>
-   <date>2014-12-15</date>
+   <version>3.0 (Second Edition)</version>
+   <date>2014-12-12</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
 
 
@@ -48,7 +48,8 @@
 		<li><p>2014-12-15 <char name="mdash"/> Changed term "core update" to "core supplement".</p></li>
 		<li><p>2014-12-15 <char name="mdash"/> Removed references to outdated NIEM User Guide Volume I.</p></li>
 		<li><p>2014-12-15 <char name="mdash"/> Added "supplements" as another enumerated value for <qName>c:RelationshipCode</qName>.</p></li>
-		<li><p>[yet TBD]  <char name="mdash"/> Add passage that supports IEPD-based versioning.  Reference IEPD version management whitepaper or FAQ.</p></li>
+		<li><p>[yet TBD]  <char name="mdash"/> Reorganized MPD toolkit resources so that MPD catalogs can be validated online.</p></li>
+		<li><p>[yet TBD]  <char name="mdash"/> Revise/clarify the MPD ZIP file format requirement.  Allow an MPD to live as a file collection in a repository such as a GIT repository.  ZIP would only be necessary for an MPD in transit.</p></li>
 		<li><p>[yet TBD]  <char name="mdash"/> Reorganized MPD toolkit resources so that MPD catalogs can be validated online.</p></li>
 	</ol>
   </subsection>
@@ -106,7 +107,7 @@
 
 	<p>This specification applies to all NIEM <termRef term="model package description">model package descriptions</termRef> (MPD).  Currently, MPDs include the following:</p> 
 	<ul>
-		<li><p>A NIEM <termRef>information exchange package documentation</termRef> (IEPD) that defines a NIEM data exchange.</p></li>
+		<li><p>NIEM <termRef>information exchange package documentation</termRef> (IEPD) that defines a NIEM data exchange.</p></li>
 		<li><p>A NIEM release (including a major, minor, or micro release) <ref idref="NIEM-HLVA"/>.</p></li>
 		<li><p>A NIEM domain update <ref idref="NIEM-DomainUpdate"/>.  (Note these are NOT the same as a NIEM domain schema document that is a part of a NIEM release).</p></li>
 		<li><p>A NIEM core supplement to a NIEM release.</p></li>
@@ -115,8 +116,20 @@
 
 	<p>This document is the baseline specification for all MPDs, and in particular, it focuses on the normative rules for IEPDs.  In the future, detailed rules that apply to other MPDs (listed above) will be published in other NIEM specifications.  Also in the future, other types of MPDs may be added to this list.</p>
 
-	<p>An <termRef term="information exchange package documentation">IEPD</termRef> defines one or more data exchanges, each occurring in the form
-of an <termRef>information exchange package</termRef> (IEP).  This specification supports a variety of data exchange use cases, in which the IEP may be:</p>
+	<p>NIEM is a data layer for an information architecture.  Files in an <termRef term="model package description">MPD</termRef> generally define XML Schema types and declare XML elements and attributes to use in payloads for information exchanges.  While an <termRef term="model package description">MPD</termRef> may also contain files from layers beyond the data layer, this specification is not intended to define details of other architectural layers.  Such files are generally present only to provide additional context, understanding, or assistance for implementing the exchange of payloads.</p>
+
+	<p>This specification defines several incremental stages of conformance to support iterative <termRef term="model package description">MPD</termRef> development, with conformance testing possible at each step instead of delayed to the end.  Tool vendors should be able to build, adapt, and integrate software tools to assist in <termRef term="model package description">MPD</termRef> development and assembly, from raw parts to finished product.</p>
+
+	<p>Authoritative sources are not required to revise MPDs that exist before this specification becomes effective.  However, they are always encouraged to consider revising MPDs to meet this specification, especially when making other significant changes.</p>
+
+	
+<section id="scope-iepd"><title>Information Exchange Package Documentation</title>
+
+	<p>This specification defines rules and practices for constructing and packaging conformant MPDs, and in particular, IEPDs.  It does not provide guidance for managing or processing IEPDs or their associated IEPs and versions.  Yet, to the NIEM program, the IEPD is considered the point of interoperability because it implements primary NIEM objectives.</p>
+
+	<p>Creating and managing IEPDs is a function performed by NIEM stakeholders and the developers they sponsor.  Therefore, aside from defining and potentially certifying (not yet formalized) IEPD conformance, the NIEM PMO cannot effectively or directly control IEPD development and the practices that emerge.  This is outside the scope of PMO control.  However, PMO (through NTAC) does intend to develop and publish guidance for managing IEPDs, versioning IEPDs, processing associated IEPs, etc.</p>
+
+	<p>An <termRef term="information exchange package documentation">IEPD</termRef> defines one or more data exchanges, each occurring in the form of an <termRef>information exchange package</termRef> (IEP).  This specification supports a variety of data exchange use cases, in which the IEP may be:</p>
 	<ul>
 		<li><p>An XML document with a NIEM-defined XML document element.</p></li>
 		<li><p>An XML document with a NIEM-defined payload element wrapped inside a non-NIEM envelope element (for example, SOAP, LEXS, Trusted Data Format, or an OGC Web Service format).</p></li>
@@ -125,12 +138,7 @@ of an <termRef>information exchange package</termRef> (IEP).  This specification
 		<li><p>A non-NIEM format in which NIEM elements may not occur at all (for example, hospital details are provided as a NIEM element, but the message contains no hospital data).</p></li>
 	</ul>
 
-	<p>This specification defines several incremental stages of conformance to support iterative <termRef term="model package description">MPD</termRef> development, with conformance testing possible at each step instead of delayed to the end.  Tool vendors should be able to build, adapt, and integrate software tools to assist in <termRef term="model package description">MPD</termRef> development and assembly, from raw parts to finished product.</p>
-
-	<p>NIEM is a data layer for an information architecture.  Files in an <termRef term="model package description">MPD</termRef> generally define XML Schema types and declare XML elements and attributes to use in payloads for information exchanges.  While an <termRef term="model package description">MPD</termRef> may also contain files from layers beyond the data layer, this specification is not intended to define details of other architectural layers.  Such files are generally present only to provide additional context, understanding, or assistance for implementing the exchange of payloads.</p>
-
-	<p>Authoritative sources are not required to revise MPDs that exist before this specification becomes effective.  However, they are always encouraged to consider revising MPDs to meet this specification, especially when making other significant changes.</p>
-
+</section>
 </section>
 
 
