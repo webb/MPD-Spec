@@ -48,7 +48,7 @@
 		<li><p>2014-12-15 <char name="mdash"/> Changed term "core update" to "core supplement".</p></li>
 		<li><p>2014-12-15 <char name="mdash"/> Removed references to outdated NIEM User Guide Volume I.</p></li>
 		<li><p>2014-12-15 <char name="mdash"/> Added <code>supplements</code> as another enumerated value for <qName>c:RelationshipCode</qName>.</p></li>
-		<li><p>2014-12-15 <char name="mdash"/> Revise/clarify MPD ZIP file format requirement.  Allow an MPD to live as a file collection in a repository, such as a GIT repository. An MPD would use ZIP File format for transit, upload, download, bulk storage (archiving), or when it's convenient to maintain a small electronic footprint.</p></li>
+		<li><p>2014-12-15 <char name="mdash"/> Revise/clarify MPD ZIP file format requirement.  Allow an MPD to live as a file collection in a repository, such as a GIT repository. An MPD would use ZIP file format for transit, upload, download, bulk storage (archiving), or when it's convenient to maintain a small electronic footprint.</p></li>
 		<li><p>2014-12-15 <char name="mdash"/> Modify mdp-catalog-3.0.xsd to incorporate <code>supplements</code> as a value for <qName>c:RelationshipCode</qName>.</p></li>
 
 		<li><p>[yet TBD]  <char name="mdash"/> Reorganized MPD toolkit resources so that MPD catalogs can be validated online.</p></li>
@@ -457,7 +457,7 @@
 		</rule>
 	</ruleSection>
 
-	<p>A <termRef>model package description</termRef> satisfies the need for a set of <termRef term="artifact">artifacts</termRef> (or a <termRef>ZIP File</termRef>) with an <termRef>MPD catalog document</termRef> that validates to the MPD catalog schema, and contains no broken links to local artifacts it references.  This definition enables a developer to build an <termRef term="model package description">MPD</termRef> by iteratively adding artifacts and expanding the MPD catalog to reference them.</p>
+	<p>A <termRef>model package description</termRef> satisfies the need for a set of <termRef term="artifact">artifacts</termRef> (or a <termRef>ZIP file</termRef>) with an <termRef>MPD catalog document</termRef> that validates to the MPD catalog schema, and contains no broken links to local artifacts it references.  This definition enables a developer to build an <termRef term="model package description">MPD</termRef> by iteratively adding artifacts and expanding the MPD catalog to reference them.</p>
 
 	<p>Most rules in this <termRef term="model package description">MPD</termRef> Specification are applicable to a <termRef>model package description</termRef> <termRef>conformance target</termRef>.  Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts.  Adherence to these rules can produce an <termRef term="information exchange package documentation">IEPD</termRef> that is well-formed (WF-MPD), but that does not necessarily satisfy all general and specific requirements for an <termRef term="information exchange package documentation">IEPD</termRef>.  The following rule ensures that a complete <termRef term="information exchange package documentation">IEPD</termRef> adheres to all applicable NIEM conformance rules.</p>
 
@@ -2015,13 +2015,13 @@
 	<ruleSection>
 		<title>MPD Archive Uncompresses to a Single Root Directory</title>
 		<rule id="r-mpd-archive-one-root" applicability="WF-MPD" class="Constraint">
-			<p>An MPD in <termRef>ZIP File</termRef> format MUST uncompress (unzip) to one and only one <termRef>MPD root directory</termRef>.</p>
+			<p>An MPD in <termRef>ZIP file</termRef> format MUST uncompress (unzip) to one and only one <termRef>MPD root directory</termRef>.</p>
 		</rule>
 	</ruleSection>
 
 	<p>The foregoing rule ensures that:</p>
 	<ul>
-		<li><p>Unpacking an MPD in <termRef>ZIP File</termRef> format will not scatter its contents on a storage device.</p></li>
+		<li><p>Unpacking an MPD in <termRef>ZIP file</termRef> format will not scatter its contents on a storage device.</p></li>
 		<li><p>One common starting directory always exists to explore or use any MPD.</p></li>
 		<li><p>mpd-catalog and change log artifacts will always be found in the <termRef>MPD root directory</termRef>.</p></li> 
 	</ul>
@@ -2104,12 +2104,12 @@
 
 	<p>It is important to understand that this section does not apply to the syntax for the <qName>c:mpdName</qName> attribute in the <termRef>MPD catalog document</termRef>.  Refer to <ref idref="Name-Syntax"/> for details regarding the <qName>c:mpdName</qName> metadata attribute.</p>
 
-	<p>The MPD Specification is intended to help facilitate tool support for processing MPDs.  Providing tools and search mechanisms to find basic information about an MPD as early as possible will be valuable timewise.  So, if an MPD name, version, and class can be identified from its file name, then a tool would not have to open the <termRef>ZIP File</termRef> and parse the MPD catalog to determine such.  Of course, to do anything useful, a tool will eventually have to open the MPD archive.  However, a standard file name syntax allows a tool to search through a set of MPDs in <termRef>ZIP File</termRef> format to find a particular MPD name, version, or class without having to open each.  File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.</p> 
+	<p>The MPD Specification is intended to help facilitate tool support for processing MPDs.  Providing tools and search mechanisms to find basic information about an MPD as early as possible will be valuable timewise.  So, if an MPD name, version, and class can be identified from its file name, then a tool would not have to open the <termRef>ZIP file</termRef> and parse the MPD catalog to determine such.  Of course, to do anything useful, a tool will eventually have to open the MPD archive.  However, a standard file name syntax allows a tool to search through a set of MPDs in <termRef>ZIP file</termRef> format to find a particular MPD name, version, or class without having to open each.  File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.</p> 
 
 <ruleSection>
-	<title>IEPD ZIP File Name Syntax</title>
+	<title>IEPD ZIP file Name Syntax</title>
 	<rule id="r-iepd-name-syntax" applicability="IEPD" class="Constraint">
-		<p>The file name of an <termRef term="information exchange package documentation">IEPD</termRef> <termRef>ZIP File</termRef> (<code>iepd-filename</code>) SHOULD adhere to the syntax defined by the regular expression:</p>
+		<p>The file name of an <termRef term="information exchange package documentation">IEPD</termRef> <termRef>ZIP file</termRef> (<code>iepd-filename</code>) SHOULD adhere to the syntax defined by the regular expression:</p>
 	<pre>
 	iepd-filename ::= name '-' version '.iepd.zip'
 	Where: 
