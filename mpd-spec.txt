@@ -1,8 +1,8 @@
 National Information Exchange Model -- Model Package Description Specification
 
-Version 3.0.1beta1
+Version 3.0.1beta2
 
-January 31, 2015
+March 13, 2015
 
 NIEM Technical Architecture Committee (NTAC)
 
@@ -38,7 +38,7 @@ Change Log
 
       6. 2015-01-31 -- Placed mpd-catalog-3.0.xsd and associated NIEM 3.0 subset at URL = http://reference.niem.gov/niem/specification/model-package-description/3.0beta1/ so that GitHub IEPD Library template can copy schema documents and validate IEPD catalog.xml artifacts online.
 
-      7. TBD -- Downgrade core supplement from a type of MPD to a special release. There will exist only four MPD classes: release, domain update, IEPD, and EIEM
+      7. 2015-02-TBD -- Downgrade core supplement from a type of MPD to a special release. There will exist only four MPD classes: release, domain update, IEPD, and EIEM
 
 1. Introduction
 
@@ -66,7 +66,7 @@ Change Log
 
 1.1. Background
 
-   Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose. Examples of such sets include, but are not necessarily limited to, a NIEM release, core supplement, domain update, [information exchange package documentation] (IEPD), and Enterprise Information Exchange Model (EIEM). Each of these is an example of a NIEM [model package description] (MPD).
+   Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose. Examples of such sets include, but are not necessarily limited to, a NIEM release, domain update, [information exchange package documentation] (IEPD), and Enterprise Information Exchange Model (EIEM). Each of these is an example of a NIEM [model package description] (MPD).
 
    An [MPD] is a normative specification for XML [data components] in the format of the World Wide Web Consortium (W3C) XML Schema Definition Language [W3C XML Schema Part 2 Datatypes], [W3C XML Schema Part 1 Structures]. [MPD] schema documents either (1) define the semantics and structure for NIEM reusable [data components], or (2) define implementable NIEM exchange instance XML documents in W3C Extensible Markup Language (XML) [W3C XML 1.0].
 
@@ -84,11 +84,9 @@ Change Log
 
       *  NIEM [information exchange package documentation] (IEPD) that defines a NIEM data exchange.
 
-      *  A NIEM release (including a major, minor, or micro release) [NIEM High-Level Version Architecture 1.0].
+      *  A NIEM release (including a major, minor, micro release, or core supplement) [NIEM High-Level Version Architecture 1.0].
 
       *  A NIEM domain update [NIEM Domain Update Specification 1.0]. (Note these are NOT the same as a NIEM domain schema document that is a part of a NIEM release).
-
-      *  A NIEM core supplement to a NIEM release.
 
       *  A NIEM Enterprise Information Exchange Model (EIEM) on which one or more IEPDs can be based.
 
@@ -336,7 +334,7 @@ Change Log
 
 3.2.1. The Model Package Description Conformance Target
 
-   The concept of [model package description] provides a common framework for classes of NIEM file sets, each with a specific purpose. A NIEM release is a harmonized [reference schema document] set that defines and declares all content for a single (major, minor, or micro) version of NIEM (See [NIEM High-Level Version Architecture 1.0]). A domain update is a [reference schema document] set that represents changes to one or more domains in a NIEM release. A core supplement is a [reference schema document] set of additive changes that append data components to the core of a NIEM release without modifying the original niem-core schema document. An Enterprise Information Exchange Model (EIEM) is a [XML schema document] set that may contain one or more [subset schema documents], [extension schema documents], and [external schema documents] that are employed to construct IEPDs.
+   The concept of [model package description] provides a common framework for classes of NIEM file sets, each with a specific purpose. A NIEM release is a harmonized [reference schema document] set that defines and declares all content for a single (major, minor, or micro) version of NIEM (See [NIEM High-Level Version Architecture 1.0]). A core supplement is a special type of release. It is a [reference schema document] set of additive changes that append data components to the core of a NIEM release without modifying the original niem-core schema document. A domain update is a [reference schema document] set that represents changes to one or more domains in a NIEM release. An Enterprise Information Exchange Model (EIEM) is a [XML schema document] set that may contain one or more [subset schema documents], [extension schema documents], and [external schema documents] that are employed to construct IEPDs.
 
    All MPDs share several commonalities, each:
 
@@ -518,9 +516,9 @@ Rule 3-3. IEPD Conformance Target Identifier
 
 4.1. Reference Schema Documents
 
-   This section generally applies to NIEM releases, core supplements, and domain updates. Though not common, it is also valid to use a [reference schema document] or document set within an [IEPD]. The [reference schema document] and [reference schema document set] were defined earlier in Section 2.8, Reference Schema Documents, above.
+   This section generally applies to NIEM releases and their associated core supplements, and domain updates. Though not common, it is also valid to use a [reference schema document] or document set within an [IEPD]. The [reference schema document] and [reference schema document set] were defined earlier in Section 2.8, Reference Schema Documents, above.
 
-   A NIEM [reference schema document] is intended to be the authoritative definition schema document for a NIEM target namespace, therefore, all NIEM releases, core supplements, and domain updates are composed of a reference schema document set and associated namespaces. As a standalone artifact set, a reference schema document set is always harmonized such that all types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within the set).
+   A NIEM [reference schema document] is intended to be the authoritative definition schema document for a NIEM target namespace, therefore, all NIEM releases, associated core supplements, and domain updates are composed of a reference schema document set and associated namespaces. As a standalone artifact set, a reference schema document set is always harmonized such that all types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within the set).
 
    As authoritative definitions, NIEM reference schema document sets satisfy more rigorous documentation requirements. The [NIEM Naming and Design Rules 3.0] requires that each type definition, and element and attribute declaration in a reference schema document contain an xs:annotation element that defines its semantic meaning. As will be explained later, [extension schema documents] are also authoritative definitions, but in a local sense. They are authoritative within a given [IEPD], and therefore, must also satisfy the same rigorous documentation rules as reference schema documents.
 
@@ -848,7 +846,7 @@ Rule 5-9. MPD Class Determined by Conformance Target Identifier in c:mpdClassURI
 
       An MPD MUST have an [MPD class] of a [conformance target identifier] if and only if that [conformance target identifier] appears in the c:mpdClassURIList attribute within its [MPD catalog document].
 
-   It should be clear that an [MPD] that is an [IEPD] should have a value for its c:mpdClassURIList attribute that contains both [conformance target identifiers] above. In the future, additional conformance target identifiers will be assigned by other appropriate NIEM specifications that specialize MPDs (for example, releases, domain updates, core supplements, etc.).
+   It should be clear that an [MPD] that is an [IEPD] should have a value for its c:mpdClassURIList attribute that contains both [conformance target identifiers] above. In the future, additional conformance target identifiers will be assigned by other appropriate NIEM specifications that specialize MPDs (for example, releases, domain updates, etc.).
 
    The c:mpdClassURIList attribute is an XML list type that may declare that an MPD conforms to multiple conformance targets. An MPD developer can establish a new MPD [conformance target] identifier in addition to those provided by this and other NIEM specifications. The identifier represents the new conformance target which should be associated with one or more rules or constraints to which an MPD must conform if it is assigned that identifier.
 
@@ -1270,13 +1268,13 @@ Rule 5-34. XML Catalog uri Value Resolves to Resource with Correct Target Namesp
 
       An artifact that describes the changes applied to an [MPD] since its previous version.
 
-5.3.1. Change Log for Releases, Core Supplements, and Domain Updates
+5.3.1. Change Log for Releases and Domain Updates
 
    Once published, a NIEM release always exists. This ensures that an [IEPD] built from a given release will always be usable, and may be updated to a new NIEM release only when convenient or absolutely necessary to take advantage of new or modified [data components]. Though not encouraged, nothing prohibits a developer from building an [IEPD] based on a NIEM release that is older than the most current version. There may be potential disadvantages related to interoperability levels achievable with others developing to the latest release. Nonetheless, an older version might meet the business needs of a particular organization quite well.
 
-   In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change. New versions of reference schema document sets such as NIEM releases, core supplements, and domain updates can have significant impacts on future IEPDs. Developers must understand in detail how changes will affect their [IEPD] products and the tools used to build them. To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs. A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users. All of the foregoing reasons dictate that a NIEM reference schema document set requires a normative change log.
+   In spite of this built-in stability, the NIEM architecture is designed to evolve as requirements change. New versions of reference schema document sets such as NIEM releases and domain updates can have significant impacts on future IEPDs. Developers must understand in detail how changes will affect their [IEPD] products and the tools used to build them. To work effectively, tools for domain content development, impact analysis, migration between releases, etc. must be able to digest formal change logs. A formal change log is also essential to efficiently process and integrate new and changed content into NIEM for new releases, and to simultaneously maintain multiple versions of NIEM for users. All of the foregoing reasons dictate that a NIEM reference schema document set requires a normative change log.
 
-   Formal change logs for releases, core supplements and domain updates will be detailed in future NIEM specifications related to these MPDs.
+   Formal change logs for releases and domain updates will be detailed in future NIEM specifications related to these MPDs.
 
 5.3.2. Change Log for IEPDs
 
@@ -1728,7 +1726,7 @@ Rule 7-2. XSD and XML Documents Conform to Applicable NDR Conformance Targets
 
       Within an MPD, each XML schema document (XSD) or instance XML document (XML) artifact that uses a conformance targets attribute (as defined by [NIEM Conformance Targets Attribute Specification 3.0]) MUST satisfy the [NIEM Naming and Design Rules 3.0] rules for the conformance targets it declares.
 
-   NIEM releases, core supplements, and domain updates maintain a relatively consistent directory organization [NIEM Domain Update Specification 1.0]. But there are many ways to organize [IEPD] directories that may depend on a number of factors including (not limited to) business purpose and complexity. For this reason, strict rules for [IEPD] directory structure are difficult to establish. Therefore, [IEPD] authors may create their own logical directory structures subject to the rules of this section.
+   NIEM releases and domain updates maintain a relatively consistent directory organization [NIEM Domain Update Specification 1.0]. But there are many ways to organize [IEPD] directories that may depend on a number of factors including (not limited to) business purpose and complexity. For this reason, strict rules for [IEPD] directory structure are difficult to establish. Therefore, [IEPD] authors may create their own logical directory structures subject to the rules of this section.
 
    [Definition: MPD root directory]
 
@@ -1754,7 +1752,7 @@ Rule 7-3. MPD Archive Uncompresses to a Single Root Directory
 
    This specification defines other ways to group MPD artifacts into [sets]. In general, independent of directory organization, sets can be established through one of two methods. An [XML catalog document] can be used to establish an [XML schema document] set. The [MPD catalog document] can be used to identify all kinds of artifacts sets (including XML schema documents).
 
-   Section 5.5, XML Catalogs, above, describes how NIEM employs an [XML catalog document] to assemble an [XML Schema] from [XML schema documents]. For user convenience, this method is now used in NIEM releases, core supplements, and domain updates. Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).
+   Section 5.5, XML Catalogs, above, describes how NIEM employs an [XML catalog document] to assemble an [XML Schema] from [XML schema documents]. For user convenience, this method is now used in NIEM releases (as well as their associated core supplements) and domain updates. Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).
 
    Another reason for grouping artifacts into sets is a need for humans to review, identify, and navigate the artifacts of an [IEPD] (particularly, if it is complicated). An [XML catalog document] has a relatively focused purpose, to identify (by namespace) and assemble a set of XML schema documents into an [XML Schema]. It is not intended to index artifacts in general (other than XML schema documents to assigned target namespaces). So, it does not classify or describe the artifacts it identifies.
 
@@ -2962,7 +2960,7 @@ Appendix D. Conformance Assertion Example
 
 Appendix E. Guidance for IEPD Directories (non-normative)
 
-   NIEM releases, core supplements, and domain updates generally follow a consistent directory organization. When employing a release, supplements, and updates within IEPDs whether as-is or as subsets, users are encouraged to maintain their original directory structures. However, aside from applicable rules previously stated in the preceding sections, there are no normative rules for organizing directories within IEPDs.
+   NIEM releases (and their associated core supplements) and domain updates generally follow a consistent directory organization. When employing a release, supplements, and updates within IEPDs whether as-is or as subsets, users are encouraged to maintain their original directory structures. However, aside from applicable rules previously stated in the preceding sections, there are no normative rules for organizing directories within IEPDs.
 
    Guidance for directory structuring may be useful to authors, especially in the case of a relatively simple [IEPD] with a single schema document subset, and a few extension and external schema documents. The following are common non-normative practices for [IEPD] directories:
 
@@ -3018,7 +3016,7 @@ Appendix E. Guidance for IEPD Directories (non-normative)
 
       13. Finally, if it becomes necessary to maintain multiple constraint-xsd or extension subdirectories (or any other subdirectories) together in the same directory, then simply suffix each directory name with a distinct character string (for example, extension1, extension2, etc.; or extension-abc, extension-zyx, etc.)
 
-   Obviously, there are many other ways to organize for more complex business requirements in which a single [IEPD] employs multiple releases, subsets, constraint sets, core supplements, and domain updates. Regardless of directory organization and file naming, an [IEPD] author must always configure all IEP conformance targets using the MPD catalog c:IEPConformanceTarget element and the appropriate validation artifacts (such as XML catalogs, Schematron schemas, RelaxNG schemas, etc.).
+   Obviously, there are many other ways to organize for more complex business requirements in which a single [IEPD] employs multiple releases, core supplements, subsets, constraint sets, and domain updates. Regardless of directory organization and file naming, an [IEPD] author must always configure all IEP conformance targets using the MPD catalog c:IEPConformanceTarget element and the appropriate validation artifacts (such as XML catalogs, Schematron schemas, RelaxNG schemas, etc.).
 
    The guidance above results in the [IEPD] directory structure and naming that appears below. Notes are in parentheses. Filenames within the extension, external, schematron, and iep-sample subdirectories are non-normative examples. Authors are free to assign names for such files according to their own requirements (if they do not violate rules in this specification).
 
