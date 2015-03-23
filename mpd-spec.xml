@@ -47,11 +47,9 @@
 	<ol>
 		<li><p>2014-12-15 <char name="mdash"/> Changed term "core update" to "core supplement".</p></li>
 		<li><p>2014-12-15 <char name="mdash"/> Removed references to outdated NIEM User Guide Volume I.</p></li>
-		<li><p>2014-12-15 <char name="mdash"/> Added <code>supplements</code> as another enumerated value for <qName>c:RelationshipCode</qName>.</p></li>
 		<li><p>2014-12-15 <char name="mdash"/> Revised/clarified MPD ZIP file format requirement.  Allows an MPD to live as a file collection in a repository, such as a GIT repository.  An MPD can still use ZIP file format for transit, upload, download, bulk storage (archiving), or when convenient to maintain a small electronic footprint.</p></li>
-		<li><p>2014-12-15 <char name="mdash"/> Modify <code>mdp-catalog-3.0.xsd</code> to incorporate <code>supplements</code> as a value for <qName>c:RelationshipCode</qName>.</p></li>
 		<li><p>2015-01-31 <char name="mdash"/> Placed <code>mpd-catalog-3.0.xsd</code> and associated NIEM 3.0 subset at <link>http://reference.niem.gov/niem/specification/model-package-description/3.0beta2/</link> so that GitHub IEPD Library template (or other online tools) is able to access and copy schema documents and validate IEPD <code>catalog.xml</code> artifacts online.</p></li>
-		<li><p>2015-02-06 <char name="mdash"/> Downgraded a core supplement from a type of MPD to a special release.  MPD specification now only defines only four MPD classes:  release, domain update, IEPD, and EIEM</p></li>
+		<li><p>2015-02-06 <char name="mdash"/> Downgraded a core supplement from a type of MPD to a special release.  MPD specification now defines only four MPD classes:  release, domain update, IEPD, and EIEM</p></li>
 	</ol>
   </subsection>
 
@@ -1312,7 +1310,7 @@
 
 	<p>The next few paragraphs require understanding of URIs for MPDs and MPD artifacts.  See <ref idref="mpdURI"/> and <ref idref="externalURI"/>.</p>
 
-	<p>The MPD catalog provides a <qName>c:Relationship</qName> element with two attributes (<qName>c:resourceURI</qName> and <qName>c:relationshipCode</qName>) and an optional element (<qName>nc:DescriptionText</qName>) to identify ancestry and other relationships to other MPDs.  There are many ways that one <termRef term="model package description">MPD</termRef> may relate to another.  This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <qName>nc:DescriptionText</qName> element is provided to further explain the nature of any of the <qName>c:relationshipCode</qName> values.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>, <code>supplements</code>}.  In some cases, the value of <qName>c:relationshipCode</qName> may be generic enough to require a more detailed explanation in <qName>nc:DescriptionText</qName> (for example, if its value is <code>adapts</code>).</p>
+	<p>The MPD catalog provides a <qName>c:Relationship</qName> element with two attributes (<qName>c:resourceURI</qName> and <qName>c:relationshipCode</qName>) and an optional element (<qName>nc:DescriptionText</qName>) to identify ancestry and other relationships to other MPDs.  There are many ways that one <termRef term="model package description">MPD</termRef> may relate to another.  This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <qName>nc:DescriptionText</qName> element is provided to further explain the nature of any of the <qName>c:relationshipCode</qName> values.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <qName>c:relationshipCode</qName> may be generic enough to require a more detailed explanation in <qName>nc:DescriptionText</qName> (for example, if its value is <code>adapts</code>).</p>
 
 	<p>As was described in <ref idref="externalURI"/>, the MPD catalog also enables an author to record more fine-grained ancestry between MPDs using the <qName>c:externalURI</qName> attribute.  This attribute records an explicit equivalence relationship between artifacts reused across MPDs.</p>
 
@@ -1961,7 +1959,7 @@
 
 	<p>For simplicity and consistency, NIEM employs a profile of the XML Schema language <ref idref="W3-XML-Schema-Structures"/>, <ref idref="W3-XML-Schema-Datatypes"/>.  Thus, some constraints on NIEM XML documents cannot be enforced by NIEM.  <termRef term="constraint schema document set">Constraint schema document sets</termRef> provide a convenient technique for enforcing some additional constraints.  However, even the full XML Schema language cannot validate and enforce all possible constraints that may be required of an XML document.</p>
 
-	<p>So, NIEM allows (even encourages) the use of formal or informal <termRef>business rules</termRef> to supplement MPDs (in particular IEPDs).</p>
+	<p>So, NIEM allows (even encourages) the use of formal or informal <termRef>business rules</termRef> to help define or constrain MPDs (in particular IEPDs).</p>
 
 	<definition term="business rules">
 		<p>Formal or informal statements that describe business policy or procedure, and in doing so define or constrain some aspect of a process or procedure in order to impose control.</p>
@@ -2280,11 +2278,12 @@
 <section id="Guidance-IEPD-Directories" isAppendix="true">
 	<title>Guidance for IEPD Directories (non-normative)</title>
 
-	<p>NIEM releases (and their associated core supplements) and domain updates generally follow a consistent directory organization.  When employing a release, supplements, and updates within IEPDs whether as-is or as subsets, users are encouraged to maintain their original directory structures.  However, aside from applicable rules previously stated in the preceding sections, there are no normative rules for organizing directories within IEPDs.</p> 
+	<p>NIEM releases (and their associated core supplements) and domain updates generally follow a consistent directory organization.  When employing a release, its supplements, and updates within IEPDs whether as-is or as subsets, developers are encouraged to maintain their original directory structures.  However, aside from applicable rules previously stated in the preceding sections, there are no normative rules for organizing directories within IEPDs.</p> 
 
 	<p>Guidance for directory structuring may be useful to authors, especially in the case of a relatively simple <termRef term="information exchange package documentation">IEPD</termRef> with a single schema document subset, and a few extension and external schema documents.  The following are common non-normative practices for <termRef term="information exchange package documentation">IEPD</termRef> directories:</p>
 
 <ol>
+
 	<li><p>Create a root directory for the <termRef term="information exchange package documentation">IEPD</termRef> from the name and version identifier of the <termRef term="information exchange package documentation">IEPD</termRef>.  For example <code>my_iepd-3.2rev4</code>. (<ref idref="r-mpd-archive-one-root"/>)</p></li>
 
 	<li><p>For every MPD, an <code>mpd-catalog.xml</code> artifact (<ref idref="r-wf-mpd"/>) is required to be in the <termRef>MPD root directory</termRef></p></li>
@@ -2523,7 +2522,7 @@
 	<p><em>NIEM High-Level Tool Architecture</em>, Version 1.1, NIEM Technical Architecture Committee, 1 December 2008.  Available from <link>http://reference.niem.gov/niem/specification/high-level-tool-architecture/1.1/</link>.</p>
 </reference>
 
-<reference id="NIEM-HLVA" label="NIEM High-Level Version Architecture 1.0"><p><em>NIEM High Level Version Architecture (HLVA)</em>, Version 1.0, NIEM Technical Architecture Committee, 2008.  Available from <link>http://reference.niem.gov/niem/specification/high-level-version-architecture/1.0/</link>.</p>
+<reference id="NIEM-HLVA" label="NIEM High-Level Version Architecture 3.0"><p><em>NIEM High Level Version Architecture (HLVA)</em>, Version 3.0, NIEM Technical Architecture Committee, 2015.  Available from <link>http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/</link>.</p>
 </reference>
 
 <reference id="NIEM-IEPD" label="Requirements for a NIEM IEPD 2.1">
