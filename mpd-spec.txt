@@ -30,15 +30,11 @@ Change Log
 
       2. 2014-12-15 -- Removed references to outdated NIEM User Guide Volume I.
 
-      3. 2014-12-15 -- Added supplements as another enumerated value for c:RelationshipCode.
+      3. 2014-12-15 -- Revised/clarified MPD ZIP file format requirement. Allows an MPD to live as a file collection in a repository, such as a GIT repository. An MPD can still use ZIP file format for transit, upload, download, bulk storage (archiving), or when convenient to maintain a small electronic footprint.
 
-      4. 2014-12-15 -- Revised/clarified MPD ZIP file format requirement. Allows an MPD to live as a file collection in a repository, such as a GIT repository. An MPD can still use ZIP file format for transit, upload, download, bulk storage (archiving), or when convenient to maintain a small electronic footprint.
+      4. 2015-01-31 -- Placed mpd-catalog-3.0.xsd and associated NIEM 3.0 subset at http://reference.niem.gov/niem/specification/model-package-description/3.0beta2/ so that GitHub IEPD Library template (or other online tools) is able to access and copy schema documents and validate IEPD catalog.xml artifacts online.
 
-      5. 2014-12-15 -- Modify mdp-catalog-3.0.xsd to incorporate supplements as a value for c:RelationshipCode.
-
-      6. 2015-01-31 -- Placed mpd-catalog-3.0.xsd and associated NIEM 3.0 subset at http://reference.niem.gov/niem/specification/model-package-description/3.0beta2/ so that GitHub IEPD Library template (or other online tools) is able to access and copy schema documents and validate IEPD catalog.xml artifacts online.
-
-      7. 2015-02-06 -- Downgraded a core supplement from a type of MPD to a special release. MPD specification now only defines only four MPD classes: release, domain update, IEPD, and EIEM
+      5. 2015-02-06 -- Downgraded a core supplement from a type of MPD to a special release. MPD specification now defines only four MPD classes: release, domain update, IEPD, and EIEM
 
 1. Introduction
 
@@ -52,13 +48,13 @@ Change Log
 
       *  [NIEM Naming and Design Rules 3.0]
 
-      *  [NIEM High-Level Version Architecture 1.0]
+      *  [NIEM High-Level Version Architecture 3.0]
 
       *  [NIEM High-Level Tool Architecture 1.1]
 
       *  [NIEM Implementation Guide]
 
-   Even those already knowledgeable of NIEM should be familiar with [NIEM Conformance 3.0], [NIEM Naming and Design Rules 3.0], [NIEM Conformance Targets Attribute Specification 3.0], and [NIEM High-Level Version Architecture 1.0].
+   Even those already knowledgeable of NIEM should be familiar with [NIEM Conformance 3.0], [NIEM Naming and Design Rules 3.0], [NIEM Conformance Targets Attribute Specification 3.0], and [NIEM High-Level Version Architecture 3.0].
 
    The NIEM documents listed above are available at http://reference.niem.gov/niem/. See [NIEM Implementation Guide] for the NIEM implementation guidelines Web page.
 
@@ -84,7 +80,7 @@ Change Log
 
       *  NIEM [information exchange package documentation] (IEPD) that defines a NIEM data exchange.
 
-      *  A NIEM release (including a major, minor, micro release, or core supplement) [NIEM High-Level Version Architecture 1.0].
+      *  A NIEM release (including a major, minor, micro release, or core supplement) [NIEM High-Level Version Architecture 3.0].
 
       *  A NIEM domain update [NIEM Domain Update Specification 1.0]. (Note these are NOT the same as a NIEM domain schema document that is a part of a NIEM release).
 
@@ -334,7 +330,7 @@ Change Log
 
 3.2.1. The Model Package Description Conformance Target
 
-   The concept of [model package description] provides a common framework for classes of NIEM file sets, each with a specific purpose. A NIEM release is a harmonized [reference schema document] set that defines and declares all content for a single (major, minor, or micro) version of NIEM (See [NIEM High-Level Version Architecture 1.0]). A core supplement is a special type of release. It is a [reference schema document] set of additive changes that append data components to the core of a NIEM release without modifying the original niem-core schema document. A domain update is a [reference schema document] set that represents changes to one or more domains in a NIEM release. An Enterprise Information Exchange Model (EIEM) is a [XML schema document] set that may contain one or more [subset schema documents], [extension schema documents], and [external schema documents] that are employed to construct IEPDs.
+   The concept of [model package description] provides a common framework for classes of NIEM file sets, each with a specific purpose. A NIEM release is a harmonized [reference schema document] set that defines and declares all content for a single (major, minor, or micro) version of NIEM (See [NIEM High-Level Version Architecture 3.0]). A core supplement is a special type of release. It is a [reference schema document] set of additive changes that append data components to the core of a NIEM release without modifying the original niem-core schema document. A domain update is a [reference schema document] set that represents changes to one or more domains in a NIEM release. An Enterprise Information Exchange Model (EIEM) is a [XML schema document] set that may contain one or more [subset schema documents], [extension schema documents], and [external schema documents] that are employed to construct IEPDs.
 
    All MPDs share several commonalities, each:
 
@@ -1170,7 +1166,7 @@ Rule 5-31.
 
    The next few paragraphs require understanding of URIs for MPDs and MPD artifacts. See Section 5.2.4.1, MPD URI Scheme (c:mpdURI), above, and Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI), above.
 
-   The MPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:DescriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one [MPD] may relate to another. This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:DescriptionText element is provided to further explain the nature of any of the c:relationshipCode values. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates, supplements}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:DescriptionText (for example, if its value is adapts).
+   The MPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:DescriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one [MPD] may relate to another. This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:DescriptionText element is provided to further explain the nature of any of the c:relationshipCode values. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:DescriptionText (for example, if its value is adapts).
 
    As was described in Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI), above, the MPD catalog also enables an author to record more fine-grained ancestry between MPDs using the c:externalURI attribute. This attribute records an explicit equivalence relationship between artifacts reused across MPDs.
 
@@ -1692,7 +1688,7 @@ Rule 6-1. Wantlist Location
 
    For simplicity and consistency, NIEM employs a profile of the XML Schema language [W3C XML Schema Part 1 Structures], [W3C XML Schema Part 2 Datatypes]. Thus, some constraints on NIEM XML documents cannot be enforced by NIEM. [Constraint schema document sets] provide a convenient technique for enforcing some additional constraints. However, even the full XML Schema language cannot validate and enforce all possible constraints that may be required of an XML document.
 
-   So, NIEM allows (even encourages) the use of formal or informal [business rules] to supplement MPDs (in particular IEPDs).
+   So, NIEM allows (even encourages) the use of formal or informal [business rules] to help define or constrain MPDs (in particular IEPDs).
 
    [Definition: business rules]
 
@@ -2960,7 +2956,7 @@ Appendix D. Conformance Assertion Example
 
 Appendix E. Guidance for IEPD Directories (non-normative)
 
-   NIEM releases (and their associated core supplements) and domain updates generally follow a consistent directory organization. When employing a release, supplements, and updates within IEPDs whether as-is or as subsets, users are encouraged to maintain their original directory structures. However, aside from applicable rules previously stated in the preceding sections, there are no normative rules for organizing directories within IEPDs.
+   NIEM releases (and their associated core supplements) and domain updates generally follow a consistent directory organization. When employing a release, its supplements, and updates within IEPDs whether as-is or as subsets, developers are encouraged to maintain their original directory structures. However, aside from applicable rules previously stated in the preceding sections, there are no normative rules for organizing directories within IEPDs.
 
    Guidance for directory structuring may be useful to authors, especially in the case of a relatively simple [IEPD] with a single schema document subset, and a few extension and external schema documents. The following are common non-normative practices for [IEPD] directories:
 
@@ -3205,7 +3201,7 @@ Appendix G. References
 
    [NIEM High-Level Tool Architecture 1.1]: NIEM High-Level Tool Architecture, Version 1.1, NIEM Technical Architecture Committee, 1 December 2008. Available from http://reference.niem.gov/niem/specification/high-level-tool-architecture/1.1/.
 
-   [NIEM High-Level Version Architecture 1.0]: NIEM High Level Version Architecture (HLVA), Version 1.0, NIEM Technical Architecture Committee, 2008. Available from http://reference.niem.gov/niem/specification/high-level-version-architecture/1.0/.
+   [NIEM High-Level Version Architecture 3.0]: NIEM High Level Version Architecture (HLVA), Version 3.0, NIEM Technical Architecture Committee, 2015. Available from http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/.
 
    [Requirements for a NIEM IEPD 2.1]: Requirements for a National Information Exchange Model (NIEM) Information Exchange Package Documentation (IEPD) Specification, Version 2.1, June 2006. Available from http://reference.niem.gov/niem/guidance/iepd-requirements/2.1/.
 
