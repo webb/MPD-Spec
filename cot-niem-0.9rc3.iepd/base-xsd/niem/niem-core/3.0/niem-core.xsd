@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xs:schema targetNamespace="http://release.niem.gov/niem/niem-core/3.0/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xs:import schemaLocation="../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
+  <xs:import schemaLocation="../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="AreaType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:AreaRegion" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CommentType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:CommentAuthorText" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:CommentCreationDate" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:CommentText" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:CommentAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ContactInformationType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:ContactMeans" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ContactRadioType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:ContactRadioChannelText" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:ContactRadioCallSignID" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DateRangeType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StartDate" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:EndDate" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DateType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:DateRepresentation" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="Degree360SimpleType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+      <xs:maxExclusive value="360"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Degree360Type">
+    <xs:simpleContent>
+      <xs:extension base="nc:Degree360SimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FullTelephoneNumberType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:TelephoneNumberFullID" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="IdentificationType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:IdentificationID" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:IdentificationJurisdiction" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="JurisdictionType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:JurisdictionAbstract" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocationType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:LocationArea" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:LocationGeospatialCoordinate" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:LocationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="NonNegativeDecimalSimpleType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TelephoneNumberType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:TelephoneNumberRepresentation" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TextType">
+    <xs:simpleContent>
+      <xs:extension base="niem-xs:string"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:attribute name="sequenceID" type="xs:integer"/>
+  <xs:element name="AreaRegion" abstract="true"/>
+  <xs:element name="Azimuth" abstract="true"/>
+  <xs:element name="Azimuth360Value" type="nc:Degree360Type" substitutionGroup="nc:Azimuth"/>
+  <xs:element name="Base64BinaryObject" type="niem-xs:base64Binary" substitutionGroup="nc:BinaryObject" nillable="true"/>
+  <xs:element name="BinaryObject" abstract="true"/>
+  <xs:element name="CommentAugmentationPoint" abstract="true"/>
+  <xs:element name="CommentAuthorText" type="nc:TextType" nillable="true"/>
+  <xs:element name="CommentCreationDate" type="nc:DateType" nillable="true"/>
+  <xs:element name="CommentText" type="nc:TextType" nillable="true"/>
+  <xs:element name="ContactEmailID" type="niem-xs:string" substitutionGroup="nc:ContactMeans" nillable="true"/>
+  <xs:element name="ContactMeans" abstract="true"/>
+  <xs:element name="ContactRadioCallSignID" type="niem-xs:string" nillable="true"/>
+  <xs:element name="ContactRadioChannelText" type="nc:TextType" nillable="true"/>
+  <xs:element name="ContactTelephoneNumber" type="nc:TelephoneNumberType" substitutionGroup="nc:ContactMeans"/>
+  <xs:element name="DateRepresentation" abstract="true"/>
+  <xs:element name="DateTime" type="niem-xs:dateTime" substitutionGroup="nc:DateRepresentation"/>
+  <xs:element name="DocumentFormatText" type="nc:TextType"/>
+  <xs:element name="EndDate" type="nc:DateType" nillable="true"/>
+  <xs:element name="FullTelephoneNumber" type="nc:FullTelephoneNumberType" substitutionGroup="nc:TelephoneNumberRepresentation"/>
+  <xs:element name="IdentificationID" type="niem-xs:string" nillable="true"/>
+  <xs:element name="IdentificationJurisdiction" type="nc:JurisdictionType" nillable="true"/>
+  <xs:element name="ImageHeightValue" type="niem-xs:nonNegativeInteger" nillable="true"/>
+  <xs:element name="ImageWidthValue" type="niem-xs:nonNegativeInteger" nillable="true"/>
+  <xs:element name="JurisdictionAbstract" abstract="true"/>
+  <xs:element name="LocationArea" type="nc:AreaType"/>
+  <xs:element name="LocationAugmentationPoint" abstract="true"/>
+  <xs:element name="LocationGeospatialCoordinate" abstract="true"/>
+  <xs:element name="StartDate" type="nc:DateType" nillable="true"/>
+  <xs:element name="TelephoneNumberFullID" type="niem-xs:string" nillable="true"/>
+  <xs:element name="TelephoneNumberRepresentation" abstract="true"/>
+</xs:schema>
