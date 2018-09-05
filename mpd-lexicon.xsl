@@ -9,49 +9,35 @@
 <xsl:output method="html"/>
 
 <xsl:template match="/">
-    <html>
-	<body>
-	    <xsl:apply-templates />
-	</body>
-    </html>
+    <html><body>
+	<xsl:apply-templates />
+    </body></html>
 </xsl:template>
 
-<xsl:template match="/rdf:RDF">
+<xsl:template match="/owl:Ontology">
 
-    <h2>NIEM Natures</h2>
-	<table border="3">
-	    <thead style="background-color:maroon; color:white; ">
-		<tr>
-		    <th>Nature</th>
-		    <th>Definition</th>
-		</tr>
-	    </thead>
+    <h2>NIEM Nature/Purpose Lexicon</h2>
+    <table border="3">
+      <thead style="background-color:maroon; color:white; ">
+        <tr>
+	  <th>Nature or Purpose</th>
+	  <th>Definition</th>
+        </tr>
+      </thead>
 
-	    <xsl:for-each select="owl:Class" >
-		<tr>
-		    <td><xsl:value-of select="@rdf:about" /></td>
-		    <td><xsl:value-of select="rdfs:comment" /></td>
-		</tr>
-	    </xsl:for-each>
-        </table>
-
-	<br/><br/><br/><br/>
-
-    <h2>NIEM Purposes</h2>
-	<table border="3">
-	    <thead style="background-color:green; color:white; ">
-		<tr>
-		    <th>Purpose</th>
-		    <th>Definition</th>
-		</tr>
-	    </thead>
-	    <xsl:for-each select="owl:ObjectProperty" >
-		<tr>
-		    <td><xsl:value-of select="@rdf:about" /></td>
-		    <td><xsl:value-of select="rdfs:comment" /></td>
-		</tr>
-	    </xsl:for-each>
-	</table>
+	<xsl:for-each select="owl:AnnotationAssertion" >
+		<xsl:choose>
+			<xsl:when test="owl:AbbreviatedIRI = 'owl:Thing' or owl:AnnotationProperty/@abbreviatedIRI = 'rdfs:label'" >
+		</xsl:when>
+		<xsl:otherwise>
+			<tr>
+			<td><xsl:value-of select="owl:IRI" /></td>
+			<td><xsl:value-of select="owl:Literal" /></td>
+			</tr>
+		</xsl:otherwise>
+		</xsl:choose>
+	</xsl:for-each>
+    </table>
 
 </xsl:template>
 

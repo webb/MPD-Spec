@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <stylesheet xmlns:cf="http://ittl.gtri.org/wr24/2010-03-03-1533/curie-functions/1"
-            xmlns:private="http://ittl.gtri.org/wr24/2010-03-03-1533/curie-functions/1/private"
-            xmlns:saxon="http://saxon.sf.net/"
             xmlns:xs="http://www.w3.org/2001/XMLSchema"
-            xmlns:xslext="http://ittl.gtri.gatech.edu/wr24/2009-03-23-1736/xsl-extension"
             xmlns="http://www.w3.org/1999/XSL/Transform"
             version="2.0">
 
