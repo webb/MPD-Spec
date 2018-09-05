@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./catalog.xsl"?>
+
+<!-- This IEPD sample catalog is fictitious and abbreviated.  However, 
+it illustrates use of various options from mpd-catalog-1.0.xsd; including 
+reuse of the File element with IDREFS in the "files" attribute, use of 
+safe CURIEs, full URIs, Folders, and various metadata. -->
+
+<ca:Catalog
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ca="http://reference.niem.gov/niem/resource/mpd/catalog/1.0/"
+    xmlns:p="http://reference.niem.gov/niem/resource/mpd/lexicon/1.0/purpose#"
+    xmlns:n="http://reference.niem.gov/niem/resource/mpd/lexicon/1.0/nature#"
+    xmlns:yy="http://my.iepd.program.org/new/"
+    xmlns:zz="http://zoom.com/services/planning-order/"
+
+    xsi:schemaLocation="http://reference.niem.gov/niem/resource/mpd/catalog/1.0/ mpd-catalog.xsd"
+
+    ca:mpdURI="http://myiepd.org/p-ord/"
+    ca:mpdClassCode="iepd"
+    ca:mpdName="Planning_Order"
+    ca:mpdVersionID="1.0.3rev2"
+    ca:descriptionText="A Planning Order notifies subordinate agencies 
+			to initiate planning for contingency operations." >
+
+    <ca:File ca:id="cl0"
+	ca:relativePathName="./changelog.txt"
+	ca:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.0/nature#text" 
+	ca:purposeURI="[p:changelog]"
+	ca:descriptionText="History of changes to Planning Order"/>
+
+    <ca:File ca:id="d2"
+	ca:relativePathName="./documentation/master-document.docx"
+	ca:natureURI="[n:doc]" 
+	ca:purposeURI="[p:master-document]"
+	ca:descriptionText="Instructions for implementing Planning Order"/>
+
+    <ca:FileSet ca:id="es1"
+	ca:externalURI="[yy:order-ext0]"
+	ca:natureURI="[n:file-set]"
+	ca:purposeURI="[p:extension-schema-set]"
+	ca:descriptionText="Extension schema set for IEPD Planning Order">
+
+	<ca:File ca:id="e1"
+	    ca:relativePathName="./XMLschemas/extension/ext1.xsd"
+	    ca:natureURI="[n:xsd]"
+	    ca:purposeURI="[p:extension-schema]"
+	    ca:descriptionText="my extension schema 1"/>
+
+	<ca:File ca:id="e2"
+	    ca:relativePathName="./XMLschemas/extension/ext2.xsd"
+	    ca:natureURI="[n:xsd]"
+	    ca:purposeURI="[p:extension-schema]"
+	    ca:descriptionText="my extension schema 2"/>
+
+    </ca:FileSet>
+	
+    <ca:FileSet ca:id="ss1"
+	ca:natureURI="[n:file-set]"
+	ca:purposeURI="[p:subset-schema-set]"
+	ca:descriptionText="Subset for IEPD Planning Order">
+
+    	<ca:File ca:id="w1"
+	    ca:externalURI="[yy:order-w1]"
+	    ca:relativePathName="./XMLschemas/subset/wantlist1.xml"
+	    ca:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.0/nature#wantlist" 
+	    ca:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.0/purpose#wantlist"
+	    ca:descriptionText="Wantlist 1 for schema subset ss1"/>
+
+	<ca:File ca:id="s1"
+	    ca:relativePathName="./XMLschemas/subset/niem/niem-core/2.0/niem-core.xsd"
+	    ca:natureURI="[n:xsd]"
+	    ca:purposeURI="[p:subset-schema]"
+	    ca:descriptionText="NIEM Core 2.0 (niem-core.xsd)"/>
+
+	<ca:File ca:id="s2"
+	    ca:relativePathName="./XMLschemas/subset/niem/fbi/2.0/fbi.xsd"
+	    ca:natureURI="[n:xsd]"
+	    ca:purposeURI="[p:subset-schema]"
+	    ca:descriptionText="FBI code lists"/>
+
+    </ca:FileSet>
+	
+    <ca:FileSet ca:id="ss2"
+	ca:natureURI="[n:file-set]"
+	ca:purposeURI="[p:subset-schema-set]"
+	ca:descriptionText="A second subset for Planning Order; includes ss1"
+	ca:files="s1  s2 ">
+
+    	<ca:File ca:id="w2"
+	    ca:externalURI="[yy:order-w2]"
+	    ca:relativePathName="./XMLschemas/subset/wantlist2.xml"
+	    ca:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.0/nature#wantlist" 
+	    ca:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.0/purpose#wantlist"
+	    ca:descriptionText="Wantlist 2 for schema subset ss2; includes ss1"/>
+
+    	<ca:File ca:id="s3"
+	    ca:relativePathName="./XMLschemas/subset/niem/fips_6-4/2.0/fips_6-4.xsd"
+	    ca:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.0/nature#xsd" 
+	    ca:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.0/purpose#subset-schema"
+	    ca:descriptionText="FIPS County codes"/>
+
+    </ca:FileSet>
+
+    <ca:File ca:id="c0"
+	ca:relativePathName="./catalog.xml"
+	ca:natureURI="[n:catalog]"
+	ca:purposeURI="[p:catalog]"
+	ca:descriptionText="Catalog: identifies all artifacts in Planning Order"/>
+
+    <ca:File ca:id="cs0"
+	ca:relativePathName="./catalog.xsl"
+	ca:natureURI="[n:xslt]"
+	ca:purposeURI="[p:display]"
+	ca:descriptionText="stylesheet to display a catalog index with metadata"/>
+
+    <ca:File ca:id="w13"
+	ca:externalURI="[zz:order-service13]"
+	ca:relativePathName="./library/wsdl/p-order1.wsdl"
+	ca:natureURI="[n:wsdl]"
+	ca:purposeURI="[p:web-service]"
+	ca:descriptionText="Web Service description for IEPD Planning Order"/>
+
+    <ca:File ca:id="r1"
+	ca:externalURI="[zz:order-22]"
+	ca:relativePathName="./XMLschemas/exchange/myiepd.xsd"
+	ca:natureURI="[n:xsd]"
+	ca:purposeURI="[p:exchange-schema]"
+	ca:descriptionText="Exchange schema for IEPD Planning Order"/>
+
+<!-- Folders (directories) -->
+
+    <ca:Folder ca:id="f0"
+	ca:relativePathName="./"
+	ca:descriptionText="ROOT"/>
+
+    <ca:Folder ca:id="f1"
+	ca:relativePathName="./XMLschemas/"
+	ca:descriptionText="XML SCHEMAS"/>
+
+    <ca:Folder ca:id="f11"
+	ca:relativePathName="./XMLschemas/subset/"
+	ca:descriptionText="SUBSET"/>
+
+    <ca:Folder ca:id="nc2"
+	ca:relativePathName="./XMLschemas/subset/niem/niem-core/2.0/"
+	ca:descriptionText="NIEM CORE 2.0"/>
+
+    <ca:Folder ca:id="bi2"
+	ca:relativePathName="./XMLschemas/subset/niem/fbi/2.0/"
+	ca:descriptionText="FBI"/>
+
+    <ca:Folder ca:id="ip2"
+	ca:relativePathName="./XMLschemas/subset/niem/fips_6-4/2.0/"
+	ca:descriptionText="FIPS 6-4"/>   
+
+    <ca:Folder ca:id="f12"
+	ca:relativePathName="./XMLschemas/extension/"
+	ca:descriptionText="EXTENSION"/>
+
+    <ca:Folder ca:id="f13"
+	ca:relativePathName="./XMLschemas/exchange/"
+	ca:descriptionText="EXCHANGE"/>
+
+    <ca:Folder ca:id="f2"
+	ca:relativePathName="./library/"
+	ca:descriptionText="LIBRARY"/>
+
+    <ca:Folder ca:id="f21"
+	ca:relativePathName="./library/wsdl/"
+	ca:descriptionText="WEB SERVICES"/>
+
+    <ca:Folder ca:id="f3"
+	ca:relativePathName="./documentation/"
+	ca:descriptionText="DOCUMENTATION"/>
+
+    <ca:Folder ca:id="f4"
+	ca:relativePathName="./XMLsamples/"
+	ca:descriptionText="SAMPLES"/>
+
+    <ca:Metadata>
+
+	<ca:SecurityMarkingText>Unclassified/public</ca:SecurityMarkingText>
+	<ca:CreationDate>2009-02-16</ca:CreationDate>
+	<ca:StatusText>
+	    implemented and operational in 25 of 50 states since 2009
+	</ca:StatusText>
+	
+	<ca:Relationship    ca:relationshipCode="adapts" 
+			    ca:resourceURI="[zz:pln-ord6]" 
+			    ca:descriptionText="reuses 4 artifacts" />
+	<ca:Relationship
+			    ca:relationshipCode="adapts" 
+			    ca:resourceURI="[zz:pln-ord8]" 
+			    ca:descriptionText="uses modified extension set" />
+
+	<ca:KeywordText>program plan</ca:KeywordText>
+	<ca:KeywordText>contingency</ca:KeywordText>
+	<ca:KeywordText>planning</ca:KeywordText>
+
+	<ca:DomainText>Logistics</ca:DomainText>
+	<ca:DomainText>Emergency Management</ca:DomainText>
+	<ca:PurposeText>intended to initiate execution of planning cycles</ca:PurposeText>
+	<ca:ExchangePatternText>query/response</ca:ExchangePatternText>
+	<ca:ExchangePartnerName>FEMA</ca:ExchangePartnerName>
+	<ca:ExchangePartnerName>NASCIO</ca:ExchangePartnerName>
+	<ca:ExchangePartnerName>82d Abn Div</ca:ExchangePartnerName>
+
+	<ca:AuthoritativeSource>
+	    <ca:ASName>FEMA</ca:ASName>
+	    <ca:ASAddressText>30 Dupont Cir, Wash DC, 12345, USA</ca:ASAddressText>
+	    <ca:ASWebSiteURL>http://www.fema.gov</ca:ASWebSiteURL>
+	    <ca:POC>
+		<ca:POCName>John Smith</ca:POCName>   
+		<ca:POCEmail>john.smith@fema.gov</ca:POCEmail>
+		<ca:POCTelephone>202-333-1234</ca:POCTelephone>
+	    </ca:POC>
+	    <ca:POC>
+		<ca:POCName>FEMA, Office of the Chief Administrator</ca:POCName>
+		<ca:POCEmail>OCA@fema.gov</ca:POCEmail>
+		<ca:POCTelephone>888-333-5678</ca:POCTelephone>
+	    </ca:POC>
+	</ca:AuthoritativeSource>
+
+    </ca:Metadata>
+
+</ca:Catalog>
+
