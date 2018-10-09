@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+dir=$(cd "$(dirname "$0")" && pwd)/meta
+
+encode_as_xml () {
+    sed -e 's/&/&amp;/g' -e 's/"/&quot;/g' -e "s/'/&amp;/g" -e 's/</&lt;/g'
+}
+
+# filenames MUST be represented as element content, since they may contain white space
+# (including newlines), and we can't have that white space we collapsed into
+# single spaces
+
+cat <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<inventory xmlns="http://example.org/inventory">
+  <!-- -This is an inventory of the contents of $dir -->
+EOF
+
+while read -d '' -r filename
+do 
+   file -r --brief --mime-type "$filename"
+done < <(find meta -type f -print0)
+
+# find meta -type f -print0 | xargs -0 file --mime-type --mime-encoding
+
+
+cat <<EOF
+</inventory>
+EOF
