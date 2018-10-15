@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 
 dir=$(cd "$(dirname "$0")" && pwd)/meta
-
-encode_as_xml () {
-    sed -e 's/&/&amp;/g' -e 's/"/&quot;/g' -e "s/'/&amp;/g" -e 's/</&lt;/g'
-}
+. "$HOME"/share/wrtools-core/fail.bash
 
 # filenames MUST be represented as element content, since they may contain white space
 # (including newlines), and we can't have that white space we collapsed into
 # single spaces
+
+encode_as_xml () {
+    read -d '' -r result < <(sed --null-data -e 's/&/&amp;/g' -e 's/"/&quot;/g' -e "s/'/&amp;/g" -e 's/</&lt;/g')
+    printf "%s" "$result"
+}
+
 
 cat <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -16,10 +19,59 @@ cat <<EOF
   <!-- -This is an inventory of the contents of $dir -->
 EOF
 
-while read -d '' -r filename
-do 
-   file -r --brief --mime-type "$filename"
-done < <(find meta -type f -print0)
+indent="  "
+
+get_directory () (
+    (( $# == 1 )) || fail_assert need directory local name
+    printf "%s<directory>\n" "$indent"
+    printf '%s  <path>' "$indent"
+    encode_as_xml <<< "$1"
+    printf '</path>\n'
+    (
+        cd "$1" || fail_assert failed to cd to "\"$1\"" from "\"$PWD\""
+        indent="$indent  "
+        get_directory_contents
+    )
+
+    printf '%s</directory>\n' "$indent"
+)
+
+get_file () {
+    (( $# == 1 )) || fail_assert need file local name
+    printf "%s<file>\n" "$indent"
+    printf '%s  <path>' "$indent"
+    encode_as_xml <<< "$1"
+    printf '</path>\n'
+    mime_type=$(file -r --brief --mime-type "$1")
+    printf '%s  <mime-type>%s</mime-type>\n' "$indent" "$mime_type"
+    printf '%s  <mime-encoding>%s</mime-encoding>\n' "$indent" "$(file -r --brief --mime-encoding "$1")"
+    if [[ $mime_type = text/xml ]]
+    then
+      printf '%s  <xml-document-element\n' "$indent"
+         printf '%s    namespace="%s"\n' "$indent" "$(xmllint --xpath 'namespace-uri(/*)' "$1")"
+         printf '%s    local-name="%s"/>\n' "$indent" "$(xmllint --xpath 'local-name(/*)' "$1")"
+    fi
+    printf "%s</file>\n" "$indent"
+}
+
+get_directory_contents () {
+    while read -d '' -r name_with_path
+    do
+        name=${name_with_path#./}
+        if [[ -d $name ]]
+        then get_directory "$name"
+        elif [[ -f $name ]]
+        then get_file "$name"
+        else fail_assert unknown file type for "$PWD/$name"
+        fi
+    done < <(find . -mindepth 1 -maxdepth 1 -print0)
+}
+
+(cd meta && get_directory_contents)
+
+#    file -r --brief --mime-type "$filename"
+
+
 
 # find meta -type f -print0 | xargs -0 file --mime-type --mime-encoding
 
