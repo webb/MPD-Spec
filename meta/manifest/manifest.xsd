@@ -55,30 +55,25 @@
           <xs:element ref="m:MessageSpecificationName" minOccurs="0"/>
           <xs:element ref="m:MessageSpecificationVersion" minOccurs="0"/>
           <xs:element ref="nc:DescriptionText" minOccurs="0"/>
-<!--          
-          <xs:element ref="m:MPDInformation"   minOccurs="0"/>
--->
-          <xs:element ref="m:IEPConformanceTarget" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="m:AuthoritativeSource" minOccurs="0"/>
+          <xs:element ref="m:CreationDate" minOccurs="0"/>
+          <xs:element ref="m:StatusText" minOccurs="0"/>
+          <xs:element ref="m:ConformanceTarget" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="m:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute ref="m:mpdClassURIList" use="required"/>
-        <xs:attribute ref="m:mpdVersionID"    use="required"/>
+        <!--
+        <xs:attribute ref="m:MessageSpecificationClassURIList" use="required"/>
+        -->
         <xs:attribute ref="ct:conformanceTargets" use="required"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-
--->
-<!--
 
   <xs:element name="MessageSpecificationName" type="niem-xs:string">
     <xs:annotation>
       <xs:documentation>A title of a message specification.</xs:documentation>
     </xs:annotation>
   </xs:element>
-
--->
-<!--
 
   <xs:element name="ArtifactOrArtifactSet" abstract="true">
     <xs:annotation>
@@ -88,12 +83,28 @@
     </xs:annotation>
   </xs:element>
 
-  -->
+<!--
+
+  <xs:complexContent>
+    <xs:extension base="structures:ObjectType">
+      <xs:sequence>
+        <xs:element ref="m:LastRevisionDate" minOccurs="0"/>
+        <xs:element ref="m:Relationship" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="m:KeywordText" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="m:DomainText" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="m:PurposeText" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="m:ExchangePatternText" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="m:ExchangePartnerName" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="m:ExtendedInformation" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+
+-->
+
 
   <!-- File artifact classifiers for a table of contents =========================== -->
 
-
-<!--
 
   <xs:element name="File" type="m:FileType" substitutionGroup="m:ArtifactOrArtifactSet">
     <xs:annotation>
@@ -102,10 +113,6 @@
       </xs:documentation>
     </xs:annotation>
   </xs:element>
-
-
--->
-<!--
 
   <xs:complexType name="FileType">
     <xs:annotation>
@@ -124,10 +131,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-
--->
-<!--
-
   <xs:element name="XMLCatalog" type="m:FileType" substitutionGroup="m:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
@@ -136,8 +139,6 @@
     </xs:annotation>
   </xs:element>
 
-
--->
 <!--
 
   <xs:element name="MPDChangeLog" type="m:FileType" substitutionGroup="m:ArtifactOrArtifactSet">
@@ -160,9 +161,8 @@
 
 
 -->
-<!--
 
-  <xs:element name="IEPSampleXMLDocument" type="m:FileType" substitutionGroup="m:ArtifactOrArtifactSet">
+  <xs:element name="SampleXMLDocument" type="m:FileType" substitutionGroup="m:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
         An example MPD instance XML document or IEP artifact.
@@ -170,8 +170,6 @@
     </xs:annotation>
   </xs:element>
 
-
--->
 <!--
 
   <xs:element name="BusinessRulesArtifact" type="m:FileType" substitutionGroup="m:ArtifactOrArtifactSet">
@@ -185,7 +183,6 @@
 
 
 -->
-<!--
 
   <xs:element name="XMLSchemaDocument" type="m:FileType" substitutionGroup="m:ArtifactOrArtifactSet">
     <xs:annotation>
@@ -196,8 +193,6 @@
     </xs:annotation>
   </xs:element>
 
-
--->
 <!--
 
   <xs:element name="ExternalSchemaDocument" type="m:FileType" substitutionGroup="m:XMLSchemaDocument">
@@ -337,10 +332,6 @@
 
   <!-- For declaring sets of dependent artifacts =================================== -->
 
-
-<!--
-
-
   <xs:element name="RequiredFile" type="m:FileType">
     <xs:annotation>
       <xs:documentation>
@@ -348,8 +339,6 @@
       </xs:documentation>
     </xs:annotation>
   </xs:element>
-
--->
 
 
   <!-- Artifact Set Classifiers ==================================================== -->
@@ -454,70 +443,60 @@
 
 
 -->
-<!--
 
-  <xs:attribute name="mpdVersionID" type="m:MPDVersionIDSimpleType">
+
+  <xs:element name="MessageSpecificationVersion" type="m:MessageSpecificationVersionSimpleType">
     <xs:annotation>
       <xs:documentation>
-        An identifier that distinguishes releases of a given MPD.
+        An identifier that distinguishes releases of a given Message Specification.
       </xs:documentation>
     </xs:annotation>
-  </xs:attribute>
+  </xs:element>
 
 
--->
-<!--
 
-  <xs:simpleType name="MPDVersionIDSimpleType">
+  <xs:simpleType name="MessageSpecificationVersionSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A data type for an identifier that distinguishes releases of a given MPD.
+        A data type for an identifier that distinguishes releases of a given Message Specification.
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="[0-9]+(\.[0-9]+)*((alpha|beta|rc|rev)[0-9]+)?"/>
     </xs:restriction>
   </xs:simpleType>
-  
--->
+
 
 
   <!-- =========================================================================== -->
 
 
-<!--
 
-  <xs:attribute name="mpdClassURIList" type="m:MPDClassURIListSimpleType">
+  <xs:attribute name="MessageSpecificationClassURIList" type="m:MessageSpecificationClassURIListSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A list of one or more URIs that each represents an MPD class to which the MPD claims conformance.
+        A list of one or more URIs that each represents a Message Specification class to which the Message Specification claims conformance.
       </xs:documentation>
     </xs:annotation>
   </xs:attribute>
 
 
--->
-<!--
-
-  <xs:simpleType name="MPDClassURIListSimpleType">
+  <xs:simpleType name="MessageSpecificationClassURIListSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A data type that ensures at least one class is identified as an MPD conformance target.
+        A data type that ensures at least one class is identified as a Message Specification conformance target.
       </xs:documentation>
     </xs:annotation>
-    <xs:restriction base="m:MPDClassListSimpleType">
+    <xs:restriction base="m:MessageSpecificationClassListSimpleType">
       <xs:minLength value="1"/>
     </xs:restriction>
   </xs:simpleType>
 
 
--->
-<!--
-
-  <xs:simpleType name="MPDClassListSimpleType">
+  <xs:simpleType name="MessageSpecificationClassListSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A data type for one or more URIs that are MPD conformance target classes.
+        A data type for one or more URIs that are Message Specification conformance target classes.
       </xs:documentation>
     </xs:annotation>
     <xs:list itemType="xs:anyURI"/>
@@ -525,11 +504,6 @@
 
 
   <!-- =========================================================================== -->
-
-  
-<!--
-
-
 
   <xs:attribute name="pathURI" type="xs:anyURI">
     <xs:annotation>
@@ -539,10 +513,6 @@
     </xs:annotation>
   </xs:attribute>
 
-
--->
-<!--
-
   <xs:attribute name="externalURI" type="xs:anyURI">
     <xs:annotation>
       <xs:documentation>
@@ -550,10 +520,6 @@
       </xs:documentation>
     </xs:annotation>
   </xs:attribute>
-
-
--->
-<!--
 
   <xs:attribute name="mimeMediaTypeText" type="xs:string">
     <xs:annotation>
@@ -563,8 +529,6 @@
     </xs:annotation>
   </xs:attribute>
 
-
--->
 <!--
 
   <xs:complexType name="RelationshipType">
@@ -690,10 +654,7 @@
 
   <!-- IEP Conformance Targets ==================================================== -->
 
-
-<!--
-
-  <xs:element name="IEPConformanceTarget" type="m:IEPConformanceTargetType">
+  <xs:element name="ConformanceTarget" type="m:ConformanceTargetType">
     <xs:annotation>
       <xs:documentation>
         A class or category of IEPs which has a set of validity constraints and a unique identifier. Every IEP is an instance of one or more IEP Conformance Targets.
@@ -701,11 +662,7 @@
     </xs:annotation>
   </xs:element>
 
-
--->
-<!--
-
-  <xs:complexType name="IEPConformanceTargetType">
+  <xs:complexType name="ConformanceTargetType">
     <xs:annotation>
       <xs:documentation>
         A data type for a class or category of IEP, which has a set of validity constraints and a unique identifier.
@@ -715,6 +672,9 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:DescriptionText" minOccurs="0"/>
+          <!--
+          <xs:element ref="m:HasDocumentElement" minOccurs="0" maxOccurs="unbounded"/>
+          -->
           <xs:element ref="m:ValidityConstraintWithContext" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="m:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -722,9 +682,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-
--->
-<!--
 
   <xs:element name="ValidityConstraintWithContext" abstract="true">
     <xs:annotation>
@@ -734,10 +691,6 @@
     </xs:annotation>
   </xs:element>
 
-
--->
-<!--
-
   <xs:element name="ValidityConstraint" abstract="true" substitutionGroup="m:ValidityConstraintWithContext">
     <xs:annotation>
       <xs:documentation>
@@ -746,10 +699,6 @@
     </xs:annotation>
   </xs:element>
 
-
--->
-<!--
-
   <xs:element name="ValidityContext" type="m:ValidityContextType" substitutionGroup="m:ValidityConstraintWithContext">
     <xs:annotation>
       <xs:documentation>
@@ -757,11 +706,6 @@
       </xs:documentation>
     </xs:annotation>
   </xs:element>
-
-
--->
-<!--
-
 
   <xs:complexType name="ValidityContextType">
     <xs:annotation>
@@ -780,8 +724,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  -->
-
   <!-- Validity Constraints ======================================================== -->
 
 
@@ -797,7 +739,6 @@
 
 
 -->
-<!--
 
   <xs:complexType name="XPathType">
     <xs:annotation>
@@ -813,19 +754,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-
--->
-<!--
-
   <xs:attribute name="xPathText" type="xs:string">
     <xs:annotation>
       <xs:documentation>An XPath expression.</xs:documentation>
     </xs:annotation>
   </xs:attribute>
-
-
--->
-<!--
 
   <xs:element name="XMLSchemaValid" type="m:XMLSchemaType" substitutionGroup="m:ValidityConstraint">
     <xs:annotation>
@@ -834,10 +767,6 @@
       </xs:documentation>
     </xs:annotation>
   </xs:element>
-
-
--->
-<!--
 
   <xs:complexType name="XMLSchemaType">
     <xs:annotation>
@@ -855,8 +784,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-
--->
 <!--
 
   <xs:element name="SchematronValid" type="m:SchematronValidationType" substitutionGroup="m:ValidityConstraint">
@@ -920,7 +847,6 @@
 
 
 -->
-<!--
 
   <xs:element name="HasDocumentElement" type="m:QualifiedNamesType" substitutionGroup="m:ValidityConstraintWithContext">
     <xs:annotation>
@@ -929,10 +855,6 @@
       </xs:documentation>
     </xs:annotation>
   </xs:element>
-
-
--->
-<!--
 
   <xs:complexType name="QualifiedNamesType">
     <xs:annotation>
@@ -948,19 +870,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-
--->
-<!--
-
   <xs:attribute name="qualifiedNameList" type="m:QualifiedNameListSimpleType">
     <xs:annotation>
       <xs:documentation>A list of qualified names.</xs:documentation>
     </xs:annotation>
   </xs:attribute>
-
-
--->
-<!--
 
   <xs:simpleType name="QualifiedNameListSimpleType">
     <xs:annotation>
@@ -969,8 +883,6 @@
     <xs:list itemType="xs:QName"/>
   </xs:simpleType>
 
-
--->
 <!--
 
   <xs:element name="ConformsToConformanceTarget" type="m:ConformanceTargetType" substitutionGroup="m:ValidityConstraint">
@@ -1058,43 +970,6 @@
 
 <!--
 
-  <xs:element name="MPDInformation" type="m:MPDInformationType">
-    <xs:annotation>
-      <xs:documentation>A set of descriptive data about an MPD.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-
--->
-<!--
-
-  <xs:complexType name="MPDInformationType">
-    <xs:annotation>
-      <xs:documentation>
-        A data type for a set of descriptive data about an MPD.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="structures:ObjectType">
-        <xs:sequence>
-          <xs:element ref="m:AuthoritativeSource" minOccurs="0"/>
-          <xs:element ref="m:CreationDate" minOccurs="0"/>
-          <xs:element ref="m:LastRevisionDate" minOccurs="0"/>
-          <xs:element ref="m:StatusText" minOccurs="0"/>
-          <xs:element ref="m:Relationship" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="m:KeywordText" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="m:DomainText" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="m:PurposeText" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="m:ExchangePatternText" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="m:ExchangePartnerName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="m:ExtendedInformation" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
--->
-<!--
-
   <xs:element name="ExtendedInformation" abstract="true">
     <xs:annotation>
       <xs:documentation>
@@ -1104,7 +979,6 @@
   </xs:element>
 
 -->
-<!--
 
   <xs:element name="AuthoritativeSource" type="nc:EntityType">
     <xs:annotation>
@@ -1114,8 +988,6 @@
     </xs:annotation>
   </xs:element>
 
--->
-<!--
 
   <xs:element name="CreationDate" type="niem-xs:date">
     <xs:annotation>
@@ -1123,7 +995,6 @@
     </xs:annotation>
   </xs:element>
 
--->
 <!--
 
   <xs:element name="LastRevisionDate" type="niem-xs:date">
@@ -1135,7 +1006,6 @@
   </xs:element>
 
 -->
-<!--
 
   <xs:element name="StatusText"   type="niem-xs:string">
     <xs:annotation>
@@ -1145,7 +1015,6 @@
     </xs:annotation>
   </xs:element>
 
--->
 <!--
 
   <xs:element name="Relationship" type="m:RelationshipType">
