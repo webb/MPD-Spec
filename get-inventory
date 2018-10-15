@@ -47,7 +47,7 @@ get_file () {
     printf '%s  <mime-encoding>%s</mime-encoding>\n' "$indent" "$(file -r --brief --mime-encoding "$1")"
     if [[ $mime_type = text/xml ]]
     then
-      if xmllint --noout "$1"
+      if xmllint --noout "$1" > /dev/null 2>&1
       then
         printf '%s  <xml-well-formed>true</xml-well-formed>\n' "$indent"
         printf '%s  <xml-document-element\n' "$indent"

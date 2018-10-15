@@ -1,11 +1,17 @@
 #!/bin/bash
 
 ./get-inventory > inventory.xml
+echo =============================================================================
 xmllint --noout inventory.xml
+echo =============================================================================
 
 # validate meta
 
 xmllint --noout meta/manifest.xml
+echo =============================================================================
 xmllint --noout meta/manifest/xml-catalog.xml
+echo =============================================================================
 xmllint --noout meta/manifest/manifest.xsd
+echo =============================================================================
 xs-validate -c meta/manifest/xml-catalog.xml meta/manifest.xml
+echo =============================================================================
