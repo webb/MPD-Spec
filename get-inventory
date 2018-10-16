@@ -50,9 +50,17 @@ get_file () {
       if xmllint --noout "$1" > /dev/null 2>&1
       then
         printf '%s  <xml-well-formed>true</xml-well-formed>\n' "$indent"
+        namespace=$(xmllint --xpath 'namespace-uri(/*)' "$1")
+        local_name=$(xmllint --xpath 'local-name(/*)' "$1")
         printf '%s  <xml-document-element\n' "$indent"
-        printf '%s    namespace="%s"\n' "$indent" "$(xmllint --xpath 'namespace-uri(/*)' "$1")"
-        printf '%s    local-name="%s"/>\n' "$indent" "$(xmllint --xpath 'local-name(/*)' "$1")"
+        printf '%s    namespace="%s"\n' "$indent" "$namespace"
+        printf '%s    local-name="%s"/>\n' "$indent" "$local_name"
+        if [[ $namespace = "http://www.w3.org/2001/XMLSchema" && $local_name = "schema" ]]
+        then
+          target_namespace=$(xmllint --xpath 'string(/*/@targetNamespace)' "$1")
+          printf '%s  <xml-schema-target-namespace>%s</xml-schema-target-namespace>\n' "$indent" "$target_namespace"
+        fi
+        # as long as we're here, get the conformance targets
       else
           printf '%s  <xml-well-formed>false</xml-well-formed>\n' "$indent"
       fi
