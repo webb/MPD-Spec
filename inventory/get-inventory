@@ -1,7 +1,57 @@
 #!/usr/bin/env bash
 
-dir=$(cd "$(dirname "$0")" && pwd)/meta
+get_conformance_target_uris_xsl=$(cd "$(dirname "$0")"; pwd)/get-conformance-target-uris.xsl
+
 . "$HOME"/share/wrtools-core/fail.bash
+. "$HOME"/share/wrtools-core/opt_help.bash
+. "$HOME"/share/wrtools-core/opt_verbose.bash
+
+#HELP:  --target=$dir | -t $dir: Run inventory on target directory
+unset target
+opt_target () {
+    (( $# == 1 )) || fail_assert "need 1 parameter (got $#)"
+    target="$1"
+}
+
+#HELP:  --output=$file | -o $file: Send input to file
+unset output
+opt_output () {
+    (( $# == 1 )) || fail_assert "need 1 parameter (got $#)"
+    output="$1"
+}
+
+OPTIND=1
+while getopts :ho:t:v-: option
+do case "$option" in
+       h ) opt_help;;
+       o ) opt_output "$OPTARG";;
+       t ) opt_target "$OPTARG";;
+       v ) opt_verbose;;
+       - ) case "$OPTARG" in
+               help ) opt_help;;
+               help=* ) fail_arg_unexpected "$OPTARG";;
+               output ) fail_arg_missing "$OPTARG";;
+               output=* ) opt_output "${OPTARG#*=}";;
+               target ) fail_arg_missing "$OPTARG";;
+               target=* ) opt_target "${OPTARG#*=}";;
+               verbose ) opt_verbose;;
+               verbose=* ) fail_arg_unexpected "$OPTARG";;
+               * ) fail_option_unknown "$OPTARG";;
+            esac;;
+        '?' ) fail_option_unknown "$OPTARG";;
+        : ) fail_arg_missing "$OPTARG";;
+        * ) fail_assert "Bad state in getopts (OPTARG=\"$OPTARG\")";;
+   esac
+done
+shift $((OPTIND-1))
+
+if [[ ${output+is-set} = is-set ]]
+then exec 1>"$output"
+fi
+
+[[ ${target+is-set} = is-set ]] || fail_option_missing --target
+
+
 
 # filenames MUST be represented as element content, since they may contain white space
 # (including newlines), and we can't have that white space we collapsed into
@@ -11,14 +61,6 @@ encode_as_xml () {
     read -d '' -r result < <(sed --null-data -e 's/&/&amp;/g' -e 's/"/&quot;/g' -e "s/'/&amp;/g" -e 's/</&lt;/g')
     printf "%s" "$result"
 }
-
-cat <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<inventory xmlns="http://example.org/inventory">
-  <path>$dir</path>
-EOF
-
-indent="  "
 
 get_directory () (
     (( $# == 1 )) || fail_assert need directory local name
@@ -59,7 +101,7 @@ get_file () {
           target_namespace=$(xmllint --xpath 'string(/*/@targetNamespace)' "$1")
           printf '%s  <xml-schema-target-namespace>%s</xml-schema-target-namespace>\n' "$indent" "$target_namespace"
         fi
-        # as long as we're here, get the conformance targets
+        xsltproc --novalid --nodtdattr --nonet --nowrite "$get_conformance_target_uris_xsl" "$1" | sed -e "s/^/${indent}  <conformance-target>/" -e "s/\$/<\/conformance-target>/"
       else
           printf '%s  <xml-well-formed>false</xml-well-formed>\n' "$indent"
       fi
@@ -80,14 +122,17 @@ get_directory_contents () {
     done < <(find . -mindepth 1 -maxdepth 1 -print0)
 }
 
-(cd meta && get_directory_contents)
+# start doing stuff
 
-#    file -r --brief --mime-type "$filename"
+cat <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<inventory xmlns="http://example.org/inventory">
+  <path>$target_dir</path>
+EOF
 
+indent="  "
 
-
-# find meta -type f -print0 | xargs -0 file --mime-type --mime-encoding
-
+(cd "$target" && get_directory_contents)
 
 cat <<EOF
 </inventory>

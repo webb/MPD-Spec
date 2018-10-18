@@ -1,17 +1,15 @@
 #!/bin/bash
 
-./get-inventory > inventory.xml
-echo =============================================================================
-xmllint --noout inventory.xml
-echo =============================================================================
+this_dir=$(dirname "$0")
+build_dir=$this_dir/build
+mkdir -p "$build_dir"
+
+"${this_dir}"/inventory/get-inventory --output="$build_dir"/inventory.xml --target="$this_dir"/meta
+xmllint --noout "$build_dir"/inventory.xml
 
 # validate meta
 
 xmllint --noout meta/manifest.xml
-echo =============================================================================
 xmllint --noout meta/manifest/xml-catalog.xml
-echo =============================================================================
 xmllint --noout meta/manifest/manifest.xsd
-echo =============================================================================
 xs-validate -c meta/manifest/xml-catalog.xml meta/manifest.xml
-echo =============================================================================
