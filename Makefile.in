@@ -43,11 +43,20 @@ doc_text = ${tmp_dir}/${doc_name}.txt
 
 depend_mk = ${tmp_dir}/dependencies.mk
 
-all_targets = ${doc_html} ${doc_text}
+extra_files_paths = \
+  xml-catalog.xml \
+  mpd-catalog.xsd \
+  niem \
+
+extra_files_source_default := ${shell for f in ${extra_files_paths}; do find ${src_dir}/$$f -type f; done}
+extra_files_source = ${extra_files_source_default}
+
+all_targets = ${doc_html} ${doc_text} ${extra_files_source:${src_dir}/%=${build_dir}/tmp/%}
 
 install_targets = \
   ${install_dir}/${doc_name}.html \
   ${install_dir}/${doc_name}.txt \
+  ${extra_files_source:${src_dir}/%=${install_dir}/%}
 
 #HELP:Default target is "all".
 .DEFAULT_GOAL = all
