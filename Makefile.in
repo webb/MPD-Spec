@@ -1,0 +1,141 @@
+#############################################################################
+# Don't touch these...
+#############################################################################
+
+this_makefile := ${lastword ${MAKEFILE_LIST}}
+SHELL = @bash@ -o pipefail -o errexit -o nounset
+.SECONDARY:
+
+#############################################################################
+# things to set / override
+#############################################################################
+
+#HELP:Build for @PACKAGE_NAME@ (@PACKAGE_TARNAME@)
+
+src_dir = @abs_srcdir@
+build_dir = @abs_builddir@
+install_dir = @prefix@
+PACKAGE_TARNAME = @PACKAGE_TARNAME@
+
+# PROGRAMS
+# autoconf names
+MKDIR_P = @MKDIR_P@
+INSTALL = @INSTALL@
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+SED = @SED@
+# other names
+find = @find@
+identify = @identify@
+process_doc = @process_doc@
+xs_validate = @xs_validate@
+base64 = @base64@
+
+# above: things from autoconf
+#############################################################################
+
+tmp_dir := ${build_dir}/tmp
+tokens_dir := ${tmp_dir}/tokens
+
+doc_name = niem-mpd-spec
+doc_html = ${tmp_dir}/${doc_name}.html
+doc_text = ${tmp_dir}/${doc_name}.txt
+
+depend_mk = ${tmp_dir}/dependencies.mk
+
+all_targets = ${doc_html} ${doc_text}
+
+install_targets = \
+  ${install_dir}/${doc_name}.html \
+  ${install_dir}/${doc_name}.txt \
+
+#HELP:Default target is "all".
+.DEFAULT_GOAL = all
+
+#############################################################################
+# begin dependency inclusion
+
+ifneq (${depend},)
+# $depend is set, so include dependencies, updating them if needed
+
+-include ${depend_mk}
+
+${depend_mk}: ${tmp_dir}/${doc_name}.xml
+	${MKDIR_P} ${dir $@}
+	${process_doc} ${process_doc_flags} --format=makedepend --in=$< --out=$@
+
+else ifeq (${wildcard ${depend_mk}},${depend_mk})
+# use existing dependencies
+include ${depend_mk}
+else
+# no existing dependencies; complain, but try
+${warning No dependencies present. Build with "depend=true" to enable building of dependencies}
+endif
+
+# end dependency inclusion
+#############################################################################
+
+# help:
+# 	@echo ' ' clean: clean up temporaries and junk
+# 	@echo ' ' distclean: clean up everything that could be generated
+# 	@echo ' ' valid: validate test instances against schemas
+
+.PHONY: all #  Build all products
+all: ${all_targets}
+
+${doc_html}: ${tmp_dir}/${doc_name}.xml ${doc_html_required_files}
+	${process_doc} ${process_doc_flags} --in=$< --out=$@
+
+${doc_text}: ${tmp_dir}/${doc_name}.xml ${doc_text_required_files}
+	${process_doc} ${process_doc_flags} --format=text --in=$< --out=$@
+
+#############################################################################
+# stuff from images
+
+# widths
+%.png.width.txt: %.png
+	${identify} -format '%w\n' $< > $@
+
+#############################################################################
+# depend
+
+.PHONY: depend #  Rebuild dependencies
+depend:
+	${RM} ${depend_mk}
+	${MAKE} ${depend_mk} depend=true
+
+#############################################################################
+# localize from source dir
+
+${tmp_dir}/%: ${src_dir}/%
+	${MKDIR_P} ${dir $@}
+	${INSTALL_DATA} $< $@
+
+#############################################################################
+# installation
+
+.PHONY: install #  Install build products into distribution directory
+install: ${install_targets}
+
+${install_dir}/%: ${tmp_dir}/%
+	${MKDIR_P} ${dir $@}
+	${INSTALL_DATA} $< $@
+
+#############################################################################
+# convenience targets
+
+.PHONY: clean #  Remove build products
+clean:
+	${RM} -r ${tmp_dir}
+
+.PHONY: distclean #  Remove all generated files
+distclean: clean
+	${RM} Makefile config.log config.status
+
+.PHONY: configure #  Rebuild the configure script and supporting files
+configure:
+	${MAKE} -C ${src_dir} -f configure.mk
+
+.PHONY: help #  Print this help
+help:
+	@ ${SED} -e '/^\.PHONY:/s/^\.PHONY: *\([^ #]*\) *\#\( *\)\([^ ].*\)/\2\1: \3/p;/^[^#]*#HELP:/s/[^#]*#HELP:\(.*\)/\1/p;d' ${this_makefile}
