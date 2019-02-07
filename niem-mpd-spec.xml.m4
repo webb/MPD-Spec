@@ -43,7 +43,7 @@
 	  <p>This document is the normative specification for NIEM <termRef term="model package description">model package descriptions</termRef> (MPDs).  It supersedes <ref idref="NIEM-MPD-3.0.1"/>.</p>
 	  <p>This specification focuses on the rules for MPDs in general, and for <termRef>information exchange package documentation</termRef> (IEPD) MPDs specifically.</p> 
 	<p>At some time in the future NTAC will design, test, and publish a set of Schematron rules that correspond to constraint rules in this this MPD Specification.</p>  
-	<p>The MPD Specification represents the collaborative work of the NIEM Technical Architecture Committee (NTAC) and the NIEM Business Architecture Committee (NBAC).  It is a product of the NIEM Management Office (NMO).</p>
+	<p>The MPD Specification represents the collaborative work of the NIEM Technical Architecture Committee (NTAC) and the NIEM Business Architecture Committee (NBAC).  It is a product of the NIEM Management Office.</p>
     	<p>Email comments on this specification to <link href="mailto:niem-comments%40lists.gatech.edu?subject=NIEM%20MPD%20Specification%20Version%20[[[]]]MACRO_document_version">niem-comments@lists.gatech.edu</link>.</p>
   </subsection>
 
@@ -827,13 +827,13 @@
 	</rule>
 </ruleSection>
 
-<ruleSection><title>MPD Catalog Document Valid to <code>mpd-catalog-3.0.xsd</code></title>
+<ruleSection><title>MPD Catalog Document Valid to <code>MACRO_MPD_catalog_xsd_name</code></title>
 	<rule id="r1-mpd-cat" applicability="MPD-catalog" class="Constraint">
-		<p>An <termRef>MPD catalog document</termRef> MUST be valid to <code>mpd-catalog-3.0.xsd</code> <ref idref="MPD-Catalog-XSD"/>.</p>
+		<p>An <termRef>MPD catalog document</termRef> MUST be valid to <code>MACRO_MPD_catalog_xsd_name</code> as provided by <ref idref="MPD-Catalog-XSD"/>.</p>
 	</rule>
 </ruleSection>
 
-	<p>This rule requires validation with <code>mpd-catalog-3.0.xsd</code>, which also imports a NIEM schema subset.  So, validation of the <termRef>MPD catalog document</termRef> must be done in the context of the catalog schema document, its associated NIEM subset, and <code>mpd-catalog.xml</code>.  This does not require the <termRef term="model package description">MPD</termRef> to contain copies of the catalog schema document or the schema subset (since these are standard for all MPDs).  However, a validation tool must have access to all three XML documents.</p>
+	<p>This rule requires validation with <code>MACRO_MPD_catalog_xsd_name</code>, which also imports a NIEM schema subset.  So, validation of the <termRef>MPD catalog document</termRef> must be done in the context of the catalog schema document, its associated NIEM subset, and <code>mpd-catalog.xml</code>.  This does not require the <termRef term="model package description">MPD</termRef> to contain copies of the catalog schema document or the schema subset (since these are standard for all MPDs).  However, a validation tool must have access to all three XML documents.</p>
 
 	<p>The XML schema documents required to validate an <termRef>MPD catalog document</termRef> are available in the <ref idref="NIEM-MPD-Toolkit"/>.  Note that validators often require references to schemas and their imports.  This may be done through a command line instruction or by adding a <code>schemaLocation</code> attribute to <qName>xs:import</qName> statements.</p>
 
@@ -896,7 +896,7 @@
 <ruleSection>
 	<title>MPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules</title>
 	<rule id="r2-mpd-cat-ext-xsd" applicability="MPD-catalog" class="Constraint">
-		<p>Within an MPD, the schema set formed by <code>mpd-catalog-3.0.xsd</code> and all MPD catalog extension schema documents MUST conform to the <ref idref="NIEM-NDR"/> schema set conformance target rules.</p>
+		<p>Within an MPD, the schema set formed by <code>MACRO_MPD_catalog_xsd_name</code> and all MPD catalog extension schema documents MUST conform to the <ref idref="NIEM-NDR"/> schema set conformance target rules.</p>
 	</rule>
 </ruleSection>
 
@@ -2139,7 +2139,7 @@
 	</rule>
 </ruleSection>
 
-	<p>The rule above means that an <termRef term="information exchange package documentation">IEPD</termRef> implementer should not be forced to search for or track down specialized schema documents, documentation, or other artifacts required to validate and implement exchanges defined by an <termRef term="information exchange package documentation">IEPD</termRef>.  Specialized artifacts refer to those designed and built by an <termRef term="information exchange package documentation">IEPD</termRef> author, not artifacts that are standards and publicly available to all implementers.  For example, this rule does not imply that an <termRef term="information exchange package documentation">IEPD</termRef> should contain a schema document that defines the XML schema component vocabulary identified by the namespace name <code>http://www.w3.org/2001/XMLSchema</code> (i.e., XS), or <code>http://www.w3.org/2001/XMLSchema-instance</code> (i.e., XSI).  All schema processors have appropriate declarations for these built in.  Likewise, an <termRef term="information exchange package documentation">IEPD</termRef> is not required to contain <code>mpd-catalog-3.0.xsd</code> or the standard NIEM subset that supports it.</p>
+	<p>The rule above means that an <termRef term="information exchange package documentation">IEPD</termRef> implementer should not be forced to search for or track down specialized schema documents, documentation, or other artifacts required to validate and implement exchanges defined by an <termRef term="information exchange package documentation">IEPD</termRef>.  Specialized artifacts refer to those designed and built by an <termRef term="information exchange package documentation">IEPD</termRef> author, not artifacts that are standards and publicly available to all implementers.  For example, this rule does not imply that an <termRef term="information exchange package documentation">IEPD</termRef> should contain a schema document that defines the XML schema component vocabulary identified by the namespace name <code>http://www.w3.org/2001/XMLSchema</code> (i.e., XS), or <code>http://www.w3.org/2001/XMLSchema-instance</code> (i.e., XSI).  All schema processors have appropriate declarations for these built in.  Likewise, an <termRef term="information exchange package documentation">IEPD</termRef> is not required to contain <code>MACRO_MPD_catalog_xsd_name</code> or the standard NIEM subset that supports it.</p>
 
 	<p>On the other hand, an <termRef term="information exchange package documentation">IEPD</termRef> whose author has extended the MPD catalog schema is clearly required to contain the catalog extension schema document, since this is a specialized customization created by the author.  If a different NIEM schema subset is also used, then the <termRef term="information exchange package documentation">IEPD</termRef> must also contain its superset (i.e., a complete subset that incorporates both the original subset with additional NIEM components used to extend the catalog schema document; see <ref idref="r3-mpd-cat-ext-xsd"/>.)</p>
 
@@ -2187,7 +2187,7 @@
 
 
 <section id="MPD-Catalog-XSD" isAppendix="true"><title>MPD Catalog XML Schema Document</title>
-	<pre><include-text href="mpd-catalog.xsd"/></pre>
+	<pre><include-text href="MACRO_MPD_catalog_xsd_name"/></pre>
 
 	<p> <char name="nbsp"/> </p>
 </section>
@@ -2435,7 +2435,6 @@
 	<tr><td>NTAC </td><td>NIEM Technical Architecture Committee</td></tr>
 	<tr><td>OGC  </td><td>Open Geospatial Consortium</td></tr>
 	<tr><td>PDF  </td><td>Portable Document Format</td></tr>
-	<tr><td>PMO  </td><td>Program Management Office</td></tr>
 	<tr><td>PNG  </td><td>Portable Network Graphic</td></tr>
 	<tr><td>QName</td><td>Qualified Name (in XML Schema: a name qualified by a namespace)</td></tr>
 	<tr><td>RFC  </td><td>Request for Comment</td></tr>

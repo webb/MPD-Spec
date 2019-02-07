@@ -10,8 +10,12 @@ m4_define(MACRO_target_document_version,4.0)m4_dnl
 m4_define(MACRO_document_base_uri,http://reference.niem.gov/niem/specification/model-package-description/[[[]]]MACRO_target_document_version/)m4_dnl
 m4_define(MACRO_MPD_conformance_target_identifier,MACRO_document_base_uri[[[]]]#MPD)m4_dnl
 m4_define(MACRO_IEPD_conformance_target_identifier,MACRO_document_base_uri[[[]]]#IEPD)m4_dnl
-m4_dnl NDR stuff
+m4_define(MACRO_MPD_catalog_xsd_name,mpd-catalog.xsd)m4_dnl
+m4_dnl =============================================================================
+m4_dnl begin NDR stuff
 m4_define(MACRO_NDR_version,4.0)m4_dnl
 m4_define(MACRO_NDR_document_base_uri,http://reference.niem.gov/niem/specification/naming-and-design-rules/MACRO_NDR_version/)m4_dnl
 m4_define(MACRO_NDR_EXT_conformance_target_identifier,MACRO_NDR_document_base_uri#ExtensionSchemaDocument)m4_dnl
 m4_define(MACRO_NDR_REF_conformance_target_identifier,MACRO_NDR_document_base_uri#ReferenceSchemaDocument)m4_dnl
+m4_dnl end NDR stuff
+m4_dnl =============================================================================
