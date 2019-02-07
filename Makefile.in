@@ -12,9 +12,9 @@ SHELL = @bash@ -o pipefail -o errexit -o nounset
 
 #HELP:Build for @PACKAGE_NAME@ (@PACKAGE_TARNAME@)
 
-src_dir = @abs_srcdir@
-build_dir = @abs_builddir@
-install_dir = @prefix@
+src_dir = @srcdir@
+build_dir = @builddir@
+install_dir = @install_dir@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 
 # PROGRAMS
@@ -27,6 +27,7 @@ SED = @SED@
 # other names
 find = @find@
 identify = @identify@
+m4 = @m4@
 process_doc = @process_doc@
 xs_validate = @xs_validate@
 base64 = @base64@
@@ -91,6 +92,9 @@ endif
 
 .PHONY: all #  Build all products
 all: ${all_targets}
+
+${tmp_dir}/${doc_name}.xml: ${tmp_dir}/macros.m4 ${tmp_dir}/${doc_name}.xml.m4 
+	${m4} -P $^ > $@
 
 ${doc_html}: ${tmp_dir}/${doc_name}.xml ${doc_html_required_files}
 	${process_doc} ${process_doc_flags} --in=$< --out=$@

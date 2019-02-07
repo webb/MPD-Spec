@@ -16,7 +16,7 @@
    xmlns:nc="http://release.niem.gov/niem/3.0/">
  
    <title>National Information Exchange Model <char name="mdash"/> Model Package Description Specification</title>
-   <version>4.0alpha1</version>
+   <version>MACRO_document_version</version>
    <date>2015-04-27</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
 
@@ -25,7 +25,7 @@
 <!-- ################################################################# -->
 
   <subsection><title>URI</title>
-	  <p><strong><link>http://reference.niem.gov/niem/specification/model-package-description/3.0.1/</link></strong></p>
+	  <p><strong><link>http://reference.niem.gov/niem/specification/model-package-description/MACRO_target_document_version/</link></strong></p>
   </subsection>
 
   <subsection><title>Contents</title>
@@ -35,7 +35,7 @@
 
   <subsection><title>Abstract</title>
 
-	<p>This document specifies normative rules and non-normative guidance for building Model Package Descriptions (MPDs) that conform to the National Information Exchange Model (NIEM) version 3.0.</p>
+	<p>This document specifies normative rules and non-normative guidance for building Model Package Descriptions (MPDs) that conform to the National Information Exchange Model (NIEM) version MACRO_target_NIEM_version.</p>
   </subsection>
 
   <subsection><title>Status</title>
@@ -44,7 +44,7 @@
 	  <p>This specification focuses on the rules for MPDs in general, and for <termRef>information exchange package documentation</termRef> (IEPD) MPDs specifically.  Relevant NIEM specifications will address the rules for other <termRef term="MPD class">MPD classes</termRef> in the future.</p> 
 	<p>At some time in the future NTAC will design, test, and publish a set of Schematron rules that correspond to constraint rules in this this MPD Specification.</p>  
 	<p>The MPD Specification represents the collaborative work of the NIEM Technical Architecture Committee (NTAC), the NIEM Business Architecture Committee (NBAC), and their predecessors.  It is a product of the NIEM Program Management Office (PMO).</p>
-    	<p>Email comments on this specification to <link href="mailto:niem-comments%40lists.gatech.edu?subject=NIEM%20MPD%20Specification%20Version%203.0.1">niem-comments@lists.gatech.edu</link>.</p>
+    	<p>Email comments on this specification to <link href="mailto:niem-comments%40lists.gatech.edu?subject=NIEM%20MPD%20Specification%20Version%20[[[]]]MACRO_document_version">niem-comments@lists.gatech.edu</link>.</p>
   </subsection>
 
 
@@ -2200,7 +2200,7 @@
 
 
 <section id="MPD-Catalog-XSD" isAppendix="true"><title>MPD Catalog XML Schema Document</title>
-	<pre><include-text href="mpd-toolkit-3.0/mpd-catalog-3.0.xsd"/></pre>
+	<pre><include-text href="mpd-catalog.xsd"/></pre>
 
 	<p> <char name="nbsp"/> </p>
 </section>
