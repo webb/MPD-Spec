@@ -42,7 +42,7 @@ doc_name = niem-mpd-spec
 doc_html = ${tmp_dir}/${doc_name}.html
 doc_text = ${tmp_dir}/${doc_name}.txt
 
-depend_mk = ${tmp_dir}/dependencies.mk
+depend_mk = ${build_dir}/dependencies.mk
 
 extra_files_paths = \
   xml-catalog.xml \
@@ -147,7 +147,8 @@ clean:
 
 .PHONY: distclean #  Remove all generated files
 distclean: clean
-	${RM} Makefile config.log config.status
+	${RM} ${depend_mk} @config_files@
+	${RM} config.log config.status
 
 .PHONY: configure #  Rebuild the configure script and supporting files
 configure:
