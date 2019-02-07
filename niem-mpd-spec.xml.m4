@@ -41,9 +41,9 @@
   <subsection><title>Status</title>
 
 	  <p>This document is the normative specification for NIEM <termRef term="model package description">model package descriptions</termRef> (MPDs).  It supersedes <ref idref="NIEM-MPD-3.0.1"/>.</p>
-	  <p>This specification focuses on the rules for MPDs in general, and for <termRef>information exchange package documentation</termRef> (IEPD) MPDs specifically.  Relevant NIEM specifications will address the rules for other <termRef term="MPD class">MPD classes</termRef> in the future.</p> 
+	  <p>This specification focuses on the rules for MPDs in general, and for <termRef>information exchange package documentation</termRef> (IEPD) MPDs specifically.</p> 
 	<p>At some time in the future NTAC will design, test, and publish a set of Schematron rules that correspond to constraint rules in this this MPD Specification.</p>  
-	<p>The MPD Specification represents the collaborative work of the NIEM Technical Architecture Committee (NTAC), the NIEM Business Architecture Committee (NBAC), and their predecessors.  It is a product of the NIEM Program Management Office (PMO).</p>
+	<p>The MPD Specification represents the collaborative work of the NIEM Technical Architecture Committee (NTAC) and the NIEM Business Architecture Committee (NBAC).  It is a product of the NIEM Management Office (NMO).</p>
     	<p>Email comments on this specification to <link href="mailto:niem-comments%40lists.gatech.edu?subject=NIEM%20MPD%20Specification%20Version%20[[[]]]MACRO_document_version">niem-comments@lists.gatech.edu</link>.</p>
   </subsection>
 
@@ -54,9 +54,8 @@
 
 <section id="Introduction"><title>Introduction</title>
 
-	<p>This specification assumes familiarity with the National Information Exchange Model (NIEM), its basic concepts, architecture, processes, design rules, and general conformance rules.  For novices to NIEM, the recommended reading list includes:</p>
+	<p>This specification assumes familiarity with the National Information Exchange Model (NIEM), its basic concepts, architecture, processes, design rules, and general conformance rules. NIEM training and reference materials are located at <link>https://niem.github.io</link>. In addition to those material, readers of this specification may wish to be familiar with :</p>
 	<ul>
-		<li><p><ref idref="NIEM-Intro"/></p></li>
 		<li><p><ref idref="NIEM-Conformance"/></p></li>
 		<li><p><ref idref="NIEM-CTAS"/></p></li>
 		<li><p><ref idref="NIEM-NDR"/></p></li> 
@@ -2532,10 +2531,6 @@
 
 <reference id="NIEM-Implementation" label="NIEM Implementation Guide">
 	<p><q>NIEM Implementation Guide</q>, NIEM Program Management Office.  Available from <link>https://www.niem.gov/aboutniem/grant-funding/Pages/implementation-guide.aspx</link>.</p>
-</reference>
-
-<reference id="NIEM-Intro" label="NIEM Introduction">
-	<p><em>Introduction to the National Information Exchange Model (NIEM)</em>, Version 0.3, NIEM Program Management Office, 12 February 2007.  Available from <link>http://reference.niem.gov/niem/guidance/introduction/</link>.</p>
 </reference>
 
 <reference id="NIEM-MPD-3.0.1">
