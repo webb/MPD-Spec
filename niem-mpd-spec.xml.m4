@@ -2543,8 +2543,8 @@
 	<p>This toolkit contains:  example IEPDs, XML schemas to validate an <code>mpd-catalog.xml</code> artifact, associated NIEM core subset, and a conformance assertion example.  Other artifacts may be added in the future as appropriate.</p>
 </reference>
 
-<reference id="NIEM-NDR" label="NIEM Naming and Design Rules 3.0">
-	<p><em>NIEM Naming and Design Rules (NDR)</em>, Version 3.0, NIEM Technical Architecture Committee (NTAC), [31 July 2014.  Available from <link>http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/</link>.</p>
+<reference id="NIEM-NDR" label="NIEM Naming and Design Rules v4.0">
+  <p>Webb Roberts. <q>National Information Exchange Model Naming and Design Rules, Version 4.0.</q> NIEM Technical Architecture Committee (NTAC), November 7, 2017. <link>https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html</link>.</p>
 </reference>
 
 <reference id="NIEM-SSGT" label="NIEM SSGT">
