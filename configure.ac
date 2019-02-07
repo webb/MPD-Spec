@@ -29,16 +29,17 @@ AC_PROG_MKDIR_P
 AC_PROG_SED
 # unix stuff
 WR_check_prog(aspell)
+WR_check_prog_options(base64,gbase64 base64)
 WR_check_prog(bash)
 WR_check_prog_options(cat,gcat cat)
-WR_check_prog(fgrep)
+WR_check_prog_options(fgrep,gfgrep fgrep)
 WR_check_prog_options(find,gfind find)
 # part of image magick
 WR_check_prog(identify)
 WR_check_prog_options(m4,gm4 m4)
 WR_check_prog_options(make,gmake make)
 WR_check_prog_options(sort,gsort sort)
-WR_check_prog_options(base64,gbase64 base64)
+WR_check_prog(xmllint)
 # webb stuff
 WR_check_prog_options(process_doc,process-doc)
 WR_check_prog_options(xs_validate,xs-validate)

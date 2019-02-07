@@ -25,12 +25,14 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 SED = @SED@
 # other names
+base64 = @base64@
+fgrep = @fgrep@
 find = @find@
 identify = @identify@
 m4 = @m4@
 process_doc = @process_doc@
+xmllint = @xmllint@
 xs_validate = @xs_validate@
-base64 = @base64@
 
 # above: things from autoconf
 #############################################################################
@@ -93,6 +95,8 @@ all: ${all_targets}
 
 ${tmp_dir}/${doc_name}.xml: ${tmp_dir}/macros.m4 ${tmp_dir}/${doc_name}.xml.m4 
 	${m4} -P $^ > $@
+	if ${fgrep} MACRO_ $@; then ${RM} $@; exit 1; fi
+	if ! ${xmllint} --noout $@; then ${RM} $@; exit 1; fi
 
 ${doc_html}: ${tmp_dir}/${doc_name}.xml ${doc_html_required_files}
 	${process_doc} ${process_doc_flags} --in=$< --out=$@

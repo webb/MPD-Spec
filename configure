@@ -591,7 +591,7 @@ LIBOBJS
 config_files
 xs_validate
 process_doc
-base64
+xmllint
 sort
 make
 m4
@@ -600,6 +600,7 @@ find
 fgrep
 cat
 bash
+base64
 aspell
 SED
 MKDIR_P
@@ -1978,6 +1979,52 @@ fi
 
 
   test "x$aspell" = "x" && as_fn_error $? "aspell not found" "$LINENO" 5
+for ac_prog in gbase64 base64
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_base64+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $base64 in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_base64="$base64" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_base64="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+base64=$ac_cv_path_base64
+if test -n "$base64"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $base64" >&5
+$as_echo "$base64" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  test -n "$base64" && break
+done
+
+  test "x$base64" = "x" && as_fn_error $? "base64 not found" "$LINENO" 5
 # Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -2065,8 +2112,10 @@ fi
 done
 
   test "x$cat" = "x" && as_fn_error $? "cat not found" "$LINENO" 5
-# Extract the first word of "fgrep", so it can be a program name with args.
-set dummy fgrep; ac_word=$2
+for ac_prog in gfgrep fgrep
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
 if ${ac_cv_path_fgrep+:} false; then :
@@ -2104,6 +2153,9 @@ else
 $as_echo "no" >&6; }
 fi
 
+
+  test -n "$fgrep" && break
+done
 
   test "x$fgrep" = "x" && as_fn_error $? "fgrep not found" "$LINENO" 5
 for ac_prog in gfind find
@@ -2332,18 +2384,16 @@ fi
 done
 
   test "x$sort" = "x" && as_fn_error $? "sort not found" "$LINENO" 5
-for ac_prog in gbase64 base64
-do
-  # Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
+# Extract the first word of "xmllint", so it can be a program name with args.
+set dummy xmllint; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_base64+:} false; then :
+if ${ac_cv_path_xmllint+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  case $base64 in
+  case $xmllint in
   [\\/]* | ?:[\\/]*)
-  ac_cv_path_base64="$base64" # Let the user override the test with a path.
+  ac_cv_path_xmllint="$xmllint" # Let the user override the test with a path.
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
@@ -2353,7 +2403,7 @@ do
   test -z "$as_dir" && as_dir=.
     for ac_exec_ext in '' $ac_executable_extensions; do
   if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_base64="$as_dir/$ac_word$ac_exec_ext"
+    ac_cv_path_xmllint="$as_dir/$ac_word$ac_exec_ext"
     $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
     break 2
   fi
@@ -2364,20 +2414,17 @@ IFS=$as_save_IFS
   ;;
 esac
 fi
-base64=$ac_cv_path_base64
-if test -n "$base64"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $base64" >&5
-$as_echo "$base64" >&6; }
+xmllint=$ac_cv_path_xmllint
+if test -n "$xmllint"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $xmllint" >&5
+$as_echo "$xmllint" >&6; }
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 fi
 
 
-  test -n "$base64" && break
-done
-
-  test "x$base64" = "x" && as_fn_error $? "base64 not found" "$LINENO" 5
+  test "x$xmllint" = "x" && as_fn_error $? "xmllint not found" "$LINENO" 5
 # webb stuff
 for ac_prog in process-doc
 do
