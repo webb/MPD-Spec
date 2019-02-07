@@ -25,7 +25,7 @@
 <!-- ################################################################# -->
 
   <subsection><title>URI</title>
-	  <p><strong><link>http://reference.niem.gov/niem/specification/model-package-description/MACRO_target_document_version/</link></strong></p>
+	  <p><strong><link>MACRO_document_base_uri</link></strong></p>
   </subsection>
 
   <subsection><title>Contents</title>
@@ -62,12 +62,6 @@
 		<li><p><ref idref="NIEM-HLVA"/></p></li>
 	</ul>
 
-	<p>Even those already knowledgeable of NIEM should be familiar with <ref idref="NIEM-Conformance"/>, <ref idref="NIEM-NDR"/>, <ref idref="NIEM-CTAS"/>, and <ref idref="NIEM-HLVA"/>.</p>
-
-	<p>This specification uses, and is a peer to, the NIEM Naming and Design Rules <ref idref="NIEM-NDR"/>.</p>
-
-
-
 <section id="Background">
 	<title>Background</title>
 
@@ -99,7 +93,7 @@
 		<li><p><em>Enterprise Information Exchange Model</em> (EIEM) <char name="mdash"/> A model derived from a NIEM release on which one or more IEPDs can be based.  See the NIEM concept paper <ref idref="NIEM-BIEC"/>.  A normative specification for this concept does not yet exist.</p></li>
 	</ul>
 
-	<p>This document is the baseline specification for all MPDs, and in particular, it focuses on the normative rules for IEPDs.  In the future, detailed rules that apply to other MPDs (listed above) will be published in other NIEM specifications.  Also, in the future, other types of MPDs may be added to this list.</p>
+	<p>This document is the baseline specification for all MPDs, and in particular, it focuses on the normative rules for IEPDs.</p>
 
 	<p>NIEM is a data layer for an information architecture.  Files in an <termRef term="model package description">MPD</termRef> generally define XML Schema types and declare XML elements and attributes to use in payloads for information exchanges.  While an <termRef term="model package description">MPD</termRef> may also contain files from layers beyond the data layer, this specification is not intended to define details of other architectural layers.  Such files are generally present only to provide additional context, understanding, or assistance for implementing the exchange of payloads.</p>
 
@@ -110,7 +104,7 @@
 	
 <section id="scope-iepd"><title>Information Exchange Package Documentation</title>
 
-	<p>This specification defines rules and practices for constructing and packaging conformant <termRef term="model package description">MPDs</termRef>, and in particular, <termRef>information exchange package documentation</termRef> (IEPDs).  To the NIEM program, the <termRef term="information exchange package documentation">IEPD</termRef> is considered the point of interoperability.  This specification provides a standard version numbering scheme <ref idref="Version-Numbering-Scheme"/>.  However, it does not provide guidance for managing or processing <termRef term="information exchange package documentation">IEPD</termRef> versions or their associated <termRef term="information exchange package">IEPs</termRef>.  Creation and management of <termRef term="information exchange package documentation">IEPDs</termRef> is the responsibility of stakeholders and developers.  As such, <termRef term="information exchange package documentation">IEPDs</termRef> have their own versioning processes, and are managed independently of the NIEM core and domains.  NIEM PMO defines <termRef term="information exchange package documentation">IEPD</termRef> conformance, but <termRef term="information exchange package documentation">IEPD</termRef> development and management fall outside its scope.  Nonetheless, in the near term, the PMO intends to develop guidance (through the NTAC) for managing <termRef term="information exchange package documentation">IEPDs</termRef>, versioning <termRef term="information exchange package documentation">IEPDs</termRef>, and processing their associated <termRef term="information exchange package">IEPs</termRef>.</p>
+	<p>This specification defines rules and practices for constructing and packaging conformant <termRef term="model package description">MPDs</termRef>, and in particular, <termRef>information exchange package documentation</termRef> (IEPDs).  To the NIEM program, the <termRef term="information exchange package documentation">IEPD</termRef> is considered the point of interoperability.  This specification provides a standard version numbering scheme <ref idref="Version-Numbering-Scheme"/>.  However, it does not provide guidance for managing or processing <termRef term="information exchange package documentation">IEPD</termRef> versions or their associated <termRef term="information exchange package">IEPs</termRef>.  Creation and management of <termRef term="information exchange package documentation">IEPDs</termRef> is the responsibility of stakeholders and developers.  As such, <termRef term="information exchange package documentation">IEPDs</termRef> have their own versioning processes, and are managed independently of the NIEM core and domains.  The NIEM Management Office defines <termRef term="information exchange package documentation">IEPD</termRef> conformance, but <termRef term="information exchange package documentation">IEPD</termRef> development and management fall outside its scope.  Nonetheless, the NIEM Management Office has developed guidance (through the NTAC) for managing <termRef term="information exchange package documentation">IEPDs</termRef>, versioning <termRef term="information exchange package documentation">IEPDs</termRef>, and processing their associated <termRef term="information exchange package">IEPs</termRef>.  This reference material can be found at <link>http://niem.github.io/reference/iepd/</link>.</p>
 
 	<p>An <termRef term="information exchange package documentation">IEPD</termRef> defines one or more data exchanges, each occurring in the form of an <termRef>information exchange package</termRef> (IEP).  This specification supports a variety of data exchange use cases, in which the <termRef term="information exchange package">IEP</termRef> may be:</p>
 	<ul>
@@ -273,7 +267,7 @@
 	<definition term="reference schema document">
 		<p>As defined by <ref idref="NIEM-NDR"/>:</p>
 			<blockquote>
-				<p>An <termRef>XML schema document</termRef> that is intended to provide the authoritative definitions of broadly reusable <termRef term="schema component">schema components</termRef>.  It is a <termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>.  A reference schema document MUST conform to all rules of <ref idref="NIEM-NDR"/> that apply to this conformance target.  An <termRef>instance XML document</termRef> with a <termRef>conformance target identifier</termRef> of <code>http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument</code> MUST be a conformant reference schema document.</p>
+				<p>An <termRef>XML schema document</termRef> that is intended to provide the authoritative definitions of broadly reusable <termRef term="schema component">schema components</termRef>.  It is a <termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>.  A reference schema document MUST conform to all rules of <ref idref="NIEM-NDR"/> that apply to this conformance target.  An <termRef>instance XML document</termRef> with a <termRef>conformance target identifier</termRef> of <code>MACRO_NDR_REF_conformance_target_identifier</code> MUST be a conformant reference schema document.</p>
 			</blockquote>
 	</definition>
 
@@ -412,7 +406,7 @@
 				<li><p>Uniform Resource Identifier (URI) (See <ref idref="mpdURI"/>)</p></li>
 				<li><p>Name (See <ref idref="Name-Syntax"/>)</p></li>
 				<li><p>Version number (See <ref idref="Version-Numbering-Scheme"/>)</p></li>
-				<li><p>The <termRef>conformance target identifier</termRef> <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code> (See <ref idref="mpdClass"/>)</p></li>
+				<li><p>The <termRef>conformance target identifier</termRef> <code>MACRO_MPD_conformance_target_identifier</code> (See <ref idref="mpdClass"/>)</p></li>
 			</ul>
 		</li>
 		<li><p>Contains a copy of (not just URLs or references to) all schema documents needed to validate any <termRef>instance XML document</termRef> class it defines.</p></li>
@@ -424,7 +418,7 @@
 		<p>A <termRef>model package description</termRef> is a set of <termRef term="artifact">artifacts</termRef> (possibly in a <termRef>ZIP file</termRef>) that:</p>
           <ul>
             <li><p>includes a set of logically cohesive W3C XML Schema documents and other supporting files that represent one or more reusable or implementable XML information models, and</p></li>
-	    <li><p>has an <termRef>MPD class</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code>, and</p></li>
+	    <li><p>has an <termRef>MPD class</termRef> of <code>MACRO_MPD_conformance_target_identifier</code>, and</p></li>
 	    <li><p>adheres to all the rules within this specification for the <termRef>model package description</termRef> <termRef>conformance target</termRef>.</p></li>
           </ul>
 	  <p>This term may be abbreviated <q>MPD</q>. Rules specifying this conformance target use the applicability code <q>WF-MPD</q>.</p>
@@ -443,7 +437,7 @@
 	<ruleSection>
 		<title>MPD Conformance Target Identifier</title>
 		<rule id="r-ct-mpd" applicability="WF-MPD" class="Constraint">
-			<p>An <termRef term="model package description">MPD</termRef> MUST have an <termRef>MPD class</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD</code>.</p>
+			<p>An <termRef term="model package description">MPD</termRef> MUST have an <termRef>MPD class</termRef> of <code>MACRO_MPD_conformance_target_identifier</code>.</p>
 		</rule>
 	</ruleSection>
 
@@ -463,7 +457,7 @@
           <p>An <termRef>information exchange package documentation</termRef> is a <termRef>model package description</termRef> that:</p>
 
 	  <ul>
-	    <li><p>has an <termRef>MPD class</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code>, and</p></li>
+	    <li><p>has an <termRef>MPD class</termRef> of <code>MACRO_IEPD_conformance_target_identifier</code>, and</p></li>
             <li><p>conforms to all the rules in this specification for the conformance target <termRef>information exchange package documentation</termRef> (i.e., applicability code <q>IEPD</q>).</p></li>
           </ul>
 	  <p>This term may be abbreviated <q>IEPD</q>. Rules specifying this conformance target use the applicability code <q>IEPD</q>.</p>
@@ -495,7 +489,7 @@
 	<ruleSection>
 		<title>MPD with MPD class of IEPD is an IEPD</title>
 		<rule id="rule-mpd-class-iepd" applicability="WF-MPD" class="Constraint">
-			<p>A <termRef>model package description</termRef> with an <termRef>MPD class</termRef> of <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code> MUST be an <termRef>information exchange package documentation</termRef>.</p>
+			<p>A <termRef>model package description</termRef> with an <termRef>MPD class</termRef> of <code>MACRO_IEPD_conformance_target_identifier</code> MUST be an <termRef>information exchange package documentation</termRef>.</p>
 		</rule>
 	</ruleSection>
 
@@ -504,7 +498,7 @@
 	<ruleSection>
 		<title>IEPD Conformance Target Identifier</title>
 		<rule id="r-ct-iepd" applicability="IEPD" class="Constraint">
-			<p>An <termRef term="information exchange package documentation">IEPD</termRef> MUST have the <termRef>conformance target identifier</termRef> <code>http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD</code> as a value of its <qName>c:mpdClassURIList</qName> attribute.</p>
+			<p>An <termRef term="information exchange package documentation">IEPD</termRef> MUST have the <termRef>conformance target identifier</termRef> <code>MACRO_IEPD_conformance_target_identifier</code> as a value of its <qName>c:mpdClassURIList</qName> attribute.</p>
 		</rule>
 	</ruleSection>
 
@@ -702,7 +696,7 @@
 	<definition term="extension schema document">
 		<p>As defined by <ref idref="NIEM-NDR"/>:</p>
 		<blockquote>
-			<p>An <termRef>XML schema document</termRef> that is intended to provide definitions of <termRef term="schema component">schema components</termRef> that are intended for reuse within a more narrow scope than those defined by a <termRef>reference schema document</termRef>.  It is a <termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>.  An extension schema document MUST conform to all rules of <ref idref="NIEM-NDR"/> that apply to this conformance target.  An XML document with a <termRef>conformance target identifier</termRef> of <code>http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ExtensionSchemaDocument</code> MUST be an extension schema document.</p>
+			<p>An <termRef>XML schema document</termRef> that is intended to provide definitions of <termRef term="schema component">schema components</termRef> that are intended for reuse within a more narrow scope than those defined by a <termRef>reference schema document</termRef>.  It is a <termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>.  An extension schema document MUST conform to all rules of <ref idref="NIEM-NDR"/> that apply to this conformance target.  An XML document with a <termRef>conformance target identifier</termRef> of <code>MACRO_NDR_EXT_conformance_target_identifier</code> MUST be an extension schema document.</p>
 	  	</blockquote>
 	</definition>
 
@@ -966,12 +960,10 @@
 	<p>An <termRef term="information exchange package documentation">IEPD</termRef> authoring organization might use another classification system for its IEPDs.  For example, the organization <em>ABC</em> might establish the <termRef>conformance target identifier</termRef> <code>http://example.org/niem-iepd/1.0/#abc-org</code> to indicate its IEPDs also conform to its own stricter set of <termRef term="information exchange package documentation">IEPD</termRef> conformance rules.  Thus, an MPD catalog document for its published IEPDs would contain the <qName>c:mpdClassURIList</qName> component shown in <ref idref="abc"/> indicating conformance to three <termRef term="conformance target">conformance targets</termRef>.</p>
 
 	<figure id="abc"><title>MPD catalog <qName>c:mpdClassURIList</qName> attribute for organization ABC.</title>
-		<pre>
-	c:mpdClassURIList=
-	     "http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD 
-	      http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD 
-	      http://example.org/niem-iepd/1.0/#abc-org"
-		</pre>
+		<pre>c:mpdClassURIList=
+ "MACRO_MPD_conformance_target_identifier
+  MACRO_IEPD_conformance_target_identifier
+  http://example.org/niem-iepd/1.0/#abc-org"</pre>
 	</figure>
 
 </section>
