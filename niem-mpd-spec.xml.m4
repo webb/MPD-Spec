@@ -60,7 +60,6 @@
 		<li><p><ref idref="NIEM-CTAS"/></p></li>
 		<li><p><ref idref="NIEM-NDR"/></p></li> 
 		<li><p><ref idref="NIEM-HLVA"/></p></li>
-		<li><p><ref idref="NIEM-HLTA"/></p></li>
 		<li><p><ref idref="NIEM-Implementation"/></p></li>
 	</ul>
 
@@ -2516,10 +2515,6 @@
 
 <reference id="NIEM-DomainUpdate" label="NIEM Domain Update Specification 1.0">
 	<p><em>NIEM Domain Update Specification</em>, Version 1.0, NIEM Technical Architecture Committee (NTAC), 5 November 2010.  Available from <link>http://reference.niem.gov/niem/specification/domain-update/1.0/</link>.</p>
-</reference>
-
-<reference id="NIEM-HLTA" label="NIEM High-Level Tool Architecture 1.1">
-	<p><em>NIEM High-Level Tool Architecture</em>, Version 1.1, NIEM Technical Architecture Committee, 1 December 2008.  Available from <link>http://reference.niem.gov/niem/specification/high-level-tool-architecture/1.1/</link>.</p>
 </reference>
 
 <reference id="NIEM-HLVA" label="NIEM High-Level Version Architecture 3.0"><p><em>NIEM High Level Version Architecture (HLVA)</em>, Version 3.0, NIEM Technical Architecture Committee, 27 April 2015.  Available from <link>http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/</link>.</p>
