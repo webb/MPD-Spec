@@ -65,21 +65,19 @@ install_targets = \
 #############################################################################
 # begin dependency inclusion
 
-ifneq (${depend},)
-# $depend is set, so include dependencies, updating them if needed
-
+#HELP:Set variable depend=no to prevent building dependencies
+ifeq (${depend},no) # not building dependencies
+ifeq (${wildcard ${depend_mk}},${depend_mk}) # use existing dependencies
+include ${depend_mk}
+else # no existing dependencies; complain, but try
+${warning No dependencies present. Build without "depend=no" to enable building of dependencies}
+endif
+else # $depend != no. building dependencies if needed
 -include ${depend_mk}
 
 ${depend_mk}: ${tmp_dir}/${doc_name}.xml
 	${MKDIR_P} ${dir $@}
 	${process_doc} ${process_doc_flags} --format=makedepend --in=$< --out=$@
-
-else ifeq (${wildcard ${depend_mk}},${depend_mk})
-# use existing dependencies
-include ${depend_mk}
-else
-# no existing dependencies; complain, but try
-${warning No dependencies present. Build with "depend=true" to enable building of dependencies}
 endif
 
 # end dependency inclusion
