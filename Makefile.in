@@ -12,9 +12,9 @@ SHELL = @bash@ -o pipefail -o errexit -o nounset
 
 #HELP:Build for @PACKAGE_NAME@ (@PACKAGE_TARNAME@)
 
-src_dir = @abs_srcdir@
-build_dir = @abs_builddir@
-install_dir = @prefix@
+src_dir = @srcdir@
+build_dir = @builddir@
+install_dir = @install_dir@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 
 # PROGRAMS
@@ -25,11 +25,14 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 SED = @SED@
 # other names
+base64 = @base64@
+fgrep = @fgrep@
 find = @find@
 identify = @identify@
+m4 = @m4@
 process_doc = @process_doc@
+xmllint = @xmllint@
 xs_validate = @xs_validate@
-base64 = @base64@
 
 # above: things from autoconf
 #############################################################################
@@ -41,7 +44,7 @@ doc_name = niem-mpd-spec
 doc_html = ${tmp_dir}/${doc_name}.html
 doc_text = ${tmp_dir}/${doc_name}.txt
 
-depend_mk = ${tmp_dir}/dependencies.mk
+depend_mk = ${build_dir}/dependencies.mk
 
 extra_files_paths = \
   xml-catalog.xml \
@@ -64,21 +67,19 @@ install_targets = \
 #############################################################################
 # begin dependency inclusion
 
-ifneq (${depend},)
-# $depend is set, so include dependencies, updating them if needed
-
+#HELP:Set variable depend=no to prevent building dependencies
+ifeq (${depend},no) # not building dependencies
+ifeq (${wildcard ${depend_mk}},${depend_mk}) # use existing dependencies
+include ${depend_mk}
+else # no existing dependencies; complain, but try
+${warning No dependencies present. Build without "depend=no" to enable building of dependencies}
+endif
+else # $depend != no. building dependencies if needed
 -include ${depend_mk}
 
 ${depend_mk}: ${tmp_dir}/${doc_name}.xml
 	${MKDIR_P} ${dir $@}
 	${process_doc} ${process_doc_flags} --format=makedepend --in=$< --out=$@
-
-else ifeq (${wildcard ${depend_mk}},${depend_mk})
-# use existing dependencies
-include ${depend_mk}
-else
-# no existing dependencies; complain, but try
-${warning No dependencies present. Build with "depend=true" to enable building of dependencies}
 endif
 
 # end dependency inclusion
@@ -91,6 +92,11 @@ endif
 
 .PHONY: all #  Build all products
 all: ${all_targets}
+
+${tmp_dir}/${doc_name}.xml: ${tmp_dir}/macros.m4 ${tmp_dir}/${doc_name}.xml.m4 
+	${m4} -P $^ > $@
+	if ${fgrep} MACRO_ $@; then ${RM} $@; exit 1; fi
+	if ! ${xmllint} --noout $@; then ${RM} $@; exit 1; fi
 
 ${doc_html}: ${tmp_dir}/${doc_name}.xml ${doc_html_required_files}
 	${process_doc} ${process_doc_flags} --in=$< --out=$@
@@ -143,7 +149,8 @@ clean:
 
 .PHONY: distclean #  Remove all generated files
 distclean: clean
-	${RM} Makefile config.log config.status
+	${RM} ${depend_mk} @config_files@
+	${RM} config.log config.status
 
 .PHONY: configure #  Rebuild the configure script and supporting files
 configure:

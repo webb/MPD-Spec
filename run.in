@@ -1,0 +1,30 @@
+#!@bash@
+
+set -o pipefail -o errexit -o nounset
+
+fail () {
+     printf 'ERROR: %s\n' "$*" >&2
+     exit 1
+}
+
+(( $# > 0 )) || fail "need >= 1 arguments (got $#)"
+
+command=$1
+shift
+case $command in
+     configure ) # re-run configure with current parameters
+         @make@ -C @srcdir@ -f configure.mk
+         @srcdir@/configure install_dir="@install_dir@"
+         ;;
+     open-html | oh )
+         make -j @builddir@/tmp/niem-mpd-spec.html
+         open @builddir@/tmp/niem-mpd-spec.html
+         ;;
+     clean )
+         make clean depend=no
+         ;;
+     * ) fail "Unknown command \"$command\""
+    ;;
+esac
+
+

@@ -4,8 +4,13 @@ AC_PREREQ([2.69])
 AC_INIT([NIEM MPD Specification],[0],[wr@gatech.edu],[niem-mpd-spec],[wr@gatech.edu])
 AC_CONFIG_SRCDIR([Makefile.in])
 
-if test "x$prefix" = "xNONE"
-then AC_MSG_ERROR([\$prefix is unset. Set with --prefix=\${install root directory}])
+if test "x$install_dir" = "x"
+then AC_MSG_ERROR([Variable install_dir not set.])
+fi
+AC_MSG_RESULT([install_dir set to ${install_dir}])
+AC_SUBST([install_dir],[$install_dir])
+if ! test -d "${install_dir}"
+then AC_MSG_WARN([install_dir ${install_dir} does not exist])
 fi
 
 dnl WR_check_prog( $command-name )
@@ -24,20 +29,23 @@ AC_PROG_MKDIR_P
 AC_PROG_SED
 # unix stuff
 WR_check_prog(aspell)
+WR_check_prog_options(base64,gbase64 base64)
 WR_check_prog(bash)
 WR_check_prog_options(cat,gcat cat)
-WR_check_prog(fgrep)
+WR_check_prog_options(fgrep,gfgrep fgrep)
 WR_check_prog_options(find,gfind find)
 # part of image magick
 WR_check_prog(identify)
 WR_check_prog_options(m4,gm4 m4)
+WR_check_prog_options(make,gmake make)
 WR_check_prog_options(sort,gsort sort)
-WR_check_prog_options(base64,gbase64 base64)
+WR_check_prog(xmllint)
 # webb stuff
 WR_check_prog_options(process_doc,process-doc)
 WR_check_prog_options(xs_validate,xs-validate)
 
 
 AC_CONFIG_FILES([Makefile], [chmod 444 Makefile])
+AC_CONFIG_FILES([run], [chmod 555 run])
 AC_SUBST([config_files],$ac_config_files)
 AC_OUTPUT
