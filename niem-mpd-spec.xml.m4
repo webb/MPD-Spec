@@ -60,12 +60,9 @@
 		<li><p><ref idref="NIEM-CTAS"/></p></li>
 		<li><p><ref idref="NIEM-NDR"/></p></li> 
 		<li><p><ref idref="NIEM-HLVA"/></p></li>
-		<li><p><ref idref="NIEM-Implementation"/></p></li>
 	</ul>
 
 	<p>Even those already knowledgeable of NIEM should be familiar with <ref idref="NIEM-Conformance"/>, <ref idref="NIEM-NDR"/>, <ref idref="NIEM-CTAS"/>, and <ref idref="NIEM-HLVA"/>.</p>
-
-	<p>The NIEM documents listed above are available at <link>http://reference.niem.gov/niem/</link>.  See <ref idref="NIEM-Implementation"/> for the NIEM implementation guidelines Web page.</p>
 
 	<p>This specification uses, and is a peer to, the NIEM Naming and Design Rules <ref idref="NIEM-NDR"/>.</p>
 
@@ -2522,10 +2519,6 @@
 
 <reference id="NIEM-IEPD" label="Requirements for a NIEM IEPD 2.1">
 	<p><em>Requirements for a National Information Exchange Model (NIEM) Information Exchange Package Documentation (IEPD) Specification</em>, Version 2.1, June 2006.  Available from <link>http://reference.niem.gov/niem/guidance/iepd-requirements/2.1/</link>.</p>
-</reference>
-
-<reference id="NIEM-Implementation" label="NIEM Implementation Guide">
-	<p><q>NIEM Implementation Guide</q>, NIEM Program Management Office.  Available from <link>https://www.niem.gov/aboutniem/grant-funding/Pages/implementation-guide.aspx</link>.</p>
 </reference>
 
 <reference id="NIEM-MPD-3.0.1">
