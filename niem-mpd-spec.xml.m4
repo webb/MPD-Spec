@@ -54,7 +54,7 @@
 
 <section id="Introduction"><title>Introduction</title>
 
-	<p>This specification assumes familiarity with the National Information Exchange Model (NIEM), its basic concepts, architecture, processes, design rules, and general conformance rules. NIEM training and reference materials are located at <link>https://niem.github.io</link>. In addition to those material, readers of this specification may wish to be familiar with :</p>
+	<p>This specification assumes familiarity with the National Information Exchange Model (NIEM), its basic concepts, architecture, processes, design rules, and general conformance rules. NIEM training and reference materials are located at <link>https://niem.github.io</link>. In addition to those materials, readers of this specification may wish to be familiar with:</p>
 	<ul>
 		<li><p><ref idref="NIEM-Conformance"/></p></li>
 		<li><p><ref idref="NIEM-CTAS"/></p></li>
@@ -2506,8 +2506,8 @@
 	<p><em>NIEM Business Information Exchange Components</em>, Version 1.0, NIEM Technical Architecture Committee (NTAC), 8 March 2011.  Available from <link>http://reference.niem.gov/niem/specification/business-information-exchange-components/1.0/</link>.</p>
 </reference>
 
-<reference id="NIEM-Conformance" label="NIEM Conformance 3.0">
-	<p><em>NIEM Conformance</em>, Version 3.0, NIEM Technical Architecture Committee (NTAC), 14 August 2014.  Available from <link>http://reference.niem.gov/niem/specification/conformance/3.0/</link>.</p>
+<reference id="NIEM-Conformance" label="NIEM Conformance Spec v4.0">
+  <p>Webb Roberts, ed. <q>National Information Exchange Model Conformance Specification, Version 4.0.</q> NIEM Technical Architecture Committee (NTAC), February 7, 2019. <link>https://reference.niem.gov/niem/specification/conformance/3.0/conformance-4.0.html</link>.</p>
 </reference>
 
 <reference id="NIEM-CTAS" label="NIEM Conformance Targets Attribute Specification 3.0">
