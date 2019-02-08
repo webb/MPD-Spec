@@ -23,6 +23,15 @@ case $command in
      clean )
          make clean depend=no
          ;;
+     publish )
+         rm -rf @builddir@/tmp/publish-checkout
+         current_branch=$(git -C @install_dir@ rev-parse --abbrev-ref HEAD)
+         git -C @builddir@/tmp clone --branch gh-pages https://github.com/NIEM/MPD-Spec.git publish-checkout
+         rm -rf @builddir@/tmp/publish-checkout/"$current_branch"
+         git -C @install_dir@ publish -d @abs_builddir@/tmp/publish-checkout "$current_branch"
+         echo "That's as far as it gets for now. Add to it when you have new content."
+         exit 1
+         ;;
      * ) fail "Unknown command \"$command\""
     ;;
 esac
