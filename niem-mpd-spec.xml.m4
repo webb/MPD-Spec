@@ -1273,7 +1273,8 @@
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title></title>
+	<ruleSection>
+          <title>Schema document set interpreted as constraint schema document set</title>
 		<rule id="r2-csds" applicability="WF-MPD" class="Interpretation">
 			<p>Any <termRef>XML schema document</termRef> set whose <qName>c:pathURI</qName> attribute resolves to a <termRef>constraint schema document set</termRef> MUST be interpreted to be a <termRef>constraint schema document set</termRef>.</p>
 		</rule>
