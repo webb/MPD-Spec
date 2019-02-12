@@ -24,4 +24,3 @@ m4_dnl begin NIEM namespaces for NIEM 4.1
 m4_define(MACRO_namespace_nc,http://release.niem.gov/niem/niem-core/4.0/)m4_dnl
 m4_define(MACRO_namespace_appinfo,http://release.niem.gov/niem/appinfo/4.0/)m4_dnl
 m4_define(MACRO_namespace_structures,http://release.niem.gov/niem/structures/4.0/)m4_dnl
-m4_define(MACRO_namespace_j,http://release.niem.gov/niem/domains/jxdm/6.1/)m4_dnl
