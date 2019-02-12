@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 <document
-   xmlns="https://iead.ittl.gtri.org/wr24/doc/2011-09-30-2258"
+   xmlns:appinfo="MACRO_namespace_appinfo"
+   xmlns:c="MACRO_namespace_mpd_catalog"
    xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/"
-   xmlns:html="http://www.w3.org/1999/xhtml"
-   xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
    xmlns:doc="https://iead.ittl.gtri.org/wr24/doc/2011-09-30-2258"
-   xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+   xmlns:er="urn:oasis:names:tc:entity:xmlns:xml:catalog"
+   xmlns:html="http://www.w3.org/1999/xhtml"
+   xmlns:j="MACRO_namespace_j"
+   xmlns:nc="MACRO_namespace_nc"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
    xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-   xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+   xmlns:structures="MACRO_namespace_structures"
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:er="urn:oasis:names:tc:entity:xmlns:xml:catalog"
-   xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/"
-   xmlns:nc="http://release.niem.gov/niem/3.0/">
+   xmlns="https://iead.ittl.gtri.org/wr24/doc/2011-09-30-2258">
  
    <title>National Information Exchange Model <char name="mdash"/> Model Package Description Specification</title>
    <version>MACRO_document_version</version>
@@ -191,14 +191,12 @@
 	<p>The following namespaces are referenced and used in this specification:</p>
 
 	<figure>
-		<title>Namespaces Used</title>
-		<pre>
-	c		http://reference.niem.gov/niem/resource/mpd/catalog/3.0/
-	er		urn:oasis:names:tc:entity:xmlns:xml:catalog
-	nc		http://release.niem.gov/niem/niem-core/3.0/
-	structures	http://release.niem.gov/niem/structures/3.0/
-	xs		http://www.w3.org/2001/XMLSchema
-		</pre>
+	  <title>Namespaces Used</title>
+		<pre>c           MACRO_namespace_mpd_catalog
+er	    urn:oasis:names:tc:entity:xmlns:xml:catalog
+nc	    MACRO_namespace_nc
+structures  MACRO_namespace_structures
+xs          http://www.w3.org/2001/XMLSchema</pre>
 	</figure>
 
 </section>
