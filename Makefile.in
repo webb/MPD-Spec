@@ -95,7 +95,7 @@ all: ${all_targets}
 
 ${tmp_dir}/${doc_name}.xml: ${tmp_dir}/macros.m4 ${tmp_dir}/${doc_name}.xml.m4 
 	${m4} -P $^ > $@
-	if ${fgrep} MACRO_ $@; then ${RM} $@; exit 1; fi
+	if ${fgrep} -n MACRO_ $@ /dev/null | ${SED} -e 's/^/ERROR: Unresolved macro: /'; then ${RM} $@; exit 1; fi
 	if ! ${xmllint} --noout $@; then ${RM} $@; exit 1; fi
 
 ${doc_html}: ${tmp_dir}/${doc_name}.xml ${doc_html_required_files}
