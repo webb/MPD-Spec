@@ -27,7 +27,7 @@
 
   <subsection><title>Abstract</title>
 
-	<p>This document specifies normative rules and non-normative guidance for building Model Package Descriptions (MPDs) that conform to the National Information Exchange Model (NIEM) version MACRO_target_NIEM_version.</p>
+	<p>This document specifies normative rules and non-normative guidance for building Information Exchhange Package Descriptions (IEPDs) that conform to the National Information Exchange Model (NIEM) version 4.</p>
   </subsection>
 
   <subsection><title>Status</title>
