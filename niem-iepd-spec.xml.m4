@@ -7,9 +7,9 @@
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns="https://iead.ittl.gtri.org/wr24/doc/2011-09-30-2258">
  
-   <title>National Information Exchange Model <char name="mdash"/> Model Package Description Specification</title>
+   <title>National Information Exchange Model <char name="mdash"/> Information Exchange Package Description Specification</title>
    <version>MACRO_document_version</version>
-   <date>2015-04-27</date>
+   <date>2019-03-26</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
 
    <image src="img/niem-logo-sm.png"/>
