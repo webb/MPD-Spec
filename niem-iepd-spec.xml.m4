@@ -2188,7 +2188,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 <section id="MPD-Catalog-Document-CoT" isAppendix="true">
 	<title>Example MPD Catalog Document for Cursor on Target</title>
 	<p>Below is a simple example of an MPD catalog document for a <em>Cursor on Target</em> <termRef term="information exchange package documentation">IEPD</termRef>.  The entire <termRef term="information exchange package documentation">IEPD</termRef> is contained in the <ref idref="NIEM-MPD-Toolkit"/></p>
-	<pre><include-text href="xsd/sample.5/mpd-catalog.xml"/></pre>
+	<pre><include-text href="xsd/sample.5/iepd-catalog.xml"/></pre>
 
 	<p> <char name="nbsp"/> </p>
 </section>

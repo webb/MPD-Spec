@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 <xs:schema
-  ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/#ExtensionSchemaDocument"
-  targetNamespace="http://reference.niem.gov/niem/resource/mpd/catalog/4.0/"
-  version="1alpha1"
-  xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/"
-  xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/4.0/"
+  ct:conformanceTargets="MACRO_NDR_REF_conformance_target_identifier"
+  targetNamespace="MACRO_namespace_iepd_catalog"
+  version="4.0"
+  xmlns:appinfo="MACRO_namespace_appinfo"
+  xmlns:c="MACRO_namespace_iepd_catalog"
   xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/"
-  xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+  xmlns:nc="MACRO_namespace_nc"
   xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
-  xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+  xmlns:structures="MACRO_namespace_structures"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>Model Package Description (MPD) Catalog schema document.  Defines an mpd-catalog.xml artifact for Model Package Descriptions (MPD).  The purpose of this schema is to facilitate consistent declaration of MPD content, conformance targets, metadata, and lineage to process, display, review, register, search, and discover MPDs efficiently. For IEPDs, this mpd-catalog schema provides instructions for validating IEPs to schemas.  This XML Schema document is supported by a subset of NIEM 4.1.

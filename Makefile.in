@@ -46,13 +46,13 @@ doc_text = ${tmp_dir}/${doc_name}.txt
 
 depend_mk = ${build_dir}/dependencies.mk
 
-extra_files_paths = \
-  xml-catalog.xml \
-  iepd-catalog.xsd \
-  niem \
+niem_files_default := ${shell ${find} ${src_dir}/niem -type f}
+niem_files = ${niem_files_default}
 
-extra_files_source_default := ${shell for f in ${extra_files_paths}; do find ${src_dir}/$$f -type f; done}
-extra_files_source = ${extra_files_source_default}
+extra_files_source = \
+  ${src_dir}/xml-catalog.xml \
+  ${src_dir}/iepd-catalog.xsd \
+  ${niem_files}
 
 all_targets = ${doc_html} ${doc_text} ${extra_files_source:${src_dir}/%=${build_dir}/tmp/%}
 
@@ -98,6 +98,10 @@ ${tmp_dir}/${doc_name}.xml: ${tmp_dir}/macros.m4 ${tmp_dir}/${doc_name}.xml.m4
 	if ${fgrep} -n MACRO_ $@ /dev/null | ${SED} -e 's/^/ERROR: Unresolved macro: /'; then ${RM} $@; exit 1; fi
 	if ! ${xmllint} --noout $@; then ${RM} $@; exit 1; fi
 
+${tmp_dir}/%: ${tmp_dir}/%.m4 ${tmp_dir}/macros.m4 
+	${m4} -P ${tmp_dir}/macros.m4  $< > $@
+	if ${fgrep} -n MACRO_ $@ /dev/null | ${SED} -e 's/^/ERROR: Unresolved macro: /'; then ${RM} $@; exit 1; fi
+
 ${doc_html}: ${tmp_dir}/${doc_name}.xml ${doc_html_required_files}
 	${process_doc} ${process_doc_flags} --in=$< --out=$@
 
@@ -139,6 +143,17 @@ uninstall:
 ${install_dir}/%: ${tmp_dir}/%
 	${MKDIR_P} ${dir $@}
 	${INSTALL_DATA} $< $@
+
+#############################################################################
+# valid
+# Make sure that validation checks don't build or install anything
+
+.PHONY: valid #  validate test instances against schemas
+valid: ${tmp_dir}/tokens/catalog-xs-valid/xsd/sample.5/iepd-catalog.xml
+
+${tmp_dir}/tokens/catalog-xs-valid/%: ${src_dir}/%
+	${MKDIR_P} ${dir $@}
+	${xs_validate} --catalog=${build_dir}/tmp/xml-catalog.xml $<
 
 #############################################################################
 # convenience targets
