@@ -23,3 +23,7 @@ m4_dnl begin NIEM namespaces for NIEM 4.1
 m4_define(MACRO_namespace_nc,http://release.niem.gov/niem/niem-core/4.0/)m4_dnl
 m4_define(MACRO_namespace_appinfo,http://release.niem.gov/niem/appinfo/4.0/)m4_dnl
 m4_define(MACRO_namespace_structures,http://release.niem.gov/niem/structures/4.0/)m4_dnl
+m4_dnl temporary macros to resolve to new macros FIXME
+m4_define(MACRO_namespace_mpd_catalog,MACRO_namespace_iepd_catalog)m4_dnl
+m4_define(MACRO_MPD_conformance_target_identifier,MACRO_IEPD_conformance_target_identifier)m4_dnl
+m4_define(MACRO_MPD_catalog_xsd_name,MACRO_IEPD_catalog_xsd_name)m4_dnl
