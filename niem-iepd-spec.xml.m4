@@ -7,7 +7,7 @@
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns="https://iead.ittl.gtri.org/wr24/doc/2011-09-30-2258">
  
-   <title>National Information Exchange Model <char name="mdash"/> Information Exchange Package Description Specification</title>
+   <title>National Information Exchange Model <char name="mdash"/> Information Exchange Package Documentation Specification</title>
    <version>MACRO_document_version</version>
    <date>2019-03-26</date>
    <author>NIEM Technical Architecture Committee (NTAC)</author>
@@ -27,15 +27,13 @@
 
   <subsection><title>Abstract</title>
 
-	<p>This document specifies normative rules and non-normative guidance for building Information Exchhange Package Descriptions (IEPDs) that conform to the National Information Exchange Model (NIEM) version 4.</p>
+	<p>This document specifies normative rules and non-normative guidance for building an information exchange package documentation (IEPD) that conforms to the National Information Exchange Model (NIEM).</p>
   </subsection>
 
   <subsection><title>Status</title>
 
-	  <p>This document is the normative specification for NIEM <termRef term="model package description">model package descriptions</termRef> (MPDs).  It supersedes <ref idref="NIEM-MPD-3.0.1"/>.</p>
-	  <p>This specification focuses on the rules for MPDs in general, and for <termRef>information exchange package documentation</termRef> (IEPD) MPDs specifically.</p> 
-	<p>At some time in the future NTAC will design, test, and publish a set of Schematron rules that correspond to constraint rules in this this MPD Specification.</p>  
-	<p>The MPD Specification represents the collaborative work of the NIEM Technical Architecture Committee (NTAC) and the NIEM Business Architecture Committee (NBAC).  It is a product of the NIEM Management Office.</p>
+	  <p>This document is a normative specification for NIEM <termRef>information exchange package documentation</termRef> (IEPD).  It is an update to <ref idref="NIEM-MPD-3.0.1"/>.</p>
+	<p>This specification represents the work of the NIEM Technical Architecture Committee (NTAC) and the NIEM Business Architecture Committee (NBAC). It is a product of the NIEM Management Office.</p>
     	<p>Email comments on this specification to <link href="mailto:niem-comments%40lists.gatech.edu?subject=NIEM%20MPD%20Specification%20Version%20[[[]]]MACRO_document_version">niem-comments@lists.gatech.edu</link>.</p>
   </subsection>
 
@@ -57,7 +55,8 @@
 <section id="Background">
 	<title>Background</title>
 
-	<p>Many fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose.  Examples of such sets include, but are not necessarily limited to, a NIEM release, domain update, <termRef>information exchange package documentation</termRef> (IEPD), and Enterprise Information Exchange Model (EIEM).  Each of these is an example of a NIEM <termRef>model package description</termRef> (MPD).</p>
+	<p>NIEM was developed to enable the exchange of information that is defined using common components. In order to facilitate this, NIEM has formalized the definition of an information exchange as an <em>information exchange </em>
+          definition of A major use of NIEM is based on the definition of information exchanges that are based on common NIEM components,  standard focused on the buildMany fundamental concepts, processes, and products in the NIEM generally involve aggregating electronic files into logical sets that serve a specific purpose.  Examples of such sets include, but are not necessarily limited to, a NIEM release, domain update, <termRef>information exchange package documentation</termRef> (IEPD), and Enterprise Information Exchange Model (EIEM).  Each of these is an example of a NIEM <termRef>model package description</termRef> (MPD).</p>
 
 	<p>An <termRef term="model package description">MPD</termRef> is a normative specification for XML <termRef term="data component">data components</termRef> in the format of the World Wide Web Consortium (W3C) XML Schema Definition Language <ref idref="W3-XML-Schema-Datatypes"/>, <ref idref="W3-XML-Schema-Structures"/>.  <termRef term="model package description">MPD</termRef> schema documents either (1) define the semantics and structure for NIEM reusable <termRef term="data component">data components</termRef>, or (2) define implementable NIEM exchange instance XML documents in W3C Extensible Markup Language (XML) <ref idref="W3-XML"/>.</p>
 

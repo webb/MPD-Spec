@@ -42,6 +42,9 @@ Variable `install_dir`: The configuration stage needs to know in what directory 
 
 The makefile requires dependencies that are derived from the source document. These dependencies are automatically rebuilt when needed. Avoid rebuilding dependencies by running make with 'depend=no' set.
 
+# Notes about the document itself
 
-
-
+- The plural of *documentation* is *documentation*.
+    - The plural of *IEPD* is *IEPDs*.
+- Don't capitalize words that aren't proper nouns.
+    - Don't capitalize *information exchange package documentation*
