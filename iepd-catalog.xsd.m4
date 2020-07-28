@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 <xs:schema
-  ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/#ExtensionSchemaDocument"
-  targetNamespace="http://reference.niem.gov/niem/resource/mpd/catalog/4.0/"
-  version="1alpha1"
-  xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/"
-  xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/4.0/"
+  ct:conformanceTargets="MACRO_NDR_REF_conformance_target_identifier"
+  targetNamespace="MACRO_namespace_iepd_catalog"
+  version="MACRO_target_document_version"
+  xmlns:appinfo="MACRO_namespace_appinfo"
+  xmlns:c="MACRO_namespace_iepd_catalog"
   xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/"
-  xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+  xmlns:nc="MACRO_namespace_nc"
   xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
-  xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+  xmlns:structures="MACRO_namespace_structures"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
-    <xs:documentation>Model Package Description (MPD) Catalog schema document.  Defines an mpd-catalog.xml artifact for Model Package Descriptions (MPD).  The purpose of this schema is to facilitate consistent declaration of MPD content, conformance targets, metadata, and lineage to process, display, review, register, search, and discover MPDs efficiently. For IEPDs, this mpd-catalog schema provides instructions for validating IEPs to schemas.  This XML Schema document is supported by a subset of NIEM 4.1.
+    <xs:documentation>Information Exchange Package Documentation (IEPD) Catalog schema document.  Defines an iepd-catalog.xml artifact for IEPDs.  The purpose of this schema is to facilitate consistent declaration of IEPD content, conformance targets, metadata, and lineage to process, display, review, register, search, and discover IEPDs efficiently, as well as instructions for validating IEPs to IEPDs.  This XML Schema document is supported by a subset of NIEM 4.1.
     </xs:documentation>
     <xs:appinfo>
       <appinfo:LocalTerm term="EIEM" literal="Enterprise Information Exchange Model"/>
@@ -21,7 +21,6 @@
       <appinfo:LocalTerm term="IEP" literal="Information Exchange Package" definition="an instance XML document"/>
       <appinfo:LocalTerm term="IEPD" literal="Information Exchange Package                                                 Documentation"/>
       <appinfo:LocalTerm term="MIME" literal="Multipurpose Internet Mail Extension"/>
-      <appinfo:LocalTerm term="MPD" literal="Model Package Description"/>
       <appinfo:LocalTerm term="OASIS" literal="Organization for the Advancement                                                of Structured Information Standards"/>
       <appinfo:LocalTerm term="SSGT" literal="Schema Subset Generation Tool"/>
       <appinfo:LocalTerm term="URI" literal="Uniform Resource Identifier"/>
@@ -33,50 +32,50 @@
   <xs:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/"/>
   <xs:element name="Catalog" type="c:CatalogType">
     <xs:annotation>
-      <xs:documentation>An MPD catalog that describes MPD artifacts and metadata.
+      <xs:documentation>An IEPD catalog that describes IEPD artifacts and metadata.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:complexType name="CatalogType">
     <xs:annotation>
-      <xs:documentation>A data type for an MPD catalog.</xs:documentation>
+      <xs:documentation>A data type for an IEPD catalog.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
-          <xs:element ref="c:MPD"/>
+          <xs:element ref="c:IEPD"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="MPD" type="c:MPDType">
+  <xs:element name="IEPD" type="c:IEPDType">
     <xs:annotation>
-      <xs:documentation>A Model Package Description (MPD).</xs:documentation>
+      <xs:documentation>An Information Exchange Package Description (IEPD).</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:complexType name="MPDType">
+  <xs:complexType name="IEPDType">
     <xs:annotation>
-      <xs:documentation>A data type for an MPD.</xs:documentation>
+      <xs:documentation>A data type for an IEPD.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:DescriptionText" minOccurs="0"/>
-          <xs:element ref="c:MPDInformation" minOccurs="0"/>
+          <xs:element ref="c:IEPDInformation" minOccurs="0"/>
           <xs:element ref="c:IEPConformanceTarget" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute ref="c:mpdURI" use="required"/>
-        <xs:attribute ref="c:mpdClassURIList" use="required"/>
-        <xs:attribute ref="c:mpdName" use="required"/>
-        <xs:attribute ref="c:mpdVersionID" use="required"/>
+        <xs:attribute ref="c:iepdURI" use="required"/>
+        <xs:attribute ref="c:iepdClassURIList" use="required"/>
+        <xs:attribute ref="c:iepdName" use="required"/>
+        <xs:attribute ref="c:iepdVersionID" use="required"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="ArtifactOrArtifactSet" abstract="true">
     <xs:annotation>
       <xs:documentation>
-        A data concept for a file or file set in an MPD.
+        A data concept for a file or file set in an IEPD.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
@@ -84,13 +83,13 @@
   <xs:element name="File" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-        A generic electronic file artifact in an MPD; a file stored on a computer system.
+        A generic electronic file artifact in an IEPD; a file stored on a computer system.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:complexType name="FileType">
     <xs:annotation>
-      <xs:documentation>A data type for an MPD file artifact.</xs:documentation>
+      <xs:documentation>A data type for an IEPD file artifact.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
@@ -107,33 +106,33 @@
   <xs:element name="XMLCatalog" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-        An MPD artifact that is an OASIS XML catalog.
+        An IEPD artifact that is an OASIS XML catalog.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="MPDChangeLog" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
+  <xs:element name="IEPDChangeLog" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-        An MPD artifact that contains a record of the MPD changes.
+        An IEPD artifact that contains a record of the IEPD changes.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ReadMe" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
-      <xs:documentation>An MPD read-me artifact.</xs:documentation>
+      <xs:documentation>An IEPD read-me artifact.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="IEPSampleXMLDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-        An example MPD instance XML document or IEP artifact.
+        An example IEPD instance XML document or IEP artifact.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="BusinessRulesArtifact" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-        An MPD artifact that contains business rules 
+        An IEPD artifact that contains business rules 
         and constraints on exchange content.
       </xs:documentation>
     </xs:annotation>
@@ -141,7 +140,7 @@
   <xs:element name="XMLSchemaDocument" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-        An MPD artifact that is an XML schema document (i.e., an XSD that
+        An IEPD artifact that is an XML schema document (i.e., an XSD that
         is not necessarily a NIEM subset, extension, or reference schema).
       </xs:documentation>
     </xs:annotation>
@@ -149,25 +148,25 @@
   <xs:element name="ExternalSchemaDocument" type="c:FileType" substitutionGroup="c:XMLSchemaDocument">
     <xs:annotation>
       <xs:documentation>
-        An MPD artifact that is a schema document external to NIEM.
+        An IEPD artifact that is a schema document external to NIEM.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ExtensionSchemaDocument" type="c:FileType" substitutionGroup="c:XMLSchemaDocument">
     <xs:annotation>
-      <xs:documentation>An MPD artifact that is a NIEM extension schema document.
+      <xs:documentation>An IEPD artifact that is a NIEM extension schema document.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SubsetSchemaDocument" type="c:FileType" substitutionGroup="c:XMLSchemaDocument">
     <xs:annotation>
-      <xs:documentation>An MPD artifact that is a subset schema document.
+      <xs:documentation>An IEPD artifact that is a subset schema document.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ReferenceSchemaDocument" type="c:FileType" substitutionGroup="c:XMLSchemaDocument">
     <xs:annotation>
-      <xs:documentation>An MPD artifact that is a reference schema document (from a release, domain update, or core update).
+      <xs:documentation>An IEPD artifact that is a reference schema document (from a release, domain update, or core update).
       </xs:documentation>
     </xs:annotation>
   </xs:element>
@@ -180,20 +179,20 @@
   </xs:element>
   <xs:element name="Wantlist" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
-      <xs:documentation>An MPD artifact that represents a NIEM schema subset 
+      <xs:documentation>An IEPD artifact that represents a NIEM schema subset 
         and is used as an import or export for the NIEM SSGT.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ConformanceAssertion" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
-      <xs:documentation>An MPD artifact that is a signed declaration 
+      <xs:documentation>An IEPD artifact that is a signed declaration 
         that a NIEM IEPD or EIEM is NIEM-conformant.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ConformanceReport" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-	An MPD artifact either auto-generated by a NIEM-aware software tool or manually prepared 
+	An IEPD artifact either auto-generated by a NIEM-aware software tool or manually prepared 
 	that checks NIEM conformance and/or quality and renders a detailed report of results.
 	This report may also be an auto-generated and manually prepared hybrid artifact. 
       </xs:documentation>
@@ -212,14 +211,14 @@
   <xs:element name="Documentation" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-        An MPD artifact that is a form of explanatory documentation.
+        An IEPD artifact that is a form of explanatory documentation.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ApplicationInfo" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-        An MPD artifact that is used by a software tool (e.g., import, export, input, output, etc.).
+        An IEPD artifact that is used by a software tool (e.g., import, export, input, output, etc.).
       </xs:documentation>
     </xs:annotation>
   </xs:element>
@@ -227,7 +226,7 @@
   <xs:element name="RequiredFile" type="c:FileType">
     <xs:annotation>
       <xs:documentation>
-        An MPD file artifact that another artifact depends on and should not be separated from.
+        An IEPD file artifact that another artifact depends on and should not be separated from.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
@@ -235,13 +234,13 @@
   <xs:element name="FileSet" type="c:FileSetType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-        A generic MPD artifact set; used to group artifacts that are not accounted for by other set classifiers.
+        A generic IEPD artifact set; used to group artifacts that are not accounted for by other set classifiers.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:complexType name="FileSetType">
     <xs:annotation>
-      <xs:documentation>A data type for a set of MPD file artifacts.</xs:documentation>
+      <xs:documentation>A data type for a set of IEPD file artifacts.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
@@ -257,21 +256,21 @@
   <xs:element name="SchemaDocumentSet" type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-        An MPD artifact set that may include subset schema documents, extension and external schema documents, and other supporting artifacts.
+        An IEPD artifact set that may include subset schema documents, extension and external schema documents, and other supporting artifacts.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ConstraintSchemaDocumentSet" type="c:SchemaDocumentSetType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>
-        An MPD artifact set of constraint schema documents and other supporting artifacts.
+        An IEPD artifact set of constraint schema documents and other supporting artifacts.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:complexType name="SchemaDocumentSetType">
     <xs:annotation>
       <xs:documentation>
-        A data type for an MPD artifact set that may include subset schema documents, extension schema documents, and external schema documents or constraint schema documents.
+        A data type for an IEPD artifact set that may include subset schema documents, extension schema documents, and external schema documents or constraint schema documents.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -279,39 +278,39 @@
     </xs:complexContent>
   </xs:complexType>
   <!-- Primitives ================================================================== -->
-  <xs:attribute name="mpdURI" type="xs:anyURI">
+  <xs:attribute name="iepdURI" type="xs:anyURI">
     <xs:annotation>
       <xs:documentation>
-        A globally unique identifier (URI) for an MPD.
+        A globally unique identifier (URI) for an IEPD.
       </xs:documentation>
     </xs:annotation>
   </xs:attribute>
-  <xs:attribute name="mpdName" type="c:MPDNameSimpleType">
+  <xs:attribute name="iepdName" type="c:IEPDNameSimpleType">
     <xs:annotation>
-      <xs:documentation>A descriptive label or title for an MPD.</xs:documentation>
+      <xs:documentation>A descriptive label or title for an IEPD.</xs:documentation>
     </xs:annotation>
   </xs:attribute>
-  <xs:simpleType name="MPDNameSimpleType">
+  <xs:simpleType name="IEPDNameSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A data type for an MPD name, label, or title.
+        A data type for an IEPD name, label, or title.
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="[A-Za-z]([-_ ]?[A-Za-z0-9]+)*"/>
     </xs:restriction>
   </xs:simpleType>
-  <xs:attribute name="mpdVersionID" type="c:MPDVersionIDSimpleType">
+  <xs:attribute name="iepdVersionID" type="c:IEPDVersionIDSimpleType">
     <xs:annotation>
       <xs:documentation>
-        An identifier that distinguishes releases of a given MPD.
+        An identifier that distinguishes releases of a given IEPD.
       </xs:documentation>
     </xs:annotation>
   </xs:attribute>
-  <xs:simpleType name="MPDVersionIDSimpleType">
+  <xs:simpleType name="IEPDVersionIDSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A data type for an identifier that distinguishes releases of a given MPD.
+        A data type for an identifier that distinguishes releases of a given IEPD.
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
@@ -319,27 +318,27 @@
     </xs:restriction>
   </xs:simpleType>
   <!-- =========================================================================== -->
-  <xs:attribute name="mpdClassURIList" type="c:MPDClassURIListSimpleType">
+  <xs:attribute name="iepdClassURIList" type="c:IEPDClassURIListSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A list of one or more URIs that each represents an MPD class to which the MPD claims conformance.
+        A list of one or more URIs that each represents an IEPD class to which the IEPD claims conformance.
       </xs:documentation>
     </xs:annotation>
   </xs:attribute>
-  <xs:simpleType name="MPDClassURIListSimpleType">
+  <xs:simpleType name="IEPDClassURIListSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A data type that ensures at least one class is identified as an MPD conformance target.
+        A data type that ensures at least one class is identified as an IEPD conformance target.
       </xs:documentation>
     </xs:annotation>
-    <xs:restriction base="c:MPDClassListSimpleType">
+    <xs:restriction base="c:IEPDClassListSimpleType">
       <xs:minLength value="1"/>
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="MPDClassListSimpleType">
+  <xs:simpleType name="IEPDClassListSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A data type for one or more URIs that are MPD conformance target classes.
+        A data type for one or more URIs that are IEPD conformance target classes.
       </xs:documentation>
     </xs:annotation>
     <xs:list itemType="xs:anyURI"/>
@@ -348,28 +347,28 @@
   <xs:attribute name="pathURI" type="xs:anyURI">
     <xs:annotation>
       <xs:documentation>
-        A URI for the pathname of a local artifact relative to the MPD root directory.
+        A URI for the pathname of a local artifact relative to the IEPD root directory.
       </xs:documentation>
     </xs:annotation>
   </xs:attribute>
   <xs:attribute name="externalURI" type="xs:anyURI">
     <xs:annotation>
       <xs:documentation>
-        A globally unique identifier (URI) for an artifact in another MPD that is reused by this MPD.
+        A globally unique identifier (URI) for an artifact in another IEPD that is reused by this IEPD.
       </xs:documentation>
     </xs:annotation>
   </xs:attribute>
   <xs:attribute name="mimeMediaTypeText" type="xs:string">
     <xs:annotation>
       <xs:documentation>
-        A classification for an MPD file artifact from the IANA MIME media classes: http://www.iana.org/assignments/media-types.
+        A classification for an IEPD file artifact from the IANA MIME media classes: http://www.iana.org/assignments/media-types.
       </xs:documentation>
     </xs:annotation>
   </xs:attribute>
   <xs:complexType name="RelationshipType">
     <xs:annotation>
       <xs:documentation>
-        A data type for a reference to another MPD related to this MPD.
+        A data type for a reference to another IEPD related to this IEPD.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -385,84 +384,84 @@
   <xs:attribute name="resourceURI" type="xs:anyURI">
     <xs:annotation>
       <xs:documentation>
-        A globally unique identifier (URI) for another MPD or document to which this MPD relates.
+        A globally unique identifier (URI) for another IEPD or document to which this IEPD relates.
       </xs:documentation>
     </xs:annotation>
   </xs:attribute>
   <xs:attribute name="relationshipCode" type="c:RelationshipCodeSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A classification or reason for the connectedness between this MPD and the resource referenced in resourceURI.
+        A classification or reason for the connectedness between this IEPD and the resource referenced in resourceURI.
       </xs:documentation>
     </xs:annotation>
   </xs:attribute>
   <xs:simpleType name="RelationshipCodeSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A data type for a classification of the relationship between MPDs.
+        A data type for a classification of the relationship between IEPDs.
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="version_of">
         <xs:annotation>
           <xs:documentation>
-            A relationshipCode value for indicating that this MPD is a different version of the MPD referenced in resourceURI.  This code value is only needed in cases where significant name changes might obscure the relationship to the previous version.  For example, NIEM Justice 4.1 is a version of GJXDM 3.0.3.
+            A relationshipCode value for indicating that this IEPD is a different version of the IEPD referenced in resourceURI.  This code value is only needed in cases where significant name changes might obscure the relationship to the previous version.  For example, NIEM Justice 4.1 is a version of GJXDM 3.0.3.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="specializes">
         <xs:annotation>
           <xs:documentation>
-            A relationshipCode value for indicating that this MPD is a specialization of the MPD referenced in resourceURI.  This value is the inverse of generalizes.
+            A relationshipCode value for indicating that this IEPD is a specialization of the IEPD referenced in resourceURI.  This value is the inverse of generalizes.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="generalizes">
         <xs:annotation>
           <xs:documentation>
-            A relationshipCode value for indicating that this MPD is a generalization of the MPD referenced in resourceURI.  This value is the inverse of specializes.
+            A relationshipCode value for indicating that this IEPD is a generalization of the IEPD referenced in resourceURI.  This value is the inverse of specializes.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="supersedes">
         <xs:annotation>
           <xs:documentation>
-            A relationshipCode value for indicating that this MPD replaces the MPD referenced in resourceURI.
+            A relationshipCode value for indicating that this IEPD replaces the IEPD referenced in resourceURI.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="deprecates">
         <xs:annotation>
           <xs:documentation>
-            A relationshipCode value for indicating that content in this MPD is preferred over content in the MPD referenced in resourceURI; and at some time in the future will supersede the MPD referenced in resourceURI.
+            A relationshipCode value for indicating that content in this IEPD is preferred over content in the IEPD referenced in resourceURI; and at some time in the future will supersede the IEPD referenced in resourceURI.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="adapts">
         <xs:annotation>
           <xs:documentation>
-            A relationshipCode value for indicating that this MPD is an adaptation of the MPD referenced in resourceURI.
+            A relationshipCode value for indicating that this IEPD is an adaptation of the IEPD referenced in resourceURI.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="updates">
         <xs:annotation>
           <xs:documentation>
-            A relationshipCode value for indicating that this MPD is an incremental update to the resource referenced in resourceURI.  Used by a core or domain update to identify the domain schema in a NIEM release being incrementally updated (not replaced).
+            A relationshipCode value for indicating that this IEPD is an incremental update to the resource referenced in resourceURI.  Used by a core or domain update to identify the domain schema in a NIEM release being incrementally updated (not replaced).
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="conforms_to">
         <xs:annotation>
           <xs:documentation>
-            A relationshipCode value for indicating that this MPD conforms to the specification or standard referenced in resourceURI.
+            A relationshipCode value for indicating that this IEPD conforms to the specification or standard referenced in resourceURI.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="derives_from">
         <xs:annotation>
           <xs:documentation>
-            A relationshipCode value for indicating that this MPD has been derived from another; used to indicate an IEPD is derived from an EIEM (may have other uses as well).
+            A relationshipCode value for indicating that this IEPD has been derived from another; used to indicate an IEPD is derived from an EIEM (may have other uses as well).
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
@@ -706,15 +705,15 @@
     </xs:annotation>
   </xs:element>
   <!-- Metadata ==================================================================== -->
-  <xs:element name="MPDInformation" type="c:MPDInformationType">
+  <xs:element name="IEPDInformation" type="c:IEPDInformationType">
     <xs:annotation>
-      <xs:documentation>A set of descriptive data about an MPD.</xs:documentation>
+      <xs:documentation>A set of descriptive data about an IEPD.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:complexType name="MPDInformationType">
+  <xs:complexType name="IEPDInformationType">
     <xs:annotation>
       <xs:documentation>
-        A data type for a set of descriptive data about an MPD.
+        A data type for a set of descriptive data about an IEPD.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -738,73 +737,73 @@
   <xs:element name="ExtendedInformation" abstract="true">
     <xs:annotation>
       <xs:documentation>
-        A data concept for a user-defined descriptive data about an MPD.
+        A data concept for a user-defined descriptive data about an IEPD.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="AuthoritativeSource" type="nc:EntityType">
     <xs:annotation>
       <xs:documentation>
-        An official sponsoring or authoring organization responsible for an MPD.
+        An official sponsoring or authoring organization responsible for an IEPD.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CreationDate" type="niem-xs:date">
     <xs:annotation>
-      <xs:documentation>A date this MPD was published.</xs:documentation>
+      <xs:documentation>A date this IEPD was published.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="LastRevisionDate" type="niem-xs:date">
     <xs:annotation>
       <xs:documentation>
-        A date the latest changes to an MPD were published (i.e., CreationDate of previous version).
+        A date the latest changes to an IEPD were published (i.e., CreationDate of previous version).
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="StatusText" type="niem-xs:string">
     <xs:annotation>
       <xs:documentation>
-        A description of the current state of this MPD in development; may also project future plans for the MPD.
+        A description of the current state of this IEPD in development; may also project future plans for the IEPD.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Relationship" type="c:RelationshipType">
     <xs:annotation>
-      <xs:documentation>A reference to another MPD related to this MPD.</xs:documentation>
+      <xs:documentation>A reference to another IEPD related to this IEPD.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="KeywordText" type="niem-xs:string">
     <xs:annotation>
       <xs:documentation>
-        A common alias, term, or phrase that would help to facilitate search and discovery of this MPD.
+        A common alias, term, or phrase that would help to facilitate search and discovery of this IEPD.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="DomainText" type="niem-xs:string">
     <xs:annotation>
       <xs:documentation>
-        A description of the environment or NIEM Domain in which this MPD is applicable or used.
+        A description of the environment or NIEM Domain in which this IEPD is applicable or used.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PurposeText" type="niem-xs:string">
     <xs:annotation>
       <xs:documentation>
-        A description of the intended usage and reason for which an MPD exists.
+        A description of the intended usage and reason for which an IEPD exists.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ExchangePatternText" type="niem-xs:string">
     <xs:annotation>
       <xs:documentation>
-        A description of a transactional or design pattern used for this IEPD (generally, only applicable to IEPDs).
+        A description of a transactional or design pattern used for this IEPD.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ExchangePartnerName" type="niem-xs:string">
     <xs:annotation>
       <xs:documentation>
-        A name of an entity or organization that uses this MPD (generally, only applicable to IEPDs).
+        A name of an entity or organization that uses this IEPD.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
