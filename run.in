@@ -38,6 +38,12 @@ case $command in
          echo "That's as far as it gets for now. Add to it when you have new content."
          exit 1
          ;;
+     # prerequisites
+     pre )
+         PATH=/bin:/usr/bin:/opt/local/bin:$PWD/tmp/root/bin @srcdir@/configure
+         make -f prerequisites.mk clean
+         make -f prerequisites.mk
+         ;;
      * ) fail "Unknown command \"$command\""
     ;;
 esac

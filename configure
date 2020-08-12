@@ -607,7 +607,7 @@ MKDIR_P
 INSTALL_DATA
 INSTALL_SCRIPT
 INSTALL_PROGRAM
-install_dir
+PATH
 target_alias
 host_alias
 build_alias
@@ -652,7 +652,8 @@ enable_option_checking
 '
       ac_precious_vars='build_alias
 host_alias
-target_alias'
+target_alias
+PATH'
 
 
 # Initialize some variables set by options.
@@ -1258,6 +1259,12 @@ if test -n "$ac_init_help"; then
    esac
   cat <<\_ACEOF
 
+Some influential environment variables:
+  PATH        List of folders to search for executables
+
+Use these variables to override the choices made by `configure' or to help
+it to find libraries and programs with nonstandard names/locations.
+
 Report bugs to <wr@gatech.edu>.
 NIEM MPD Specification home page: <wr@gatech.edu>.
 _ACEOF
@@ -1689,17 +1696,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-if test "x$install_dir" = "x"
-then as_fn_error $? "Variable install_dir not set." "$LINENO" 5
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: install_dir set to ${install_dir}" >&5
-$as_echo "install_dir set to ${install_dir}" >&6; }
-install_dir=$install_dir
 
-if ! test -d "${install_dir}"
-then { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: install_dir ${install_dir} does not exist" >&5
-$as_echo "$as_me: WARNING: install_dir ${install_dir} does not exist" >&2;}
-fi
 
 
 
@@ -2425,6 +2422,7 @@ fi
 
 
   test "x$xmllint" = "x" && as_fn_error $? "xmllint not found" "$LINENO" 5
+
 # webb stuff
 for ac_prog in process-doc
 do
@@ -2470,8 +2468,8 @@ fi
 
   test -n "$process_doc" && break
 done
+test -n "$process_doc" || process_doc="process-doc"
 
-  test "x$process_doc" = "x" && as_fn_error $? "process_doc not found" "$LINENO" 5
 for ac_prog in xs-validate
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
@@ -2516,11 +2514,13 @@ fi
 
   test -n "$xs_validate" && break
 done
+test -n "$xs_validate" || xs_validate="xs-validate"
 
-  test "x$xs_validate" = "x" && as_fn_error $? "xs_validate not found" "$LINENO" 5
 
-
+# write files
 ac_config_files="$ac_config_files Makefile"
+
+ac_config_files="$ac_config_files prerequisites.mk"
 
 ac_config_files="$ac_config_files run"
 
@@ -3235,6 +3235,7 @@ for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "prerequisites.mk") CONFIG_FILES="$CONFIG_FILES prerequisites.mk" ;;
     "run") CONFIG_FILES="$CONFIG_FILES run" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
@@ -3663,6 +3664,7 @@ which seems to be undefined.  Please make sure it is defined" >&2;}
 
   case $ac_file$ac_mode in
     "Makefile":F) chmod 444 Makefile ;;
+    "prerequisites.mk":F) chmod 444 prerequisites.mk ;;
     "run":F) chmod 555 run ;;
 
   esac

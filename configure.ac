@@ -4,14 +4,8 @@ AC_PREREQ([2.69])
 AC_INIT([NIEM MPD Specification],[0],[wr@gatech.edu],[niem-mpd-spec],[wr@gatech.edu])
 AC_CONFIG_SRCDIR([Makefile.in])
 
-if test "x$install_dir" = "x"
-then AC_MSG_ERROR([Variable install_dir not set.])
-fi
-AC_MSG_RESULT([install_dir set to ${install_dir}])
-AC_SUBST([install_dir],[$install_dir])
-if ! test -d "${install_dir}"
-then AC_MSG_WARN([install_dir ${install_dir} does not exist])
-fi
+AC_ARG_VAR([PATH],[List of folders to search for executables])
+dnl AC_SUBST([PATH],[$PATH])
 
 dnl WR_check_prog( $command-name )
 dnl   e.g., WR_check_prog(bash) will set @bash@
@@ -40,12 +34,14 @@ WR_check_prog_options(m4,gm4 m4)
 WR_check_prog_options(make,gmake make)
 WR_check_prog_options(sort,gsort sort)
 WR_check_prog(xmllint)
+
 # webb stuff
-WR_check_prog_options(process_doc,process-doc)
-WR_check_prog_options(xs_validate,xs-validate)
+AC_PATH_PROGS([process_doc],[process-doc],[process-doc])
+AC_PATH_PROGS([xs_validate],[xs-validate],[xs-validate])
 
-
+# write files
 AC_CONFIG_FILES([Makefile], [chmod 444 Makefile])
+AC_CONFIG_FILES([prerequisites.mk], [chmod 444 prerequisites.mk])
 AC_CONFIG_FILES([run], [chmod 555 run])
 AC_SUBST([config_files],$ac_config_files)
 AC_OUTPUT
