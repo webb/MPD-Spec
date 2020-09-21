@@ -7,17 +7,11 @@ SHELL = @bash@ -o pipefail -o errexit -o nounset
 .SECONDARY:
 
 #############################################################################
-# things to set / override
-#############################################################################
+# autoconf/configure standard things
 
-#HELP:Build for @PACKAGE_NAME@ (@PACKAGE_TARNAME@)
-
-src_dir = @srcdir@
-build_dir = @builddir@
-install_dir = @install_dir@
+srcdir = @srcdir@
+builddir = @builddir@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
-PATH = @PATH@
-export PATH
 
 # PROGRAMS
 # autoconf names
@@ -26,6 +20,10 @@ INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 SED = @SED@
+
+#############################################################################
+# local things from autoconf
+
 # other names
 base64 = @base64@
 fgrep = @fgrep@
@@ -36,79 +34,81 @@ process_doc = @process_doc@
 xmllint = @xmllint@
 xs_validate = @xs_validate@
 
-# above: things from autoconf
 #############################################################################
+# below: derived things
 
-tmp_dir := ${build_dir}/tmp
-tokens_dir := ${tmp_dir}/tokens
+tmp_dir = ${builddir}/tmp
+tokens_dir = ${tmp_dir}/tokens
+publish_dir = ${srcdir}/publish
 
 doc_name = niem-iepd-spec
-doc_html = ${tmp_dir}/${doc_name}.html
-doc_text = ${tmp_dir}/${doc_name}.txt
+doc_html = ${publish_dir}/${doc_name}.html
+doc_text = ${publish_dir}/${doc_name}.txt
 
-depend_mk = ${build_dir}/dependencies.mk
-
-niem_files_default := ${shell ${find} ${src_dir}/niem -type f}
+niem_files_default := ${shell ${find} ${srcdir}/niem -type f}
 niem_files = ${niem_files_default}
 
 extra_files_source = \
-  ${src_dir}/xml-catalog.xml \
-  ${src_dir}/iepd-catalog.xsd \
+  ${srcdir}/xml-catalog.xml \
+  ${srcdir}/iepd-catalog.xsd \
   ${niem_files}
 
-all_targets = ${doc_html} ${doc_text} ${extra_files_source:${src_dir}/%=${build_dir}/tmp/%}
+all_files = ${doc_html} ${doc_text} ${extra_files_source:${srcdir}/%=${publish_dir}/%}
 
-install_targets = \
-  ${install_dir}/${doc_name}.html \
-  ${install_dir}/${doc_name}.txt \
-  ${extra_files_source:${src_dir}/%=${install_dir}/%}
-
+#HELP:Build for @PACKAGE_NAME@ (@PACKAGE_TARNAME@)
 #HELP:Default target is "all".
 .DEFAULT_GOAL = all
 
 #############################################################################
 # begin dependency inclusion
 
-#HELP:Set variable depend=no to prevent building dependencies
-ifeq (${depend},no) # not building dependencies
-ifeq (${wildcard ${depend_mk}},${depend_mk}) # use existing dependencies
-include ${depend_mk}
-else # no existing dependencies; complain, but try
-${warning No dependencies present. Build without "depend=no" to enable building of dependencies}
-endif
-else # $depend != no. building dependencies if needed
--include ${depend_mk}
+depend_mk = ${tmp_dir}/dependencies.mk
 
+build_dependencies=false
+ifeq (${build_dependencies},true) # it's OK to build dependencies
 ${depend_mk}: ${tmp_dir}/${doc_name}.xml
 	${MKDIR_P} ${dir $@}
 	${process_doc} ${process_doc_flags} --format=makedepend --in=$< --out=$@
 endif
 
+ifeq (${wildcard ${depend_mk}},${depend_mk}) # use existing dependencies
+  include ${depend_mk}
+else
+  ${warning No dependencies present. 'make depend' to build dependencies}
+endif
+
 # end dependency inclusion
 #############################################################################
 
-# help:
-# 	@echo ' ' clean: clean up temporaries and junk
-# 	@echo ' ' distclean: clean up everything that could be generated
-# 	@echo ' ' valid: validate test instances against schemas
-
 .PHONY: all #  Build all products
-all: ${all_targets}
+all: ${all_files}
 
 ${tmp_dir}/${doc_name}.xml: ${tmp_dir}/macros.m4 ${tmp_dir}/${doc_name}.xml.m4 
+	@ ${MKDIR_P} ${dir $@}
 	${m4} -P $^ > $@
 	if ${fgrep} -n MACRO_ $@ /dev/null | ${SED} -e 's/^/ERROR: Unresolved macro: /'; then ${RM} $@; exit 1; fi
 	if ! ${xmllint} --noout $@; then ${RM} $@; exit 1; fi
 
 ${tmp_dir}/%: ${tmp_dir}/%.m4 ${tmp_dir}/macros.m4 
+	@ ${MKDIR_P} ${dir $@}
 	${m4} -P ${tmp_dir}/macros.m4  $< > $@
 	if ${fgrep} -n MACRO_ $@ /dev/null | ${SED} -e 's/^/ERROR: Unresolved macro: /'; then ${RM} $@; exit 1; fi
 
 ${doc_html}: ${tmp_dir}/${doc_name}.xml ${doc_html_required_files}
+	@ ${MKDIR_P} ${dir $@}
 	${process_doc} ${process_doc_flags} --in=$< --out=$@
 
 ${doc_text}: ${tmp_dir}/${doc_name}.xml ${doc_text_required_files}
+	@ ${MKDIR_P} ${dir $@}
 	${process_doc} ${process_doc_flags} --format=text --in=$< --out=$@
+
+${publish_dir}/%: ${srcdir}/src/%.m4
+	@ ${MKDIR_P} ${dir $@}
+	${m4} -P ${tmp_dir}/macros.m4  $< > $@
+
+${publish_dir}/%: ${srcdir}/src/%
+	@ ${MKDIR_P} ${dir $@}
+	${INSTALL_DATA} $< $@
 
 #############################################################################
 # stuff from images
@@ -123,27 +123,12 @@ ${doc_text}: ${tmp_dir}/${doc_name}.xml ${doc_text_required_files}
 .PHONY: depend #  Rebuild dependencies
 depend:
 	${RM} ${depend_mk}
-	${MAKE} ${depend_mk} depend=true
+	${MAKE} ${depend_mk} build_dependencies=true
 
 #############################################################################
 # localize from source dir
 
-${tmp_dir}/%: ${src_dir}/%
-	${MKDIR_P} ${dir $@}
-	${INSTALL_DATA} $< $@
-
-#############################################################################
-# installation
-
-.PHONY: install #  Install build products into distribution directory
-#HELP:    (default install_dir=@install_dir@)
-install: ${install_targets}
-
-.PHONY: uninstall #  Remove installed products from the distribution directory
-uninstall:
-	${RM} ${install_targets}
-
-${install_dir}/%: ${tmp_dir}/%
+${tmp_dir}/%: ${srcdir}/%
 	${MKDIR_P} ${dir $@}
 	${INSTALL_DATA} $< $@
 
@@ -154,25 +139,16 @@ ${install_dir}/%: ${tmp_dir}/%
 .PHONY: valid #  validate test instances against schemas
 valid: ${tmp_dir}/tokens/catalog-xs-valid/xsd/sample.5/iepd-catalog.xml
 
-${tmp_dir}/tokens/catalog-xs-valid/%: ${src_dir}/%
+${tmp_dir}/tokens/catalog-xs-valid/%: ${srcdir}/%
 	${MKDIR_P} ${dir $@}
-	${xs_validate} --catalog=${build_dir}/tmp/xml-catalog.xml $<
+	${xs_validate} --catalog=${builddir}/tmp/xml-catalog.xml $<
 
 #############################################################################
 # convenience targets
 
 .PHONY: clean #  Remove build products
 clean:
-	${RM} -r ${tmp_dir}
-
-.PHONY: distclean #  Remove all generated files
-distclean: clean
-	${RM} ${depend_mk} @config_files@
-	${RM} config.log config.status
-
-.PHONY: configure #  Rebuild the configure script and supporting files
-configure:
-	${MAKE} -C ${src_dir} -f configure.mk
+	${RM} -r ${all_files}
 
 .PHONY: help #  Print this help
 help:
