@@ -41,7 +41,6 @@ AC_PATH_PROGS([xs_validate],[xs-validate],[xs-validate])
 
 # write files
 AC_CONFIG_FILES([Makefile], [chmod 444 Makefile])
-AC_CONFIG_FILES([prerequisites.mk], [chmod 444 prerequisites.mk])
 AC_CONFIG_FILES([run], [chmod 555 run])
 AC_SUBST([config_files],$ac_config_files)
 AC_OUTPUT
