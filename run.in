@@ -12,32 +12,20 @@ fail () {
 command=$1
 shift
 case $command in
-     configure ) # re-run configure with current parameters
-         @make@ -C @srcdir@ -f configure.mk
-         @srcdir@/configure install_dir="@install_dir@"
-         ;;
-     install ) # install safely and fast
-         @make@ -C @builddir@ -j dependencies.mk
-         @make@ -C @builddir@ -j 
-         @make@ -C @builddir@ -j install
-         ;;
      open-html | oh )
-         make -j @builddir@/dependencies.mk depend=true
-         make -j @builddir@/tmp/niem-iepd-spec.html
-         open @builddir@/tmp/niem-iepd-spec.html
+         make -j @builddir@/tmp/dependencies.mk build_dependencies=true
+         make -j @builddir@/publish/niem-mpd-spec.html
+         open @builddir@/tmp/niem-mpd-spec.html
          ;;
-     clean )
-         make clean depend=no
-         ;;
-     publish )
-         rm -rf @builddir@/tmp/publish-checkout
-         current_branch=$(git -C @install_dir@ rev-parse --abbrev-ref HEAD)
-         git -C @builddir@/tmp clone --branch gh-pages https://github.com/NIEM/MPD-Spec.git publish-checkout
-         rm -rf @builddir@/tmp/publish-checkout/"$current_branch"
-         git -C @install_dir@ publish -d @abs_builddir@/tmp/publish-checkout "$current_branch"
-         echo "That's as far as it gets for now. Add to it when you have new content."
-         exit 1
-         ;;
+#     publish )
+#         rm -rf @builddir@/tmp/publish-checkout
+#         current_branch=$(git -C @install_dir@ rev-parse --abbrev-ref HEAD)
+#         git -C @builddir@/tmp clone --branch gh-pages https://github.com/NIEM/MPD-Spec.git publish-checkout
+#         rm -rf @builddir@/tmp/publish-checkout/"$current_branch"
+#         git -C @install_dir@ publish -d @abs_builddir@/tmp/publish-checkout "$current_branch"
+#         echo "That's as far as it gets for now. Add to it when you have new content."
+#         exit 1
+#         ;;
      * ) fail "Unknown command \"$command\""
     ;;
 esac
