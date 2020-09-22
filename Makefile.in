@@ -53,10 +53,14 @@ all_files = \
   ${publish_dir}/${doc_name}.txt \
   ${mpd_catalog_schema_files}
 
-
 #HELP:Build for @PACKAGE_NAME@ (@PACKAGE_TARNAME@)
 #HELP:Default target is "all".
 .DEFAULT_GOAL = all
+
+#############################################################################
+# valid
+valid_tokens = \
+  ${tokens_dir}/iepd-catalog-xs-valid/src/xsd/sample.5/iepd-catalog.xml
 
 #############################################################################
 # begin dependency inclusion
@@ -133,11 +137,11 @@ depend:
 # Make sure that validation checks don't build or install anything
 
 .PHONY: valid #  validate test instances against schemas
-valid: ${tmp_dir}/tokens/catalog-xs-valid/xsd/sample.5/iepd-catalog.xml
+valid: ${valid_tokens}
 
-${tmp_dir}/tokens/catalog-xs-valid/%: ${srcdir}/%
+${tokens_dir}/iepd-catalog-xs-valid/%: ${srcdir}/%
 	${MKDIR_P} ${dir $@}
-	${xs_validate} --catalog=${builddir}/tmp/xml-catalog.xml $<
+	${xs_validate} --catalog=${publish_dir}/iepd-catalog-schema/xml-catalog.xml
 
 #############################################################################
 # convenience targets
