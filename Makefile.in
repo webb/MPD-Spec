@@ -40,20 +40,19 @@ xs_validate = @xs_validate@
 tmp_dir = ${builddir}/tmp
 tokens_dir = ${tmp_dir}/tokens
 publish_dir = ${srcdir}/publish
+macros_file = ${srcdir}/src/macros.m4
 
-doc_name = niem-iepd-spec
-doc_html = ${publish_dir}/${doc_name}.html
-doc_text = ${publish_dir}/${doc_name}.txt
+doc_name = niem-mpd-spec
 
-niem_files_default := ${shell ${find} ${srcdir}/niem -type f}
-niem_files = ${niem_files_default}
+mpd_catalog_schema_files_src_raw = ${shell ${find} ${srcdir}/src/iepd-catalog-schema -type f}
+mpd_catalog_schema_files_src = ${mpd_catalog_schema_files_src_raw:%.m4=%}
+mpd_catalog_schema_files = ${mpd_catalog_schema_files_src:${srcdir}/src/%=${publish_dir}/%}
 
-extra_files_source = \
-  ${srcdir}/xml-catalog.xml \
-  ${srcdir}/iepd-catalog.xsd \
-  ${niem_files}
+all_files = \
+  ${publish_dir}/${doc_name}.html \
+  ${publish_dir}/${doc_name}.txt \
+  ${mpd_catalog_schema_files}
 
-all_files = ${doc_html} ${doc_text} ${extra_files_source:${srcdir}/%=${publish_dir}/%}
 
 #HELP:Build for @PACKAGE_NAME@ (@PACKAGE_TARNAME@)
 #HELP:Default target is "all".
@@ -83,30 +82,34 @@ endif
 .PHONY: all #  Build all products
 all: ${all_files}
 
-${tmp_dir}/${doc_name}.xml: ${tmp_dir}/macros.m4 ${tmp_dir}/${doc_name}.xml.m4 
-	@ ${MKDIR_P} ${dir $@}
-	${m4} -P $^ > $@
-	if ${fgrep} -n MACRO_ $@ /dev/null | ${SED} -e 's/^/ERROR: Unresolved macro: /'; then ${RM} $@; exit 1; fi
-	if ! ${xmllint} --noout $@; then ${RM} $@; exit 1; fi
-
-${tmp_dir}/%: ${tmp_dir}/%.m4 ${tmp_dir}/macros.m4 
-	@ ${MKDIR_P} ${dir $@}
-	${m4} -P ${tmp_dir}/macros.m4  $< > $@
-	if ${fgrep} -n MACRO_ $@ /dev/null | ${SED} -e 's/^/ERROR: Unresolved macro: /'; then ${RM} $@; exit 1; fi
-
-${doc_html}: ${tmp_dir}/${doc_name}.xml ${doc_html_required_files}
+${publish_dir}/${doc_name}.html: ${tmp_dir}/${doc_name}.xml ${doc_html_required_files}
 	@ ${MKDIR_P} ${dir $@}
 	${process_doc} ${process_doc_flags} --in=$< --out=$@
 
-${doc_text}: ${tmp_dir}/${doc_name}.xml ${doc_text_required_files}
+${publish_dir}/${doc_name}.txt: ${tmp_dir}/${doc_name}.xml ${doc_text_required_files}
 	@ ${MKDIR_P} ${dir $@}
 	${process_doc} ${process_doc_flags} --format=text --in=$< --out=$@
 
-${publish_dir}/%: ${srcdir}/src/%.m4
+${publish_dir}/%: ${srcdir}/src/%.m4 ${macros_file}
 	@ ${MKDIR_P} ${dir $@}
-	${m4} -P ${tmp_dir}/macros.m4  $< > $@
+	${m4} -P ${macros_file} $< > $@
 
 ${publish_dir}/%: ${srcdir}/src/%
+	@ ${MKDIR_P} ${dir $@}
+	${INSTALL_DATA} $< $@
+
+${tmp_dir}/${doc_name}.xml: ${srcdir}/src/${doc_name}.xml.m4 ${macros_file}
+	@ ${MKDIR_P} ${dir $@}
+	${m4} -P ${macros_file} $< > $@
+	if ${fgrep} -n MACRO_ $@ /dev/null | ${SED} -e 's/^/ERROR: Unresolved macro: /'; then ${RM} $@; exit 1; fi
+	if ! ${xmllint} --noout $@; then ${RM} $@; exit 1; fi
+
+${tmp_dir}/%: ${tmp_dir}/%.m4 ${macros_file}
+	@ ${MKDIR_P} ${dir $@}
+	${m4} -P ${macros_file} $< > $@
+	if ${fgrep} -n MACRO_ $@ /dev/null | ${SED} -e 's/^/ERROR: Unresolved macro: /'; then ${RM} $@; exit 1; fi
+
+${tmp_dir}/%: ${srcdir}/src/%
 	@ ${MKDIR_P} ${dir $@}
 	${INSTALL_DATA} $< $@
 
@@ -114,7 +117,7 @@ ${publish_dir}/%: ${srcdir}/src/%
 # stuff from images
 
 # widths
-%.png.width.txt: %.png
+${tmp_dir}/%.png.width.txt: ${srcdir}/src/%.png
 	${identify} -format '%w\n' $< > $@
 
 #############################################################################

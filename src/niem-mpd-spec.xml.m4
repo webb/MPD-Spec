@@ -2177,7 +2177,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 
 <section id="MPD-Catalog-XSD" isAppendix="true"><title>MPD Catalog XML Schema Document</title>
-	<pre><include-text href="MACRO_MPD_catalog_xsd_name"/></pre>
+	<pre><include-text href="MACRO_MPD_catalog_xsd_path"/></pre>
 
 	<p> <char name="nbsp"/> </p>
 </section>
