@@ -117,7 +117,7 @@ ${tmp_dir}/%: ${srcdir}/src/%
 # stuff from images
 
 # widths
-${tmp_dir}/%.png.width.txt: ${srcdir}/src/%.png
+${tmp_dir}/img/%.png.width.txt: ${tmp_dir}/img/%.png
 	${identify} -format '%w\n' $< > $@
 
 #############################################################################
@@ -127,13 +127,6 @@ ${tmp_dir}/%.png.width.txt: ${srcdir}/src/%.png
 depend:
 	${RM} ${depend_mk}
 	${MAKE} ${depend_mk} build_dependencies=true
-
-#############################################################################
-# localize from source dir
-
-${tmp_dir}/%: ${srcdir}/%
-	${MKDIR_P} ${dir $@}
-	${INSTALL_DATA} $< $@
 
 #############################################################################
 # valid
