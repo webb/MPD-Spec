@@ -42,6 +42,11 @@ Variable `install_dir`: The configuration stage needs to know in what directory 
 
 The makefile requires dependencies that are derived from the source document. These dependencies are automatically rebuilt when needed. Avoid rebuilding dependencies by running make with 'depend=no' set.
 
+# Packages needed
+
+- aspell
+- imagemagick (on MacPorts it's "ImageMagick")
+
 # Notes about the document itself
 
 - The plural of *documentation* is *documentation*.
