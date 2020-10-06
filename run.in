@@ -12,11 +12,27 @@ fail () {
 command=$1
 shift
 case $command in
+     reconfigure )
+         @srcdir@/configure
+         ;;
+
      open-html | oh )
          make -j @builddir@/tmp/dependencies.mk build_dependencies=true
          make -j @builddir@/publish/niem-mpd-spec.html
-         open @builddir@/tmp/niem-mpd-spec.html
+         open @builddir@/publish/niem-mpd-spec.html
          ;;
+
+     d )
+         make -j @builddir@/tmp/dependencies.mk build_dependencies=true
+         ;;
+
+     all )
+         make -j @builddir@/tmp/dependencies.mk build_dependencies=true
+         make -j
+         ;;
+
+
+
 #     publish )
 #         rm -rf @builddir@/tmp/publish-checkout
 #         current_branch=$(git -C @install_dir@ rev-parse --abbrev-ref HEAD)
