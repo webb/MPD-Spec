@@ -25,7 +25,7 @@
 		
 		<p>This document is a normative specification for NIEM <termRef>information exchange package documentation</termRef> (IEPD).  It is an update to <ref idref="NIEM-MPD-3.0.1"/>.</p>
 		<p>This specification represents the work of the NIEM Technical Architecture Committee (NTAC) and the NIEM Business Architecture Committee (NBAC). It is a product of the NIEM Management Office.</p>
-		<p>Email comments on this specification to <link href="mailto:niem-comments%40lists.gatech.edu?subject=NIEM%20MPD%20Specification%20Version%20[[[]]]MACRO_document_version">niem-comments@lists.gatech.edu</link>.</p>
+		<p>Email comments on this specification to <link href="mailto:information@niem.gov?subject=NIEM%20IEPD%20Specification%20Version%20[[[]]]MACRO_document_version">information@niem.gov</link>.</p>
 	</subsection>
 	
 	<subsection><title>URI</title>
