@@ -42,8 +42,10 @@
 
 <section id="Introduction"><title>Introduction</title>
 
-	<p>This specification assumes familiarity with the National Information Exchange Model (NIEM), its basic concepts, architecture, processes, design rules, and general conformance rules. NIEM training and reference materials are located at <link>https://niem.github.io</link>. In addition to those materials, readers of this specification may wish to be familiar with:</p>
-	<ul>
+	<p>This specification defines rules and practices for constructing and packaging National Information Exchange Model (NIEM) conformant <termRef term="information exchange package documentation">information exchange package documentation</termRef> (IEPD).  To the NIEM program, the <termRef term="information exchange package documentation">IEPD</termRef> is considered the point of interoperability.</p>  
+	
+	<p>This specification assumes familiarity with the NIEM, its basic concepts, architecture, processes, design rules, and general conformance rules. NIEM training and reference materials are located at <link>https://niem.github.io</link>. In addition to those materials, readers of this specification may wish to be familiar with:</p>
+	<ul> 
 		<li><p><ref idref="NIEM-Conformance"/></p></li>
 		<li><p><ref idref="NIEM-CTAS"/></p></li>
 		<li><p><ref idref="NIEM-NDR"/></p></li>
@@ -84,7 +86,7 @@
 	
 <section id="scope-iepd"><title>Information Exchange Package Documentation</title>
 
-	<p>This specification defines rules and practices for constructing and packaging conformant <termRef term="information exchange package documentation">IEPDs</termRef>.  To the NIEM program, the <termRef term="information exchange package documentation">IEPD</termRef> is considered the point of interoperability.  This specification provides a standard version numbering scheme <ref idref="Version-Numbering-Scheme"/>.  However, it does not provide guidance for managing or processing <termRef term="information exchange package documentation">IEPD</termRef> versions or their associated <termRef term="information exchange package">IEPs</termRef>.  Creation and management of <termRef term="information exchange package documentation">IEPDs</termRef> is the responsibility of stakeholders and developers.  As such, <termRef term="information exchange package documentation">IEPDs</termRef> have their own versioning processes, and are managed independently of the NIEM core and domains.  The NIEM Management Office defines <termRef term="information exchange package documentation">IEPD</termRef> conformance, but <termRef term="information exchange package documentation">IEPD</termRef> development and management fall outside its scope.  Nonetheless, the NIEM Management Office has developed guidance (through the NTAC) for managing <termRef term="information exchange package documentation">IEPDs</termRef>, versioning <termRef term="information exchange package documentation">IEPDs</termRef>, and processing their associated <termRef term="information exchange package">IEPs</termRef>.  This reference material can be found at <link>http://niem.github.io/reference/iepd/</link>.</p>
+	<p>This specification provides a standard version numbering scheme <ref idref="Version-Numbering-Scheme"/>.  However, it does not provide guidance for managing or processing <termRef term="information exchange package documentation">IEPD</termRef> versions or their associated <termRef term="information exchange package">IEPs</termRef>.  Creation and management of <termRef term="information exchange package documentation">IEPDs</termRef> is the responsibility of stakeholders and developers.  As such, <termRef term="information exchange package documentation">IEPDs</termRef> have their own versioning processes, and are managed independently of the NIEM core and domains.  The NIEM Management Office defines <termRef term="information exchange package documentation">IEPD</termRef> conformance, but <termRef term="information exchange package documentation">IEPD</termRef> development and management fall outside its scope.  Nonetheless, the NIEM Management Office has developed guidance (through the NTAC) for managing <termRef term="information exchange package documentation">IEPDs</termRef>, versioning <termRef term="information exchange package documentation">IEPDs</termRef>, and processing their associated <termRef term="information exchange package">IEPs</termRef>.  This reference material can be found at <link>http://niem.github.io/reference/iepd/</link>.</p>
 
 	<p>An <termRef term="information exchange package documentation">IEPD</termRef> defines one or more data exchanges, each occurring in the form of an <termRef>information exchange package</termRef> (IEP).  This specification supports a variety of data exchange use cases, in which the <termRef term="information exchange package">IEP</termRef> may be:</p>
 	<ul>
@@ -118,12 +120,12 @@
 
 <section id="Concepts-and-Terminology"><title>Basic Concepts and Terminology</title>
 
-	<p>The section defines and discusses baseline terms and concepts that will be used throughout this document.  Presentation in this section is sequenced for understanding.  Each subsection builds upon previous ones.  The section concludes with a more detailed discussion of MPDs and more specifically, IEPDs.</p>
+	<p>The section defines and discusses baseline terms and concepts that will be used throughout this document.  Presentation in this section is sequenced for understanding.  Each subsection builds upon previous ones.</p>
 
 
-<section id="Key-Words-for-Requirements-Levels"><title>Key Words for Requirement Levels</title>
+<section id="IETF-Best-Current-Practice-14-terminology"><title>IETF Best Current Practice 14 terminology</title>
 
-	<p>Within normative content rules and definitions, the key words MUST, MUST NOT, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY, RECOMMENDED, REQUIRED, and OPTIONAL in this document are to be interpreted as described in <ref idref="RFC2119-KeyWords"/>.</p>
+	<p>The key words MUST, MUST NOT, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY, RECOMMENDED, REQUIRED, and OPTIONAL in this document are to be interpreted as described in <ref idref="BCP14"/><ref idref="RFC2119-KeyWords"/><ref idref="RFC8174"/>.</p>
 
 </section>
 
@@ -139,7 +141,7 @@
 
 <section id="Artifacts"><title>Artifacts</title>
 
-	<p>MPDs are generally composed of files and file sets grouped for a particular purpose.  Each file is referred to as an <termRef>artifact</termRef>, and each logical set of such files is called an <termRef>artifact set</termRef>.</p>
+	<p>IEPDs are generally composed of files and file sets grouped for a particular purpose.  Each file is referred to as an <termRef>artifact</termRef>, and each logical set of such files is called an <termRef>artifact set</termRef>.</p>
 
 	<definition term="artifact">
 		<p>A single file with a defined purpose.</p>
@@ -149,7 +151,7 @@
 		<p>A collection of artifacts logically grouped for a defined purpose.</p>
 	</definition>
 
-	<p>An <termRef term="model package description">MPD</termRef> is itself an <termRef>artifact set</termRef>, the purpose for which is to define and document the intended use of the <termRef term="model package description">MPD</termRef>.  While the key <termRef term="model package description">MPD</termRef> artifacts are its <termRef>XML schema document</termRef> artifacts, there are also other kinds of <termRef term="model package description">MPD</termRef> artifacts.  These may include (but are not limited to) HTML, XSLT, text, or graphic files used for human-readable documentation.  An <termRef term="model package description">MPD</termRef> may also have artifacts intended to help assist in or accelerate the use and implementation of the <termRef term="model package description">MPD</termRef>.  For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the <termRef term="model package description">MPD</termRef> or its schema document artifacts.  <ref idref="MPD-Artifacts"/> contains a listing of mandatory and common optional artifacts for the five types of MPDs.  Common types of artifacts are described in more detail in subsequent sections.  <ref idref="Artifact-Sets"/> discusses the different methods for grouping <termRef term="model package description">MPD</termRef> artifacts into sets.</p>
+	<p>An <termRef term="information exchange package documentation">IEPD</termRef> is itself an <termRef>artifact set</termRef>, the purpose for which is to define and document the intended use of the <termRef term="information exchange package documentation">IEPD</termRef>.  While the key <termRef term="information exchange package documentation">IEPD</termRef> artifacts are its <termRef>XML schema document</termRef> artifacts, there are also other kinds of <termRef term="information exchange package documentation">IEPD</termRef> artifacts.  These may include (but are not limited to) HTML, XSLT, text, or graphic files used for human-readable documentation.  An <termRef term="information exchange package documentation">IEPD</termRef> may also have artifacts intended to help assist in or accelerate the use and implementation of the <termRef term="information exchange package documentation">IEPD</termRef>.  For example, these may be XML, UML, or binary files that are inputs to or outputs from software tools used to build, generate, or edit the <termRef term="information exchange package documentation">IEPD</termRef> or its schema document artifacts.  <ref idref="IEPD-Artifacts"/> contains a listing of mandatory and common optional artifacts for IEPDs.  Common types of artifacts are described in more detail in subsequent sections.  <ref idref="Artifact-Sets"/> discusses the different methods for grouping <termRef term="information exchange package documentation">IEPD</termRef> artifacts into sets.</p>
 
 </section>
 
@@ -190,11 +192,13 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		<p>An XML Schema type or attribute group definition; or an XML Schema element or attribute declaration.</p>
 	</definition>
 
-	<p><termRef term="harmonization">Harmonization</termRef> is a process that NIEM governance committees and domain stewards iteratively apply to NIEM content (specifically, its semantics, structure, and relationships) during the preparation of a NIEM major or minor release.  On a more restricted scale a domain steward harmonizes his/her own content (schema documents) in preparation for a domain update <termRef term="model package description">MPD</termRef>.  Multiple domain stewards may collaborate in a coordinated domain update.  In this case, to the extent possible, harmonization may be applied across the content of all the collaborating domains.  Harmonization results in model change and evolution with the intent of removing semantic duplication and overlap while improving representational quality and usability.</p>
+	<p><termRef term="harmonization">Harmonization</termRef> is a process that NIEM governance committees and domain stewards iteratively apply to NIEM content (specifically, its semantics, structure, and relationships) during the preparation of a NIEM major or minor release.  On a more restricted scale a domain steward harmonizes his/her own content (schema documents) in preparation for a domain update <termRef term="information exchange package documentation">IEPD</termRef>.  Multiple domain stewards may collaborate in a coordinated domain update.  In this case, to the extent possible, harmonization may be applied across the content of all the collaborating domains.  Harmonization results in model change and evolution with the intent of removing semantic duplication and overlap while improving representational quality and usability.</p>
 
 	<definition term="harmonization">
 		<p>The process of reviewing a data model<char name="rsquo"/>s existing data definitions and declarations; reviewing how it structures and represents data; integrating new <termRef term="data component">data components</termRef>; and refactoring <termRef term="data component">data components</termRef> as necessary to remove (or reduce to the maximum extent feasible) semantic duplication and/or overlap among all data structures and definitions resulting in quality improvements to representation and usability.</p>
 	</definition>
+	
+	<p>If, during <termRef term="information exchange package documentation">IEPD</termRef> development, a developer defines extension content that might be more generally useful, he/she could propose that content for inclusion in NIEM as part of the harmonization process.</p>
 
 </section>
 
@@ -2182,7 +2186,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 
 
-<section id="MPD-Artifacts" isAppendix="true"><title>Common MPD Artifacts</title>
+<section id="IEPD-Artifacts" isAppendix="true"><title>Common IEPD Artifacts</title>
 
 	<p>Notes:</p>
 	<ul>
@@ -2439,6 +2443,20 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <section id="References" isAppendix="true"><title>References</title>
 
+<reference id="BCP14" label="BCP 14">
+	<p>Internet Engineering Task Force Best Current Practice 14. Available from <link>https://www.ietf.org/rfc/bcp/bcp14.txt</link>. BCP 14 is composed of:</p>
+		<sub>
+			<reference id="RFC2119" label="RFC 2119">
+				<p>Bradner, S., <q>Key words for use in RFCs to Indicate Requirement Levels</q>, BCP 14, RFC 2119,
+					March 1997. Available from <link>http://www.ietf.org/rfc/rfc2119.txt</link>.</p>
+			</reference>
+			<reference id="RFC8174" label="RFC 8174">
+				<p>Leiba, B., <q>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</q>, BCP 14, RFC 8174, May
+					2017. Available from <link>https://www.ietf.org/rfc/rfc8174.txt</link>.</p>
+			</reference>
+		</sub>
+</reference>
+
 <reference id="FEA-DRM" label="FEA Data Reference Model 1.0">
 	<p><em>The Federal Enterprise Architecture Data Reference Model</em>, Version 1.0, September 2004.  Available from <link>http://xml.gov/documents/completed/DRMv1.pdf</link>.  A more recent DRM Version 2.0, 17 November 2005 is available from <link>http://www.whitehouse.gov/omb/assets/egov_docs/DRM_2_0_Final.pdf</link></p>
 </reference>
@@ -2528,11 +2546,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 	<p>Doan, A., Halevy, A., and Ives, X. (2012), <em>Principles of Data Integration</em>, New York, NY: Morgan Kaufmann.</p>
 </reference>
 
-
-<reference id="RFC2119-KeyWords" label="RFC 2119 Key Words">
-	<p>Bradner, S., <em>Key words for use in RFCs to Indicate Requirement Levels</em>, IETF RFC 2119, March 1997.  Available from <link>http://www.ietf.org/rfc/rfc2119.txt</link>.</p>
-</reference>
-
 <reference id="RFC2141-URN-Syntax" label="RFC 2141 URN Syntax">
 	<p>Moats, R., <em>URN Syntax</em>, IETF Request For Comment 2141, May 1997.  Available from <link>http://tools.ietf.org/html/rfc2141</link>.</p>
 </reference>
@@ -2544,7 +2557,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 <reference id="RFC3987-IRI" label="RFC 3987 IRI">
 	<p>Duerst, M., and Suignard, M., <em>Internationalized Resource Identifiers (IRIs)</em>, Request For Comment 3987, January 2005.  Avalailable from <link>http://tools.ietf.org/html/rfc3987</link>.</p>
 </reference>
-
+	
 <reference id="W3-EXI" label="EXI Format 1.0">
 	<p><em>Efficient XML Interchange (EXI) Format</em>, Version 1.0, W3C Recommendation, 10 March 2011.  Available from <link>http://www.w3.org/TR/2011/REC-exi-20110310/</link>.</p>
 </reference>
