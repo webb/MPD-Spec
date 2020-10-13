@@ -125,7 +125,7 @@
 
 <section id="IETF-Best-Current-Practice-14-terminology"><title>IETF Best Current Practice 14 terminology</title>
 
-	<p>The key words MUST, MUST NOT, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY, RECOMMENDED, REQUIRED, and OPTIONAL in this document are to be interpreted as described in <ref idref="BCP14"/><ref idref="RFC2119-KeyWords"/><ref idref="RFC8174"/>.</p>
+	<p>The key words MUST, MUST NOT, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY, RECOMMENDED, REQUIRED, and OPTIONAL in this document are to be interpreted as described in <ref idref="BCP14"/><ref idref="RFC2119"/><ref idref="RFC8174"/>.</p>
 
 </section>
 
@@ -1888,7 +1888,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>An MPD author may include any files believed to be useful to understand, implement, reuse, and/or adapt an MPD.</p>
 
-	<p>An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it.  (See <ref idref="MPD-Artifacts"/> for a listing of the mandatory and common optional artifacts for each type of MPD.)</p>
+	<p>An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it.  (See <ref idref="IEPD-Artifacts"/> for a listing of the mandatory and common optional artifacts for each type of MPD.)</p>
 
 	<p>Files vary widely in format and are often specific to the tools an author uses to parse, consume, or output them.  Therefore, if tool-specific files are included in an MPD, it is also a good practice to include copies of those files in formats that display with standard Web browsers or other cost-free, publicly available viewing tools (e.g., ASCII text, PDF, CSV, HTML, JPG, GIF, PNG).  This guidance is intended to encourage and facilitate maximal sharing and distribution of MPDs; it does not prohibit and is not intended to discourage the inclusion of other file formats.</p>
 
