@@ -345,25 +345,24 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 </section>
 
 
-<!-- ######################## CT MPD ########################## -->
+<!-- ######################## CT IEPD ########################## -->
 
 
-<section id="CT-MPD"><title>MPD Conformance Targets</title>
+<section id="CT-IEPD"><title>IEPD Conformance Targets</title>
 
-	<p>This specification establishes two primary <termRef term="model package description">MPD</termRef> <termRef term="conformance target">conformance targets</termRef>: <termRef>model package description</termRef> and <termRef>information exchange package documentation</termRef>.</p>
+	<p>This specification establishes three primary <termRef term="information exchange package documentation">IEPD</termRef> <termRef term="conformance target">conformance targets</termRef>: <termRef>information exchange package documentation</termRef>, <termRef>information exchange package</termRef> and <termRef>artifact</termRef>.</p>
 
-	<p>An <termRef term="model package description">MPD</termRef> may be constructed manually, but it is far more efficient to generate an MPD entirely or in part using NIEM-aware software tools.  The existence of a <termRef>model package description</termRef> <termRef>conformance target</termRef> has several advantages:</p>
+	<p>An <termRef term="information exchange package documentation">IEPD</termRef> may be constructed manually, but it is far more efficient to generate an IEPD entirely or in part using NIEM-aware software tools.  The existence of a <termRef>information exchange package documentation</termRef> <termRef>conformance target</termRef> has several advantages:</p>
 
 	<ul>
 		<li><p>Facilitates the existence of many incremental states from start to finish that are checkpoints for well-formedness.</p></li>
 		<li><p>Enables multiple paths to completion; no single pre-determined sequence of rule applications is required.</p></li>
-		<li><p>Provides tool developers with the flexibility to construct an <termRef term="model package description">MPD</termRef> incrementally in many different sequences.</p></li>
-		<li><p>Avoids a need to build a complete <termRef term="model package description">MPD</termRef> before automated correctness checks can be applied (since well-formedness can be checked at many stages of development).</p></li>
-		<li><p>Facilitates the interoperability and use of multiple tools that can export/import a <termRef>model package description</termRef>.</p></li>
-		<li><p>A <termRef>model package description</termRef> is a basis for consistency across all <termRef term="model package description">MPD</termRef> classes.</p></li>
+		<li><p>Provides tool developers with the flexibility to construct an <termRef term="information exchange package documentation">IEPD</termRef> incrementally in many different sequences.</p></li>
+		<li><p>Avoids a need to build a complete <termRef term="information exchange package documentation">IEPD</termRef> before automated correctness checks can be applied (since well-formedness can be checked at many stages of development).</p></li>
+		<li><p>Facilitates the interoperability and use of multiple tools that can export/import a <termRef>information exchange package documentation</termRef>.</p></li>
 	</ul>
 
-	<p>Because an MPD is always a directory tree, for the purpose of transporting, up/downloading, and archiving for long term storage, an MPD is packaged as a <termRef>ZIP file</termRef>.</p>
+	<p>Because an IEPD is always a directory tree, for the purpose of transporting, up/downloading, and archiving for long term storage, an IEPD is packaged as a <termRef>ZIP file</termRef>.</p>
 
 	<definition term="ZIP file">
 		<p>As defined by <ref idref="PKZIP"/>, which states that it defines:</p>
@@ -417,7 +416,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<ruleSection>
 		<title>MPD Conformance Target Identifier</title>
-		<rule id="r-ct-mpd" applicability="WF-IEPD" class="Constraint">
+		<rule id="r-ct-iepd" applicability="WF-IEPD" class="Constraint">
 			<p>An <termRef term="model package description">MPD</termRef> MUST have an <termRef>MPD class</termRef> of <code>MACRO_MPD_conformance_target_identifier</code>.</p>
 		</rule>
 	</ruleSection>
