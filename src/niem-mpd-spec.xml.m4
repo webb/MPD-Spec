@@ -1141,9 +1141,9 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 
 <section id="pathURI">
-	<title>URI Scheme for Local MPD Artifacts (<qName>c:pathURI</qName>)</title>
+	<title>URI Scheme for Local IEPD Artifacts (<qName>c:pathURI</qName>)</title>
 
-	<p>An MPD uses the file directory system of path names and file names to identify local artifacts and artifact sets.  All local URIs are relative to the location of the <termRef>IEPD catalog document</termRef>, and therefore, they are also relative to the <termRef>IEPD root directory</termRef> since the IEPD catalog document resides in the MPD root directory.</p>
+	<p>An IEPD uses the file directory system of path names and file names to identify local artifacts and artifact sets.  All local URIs are relative to the location of the <termRef>IEPD catalog document</termRef>, and therefore, they are also relative to the <termRef>IEPD root directory</termRef> since the IEPD catalog document resides in the IEPD root directory.</p>
 
 	<p>In general, every value of attribute <qName>c:pathURI</qName> in an IEPD catalog document will be a relative <termRef>path name</termRef> to a directory (i.e., an artifact set), or to a file (i.e., an artifact).  The following are typical examples of each:</p>
 		<blockquote>
@@ -1152,9 +1152,9 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					 <code>c:pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"</code></p>
 		</blockquote>
 
-	<p>Note that per <ref idref="uri-syntax"/> and <ref idref="uri-summary"/> a local URI may contain an optional fragment.  Although <qName>c:pathURI</qName> has no use for a URI with a fragment, MPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.</p>
+	<p>Note that per <ref idref="uri-syntax"/> and <ref idref="uri-summary"/> a local URI may contain an optional fragment.  Although <qName>c:pathURI</qName> has no use for a URI with a fragment, IEPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.</p>
 
-	<p>Despite its simplicity, <qName>c:pathURI</qName> comes with over a dozen rules that help to define a <termRef>model package description</termRef>.  These rules ensure that every <qName>c:pathURI</qName> attribute value in a well-formed <termRef term="model package description">MPD</termRef> resolves to a correct local resource:</p>
+	<p>Despite its simplicity, <qName>c:pathURI</qName> comes with over a dozen rules that help to define a <termRef>information exchange package documentation</termRef>.  These rules ensure that every <qName>c:pathURI</qName> attribute value in a well-formed <termRef term="information exchange package documentation">IEPD</termRef> resolves to a correct local resource:</p>
 
 	<ruleSection><title><qName>c:pathURI</qName> Resolves to a Resource</title>
 		<rule id="wfm2" applicability="WF-IEPD" class="Constraint">
@@ -1168,9 +1168,9 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		</rule>
 	</ruleSection>
 
-	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:MPDChangeLog</qName></title>
+	<ruleSection><title><qName>c:pathURI</qName> for <qName>c:IEPDChangeLog</qName></title>
 		<rule id="wfm4" applicability="WF-IEPD" class="Constraint">
-			<p>Within an <termRef>IEPD catalog document</termRef>, the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:MPDChangeLog</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>change log</termRef>.</p>
+			<p>Within an <termRef>IEPD catalog document</termRef>, the value of a <qName>c:pathURI</qName> attribute owned by a <qName>c:IEPDChangeLog</qName> element MUST <termRef term="resolve URI">resolve</termRef> to a <termRef>change log</termRef>.</p>
 		</rule>
 	</ruleSection>
 
@@ -1455,8 +1455,8 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 	<p>An <termRef term="information exchange package documentation">IEPD</termRef> change log is not required to conform to any particular XML schema or other format specification.  However, a change log is still required for an <termRef term="information exchange package documentation">IEPD</termRef>.</p>
 
 	<ruleSection><title>IEPD Has a Change Log</title>
-		<rule id="r-mpd-changelog-iepd" applicability="IEPD" class="Constraint">
-			<p>An <termRef term="information exchange package documentation">IEPD</termRef> MUST contain a <termRef>change log</termRef> artifact that is identified by a <qName>c:MPDChangeLog</qName> element in its <termRef>IEPD catalog document</termRef>.</p>
+		<rule id="r-iepd-changelog-iepd" applicability="IEPD" class="Constraint">
+			<p>An <termRef term="information exchange package documentation">IEPD</termRef> MUST contain a <termRef>change log</termRef> artifact that is identified by a <qName>c:IEPDChangeLog</qName> element in its <termRef>IEPD catalog document</termRef>.</p>
 		</rule>
 	</ruleSection>
 

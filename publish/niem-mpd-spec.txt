@@ -1000,9 +1000,9 @@ Rule 5-14. IEPD Artifact URI Syntax
 
    The value of c:externalURI is an identifier for a remote resource that is not necessarily accessible online. For this reason, even though such URIs should be correct (i.e. a resource with that URI should exist), their verification is not within the scope of this specification.
 
-5.2.4.3. URI Scheme for Local MPD Artifacts (c:pathURI)
+5.2.4.3. URI Scheme for Local IEPD Artifacts (c:pathURI)
 
-   An MPD uses the file directory system of path names and file names to identify local artifacts and artifact sets. All local URIs are relative to the location of the [IEPD catalog document], and therefore, they are also relative to the [IEPD root directory] since the IEPD catalog document resides in the MPD root directory.
+   An IEPD uses the file directory system of path names and file names to identify local artifacts and artifact sets. All local URIs are relative to the location of the [IEPD catalog document], and therefore, they are also relative to the [IEPD root directory] since the IEPD catalog document resides in the IEPD root directory.
 
    In general, every value of attribute c:pathURI in an IEPD catalog document will be a relative [path name] to a directory (i.e., an artifact set), or to a file (i.e., an artifact). The following are typical examples of each:
 
@@ -1010,9 +1010,9 @@ Rule 5-14. IEPD Artifact URI Syntax
 
       Artifact:      c:pathURI="base-xsd/niem/niem-core/3.0/niem-core.xsd"
 
-   Note that per Table Table 5-1, Summary of "RFC 3986 URI: Generic Syntax", below, and Table Table 5-2, Summary of MPD URI attributes, below, a local URI may contain an optional fragment. Although c:pathURI has no use for a URI with a fragment, MPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.
+   Note that per Table Table 5-1, Summary of "RFC 3986 URI: Generic Syntax", below, and Table Table 5-2, Summary of MPD URI attributes, below, a local URI may contain an optional fragment. Although c:pathURI has no use for a URI with a fragment, IEPD documentation artifacts could reference a subpart within a local artifact by using a relative URI with a fragment.
 
-   Despite its simplicity, c:pathURI comes with over a dozen rules that help to define a [model package description]. These rules ensure that every c:pathURI attribute value in a well-formed [MPD] resolves to a correct local resource:
+   Despite its simplicity, c:pathURI comes with over a dozen rules that help to define a [information exchange package documentation]. These rules ensure that every c:pathURI attribute value in a well-formed [IEPD] resolves to a correct local resource:
 
 Rule 5-15. c:pathURI Resolves to a Resource
 
@@ -1026,11 +1026,11 @@ Rule 5-16. c:pathURI for c:XMLCatalog
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:XMLCatalog element MUST [resolve] to an [XML catalog document].
 
-Rule 5-17. c:pathURI for c:MPDChangeLog
+Rule 5-17. c:pathURI for c:IEPDChangeLog
 
    [Rule 5-17] (WF-IEPD)
 
-      Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:MPDChangeLog element MUST [resolve] to a [change log].
+      Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:IEPDChangeLog element MUST [resolve] to a [change log].
 
 Rule 5-18. c:pathURI for c:ReadMe
 
@@ -1240,7 +1240,7 @@ Rule 5-35. IEPD Has a Change Log
 
    [Rule 5-35] (IEPD)
 
-      An [IEPD] MUST contain a [change log] artifact that is identified by a c:MPDChangeLog element in its [IEPD catalog document].
+      An [IEPD] MUST contain a [change log] artifact that is identified by a c:IEPDChangeLog element in its [IEPD catalog document].
 
    The [change log] for the first version release of an IEPD simply contains its release date.
 
@@ -3111,23 +3111,23 @@ Appendix I. Index of Rules
    Rule 5-12, IEPD URI Supports Fragment: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
    Rule 5-13, IEPD URI Has No Fragment: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
    Rule 5-14, IEPD Artifact URI Syntax: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
-   Rule 5-15, c:pathURI Resolves to a Resource: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-16, c:pathURI for c:XMLCatalog: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-17, c:pathURI for c:MPDChangeLog: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-18, c:pathURI for c:ReadMe: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-19, c:pathURI for c:IEPSampleXMLDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-20, c:pathURI for c:BusinessRulesArtifact: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-21, c:pathURI for c:XMLSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-22, c:pathURI for c:ExternalSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-23, c:pathURI for c:ReferenceSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-24, c:pathURI for c:ExtensionSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-25, c:pathURI for c:SubsetSchemaDocument: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-26, c:pathURI for c:Wantlist: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-27, c:pathURI for c:SchematronSchema: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-28, c:pathURI for c:RelaxNGSchema: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-29, c:pathURI for c:SchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-30, c:pathURI for c:ConstraintSchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
-   Rule 5-31, Schema document set interpreted as constraint schema document set: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
+   Rule 5-15, c:pathURI Resolves to a Resource: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-16, c:pathURI for c:XMLCatalog: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-17, c:pathURI for c:IEPDChangeLog: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-18, c:pathURI for c:ReadMe: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-19, c:pathURI for c:IEPSampleXMLDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-20, c:pathURI for c:BusinessRulesArtifact: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-21, c:pathURI for c:XMLSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-22, c:pathURI for c:ExternalSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-23, c:pathURI for c:ReferenceSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-24, c:pathURI for c:ExtensionSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-25, c:pathURI for c:SubsetSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-26, c:pathURI for c:Wantlist: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-27, c:pathURI for c:SchematronSchema: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-28, c:pathURI for c:RelaxNGSchema: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-29, c:pathURI for c:SchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-30, c:pathURI for c:ConstraintSchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-31, Schema document set interpreted as constraint schema document set: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
    Rule 5-32, Resolve MPD URI with Fragment: Section 5.2.4.5, Resolving an MPD URI with a Fragment
    Rule 5-33, XML Catalog uri Value Resolves to Resource: Section 5.2.4.7, XML Catalog URI
    Rule 5-34, XML Catalog uri Value Resolves to Resource with Correct Target Namespace: Section 5.2.4.7, XML Catalog URI
