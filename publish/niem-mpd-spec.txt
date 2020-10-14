@@ -1370,19 +1370,19 @@ Rule 5-37. IEPD Has a ReadMe Artifact
 
 5.6. Defining Information Exchange Packages
 
-   An MPD may declare one or more IEP conformance targets within its [IEPD catalog document].
+   An IEPD may declare one or more IEP conformance targets within its [IEPD catalog document].
 
    [Definition: IEP conformance target]
 
       A [conformance target] that is a class or category of IEP which has a set of one or more validity constraints and a [conformance target identifier]. Every IEP is an instance of one or more IEP conformance targets.
 
-   This definition requires that an IEP conformance target be assigned a [conformance target identifier] that distinguishes it from all other [IEP conformance targets]. Construct a [conformance target identifier] using a fragment identifier (similar to an MPD artifact URI) per this rule:
+   This definition requires that an IEP conformance target be assigned a [conformance target identifier] that distinguishes it from all other [IEP conformance targets]. Construct a [conformance target identifier] using a fragment identifier (similar to an IEPD artifact URI) per this rule:
 
 Rule 5-38. Conformance Target Identifier
 
    [Rule 5-38] (IEPD-catalog)
 
-      A [conformance target identifier] for an [IEP conformance target] declared in an MPD is formed by concatenating in sequence:
+      A [conformance target identifier] for an [IEP conformance target] declared in an IEPD is formed by concatenating in sequence:
 
          1. the IEPD URI, and
 
@@ -1400,7 +1400,7 @@ Rule 5-39. IEP Conformance Target Has a structures:id
 
       A c:IEPConformanceTarget element MUST own a structures:id attribute.
 
-   This rule ensures that a [conformance target] can be referenced between MPDs (not just within an MPD). The value of the structures:id attribute is the NCName in Rule 5-38, Conformance Target Identifier.
+   This rule ensures that a [conformance target] can be referenced between IEPDs (not just within an IEPD). The value of the structures:id attribute is the NCName in Rule 5-38, Conformance Target Identifier.
 
    An [IEPD] defines IEP conformance targets by explicitly declaring them within its IEPD catalog per the rules above.
 
@@ -1432,7 +1432,7 @@ Rule 5-40. [IEPD] Declares One or More IEP Conformance Targets
 
 5.6.2.1. c:ValidityConstraintWithContext
 
-   c:ValidityConstraintWithContext is an abstract element into which various validity constraints will be substituted, depending upon the MPD author's intent. In the absence of an explicit context (declared by an c:xPathText attribute), [validity constraint context] defaults to the IEP's document information item as defined in [W3-XML-InfoSet],  section 2.1, "The Document Information Item". In this default case, a specific validity constraint will substitute for c:ValidityConstraint which in turn, substitutes for c:ValidityConstraintWithContext.
+   c:ValidityConstraintWithContext is an abstract element into which various validity constraints will be substituted, depending upon the IEPD author's intent. In the absence of an explicit context (declared by an c:xPathText attribute), [validity constraint context] defaults to the IEP's document information item as defined in [W3-XML-InfoSet],  section 2.1, "The Document Information Item". In this default case, a specific validity constraint will substitute for c:ValidityConstraint which in turn, substitutes for c:ValidityConstraintWithContext.
 
 5.6.2.2. c:ValidityConstraint
 
@@ -1442,7 +1442,7 @@ Rule 5-40. [IEPD] Declares One or More IEP Conformance Targets
 
    [Validity constraint context] is explicitly declared by an XPath expression that is the value of c:xPathText. c:ValidityContext can contain any of the specific validity constraints that are substitutable for c:ValidityConstraint.
 
-Rule 5-41. 
+Rule 5-41. Validity contraint context is value of c:xPathText
 
    [Rule 5-41] (IEPD-catalog)
 
@@ -1488,13 +1488,13 @@ Rule 5-43. Validating an XPath Expression
 
    NIEM employs the W3C XML Schema Definition (XSD) Language ([W3C XML Schema Part 1 Structures] and [W3C XML Schema Part 2 Datatypes]), one of several XML schema definition languages designed to define an instance XML document and enable its validation. In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema ([W3C XML Schema Part 1 Structures],  section 2.5, "Schema-validity and documents").
 
-   So, a NIEM [IEPD] is an MPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing XML catalogs to [resolve URI] values in namespace attributes owned by xs:import elements and similar XML Schema constructs). In turn, the resulting XML schema can be used to validate one or more [instance XML documents] for NIEM conformance.
+   So, a NIEM [IEPD] is an IEPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing XML catalogs to [resolve URI] values in namespace attributes owned by xs:import elements and similar XML Schema constructs). In turn, the resulting XML schema can be used to validate one or more [instance XML documents] for NIEM conformance.
 
    NIEM is based on XML Schema, and so the term "schema validation" usually refers to "XML Schema validation". However, an [IEPD] author may also choose to include artifacts to validate with other types of schemas or rules, including but not limited to [ISO Schematron] and [ISO RelaxNG]. [IEPD] authors may also include artifacts for NIEM constraint schema validation, which, of course, is XML Schema validation (See Section 4.5, Constraint Schema Document Sets, above.
 
-   Because NIEM is XML Schema based, then c:XMLSchemaValid (of type c:XMLSchemaType) will likely be employed by most IEPDs. This validity constraint ensures that an IEP artifact is schema valid to an XML schema that can be assembled correctly from the schema documents that comprise it. To do this c:XMLSchemaValid provides two methods to choose from based on its child elements, c:XMLCatalog and c:XMLSchemaDocument, both zero to unbounded cardinality. The MPD author can use (1) c:XMLCatalog to identify one or more XML catalog documents that map the correct schema documents; or (2) c:XMLSchemaDocument to explicitly identify the one or more XML schema documents to be retrieved. In each case, depending on the nature of the XML schema document set from which the schema documents are coming, it may be possible to identify a single XML catalog document or a single XML schema document. That catalog or schema document will be the starting point or root document and will contain enough information to explicitly identify or cascade to the rest. (See also Section 5.5, XML Catalogs, above)
+   Because NIEM is XML Schema based, then c:XMLSchemaValid (of type c:XMLSchemaType) will likely be employed by most IEPDs. This validity constraint ensures that an IEP artifact is schema valid to an XML schema that can be assembled correctly from the schema documents that comprise it. To do this c:XMLSchemaValid provides two methods to choose from based on its child elements, c:XMLCatalog and c:XMLSchemaDocument, both zero to unbounded cardinality. The IEPD author can use (1) c:XMLCatalog to identify one or more XML catalog documents that map the correct schema documents; or (2) c:XMLSchemaDocument to explicitly identify the one or more XML schema documents to be retrieved. In each case, depending on the nature of the XML schema document set from which the schema documents are coming, it may be possible to identify a single XML catalog document or a single XML schema document. That catalog or schema document will be the starting point or root document and will contain enough information to explicitly identify or cascade to the rest. (See also Section 5.5, XML Catalogs, above)
 
-   It is the MPD author's responsibility to ensure that the method used (XML catalogs or XML schema document identification) is configured correctly per the appropriate specification ([XML Catalogs 1.1] or [W3C XML Schema Part 1 Structures]).
+   It is the IEPD author's responsibility to ensure that the method used (XML catalogs or XML schema document identification) is configured correctly per the appropriate specification ([XML Catalogs 1.1] or [W3C XML Schema Part 1 Structures]).
 
 5.6.2.7. c:SchematronValid
 
@@ -1516,7 +1516,7 @@ Rule 5-43. Validating an XPath Expression
 
 5.6.3. IEP Sample Instance XML Documents
 
-   This section discusses sample IEPs in the context of an [IEPD]. However, this is not meant to imply that sample IEPs are not useful in other MPDs.
+   This section discusses sample IEPs in the context of an [IEPD]. However, this is not meant to imply that sample IEPs are not useful in other IEPDs.
 
    A sample IEP [instance XML document] is a representation of an actual or example exchange data instance. Sample instances can be extremely valuable artifacts in an [IEPD]. Sample IEPs:
 
@@ -3123,7 +3123,7 @@ Appendix I. Index of Rules
    Rule 5-38, Conformance Target Identifier: Section 5.6, Defining Information Exchange Packages
    Rule 5-39, IEP Conformance Target Has a structures:id: Section 5.6, Defining Information Exchange Packages
    Rule 5-40, [IEPD] Declares One or More IEP Conformance Targets: Section 5.6, Defining Information Exchange Packages
-   Rule 5-41, : Section 5.6.2.3, c:ValidityContext
+   Rule 5-41, Validity contraint context is value of c:xPathText: Section 5.6.2.3, c:ValidityContext
    Rule 5-42, Identifying the Document Element of an IEP: Section 5.6.2.4, c:HasDocumentElement
    Rule 5-43, Validating an XPath Expression: Section 5.6.2.5, c:ValidToXPath
    Rule 5-44, IEPD Has an IEP Sample for Each c:IEPConformanceTarget: Section 5.6.3, IEP Sample Instance XML Documents

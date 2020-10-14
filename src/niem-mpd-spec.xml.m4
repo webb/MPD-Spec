@@ -1601,18 +1601,18 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 <section id="Defining-Information-Exchange-Packages">
 	<title>Defining Information Exchange Packages</title>
 
-	<p>An MPD may declare one or more <em>IEP conformance targets</em> within its <termRef>IEPD catalog document</termRef>.</p>
+	<p>An IEPD may declare one or more <em>IEP conformance targets</em> within its <termRef>IEPD catalog document</termRef>.</p>
 
 	<definition term="IEP conformance target" id="iep-conformance-target">
 		<p>A <termRef>conformance target</termRef> that is a class or category of IEP which has a set of one or more validity constraints and a <termRef>conformance target identifier</termRef>.  Every IEP is an instance of one or more <em>IEP conformance targets</em>.</p>
 	</definition>
 
-	<p>This definition requires that an IEP conformance target be assigned a <termRef>conformance target identifier</termRef> that distinguishes it from all other <termRef term="IEP conformance target">IEP conformance targets</termRef>.  Construct a <termRef>conformance target identifier</termRef> using a fragment identifier (similar to an MPD artifact URI) per this rule:</p>
+	<p>This definition requires that an IEP conformance target be assigned a <termRef>conformance target identifier</termRef> that distinguishes it from all other <termRef term="IEP conformance target">IEP conformance targets</termRef>.  Construct a <termRef>conformance target identifier</termRef> using a fragment identifier (similar to an IEPD artifact URI) per this rule:</p>
 
 	<ruleSection>
 		<title>Conformance Target Identifier</title>
 		<rule id="r-iep-ct-uri" applicability="IEPD-catalog" class="Interpretation">
-			<p>A <termRef>conformance target identifier</termRef> for an <termRef>IEP conformance target</termRef> declared in an MPD is formed by concatenating in sequence:</p>
+			<p>A <termRef>conformance target identifier</termRef> for an <termRef>IEP conformance target</termRef> declared in an IEPD is formed by concatenating in sequence:</p>
 		<ol>
 			<li><p>the IEPD URI, and</p></li>
 			<li><p>the pound sign character (#). and</p></li>
@@ -1629,7 +1629,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 	<rule id="iep-conformance-target-id" applicability="IEPD-catalog" class="Constraint">
 		<p>A <qName>c:IEPConformanceTarget</qName> element MUST own a <qName>structures:id</qName> attribute.</p>
 	</rule>
-	<p>This rule ensures that a <termRef>conformance target</termRef> can be referenced between MPDs (not just within an MPD).  The value of the <qName>structures:id</qName> attribute is the NCName in <ref idref="r-iep-ct-uri"/>.</p> 
+	<p>This rule ensures that a <termRef>conformance target</termRef> can be referenced between IEPDs (not just within an IEPD).  The value of the <qName>structures:id</qName> attribute is the NCName in <ref idref="r-iep-ct-uri"/>.</p> 
 </ruleSection>
 
 	<p>An <termRef term="information exchange package documentation">IEPD</termRef> defines IEP conformance targets by explicitly declaring them within its IEPD catalog per the rules above.</p>
@@ -1671,7 +1671,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <section id="ValidityConstraintWithContext"><title>c:ValidityConstraintWithContext</title>
 
-	<p><qName>c:ValidityConstraintWithContext</qName> is an abstract element into which various validity constraints will be substituted, depending upon the MPD author<char name="rsquo"/>s intent.  In the absence of an explicit context (declared by an <qName>c:xPathText</qName> attribute), <termRef>validity constraint context</termRef> defaults to the IEP<char name="rsquo"/>s <em>document information item</em> as defined in <ref idref="W3-XML-InfoSet"/>, <a href="http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.document"> <char name="sect"/>2.1, <q>The Document Information Item</q></a>.  In this default case, a specific validity constraint will substitute for <qName>c:ValidityConstraint</qName> which in turn, substitutes for <qName>c:ValidityConstraintWithContext</qName>.</p>
+	<p><qName>c:ValidityConstraintWithContext</qName> is an abstract element into which various validity constraints will be substituted, depending upon the IEPD author<char name="rsquo"/>s intent.  In the absence of an explicit context (declared by an <qName>c:xPathText</qName> attribute), <termRef>validity constraint context</termRef> defaults to the IEP<char name="rsquo"/>s <em>document information item</em> as defined in <ref idref="W3-XML-InfoSet"/>, <a href="http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.document"> <char name="sect"/>2.1, <q>The Document Information Item</q></a>.  In this default case, a specific validity constraint will substitute for <qName>c:ValidityConstraint</qName> which in turn, substitutes for <qName>c:ValidityConstraintWithContext</qName>.</p>
 
 </section>
 
@@ -1687,7 +1687,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p><termRef term="validity constraint context">Validity constraint context</termRef> is explicitly declared by an XPath expression that is the value of <qName>c:xPathText</qName>.  <qName>c:ValidityContext</qName> can contain any of the specific validity constraints that are substitutable for <qName>c:ValidityConstraint</qName>.</p>
 
-	<ruleSection><title></title>
+	<ruleSection><title>Validity contraint context is value of <qName>c:xPathText</qName></title>
 		<rule applicability="IEPD-catalog" class="Interpretation">
 			<p>Given a <qName>c:xPathText</qName> attribute owned by <qName>c:ValidityContext</qName>, the <termRef>validity constraint context</termRef> for the descendant<char name="rsquo"/>s validity constraint SHALL be the value of <qName>c:xPathText</qName> evaluated against the IEP<char name="rsquo"/>s document information item (See <ref idref="W3-XML-InfoSet"/>, <a href="http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.document"> <char name="sect"/>2.1, <q>The Document Information Item</q></a>).</p>
 		</rule>
@@ -1745,13 +1745,13 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>NIEM employs the W3C XML Schema Definition (XSD) Language (<ref idref="W3-XML-Schema-Structures"/> and <ref idref="W3-XML-Schema-Datatypes"/>), one of several XML schema definition languages designed to define an instance XML document and enable its validation.  In general, an instance XML document is valid against a particular XML schema if it obeys or conforms to the constraints imposed by that schema (<ref idref="W3-XML-Schema-Structures"/>, <a href="http://www.w3.org/TR/xmlschema11-1/#sec-schema-validity-and-docs"> <char name="sect"/>2.5, <q>Schema-validity and documents</q></a>).</p>
 
-	<p>So, a NIEM <termRef term="information exchange package documentation">IEPD</termRef> is an MPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing XML catalogs to <termRef>resolve URI</termRef> values in namespace attributes owned by <qName>xs:import</qName> elements and similar XML Schema constructs).  In turn, the resulting XML schema can be used to validate one or more <termRef term="instance XML document">instance XML documents</termRef> for NIEM conformance.</p>
+	<p>So, a NIEM <termRef term="information exchange package documentation">IEPD</termRef> is an IEPD that contains a set of XML schema documents, that are assembled into an XML schema (after processing XML catalogs to <termRef>resolve URI</termRef> values in namespace attributes owned by <qName>xs:import</qName> elements and similar XML Schema constructs).  In turn, the resulting XML schema can be used to validate one or more <termRef term="instance XML document">instance XML documents</termRef> for NIEM conformance.</p>
 
 	<p>NIEM is based on XML Schema, and so the term "schema validation" usually refers to "XML Schema validation".  However, an <termRef term="information exchange package documentation">IEPD</termRef> author may also choose to include artifacts to validate with other types of schemas or rules, including but not limited to <ref idref="ISO-Schematron"/> and <ref idref="ISO-RelaxNG"/>.  <termRef term="information exchange package documentation">IEPD</termRef> authors may also include artifacts for NIEM constraint schema validation, which, of course, is XML Schema validation (See <ref idref="Constraint-Schemas"/>.</p>
 
-	<p>Because NIEM is XML Schema based, then <qName>c:XMLSchemaValid</qName> (of type <qName>c:XMLSchemaType</qName>) will likely be employed by most IEPDs.  This validity constraint ensures that an IEP artifact is schema valid to an XML schema that can be assembled correctly from the schema documents that comprise it.  To do this <qName>c:XMLSchemaValid</qName> provides two methods to choose from based on its child elements, <qName>c:XMLCatalog</qName> and <qName>c:XMLSchemaDocument</qName>, both zero to unbounded cardinality.  The MPD author can use (1) <qName>c:XMLCatalog</qName> to identify one or more XML catalog documents that map the correct schema documents; or (2) <qName>c:XMLSchemaDocument</qName> to explicitly identify the one or more XML schema documents to be retrieved.  In each case, depending on the nature of the XML schema document set from which the schema documents are coming, it may be possible to identify a single XML catalog document or a single XML schema document.  That catalog or schema document will be the starting point or root document and will contain enough information to explicitly identify or cascade to the rest.  (See also <ref idref="XML-Catalogs"/>)</p>
+	<p>Because NIEM is XML Schema based, then <qName>c:XMLSchemaValid</qName> (of type <qName>c:XMLSchemaType</qName>) will likely be employed by most IEPDs.  This validity constraint ensures that an IEP artifact is schema valid to an XML schema that can be assembled correctly from the schema documents that comprise it.  To do this <qName>c:XMLSchemaValid</qName> provides two methods to choose from based on its child elements, <qName>c:XMLCatalog</qName> and <qName>c:XMLSchemaDocument</qName>, both zero to unbounded cardinality.  The IEPD author can use (1) <qName>c:XMLCatalog</qName> to identify one or more XML catalog documents that map the correct schema documents; or (2) <qName>c:XMLSchemaDocument</qName> to explicitly identify the one or more XML schema documents to be retrieved.  In each case, depending on the nature of the XML schema document set from which the schema documents are coming, it may be possible to identify a single XML catalog document or a single XML schema document.  That catalog or schema document will be the starting point or root document and will contain enough information to explicitly identify or cascade to the rest.  (See also <ref idref="XML-Catalogs"/>)</p>
 
-	<p>It is the MPD author<char name="rsquo"/>s responsibility to ensure that the method used (XML catalogs or XML schema document identification) is configured correctly per the appropriate specification (<ref idref="OASIS-XML-Catalogs"/> or <ref idref="W3-XML-Schema-Structures"/>).</p>
+	<p>It is the IEPD author<char name="rsquo"/>s responsibility to ensure that the method used (XML catalogs or XML schema document identification) is configured correctly per the appropriate specification (<ref idref="OASIS-XML-Catalogs"/> or <ref idref="W3-XML-Schema-Structures"/>).</p>
 
 </section>
 
@@ -1788,7 +1788,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <section id="IEP-Samples"><title>IEP Sample Instance XML Documents</title>
 
-	<p>This section discusses sample IEPs in the context of an <termRef term="information exchange package documentation">IEPD</termRef>.  However, this is not meant to imply that sample IEPs are not useful in other MPDs.</p>
+	<p>This section discusses sample IEPs in the context of an <termRef term="information exchange package documentation">IEPD</termRef>.  However, this is not meant to imply that sample IEPs are not useful in other IEPDs.</p>
 
 	<p>A sample IEP <termRef>instance XML document</termRef> is a representation of an actual or example exchange data instance.  Sample instances can be extremely valuable artifacts in an <termRef term="information exchange package documentation">IEPD</termRef>.  Sample IEPs:</p>
 	<ul>
