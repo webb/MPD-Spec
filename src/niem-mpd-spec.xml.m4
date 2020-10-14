@@ -28,9 +28,9 @@
 		<p>Email comments on this specification to <link href="mailto:information@niem.gov?subject=NIEM%20IEPD%20Specification%20Version%20[[[]]]MACRO_document_version">information@niem.gov</link>.</p>
 	</subsection>
 	
-	<subsection><title>URI</title>
+<!--	<subsection><title>URI</title>
 	  <p><strong><link>MACRO_document_base_uri</link></strong></p>
-  </subsection>
+  </subsection>-->
 
   <subsection><title>Contents</title>
   	<tableOfContents/>
@@ -506,14 +506,14 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 	<p>In NIEM, an information exchange instance is an <termRef>information exchange package</termRef> (IEP).  An IEP is also a <termRef>conformance target</termRef> and in that connotation is defined as follows:</p>
 
 	<definition term="information exchange package">
-		<p>An XML <termRef>instance XML document</termRef> that conforms to the conformance target defined by a <qName>c:IEPConformanceTarget</qName> element in the <termRef>IEPD catalog document</termRef> of a <termRef>model package description</termRef>.</p>
+		<p>An XML <termRef>instance XML document</termRef> that conforms to the conformance target defined by a <qName>c:IEPConformanceTarget</qName> element in the <termRef>IEPD catalog document</termRef> of a <termRef>information exchange package documentation</termRef>.</p>
 		<p>This term may be abbreviated <q>IEP</q>. Rules specifying this conformance target use the applicability code <q>IEP</q>.</p>
 	</definition>
 
 	<p>The definition of an <termRef>information exchange package</termRef> conformance target does not ensure that an <termRef term="information exchange package">IEP</termRef> uses NIEM-defined elements for its information content.  That is the function of the <termRef term="full NIEM information exchange package">full NIEM IEP</termRef> <termRef>conformance target</termRef>, defined as follows:</p>
 
 	<definition term="full NIEM information exchange package">
-		<p>An <termRef>information exchange package</termRef> that satisfies all the validity constraints for its class as defined by a <termRef>model package description</termRef>, and that has an XML document element that is declared in either a NIEM reference or extension schema document.</p>
+		<p>An <termRef>information exchange package</termRef> that satisfies all the validity constraints for its class as defined by a <termRef>information exchange package documentation</termRef>, and that has an XML document element that is declared in either a NIEM reference or extension schema document.</p>
 		<p>This term may be abbreviated <q>full NIEM IEP</q>. Rules specifying this conformance target use the applicability code <q>FN-IEP</q>.</p>
 	</definition>
 
@@ -522,7 +522,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 <section id="CT-Artifact">
 	<title>Artifact Conformance Targets</title>
 
-	<p>Conformance targets that correspond to artifacts internal to an <termRef term="model package description">MPD</termRef> include:</p>
+	<p>Conformance targets that correspond to artifacts internal to an <termRef term="information exchange package documentation">IEPD</termRef> include:</p>
 	<ul>
 		<li><p><termRef>schema document subset</termRef> (rule applicability code:  Schema-subset)</p></li>
 		<li><p><termRef>IEPD catalog document</termRef> (rule applicability code:  IEPD-catalog)</p></li>
