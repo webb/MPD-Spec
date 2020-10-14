@@ -1869,29 +1869,29 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 </section>
 
 
-<!-- ###################### Optional MPD Artifacts ############################ -->
+<!-- ###################### Optional IEPD Artifacts ############################ -->
 
 
-<section id="Optional-MPD-Artifacts"><title>Optional MPD Artifacts</title>
+<section id="Optional-IEPD-Artifacts"><title>Optional IEPD Artifacts</title>
 	
-	<p>Aside from the required artifacts, MPD content is relatively flexible.  A variety of other optional documentation files may be incorporated into an MPD.  When applicable, these may include (but are not limited to) files that describe or explain:</p> 
+	<p>Aside from the required artifacts, IEPD content is relatively flexible.  A variety of other optional documentation files may be incorporated into an IEPD.  When applicable, these may include (but are not limited to) files that describe or explain:</p> 
 <ul>
 	<li><p>Implementation details (hardware, software, configuration, etc.)</p></li>
 	<li><p>Use of multiple root elements</p></li>
 	<li><p>Use of multiple subsets or mixed releases</p></li>
-	<li><p>How to use/reuse an MPD for various purposes (such as Web Services)</p></li>
+	<li><p>How to use/reuse an IEPD for various purposes (such as Web Services)</p></li>
 	<li><p>Rationales and/or business purposes</p></li>
 </ul>
 
-	<p>In addition to documentation artifacts, a variety of other optional files can be added to an MPD to facilitate tool support and make reuse, adaptation, and/or implementation easier.  These are often files that are inputs to or outputs from software tools.  Examples include content diagrams, content models in tool-specific formats, and business rules (either formal or informal representations).</p>
+	<p>In addition to documentation artifacts, a variety of other optional files can be added to an IEPD to facilitate tool support and make reuse, adaptation, and/or implementation easier.  These are often files that are inputs to or outputs from software tools.  Examples include content diagrams, content models in tool-specific formats, and business rules (either formal or informal representations).</p>
 
-	<p>An MPD author may include any files believed to be useful to understand, implement, reuse, and/or adapt an MPD.</p>
+	<p>An IEPD author may include any files believed to be useful to understand, implement, reuse, and/or adapt an IEPD.</p>
 
-	<p>An MPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it.  (See <ref idref="IEPD-Artifacts"/> for a listing of the mandatory and common optional artifacts for each type of MPD.)</p>
+	<p>An IEPD of relatively simple content and scope may only need to contain the minimum mandatory artifacts required by this specification in order to understand and implement it.  (See <ref idref="IEPD-Artifacts"/> for a listing of the mandatory and common optional artifacts for each type of IEPD.)</p>
 
-	<p>Files vary widely in format and are often specific to the tools an author uses to parse, consume, or output them.  Therefore, if tool-specific files are included in an MPD, it is also a good practice to include copies of those files in formats that display with standard Web browsers or other cost-free, publicly available viewing tools (e.g., ASCII text, PDF, CSV, HTML, JPG, GIF, PNG).  This guidance is intended to encourage and facilitate maximal sharing and distribution of MPDs; it does not prohibit and is not intended to discourage the inclusion of other file formats.</p>
+	<p>Files vary widely in format and are often specific to the tools an author uses to parse, consume, or output them.  Therefore, if tool-specific files are included in an IEPD, it is also a good practice to include copies of those files in formats that display with standard Web browsers or other cost-free, publicly available viewing tools (e.g., ASCII text, PDF, CSV, HTML, JPG, GIF, PNG).  This guidance is intended to encourage and facilitate maximal sharing and distribution of IEPDs; it does not prohibit and is not intended to discourage the inclusion of other file formats.</p>
 
-	<p>In particular, this specification does not discourage use of Microsoft file formats for documentation and other optional artifacts.  Microsoft Office products are in common use, and free viewers are available for many of them (See <link>http://office.microsoft.com/en-us/downloads/office-online-file-converters-and-viewers-HA001044981.aspx</link>).</p>
+	<p>In particular, this specification does not discourage use of Microsoft file formats for documentation and other optional artifacts.  Microsoft Office products are in common use, and free viewers are available for many of them (See <link>https://www.microsoft.com/en-us/microsoft-365/microsoft-office</link>).</p>
 
 
 
@@ -1905,12 +1905,12 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>A NIEM wantlist identifies the <termRef>data component</termRef> requirements declared by the subset author; it does not identify the <termRef>data component</termRef> dependencies required to reconstitute the complete subset.  The complete subset can be computed with the reference schema document set from which the subset was derived.</p>
 
-	<p>A wantlist is always associated with a schema document subset.  A wantlist may also be associated with a <termRef>constraint schema document set</termRef>, because constraint schema documents are often built from a <termRef>schema document subset</termRef>.  For a simple <termRef term="information exchange package documentation">IEPD</termRef>, it can sometimes be trivial to identify a single schema document subset.  However, this MPD Specification does not prohibit building complex IEPDs that contain schema document sets supported by multiple schema document subsets and associated wantlists.  As with other complex cases, the <termRef term="information exchange package documentation">IEPD</termRef> author is responsible to clearly document the associations between wantlists and schema document sets.  In order to maintain a minimal degree of consistency for placement of a wantlist within an <termRef term="information exchange package documentation">IEPD</termRef> the following rule applies.</p>
+	<p>A wantlist is always associated with a schema document subset.  A wantlist may also be associated with a <termRef>constraint schema document set</termRef>, because constraint schema documents are often built from a <termRef>schema document subset</termRef>.  For a simple <termRef term="information exchange package documentation">IEPD</termRef>, it can sometimes be trivial to identify a single schema document subset.  However, this IEPD Specification does not prohibit building complex IEPDs that contain schema document sets supported by multiple schema document subsets and associated wantlists.  As with other complex cases, the <termRef term="information exchange package documentation">IEPD</termRef> author is responsible to clearly document the associations between wantlists and schema document sets.  In order to maintain a minimal degree of consistency for placement of a wantlist within an <termRef term="information exchange package documentation">IEPD</termRef> the following rule applies.</p>
 
 <ruleSection>
 	<title>Wantlist Location</title>	
 	<rule id="r-wantlist-base" applicability="WF-IEPD" class="Constraint">
-		<p>If present, a NIEM wantlist MUST reside within the root of the MPD subdirectory that groups and defines its corresponding subset schema document set (e.g., <code>niem</code>).</p>
+		<p>If present, a NIEM wantlist MUST reside within the root of the IEPD subdirectory that groups and defines its corresponding subset schema document set (e.g., <code>niem</code>).</p>
 	</rule>
 </ruleSection>
 
@@ -1922,7 +1922,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>For simplicity and consistency, NIEM employs a profile of the XML Schema language <ref idref="W3-XML-Schema-Structures"/>, <ref idref="W3-XML-Schema-Datatypes"/>.  Thus, some constraints on NIEM XML documents cannot be enforced by NIEM.  <termRef term="constraint schema document set">Constraint schema document sets</termRef> provide a convenient technique for enforcing some additional constraints.  However, even the full XML Schema language cannot validate and enforce all possible constraints that may be required of an XML document.</p>
 
-	<p>So, NIEM allows (even encourages) the use of formal or informal <termRef>business rules</termRef> to help define or constrain MPDs (in particular IEPDs).</p>
+	<p>So, NIEM allows (even encourages) the use of formal or informal <termRef>business rules</termRef> to help define or constrain IEPDs.</p>
 
 	<definition term="business rules">
 		<p>Formal or informal statements that describe business policy or procedure, and in doing so define or constrain some aspect of a process or procedure in order to impose control.</p>
