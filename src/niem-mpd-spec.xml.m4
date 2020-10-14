@@ -1948,21 +1948,21 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 <section id="Organization-Packaging-Other-Criteria">
 	<title>Organization, Packaging, and Other Criteria</title>
 	
-	<p>An MPD is a logical set of electronic files aggregated and organized to fulfill a specific purpose in NIEM.  Directory organization and packaging of an MPD should be designed around major themes in NIEM:  reuse, sharing, interoperability, and efficiency.</p>
+	<p>An IEPD is a logical set of electronic files aggregated and organized to fulfill a specific purpose in NIEM.  Directory organization and packaging of an IEPD should be designed around major themes in NIEM:  reuse, sharing, interoperability, and efficiency.</p>
 
 	<ruleSection>
-		<title>An MPD in ZIP File Format Preserves Logical Directory Structure.</title>
-	 	<rule id="r-mpd-archive" applicability="WF-IEPD" class="Constraint">
-			<p>An MPD in <termRef>ZIP file</termRef> format represents a sub-tree of a file system.  Such an archive MUST preserve and store the logical directory structure intended by its author for respository format.</p>
+		<title>An IEPD in ZIP File Format Preserves Logical Directory Structure.</title>
+	 	<rule id="r-iepd-archive" applicability="WF-IEPD" class="Constraint">
+			<p>An IEPD in <termRef>ZIP file</termRef> format represents a sub-tree of a file system.  Such an archive MUST preserve and store the logical directory structure intended by its author for respository format.</p>
 		</rule>
 	</ruleSection>
 
-	<p>NIEM XSD and XML <termRef term="artifact">artifacts</termRef> in an MPD must be valid for both XML Schema and NIEM.  This also implies these artifacts must adhere to applicable <ref idref="NIEM-NDR"/> conformance target rules.</p>
+	<p>NIEM XSD and XML <termRef term="artifact">artifacts</termRef> in an IEPD must be valid for both XML Schema and NIEM.  This also implies these artifacts must adhere to applicable <ref idref="NIEM-NDR"/> conformance target rules.</p>
 
 	<ruleSection>
 		<title>XSD and XML Documents Conform to Applicable NDR Conformance Targets</title>
-		<rule id="r-mpd-conform-tgts" applicability="WF-IEPD" class="Constraint">
-			<p>Within an MPD, each XML schema document (XSD) or instance XML document (XML) artifact that uses a conformance targets attribute (as defined by <ref idref="NIEM-CTAS"/>) MUST satisfy the <ref idref="NIEM-NDR"/> rules for the conformance targets it declares.</p>
+		<rule id="r-iepd-conform-tgts" applicability="WF-IEPD" class="Constraint">
+			<p>Within an IEPD, each XML schema document (XSD) or instance XML document (XML) artifact that uses a conformance targets attribute (as defined by <ref idref="NIEM-CTAS"/>) MUST satisfy the <ref idref="NIEM-NDR"/> rules for the conformance targets it declares.</p>
 		</rule>
 	</ruleSection>
 
@@ -1973,16 +1973,16 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 	</definition>
 
 	<ruleSection>
-		<title>MPD Archive Uncompresses to a Single Root Directory</title>
-		<rule id="r-mpd-archive-one-root" applicability="WF-IEPD" class="Constraint">
-			<p>An MPD in <termRef>ZIP file</termRef> format MUST uncompress (unzip) to one and only one <termRef>IEPD root directory</termRef>.</p>
+		<title>IEPD Archive Uncompresses to a Single Root Directory</title>
+		<rule id="r-iepd-archive-one-root" applicability="WF-IEPD" class="Constraint">
+			<p>An IEPD in <termRef>ZIP file</termRef> format MUST uncompress (unzip) to one and only one <termRef>IEPD root directory</termRef>.</p>
 		</rule>
 	</ruleSection>
 
 	<p>The foregoing rule ensures that:</p>
 	<ul>
-		<li><p>Unpacking an MPD in <termRef>ZIP file</termRef> format will not scatter its contents on a storage device.</p></li>
-		<li><p>One common starting directory always exists to explore or use any MPD.</p></li>
+		<li><p>Unpacking an IEPD in <termRef>ZIP file</termRef> format will not scatter its contents on a storage device.</p></li>
+		<li><p>One common starting directory always exists to explore or use any IEPD.</p></li>
 		<li><p>iepd-catalog and change log artifacts will always be found in the <termRef>IEPD root directory</termRef>.</p></li> 
 	</ul>
 
@@ -1990,15 +1990,15 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <section id="Artifact-Sets"><title>Artifact Sets</title>
 
-	<p>Grouping artifacts into sets is generally optional.  There may be many reasons for identifying artifacts sets in an MPD.  While directory structure is most often the most convenient method for grouping a set of artifacts, there may multiple logical groupings, and these may spread across multiple directories.</p>
+	<p>Grouping artifacts into sets is generally optional.  There may be many reasons for identifying artifacts sets in an IEPD.  While directory structure is most often the most convenient method for grouping a set of artifacts, there may multiple logical groupings, and these may spread across multiple directories.</p>
 
-	<p>This specification defines other ways to group MPD artifacts into <termRef term="artifact set">sets</termRef>.  In general, independent of directory organization, sets can be established through one of two methods.  An <termRef>XML catalog document</termRef> can be used to establish an <termRef>XML schema document</termRef> set.  The <termRef>IEPD catalog document</termRef> can be used to identify all kinds of artifacts sets (including XML schema documents).</p>
+	<p>This specification defines other ways to group IEPD artifacts into <termRef term="artifact set">sets</termRef>.  In general, independent of directory organization, sets can be established through one of two methods.  An <termRef>XML catalog document</termRef> can be used to establish an <termRef>XML schema document</termRef> set.  The <termRef>IEPD catalog document</termRef> can be used to identify all kinds of artifacts sets (including XML schema documents).</p>
 
 	<p><ref idref="XML-Catalogs"/> describes how NIEM employs an <termRef>XML catalog document</termRef> to assemble an <termRef>XML Schema</termRef> from <termRef term="XML schema document">XML schema documents</termRef>.  For user convenience, this method is now used in NIEM releases (as well as their associated core supplements) and domain updates.  Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).</p>
 
 	<p>Another reason for grouping artifacts into sets is a need for humans to review, identify, and navigate the artifacts of an <termRef term="information exchange package documentation">IEPD</termRef> (particularly, if it is complicated).  An <termRef>XML catalog document</termRef> has a relatively focused purpose, to identify (by namespace) and assemble a set of XML schema documents into an <termRef>XML Schema</termRef>.  It is not intended to index artifacts in general (other than XML schema documents to assigned target namespaces).  So, it does not classify or describe the artifacts it identifies.</p>
 
-	<p>On the other hand, the <termRef>IEPD catalog document</termRef> is designed to record, index, classify, and describe (as needed) any or all MPD artifacts (not just schema documents).  The IEPD catalog provides a flexible method for grouping all kinds artifacts.</p>
+	<p>On the other hand, the <termRef>IEPD catalog document</termRef> is designed to record, index, classify, and describe (as needed) any or all IEPD artifacts (not just schema documents).  The IEPD catalog provides a flexible method for grouping all kinds artifacts.</p>
 
 	<p>The IEPD catalog schema <ref idref="IEPD-Catalog-XSD"/> defines a set of common artifact classifiers and artifact set classifiers.  In summary, per <ref idref="IEPD-Catalog-XSD"/>, define sets by substituting the appropriate artifact classifier (of type <qName>c:FileType</qName>) into the abstract element <qName>c:ArtifactOrArtifactSet</qName>, within the appropriate artifact set classifier (of type <qName>c:FileSetType</qName>).  Use the most specific classifiers available for your artifacts and artifact sets.  Otherwise, as needed, use generic <qName>c:File</qName> and <qName>c:FileSet</qName> classifiers with <qName>nc:DescriptionText</qName>.</p>
 
@@ -2036,7 +2036,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		</pre>
 	</figure>
 
-	<p>Another way the IEPD catalog schema groups artifacts is through the use of the <qName>c:RequiredFile</qName> element.  Use this construct to signify there are strong dependencies among artifacts.  For example, documentation may be prepared as a set of hyperlinked HTML files.  These HTML files may also incorporate separate GIF or JPG images.  Regardless of file location within the MPD, these files depend on one another through hyperlinks.  As a result, they tend to operate as a single artifact; removal of a file will cause one or more broken links within the set.  This set of artifacts should be grouped using <qName>c:RequiredFile</qName>.  If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the <qName>c:File</qName> element while all others are values for <qName>c:RequiredFile</qName> child elements).</p>
+	<p>Another way the IEPD catalog schema groups artifacts is through the use of the <qName>c:RequiredFile</qName> element.  Use this construct to signify there are strong dependencies among artifacts.  For example, documentation may be prepared as a set of hyperlinked HTML files.  These HTML files may also incorporate separate GIF or JPG images.  Regardless of file location within the IEPD, these files depend on one another through hyperlinks.  As a result, they tend to operate as a single artifact; removal of a file will cause one or more broken links within the set.  This set of artifacts should be grouped using <qName>c:RequiredFile</qName>.  If the set does not have a root HTML document (i.e., the set can be entered from any file in the set), then create an index HTML document and use it as the root of the set (i.e., the index is the value of the <qName>c:File</qName> element while all others are values for <qName>c:RequiredFile</qName> child elements).</p>
 
 
 
@@ -2064,7 +2064,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>It is important to understand that this section does not apply to the syntax for the <qName>c:iepdName</qName> attribute in the <termRef>IEPD catalog document</termRef>.  Refer to <ref idref="Name-Syntax"/> for details regarding the <qName>c:iepdName</qName> metadata attribute.</p>
 
-	<p>The MPD Specification is intended to help facilitate tool support for processing MPDs.  Tools and search mechanisms that can identify basic MPD information as early as possible is efficient and valuable.  So, if an MPD name, version, and class can be identified from its file name, then a tool would not have to open the <termRef>ZIP file</termRef> and parse the IEPD catalog to determine such.  Of course, to do anything useful, a tool will eventually have to open the MPD archive.  However, a standard file name syntax allows a tool to search through a set of MPDs in <termRef>ZIP file</termRef> format to find a particular MPD name, version, or class without having to open each.  File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.</p> 
+	<p>The IEPD Specification is intended to help facilitate tool support for processing IEPDs.  Tools and search mechanisms that can identify basic IEPD information as early as possible is efficient and valuable.  So, if an IEPD name, version, and class can be identified from its file name, then a tool would not have to open the <termRef>ZIP file</termRef> and parse the IEPD catalog to determine such.  Of course, to do anything useful, a tool will eventually have to open the IEPD archive.  However, a standard file name syntax allows a tool to search through a set of IEPDs in <termRef>ZIP file</termRef> format to find a particular IEPD name, version, or class without having to open each.  File name consistency can also make it easier to scan and identify IEPDs in a long list sorted by file name.</p> 
 
 <ruleSection>
 	<title>IEPD ZIP file Name Syntax</title>
@@ -2096,11 +2096,11 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 <section id="Artifact-Links-to-Other-Resources">
 	<title>Artifact Links to Other Resources</title>
 
-	<p>It is important to understand that the URI scheme defined in <ref idref="externalURI"/> can only be used to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD.  In accordance with the <ref idref="NIEM-NDR"/>, if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative <termRef>path name</termRef> references when needed.  The following rule applies when absolute references to Internet resources are required.</p>
+	<p>It is important to understand that the URI scheme defined in <ref idref="externalURI"/> can only be used to identify relationships among and provide source links to external schemas being reused.  It is not sufficient to allow references or links to such schemas stand in for a physical copy.  Thus, all schema artifacts necessary to define, validate, and use an IEPD must be physically present within that IEPD.  In accordance with the <ref idref="NIEM-NDR"/>, if IEPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative <termRef>path name</termRef> references when needed.  The following rule applies when absolute references to Internet resources are required.</p>
 
 <ruleSection>
-	<title>MPD Reference to Resource Uses Common URI Scheme</title>
-	<rule id="r-mpd-protocol" applicability="WF-IEPD" class="Constraint">
+	<title>IEPD Reference to Resource Uses Common URI Scheme</title>
+	<rule id="r-iepd-protocol" applicability="WF-IEPD" class="Constraint">
 		<p>An absolute reference to an Internet resource MUST use a well-known URI scheme (e.g., http, https, ftp, ftps) and MUST <termRef term="resolve URI">resolve</termRef>.  If applicable, documentation SHOULD describe how to <termRef term="resolve URI">resolve</termRef> with security, account, and/or password information.</p>
 	</rule>
 </ruleSection>
@@ -2115,7 +2115,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <ruleSection>
 	<title>IEPD Completeness</title>
-	<rule id="r-mpd-documents" applicability="IEPD" class="Constraint">
+	<rule id="r-iepd-documents" applicability="IEPD" class="Constraint">
 		<p>An <termRef term="information exchange package documentation">IEPD</termRef> SHOULD contain all artifacts needed to understand it and facilitate its correct implementation.</p>
 	</rule>
 </ruleSection>
@@ -2124,38 +2124,38 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>On the other hand, an <termRef term="information exchange package documentation">IEPD</termRef> whose author has extended the IEPD catalog schema is clearly required to contain the catalog extension schema document, since this is a specialized customization created by the author.  If a different NIEM schema subset is also used, then the <termRef term="information exchange package documentation">IEPD</termRef> must also contain its superset (i.e., a complete subset that incorporates both the original subset with additional NIEM components used to extend the catalog schema document; see <ref idref="r3-iepd-cat-ext-xsd"/>.)</p>
 
-	<p>The rationale for "SHOULD" in <ref idref="r-mpd-documents"/> relates to issues of security.  Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose.  In such cases, it may be necessary to simply refer to schema documents that are required for validation and implementation, instead of circulating them within a public <termRef term="information exchange package documentation">IEPD</termRef>.  Implementers would then be expected to know how and where to obtain the required documents.</p>
+	<p>The rationale for "SHOULD" in <ref idref="r-iepd-documents"/> relates to issues of security.  Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose.  In such cases, it may be necessary to simply refer to schema documents that are required for validation and implementation, instead of circulating them within a public <termRef term="information exchange package documentation">IEPD</termRef>.  Implementers would then be expected to know how and where to obtain the required documents.</p>
 
-	<p>The <ref idref="NIEM-NDR"/> explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant.  Other standards may use <qName>xs:import</qName> without requiring <code>schemaLocation</code> attributes (instead, relying only on the namespace value).  These standards may also use <qName>xs:include</qName>.  This XML Schema construct is disallowed by NIEM.  When standards external to NIEM are required within MPDs, the following rule applies:</p>
+	<p>The <ref idref="NIEM-NDR"/> explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant.  Other standards may use <qName>xs:import</qName> without requiring <code>schemaLocation</code> attributes (instead, relying only on the namespace value).  These standards may also use <qName>xs:include</qName>.  This XML Schema construct is disallowed by NIEM.  When standards external to NIEM are required within IEPDs, the following rule applies:</p>
 
 <ruleSection>
-	<title>MPD External Schema Documents Are Local Resources</title>
-	<rule id="r-mpd-other-stds" applicability="WF-IEPD" class="Constraint">
-		<p>Within an MPD, a non-NIEM-conformant external schema document reference to another schema document and/or namespace MUST <termRef term="resolve URI">resolve</termRef> to a local resource.  <code>schemaLocation</code> attributes or XML catalogs can be used to ensure resolution.</p>
+	<title>IEPD External Schema Documents Are Local Resources</title>
+	<rule id="r-iepd-other-stds" applicability="WF-IEPD" class="Constraint">
+		<p>Within an IEPD, a non-NIEM-conformant external schema document reference to another schema document and/or namespace MUST <termRef term="resolve URI">resolve</termRef> to a local resource.  <code>schemaLocation</code> attributes or XML catalogs can be used to ensure resolution.</p>
 	</rule>
 </ruleSection>
 
-	<p>For the case of non-NIEM-conformant schemas, this rule ensures that all schemas (or corresponding artifacts and namespaces) from external standards required for definition, validation, and use of the MPD are present within it.</p>
+	<p>For the case of non-NIEM-conformant schemas, this rule ensures that all schemas (or corresponding artifacts and namespaces) from external standards required for definition, validation, and use of the IEPD are present within it.</p>
 
-	<p>XML schemas are the heart of MPDs since they formally specify normative structure and semantics for <termRef term="data component">data components</termRef>.  However, in general, an MPD is a closed set of artifacts.  This means that all hyperlink references within artifacts should <termRef term="resolve URI">resolve</termRef> to the appropriate artifact.</p>
+	<p>XML schemas are the heart of IEPDs since they formally specify normative structure and semantics for <termRef term="data component">data components</termRef>.  However, in general, an IEPD is a closed set of artifacts.  This means that all hyperlink references within artifacts should <termRef term="resolve URI">resolve</termRef> to the appropriate artifact.</p>
 
 <ruleSection>
-	<title>Key MPD Resources Are Local Resources</title>
-	<rule id="r-mpd-resources" applicability="WF-IEPD" class="Constraint">
-		<p>Within any artifact of an MPD, any direct reference to another resource (i.e., another artifact such as an image, schema, stylesheet, etc.) that is required to process or display an artifact SHOULD exist within the MPD at the location specified by that reference.</p>
+	<title>Key IEPD Resources Are Local Resources</title>
+	<rule id="r-iepd-resources" applicability="WF-IEPD" class="Constraint">
+		<p>Within any artifact of an IEPD, any direct reference to another resource (i.e., another artifact such as an image, schema, stylesheet, etc.) that is required to process or display an artifact SHOULD exist within the IEPD at the location specified by that reference.</p>
 	</rule>
 </ruleSection>
 
-	<p>This means that MPD artifacts, including documentation artifacts, should be complete.  For example, if an HTML document within an MPD contains a hyperlink reference (<code>href</code>) to an artifact that is part of or used by the MPD, then the file associated with that hyperlink should be present in the MPD; likewise for a sourced (<code>src</code>) image.  Authors should exercise good judgment with this rule.  For example, it does not require an MPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents.  The key operating words in this rule are:  "another resource is required to process or display an artifact SHOULD exist within the MPD."</p>
+	<p>This means that IEPD artifacts, including documentation artifacts, should be complete.  For example, if an HTML document within an IEPD contains a hyperlink reference (<code>href</code>) to an artifact that is part of or used by the IEPD, then the file associated with that hyperlink should be present in the IEPD; likewise for a sourced (<code>src</code>) image.  Authors should exercise good judgment with this rule.  For example, it does not require an IEPD to contain copies of all cited documents from a table of references if it contains hyperlinks to those documents.  The key operating words in this rule are:  "another resource is required to process or display an artifact SHOULD exist within the IEPD."</p>
 
-	<p>In some cases, it may not be possible to include all artifacts, even schemas, in an MPD without violating laws, regulations, or policies.  For example, an <termRef term="information exchange package documentation">IEPD</termRef> may require use of a schema document that is not publicly accessible; it might be classified or controlled unclassified information (CUI).  This is a valid reason for exception to <ref idref="r-mpd-resources"/>.  If the <termRef term="information exchange package documentation">IEPD</termRef> is placed in the public domain, the author should omit the non-public schema document, and if appropriate, document the omission, and explain where and/or how the missing schema document can be obtained.</p>
+	<p>In some cases, it may not be possible to include all artifacts, even schemas, in an IEPD without violating laws, regulations, or policies.  For example, an <termRef term="information exchange package documentation">IEPD</termRef> may require use of a schema document that is not publicly accessible; it might be classified or controlled unclassified information (CUI).  This is a valid reason for exception to <ref idref="r-iepd-resources"/>.  If the <termRef term="information exchange package documentation">IEPD</termRef> is placed in the public domain, the author should omit the non-public schema document, and if appropriate, document the omission, and explain where and/or how the missing schema document can be obtained.</p>
 
 </section>
 
 
 <section id="Duplication-of-Artifacts"><title>Duplication of Artifacts</title>
 
-	<p>Within an MPD, the replication of files or entire file sets should be avoided.  However, replication is allowed if a reasonable rationale exists.  In some cases, file replication may make it easier to use, validate, implement, or automatically process an MPD.  For example, multiple subsets and/or constraint sets may overlap in many identical schema documents.  Yet, allowing this duplication may be easier or necessary to accommodate a validation tool, rather than removing duplicate schema documents, and forcing the tool to search for them.  Whenever possible, use XML catalogs to coordinate schema assembly.</p> 
+	<p>Within an IEPD, the replication of files or entire file sets should be avoided.  However, replication is allowed if a reasonable rationale exists.  In some cases, file replication may make it easier to use, validate, implement, or automatically process an IEPD.  For example, multiple subsets and/or constraint sets may overlap in many identical schema documents.  Yet, allowing this duplication may be easier or necessary to accommodate a validation tool, rather than removing duplicate schema documents, and forcing the tool to search for them.  Whenever possible, use XML catalogs to coordinate schema assembly.</p> 
 
 </section>
 </section>
@@ -2247,7 +2247,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <ol>
 
-	<li><p>Create a root directory for the <termRef term="information exchange package documentation">IEPD</termRef> from the name and version identifier of the <termRef term="information exchange package documentation">IEPD</termRef>.  For example <code>my_iepd-3.2rev4</code>. (<ref idref="r-mpd-archive-one-root"/>)</p></li>
+	<li><p>Create a root directory for the <termRef term="information exchange package documentation">IEPD</termRef> from the name and version identifier of the <termRef term="information exchange package documentation">IEPD</termRef>.  For example <code>my_iepd-3.2rev4</code>. (<ref idref="r-iepd-archive-one-root"/>)</p></li>
 
 	<li><p>For every MPD, an <code>iepd-catalog.xml</code> artifact (<ref idref="r-wf-iepd"/>) is required to be in the <termRef>IEPD root directory</termRef></p></li>
 
