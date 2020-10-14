@@ -902,12 +902,12 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 
 
-<section id="Name-Syntax"><title>MPD Name Syntax (<qName>c:mpdName</qName>)</title>
+<section id="Name-Syntax"><title>IEPD Name Syntax (<qName>c:iepdName</qName>)</title>
 
-	<p>An MPD<char name="rsquo"/>s official name is the value of the <qName>c:mpdName</qName> attribute owned by the <qName>c:IEPD</qName> element in the IEPD<char name="rsquo"/>s catalog document.  This value is constrained by the regular expression pattern on <qName>c:mpdName</qName> within the IEPD catalog schema <ref idref="IEPD-Catalog-XSD"/>:</p>
+	<p>An IEPD<char name="rsquo"/>s official name is the value of the <qName>c:iepdName</qName> attribute owned by the <qName>c:IEPD</qName> element in the IEPD<char name="rsquo"/>s catalog document.  This value is constrained by the regular expression pattern on <qName>c:iepdName</qName> within the IEPD catalog schema <ref idref="IEPD-Catalog-XSD"/>:</p>
 	<blockquote><p><code>[A-Za-z]([-_ ]?[A-Za-z0-9]+)*</code></p></blockquote>
 
-	<p>The regular expression above indicates that an MPD name:</p>
+	<p>The regular expression above indicates that an IEPD name:</p>
 	<ul>
 		<li><p>Begins with an alpha character (upper or lower case).</p></li>
 		<li><p>Ends with an alphanumeric character (upper or lower case).</p></li>
@@ -915,9 +915,9 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		<li><p>May contain single spaces, single dashes, and single underscores as separators.</p></li>
 	</ul>
 
-	<p><termRef term="information exchange package documentation">IEPD</termRef> author<char name="rsquo"/>s often reuse the official <termRef term="model package description">MPD</termRef> name in metadata within the file name.  Note that <qName>c:mpdName</qName> is of <qName>xs:token</qName> type and allows single spaces and upper case alpha characters.  That said, be sure to consider differences in operating system or file system treatment of spaces and character case within file and directory names.  (See <ref idref="r-iepd-name-syntax"/>.</p>
+	<p><termRef term="information exchange package documentation">IEPD</termRef> author<char name="rsquo"/>s often reuse the official <termRef term="information exchange package documentation">IEPD</termRef> name in metadata within the file name.  Note that <qName>c:iepdName</qName> is of <qName>xs:token</qName> type and allows single spaces and upper case alpha characters.  That said, be sure to consider differences in operating system or file system treatment of spaces and character case within file and directory names.  (See <ref idref="r-iepd-name-syntax"/>.</p>
 
-	<p><qName>c:mpdName</qName> is not the same thing as the name of the file containing the MPD, described in <ref idref="IEPD-File-Name-Syntax"/>.</p>
+	<p><qName>c:iepdName</qName> is not the same thing as the name of the file containing the IEPD, described in <ref idref="IEPD-File-Name-Syntax"/>.</p>
 
 </section>
 
@@ -1062,7 +1062,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		<li><p><code>http://niem.gov/niem/domains/cyfs/2.1/1</code></p></li>
 	</ul>
 
-	<p>This specification does not mandate that basic IEPD catalog metadata be designed into an MPD URI.  However, including such can obviously provide convenient visual recognition.  That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of <qName>c:mpdURI</qName>, <qName>c:mpdName</qName>, <qName>c:iepdVersionID</qName>, and <qName>c:mpdClassURIList</qName> defined in the IEPD catalog document).</p>
+	<p>This specification does not mandate that basic IEPD catalog metadata be designed into an MPD URI.  However, including such can obviously provide convenient visual recognition.  That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of <qName>c:mpdURI</qName>, <qName>c:iepdName</qName>, <qName>c:iepdVersionID</qName>, and <qName>c:mpdClassURIList</qName> defined in the IEPD catalog document).</p>
 
 </section>
 
@@ -2062,7 +2062,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>Additional non-normative for directory naming and organization for IEPDs is in <ref idref="Guidance-IEPD-Directories"/>.</p>
 
-	<p>It is important to understand that this section does not apply to the syntax for the <qName>c:mpdName</qName> attribute in the <termRef>IEPD catalog document</termRef>.  Refer to <ref idref="Name-Syntax"/> for details regarding the <qName>c:mpdName</qName> metadata attribute.</p>
+	<p>It is important to understand that this section does not apply to the syntax for the <qName>c:iepdName</qName> attribute in the <termRef>IEPD catalog document</termRef>.  Refer to <ref idref="Name-Syntax"/> for details regarding the <qName>c:iepdName</qName> metadata attribute.</p>
 
 	<p>The MPD Specification is intended to help facilitate tool support for processing MPDs.  Tools and search mechanisms that can identify basic MPD information as early as possible is efficient and valuable.  So, if an MPD name, version, and class can be identified from its file name, then a tool would not have to open the <termRef>ZIP file</termRef> and parse the IEPD catalog to determine such.  Of course, to do anything useful, a tool will eventually have to open the MPD archive.  However, a standard file name syntax allows a tool to search through a set of MPDs in <termRef>ZIP file</termRef> format to find a particular MPD name, version, or class without having to open each.  File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.</p> 
 

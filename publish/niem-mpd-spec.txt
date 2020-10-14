@@ -310,7 +310,7 @@ Contents
 
             *  Uniform Resource Identifier (URI) (See Section 5.2.4.1, MPD URI Scheme (c:mpdURI), below)
 
-            *  Name (See Section 5.2.1, MPD Name Syntax (c:mpdName), below)
+            *  Name (See Section 5.2.1, IEPD Name Syntax (c:iepdName), below)
 
             *  Version number (See Section 5.2.3, IEPD Version Numbering Scheme (c:iepdVersionID), below)
 
@@ -778,13 +778,13 @@ Rule 5-8. IEPD Schema Document Extension Support Schemas Are Supersets of Spec S
 
    The IEPD catalog also contains both required and optional metadata for the [IEPD] and its artifacts and artifact sets. The following subsections specify the syntax, formats, and semantics for that metadata.
 
-5.2.1. MPD Name Syntax (c:mpdName)
+5.2.1. IEPD Name Syntax (c:iepdName)
 
-   An MPD's official name is the value of the c:mpdName attribute owned by the c:IEPD element in the IEPD's catalog document. This value is constrained by the regular expression pattern on c:mpdName within the IEPD catalog schema Appendix A, IEPD Catalog XML Schema Document, below:
+   An IEPD's official name is the value of the c:iepdName attribute owned by the c:IEPD element in the IEPD's catalog document. This value is constrained by the regular expression pattern on c:iepdName within the IEPD catalog schema Appendix A, IEPD Catalog XML Schema Document, below:
 
       [A-Za-z]([-_ ]?[A-Za-z0-9]+)*
 
-   The regular expression above indicates that an MPD name:
+   The regular expression above indicates that an IEPD name:
 
       *  Begins with an alpha character (upper or lower case).
 
@@ -794,9 +794,9 @@ Rule 5-8. IEPD Schema Document Extension Support Schemas Are Supersets of Spec S
 
       *  May contain single spaces, single dashes, and single underscores as separators.
 
-   [IEPD] author's often reuse the official [MPD] name in metadata within the file name. Note that c:mpdName is of xs:token type and allows single spaces and upper case alpha characters. That said, be sure to consider differences in operating system or file system treatment of spaces and character case within file and directory names. (See Rule 7-5, IEPD ZIP file Name Syntax.
+   [IEPD] author's often reuse the official [IEPD] name in metadata within the file name. Note that c:iepdName is of xs:token type and allows single spaces and upper case alpha characters. That said, be sure to consider differences in operating system or file system treatment of spaces and character case within file and directory names. (See Rule 7-5, IEPD ZIP file Name Syntax.
 
-   c:mpdName is not the same thing as the name of the file containing the MPD, described in Section 7.2, IEPD File Name Syntax, below.
+   c:iepdName is not the same thing as the name of the file containing the IEPD, described in Section 7.2, IEPD File Name Syntax, below.
 
 5.2.2. MPD Class (c:mpdClassURIList)
 
@@ -936,7 +936,7 @@ Rule 5-11. MPD URI Is Absolute
 
       *  http://niem.gov/niem/domains/cyfs/2.1/1
 
-   This specification does not mandate that basic IEPD catalog metadata be designed into an MPD URI. However, including such can obviously provide convenient visual recognition. That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of c:mpdURI, c:mpdName, c:iepdVersionID, and c:mpdClassURIList defined in the IEPD catalog document).
+   This specification does not mandate that basic IEPD catalog metadata be designed into an MPD URI. However, including such can obviously provide convenient visual recognition. That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of c:mpdURI, c:iepdName, c:iepdVersionID, and c:mpdClassURIList defined in the IEPD catalog document).
 
 5.2.4.2. URI Scheme for MPD Artifacts (c:externalURI)
 
@@ -1770,7 +1770,7 @@ Rule 7-4. Constraint on Elements of Type c:SchemaDocumentSetType
 
    Additional non-normative for directory naming and organization for IEPDs is in Appendix E, Guidance for IEPD Directories (non-normative), below.
 
-   It is important to understand that this section does not apply to the syntax for the c:mpdName attribute in the [IEPD catalog document]. Refer to Section 5.2.1, MPD Name Syntax (c:mpdName), above, for details regarding the c:mpdName metadata attribute.
+   It is important to understand that this section does not apply to the syntax for the c:iepdName attribute in the [IEPD catalog document]. Refer to Section 5.2.1, IEPD Name Syntax (c:iepdName), above, for details regarding the c:iepdName metadata attribute.
 
    The MPD Specification is intended to help facilitate tool support for processing MPDs. Tools and search mechanisms that can identify basic MPD information as early as possible is efficient and valuable. So, if an MPD name, version, and class can be identified from its file name, then a tool would not have to open the [ZIP file] and parse the IEPD catalog to determine such. Of course, to do anything useful, a tool will eventually have to open the MPD archive. However, a standard file name syntax allows a tool to search through a set of MPDs in [ZIP file] format to find a particular MPD name, version, or class without having to open each. File name consistency can also make it easier to scan and identify MPDs in a long list sorted by file name.
 
