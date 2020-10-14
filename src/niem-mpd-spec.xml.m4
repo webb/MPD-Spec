@@ -383,7 +383,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		<li><p>Requires a self-documenting <code>iepd-catalog.xml</code> artifact containing metadata and a listing of its key artifacts.  This artifact establishes identification metadata, <termRef term="conformance target">conformance targets</termRef>, purpose, general content, lineage, and other metadata.</p></li>
 		<li><p>Requires the following metadata:</p>
 			<ul>
-				<li><p>Uniform Resource Identifier (URI) (See <ref idref="mpdURI"/>)</p></li>
+				<li><p>Uniform Resource Identifier (URI) (See <ref idref="iepdURI"/>)</p></li>
 				<li><p>Name (See <ref idref="Name-Syntax"/>)</p></li>
 				<li><p>Version number (See <ref idref="Version-Numbering-Scheme"/>)</p></li>
 				<li><p>The <termRef>conformance target identifier</termRef> <code>MACRO_MPD_conformance_target_identifier</code> (See <ref idref="mpdClass"/>)</p></li>
@@ -1028,33 +1028,33 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <section id="URI-Schemes"><title>URI Schemes</title>
 
-	<p>All MPDs use Uniform Resource Identifiers (URIs) to identify artifacts and other resources.  Several kinds of URIs are employed by MPDs to reference other MPDs, MPD artifacts (internally and externally), conformance targets, documents, and other resources.  For each type of URI used in an IEPD catalog document, this section describes its purpose, options, and syntax based on <ref idref="RFC3986-URI"/>.</p>
+	<p>All IEPDs use Uniform Resource Identifiers (URIs) to identify artifacts and other resources.  Several kinds of URIs are employed by IEPDs to reference other IEPDs, IEPD artifacts (internally and externally), conformance targets, documents, and other resources.  For each type of URI used in an IEPD catalog document, this section describes its purpose, options, and syntax based on <ref idref="RFC3986-URI"/>.</p>
 
-	<p>The following definitions will be useful to understanding MPD rules defined in later subsections that involve various kinds of URIs.</p>
+	<p>The following definitions will be useful to understanding IEPD rules defined in later subsections that involve various kinds of URIs.</p>
 
 <definition term="path name">
 	<p>A general form of the name of a file or directory that specifies a unique location in a file system.  A path name points to a file system location by following the directory tree hierarchy expressed in a string of characters in which path components, separated by a delimiting character, represent each subdirectory.  If a path name terminates in a file name, then it specifies the location of that file.</p>
 </definition>
 
 <definition term="resolve URI">
-	<p>A function (or action) that takes a URI string of the form <qName>xs:anyURI</qName> and returns the resource it identifies.  If the URI is local (i.e., within an <termRef term="model package description">MPD</termRef>) and the resource does not exist, then this function fails.  If a URI is remote or of unknown location (e.g., a URN), then this function (or action) may require human assistance to determine if a resource associated with the URI exists (pass) or not (fail).</p>
+	<p>A function (or action) that takes a URI string of the form <qName>xs:anyURI</qName> and returns the resource it identifies.  If the URI is local (i.e., within an <termRef term="information exchange package documentation">IEPD</termRef>) and the resource does not exist, then this function fails.  If a URI is remote or of unknown location (e.g., a URN), then this function (or action) may require human assistance to determine if a resource associated with the URI exists (pass) or not (fail).</p>
 </definition>
 
 
 
-<section id="mpdURI"><title>MPD URI Scheme (<qName>c:mpdURI</qName>)</title>
+<section id="iepdURI"><title>IEPD URI Scheme (<qName>c:iepdURI</qName>)</title>
 
-	<p>To facilitate MPD sharing and reuse, the assignment of a URI (Uniform Resource Identifier) to an MPD is essential.  This is enforced by the IEPD catalog schema document <ref idref="IEPD-Catalog-XSD"/>.  It is also important to ensure that an MPD URI is absolute.</p>
+	<p>To facilitate IEPD sharing and reuse, the assignment of a URI (Uniform Resource Identifier) to an IEPD is essential.  This is enforced by the IEPD catalog schema document <ref idref="IEPD-Catalog-XSD"/>.  It is also important to ensure that an IEPD URI is absolute.</p>
 
-<ruleSection><title>MPD URI Is Absolute</title>
-	<rule id="r-mpduri" applicability="WF-IEPD" class="Constraint">
-		<p>In an IEPD catalog document, the value of a <qName>c:mpdURI</qName> attribute of type <qName>xs:anyURI</qName> MUST match the production &lt;absolute-URI&gt; as defined by <ref idref="RFC3986-URI"/>, <a href="http://tools.ietf.org/html/rfc3986#section-4.3"> <char name="sect"/>4.3, <q>Absolute URI</q></a>.</p>
+<ruleSection><title>IEPD URI Is Absolute</title>
+	<rule id="r-iepduri" applicability="WF-IEPD" class="Constraint">
+		<p>In an IEPD catalog document, the value of a <qName>c:iepdURI</qName> attribute of type <qName>xs:anyURI</qName> MUST match the production &lt;absolute-URI&gt; as defined by <ref idref="RFC3986-URI"/>, <a href="http://tools.ietf.org/html/rfc3986#section-4.3"> <char name="sect"/>4.3, <q>Absolute URI</q></a>.</p>
 	</rule>
 </ruleSection>
 
-	<p>This rule implies that a URI assigned to an <termRef term="model package description">MPD</termRef> must be valid.  Furthermore, the entity (person or organization) assigning the MPD URI either (1) <em>is</em> the registrant of the domain name or namespace identifier, or (2) <em>has</em> authority from the registrant to assign this URI.</p>
+	<p>This rule implies that a URI assigned to an <termRef term="information exchange package documentation">IEPD</termRef> must be valid.  Furthermore, the entity (person or organization) assigning the IEPD URI either (1) <em>is</em> the registrant of the domain name or namespace identifier, or (2) <em>has</em> authority from the registrant to assign this URI.</p>
 
-	<p>Examples of valid MPD URIs:</p>
+	<p>Examples of valid IEPD URIs:</p>
 	<ul>
 		<li><p><code>http://example.gov/niem-iepd/prescription-monitoring-info-exchange/3.0/</code></p></li>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/</code></p></li>
@@ -1062,7 +1062,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		<li><p><code>http://niem.gov/niem/domains/cyfs/2.1/1</code></p></li>
 	</ul>
 
-	<p>This specification does not mandate that basic IEPD catalog metadata be designed into an MPD URI.  However, including such can obviously provide convenient visual recognition.  That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of <qName>c:mpdURI</qName>, <qName>c:iepdName</qName>, <qName>c:iepdVersionID</qName>, and <qName>c:mpdClassURIList</qName> defined in the IEPD catalog document).</p>
+	<p>This specification does not mandate that basic IEPD catalog metadata be designed into an IEPD URI.  However, including such can obviously provide convenient visual recognition.  That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of <qName>c:iepdURI</qName>, <qName>c:iepdName</qName>, <qName>c:iepdVersionID</qName>, and <qName>c:mpdClassURIList</qName> defined in the IEPD catalog document).</p>
 
 </section>
 
@@ -1271,7 +1271,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an IEPD catalog.  The URI scheme for MPDs and their artifacts and sets enables a graph of relationships.  An <termRef term="model package description">MPD</termRef> may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.</p>
 
-	<p>The next few paragraphs require understanding of URIs for MPDs and MPD artifacts.  See <ref idref="mpdURI"/> and <ref idref="externalURI"/>.</p>
+	<p>The next few paragraphs require understanding of URIs for MPDs and MPD artifacts.  See <ref idref="iepdURI"/> and <ref idref="externalURI"/>.</p>
 
 	<p>The IEPD catalog provides a <qName>c:Relationship</qName> element with two attributes (<qName>c:resourceURI</qName> and <qName>c:relationshipCode</qName>) and an optional element (<qName>nc:DescriptionText</qName>) to identify ancestry and other relationships to other MPDs.  There are many ways that one <termRef term="model package description">MPD</termRef> may relate to another.  This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs.  Therefore, the optional <qName>nc:DescriptionText</qName> element is provided to further explain the nature of any of the <qName>c:relationshipCode</qName> values.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <qName>c:relationshipCode</qName> may be generic enough to require a more detailed explanation in <qName>nc:DescriptionText</qName> (for example, if its value is <code>adapts</code>).</p>
 
@@ -1399,7 +1399,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			    <th>URI Syntax (refer to table above)</th>
 			</theadr>
 			<tr>
-			    <td><qName>c:mpdURI</qName></td>
+			    <td><qName>c:iepdURI</qName></td>
 			    <td>&lt;absolute-URI&gt;</td>
 			</tr>
 			<tr>
@@ -1772,7 +1772,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p><qName>c:ConformsToConformanceTarget</qName> enables an <termRef term="information exchange package documentation">IEPD</termRef> author to effectively subclass and relate conformance target classes.  For example, using this constraint, a given conformance target class defined by a <qName>c:IEPConformanceTarget</qName> <code>structures:id="A2"</code> can be required to also conform to another class <code>structures:id="A1"</code>.  This creates an <em>IS-A</em> relationship.  We say that <code>A2</code> <em>IS-AN</em> <code>A1</code>, or that <code>A2</code> <em>IS-A</em> specialization of <code>A1</code>.</p>
 
-	<p>Conformance target classes are related through the <qName>c:conformanceTargetURI</qName> attribute owned by <qName>c:ConformsToConformanceTarget</qName>.  Recall that per <ref idref="r-iep-ct-uri"/> a conformance target URI is formed by concatenating the <termRef term="information exchange package documentation">IEPD</termRef> URI (the value of <qName>c:mpdURI</qName>), the pound character (<code>"#"</code>), and the value of the conformance class (<qName>structures:id</qName>) of the <termRef>IEP conformance target</termRef>.</p>
+	<p>Conformance target classes are related through the <qName>c:conformanceTargetURI</qName> attribute owned by <qName>c:ConformsToConformanceTarget</qName>.  Recall that per <ref idref="r-iep-ct-uri"/> a conformance target URI is formed by concatenating the <termRef term="information exchange package documentation">IEPD</termRef> URI (the value of <qName>c:iepdURI</qName>), the pound character (<code>"#"</code>), and the value of the conformance class (<qName>structures:id</qName>) of the <termRef>IEP conformance target</termRef>.</p>
 
 </section>
 

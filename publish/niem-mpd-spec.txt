@@ -308,7 +308,7 @@ Contents
 
       *  Requires the following metadata:
 
-            *  Uniform Resource Identifier (URI) (See Section 5.2.4.1, MPD URI Scheme (c:mpdURI), below)
+            *  Uniform Resource Identifier (URI) (See Section 5.2.4.1, IEPD URI Scheme (c:iepdURI), below)
 
             *  Name (See Section 5.2.1, IEPD Name Syntax (c:iepdName), below)
 
@@ -902,9 +902,9 @@ Rule 5-10. IEPD Version Number Syntax
 
 5.2.4. URI Schemes
 
-   All MPDs use Uniform Resource Identifiers (URIs) to identify artifacts and other resources. Several kinds of URIs are employed by MPDs to reference other MPDs, MPD artifacts (internally and externally), conformance targets, documents, and other resources. For each type of URI used in an IEPD catalog document, this section describes its purpose, options, and syntax based on [RFC 3986 URI].
+   All IEPDs use Uniform Resource Identifiers (URIs) to identify artifacts and other resources. Several kinds of URIs are employed by IEPDs to reference other IEPDs, IEPD artifacts (internally and externally), conformance targets, documents, and other resources. For each type of URI used in an IEPD catalog document, this section describes its purpose, options, and syntax based on [RFC 3986 URI].
 
-   The following definitions will be useful to understanding MPD rules defined in later subsections that involve various kinds of URIs.
+   The following definitions will be useful to understanding IEPD rules defined in later subsections that involve various kinds of URIs.
 
    [Definition: path name]
 
@@ -912,21 +912,21 @@ Rule 5-10. IEPD Version Number Syntax
 
    [Definition: resolve URI]
 
-      A function (or action) that takes a URI string of the form xs:anyURI and returns the resource it identifies. If the URI is local (i.e., within an [MPD]) and the resource does not exist, then this function fails. If a URI is remote or of unknown location (e.g., a URN), then this function (or action) may require human assistance to determine if a resource associated with the URI exists (pass) or not (fail).
+      A function (or action) that takes a URI string of the form xs:anyURI and returns the resource it identifies. If the URI is local (i.e., within an [IEPD]) and the resource does not exist, then this function fails. If a URI is remote or of unknown location (e.g., a URN), then this function (or action) may require human assistance to determine if a resource associated with the URI exists (pass) or not (fail).
 
-5.2.4.1. MPD URI Scheme (c:mpdURI)
+5.2.4.1. IEPD URI Scheme (c:iepdURI)
 
-   To facilitate MPD sharing and reuse, the assignment of a URI (Uniform Resource Identifier) to an MPD is essential. This is enforced by the IEPD catalog schema document Appendix A, IEPD Catalog XML Schema Document, below. It is also important to ensure that an MPD URI is absolute.
+   To facilitate IEPD sharing and reuse, the assignment of a URI (Uniform Resource Identifier) to an IEPD is essential. This is enforced by the IEPD catalog schema document Appendix A, IEPD Catalog XML Schema Document, below. It is also important to ensure that an IEPD URI is absolute.
 
-Rule 5-11. MPD URI Is Absolute
+Rule 5-11. IEPD URI Is Absolute
 
    [Rule 5-11] (WF-IEPD)
 
-      In an IEPD catalog document, the value of a c:mpdURI attribute of type xs:anyURI MUST match the production <absolute-URI> as defined by [RFC 3986 URI],  section 4.3, "Absolute URI".
+      In an IEPD catalog document, the value of a c:iepdURI attribute of type xs:anyURI MUST match the production <absolute-URI> as defined by [RFC 3986 URI],  section 4.3, "Absolute URI".
 
-   This rule implies that a URI assigned to an [MPD] must be valid. Furthermore, the entity (person or organization) assigning the MPD URI either (1) is the registrant of the domain name or namespace identifier, or (2) has authority from the registrant to assign this URI.
+   This rule implies that a URI assigned to an [IEPD] must be valid. Furthermore, the entity (person or organization) assigning the IEPD URI either (1) is the registrant of the domain name or namespace identifier, or (2) has authority from the registrant to assign this URI.
 
-   Examples of valid MPD URIs:
+   Examples of valid IEPD URIs:
 
       *  http://example.gov/niem-iepd/prescription-monitoring-info-exchange/3.0/
 
@@ -936,7 +936,7 @@ Rule 5-11. MPD URI Is Absolute
 
       *  http://niem.gov/niem/domains/cyfs/2.1/1
 
-   This specification does not mandate that basic IEPD catalog metadata be designed into an MPD URI. However, including such can obviously provide convenient visual recognition. That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of c:mpdURI, c:iepdName, c:iepdVersionID, and c:mpdClassURIList defined in the IEPD catalog document).
+   This specification does not mandate that basic IEPD catalog metadata be designed into an IEPD URI. However, including such can obviously provide convenient visual recognition. That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of c:iepdURI, c:iepdName, c:iepdVersionID, and c:mpdClassURIList defined in the IEPD catalog document).
 
 5.2.4.2. URI Scheme for MPD Artifacts (c:externalURI)
 
@@ -1128,7 +1128,7 @@ Rule 5-31. Schema document set interpreted as constraint schema document set
 
    The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an IEPD catalog. The URI scheme for MPDs and their artifacts and sets enables a graph of relationships. An [MPD] may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.
 
-   The next few paragraphs require understanding of URIs for MPDs and MPD artifacts. See Section 5.2.4.1, MPD URI Scheme (c:mpdURI), above, and Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI), above.
+   The next few paragraphs require understanding of URIs for MPDs and MPD artifacts. See Section 5.2.4.1, IEPD URI Scheme (c:iepdURI), above, and Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI), above.
 
    The IEPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:DescriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one [MPD] may relate to another. This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:DescriptionText element is provided to further explain the nature of any of the c:relationshipCode values. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:DescriptionText (for example, if its value is adapts).
 
@@ -1210,7 +1210,7 @@ Rule 5-34. XML Catalog uri Value Resolves to Resource with Correct Target Namesp
 
       MPD Attribute|URI Syntax (refer to table above)
 
-      c:mpdURI|<absolute-URI>
+      c:iepdURI|<absolute-URI>
 
       c:pathURI|<relative-reference>; excluding fragment-only format; relative to [IEPD catalog document]
 
@@ -1524,7 +1524,7 @@ Rule 5-43. Validating an XPath Expression
 
    c:ConformsToConformanceTarget enables an [IEPD] author to effectively subclass and relate conformance target classes. For example, using this constraint, a given conformance target class defined by a c:IEPConformanceTarget structures:id="A2" can be required to also conform to another class structures:id="A1". This creates an IS-A relationship. We say that A2 IS-AN A1, or that A2 IS-A specialization of A1.
 
-   Conformance target classes are related through the c:conformanceTargetURI attribute owned by c:ConformsToConformanceTarget. Recall that per Rule 5-38, Conformance Target Identifier a conformance target URI is formed by concatenating the [IEPD] URI (the value of c:mpdURI), the pound character ("#"), and the value of the conformance class (structures:id) of the [IEP conformance target].
+   Conformance target classes are related through the c:conformanceTargetURI attribute owned by c:ConformsToConformanceTarget. Recall that per Rule 5-38, Conformance Target Identifier a conformance target URI is formed by concatenating the [IEPD] URI (the value of c:iepdURI), the pound character ("#"), and the value of the conformance class (structures:id) of the [IEP conformance target].
 
 5.6.2.10. c:ConformsToRule
 
@@ -3111,7 +3111,7 @@ Appendix I. Index of Rules
    Rule 5-8, IEPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets: Section 5.1.2, Extending an IEPD Catalog
    Rule 5-9, MPD Class Determined by Conformance Target Identifier in c:mpdClassURIList: Section 5.2.2, MPD Class (c:mpdClassURIList)
    Rule 5-10, IEPD Version Number Syntax: Section 5.2.3, IEPD Version Numbering Scheme (c:iepdVersionID)
-   Rule 5-11, MPD URI Is Absolute: Section 5.2.4.1, MPD URI Scheme (c:mpdURI)
+   Rule 5-11, IEPD URI Is Absolute: Section 5.2.4.1, IEPD URI Scheme (c:iepdURI)
    Rule 5-12, MPD URI Supports Fragment: Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI)
    Rule 5-13, MPD URI Has No Fragment: Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI)
    Rule 5-14, MPD Artifact URI Syntax: Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI)
