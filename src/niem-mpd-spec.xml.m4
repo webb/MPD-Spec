@@ -1474,19 +1474,19 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 <section id="ReadMe-Artifact"><title>ReadMe Artifact</title>
 
 	<definition term="readme artifact">
-		<p>An informal documentation artifact contained in a <termRef>model package description</termRef> that serves as the initial general source of human readable descriptive or instructional information.  A <em>readme</em> artifact or file (formerly known as a <em>master document</em>) may index or reference other more specific documentation or other explanatory materials within the <termRef term="model package description">MPD</termRef>.</p>
+		<p>An informal documentation artifact contained in a <termRef>information exchange package documentation</termRef> that serves as the initial general source of human readable descriptive or instructional information.  A <em>readme</em> artifact or file (formerly known as a <em>master document</em>) may index or reference other more specific documentation or other explanatory materials within the <termRef term="information exchange package documentation">IEPD</termRef>.</p>
 	</definition>
 
-	<p>A <termRef>readme artifact</termRef> is only required for IEPDs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.</p>
+	<!--<p>A <termRef>readme artifact</termRef> is only required for IEPDs since these MPDs are allowed the greatest design flexibility, can be developed and implemented different ways, and are not centrally managed.  On the other hand, releases and domain updates have restrictive rules, standard documentation for using them, and central management.</p>-->
 
 	<ruleSection><title>Readme Describes Purpose, Scope, Business Value, etc.</title>
-		<rule id="r-mpd-readme-purpose" applicability="WF-IEPD" class="Interpretation">
-			<p>A <termRef>readme artifact</termRef> SHOULD (at a minimum) describe the <termRef term="model package description">MPD</termRef> purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.</p>
+		<rule id="r-iepd-readme-purpose" applicability="WF-IEPD" class="Interpretation">
+			<p>A <termRef>readme artifact</termRef> SHOULD (at a minimum) describe the <termRef term="information exchange package documentation">IEPD</termRef> purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.</p>
 		</rule>
 	</ruleSection>
 
 	<ruleSection><title>IEPD Has a ReadMe Artifact</title>
-		<rule id="r-mpd-readme" applicability="IEPD" class="Constraint">
+		<rule id="r-iepd-readme" applicability="IEPD" class="Constraint">
 			<p>An IEPD MUST contain a <termRef>readme artifact</termRef> that is identified by a <qName>c:ReadMe</qName> element in its <termRef>IEPD catalog document</termRef>.</p>
 		</rule>
 	</ruleSection>
@@ -1501,7 +1501,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			<li><p>To provide an initial source within an <termRef term="information exchange package documentation">IEPD</termRef> for human consumable documentation and/or references to other business or technical documentation needed for understanding.</p></li>
 		</ul>
 
-		<p>The <termRef>readme artifact</termRef> is not intended to be the only source of written documentation for an MPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the MPD or linked by reference.  Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize readme file name, location, format, or layout; only that it be identified in the <termRef>IEPD catalog document</termRef> of an IEPD.  The following section will generally describe minimal content that should be in the <termRef>readme artifact</termRef>.  This guidance is non-normative, so adherence is a subjective judgment by the author.</p>
+		<p>The <termRef>readme artifact</termRef> is not intended to be the only source of written documentation for an IEPD (though it can be).  It is expected to be the initial resource that references and coordinates all others whether physically present in the IEPD or linked by reference.  Many organizations have their own customized formats and operating procedures for documenting their work and products.  This specification does not attempt to standardize readme file name, location, format, or layout; only that it be identified in the <termRef>IEPD catalog document</termRef> of an IEPD.  The following section will generally describe minimal content that should be in the <termRef>readme artifact</termRef>.  This guidance is non-normative, so adherence is a subjective judgment by the author.</p>
 
 
 
@@ -1513,20 +1513,20 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>The readme file should help another user or developer to understand the content and use of an <termRef term="information exchange package documentation">IEPD</termRef>, as well as determine potential for reuse or adaptation.  It should describe what implementers need to understand and what the author considers is important to understanding an <termRef term="information exchange package documentation">IEPD</termRef>.  There is no limit or constraint on its content.</p>
 
-	<p>At a minimum, the <termRef>readme artifact</termRef> should contain several fundamental elements of information about the MPD:</p>
+	<p>At a minimum, the <termRef>readme artifact</termRef> should contain several fundamental elements of information about the IEPD:</p>
 		<ul>
-		<li><p>Purpose of this MPD.</p></li>
+		<li><p>Purpose of this IEPD.</p></li>
 		<li><p>Scope of its deployment, usage, and information content.</p></li>
 		<li><p>Business value and rationale for developing it.</p></li>
 		<li><p>Type of information it is intended to exchange (in business terms).</p></li>
 		<li><p>Identification of senders and receivers (or the types of senders and receivers).</p></li>
 		<li><p>Typical interactions between senders, receivers, and systems.</p></li>
-		<li><p>References to other documentation within the MPD, and links to external documents that may be needed to understand and implement it.</p></li>
+		<li><p>References to other documentation within the IEPD, and links to external documents that may be needed to understand and implement it.</p></li>
 		</ul>
 
-	<p>Many document formats (e.g., HTML, PDF) can display hyperlinks to local files within the MPD as well as URLs to files on the Internet.  Employing such a format is highly recommended but not mandatory.</p> 
+	<p>Many document formats (e.g., HTML, PDF) can display hyperlinks to local files within the IEPD as well as URLs to files on the Internet.  Employing such a format is highly recommended but not mandatory.</p> 
 
-	<p>MPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the <termRef>readme artifact</termRef>.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the <termRef>readme artifact</termRef> (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the <termRef>readme artifact</termRef>:</p>
+	<p>IEPD documentation types and formats will vary with the methodologies and tools used to develop them.  Most of this documentation will likely be typical of that generated for data-oriented software projects.  Some documentation may only require sections in the <termRef>readme artifact</termRef>.  Other documentation may be more suitable as separate artifacts that are referenced and explained by a section in the <termRef>readme artifact</termRef> (such as diagrams, large tables, data dictionaries, test results/reports, etc.).  The following are some common examples of sections in or separate artifacts associated with the <termRef>readme artifact</termRef>:</p>
 
 	<ul>
 	<li><p>Executive summary (especially for a lengthy readme artifact></p></li>
