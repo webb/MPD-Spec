@@ -1576,7 +1576,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>An <termRef>XML catalog document</termRef> is an <termRef>instance XML document</termRef> that describes a mapping between external entity references and locally-cached equivalents.  It associates a URI reference with information about an external reference that appears in an XML document.  An <termRef>XML catalog document</termRef> can be used to locate the replacement text for an external entity, or an alternate URI reference for a resource.</p>
  
-	<p>An MPD can use an <termRef>XML catalog document</termRef> to <termRef term="resolve URI">resolve</termRef> XML schema document target namespaces to local URIs.  This is especially useful when assembling an XML schema from an XML schema document set.  Some validators (e.g., <link href="http://xerces.apache.org/xerces2-j/faq-xcatalogs.html">Xerces</link>) and other tools utilize <termRef term="XML catalog document">XML catalog documents</termRef> for this purpose.</p>
+	<p>An IEPD can use an <termRef>XML catalog document</termRef> to <termRef term="resolve URI">resolve</termRef> XML schema document target namespaces to local URIs.  This is especially useful when assembling an XML schema from an XML schema document set.  Some validators (e.g., <link href="http://xerces.apache.org/xerces2-j/faq-xcatalogs.html">Xerces</link>) and other tools utilize <termRef term="XML catalog document">XML catalog documents</termRef> for this purpose.</p>
 
 	<p><termRef term="information exchange package documentation">IEPD</termRef> authors are encouraged to employ <termRef term="XML catalog document">XML catalog documents</termRef> within IEPDs to facilitate validation of IEPs.</p>
 
@@ -1829,12 +1829,12 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <section id="Conformance-Assertion"><title>Conformance Assertion</title>
 
-	<p>This section discusses a <termRef>conformance assertion</termRef> in the context of an <termRef term="information exchange package documentation">IEPD</termRef>.  However, this artifact may also be useful to other classes of MPDs.</p>
+	<!--<p>This section discusses a <termRef>conformance assertion</termRef> in the context of an <termRef term="information exchange package documentation">IEPD</termRef>.  However, this artifact may also be useful to other classes of MPDs.</p>-->
 
 	<p>Independent authors build NIEM IEPDs from NIEM <termRef term="reference schema document set">reference schema document sets</termRef>.  Presently, a formal NIEM conformance certification process for IEPDs does not exist.  Therefore, this specification requires that an <termRef term="information exchange package documentation">IEPD</termRef> contain an artifact that asserts NIEM conformance and provides a small amount of information to support such.</p>
 
 	<definition term="conformance assertion">
-		<p>An artifact that provides a declaration that an MPD conforms to relevant NIEM specifications and associated rules, including <ref idref="NIEM-Conformance"/>, <ref idref="NIEM-NDR"/>, <ref idref="NIEM-CTAS"/> and this NIEM MPD Specification.</p>
+		<p>An artifact that provides a declaration that an IEPD conforms to relevant NIEM specifications and associated rules, including <ref idref="NIEM-Conformance"/>, <ref idref="NIEM-NDR"/>, <ref idref="NIEM-CTAS"/> and this NIEM IEPD Specification.</p>
 	</definition>
 
 	<ruleSection><title>IEPD Has Conformance Assertion</title>
@@ -1848,7 +1848,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 	<p>In the absence of a formal NIEM certification process, both weak and strong conformance assertions will exist.  An <termRef term="information exchange package documentation">IEPD</termRef> user or implementer (who is not the author) must decide his/her level of confidence in the assertion.  A self-signed artifact that simply claims an <termRef term="information exchange package documentation">IEPD</termRef> is NIEM-conformant may be considered weak.  On the other hand, a stronger self-assertion could provide information that may include (but is not limited to):</p>
 	<ul>
 		<li><p>Date of assertion</p></li>
-		<li><p>URI of the MPD claiming NIEM conformance</p></li>
+		<li><p>URI of the IEPD claiming NIEM conformance</p></li>
 		<li><p>Assertion of NIEM conformance</p></li>
 		<li><p>Author (name and/or organization, or sponsoring entity; indication of NIEM and XML background or experience)</p></li>
 		<li><p>Certifier (may be the author or another person/organization)</p></li>
