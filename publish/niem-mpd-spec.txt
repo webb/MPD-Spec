@@ -68,7 +68,7 @@ Contents
 
 1.3.1. Information Exchange Package Documentation
 
-   This specification provides a standard version numbering scheme Section 5.2.3, MPD Version Numbering Scheme (c:mpdVersionID), below. However, it does not provide guidance for managing or processing [IEPD] versions or their associated [IEPs]. Creation and management of [IEPDs] is the responsibility of stakeholders and developers. As such, [IEPDs] have their own versioning processes, and are managed independently of the NIEM core and domains. The NIEM Management Office defines [IEPD] conformance, but [IEPD] development and management fall outside its scope. Nonetheless, the NIEM Management Office has developed guidance (through the NTAC) for managing [IEPDs], versioning [IEPDs], and processing their associated [IEPs]. This reference material can be found at http://niem.github.io/reference/iepd/.
+   This specification provides a standard version numbering scheme Section 5.2.3, IEPD Version Numbering Scheme (c:iepdVersionID), below. However, it does not provide guidance for managing or processing [IEPD] versions or their associated [IEPs]. Creation and management of [IEPDs] is the responsibility of stakeholders and developers. As such, [IEPDs] have their own versioning processes, and are managed independently of the NIEM core and domains. The NIEM Management Office defines [IEPD] conformance, but [IEPD] development and management fall outside its scope. Nonetheless, the NIEM Management Office has developed guidance (through the NTAC) for managing [IEPDs], versioning [IEPDs], and processing their associated [IEPs]. This reference material can be found at http://niem.github.io/reference/iepd/.
 
    An [IEPD] defines one or more data exchanges, each occurring in the form of an [information exchange package] (IEP). This specification supports a variety of data exchange use cases, in which the [IEP] may be:
 
@@ -312,7 +312,7 @@ Contents
 
             *  Name (See Section 5.2.1, MPD Name Syntax (c:mpdName), below)
 
-            *  Version number (See Section 5.2.3, MPD Version Numbering Scheme (c:mpdVersionID), below)
+            *  Version number (See Section 5.2.3, IEPD Version Numbering Scheme (c:iepdVersionID), below)
 
             *  The [conformance target identifier] http://reference.niem.gov/niem/specification/iepd/4.0/#IEPD (See Section 5.2.2, MPD Class (c:mpdClassURIList), below)
 
@@ -780,7 +780,7 @@ Rule 5-8. IEPD Schema Document Extension Support Schemas Are Supersets of Spec S
 
 5.2.1. MPD Name Syntax (c:mpdName)
 
-   An MPD's official name is the value of the c:mpdName attribute owned by the c:MPD element in the IEPD's catalog document. This value is constrained by the regular expression pattern on c:mpdName within the IEPD catalog schema Appendix A, IEPD Catalog XML Schema Document, below:
+   An MPD's official name is the value of the c:mpdName attribute owned by the c:IEPD element in the IEPD's catalog document. This value is constrained by the regular expression pattern on c:mpdName within the IEPD catalog schema Appendix A, IEPD Catalog XML Schema Document, below:
 
       [A-Za-z]([-_ ]?[A-Za-z0-9]+)*
 
@@ -821,17 +821,17 @@ Rule 5-9. MPD Class Determined by Conformance Target Identifier in c:mpdClassURI
         http://reference.niem.gov/niem/specification/iepd/4.0/#IEPD
         http://example.org/niem-iepd/1.0/#abc-org"
 
-5.2.3. MPD Version Numbering Scheme (c:mpdVersionID)
+5.2.3. IEPD Version Numbering Scheme (c:iepdVersionID)
 
-   Published MPDs may be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred. In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices. This is the same version numbering scheme that is used for NIEM releases.
+   Published IEPDs may be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred. In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices. This is the same version numbering scheme that is used for NIEM releases.
 
-   An MPD version number is the value of the c:mpdVersionID attribute owned by the c:MPD element within its [IEPD catalog document]. A consistent version number syntax is enforced by the IEPD catalog schema in Appendix A, IEPD Catalog XML Schema Document, below. The syntax rule is as follows:
+   An IEPD version number is the value of the c:iepdVersionID attribute owned by the c:IEPD element within its [IEPD catalog document]. A consistent version number syntax is enforced by the IEPD catalog schema in Appendix A, IEPD Catalog XML Schema Document, below. The syntax rule is as follows:
 
-Rule 5-10. MPD Version Number Syntax
+Rule 5-10. IEPD Version Number Syntax
 
    [Rule 5-10] (WF-IEPD)
 
-      An MPD MUST be assigned a version number that adheres to the regular expression:
+      An IEPD MUST be assigned a version number that adheres to the regular expression:
 
       	version ::= digit+ ('.' digit+)* (status digit+)?
       	Where:	
@@ -852,7 +852,7 @@ Rule 5-10. MPD Version Number Syntax
 
    Note that the absence of a status string in the version number indicates that the version has been baselined and published.
 
-   The following examples are valid MPD version numbers:
+   The following examples are valid IEPD version numbers:
 
       *  1
 
@@ -864,9 +864,9 @@ Rule 5-10. MPD Version Number Syntax
 
       *  199.88.15rev6
 
-   There are two implications in Rule 5-10, MPD Version Number Syntax. The first is that in some cases this version scheme implies and confirms a chronology of releases. For example, a given product labeled version 2.3 must have been released before the same product labeled 2.3.1. Therefore, version 2.3.1 is more current than version 2.3.
+   There are two implications in Rule 5-10, IEPD Version Number Syntax. The first is that in some cases this version scheme implies and confirms a chronology of releases. For example, a given product labeled version 2.3 must have been released before the same product labeled 2.3.1. Therefore, version 2.3.1 is more current than version 2.3.
 
-   However, this is a multi-series version scheme, and chronological relationships exist only within a given series. So, for example, nothing can be said about a chronological relationship between versions 2.2.4 and 2.3. This is because version 2.2.4 is in a different series (i.e., 2.2) and could actually have been released after 2.3. Figure 5-2, Example versioning system, below, illustrates a system of versions that uses the numbering scheme of Rule 5-10, MPD Version Number Syntax.
+   However, this is a multi-series version scheme, and chronological relationships exist only within a given series. So, for example, nothing can be said about a chronological relationship between versions 2.2.4 and 2.3. This is because version 2.2.4 is in a different series (i.e., 2.2) and could actually have been released after 2.3. Figure 5-2, Example versioning system, below, illustrates a system of versions that uses the numbering scheme of Rule 5-10, IEPD Version Number Syntax.
 
    Figure 5-2: Example versioning system
 
@@ -890,15 +890,15 @@ Rule 5-10. MPD Version Number Syntax
 
       *  Series 3.2 is {3.2, 3.2.1, 3.2.2}
 
-   The second implication of Rule 5-10, MPD Version Number Syntax is that pre-releases are easily identified by the strings alpha, beta, and rc. These strings are simple visible indicators of MPD status or stage of development.
+   The second implication of Rule 5-10, IEPD Version Number Syntax is that pre-releases are easily identified by the strings alpha, beta, and rc. These strings are simple visible indicators of IEPD status or stage of development.
 
-   This specification places no further restrictions or meaning (implied or otherwise) on a version number. Authors have the option to use integers between dots to indicate degree of compatibility or other relationships between versions as needed. For example, for a given [MPD], the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2. Such a claim is acceptable. However, this specification does not imply any such relationships. Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the [MPD].
+   This specification places no further restrictions or meaning (implied or otherwise) on a version number. Authors have the option to use integers between dots to indicate degree of compatibility or other relationships between versions as needed. For example, for a given [IEPD], the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2. Such a claim is acceptable. However, this specification does not imply any such relationships. Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the [IEPD].
 
-   MPD version numbers within a version series do NOT imply compatibility between versions. Compatibility between or among MPD versions MUST be explicitly stated in documentation.
+   IEPD version numbers within a version series do NOT imply compatibility between versions. Compatibility between or among IEPD versions MUST be explicitly stated in documentation.
 
-   Note that an author who updates an existing [MPD] to a new version may choose the version number based on its previous version number or not, as long as it follows the version number syntax. 
+   Note that an author who updates an existing [IEPD] to a new version may choose the version number based on its previous version number or not, as long as it follows the version number syntax. 
 
-   Version number syntax applies to MPDs only; there is no requirement to apply this syntax to artifact versioning.
+   Version number syntax applies to IEPDs only; there is no requirement to apply this syntax to artifact versioning.
 
 5.2.4. URI Schemes
 
@@ -936,7 +936,7 @@ Rule 5-11. MPD URI Is Absolute
 
       *  http://niem.gov/niem/domains/cyfs/2.1/1
 
-   This specification does not mandate that basic IEPD catalog metadata be designed into an MPD URI. However, including such can obviously provide convenient visual recognition. That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of c:mpdURI, c:mpdName, c:mpdVersionID, and c:mpdClassURIList defined in the IEPD catalog document).
+   This specification does not mandate that basic IEPD catalog metadata be designed into an MPD URI. However, including such can obviously provide convenient visual recognition. That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of c:mpdURI, c:mpdName, c:iepdVersionID, and c:mpdClassURIList defined in the IEPD catalog document).
 
 5.2.4.2. URI Scheme for MPD Artifacts (c:externalURI)
 
@@ -1790,7 +1790,7 @@ Rule 7-5. IEPD ZIP file Name Syntax
       		digit    ::= [0-9]
       		status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
 
-      The status values are as defined in Rule 5-10, MPD Version Number Syntax.
+      The status values are as defined in Rule 5-10, IEPD Version Number Syntax.
 
    Regular expression notation in the rule above is from [W3C XML 1.0] #sec-notation.
 
@@ -3110,7 +3110,7 @@ Appendix I. Index of Rules
    Rule 5-7, IEPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules: Section 5.1.2, Extending an IEPD Catalog
    Rule 5-8, IEPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets: Section 5.1.2, Extending an IEPD Catalog
    Rule 5-9, MPD Class Determined by Conformance Target Identifier in c:mpdClassURIList: Section 5.2.2, MPD Class (c:mpdClassURIList)
-   Rule 5-10, MPD Version Number Syntax: Section 5.2.3, MPD Version Numbering Scheme (c:mpdVersionID)
+   Rule 5-10, IEPD Version Number Syntax: Section 5.2.3, IEPD Version Numbering Scheme (c:iepdVersionID)
    Rule 5-11, MPD URI Is Absolute: Section 5.2.4.1, MPD URI Scheme (c:mpdURI)
    Rule 5-12, MPD URI Supports Fragment: Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI)
    Rule 5-13, MPD URI Has No Fragment: Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI)

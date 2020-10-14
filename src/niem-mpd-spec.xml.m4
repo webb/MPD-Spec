@@ -904,7 +904,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <section id="Name-Syntax"><title>MPD Name Syntax (<qName>c:mpdName</qName>)</title>
 
-	<p>An MPD<char name="rsquo"/>s official name is the value of the <qName>c:mpdName</qName> attribute owned by the <qName>c:MPD</qName> element in the IEPD<char name="rsquo"/>s catalog document.  This value is constrained by the regular expression pattern on <qName>c:mpdName</qName> within the IEPD catalog schema <ref idref="IEPD-Catalog-XSD"/>:</p>
+	<p>An MPD<char name="rsquo"/>s official name is the value of the <qName>c:mpdName</qName> attribute owned by the <qName>c:IEPD</qName> element in the IEPD<char name="rsquo"/>s catalog document.  This value is constrained by the regular expression pattern on <qName>c:mpdName</qName> within the IEPD catalog schema <ref idref="IEPD-Catalog-XSD"/>:</p>
 	<blockquote><p><code>[A-Za-z]([-_ ]?[A-Za-z0-9]+)*</code></p></blockquote>
 
 	<p>The regular expression above indicates that an MPD name:</p>
@@ -951,16 +951,16 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 
 <section id="Version-Numbering-Scheme">
-	<title>MPD Version Numbering Scheme (<qName>c:mpdVersionID</qName>)</title>
+	<title>IEPD Version Numbering Scheme (<qName>c:iepdVersionID</qName>)</title>
 
-	<p>Published MPDs may be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred.  In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices.  This is the same version numbering scheme that is used for NIEM releases.</p>
+	<p>Published IEPDs may be periodically revised and updated; therefore, versioning is required to clearly indicate changes have occurred.  In order to maintain some consistency while allowing reasonable flexibility to authors, this specification establishes a simple version numbering scheme that is consistent with most common practices.  This is the same version numbering scheme that is used for NIEM releases.</p>
 
-	<p>An MPD version number is the value of the <qName>c:mpdVersionID</qName> attribute owned by the <qName>c:MPD</qName> element within its <termRef>IEPD catalog document</termRef>.  A consistent version number syntax is enforced by the IEPD catalog schema in <ref idref="IEPD-Catalog-XSD"/>.  The syntax rule is as follows:</p>
+	<p>An IEPD version number is the value of the <qName>c:iepdVersionID</qName> attribute owned by the <qName>c:IEPD</qName> element within its <termRef>IEPD catalog document</termRef>.  A consistent version number syntax is enforced by the IEPD catalog schema in <ref idref="IEPD-Catalog-XSD"/>.  The syntax rule is as follows:</p>
 
 <ruleSection>
-	<title>MPD Version Number Syntax</title>
-	<rule id="r-mpd-vers-syntax" applicability="WF-IEPD" class="Constraint">
-		<p>An MPD MUST be assigned a version number that adheres to the regular expression:</p>
+	<title>IEPD Version Number Syntax</title>
+	<rule id="r-iepd-vers-syntax" applicability="WF-IEPD" class="Constraint">
+		<p>An IEPD MUST be assigned a version number that adheres to the regular expression:</p>
 	<pre>	version ::= digit+ ('.' digit+)* (status digit+)?
 	Where:	
 		digit   ::= [0-9]
@@ -980,7 +980,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>Note that the absence of a <code>status</code> string in the version number indicates that the version has been baselined and published.</p>
 
-	<p>The following examples are valid MPD version numbers:</p>
+	<p>The following examples are valid IEPD version numbers:</p>
 		<ul>
 			<li><p><code>1</code></p></li>
 			<li><p><code>1.2</code></p></li>
@@ -989,9 +989,9 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			<li><p><code>199.88.15rev6</code></p></li>
 		</ul>
 
-	<p>There are two implications in <ref idref="r-mpd-vers-syntax"/>.  The first is that in some cases this version scheme implies and confirms a chronology of releases.  For example, a given product labeled version 2.3 must have been released before the same product labeled 2.3.1.  Therefore, version 2.3.1 is more current than version 2.3.</p>
+	<p>There are two implications in <ref idref="r-iepd-vers-syntax"/>.  The first is that in some cases this version scheme implies and confirms a chronology of releases.  For example, a given product labeled version 2.3 must have been released before the same product labeled 2.3.1.  Therefore, version 2.3.1 is more current than version 2.3.</p>
 
-	<p>However, this is a multi-series version scheme, and chronological relationships exist only within a given series.  So, for example, nothing can be said about a chronological relationship between versions 2.2.4 and 2.3.  This is because version 2.2.4 is in a different series (i.e., 2.2) and could actually have been released after 2.3.  <ref idref="version-sys"/> illustrates a system of versions that uses the numbering scheme of <ref idref="r-mpd-vers-syntax"/>.</p>
+	<p>However, this is a multi-series version scheme, and chronological relationships exist only within a given series.  So, for example, nothing can be said about a chronological relationship between versions 2.2.4 and 2.3.  This is because version 2.2.4 is in a different series (i.e., 2.2) and could actually have been released after 2.3.  <ref idref="version-sys"/> illustrates a system of versions that uses the numbering scheme of <ref idref="r-iepd-vers-syntax"/>.</p>
 
 <figure id="version-sys">
 	<title>Example versioning system</title>
@@ -1010,15 +1010,15 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		<li><p>Series 3.2 is {3.2, 3.2.1, 3.2.2}</p></li>
 	</ul>
 
-	<p>The second implication of <ref idref="r-mpd-vers-syntax"/> is that pre-releases are easily identified by the strings <code>alpha</code>, <code>beta</code>, and <code>rc</code>.  These strings are simple visible indicators of MPD status or stage of development.</p>
+	<p>The second implication of <ref idref="r-iepd-vers-syntax"/> is that pre-releases are easily identified by the strings <code>alpha</code>, <code>beta</code>, and <code>rc</code>.  These strings are simple visible indicators of IEPD status or stage of development.</p>
 
-	<p>This specification places no further restrictions or meaning (implied or otherwise) on a version number.  Authors have the option to use integers between dots to indicate degree of compatibility or other relationships between versions as needed.  For example, for a given <termRef term="model package description">MPD</termRef>, the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2.  Such a claim is acceptable.  However, this specification does not imply any such relationships.  Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the <termRef term="model package description">MPD</termRef>.</p>
+	<p>This specification places no further restrictions or meaning (implied or otherwise) on a version number.  Authors have the option to use integers between dots to indicate degree of compatibility or other relationships between versions as needed.  For example, for a given <termRef term="information exchange package documentation">IEPD</termRef>, the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2.  Such a claim is acceptable.  However, this specification does not imply any such relationships.  Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the <termRef term="information exchange package documentation">IEPD</termRef>.</p>
 
-	<p>MPD version numbers within a version series do NOT imply compatibility between versions.  Compatibility between or among MPD versions MUST be explicitly stated in documentation.</p>
+	<p>IEPD version numbers within a version series do NOT imply compatibility between versions.  Compatibility between or among IEPD versions MUST be explicitly stated in documentation.</p>
 
-	<p>Note that an author who updates an existing <termRef term="model package description">MPD</termRef> to a new version may choose the version number based on its previous version number or not, as long as it follows the version number syntax. </p>
+	<p>Note that an author who updates an existing <termRef term="information exchange package documentation">IEPD</termRef> to a new version may choose the version number based on its previous version number or not, as long as it follows the version number syntax. </p>
 
-	<p>Version number syntax applies to MPDs only; there is no requirement to apply this syntax to artifact versioning.</p>  
+	<p>Version number syntax applies to IEPDs only; there is no requirement to apply this syntax to artifact versioning.</p>  
 
 </section>
 
@@ -1062,7 +1062,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		<li><p><code>http://niem.gov/niem/domains/cyfs/2.1/1</code></p></li>
 	</ul>
 
-	<p>This specification does not mandate that basic IEPD catalog metadata be designed into an MPD URI.  However, including such can obviously provide convenient visual recognition.  That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of <qName>c:mpdURI</qName>, <qName>c:mpdName</qName>, <qName>c:mpdVersionID</qName>, and <qName>c:mpdClassURIList</qName> defined in the IEPD catalog document).</p>
+	<p>This specification does not mandate that basic IEPD catalog metadata be designed into an MPD URI.  However, including such can obviously provide convenient visual recognition.  That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of <qName>c:mpdURI</qName>, <qName>c:mpdName</qName>, <qName>c:iepdVersionID</qName>, and <qName>c:mpdClassURIList</qName> defined in the IEPD catalog document).</p>
 
 </section>
 
@@ -2080,7 +2080,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		digit    ::= [0-9]
 		status   ::= 'alpha' | 'beta' | 'rc' | 'rev'</pre>
 
-		<p>The <code>status</code> values are as defined in <ref idref="r-mpd-vers-syntax"/>.</p>
+		<p>The <code>status</code> values are as defined in <ref idref="r-iepd-vers-syntax"/>.</p>
 	</rule>
 	<p>Regular expression notation in the rule above is from <ref idref="W3-XML"/> <link href="http://www.w3.org/TR/2008/REC-xml-20081126/#sec-notation">#sec-notation</link>.</p>
 	<p>Alphabetic characters are lower case to reduce complications across various file systems.</p>
