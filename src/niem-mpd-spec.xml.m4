@@ -573,19 +573,19 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 </section>
 
 
-<!-- ####################### MPD XML Schema Document Artifacts ########################### -->
+<!-- ####################### IEPD XML Schema Document Artifacts ########################### -->
 
 
-<section id="MPD-XML-Schema-Artifacts"><title>MPD XML Schema Document Artifacts</title>
+<section id="IEPD-XML-Schema-Artifacts"><title>IEPD XML Schema Document Artifacts</title>
 
 	<p><termRef>XML schema document</termRef> artifacts are the essential content of MPDs because they normatively define and declare <termRef term="data component">data components</termRef>.  The purpose of an <termRef term="model package description">MPD</termRef> is determined by the <termRef>XML schema document</termRef> or document set(s) it contains; furthermore, each <termRef> XML schema document</termRef> may have a different purpose.  The <ref idref="NIEM-NDR"/> addresses some schema documents as <termRef term="conformance target">conformance targets</termRef> including reference schema documents, extension schema documents, and schema document sets.  Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules.  Consult the <ref idref="NIEM-NDR"/> for these rules.  NIEM also employs a special technique that relies on <termRef term="constraint schema document set">constraint schema document sets</termRef> (See <ref idref="Constraint-Schemas"/>).</p>
 
-	<p>The following subsections define each type of NIEM schema document and document set, and identify the types of MPDs that contain them.</p>
+	<p>The following subsections define each type of NIEM schema document and document set.</p>
 
 
 <section id="Reference-Schemas"><title>Reference Schema Documents</title>
 
-	<p>This section generally applies to NIEM releases and their associated core supplements, and domain updates.  Though not common, it is also valid to use a <termRef>reference schema document</termRef> or document set within an <termRef term="information exchange package documentation">IEPD</termRef>.  The <termRef>reference schema document</termRef> and <termRef>reference schema document set</termRef> were defined earlier in <ref idref="Reference-Schema-Document"/>.</p>
+	<p>Though not common, it is valid to use a <termRef>reference schema document</termRef> or document set within an <termRef term="information exchange package documentation">IEPD</termRef>.  The <termRef>reference schema document</termRef> and <termRef>reference schema document set</termRef> were defined earlier in <ref idref="Reference-Schema-Document"/>.</p>
 
 	<p>A NIEM <termRef>reference schema document</termRef> is intended to be the authoritative definition schema document for a NIEM target namespace.  All NIEM releases, associated core supplements, and domain updates are standalone sets of namespaced reference schema documents.  NIEM content governance bodies have reviewed and attempted to harmonize each set to the extent possible by refactoring as needed.  This means that most (not necessarily all) types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within a set).</p>
 
@@ -714,7 +714,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		</blockquote>
           </definition>
 
-	  <p>All <termRef term="model package description">MPD</termRef> classes may contain <em>external schema documents</em> that do not conform to NIEM.  Data components declared and defined in external schema documents require NIEM <em>external adapter types</em> to identify the fact they do not conform to NIEM.</p>
+	  <p>An <termRef term="information exchange package documentation">IEPD</termRef> may contain <em>external schema documents</em> that do not conform to NIEM.  Data components declared and defined in external schema documents require NIEM <em>external adapter types</em> to identify the fact they do not conform to NIEM.</p>
 
 	  <definition term="external adapter type">
 		  <p>As defined by <ref idref="NIEM-NDR"/>:</p>
