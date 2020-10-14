@@ -1333,7 +1333,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <section id="XML-Catalog-URI"><title>XML Catalog URI</title>
 
-	<p>An <termRef>XML catalog document</termRef> conforms to <ref idref="OASIS-XML-Catalogs"/>.  For the purpose of MPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.</p>
+	<p>An <termRef>XML catalog document</termRef> conforms to <ref idref="OASIS-XML-Catalogs"/>.  For the purpose of IEPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.</p>
 
 	<ruleSection><title>XML Catalog <code>uri</code> Value Resolves to Resource</title>
 		<rule id="xc1" applicability="XML-catalog" class="Constraint">
@@ -1351,7 +1351,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 
 
-<section id="URI-Summary"><title>Summary of MPD URIs</title>
+<section id="URI-Summary"><title>Summary of IEPD URIs</title>
 
 			<p>This section summarizes the various URIs used in the IEPD catalog document.  It also presents a summary of <ref idref="RFC3986-URI"/>.  See that reference for explanation and details of URI syntax.</p>
 
@@ -1393,9 +1393,9 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 		<p>As the table above indicates, <ref idref="RFC3986-URI"/> allows a &lt;relative-reference&gt; to contain a fragment or even be a fragment itself.  However, a <qName>c:pathURI</qName> is required to resolve to a local resource.  Therefore, rules in this specification preclude a <qName>c:pathURI</qName> value from taking the fragment-only form of a &lt;relative-reference&gt;.</p>
 
-		<table id="uri-summary"><title>Summary of MPD URI attributes</title>
+		<table id="uri-summary"><title>Summary of IEPD URI attributes</title>
 			<theadr>
-			    <th>MPD Attribute</th>
+			    <th>IEPD Attribute</th>
 			    <th>URI Syntax (refer to table above)</th>
 			</theadr>
 			<tr>
