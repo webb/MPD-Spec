@@ -1269,9 +1269,9 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>An important business requirement is transparency of IEPD lineage.  Data lineage is also referred to as <em>data provenance</em>, how the data was derived and where it came from.  There are two basic views of data provenance:  (1) as data annotations; and (2) as a graph of data relationships <ref idref="Principles-of-Data-Integration"/>, Chapter 14 <q>Data Provenance</q>.</p>
 
-	<p>The IEPD Specification adapts the latter view of data provenance to enable a simple framework for recording IEPD lineage within an IEPD catalog.  The URI scheme for IEPDs and their artifacts and sets enables a graph of relationships.  An <termRef term="information exchange package documentation">IEPD</termRef> may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.</p>
+	<p>The IEPD Specification adapts the latter view of data provenance to enable a simple framework for recording IEPD lineage within an IEPD catalog.  The URI scheme for IEPDs and their artifacts and sets enables a graph of relationships.  An <termRef term="information exchange package documentation">IEPD</termRef> may internally identify and record relationships to other IEPDs, including families, versions, adaptations, specializations, generalizations, etc.</p>
 
-	<p>The next few paragraphs require understanding of URIs for MPDs and MPD artifacts.  See <ref idref="iepdURI"/> and <ref idref="externalURI"/>.</p>
+	<p>The next few paragraphs require understanding of URIs for IEPDs and IEPD artifacts.  See <ref idref="iepdURI"/> and <ref idref="externalURI"/>.</p>
 
 	<p>The IEPD catalog provides a <qName>c:Relationship</qName> element with two attributes (<qName>c:resourceURI</qName> and <qName>c:relationshipCode</qName>) and an optional element (<qName>nc:DescriptionText</qName>) to identify ancestry and other relationships to other IEPDs.  There are many ways that one <termRef term="information exchange package documentation">IEPD</termRef> may relate to another.  This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of IEPDs.  Therefore, the optional <qName>nc:DescriptionText</qName> element is provided to further explain the nature of any of the <qName>c:relationshipCode</qName> values.  The set is:  {<code>version_of</code>, <code>specializes</code>, <code>generalizes</code>, <code>deprecates</code>, <code>supersedes</code>, <code>adapts</code>, <code>conforms_to</code>, <code>updates</code>}.  In some cases, the value of <qName>c:relationshipCode</qName> may be generic enough to require a more detailed explanation in <qName>nc:DescriptionText</qName> (for example, if its value is <code>adapts</code>).</p>
 
@@ -1284,14 +1284,14 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 
 <section id="Resolve-URI-W-Fragment">
-	<title>Resolving an MPD URI with a Fragment</title>
+	<title>Resolving an IEPD URI with a Fragment</title>
 
-	<ruleSection><title>Resolve MPD URI with Fragment</title>
+	<ruleSection><title>Resolve IEPD URI with Fragment</title>
 		<rule id="r-resolve-uri" applicability="WF-IEPD" class="Interpretation">
-			<p>Given an absolute MPD URI <ref idref="RFC3986-URI"/>, <a href="http://tools.ietf.org/html/rfc3986#section-4.3"> <char name="sect"/>4.3, <q>Absolute URI</q></a> with a fragment, resolve this URI as follows:</p>
+			<p>Given an absolute IEPD URI <ref idref="RFC3986-URI"/>, <a href="http://tools.ietf.org/html/rfc3986#section-4.3"> <char name="sect"/>4.3, <q>Absolute URI</q></a> with a fragment, resolve this URI as follows:</p>
 			<ol>
-				<li><p>Resolve the base URI (per <ref idref="RFC3986-URI"/>) to retrieve the resource MPD.  If the resource MPD does not exist, then fail (existence error).</p></li>
-				<li><p>Apply the fragment (without "#") to the MPD resource:</p>
+				<li><p>Resolve the base URI (per <ref idref="RFC3986-URI"/>) to retrieve the resource IEPD.  If the resource IEPD does not exist, then fail (existence error).</p></li>
+				<li><p>Apply the fragment (without "#") to the IEPD resource:</p>
 					<ol>
 						<li><p>Locate a <qName>structures:id</qName> attribute value that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then continue.</p></li>
 						<li><p>Locate a <termRef>path name</termRef> (for a directory or file) that matches the fragment string.  If more than one exist, then fail (ambiguity error).  If none exists, then fail (existence error).</p></li>

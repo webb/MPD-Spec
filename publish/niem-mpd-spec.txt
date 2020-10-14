@@ -1122,9 +1122,9 @@ Rule 5-31. Schema document set interpreted as constraint schema document set
 
    An important business requirement is transparency of IEPD lineage. Data lineage is also referred to as data provenance, how the data was derived and where it came from. There are two basic views of data provenance: (1) as data annotations; and (2) as a graph of data relationships [Principles of Data Integration], Chapter 14 "Data Provenance".
 
-   The IEPD Specification adapts the latter view of data provenance to enable a simple framework for recording IEPD lineage within an IEPD catalog. The URI scheme for IEPDs and their artifacts and sets enables a graph of relationships. An [IEPD] may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.
+   The IEPD Specification adapts the latter view of data provenance to enable a simple framework for recording IEPD lineage within an IEPD catalog. The URI scheme for IEPDs and their artifacts and sets enables a graph of relationships. An [IEPD] may internally identify and record relationships to other IEPDs, including families, versions, adaptations, specializations, generalizations, etc.
 
-   The next few paragraphs require understanding of URIs for MPDs and MPD artifacts. See Section 5.2.4.1, IEPD URI Scheme (c:iepdURI), above, and Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI), above.
+   The next few paragraphs require understanding of URIs for IEPDs and IEPD artifacts. See Section 5.2.4.1, IEPD URI Scheme (c:iepdURI), above, and Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI), above.
 
    The IEPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:DescriptionText) to identify ancestry and other relationships to other IEPDs. There are many ways that one [IEPD] may relate to another. This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of IEPDs. Therefore, the optional nc:DescriptionText element is provided to further explain the nature of any of the c:relationshipCode values. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:DescriptionText (for example, if its value is adapts).
 
@@ -1132,17 +1132,17 @@ Rule 5-31. Schema document set interpreted as constraint schema document set
 
    Note that a c:resourceURI attribute is used to identify a remote resource that is only related to the IEPD whose catalog declares it. The resource is not required for validation. Therefore, the [IEPD] is not required to contain this resource. As in the case of c:externalURI, the value of a c:resourceURI should be correct (i.e., a resource with that URI should exist). However, in this case, existence verification is considered outside the scope of this specification.
 
-5.2.4.5. Resolving an MPD URI with a Fragment
+5.2.4.5. Resolving an IEPD URI with a Fragment
 
-Rule 5-32. Resolve MPD URI with Fragment
+Rule 5-32. Resolve IEPD URI with Fragment
 
    [Rule 5-32] (WF-IEPD)
 
-      Given an absolute MPD URI [RFC 3986 URI],  section 4.3, "Absolute URI" with a fragment, resolve this URI as follows:
+      Given an absolute IEPD URI [RFC 3986 URI],  section 4.3, "Absolute URI" with a fragment, resolve this URI as follows:
 
-         1. Resolve the base URI (per [RFC 3986 URI]) to retrieve the resource MPD. If the resource MPD does not exist, then fail (existence error).
+         1. Resolve the base URI (per [RFC 3986 URI]) to retrieve the resource IEPD. If the resource IEPD does not exist, then fail (existence error).
 
-         2. Apply the fragment (without "#") to the MPD resource:
+         2. Apply the fragment (without "#") to the IEPD resource:
 
                1. Locate a structures:id attribute value that matches the fragment string. If more than one exist, then fail (ambiguity error). If none exists, then continue.
 
@@ -1154,7 +1154,7 @@ Rule 5-32. Resolve MPD URI with Fragment
 
 5.2.4.6. URI Resolution Involving Reference Elements
 
-   A NIEM element can indirectly reference its content rather than carry or encapsulate it. A NIEM element with simple content derived from type xs:anyURI may appear in an instance XML document as a reference element, in which case, rather than locally containing a URI as simple content, it will instead refer to another element that contains a URI. Under some circumstances, this might impact URI resolution described in Rule 5-32, Resolve MPD URI with Fragment.
+   A NIEM element can indirectly reference its content rather than carry or encapsulate it. A NIEM element with simple content derived from type xs:anyURI may appear in an instance XML document as a reference element, in which case, rather than locally containing a URI as simple content, it will instead refer to another element that contains a URI. Under some circumstances, this might impact URI resolution described in Rule 5-32, Resolve IEPD URI with Fragment.
 
    [NIEM Naming and Design Rules v4.0],  section 12.3, "Reference Elements" defines a NIEM [reference element] as follows:
 
@@ -3128,7 +3128,7 @@ Appendix I. Index of Rules
    Rule 5-29, c:pathURI for c:SchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
    Rule 5-30, c:pathURI for c:ConstraintSchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
    Rule 5-31, Schema document set interpreted as constraint schema document set: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-32, Resolve MPD URI with Fragment: Section 5.2.4.5, Resolving an MPD URI with a Fragment
+   Rule 5-32, Resolve IEPD URI with Fragment: Section 5.2.4.5, Resolving an IEPD URI with a Fragment
    Rule 5-33, XML Catalog uri Value Resolves to Resource: Section 5.2.4.7, XML Catalog URI
    Rule 5-34, XML Catalog uri Value Resolves to Resource with Correct Target Namespace: Section 5.2.4.7, XML Catalog URI
    Rule 5-35, IEPD Has a Change Log: Section 5.3.2, Change Log for IEPDs
