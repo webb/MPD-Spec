@@ -938,35 +938,35 @@ Rule 5-11. IEPD URI Is Absolute
 
    This specification does not mandate that basic IEPD catalog metadata be designed into an IEPD URI. However, including such can obviously provide convenient visual recognition. That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of c:iepdURI, c:iepdName, c:iepdVersionID, and c:mpdClassURIList defined in the IEPD catalog document).
 
-5.2.4.2. URI Scheme for MPD Artifacts (c:externalURI)
+5.2.4.2. URI Scheme for IEPD Artifacts (c:externalURI)
 
-   Artifacts in other MPDs can be referenced from within an [MPD] to identify equivalence (signify reuse, one aspect of lineage). To support this concept, the following MPD URI rules are necessary:
+   Artifacts in other IEPDs can be referenced from within an [IEPD] to identify equivalence (signify reuse, one aspect of lineage). To support this concept, the following IEPD URI rules are necessary:
 
-Rule 5-12. MPD URI Supports Fragment
+Rule 5-12. IEPD URI Supports Fragment
 
    [Rule 5-12] (WF-IEPD)
 
-      A valid MPD URI MUST support the inclusion of a fragment identifier (as a suffix) [RFC 3986 URI].
+      A valid IEPD URI MUST support the inclusion of a fragment identifier (as a suffix) [RFC 3986 URI].
 
-   This rule ensures that an [MPD] can always uniquely identify and refer to each artifact within another MPD. This MPD specification follows [RFC 3986 URI] which forbids a URI to contain more than a single fragment identifier. To construct an MPD artifact URI, add a fragment (that locally identifies the artifact) to an MPD URI, and therefore, an MPD URI cannot already contain a fragment.
+   This rule ensures that an [IEPD] can always uniquely identify and refer to each artifact within another IEPD. This IEPD specification follows [RFC 3986 URI] which forbids a URI to contain more than a single fragment identifier. To construct an IEPD artifact URI, add a fragment (that locally identifies the artifact) to an IEPD URI, and therefore, an IEPD URI cannot already contain a fragment.
 
-Rule 5-13. MPD URI Has No Fragment
+Rule 5-13. IEPD URI Has No Fragment
 
    [Rule 5-13] (WF-IEPD)
 
-      A valid MPD URI MUST NOT contain a fragment identifier [RFC 3986 URI].
+      A valid IEPD URI MUST NOT contain a fragment identifier [RFC 3986 URI].
 
-   Rationale: If a URI for an [MPD] (do NOT confuse this with a URI for an MPD artifact) already contains a fragment identifier, then that URI cannot be employed as an MPD artifact URI, because [RFC 3986 URI] only allows a single fragment identifier.
+   Rationale: If a URI for an [IEPD] (do NOT confuse this with a URI for an IEPD artifact) already contains a fragment identifier, then that URI cannot be employed as an IEPD artifact URI, because [RFC 3986 URI] only allows a single fragment identifier.
 
    By the following rule, each file artifact or artifact set is uniquely identified by its [path name] relative to the [IEPD root directory].
 
-Rule 5-14. MPD Artifact URI Syntax
+Rule 5-14. IEPD Artifact URI Syntax
 
    [Rule 5-14] (WF-IEPD)
 
-      Within an [MPD] a URI reference to an artifact in another external MPD (i.e., an MPD artifact URI) is the concatenation of:
+      Within an [IEPD] a URI reference to an artifact in another external IEPD (i.e., an IEPD artifact URI) is the concatenation of:
 
-         *  The URI of the [MPD] that contains the artifact.
+         *  The URI of the [IEPD] that contains the artifact.
 
          *  A pound-sign character ("#" -- also known as a hashtag character).
 
@@ -974,7 +974,7 @@ Rule 5-14. MPD Artifact URI Syntax
 
    An artifact set has a locally unique [path name]. An artifact has a path name that terminates with its file name which is unique to the directory it resides in.
 
-   The following are examples of valid MPD artifact URIs:
+   The following are examples of valid IEPD artifact URIs:
 
       *  http://example.gov/niem-iepd/pmix/3.0/#subset/niem-core.xsd (a file artifact)
 
@@ -983,10 +983,6 @@ Rule 5-14. MPD Artifact URI Syntax
       *  http://example.gov/niem-iepd/pmix/3.0/#application-info (a set artifact)
 
       *  http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query (a set artifact)
-
-   Since MPD URIs require the support of fragment identifiers (by Rule 5-12, MPD URI Supports Fragment), it does not appear that the "urn" URI scheme may be used as an MPD URI. Fragments use the "#" character, and the specification for the "urn" scheme ([RFC 2141 URN Syntax]) indicates that they are not valid in URNs, when it states:
-
-      RFC 1630 reserves the characters "/", "?", and "#" for particular purposes. The URN-WG has not yet debated the applicability and precise semantics of those purposes as applied to URNs. Therefore, these characters are RESERVED for future developments.
 
    Artifact URIs are used as values for the c:externalURI attribute in the IEPD catalog XML document to declare equivalence relationships between artifacts (See Appendix A, IEPD Catalog XML Schema Document, below). A simple scenario follows. Consider two different IEPDs with the following URIs:
 
@@ -998,9 +994,9 @@ Rule 5-14. MPD Artifact URI Syntax
 
       c:externalURI="http://example.org/niem-iepd/pmix/3.0/#base-xsd/extension/req1.xsd"
 
-   Additional c:externalURI attributes may be added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.
+   Additional c:externalURI attributes may be added to this entry if the author knows of other uses of this same artifact in other IEPDs and wishes to acknowledge them.
 
-   A URI does not have the same meaning as namespace. NIEM namespaces cannot be used as MPD artifact URIs. Recall that the target namespace used in a subset schema document derived from a NIEM release schema document is identical to the target namespace of that release schema document. Furthermore, an [IEPD] may contain multiple subsets. NIEM namespaces are not necessarily unique to an artifact within an [MPD]. Later, Section 5.5, XML Catalogs, below, will describe the use of [XML Catalogs 1.1] to correlate namespaces to local URIs in order to [resolve] them to local resources.
+   A URI does not have the same meaning as namespace. NIEM namespaces cannot be used as IEPD artifact URIs. Recall that the target namespace used in a subset schema document derived from a NIEM release schema document is identical to the target namespace of that release schema document. Furthermore, an [IEPD] may contain multiple subsets. NIEM namespaces are not necessarily unique to an artifact within an [IEPD]. Later, Section 5.5, XML Catalogs, below, will describe the use of [XML Catalogs 1.1] to correlate namespaces to local URIs in order to [resolve] them to local resources.
 
    The value of c:externalURI is an identifier for a remote resource that is not necessarily accessible online. For this reason, even though such URIs should be correct (i.e. a resource with that URI should exist), their verification is not within the scope of this specification.
 
@@ -1128,11 +1124,11 @@ Rule 5-31. Schema document set interpreted as constraint schema document set
 
    The MPD Specification adapts the latter view of data provenance to enable a simple framework for recording MPD lineage within an IEPD catalog. The URI scheme for MPDs and their artifacts and sets enables a graph of relationships. An [MPD] may internally identify and record relationships to other MPDs, including families, versions, adaptations, specializations, generalizations, etc.
 
-   The next few paragraphs require understanding of URIs for MPDs and MPD artifacts. See Section 5.2.4.1, IEPD URI Scheme (c:iepdURI), above, and Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI), above.
+   The next few paragraphs require understanding of URIs for MPDs and MPD artifacts. See Section 5.2.4.1, IEPD URI Scheme (c:iepdURI), above, and Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI), above.
 
    The IEPD catalog provides a c:Relationship element with two attributes (c:resourceURI and c:relationshipCode) and an optional element (nc:DescriptionText) to identify ancestry and other relationships to other MPDs. There are many ways that one [MPD] may relate to another. This makes it difficult to specify a fixed set of values that can objectively define an exact relationship between a pair of MPDs. Therefore, the optional nc:DescriptionText element is provided to further explain the nature of any of the c:relationshipCode values. The set is: {version_of, specializes, generalizes, deprecates, supersedes, adapts, conforms_to, updates}. In some cases, the value of c:relationshipCode may be generic enough to require a more detailed explanation in nc:DescriptionText (for example, if its value is adapts).
 
-   As was described in Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI), above, the IEPD catalog also enables an author to record more fine-grained ancestry between MPDs using the c:externalURI attribute. This attribute records an explicit equivalence relationship between artifacts reused across MPDs.
+   As was described in Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI), above, the IEPD catalog also enables an author to record more fine-grained ancestry between MPDs using the c:externalURI attribute. This attribute records an explicit equivalence relationship between artifacts reused across MPDs.
 
    Note that a c:resourceURI attribute is used to identify a remote resource that is only related to the MPD whose catalog declares it. The resource is not required for validation. Therefore, the [MPD] is not required to contain this resource. As in the case of c:externalURI, the value of a c:resourceURI should be correct (i.e., a resource with that URI should exist). However, in this case, existence verification is considered outside the scope of this specification.
 
@@ -1802,7 +1798,7 @@ Rule 7-5. IEPD ZIP file Name Syntax
 
 7.3. Artifact Links to Other Resources
 
-   It is important to understand that the URI scheme defined in Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI), above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM Naming and Design Rules v4.0], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative [path name] references when needed. The following rule applies when absolute references to Internet resources are required.
+   It is important to understand that the URI scheme defined in Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI), above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an MPD must be physically present within that MPD. In accordance with the [NIEM Naming and Design Rules v4.0], if MPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative [path name] references when needed. The following rule applies when absolute references to Internet resources are required.
 
 Rule 7-6. MPD Reference to Resource Uses Common URI Scheme
 
@@ -3112,9 +3108,9 @@ Appendix I. Index of Rules
    Rule 5-9, MPD Class Determined by Conformance Target Identifier in c:mpdClassURIList: Section 5.2.2, MPD Class (c:mpdClassURIList)
    Rule 5-10, IEPD Version Number Syntax: Section 5.2.3, IEPD Version Numbering Scheme (c:iepdVersionID)
    Rule 5-11, IEPD URI Is Absolute: Section 5.2.4.1, IEPD URI Scheme (c:iepdURI)
-   Rule 5-12, MPD URI Supports Fragment: Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI)
-   Rule 5-13, MPD URI Has No Fragment: Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI)
-   Rule 5-14, MPD Artifact URI Syntax: Section 5.2.4.2, URI Scheme for MPD Artifacts (c:externalURI)
+   Rule 5-12, IEPD URI Supports Fragment: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
+   Rule 5-13, IEPD URI Has No Fragment: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
+   Rule 5-14, IEPD Artifact URI Syntax: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
    Rule 5-15, c:pathURI Resolves to a Resource: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
    Rule 5-16, c:pathURI for c:XMLCatalog: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)
    Rule 5-17, c:pathURI for c:MPDChangeLog: Section 5.2.4.3, URI Scheme for Local MPD Artifacts (c:pathURI)

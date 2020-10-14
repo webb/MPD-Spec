@@ -1069,31 +1069,31 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 
 <section id="externalURI">
-	<title>URI Scheme for MPD Artifacts (<qName>c:externalURI</qName>)</title>
+	<title>URI Scheme for IEPD Artifacts (<qName>c:externalURI</qName>)</title>
 
-	<p>Artifacts in other MPDs can be referenced from within an <termRef term="model package description">MPD</termRef> to identify equivalence (signify reuse, one aspect of lineage).  To support this concept, the following MPD URI rules are necessary:</p>
+	<p>Artifacts in other IEPDs can be referenced from within an <termRef term="information exchange package documentation">IEPD</termRef> to identify equivalence (signify reuse, one aspect of lineage).  To support this concept, the following IEPD URI rules are necessary:</p>
 
-<ruleSection><title>MPD URI Supports Fragment</title>
+<ruleSection><title>IEPD URI Supports Fragment</title>
 	<rule id="r-uri-frag" applicability="WF-IEPD" class="Constraint">
-		<p>A valid MPD URI MUST support the inclusion of a <em>fragment identifier</em> (as a suffix) <ref idref="RFC3986-URI"/>.</p>
+		<p>A valid IEPD URI MUST support the inclusion of a <em>fragment identifier</em> (as a suffix) <ref idref="RFC3986-URI"/>.</p>
 	</rule>
-	<p>This rule ensures that an <termRef term="model package description">MPD</termRef> can always uniquely identify and refer to each artifact within another MPD.  This MPD specification follows <ref idref="RFC3986-URI"/> which forbids a URI to contain more than a single fragment identifier.  To construct an MPD artifact URI, add a fragment (that locally identifies the artifact) to an MPD URI, and therefore, an MPD URI cannot already contain a fragment.</p>
+	<p>This rule ensures that an <termRef term="information exchange package documentation">IEPD</termRef> can always uniquely identify and refer to each artifact within another IEPD.  This IEPD specification follows <ref idref="RFC3986-URI"/> which forbids a URI to contain more than a single fragment identifier.  To construct an IEPD artifact URI, add a fragment (that locally identifies the artifact) to an IEPD URI, and therefore, an IEPD URI cannot already contain a fragment.</p>
 </ruleSection>
 
-<ruleSection><title>MPD URI Has No Fragment</title>
+<ruleSection><title>IEPD URI Has No Fragment</title>
 	<rule id="r-uri-nofrag" applicability="WF-IEPD" class="Constraint">
-		<p>A valid MPD URI MUST NOT contain a <em>fragment identifier</em> <ref idref="RFC3986-URI"/>.</p>
+		<p>A valid IEPD URI MUST NOT contain a <em>fragment identifier</em> <ref idref="RFC3986-URI"/>.</p>
 	</rule>
-	<p>Rationale:  If a URI for an <termRef term="model package description">MPD</termRef> (do NOT confuse this with a URI for an MPD artifact) already contains a fragment identifier, then that URI cannot be employed as an MPD artifact URI, because <ref idref="RFC3986-URI"/> only allows a single fragment identifier.</p>
+	<p>Rationale:  If a URI for an <termRef term="information exchange package documentation">IEPD</termRef> (do NOT confuse this with a URI for an IEPD artifact) already contains a fragment identifier, then that URI cannot be employed as an IEPD artifact URI, because <ref idref="RFC3986-URI"/> only allows a single fragment identifier.</p>
 </ruleSection>
 
 	<p>By the following rule, each file artifact or artifact set is uniquely identified by its <termRef>path name</termRef> relative to the <termRef>IEPD root directory</termRef>.</p>
 
-<ruleSection><title>MPD Artifact URI Syntax</title>
-	<rule id="r-mpd-uri-syntax" applicability="WF-IEPD" class="Interpretation">
-		<p>Within an <termRef term="model package description">MPD</termRef> a URI reference to an artifact in another external MPD (i.e., an MPD artifact URI) is the concatenation of:</p>
+<ruleSection><title>IEPD Artifact URI Syntax</title>
+	<rule id="r-iepd-uri-syntax" applicability="WF-IEPD" class="Interpretation">
+		<p>Within an <termRef term="information exchange package documentation">IEPD</termRef> a URI reference to an artifact in another external IEPD (i.e., an IEPD artifact URI) is the concatenation of:</p>
 		<ul>
-			<li><p>The URI of the <termRef term="model package description">MPD</termRef> that contains the artifact.</p></li>
+			<li><p>The URI of the <termRef term="information exchange package documentation">IEPD</termRef> that contains the artifact.</p></li>
 			<li><p>A pound-sign character ("#" <char name="mdash"/> also known as a hashtag character).</p></li>
 			<li><p>An identifier that is the artifact<char name="rsquo"/>s locally unique <termRef>path name</termRef> relative to the <termRef>IEPD root directory</termRef>.</p></li>
 		</ul>
@@ -1102,7 +1102,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>An artifact set has a locally unique <termRef>path name</termRef>.  An artifact has a path name that terminates with its file name which is unique to the directory it resides in.</p>
 
-	<p>The following are examples of valid MPD artifact URIs:</p>
+	<p>The following are examples of valid IEPD artifact URIs:</p>
 	<ul>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#subset/niem-core.xsd</code> (a file artifact)</p></li>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0beta2/#extension/ext-1.1.xsd</code> (a file artifact)</p></li>
@@ -1110,14 +1110,14 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		<li><p><code>http://example.gov/niem-iepd/pmix/3.0/#iep-sample/query</code> (a set artifact)</p></li>
 	</ul>
 
-	<p>Since MPD URIs require the support of fragment identifiers (by <ref idref="r-uri-frag"/>), it does not appear that the <q>urn</q> URI scheme may be used as an MPD URI. Fragments use the <q><code>#</code></q> character, and the specification for the <q>urn</q> scheme (<ref idref="RFC2141-URN-Syntax"/>) indicates that they are not valid in URNs, when it states:</p>
+	<!--<p>Since IEPD URIs require the support of fragment identifiers (by <ref idref="r-uri-frag"/>), it does not appear that the <q>urn</q> URI scheme may be used as an IEPD URI. Fragments use the <q><code>#</code></q> character, and the specification for the <q>urn</q> scheme (<ref idref="RFC2141-URN-Syntax"/>) indicates that they are not valid in URNs, when it states:</p>
         <blockquote>
           <p>RFC 1630 reserves the characters <q>/</q>, <q>?</q>,
             and <q>#</q> for particular purposes. The URN-WG has not yet
             debated the applicability and precise semantics of those purposes
             as applied to URNs. Therefore, these characters are RESERVED for
             future developments.</p>
-        </blockquote>
+        </blockquote>-->
          
 	<p>Artifact URIs are used as values for the <qName>c:externalURI</qName> attribute in the IEPD catalog XML document to declare equivalence relationships between artifacts (See <ref idref="IEPD-Catalog-XSD"/>).  A simple scenario follows.  Consider two different IEPDs with the following URIs:</p>
 		<ol>
@@ -1130,9 +1130,9 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			<p><code>c:externalURI="http://example.org/niem-iepd/pmix/3.0/#base-xsd/extension/req1.xsd"</code></p>
 		</blockquote>
 
-	<p>Additional <qName>c:externalURI</qName> attributes may be added to this entry if the author knows of other uses of this same artifact in other MPDs and wishes to acknowledge them.</p>
+	<p>Additional <qName>c:externalURI</qName> attributes may be added to this entry if the author knows of other uses of this same artifact in other IEPDs and wishes to acknowledge them.</p>
 
-	<p>A URI does not have the same meaning as namespace.  NIEM namespaces cannot be used as MPD artifact URIs.  Recall that the target namespace used in a subset schema document derived from a NIEM release schema document is identical to the target namespace of that release schema document.  Furthermore, an <termRef term="information exchange package documentation">IEPD</termRef> may contain multiple subsets.  NIEM namespaces are not necessarily unique to an artifact within an <termRef term="model package description">MPD</termRef>.  Later, <ref idref="XML-Catalogs"/> will describe the use of <ref idref="OASIS-XML-Catalogs"/> to correlate namespaces to local URIs in order to <termRef term="resolve URI">resolve</termRef> them to local resources.</p>
+	<p>A URI does not have the same meaning as namespace.  NIEM namespaces cannot be used as IEPD artifact URIs.  Recall that the target namespace used in a subset schema document derived from a NIEM release schema document is identical to the target namespace of that release schema document.  Furthermore, an <termRef term="information exchange package documentation">IEPD</termRef> may contain multiple subsets.  NIEM namespaces are not necessarily unique to an artifact within an <termRef term="information exchange package documentation">IEPD</termRef>.  Later, <ref idref="XML-Catalogs"/> will describe the use of <ref idref="OASIS-XML-Catalogs"/> to correlate namespaces to local URIs in order to <termRef term="resolve URI">resolve</termRef> them to local resources.</p>
 
 	<p>The value of <qName>c:externalURI</qName> is an identifier for a remote resource that is not necessarily accessible online.  For this reason, even though such URIs should be correct (i.e. a resource with that URI should exist), their verification is not within the scope of this specification.</p>
 
