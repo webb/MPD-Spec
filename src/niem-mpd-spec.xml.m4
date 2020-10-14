@@ -1429,15 +1429,15 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <section id="Change-Log"><title>Change Log</title>
 
-	<p>A version identifier is a useful and simple visual indicator that an <termRef term="model package description">MPD</termRef> has changed.  However, a <em>change log</em> is needed to understand the volume, complexity, and possible impact of changes.</p>
+	<p>A version identifier is a useful and simple visual indicator that an <termRef term="information exchange package documentation">IEPD</termRef> has changed.  However, a <em>change log</em> is needed to understand the volume, complexity, and possible impact of changes.</p>
 
 	<definition term="change log">
-		<p>An artifact that describes the changes applied to an <termRef term="model package description">MPD</termRef> since its previous version.</p>
+		<p>An artifact that describes the changes applied to an <termRef term="information exchange package documentation">IEPD</termRef> since its previous version.</p>
 	</definition>
 
 
 
-<section id="Change-Log-Releases-Core-Domain-Updates">
+<!--<section id="Change-Log-Releases-Core-Domain-Updates">
 	<title>Change Log for Releases and Domain Updates</title>
 
 	<p>Once published, a NIEM release always exists.  This ensures that an <termRef term="information exchange package documentation">IEPD</termRef> built from a given release will always be usable.  Developers are not compelled to update their IEPDs when a new release is publshed; they may wait until an update is convenient, or absolutely necessary to take advantage of new or modified <termRef term="data component">data components</termRef>.  Though not encouraged, nothing prohibits a developer from building an <termRef term="information exchange package documentation">IEPD</termRef> based on a NIEM release that is older than the most current version.  There may be potential disadvantages related to interoperability levels achievable with others developing to the latest release.  Nonetheless, an older version might meet the business needs of a particular organization quite well.</p>
@@ -1446,11 +1446,11 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>Formal change logs for releases and domain updates will be detailed in future NIEM specifications related to these MPDs.</p>
 
-</section>
+</section>-->
 
 
 
-<section id="Change-Log-IEPD"><title>Change Log for IEPDs</title>
+<!--<section id="Change-Log-IEPD"><title>Change Log for IEPDs</title>-->
 
 	<p>An <termRef term="information exchange package documentation">IEPD</termRef> change log is not required to conform to any particular XML schema or other format specification.  However, a change log is still required for an <termRef term="information exchange package documentation">IEPD</termRef>.</p>
 
@@ -1464,7 +1464,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>The format of an <termRef term="information exchange package documentation">IEPD</termRef> change log is left to the discretion of the author.   A flexible <termRef>change log</termRef> format encourages and facilitates easier and more rapid development.  IEPDs are developed by a variety of NIEM domains, organizations, and users; and they are intended to specify implementable exchanges.  As a result, an <termRef term="information exchange package documentation">IEPD</termRef> may contain both documentation artifacts and machine readable application artifacts in a large variety of formats.  As a result, a consistent standard <termRef>change log</termRef> would be very difficult to specify.</p> 
 
-</section>
+<!--</section>-->
 </section>
 
 
