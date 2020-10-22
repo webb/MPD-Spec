@@ -23,9 +23,9 @@
 	
 	<subsection><title>Status</title>
 		
-		<p>This document is a normative specification for NIEM <termRef>information exchange package documentation</termRef> (IEPD).  It is an update to <ref idref="NIEM-MPD-3.0.1"/>.</p>
-		<p>This specification represents the work of the NIEM Technical Architecture Committee (NTAC) and the NIEM Business Architecture Committee (NBAC). It is a product of the NIEM Management Office.</p>
-		<p>Email comments on this specification to <link href="mailto:information@niem.gov?subject=NIEM%20IEPD%20Specification%20Version%20[[[]]]MACRO_document_version">information@niem.gov</link>.</p>
+		<p>This document supersedes NIEM Model Package Description (MPD) Specification 3.0.1 and deprecates the MPD construct.</p>
+		<p>This specification represents the work of the NIEM Technical Architecture Committee (NTAC), the NIEM Business Architecture Committee (NBAC), and their predecessors. It is a product of the NIEM Management Office (NMO).</p>
+		<p>Email comments on this specification to <link href="mailto:information@niem.gov?subject=NIEM%20IEPD%20Specification%20Version%20[[[]]]MACRO_document_version">information@niem.gov</link> or submit them via the <link href="https://github.com/NIEM/MPD-Spec/issues">GitHub issue tracker</link>.</p>
 	</subsection>
 	
 <!--	<subsection><title>URI</title>
@@ -434,16 +434,19 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 <section id="CT-IEPD"><title>IEPD Conformance Target</title>
 
 	<definition term="information exchange package documentation">
-          <p>An <termRef>information exchange package documentation</termRef> is a <termRef>model package description</termRef> that:</p>
+		<p>An <termRef>information exchange package documentation</termRef> is a set of <termRef term="artifact">artifacts</termRef> (possibly in a ZIP file) that:</p>
 
 	  <ul>
-	    <li><p>has an <termRef>MPD class</termRef> of <code>MACRO_IEPD_conformance_target_identifier</code>, and</p></li>
-            <li><p>conforms to all the rules in this specification for the conformance target <termRef>information exchange package documentation</termRef> (i.e., applicability code <q>IEPD</q>).</p></li>
-          </ul>
+	    <li><p>includes a set of logically cohesive W3C XML Schema documents and other supporting files, that represent one or more reusable or implementable XML information models, and</p></li>
+	  	<!--<li><p>has an <termRef>MPD class</termRef> of <code>MACRO_IEPD_conformance_target_identifier</code>, and</p></li>-->	  	
+	  	<li><p>has an IEPD <termRef>conformance target identifier</termRef> <code>MACRO_IEPD_conformance_target_identifier</code>, and</p></li>
+        <li><p>conforms to all the rules in this specification for the conformance target <termRef>information exchange package documentation</termRef> (i.e., applicability code <q>IEPD</q>), and</p></li>
+	  	<li><p>is well-formed (conforms to all the rules with applicability code <q>WF-IEPD</q>).</p></li>
+	  </ul>
 	  <p>This term may be abbreviated <q>IEPD</q>. Rules specifying this conformance target use the applicability code <q>IEPD</q>.</p>
         </definition>
 
-	<p>Because it is an <termRef term="model package description">MPD</termRef>, an IEPD must also conform to all WF-IEPD rules.</p>
+	<!--<p>An <termRef term="information exchange package documentation">IEPD</termRef> must also conform to all well-formed rules (i.e., applicability code <q>WF-IEPD</q>).</p>-->
 
 	<p>An <termRef term="information exchange package documentation">IEPD</termRef> has one or more <qName>c:IEPConformanceTarget</qName> elements within its <termRef>IEPD catalog document</termRef>, each defining a class of <termRef term="information exchange package">information exchange packages</termRef> (IEP), in which each <termRef term="information exchange package">IEP</termRef> is an <termRef term="instance XML document">instance XML document</termRef>.</p>
 
@@ -464,14 +467,14 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>(The terms <termRef>information exchange package</termRef> (IEP) and <termRef>information exchange package documentation</termRef> (IEPD) first appeared in [FEA Data Reference Model 1.0] and [GJXDM IEPD Guidelines 1.1], respectively.)</p>
 
-	<p>The following rule specifies an <termRef term="information exchange package documentation">IEPD</termRef> as a <termRef>conformance target</termRef>:</p>
+	<!--<p>The following rule specifies an <termRef term="information exchange package documentation">IEPD</termRef> as a <termRef>conformance target</termRef>:</p>
 
 	<ruleSection>
 		<title>MPD with MPD class of IEPD is an IEPD</title>
 		<rule id="rule-mpd-class-iepd" applicability="WF-IEPD" class="Constraint">
 			<p>A <termRef>model package description</termRef> with an <termRef>MPD class</termRef> of <code>MACRO_IEPD_conformance_target_identifier</code> MUST be an <termRef>information exchange package documentation</termRef>.</p>
 		</rule>
-	</ruleSection>
+	</ruleSection>-->
 
 	<p>The following rule is applicable to all IEPDs:</p>
 
@@ -486,7 +489,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<p>Note that NIEM conformance does not require that an IEP be native XML on the transmission medium.  A NIEM-conformant IEP may be encrypted, compressed (e.g., using <ref idref="PKZIP"/>, <ref idref="W3-EXI"/>, etc.), or wrapped within an envelope mechanism, as long as its original native XML form can be retrieved by the receiver.</p>
 
-	<p>Common to <termRef term="information exchange package documentation">IEPD</termRef> MPDs:</p>
+	<p>Common to <termRef term="information exchange package documentation">IEPDs</termRef>:</p>
 	<ul>
 		<li><p>Requires a <code>readme</code> artifact.</p></li>
 		<li><p>Its <termRef>XML schema document</termRef> set defines data exchanges (<termRef term="information exchange package">information exchange packages</termRef> or IEPs).</p></li>
