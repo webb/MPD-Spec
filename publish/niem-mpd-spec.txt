@@ -40,6 +40,8 @@ Contents
 
       *  [NIEM High-Level Version Architecture 3.0]
 
+   This specification uses and is a peer to the [NIEM Naming and Design Rules v4.0].
+
 1.1. Background
 
    An [IEPD] is a normative specification for XML [data components] in the format of the World Wide Web Consortium (W3C) XML Schema Definition Language [W3C XML Schema Part 2 Datatypes], [W3C XML Schema Part 1 Structures]. [IEPD] schema documents either (1) define the semantics and structure for NIEM reusable [data components], or (2) define implementable NIEM exchange instance XML documents in W3C Extensible Markup Language (XML) [W3C XML 1.0].
@@ -262,15 +264,15 @@ Contents
 
          An internationalized resource identifier [RFC 3987 IRI] that uniquely identifies a conformance target.
 
-   It will also be useful to define [MPD class].
+   It will also be useful to define [IEPD conformance target identifier].
 
-   [Definition: MPD class]
+   [Definition: IEPD conformance target identifier]
 
-      A [conformance target identifier] to which a given [MPD] claims to conform. The [MPD class] of an [MPD] is established by Rule 5-9, MPD Class Determined by Conformance Target Identifier in c:mpdClassURIList.
+      A [conformance target identifier] to which a given [IEPD] claims to conform.
 
 3.2. IEPD Conformance Targets
 
-   This specification establishes three primary [IEPD] [conformance targets]: [information exchange package documentation], [information exchange package] and [artifact].
+   This specification establishes three primary [IEPD] [conformance target]s: [information exchange package documentation], [information exchange package] and [artifact].
 
    An [IEPD] may be constructed manually, but it is far more efficient to generate an IEPD entirely or in part using NIEM-aware software tools. The existence of a [information exchange package documentation] [conformance target] has several advantages:
 
@@ -292,65 +294,7 @@ Contents
 
          ... a cross-platform, interoperable file storage and transfer format ... used to aggregate, compress, and encrypt files into a single interoperable container.
 
-3.2.1. The Model Package Description Conformance Target
-
-   The concept of [model package description] provides a common framework for classes of NIEM file sets, each with a specific purpose. A NIEM release is a harmonized [reference schema document] set that defines and declares all content for a single (major, minor, or micro) version of NIEM (See [NIEM High-Level Version Architecture 3.0]). A core supplement is a special type of release. It is a [reference schema document] set of additive changes that append data components to the core of a NIEM release without modifying the original niem-core schema document. A domain update is a [reference schema document] set that represents changes to one or more domains in a NIEM release. An Enterprise Information Exchange Model (EIEM) is a [XML schema document] set that may contain one or more [subset schema documents], [extension schema documents], and [external schema documents] that are employed to construct IEPDs.
-
-   All MPDs share several commonalities; each MPD:
-
-      *  Is a set of [artifacts], whose principal content is [XML schema documents] (XSD), the purpose for which is to define and declare reusable [data components] for information exchanges or to define the exchanges themselves.
-
-      *  Requires a self-documenting iepd-catalog.xml artifact containing metadata and a listing of its key artifacts. This artifact establishes identification metadata, [conformance targets], purpose, general content, lineage, and other metadata.
-
-      *  Requires the following metadata:
-
-            *  Uniform Resource Identifier (URI) (See Section 5.2.4.1, IEPD URI Scheme (c:iepdURI), below)
-
-            *  Name (See Section 5.2.1, IEPD Name Syntax (c:iepdName), below)
-
-            *  Version number (See Section 5.2.3, IEPD Version Numbering Scheme (c:iepdVersionID), below)
-
-            *  The [conformance target identifier] http://reference.niem.gov/niem/specification/iepd/4.0/#IEPD (See Section 5.2.2, MPD Class (c:mpdClassURIList), below)
-
-      *  Contains a copy of (not just URLs or references to) all schema documents needed to validate any [instance XML document] class it defines.
-
-      *  May contain optional alternate representations in addition to XML Schema (e.g., generic diagram, UML/XMI, database format, spreadsheet, etc.).
-
-      *  May contain miscellaneous other documentation or file artifacts for assisting with usage or implementation.
-
-   [Definition: model package description]
-
-      A [model package description] is a set of [artifacts] (possibly in a [ZIP file]) that:
-
-         *  includes a set of logically cohesive W3C XML Schema documents and other supporting files that represent one or more reusable or implementable XML information models, and
-
-         *  has an [MPD class] of http://reference.niem.gov/niem/specification/iepd/4.0/#IEPD, and
-
-         *  adheres to all the rules within this specification for the [model package description] [conformance target].
-
-      This term may be abbreviated "MPD". Rules specifying this conformance target use the applicability code "WF-IEPD".
-
-   The schemas and other files within a [model package description] are built on other specifications, including:
-
-      *  [NIEM Naming and Design Rules v4.0]
-
-      *  [NIEM Conformance Targets Attribute Specification 3.0]
-
-      *  [NIEM Conformance Specification v4.0]
-
-   The following rule applies to all MPDs:
-
-Rule 3-1. MPD Conformance Target Identifier
-
-   [Rule 3-1] (WF-IEPD)
-
-      An [MPD] MUST have an [MPD class] of http://reference.niem.gov/niem/specification/iepd/4.0/#IEPD.
-
-   A [model package description] satisfies the need for a set of [artifacts] (or a [ZIP file]) with an [IEPD catalog document] that validates to the IEPD catalog schema, and contains no broken links to local artifacts it references. This definition enables a developer to build an [MPD] by iteratively adding artifacts and expanding the IEPD catalog to reference them.
-
-   Most rules in this [MPD] specification are applicable to a [model package description] [conformance target]. Rules for this conformance target are less concerned with the correct use of NIEM and completeness, and more concerned with proper format, proper structure (e.g., link integrity), and correct use of artifacts. Adherence to these rules can produce an [IEPD] that is well-formed (WF-IEPD), but that does not necessarily satisfy all general and specific requirements for an [IEPD]. The following rule ensures that a complete [IEPD] adheres to all applicable NIEM conformance rules.
-
-3.2.2. IEPD Conformance Target
+3.2.1. IEPD Conformance Target
 
    [Definition: information exchange package documentation]
 
@@ -365,6 +309,44 @@ Rule 3-1. MPD Conformance Target Identifier
          *  is well-formed (conforms to all the rules with applicability code "WF-IEPD").
 
       This term may be abbreviated "IEPD". Rules specifying this conformance target use the applicability code "IEPD".
+
+   All IEPDs share several commonalities; each IEPD:
+
+      *  Is a set of [artifacts], whose principal content is [XML schema documents] (XSD), the purpose for which is to define and declare reusable [data components] for information exchanges or to define the exchanges themselves.
+
+      *  Requires a self-documenting iepd-catalog.xml artifact containing metadata and a listing of its key artifacts. This artifact establishes identification metadata, [conformance targets], purpose, general content, lineage, and other metadata.
+
+      *  Requires the following metadata:
+
+            *  Uniform Resource Identifier (URI) (See Section 5.2.4.1, IEPD URI Scheme (c:iepdURI), below)
+
+            *  Name (See Section 5.2.1, IEPD Name Syntax (c:iepdName), below)
+
+            *  Version number (See Section 5.2.3, IEPD Version Numbering Scheme (c:iepdVersionID), below)
+
+            *  The [conformance target identifier] http://reference.niem.gov/niem/specification/iepd/4.0/#IEPD (See Section 5.2.2, IEPD Conformance Target Identifier (c:iepdConformanceTargetIdentifierURIList), below)
+
+      *  Contains a copy of (not just URLs or references to) all schema documents needed to validate any [instance XML document] class it defines.
+
+      *  May contain optional alternate representations in addition to XML Schema (e.g., generic diagram, UML/XMI, database format, spreadsheet, etc.).
+
+      *  May contain miscellaneous other documentation or file artifacts for assisting with usage or implementation.
+
+   The schemas and other files within a [information exchange package documentation] are built on other specifications, including:
+
+      *  [NIEM Naming and Design Rules v4.0]
+
+      *  [NIEM Conformance Targets Attribute Specification 3.0]
+
+      *  [NIEM Conformance Specification v4.0]
+
+   The following rule applies to all IEPDs:
+
+Rule 3-1. IEPD Conformance Target Identifier
+
+   [Rule 3-1] (WF-IEPD)
+
+      An [IEPD] MUST have an [IEPD conformance target identifier] of http://reference.niem.gov/niem/specification/iepd/4.0/#IEPD as a value of its c:iepdConformanceTargetIdentifierURIList attribute.
 
    An [IEPD] has one or more c:IEPConformanceTarget elements within its [IEPD catalog document], each defining a class of [information exchange packages] (IEP), in which each [IEP] is an [instance XML document].
 
@@ -386,14 +368,6 @@ Rule 3-1. MPD Conformance Target Identifier
 
    (The terms [information exchange package] (IEP) and [information exchange package documentation] (IEPD) first appeared in [FEA Data Reference Model 1.0] and [GJXDM IEPD Guidelines 1.1], respectively.)
 
-   The following rule is applicable to all IEPDs:
-
-Rule 3-2. IEPD Conformance Target Identifier
-
-   [Rule 3-2] (IEPD)
-
-      An [IEPD] MUST have the [conformance target identifier] http://reference.niem.gov/niem/specification/iepd/4.0/#IEPD as a value of its c:mpdClassURIList attribute.
-
    How to declare validity constraints for one or more IEP classes within an [IEPD] will be covered in more depth in Section 5.6, Defining Information Exchange Packages, below.
 
    Note that NIEM conformance does not require that an IEP be native XML on the transmission medium. A NIEM-conformant IEP may be encrypted, compressed (e.g., using [PKZIP], [EXI Format 1.0], etc.), or wrapped within an envelope mechanism, as long as its original native XML form can be retrieved by the receiver.
@@ -410,7 +384,7 @@ Rule 3-2. IEPD Conformance Target Identifier
 
       *  Contains sample instance XML documents that validate to XML schema document set.
 
-3.2.3. IEP Conformance Targets
+3.2.2. IEP Conformance Targets
 
    In NIEM, an information exchange instance is an [information exchange package] (IEP). An IEP is also a [conformance target] and in that connotation is defined as follows:
 
@@ -428,7 +402,7 @@ Rule 3-2. IEPD Conformance Target Identifier
 
       This term may be abbreviated "full NIEM IEP". Rules specifying this conformance target use the applicability code "FN-IEP".
 
-3.2.4. Artifact Conformance Targets
+3.2.3. Artifact Conformance Targets
 
    Conformance targets that correspond to artifacts internal to an [IEPD] include:
 
@@ -462,7 +436,7 @@ Rule 3-2. IEPD Conformance Target Identifier
 
 4. IEPD XML Schema Document Artifacts
 
-   [XML schema document] artifacts are the essential content of MPDs because they normatively define and declare [data components]. The purpose of an [MPD] is determined by the [XML schema document] or document set(s) it contains; furthermore, each [ XML schema document] may have a different purpose. The [NIEM Naming and Design Rules v4.0] addresses some schema documents as [conformance targets] including reference schema documents, extension schema documents, and schema document sets. Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules. Consult the [NIEM Naming and Design Rules v4.0] for these rules. NIEM also employs a special technique that relies on [constraint schema document sets] (See Section 4.5, Constraint Schema Document Sets, below).
+   [XML schema document] artifacts are the essential content of IEPDs because they normatively define and declare [data components]. The purpose of an [IEPD] is determined by the [XML schema document] or document set(s) it contains; furthermore, each [ XML schema document] may have a different purpose. The [NIEM Naming and Design Rules v4.0] addresses some schema documents as [conformance targets] including reference schema documents, extension schema documents, and schema document sets. Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules. Consult the [NIEM Naming and Design Rules v4.0] for these rules. NIEM also employs a special technique that relies on [constraint schema document sets] (See Section 4.5, Constraint Schema Document Sets, below).
 
    The following subsections define each type of NIEM schema document and document set.
 
@@ -636,11 +610,11 @@ Rule 4-1. Fundamental NIEM Subset Rule
 
    In general, constraint schema documents in a [constraint schema document set] have far fewer requirements than other classes of NIEM schema documents. Since they work in tandem with NIEM normative schema documents, these schema documents are allowed to use the XML Schema Definition language in any way necessary to express business rules. This means that to constrain instance XML documents, these schema document can employ XML Schema constructs that are not allowed in NIEM conformant schema documents.
 
-5. MPD Documentation Artifacts
+5. IEPD Documentation Artifacts
 
-   XML schema documents (and the schemas that result from them) are the essence of a NIEM [MPD]. However, a variety of documentation files may be incorporated into a NIEM [MPD]. One particular documentation file is required in every MPD: iepd-catalog.xml, the IEPD catalog document. This file contains basic metadata, relationship and lineage data, [conformance target] specifications, and validation information.
+   XML schema documents (and the schemas that result from them) are the essence of a NIEM [IEPD]. However, a variety of documentation files may be incorporated into a NIEM [IEPD]. One particular documentation file is required in every IEPD: iepd-catalog.xml, the IEPD catalog document. This file contains basic metadata, relationship and lineage data, [conformance target] specifications, and validation information.
 
-   A [readme artifact] (formerly known as a master document) is mandatory for IEPDs. IEPDs are often built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary. An [IEPD] readme file is the primary source and starting point for human readable documentation, and should reference (and describe) any other separate documentation artifacts. This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each [MPD].
+   A [readme artifact] (formerly known as a master document) is mandatory for IEPDs. IEPDs are often built by different developers, and may be registered into a repository for reuse by many other users, developers, and implementers; therefore, a minimal form of documentation is absolutely necessary. An [IEPD] readme file is the primary source and starting point for human readable documentation, and should reference (and describe) any other separate documentation artifacts. This requirement ensures that baseline documentation is consistently rooted in a clearly visible artifact within each [IEPD].
 
    The following subsections address these documentation artifacts and the concepts, metadata, and content each supports.
 
@@ -788,27 +762,18 @@ Rule 5-8. IEPD Schema Document Extension Support Schemas Are Supersets of Spec S
 
    c:iepdName is not the same thing as the name of the file containing the IEPD, described in Section 7.2, IEPD File Name Syntax, below.
 
-5.2.2. MPD Class (c:mpdClassURIList)
+5.2.2. IEPD Conformance Target Identifier (c:iepdConformanceTargetIdentifierURIList)
 
-   An [MPD class] is a [conformance target identifier] to which the given [MPD] claims to conform. The IEPD catalog c:mpdClassURIList attribute declares a list of [conformance target identifiers], identifying the [conformance targets] to which the MPD claims to conform. The following rule establishes the [class] of an [MPD]:
+   An [IEPD conformance target identifier] is a [conformance target identifier] to which the given [IEPD] claims to conform. The IEPD catalog c:iepdConformanceTargetIdentifierURIList attribute declares a list of [conformance target identifiers], identifying the [conformance targets] to which the IEPD claims to conform.
 
-Rule 5-9. MPD Class Determined by Conformance Target Identifier in c:mpdClassURIList
+   The c:iepdConformanceTargetIdentifierURIList attribute is an XML list type that may declare that an IEPD conforms to multiple conformance targets. An IEPD developer can establish a new IEPD [conformance target] identifier in addition to those provided by this and other NIEM specifications. The identifier represents the new conformance target which should be associated with one or more rules or constraints to which an IEPD must conform if it is assigned that identifier.
 
-   [Rule 5-9] (WF-IEPD)
+   An [IEPD] authoring organization might use another classification system for its IEPDs. For example, the organization ABC might establish the [conformance target identifier] http://example.org/niem-iepd/1.0/#abc-org to indicate its IEPDs also conform to its own stricter set of [IEPD] conformance rules. Thus, an IEPD catalog document for its published IEPDs would contain the c:mpdClassURIList component shown in Figure 5-1, IEPD catalog c:iepdConformanceTargetIdentifierURIList attribute for organization ABC., below, indicating conformance to three [conformance targets].
 
-      An MPD MUST have an [MPD class] of a [conformance target identifier] if and only if that [conformance target identifier] appears in the c:mpdClassURIList attribute within its [IEPD catalog document].
+   Figure 5-1: IEPD catalog c:iepdConformanceTargetIdentifierURIList attribute for organization ABC.
 
-   It should be clear that an [MPD] that is an [IEPD] should have a value for its c:mpdClassURIList attribute that contains both [conformance target identifiers] above. In the future, additional conformance target identifiers will be assigned by other appropriate NIEM specifications that specialize MPDs (for example, releases, domain updates, etc.).
-
-   The c:mpdClassURIList attribute is an XML list type that may declare that an MPD conforms to multiple conformance targets. An MPD developer can establish a new MPD [conformance target] identifier in addition to those provided by this and other NIEM specifications. The identifier represents the new conformance target which should be associated with one or more rules or constraints to which an MPD must conform if it is assigned that identifier.
-
-   An [IEPD] authoring organization might use another classification system for its IEPDs. For example, the organization ABC might establish the [conformance target identifier] http://example.org/niem-iepd/1.0/#abc-org to indicate its IEPDs also conform to its own stricter set of [IEPD] conformance rules. Thus, an IEPD catalog document for its published IEPDs would contain the c:mpdClassURIList component shown in Figure 5-1, IEPD catalog c:mpdClassURIList attribute for organization ABC., below, indicating conformance to three [conformance targets].
-
-   Figure 5-1: IEPD catalog c:mpdClassURIList attribute for organization ABC.
-
-      c:mpdClassURIList=
+      c:iepdConformanceTargetIdentifierURIList=
        "http://reference.niem.gov/niem/specification/iepd/4.0/#IEPD
-        http://reference.niem.gov/niem/specification/iepd/4.0/#IEPD
         http://example.org/niem-iepd/1.0/#abc-org"
 
 5.2.3. IEPD Version Numbering Scheme (c:iepdVersionID)
@@ -817,9 +782,9 @@ Rule 5-9. MPD Class Determined by Conformance Target Identifier in c:mpdClassURI
 
    An IEPD version number is the value of the c:iepdVersionID attribute owned by the c:IEPD element within its [IEPD catalog document]. A consistent version number syntax is enforced by the IEPD catalog schema in Appendix A, IEPD Catalog XML Schema Document, below. The syntax rule is as follows:
 
-Rule 5-10. IEPD Version Number Syntax
+Rule 5-9. IEPD Version Number Syntax
 
-   [Rule 5-10] (WF-IEPD)
+   [Rule 5-9] (WF-IEPD)
 
       An IEPD MUST be assigned a version number that adheres to the regular expression:
 
@@ -854,9 +819,9 @@ Rule 5-10. IEPD Version Number Syntax
 
       *  199.88.15rev6
 
-   There are two implications in Rule 5-10, IEPD Version Number Syntax. The first is that in some cases this version scheme implies and confirms a chronology of releases. For example, a given product labeled version 2.3 must have been released before the same product labeled 2.3.1. Therefore, version 2.3.1 is more current than version 2.3.
+   There are two implications in Rule 5-9, IEPD Version Number Syntax. The first is that in some cases this version scheme implies and confirms a chronology of releases. For example, a given product labeled version 2.3 must have been released before the same product labeled 2.3.1. Therefore, version 2.3.1 is more current than version 2.3.
 
-   However, this is a multi-series version scheme, and chronological relationships exist only within a given series. So, for example, nothing can be said about a chronological relationship between versions 2.2.4 and 2.3. This is because version 2.2.4 is in a different series (i.e., 2.2) and could actually have been released after 2.3. Figure 5-2, Example versioning system, below, illustrates a system of versions that uses the numbering scheme of Rule 5-10, IEPD Version Number Syntax.
+   However, this is a multi-series version scheme, and chronological relationships exist only within a given series. So, for example, nothing can be said about a chronological relationship between versions 2.2.4 and 2.3. This is because version 2.2.4 is in a different series (i.e., 2.2) and could actually have been released after 2.3. Figure 5-2, Example versioning system, below, illustrates a system of versions that uses the numbering scheme of Rule 5-9, IEPD Version Number Syntax.
 
    Figure 5-2: Example versioning system
 
@@ -880,7 +845,7 @@ Rule 5-10. IEPD Version Number Syntax
 
       *  Series 3.2 is {3.2, 3.2.1, 3.2.2}
 
-   The second implication of Rule 5-10, IEPD Version Number Syntax is that pre-releases are easily identified by the strings alpha, beta, and rc. These strings are simple visible indicators of IEPD status or stage of development.
+   The second implication of Rule 5-9, IEPD Version Number Syntax is that pre-releases are easily identified by the strings alpha, beta, and rc. These strings are simple visible indicators of IEPD status or stage of development.
 
    This specification places no further restrictions or meaning (implied or otherwise) on a version number. Authors have the option to use integers between dots to indicate degree of compatibility or other relationships between versions as needed. For example, for a given [IEPD], the author may declare that if an instance validates to version 4.2.3, then it will also validate to version 4.2. Such a claim is acceptable. However, this specification does not imply any such relationships. Any meaning assigned to version sequence by an authoritative source should be unambiguously documented within the [IEPD].
 
@@ -908,9 +873,9 @@ Rule 5-10. IEPD Version Number Syntax
 
    To facilitate IEPD sharing and reuse, the assignment of a URI (Uniform Resource Identifier) to an IEPD is essential. This is enforced by the IEPD catalog schema document Appendix A, IEPD Catalog XML Schema Document, below. It is also important to ensure that an IEPD URI is absolute.
 
-Rule 5-11. IEPD URI Is Absolute
+Rule 5-10. IEPD URI Is Absolute
 
-   [Rule 5-11] (WF-IEPD)
+   [Rule 5-10] (WF-IEPD)
 
       In an IEPD catalog document, the value of a c:iepdURI attribute of type xs:anyURI MUST match the production <absolute-URI> as defined by [RFC 3986 URI],  section 4.3, "Absolute URI".
 
@@ -932,17 +897,17 @@ Rule 5-11. IEPD URI Is Absolute
 
    Artifacts in other IEPDs can be referenced from within an [IEPD] to identify equivalence (signify reuse, one aspect of lineage). To support this concept, the following IEPD URI rules are necessary:
 
-Rule 5-12. IEPD URI Supports Fragment
+Rule 5-11. IEPD URI Supports Fragment
 
-   [Rule 5-12] (WF-IEPD)
+   [Rule 5-11] (WF-IEPD)
 
       A valid IEPD URI MUST support the inclusion of a fragment identifier (as a suffix) [RFC 3986 URI].
 
    This rule ensures that an [IEPD] can always uniquely identify and refer to each artifact within another IEPD. This IEPD specification follows [RFC 3986 URI] which forbids a URI to contain more than a single fragment identifier. To construct an IEPD artifact URI, add a fragment (that locally identifies the artifact) to an IEPD URI, and therefore, an IEPD URI cannot already contain a fragment.
 
-Rule 5-13. IEPD URI Has No Fragment
+Rule 5-12. IEPD URI Has No Fragment
 
-   [Rule 5-13] (WF-IEPD)
+   [Rule 5-12] (WF-IEPD)
 
       A valid IEPD URI MUST NOT contain a fragment identifier [RFC 3986 URI].
 
@@ -950,9 +915,9 @@ Rule 5-13. IEPD URI Has No Fragment
 
    By the following rule, each file artifact or artifact set is uniquely identified by its [path name] relative to the [IEPD root directory].
 
-Rule 5-14. IEPD Artifact URI Syntax
+Rule 5-13. IEPD Artifact URI Syntax
 
-   [Rule 5-14] (WF-IEPD)
+   [Rule 5-13] (WF-IEPD)
 
       Within an [IEPD] a URI reference to an artifact in another external IEPD (i.e., an IEPD artifact URI) is the concatenation of:
 
@@ -1004,107 +969,107 @@ Rule 5-14. IEPD Artifact URI Syntax
 
    Despite its simplicity, c:pathURI comes with over a dozen rules that help to define a [information exchange package documentation]. These rules ensure that every c:pathURI attribute value in a well-formed [IEPD] resolves to a correct local resource:
 
-Rule 5-15. c:pathURI Resolves to a Resource
+Rule 5-14. c:pathURI Resolves to a Resource
 
-   [Rule 5-15] (WF-IEPD)
+   [Rule 5-14] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute MUST [resolve] to a resource.
 
-Rule 5-16. c:pathURI for c:XMLCatalog
+Rule 5-15. c:pathURI for c:XMLCatalog
 
-   [Rule 5-16] (WF-IEPD)
+   [Rule 5-15] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:XMLCatalog element MUST [resolve] to an [XML catalog document].
 
-Rule 5-17. c:pathURI for c:IEPDChangeLog
+Rule 5-16. c:pathURI for c:IEPDChangeLog
 
-   [Rule 5-17] (WF-IEPD)
+   [Rule 5-16] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:IEPDChangeLog element MUST [resolve] to a [change log].
 
-Rule 5-18. c:pathURI for c:ReadMe
+Rule 5-17. c:pathURI for c:ReadMe
 
-   [Rule 5-18] (WF-IEPD)
+   [Rule 5-17] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:ReadMe element MUST [resolve] to a [readme artifact].
 
-Rule 5-19. c:pathURI for c:IEPSampleXMLDocument
+Rule 5-18. c:pathURI for c:IEPSampleXMLDocument
 
-   [Rule 5-19] (WF-IEPD)
+   [Rule 5-18] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:IEPSampleXMLDocument element MUST [resolve] to an [XML document].
 
-Rule 5-20. c:pathURI for c:BusinessRulesArtifact
+Rule 5-19. c:pathURI for c:BusinessRulesArtifact
 
-   [Rule 5-20] (WF-IEPD)
+   [Rule 5-19] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:BusinessRulesArtifact element MUST [resolve] to a [business rule schema] or [business rules] artifact.
 
-Rule 5-21. c:pathURI for c:XMLSchemaDocument
+Rule 5-20. c:pathURI for c:XMLSchemaDocument
 
-   [Rule 5-21] (WF-IEPD)
+   [Rule 5-20] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:XMLSchemaDocument element MUST [resolve] to an [XML schema document].
 
-Rule 5-22. c:pathURI for c:ExternalSchemaDocument
+Rule 5-21. c:pathURI for c:ExternalSchemaDocument
 
-   [Rule 5-22] (WF-IEPD)
+   [Rule 5-21] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:ExternalSchemaDocument element MUST [resolve] to an [XML schema document].
 
-Rule 5-23. c:pathURI for c:ReferenceSchemaDocument
+Rule 5-22. c:pathURI for c:ReferenceSchemaDocument
 
-   [Rule 5-23] (WF-IEPD)
+   [Rule 5-22] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:ReferenceSchemaDocument element MUST [resolve] to a NIEM [reference schema document].
 
-Rule 5-24. c:pathURI for c:ExtensionSchemaDocument
+Rule 5-23. c:pathURI for c:ExtensionSchemaDocument
 
-   [Rule 5-24] (WF-IEPD)
+   [Rule 5-23] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:ExtensionSchemaDocument element MUST [resolve] to a NIEM [extension schema document].
 
-Rule 5-25. c:pathURI for c:SubsetSchemaDocument
+Rule 5-24. c:pathURI for c:SubsetSchemaDocument
 
-   [Rule 5-25] (WF-IEPD)
+   [Rule 5-24] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:SubsetSchemaDocument element MUST [resolve] to a NIEM [subset schema document].
 
    Note: It is not possible for a Schematron rule to verify that the URI resolves to a NIEM subset schema document, only that it is a schema document.
 
-Rule 5-26. c:pathURI for c:Wantlist
+Rule 5-25. c:pathURI for c:Wantlist
 
-   [Rule 5-26] (WF-IEPD)
+   [Rule 5-25] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:Wantlist element MUST [resolve] to a [NIEM wantlist] XML document.
 
-Rule 5-27. c:pathURI for c:SchematronSchema
+Rule 5-26. c:pathURI for c:SchematronSchema
 
-   [Rule 5-27] (WF-IEPD)
+   [Rule 5-26] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:SchematronSchema element MUST [resolve] to a [Schematron schema].
 
-Rule 5-28. c:pathURI for c:RelaxNGSchema
+Rule 5-27. c:pathURI for c:RelaxNGSchema
 
-   [Rule 5-28] (WF-IEPD)
+   [Rule 5-27] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:RelaxNGSchema element MUST [resolve] to a RelaxNG schema.
 
-Rule 5-29. c:pathURI for c:SchemaDocumentSet
+Rule 5-28. c:pathURI for c:SchemaDocumentSet
 
-   [Rule 5-29] (WF-IEPD)
+   [Rule 5-28] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:SchemaDocumentSet element MUST [resolve] to an [XML schema document] set.
 
-Rule 5-30. c:pathURI for c:ConstraintSchemaDocumentSet
+Rule 5-29. c:pathURI for c:ConstraintSchemaDocumentSet
 
-   [Rule 5-30] (WF-IEPD)
+   [Rule 5-29] (WF-IEPD)
 
       Within an [IEPD catalog document], the value of a c:pathURI attribute owned by a c:ConstraintSchemaDocumentSet element MUST [resolve] to a NIEM [XML schema document] set.
 
-Rule 5-31. Schema document set interpreted as constraint schema document set
+Rule 5-30. Schema document set interpreted as constraint schema document set
 
-   [Rule 5-31] (WF-IEPD)
+   [Rule 5-30] (WF-IEPD)
 
       Any [XML schema document] set whose c:pathURI attribute resolves to a [constraint schema document set] MUST be interpreted to be a [constraint schema document set].
 
@@ -1124,9 +1089,9 @@ Rule 5-31. Schema document set interpreted as constraint schema document set
 
 5.2.4.5. Resolving an IEPD URI with a Fragment
 
-Rule 5-32. Resolve IEPD URI with Fragment
+Rule 5-31. Resolve IEPD URI with Fragment
 
-   [Rule 5-32] (WF-IEPD)
+   [Rule 5-31] (WF-IEPD)
 
       Given an absolute IEPD URI [RFC 3986 URI],  section 4.3, "Absolute URI" with a fragment, resolve this URI as follows:
 
@@ -1144,7 +1109,7 @@ Rule 5-32. Resolve IEPD URI with Fragment
 
 5.2.4.6. URI Resolution Involving Reference Elements
 
-   A NIEM element can indirectly reference its content rather than carry or encapsulate it. A NIEM element with simple content derived from type xs:anyURI may appear in an instance XML document as a reference element, in which case, rather than locally containing a URI as simple content, it will instead refer to another element that contains a URI. Under some circumstances, this might impact URI resolution described in Rule 5-32, Resolve IEPD URI with Fragment.
+   A NIEM element can indirectly reference its content rather than carry or encapsulate it. A NIEM element with simple content derived from type xs:anyURI may appear in an instance XML document as a reference element, in which case, rather than locally containing a URI as simple content, it will instead refer to another element that contains a URI. Under some circumstances, this might impact URI resolution described in Rule 5-31, Resolve IEPD URI with Fragment.
 
    [NIEM Naming and Design Rules v4.0],  section 12.3, "Reference Elements" defines a NIEM [reference element] as follows:
 
@@ -1160,15 +1125,15 @@ Rule 5-32. Resolve IEPD URI with Fragment
 
    An [XML catalog document] conforms to [XML Catalogs 1.1]. For the purpose of IEPD validation, the following rules ensure that an XML catalog document contains URIs that correctly resolve.
 
-Rule 5-33. XML Catalog uri Value Resolves to Resource
+Rule 5-32. XML Catalog uri Value Resolves to Resource
 
-   [Rule 5-33] (XML-catalog)
+   [Rule 5-32] (XML-catalog)
 
       Within an [XML catalog document], the value of a uri attribute owned by a er:uri element MUST [resolve] to a resource.
 
-Rule 5-34. XML Catalog uri Value Resolves to Resource with Correct Target Namespace
+Rule 5-33. XML Catalog uri Value Resolves to Resource with Correct Target Namespace
 
-   [Rule 5-34] (XML-catalog)
+   [Rule 5-33] (XML-catalog)
 
       Within an [XML catalog document], given an [XML schema document] resolved by the value of a uri attribute owned by a er:uri element, the [XML schema document] target namespace MUST equal the value of the name (a namespace string) attribute owned by the er:uri element.
 
@@ -1216,9 +1181,9 @@ Rule 5-34. XML Catalog uri Value Resolves to Resource with Correct Target Namesp
 
    An [IEPD] change log is not required to conform to any particular XML schema or other format specification. However, a change log is still required for an [IEPD].
 
-Rule 5-35. IEPD Has a Change Log
+Rule 5-34. IEPD Has a Change Log
 
-   [Rule 5-35] (IEPD)
+   [Rule 5-34] (IEPD)
 
       An [IEPD] MUST contain a [change log] artifact that is identified by a c:IEPDChangeLog element in its [IEPD catalog document].
 
@@ -1232,15 +1197,15 @@ Rule 5-35. IEPD Has a Change Log
 
       An informal documentation artifact contained in a [information exchange package documentation] that serves as the initial general source of human readable descriptive or instructional information. A readme artifact or file (formerly known as a master document) may index or reference other more specific documentation or other explanatory materials within the [IEPD].
 
-Rule 5-36. Readme Describes Purpose, Scope, Business Value, etc.
+Rule 5-35. Readme Describes Purpose, Scope, Business Value, etc.
 
-   [Rule 5-36] (WF-IEPD)
+   [Rule 5-35] (WF-IEPD)
 
       A [readme artifact] SHOULD (at a minimum) describe the [IEPD] purpose, scope, business value, exchange information, typical senders/receivers, interactions, and references to other documentation.
 
-Rule 5-37. IEPD Has a ReadMe Artifact
+Rule 5-36. IEPD Has a ReadMe Artifact
 
-   [Rule 5-37] (IEPD)
+   [Rule 5-36] (IEPD)
 
       An IEPD MUST contain a [readme artifact] that is identified by a c:ReadMe element in its [IEPD catalog document].
 
@@ -1368,9 +1333,9 @@ Rule 5-37. IEPD Has a ReadMe Artifact
 
    This definition requires that an IEP conformance target be assigned a [conformance target identifier] that distinguishes it from all other [IEP conformance targets]. Construct a [conformance target identifier] using a fragment identifier (similar to an IEPD artifact URI) per this rule:
 
-Rule 5-38. Conformance Target Identifier
+Rule 5-37. Conformance Target Identifier
 
-   [Rule 5-38] (IEPD-catalog)
+   [Rule 5-37] (IEPD-catalog)
 
       A [conformance target identifier] for an [IEP conformance target] declared in an IEPD is formed by concatenating in sequence:
 
@@ -1384,19 +1349,19 @@ Rule 5-38. Conformance Target Identifier
 
    The following rule is required for an [IEPD catalog document]. It supplements the rule above.
 
-Rule 5-39. IEP Conformance Target Has a structures:id
+Rule 5-38. IEP Conformance Target Has a structures:id
 
-   [Rule 5-39] (IEPD-catalog)
+   [Rule 5-38] (IEPD-catalog)
 
       A c:IEPConformanceTarget element MUST own a structures:id attribute.
 
-   This rule ensures that a [conformance target] can be referenced between IEPDs (not just within an IEPD). The value of the structures:id attribute is the NCName in Rule 5-38, Conformance Target Identifier.
+   This rule ensures that a [conformance target] can be referenced between IEPDs (not just within an IEPD). The value of the structures:id attribute is the NCName in Rule 5-37, Conformance Target Identifier.
 
    An [IEPD] defines IEP conformance targets by explicitly declaring them within its IEPD catalog per the rules above.
 
-Rule 5-40. [IEPD] Declares One or More IEP Conformance Targets
+Rule 5-39. [IEPD] Declares One or More IEP Conformance Targets
 
-   [Rule 5-40] (IEPD)
+   [Rule 5-39] (IEPD)
 
       The [IEPD catalog document] of an [IEPD] MUST contain one or more c:IEPConformanceTarget elements.
 
@@ -1432,9 +1397,9 @@ Rule 5-40. [IEPD] Declares One or More IEP Conformance Targets
 
    [Validity constraint context] is explicitly declared by an XPath expression that is the value of c:xPathText. c:ValidityContext can contain any of the specific validity constraints that are substitutable for c:ValidityConstraint.
 
-Rule 5-41. Validity contraint context is value of c:xPathText
+Rule 5-40. Validity contraint context is value of c:xPathText
 
-   [Rule 5-41] (IEPD-catalog)
+   [Rule 5-40] (IEPD-catalog)
 
       Given a c:xPathText attribute owned by c:ValidityContext, the [validity constraint context] for the descendant's validity constraint SHALL be the value of c:xPathText evaluated against the IEP's document information item (See [W3-XML-InfoSet],  section 2.1, "The Document Information Item").
 
@@ -1446,9 +1411,9 @@ Rule 5-41. Validity contraint context is value of c:xPathText
 
    When employing c:HasDocumentElement the following rule applies:
 
-Rule 5-42. Identifying the Document Element of an IEP
+Rule 5-41. Identifying the Document Element of an IEP
 
-   [Rule 5-42] (IEP)
+   [Rule 5-41] (IEP)
 
       Within an IEPD catalog document, if an c:IEPConformanceTarget element for an IEP has a c:HasDocumentElement child element owning a c:qualifiedNameList attribute with a value of $LIST, then the document element of the IEP MUST have a QName that is a member of $LIST.
 
@@ -1468,9 +1433,9 @@ Rule 5-42. Identifying the Document Element of an IEP
 
    When employing c:ValidToXPath the following rule applies:
 
-Rule 5-43. Validating an XPath Expression
+Rule 5-42. Validating an XPath Expression
 
-   [Rule 5-43] (IEP)
+   [Rule 5-42] (IEP)
 
       Within an [IEPD catalog document] with a c:xPathText attribute owned by a c:ValidToXPath element, a candidate IEP is a valid IEP, ONLY IF the value of c:ValidToXPath applied to the candidate IEP (an [XML document]) has an effective Boolean value (EBV) equal to true. EBV is defined by [W3C XPath 2.0],  section 2.4.3, "Effective Boolean Value".
 
@@ -1498,7 +1463,7 @@ Rule 5-43. Validating an XPath Expression
 
    c:ConformsToConformanceTarget enables an [IEPD] author to effectively subclass and relate conformance target classes. For example, using this constraint, a given conformance target class defined by a c:IEPConformanceTarget structures:id="A2" can be required to also conform to another class structures:id="A1". This creates an IS-A relationship. We say that A2 IS-AN A1, or that A2 IS-A specialization of A1.
 
-   Conformance target classes are related through the c:conformanceTargetURI attribute owned by c:ConformsToConformanceTarget. Recall that per Rule 5-38, Conformance Target Identifier a conformance target URI is formed by concatenating the [IEPD] URI (the value of c:iepdURI), the pound character ("#"), and the value of the conformance class (structures:id) of the [IEP conformance target].
+   Conformance target classes are related through the c:conformanceTargetURI attribute owned by c:ConformsToConformanceTarget. Recall that per Rule 5-37, Conformance Target Identifier a conformance target URI is formed by concatenating the [IEPD] URI (the value of c:iepdURI), the pound character ("#"), and the value of the conformance class (structures:id) of the [IEP conformance target].
 
 5.6.2.10. c:ConformsToRule
 
@@ -1518,9 +1483,9 @@ Rule 5-43. Validating an XPath Expression
 
    For these reasons, the following rule applies to an [IEPD]:
 
-Rule 5-44. IEPD Has an IEP Sample for Each c:IEPConformanceTarget
+Rule 5-43. IEPD Has an IEP Sample for Each c:IEPConformanceTarget
 
-   [Rule 5-44] (IEPD)
+   [Rule 5-43] (IEPD)
 
       Within the IEPD catalog document of an [IEPD], a c:IEPConformanceTarget element MUST contain a c:IEPSampleXMLDocument child element.
 
@@ -1532,9 +1497,9 @@ Rule 5-44. IEPD Has an IEP Sample for Each c:IEPConformanceTarget
 
    The following rule relates to validity of an IEP Sample XML Document:
 
-Rule 5-45. Validating an IEP Sample XML Document
+Rule 5-44. Validating an IEP Sample XML Document
 
-   [Rule 5-45] (IEP)
+   [Rule 5-44] (IEP)
 
       Within an [IEPD catalog document] with a c:pathURI attribute owned by a c:IEPSampleXMLDocument, the artifact resolved by the value of c:pathURI MUST be valid for the validity constraints of the c:IEPConformanceTarget parent of c:IEPSampleXMLDocument.
 
@@ -1546,9 +1511,9 @@ Rule 5-45. Validating an IEP Sample XML Document
 
       An artifact that provides a declaration that an IEPD conforms to relevant NIEM specifications and associated rules, including [NIEM Conformance Specification v4.0], [NIEM Naming and Design Rules v4.0], [NIEM Conformance Targets Attribute Specification 3.0] and this NIEM IEPD Specification.
 
-Rule 5-46. IEPD Has Conformance Assertion
+Rule 5-45. IEPD Has Conformance Assertion
 
-   [Rule 5-46] (IEPD)
+   [Rule 5-45] (IEPD)
 
       An [IEPD] MUST contain a [conformance assertion] artifact that is identified by a c:ConformanceAssertion element in its [IEPD catalog document].
 
@@ -1728,7 +1693,7 @@ Rule 7-3. IEPD Archive Uncompresses to a Single Root Directory
 
 7.1.1. Constraint on Elements of Type c:SchemaDocumentSetType
 
-   In order to accommodate the [model package description] concept, the design of the IEPD catalog schema does not enforce a rule that is required to ensure a c:SchemaDocumentSet within an [IEPD catalog document] is used correctly for an [IEPD]. This rule assumes that within the IEPD's IEPD catalog any c:SchemaDocumentSet element identifies [XML schema documents] to be assembled into an [XML Schema].
+   In order to accommodate the [information exchange package documentation] concept, the design of the IEPD catalog schema does not enforce a rule that is required to ensure a c:SchemaDocumentSet within an [IEPD catalog document] is used correctly for an [IEPD]. This rule assumes that within the IEPD's IEPD catalog any c:SchemaDocumentSet element identifies [XML schema documents] to be assembled into an [XML Schema].
 
 Rule 7-4. Constraint on Elements of Type c:SchemaDocumentSetType
 
@@ -1762,7 +1727,7 @@ Rule 7-5. IEPD ZIP file Name Syntax
       		digit    ::= [0-9]
       		status   ::= 'alpha' | 'beta' | 'rc' | 'rev'
 
-      The status values are as defined in Rule 5-10, IEPD Version Number Syntax.
+      The status values are as defined in Rule 5-9, IEPD Version Number Syntax.
 
    Regular expression notation in the rule above is from [W3C XML 1.0] #sec-notation.
 
@@ -2706,8 +2671,6 @@ Appendix C. Common IEPD Artifacts
 
    Notes:
 
-      *  (MPD) in artifact name indicates a required artifact for all [MPDs].
-
       *  (IEPD) in artifact name indicates a required artifact for an [IEPD].
 
       *  (ref) indicates name is hyperlinked to a defined term in the specification.
@@ -2716,9 +2679,9 @@ Appendix C. Common IEPD Artifacts
 
       Artifact name|Filename syntax|Definition
 
-      (MPD) [IEPD catalog document]|iepd-catalog.xml|(ref)
+      (IEPD) [IEPD catalog document]|iepd-catalog.xml|(ref)
 
-      (MPD) [change log]|*.*|(ref)
+      (IEPD) [change log]|*.*|(ref)
 
       (IEPD) [readme artifact]|*.*|(ref)
 
@@ -2806,7 +2769,7 @@ Appendix E. Guidance for IEPD Directories (non-normative)
 
       7.  If using specialized [XML schema documents] for optimized EXI serialization, create an exi-xsd subdirectory for them.
 
-      8.  Create an iep-sample subdirectory for sample IEPs (Rule 5-44, IEPD Has an IEP Sample for Each c:IEPConformanceTarget).
+      8.  Create an iep-sample subdirectory for sample IEPs (Rule 5-43, IEPD Has an IEP Sample for Each c:IEPConformanceTarget).
 
       9.  If more documentation artifacts (e.g., text, graphics, media) are necessary, create a documentation subdirectory for miscellaneous explanatory documentation. As needed, create additional subdirectories within this one to organize documentation artifacts. The readme artifact in the [IEPD root directory] should refer to or index documentation in this subdirectory.
 
@@ -2934,8 +2897,6 @@ Appendix F. Acronyms and Abbreviations
       JPG |Joint Photographic (Experts) Group
 
       LEXS |Logical Entity Exchange Specifications
-
-      MPD |Model Package Description
 
       NCName|Non-colonized Name (in XML Schema: unprefixed and no colon character)
 
@@ -3069,8 +3030,7 @@ Appendix H. Index of Definitions
 
 Appendix I. Index of Rules
 
-   Rule 3-1, MPD Conformance Target Identifier: Section 3.2.1, The Model Package Description Conformance Target
-   Rule 3-2, IEPD Conformance Target Identifier: Section 3.2.2, IEPD Conformance Target
+   Rule 3-1, IEPD Conformance Target Identifier: Section 3.2.1, IEPD Conformance Target
    Rule 4-1, Fundamental NIEM Subset Rule: Section 4.2.1, Basic Subset Concepts
    Rule 5-1, IEPD Has an iepd-catalog.xml in its Root Directory: Section 5.1, NIEM IEPD Catalog
    Rule 5-2, IEPD Catalog Document Valid to iepd-catalog.xsd: Section 5.1, NIEM IEPD Catalog
@@ -3080,44 +3040,43 @@ Appendix I. Index of Rules
    Rule 5-6, IEPD Catalog Extension Schema Document Conforms to NDR Extension Schema Document Rules: Section 5.1.2, Extending an IEPD Catalog
    Rule 5-7, IEPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules: Section 5.1.2, Extending an IEPD Catalog
    Rule 5-8, IEPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets: Section 5.1.2, Extending an IEPD Catalog
-   Rule 5-9, MPD Class Determined by Conformance Target Identifier in c:mpdClassURIList: Section 5.2.2, MPD Class (c:mpdClassURIList)
-   Rule 5-10, IEPD Version Number Syntax: Section 5.2.3, IEPD Version Numbering Scheme (c:iepdVersionID)
-   Rule 5-11, IEPD URI Is Absolute: Section 5.2.4.1, IEPD URI Scheme (c:iepdURI)
-   Rule 5-12, IEPD URI Supports Fragment: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
-   Rule 5-13, IEPD URI Has No Fragment: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
-   Rule 5-14, IEPD Artifact URI Syntax: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
-   Rule 5-15, c:pathURI Resolves to a Resource: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-16, c:pathURI for c:XMLCatalog: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-17, c:pathURI for c:IEPDChangeLog: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-18, c:pathURI for c:ReadMe: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-19, c:pathURI for c:IEPSampleXMLDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-20, c:pathURI for c:BusinessRulesArtifact: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-21, c:pathURI for c:XMLSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-22, c:pathURI for c:ExternalSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-23, c:pathURI for c:ReferenceSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-24, c:pathURI for c:ExtensionSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-25, c:pathURI for c:SubsetSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-26, c:pathURI for c:Wantlist: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-27, c:pathURI for c:SchematronSchema: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-28, c:pathURI for c:RelaxNGSchema: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-29, c:pathURI for c:SchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-30, c:pathURI for c:ConstraintSchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-31, Schema document set interpreted as constraint schema document set: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
-   Rule 5-32, Resolve IEPD URI with Fragment: Section 5.2.4.5, Resolving an IEPD URI with a Fragment
-   Rule 5-33, XML Catalog uri Value Resolves to Resource: Section 5.2.4.7, XML Catalog URI
-   Rule 5-34, XML Catalog uri Value Resolves to Resource with Correct Target Namespace: Section 5.2.4.7, XML Catalog URI
-   Rule 5-35, IEPD Has a Change Log: Section 5.3, Change Log
-   Rule 5-36, Readme Describes Purpose, Scope, Business Value, etc.: Section 5.4, ReadMe Artifact
-   Rule 5-37, IEPD Has a ReadMe Artifact: Section 5.4, ReadMe Artifact
-   Rule 5-38, Conformance Target Identifier: Section 5.6, Defining Information Exchange Packages
-   Rule 5-39, IEP Conformance Target Has a structures:id: Section 5.6, Defining Information Exchange Packages
-   Rule 5-40, [IEPD] Declares One or More IEP Conformance Targets: Section 5.6, Defining Information Exchange Packages
-   Rule 5-41, Validity contraint context is value of c:xPathText: Section 5.6.2.3, c:ValidityContext
-   Rule 5-42, Identifying the Document Element of an IEP: Section 5.6.2.4, c:HasDocumentElement
-   Rule 5-43, Validating an XPath Expression: Section 5.6.2.5, c:ValidToXPath
-   Rule 5-44, IEPD Has an IEP Sample for Each c:IEPConformanceTarget: Section 5.6.3, IEP Sample Instance XML Documents
-   Rule 5-45, Validating an IEP Sample XML Document: Section 5.6.3, IEP Sample Instance XML Documents
-   Rule 5-46, IEPD Has Conformance Assertion: Section 5.7, Conformance Assertion
+   Rule 5-9, IEPD Version Number Syntax: Section 5.2.3, IEPD Version Numbering Scheme (c:iepdVersionID)
+   Rule 5-10, IEPD URI Is Absolute: Section 5.2.4.1, IEPD URI Scheme (c:iepdURI)
+   Rule 5-11, IEPD URI Supports Fragment: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
+   Rule 5-12, IEPD URI Has No Fragment: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
+   Rule 5-13, IEPD Artifact URI Syntax: Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI)
+   Rule 5-14, c:pathURI Resolves to a Resource: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-15, c:pathURI for c:XMLCatalog: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-16, c:pathURI for c:IEPDChangeLog: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-17, c:pathURI for c:ReadMe: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-18, c:pathURI for c:IEPSampleXMLDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-19, c:pathURI for c:BusinessRulesArtifact: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-20, c:pathURI for c:XMLSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-21, c:pathURI for c:ExternalSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-22, c:pathURI for c:ReferenceSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-23, c:pathURI for c:ExtensionSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-24, c:pathURI for c:SubsetSchemaDocument: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-25, c:pathURI for c:Wantlist: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-26, c:pathURI for c:SchematronSchema: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-27, c:pathURI for c:RelaxNGSchema: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-28, c:pathURI for c:SchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-29, c:pathURI for c:ConstraintSchemaDocumentSet: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-30, Schema document set interpreted as constraint schema document set: Section 5.2.4.3, URI Scheme for Local IEPD Artifacts (c:pathURI)
+   Rule 5-31, Resolve IEPD URI with Fragment: Section 5.2.4.5, Resolving an IEPD URI with a Fragment
+   Rule 5-32, XML Catalog uri Value Resolves to Resource: Section 5.2.4.7, XML Catalog URI
+   Rule 5-33, XML Catalog uri Value Resolves to Resource with Correct Target Namespace: Section 5.2.4.7, XML Catalog URI
+   Rule 5-34, IEPD Has a Change Log: Section 5.3, Change Log
+   Rule 5-35, Readme Describes Purpose, Scope, Business Value, etc.: Section 5.4, ReadMe Artifact
+   Rule 5-36, IEPD Has a ReadMe Artifact: Section 5.4, ReadMe Artifact
+   Rule 5-37, Conformance Target Identifier: Section 5.6, Defining Information Exchange Packages
+   Rule 5-38, IEP Conformance Target Has a structures:id: Section 5.6, Defining Information Exchange Packages
+   Rule 5-39, [IEPD] Declares One or More IEP Conformance Targets: Section 5.6, Defining Information Exchange Packages
+   Rule 5-40, Validity contraint context is value of c:xPathText: Section 5.6.2.3, c:ValidityContext
+   Rule 5-41, Identifying the Document Element of an IEP: Section 5.6.2.4, c:HasDocumentElement
+   Rule 5-42, Validating an XPath Expression: Section 5.6.2.5, c:ValidToXPath
+   Rule 5-43, IEPD Has an IEP Sample for Each c:IEPConformanceTarget: Section 5.6.3, IEP Sample Instance XML Documents
+   Rule 5-44, Validating an IEP Sample XML Document: Section 5.6.3, IEP Sample Instance XML Documents
+   Rule 5-45, IEPD Has Conformance Assertion: Section 5.7, Conformance Assertion
    Rule 6-1, Wantlist Location: Section 6.1, NIEM Wantlist
    Rule 7-1, An IEPD in ZIP File Format Preserves Logical Directory Structure.: Section 7, Organization, Packaging, and Other Criteria
    Rule 7-2, XSD and XML Documents Conform to Applicable NDR Conformance Targets: Section 7, Organization, Packaging, and Other Criteria
