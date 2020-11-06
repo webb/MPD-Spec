@@ -30,13 +30,13 @@
   <xs:import namespace="http://release.niem.gov/niem/structures/4.0/"/>
   <xs:import namespace="http://release.niem.gov/niem/niem-core/4.0/"/>
   <xs:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/"/>
-  <xs:element name="Catalog" type="c:CatalogType">
+  <xs:element name="IEPDCatalog" type="c:IEPDCatalogType">
     <xs:annotation>
       <xs:documentation>An IEPD catalog that describes IEPD artifacts and metadata.
       </xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:complexType name="CatalogType">
+ <!-- <xs:complexType name="CatalogType">
     <xs:annotation>
       <xs:documentation>A data type for an IEPD catalog.</xs:documentation>
     </xs:annotation>
@@ -52,10 +52,10 @@
     <xs:annotation>
       <xs:documentation>An Information Exchange Package Description (IEPD).</xs:documentation>
     </xs:annotation>
-  </xs:element>
-  <xs:complexType name="IEPDType">
+  </xs:element>-->
+  <xs:complexType name="IEPDCatalogType">
     <xs:annotation>
-      <xs:documentation>A data type for an IEPD.</xs:documentation>
+      <xs:documentation>A data type for an IEPD catalog.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
@@ -66,7 +66,7 @@
           <xs:element ref="c:ArtifactOrArtifactSet" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute ref="c:iepdURI" use="required"/>
-        <xs:attribute ref="c:iepdClassURIList" use="required"/>
+        <xs:attribute ref="c:iepdConformanceTargetIdentifierURIList" use="required"/>
         <xs:attribute ref="c:iepdName" use="required"/>
         <xs:attribute ref="c:iepdVersionID" use="required"/>
       </xs:extension>
@@ -318,24 +318,24 @@
     </xs:restriction>
   </xs:simpleType>
   <!-- =========================================================================== -->
-  <xs:attribute name="iepdClassURIList" type="c:IEPDClassURIListSimpleType">
+  <xs:attribute name="iepdConformanceTargetIdentifierURIList" type="c:IEPDConformanceTargetIdentifierURIListSimpleType">
     <xs:annotation>
       <xs:documentation>
         A list of one or more URIs that each represents an IEPD class to which the IEPD claims conformance.
       </xs:documentation>
     </xs:annotation>
   </xs:attribute>
-  <xs:simpleType name="IEPDClassURIListSimpleType">
+  <xs:simpleType name="IEPDConformanceTargetIdentifierURIListSimpleType">
     <xs:annotation>
       <xs:documentation>
-        A data type that ensures at least one class is identified as an IEPD conformance target.
+        A data type that ensures at least one conformance target is identified as an IEPD conformance target.
       </xs:documentation>
     </xs:annotation>
-    <xs:restriction base="c:IEPDClassListSimpleType">
+    <xs:restriction base="c:IEPDConformanceTargetIdentifierListSimpleType">
       <xs:minLength value="1"/>
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="IEPDClassListSimpleType">
+  <xs:simpleType name="IEPDConformanceTargetIdentifierListSimpleType">
     <xs:annotation>
       <xs:documentation>
         A data type for one or more URIs that are IEPD conformance target classes.

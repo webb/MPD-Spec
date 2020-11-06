@@ -88,7 +88,7 @@
 	
 <section id="scope-iepd"><title>Information Exchange Package Documentation</title>
 
-	<p>This specification provides a standard version numbering scheme <ref idref="Version-Numbering-Scheme"/>.  However, it does not provide guidance for managing or processing <termRef term="information exchange package documentation">IEPD</termRef> versions or their associated <termRef term="information exchange package">IEPs</termRef>.  Creation and management of <termRef term="information exchange package documentation">IEPDs</termRef> is the responsibility of stakeholders and developers.  As such, <termRef term="information exchange package documentation">IEPDs</termRef> have their own versioning processes, and are managed independently of the NIEM core and domains.  The NIEM Management Office defines <termRef term="information exchange package documentation">IEPD</termRef> conformance, but <termRef term="information exchange package documentation">IEPD</termRef> development and management fall outside its scope.  Nonetheless, the NIEM Management Office has developed guidance (through the NTAC) for managing <termRef term="information exchange package documentation">IEPDs</termRef>, versioning <termRef term="information exchange package documentation">IEPDs</termRef>, and processing their associated <termRef term="information exchange package">IEPs</termRef>.  This reference material can be found at <link>http://niem.github.io/reference/iepd/</link>.</p>
+	<p>This specification provides a standard version numbering scheme <ref idref="Version-Numbering-Scheme"/>.  However, it does not provide guidance for managing or processing <termRef term="information exchange package documentation">IEPD</termRef> versions or their associated <termRef term="information exchange package">IEPs</termRef>.  Creation and management of <termRef term="information exchange package documentation">IEPDs</termRef> is the responsibility of stakeholders and developers.  As such, <termRef term="information exchange package documentation">IEPDs</termRef> have their own versioning processes, and are managed independently of the NIEM core and domains.  The NIEM Management Office defines <termRef term="information exchange package documentation">IEPD</termRef> conformance, but <termRef term="information exchange package documentation">IEPD</termRef> development and management fall outside its scope.  Nonetheless, the NIEM Management Office has developed guidance (through the NTAC) for managing <termRef term="information exchange package documentation">IEPDs</termRef>, versioning <termRef term="information exchange package documentation">IEPDs</termRef>, and processing their associated <termRef term="information exchange package">IEPs</termRef>.  This reference material can be found at <link>https://niem.github.io/reference/artifacts/messages/iepd/</link>.</p>
 
 	<p>An <termRef term="information exchange package documentation">IEPD</termRef> defines one or more data exchanges, each occurring in the form of an <termRef>information exchange package</termRef> (IEP).  This specification supports a variety of data exchange use cases, in which the <termRef term="information exchange package">IEP</termRef> may be:</p>
 	<ul>
@@ -358,7 +358,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 <section id="CT-IEPD"><title>IEPD Conformance Targets</title>
 
-	<p>This specification establishes three primary <termRef term="information exchange package documentation">IEPD</termRef> <termRef term="conformance target">conformance target</termRef>s: <termRef>information exchange package documentation</termRef>, <termRef>information exchange package</termRef> and <termRef>artifact</termRef>.</p>
+	<p>This specification establishes three primary <termRef term="information exchange package documentation">IEPD</termRef> <termRef term="conformance target">conformance targets</termRef>s: <termRef>information exchange package documentation</termRef>, <termRef>information exchange package</termRef> and <termRef>artifact</termRef>.</p>
 
 	<p>An <termRef term="information exchange package documentation">IEPD</termRef> may be constructed manually, but it is far more efficient to generate an IEPD entirely or in part using NIEM-aware software tools.  The existence of a <termRef>information exchange package documentation</termRef> <termRef>conformance target</termRef> has several advantages:</p>
 
@@ -528,8 +528,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 	</ul>
 
 </section>
-
-
+	
 <!-- ##################### CT IEP ###################### -->
 
 
