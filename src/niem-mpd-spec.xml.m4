@@ -3794,7 +3794,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 						applies:</p>
 
 					<ruleSection>
-						<title>Identifying the Document Element of an IEP</title>
+						<title>IEP has Document Element</title>
 						<rule id="i2" applicability="IEP" class="Constraint">
 							<p>Within an IEPD catalog document, if an
 									<qName>c:IEPConformanceTarget</qName> element for an IEP has a
@@ -4390,7 +4390,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			</rule>
 		</ruleSection>
 
-		<p>NIEM releases and domain updates maintain a relatively consistent directory organization
+		<!--<p>NIEM releases and domain updates maintain a relatively consistent directory organization
 				<ref idref="NIEM-DomainUpdate"/>. But there are many ways to organize <termRef
 				term="information exchange package documentation">IEPD</termRef> directories that
 			may depend on a number of factors including (not limited to) business purpose and
@@ -4398,7 +4398,15 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				term="information exchange package documentation">IEPD</termRef> directory structure
 			are difficult to establish. Therefore, <termRef
 				term="information exchange package documentation">IEPD</termRef> authors may create
-			their own logical directory structures subject to the rules of this section.</p>
+			their own logical directory structures subject to the rules of this section.</p>-->
+			<p>There are many ways to organize <termRef
+					term="information exchange package documentation">IEPD</termRef> directories that
+					may depend on a number of factors including (not limited to) business purpose and
+					complexity. For this reason, strict rules for <termRef
+						term="information exchange package documentation">IEPD</termRef> directory structure
+					are difficult to establish. Therefore, <termRef
+						term="information exchange package documentation">IEPD</termRef> authors may create
+					their own logical directory structures subject to the rules of this section.</p>
 
 		<definition term="IEPD root directory">
 			<p>The top level file directory relative to all IEPD artifacts and subdirectories.</p>
@@ -5483,12 +5491,18 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			</sub>
 		</reference>
 
-		<reference id="FEA-DRM" label="FEA Data Reference Model 1.0">
+<!--		<reference id="FEA-DRM" label="FEA Data Reference Model 1.0">
 			<p><em>The Federal Enterprise Architecture Data Reference Model</em>, Version 1.0,
 				September 2004. Available from
 					<link>http://xml.gov/documents/completed/DRMv1.pdf</link>. A more recent DRM
 				Version 2.0, 17 November 2005 is available from
 					<link>http://www.whitehouse.gov/omb/assets/egov_docs/DRM_2_0_Final.pdf</link></p>
+		</reference>-->
+		<reference id="FEA-DRM" label="FEA Data Reference Model 1.0">
+			<p><em>The Federal Enterprise Architecture Data Reference Model</em>, Version 1.0,
+				September 2004. No longer available. A more recent DRM
+				Version 2.0, 17 November 2005 is available from
+			<link>https://obamawhitehouse.archives.gov/sites/default/files/omb/assets/egov_docs/DRM_2_0_Final.pdf</link></p>
 		</reference>
 
 		<reference id="GJXDM-IEPD" label="GJXDM IEPD Guidelines 1.1">
@@ -5504,12 +5518,12 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c035346_ISO_IEC_11179-4_2004(E).zip</link>.</p>
 		</reference>
 
-		<reference id="ISO-11179-5" label="ISO 11179-5">
+<!--		<reference id="ISO-11179-5" label="ISO 11179-5">
 			<p><em>ISO/IEC 11179-5:2005, Information technology <char name="mdash"/> Metadata
 					registries (MDR) <char name="mdash"/> Part 5: Naming and identification
 					principles</em>. Available from
-					<link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c035347_ISO_IEC_11179-5_2005(E).zip</link>.</p>
-		</reference>
+			<link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c035347_ISO_IEC_11179-5_2005(E).zip</link>.</p>
+		</reference>-->
 
 		<reference id="ISO-RelaxNG" label="ISO RelaxNG">
 			<p><em>Document Schema Definition Language (DSDL) <char name="mdash"/> Part 2:
@@ -5519,11 +5533,18 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				See also <link>http://relaxng.org</link>.</p>
 		</reference>
 
-		<reference id="ISO-Schematron" label="ISO Schematron">
+<!--		<reference id="ISO-Schematron" label="ISO Schematron">
 			<p><em>Schema Definition Languages (DSDL) <char name="mdash"/> Part 3: Rule-based
 					validation <char name="mdash"/> Schematron</em>, ISO/IEC 19757-3:2006(E), First
 				Edition, 1 June 2006. Available from
-					<link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c040833_ISO_IEC_19757-3_2006(E).zip</link>.</p>
+				<link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c040833_ISO_IEC_19757-3_2006(E).zip</link>.</p>
+		</reference>-->
+		
+		<reference id="ISO-Schematron" label="ISO Schematron">
+			<p><em>Document Schema Definition Languages (DSDL) <char name="mdash"/> Part 3: Rule-based
+				validation using Schematron</em>, ISO/IEC 19757-3:2020, Third
+				Edition, 2020-06. Available from
+				<link>https://www.iso.org/standard/74515.html</link>.</p>
 		</reference>
 
 		<reference id="LEXS" label="Logical Entity Exchange Specification">
@@ -5531,11 +5552,11 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				from <link>http://130.207.211.107/content/downloads</link>.</p>
 		</reference>
 
-		<reference id="NIEM-BIEC" label="NIEM Business Information Exchange Components 1.0">
+<!--		<reference id="NIEM-BIEC" label="NIEM Business Information Exchange Components 1.0">
 			<p><em>NIEM Business Information Exchange Components</em>, Version 1.0, NIEM Technical
 				Architecture Committee (NTAC), 8 March 2011. Available from
 					<link>http://reference.niem.gov/niem/specification/business-information-exchange-components/1.0/</link>.</p>
-		</reference>
+		</reference>-->
 
 		<reference id="NIEM-CodeLists" label="NIEM Code List Specification v4.0">
 			<p>Webb Roberts, ed. <q>National Information Exchange Model Code Lists Specification,
@@ -5555,11 +5576,11 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<link>http://reference.niem.gov/niem/specification/conformance-targets-attribute/3.0/</link>.</p>
 		</reference>
 
-		<reference id="NIEM-DomainUpdate" label="NIEM Domain Update Specification 1.0">
+<!--		<reference id="NIEM-DomainUpdate" label="NIEM Domain Update Specification 1.0">
 			<p><em>NIEM Domain Update Specification</em>, Version 1.0, NIEM Technical Architecture
 				Committee (NTAC), 5 November 2010. Available from
 					<link>http://reference.niem.gov/niem/specification/domain-update/1.0/</link>.</p>
-		</reference>
+		</reference>-->
 
 		<reference id="NIEM-HLVA" label="NIEM High-Level Version Architecture 3.0">
 			<p><em>NIEM High Level Version Architecture (HLVA)</em>, Version 3.0, NIEM Technical
@@ -5567,12 +5588,12 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<link>http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/</link>.</p>
 		</reference>
 
-		<reference id="NIEM-IEPD" label="Requirements for a NIEM IEPD 2.1">
+<!--		<reference id="NIEM-IEPD" label="Requirements for a NIEM IEPD 2.1">
 			<p><em>Requirements for a National Information Exchange Model (NIEM) Information
 					Exchange Package Documentation (IEPD) Specification</em>, Version 2.1, June
 				2006. Available from
 					<link>http://reference.niem.gov/niem/guidance/iepd-requirements/2.1/</link>.</p>
-		</reference>
+		</reference>-->
 
 		<reference id="NIEM-JSON" label="NIEM JSON Specification 4.0">
 			<p>Webb Roberts, ed. <q>National Information Exchange Model JSON Specification, Version
@@ -5581,13 +5602,13 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				<link>https://niem.github.io/NIEM-JSON-Spec/v4.0/niem-json-spec.html</link>.</p>
 		</reference>
 
-		<reference id="NIEM-MPD-3.0.1">
+<!--		<reference id="NIEM-MPD-3.0.1">
 			<p>Mark Kindl, and Webb Roberts, eds. <q>National Information Exchange Model <char
 						name="mdash"/> Model Package Description Specification, Version 3.0.1.</q>
 				NIEM Technical Architecture Committee (NTAC), April 27, 2015.
 					<link>https://reference.niem.gov/niem/specification/model-package-description/3.0.1/model-package-description-3.0.1.html</link>.
 			</p>
-		</reference>
+		</reference>-->
 
 		<reference id="NIEM-MPD-Toolkit" label="NIEM MPD Toolkit">
 			<p><q>NIEM Model Package Description Toolkit</q>, Version 3.0, NIEM Technical
@@ -5627,10 +5648,10 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				New York, NY: Morgan Kaufmann.</p>
 		</reference>
 
-		<reference id="RFC2141-URN-Syntax" label="RFC 2141 URN Syntax">
+<!--		<reference id="RFC2141-URN-Syntax" label="RFC 2141 URN Syntax">
 			<p>Moats, R., <em>URN Syntax</em>, IETF Request For Comment 2141, May 1997. Available
 				from <link>http://tools.ietf.org/html/rfc2141</link>.</p>
-		</reference>
+		</reference>-->
 
 		<reference id="RFC3986-URI" label="RFC 3986 URI">
 			<p>Berners-Lee, T., et al., <em>Uniform Resource Identifier (URI): Generic Syntax</em>,
@@ -5645,9 +5666,8 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		</reference>
 
 		<reference id="W3-EXI" label="EXI Format 1.0">
-			<p><em>Efficient XML Interchange (EXI) Format</em>, Version 1.0, W3C Recommendation, 10
-				March 2011. Available from
-				<link>http://www.w3.org/TR/2011/REC-exi-20110310/</link>.</p>
+			<p><em>Efficient XML Interchange (EXI) Format</em>, Version 1.0 (Second Edition), W3C Recommendation, 11 February 2014. Available from
+				<link>http://www.w3.org/TR/2014/REC-exi-20140211/</link>.</p>
 		</reference>
 
 		<reference id="W3-XML" label="W3C XML 1.0">
@@ -5678,10 +5698,14 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<link>http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/</link>.</p>
 		</reference>
 
-		<reference id="W3-XPath" label="W3C XPath 2.0">
+<!--		<reference id="W3-XPath" label="W3C XPath 2.0">
 			<p><em>XML Path Language (XPath) 2.0</em>, Second Edition, W3C Recommendation 14
 				December 2010. Available from
 					<link>http://www.w3.org/TR/2010/REC-xpath20-20101214/</link>.</p>
+		</reference>-->
+		<reference id="W3-XPath" label="W3C XPath 3.1">
+			<p><em>XML Path Language (XPath) 3.1</em>, W3C Recommendation 21 March 2017. Available from
+				<link>https://www.w3.org/TR/2017/REC-xpath-31-20170321/</link>.</p>
 		</reference>
 
 		<reference id="W3-XSLT" label="XSLT 1.0">
@@ -5711,12 +5735,27 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<section id="Revision-History" isAppendix="true">
 		<title>Revision History</title>
-		<p>Significant changes in version 3.0.1 (27 August 2015):</p>
+		<p>Significant changes in version 5.0 (dd month yyyy):</p>
+		<ol>
+			<li>
+				<p>Deprecated MPD construct.</p>
+			</li>
+			<li>
+				<p>Replaced MPD conformance target/rule applicability code WF-MPD with well-formed IEPD conformance target/rule applicability code WF-IEPD.</p>
+			</li>
+			<li>
+				<p>Changed MPD Catalog to IEPD catalog and flattened schema.</p>
+			</li>
+			<li>
+				<p>Updated IEPD folder directory.</p>
+			</li>
+		</ol>
+		<!--<p>Significant changes in version 3.0.1 (27 August 2015):</p>
 		<ol>
 			<li>
 				<p>Changed term <q>core update</q> to <q><a
-							href="http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/high-level-version-architecture-3.0.html#definition_core_supplement"
-							>core supplement</a></q>.</p>
+					href="http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/high-level-version-architecture-3.0.html#definition_core_supplement"
+					>core supplement</a></q>.</p>
 			</li>
 			<li>
 				<p>Removed references to outdated <em>NIEM User Guide Volume 1</em>.</p>
@@ -5729,15 +5768,15 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			</li>
 			<li>
 				<p>Changed a <a
-						href="http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/high-level-version-architecture-3.0.html#definition_core_supplement"
-						>core supplement</a> from a type of MPD to a special <a
+					href="http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/high-level-version-architecture-3.0.html#definition_core_supplement"
+					>core supplement</a> from a type of MPD to a special <a
 						href="http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/high-level-version-architecture-3.0.html#definition_NIEM_release"
 						>release</a>. The MPD specification now defines only four MPD classes: <a
-						href="http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/high-level-version-architecture-3.0.html#definition_NIEM_release"
-						>release</a>, <a
-						href="http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/high-level-version-architecture-3.0.html#definition_domain_update"
-						>domain update</a>, <termRef
-						term="information exchange package documentation">IEPD</termRef>, and
+							href="http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/high-level-version-architecture-3.0.html#definition_NIEM_release"
+							>release</a>, <a
+								href="http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/high-level-version-architecture-3.0.html#definition_domain_update"
+								>domain update</a>, <termRef
+									term="information exchange package documentation">IEPD</termRef>, and
 					Enterprise Information Exchange Model (EIEM) (described in <ref
 						idref="NIEM-BIEC"/>).</p>
 			</li>
@@ -5746,7 +5785,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					all MPDs in general, but is specifically focused on <termRef
 						term="information exchange package documentation">IEPD</termRef>.</p>
 			</li>
-		</ol>
+		</ol>-->
 	</section>
 
 </document>
