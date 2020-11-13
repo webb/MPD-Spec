@@ -829,7 +829,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 	</ruleSection>-->
 				<ruleSection>
 					<title>IEPD conformance target identifier</title>
-					<rule id="r-ct-wf-iepd" applicability="WF-IEPD" class="Constraint">
+					<rule id="r-ct-iepd" applicability="IEPD" class="Constraint">
 						<p>An <termRef term="information exchange package documentation"
 							>IEPD</termRef> MUST have an <termRef>IEPD conformance target
 								identifier</termRef> of
