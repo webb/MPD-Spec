@@ -670,7 +670,7 @@ Rule 4-1. Fundamental NIEM Subset Rule
 
       *  Automatic registration into a registry/repository
 
-      *  Search, discovery, retrieval of MPDs (through metadata and relationships)
+      *  Search, discovery, retrieval of IEPDs (through metadata and relationships)
 
       *  Reuse of IEPDs and their artifacts
 
@@ -788,7 +788,7 @@ Rule 5-8. IEPD Schema Document Extension Support Schemas Are Supersets of Spec S
 
    The c:iepdConformanceTargetIdentifierURIList attribute is an XML list type that may declare that an IEPD conforms to multiple conformance targets. An IEPD developer can establish a new IEPD [conformance target] identifier in addition to those provided by this and other NIEM specifications. The identifier represents the new conformance target which should be associated with one or more rules or constraints to which an IEPD must conform if it is assigned that identifier.
 
-   An [IEPD] authoring organization might use another classification system for its IEPDs. For example, the organization ABC might establish the [conformance target identifier] http://example.org/niem-iepd/1.0/#abc-org to indicate its IEPDs also conform to its own stricter set of [IEPD] conformance rules. Thus, an IEPD catalog document for its published IEPDs would contain the c:mpdClassURIList component shown in Figure 5-1, IEPD catalog c:iepdConformanceTargetIdentifierURIList attribute for organization ABC., below, indicating conformance to three [conformance targets].
+   An [IEPD] authoring organization might use another classification system for its IEPDs. For example, the organization ABC might establish the [conformance target identifier] http://example.org/niem-iepd/1.0/#abc-org to indicate its IEPDs also conform to its own stricter set of [IEPD] conformance rules. Thus, an IEPD catalog document for its published IEPDs would contain the c:iepdConformanceTargetIdentifierURIList component shown in Figure 5-1, IEPD catalog c:iepdConformanceTargetIdentifierURIList attribute for organization ABC., below, indicating conformance to three [conformance targets].
 
    Figure 5-1: IEPD catalog c:iepdConformanceTargetIdentifierURIList attribute for organization ABC.
 
@@ -911,7 +911,7 @@ Rule 5-10. IEPD URI Is Absolute
 
       *   http://niem.gov/niem/domains/cyfs/2.1/1 
 
-   This specification does not mandate that basic IEPD catalog metadata be designed into an IEPD URI. However, including such can obviously provide convenient visual recognition. That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of c:iepdURI, c:iepdName, c:iepdVersionID, and c:mpdClassURIList defined in the IEPD catalog document).
+   This specification does not mandate that basic IEPD catalog metadata be designed into an IEPD URI. However, including such can obviously provide convenient visual recognition. That said, an author should ensure any metadata embedded in the URI accurately reflect the IEPD catalog metadata (in particular, the values of c:iepdURI, c:iepdName, c:iepdVersionID, and c:iepdConformanceTargetIdentifierURIList defined in the IEPD catalog document).
 
 5.2.4.2. URI Scheme for IEPD Artifacts (c:externalURI)
 
@@ -1781,7 +1781,7 @@ Rule 7-7. IEPD Completeness
 
    On the other hand, an [IEPD] whose author has extended the IEPD catalog schema is clearly required to contain the catalog extension schema document, since this is a specialized customization created by the author. If a different NIEM schema subset is also used, then the [IEPD] must also contain its superset (i.e., a complete subset that incorporates both the original subset with additional NIEM components used to extend the catalog schema document; see Rule 5-8, IEPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets.)
 
-   The rationale for "SHOULD" in Rule 7-7, IEPD Completeness relates to issues of security. Although NIEM is generally public, some IEPDs (and even other MPDs) may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validation and implementation, instead of circulating them within a public [IEPD]. Implementers would then be expected to know how and where to obtain the required documents.
+   The rationale for "SHOULD" in Rule 7-7, IEPD Completeness relates to issues of security. Although NIEM is generally public, some IEPDs may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validation and implementation, instead of circulating them within a public [IEPD]. Implementers would then be expected to know how and where to obtain the required documents.
 
    The [NIEM Naming and Design Rules v4.0] explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant. Other standards may use xs:import without requiring schemaLocation attributes (instead, relying only on the namespace value). These standards may also use xs:include. This XML Schema construct is disallowed by NIEM. When standards external to NIEM are required within IEPDs, the following rule applies:
 
@@ -3102,16 +3102,4 @@ Appendix I. Index of Rules
    Rule 7-7, IEPD Completeness: Section 7.4, IEPD Completeness
    Rule 7-8, IEPD External Schema Documents Are Local Resources: Section 7.4, IEPD Completeness
    Rule 7-9, Key IEPD Resources Are Local Resources: Section 7.4, IEPD Completeness
-
-Appendix J. Revision History
-
-   Significant changes in version 5.0 (dd month yyyy):
-
-      1. Deprecated MPD construct.
-
-      2. Replaced MPD conformance target/rule applicability code WF-MPD with well-formed IEPD conformance target/rule applicability code WF-IEPD.
-
-      3. Changed MPD Catalog to IEPD catalog and flattened schema.
-
-      4. Updated IEPD folder directory.
 
