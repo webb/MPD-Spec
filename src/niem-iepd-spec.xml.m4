@@ -381,7 +381,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 
 
-		<section id="Harmonization">
+<!--		<section id="Harmonization">
 			<title>Harmonization</title>
 
 			<p>A key NIEM concept important to <termRef>harmonization</termRef> and used throughout
@@ -419,7 +419,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				useful, he/she could propose that content for inclusion in NIEM as part of the
 				harmonization process.</p>
 
-		</section>
+		</section>-->
 
 
 		<section id="XML-Validation">
@@ -577,6 +577,11 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				definitions for <termRef term="data component">data components</termRef>, they do
 				not need to restrict other data definitions, and so they are not allowed to use XML
 					Schema<char name="rsquo"/>s complex type restriction mechanisms.</p>
+			
+			<definition term="data component">
+				<p>An XML Schema type or attribute group definition; or an XML Schema element or
+					attribute declaration.</p>
+			</definition>
 
 		</section>
 
