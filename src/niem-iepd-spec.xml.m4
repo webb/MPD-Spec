@@ -17,9 +17,7 @@
 	<subsection>
 		<title>Abstract</title>
 
-		<p>This document specifies normative rules and non-normative guidance for building an
-			information exchange package documentation (IEPD) that conforms to the National
-			Information Exchange Model (NIEM) 5.0.</p>
+		<p>This document specifies normative rules and non-normative guidance for building a National Information Exchange Model (NIEM) information exchange package documentation (IEPD).</p>
 	</subsection>
 
 	<subsection>
@@ -52,8 +50,8 @@
 	<section id="Introduction">
 		<title>Introduction</title>
 
-		<p>This specification defines rules and practices for constructing and packaging National
-			Information Exchange Model (NIEM) conformant <termRef
+		<p>This specification defines rules and practices for constructing and packaging a National
+			Information Exchange Model (NIEM)<termRef
 				term="information exchange package documentation">information exchange package
 				documentation</termRef> (IEPD). To the NIEM program, the <termRef
 				term="information exchange package documentation">IEPD</termRef> is considered the
