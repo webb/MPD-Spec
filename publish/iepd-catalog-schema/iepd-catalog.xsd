@@ -14,7 +14,6 @@
     <xs:documentation>Information Exchange Package Documentation (IEPD) Catalog schema document.  Defines an iepd-catalog.xml artifact for IEPDs.  The purpose of this schema is to facilitate consistent declaration of IEPD content, conformance targets, metadata, and lineage to process, display, review, register, search, and discover IEPDs efficiently, as well as instructions for validating IEPs to IEPDs.  This XML Schema document is supported by a subset of NIEM 4.1.
     </xs:documentation>
     <xs:appinfo>
-      <appinfo:LocalTerm term="EIEM" literal="Enterprise Information Exchange Model"/>
       <appinfo:LocalTerm term="EXI" literal="Efficient XML Interchange"/>
       <appinfo:LocalTerm term="IANA" literal="Internet Assigned Numbers Authority"/>
       <appinfo:LocalTerm term="ID" literal="Identifier"/>
@@ -36,23 +35,6 @@
       </xs:documentation>
     </xs:annotation>
   </xs:element>
- <!-- <xs:complexType name="CatalogType">
-    <xs:annotation>
-      <xs:documentation>A data type for an IEPD catalog.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="structures:ObjectType">
-        <xs:sequence>
-          <xs:element ref="c:IEPD"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="IEPD" type="c:IEPDType">
-    <xs:annotation>
-      <xs:documentation>An Information Exchange Package Description (IEPD).</xs:documentation>
-    </xs:annotation>
-  </xs:element>-->
   <xs:complexType name="IEPDCatalogType">
     <xs:annotation>
       <xs:documentation>A data type for an IEPD catalog.</xs:documentation>
@@ -186,7 +168,7 @@
   <xs:element name="ConformanceAssertion" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
     <xs:annotation>
       <xs:documentation>An IEPD artifact that is a signed declaration 
-        that a NIEM IEPD or EIEM is NIEM-conformant.</xs:documentation>
+        that a NIEM IEPD is NIEM-conformant.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ConformanceReport" type="c:FileType" substitutionGroup="c:ArtifactOrArtifactSet">
@@ -447,7 +429,7 @@
       <xs:enumeration value="updates">
         <xs:annotation>
           <xs:documentation>
-            A relationshipCode value for indicating that this IEPD is an incremental update to the resource referenced in resourceURI.  Used by a core or domain update to identify the domain schema in a NIEM release being incrementally updated (not replaced).
+            A relationshipCode value for indicating that this IEPD is an incremental update to the resource referenced in resourceURI.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
@@ -461,7 +443,7 @@
       <xs:enumeration value="derives_from">
         <xs:annotation>
           <xs:documentation>
-            A relationshipCode value for indicating that this IEPD has been derived from another; used to indicate an IEPD is derived from an EIEM (may have other uses as well).
+            A relationshipCode value for indicating that this IEPD has been derived from another (may have other uses as well).
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
