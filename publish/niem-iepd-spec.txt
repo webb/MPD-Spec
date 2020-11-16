@@ -26,7 +26,7 @@ Contents
 
    This specification defines rules and practices for constructing and packaging National Information Exchange Model (NIEM) conformant [information exchange package documentation] (IEPD). To the NIEM program, the [IEPD] is considered the point of interoperability.
 
-   This specification assumes familiarity with the NIEM, its basic concepts, architecture, processes, design rules, and general conformance rules. NIEM training and reference materials are located at https://niem.github.io. In addition to those materials, readers of this specification may wish to be familiar with:
+   This specification assumes familiarity with the NIEM, its basic concepts, architecture, processes, design rules, and general conformance rules. NIEM training and reference materials are located on the [NIEM TechHub]. In addition to those materials, readers of this specification may wish to be familiar with:
 
       *   [NIEM Conformance Specification v4.0] 
 
@@ -694,7 +694,7 @@ Rule 5-2. IEPD Catalog Document Valid to iepd-catalog.xsd
 
    This rule requires validation with iepd-catalog.xsd, which also imports a NIEM schema subset. So, validation of the [IEPD catalog document] must be done in the context of the catalog schema document, its associated NIEM subset, and iepd-catalog.xml. This does not require the [IEPD] to contain copies of the catalog schema document or the schema subset (since these are standard for all IEPDs). However, a validation tool must have access to all three XML documents.
 
-   The XML schema documents required to validate an [IEPD catalog document] are available in the [NIEM MPD Toolkit]. Note that validators often require references to schemas and their imports. This may be done through a command line instruction or by adding a schemaLocation attribute to xs:import statements.
+   The XML schema documents required to validate an [IEPD catalog document] are available on the [NIEM Template IEPD] repository. Note that validators often require references to schemas and their imports. This may be done through a command line instruction or by adding a schemaLocation attribute to xs:import statements.
 
 5.1.1. IEPD Catalog as a Table of Contents
 
@@ -750,7 +750,7 @@ Rule 5-7. IEPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules
 
    Whether extending an IEPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, Appendix A, IEPD Catalog XML Schema Document, below, provides an abstract element as a substitution group head in each case. The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group. Whenever possible, the user should reuse types, elements, and attributes that are already defined/declared within the Appendix A, IEPD Catalog XML Schema Document, below.
 
-   If an IEPD catalog schema document extension uses NIEM [data components] that are not already contained in the NIEM Core subset provided with [NIEM MPD Toolkit], then the additional components must be additive. In other words:
+   If an IEPD catalog schema document extension uses NIEM [data components] that are not already contained in the NIEM Core subset provided on the [NIEM Template IEPD] repository, then the additional components must be additive. In other words:
 
 Rule 5-8. IEPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets
 
@@ -2629,7 +2629,7 @@ Appendix A. IEPD Catalog XML Schema Document
 
 Appendix B. Example IEPD Catalog Document for Cursor on Target
 
-   Below is a simple example of an IEPD catalog document for a Cursor on Target [IEPD]. The entire [IEPD] is contained in the [NIEM MPD Toolkit]
+   Below is a simple example of an IEPD catalog document for a Cursor on Target [IEPD]. The entire [IEPD] and other example IEPDs and supporting artifacts are available on the [NIEM Template IEPD] repository.
 
    <?xml version="1.0" encoding="US-ASCII"?>
    <c:IEPDCatalog 
@@ -3002,13 +3002,13 @@ Appendix G. References
 
    [NIEM JSON Specification 4.0]: Webb Roberts, ed. "National Information Exchange Model JSON Specification, Version 4.0." NIEM Technical Architecture Committee (NTAC), 24 August 2020. Available from https://niem.github.io/NIEM-JSON-Spec/v4.0/niem-json-spec.html.
 
-   [NIEM MPD Toolkit]: "NIEM Model Package Description Toolkit", Version 3.0, NIEM Technical Architecture Committee (NTAC), 15 August 2014. Available from http://reference.niem.gov/niem/specification/model-package-description/3.0/mpd-toolkit-3.0.zip.
-
-      This toolkit contains: example IEPDs, XML schemas to validate an iepd-catalog.xml artifact, associated NIEM core subset, and a conformance assertion example. Other artifacts may be added in the future as appropriate.
-
    [NIEM Naming and Design Rules v4.0]: Webb Roberts. "National Information Exchange Model Naming and Design Rules, Version 4.0." NIEM Technical Architecture Committee (NTAC), November 7, 2017. https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html.
 
    [NIEM SSGT]: "NIEM Schema Subset Generation Tool" (SSGT). Available from http://tools.niem.gov/niemtools/ssgt/index.iepd.
+
+   [NIEM TechHub]: NIEM's TechHub provides the developer community with resources and training that will help them use NIEM. Available from https://niem.github.io/.
+
+   [NIEM Template IEPD]: The NIEM Template IEPD can be used as a starting point or a reference for developing a new IEPD. Available from https://github.com/NIEM/Template-IEPD/.
 
    [XML Catalogs 1.1]: XML Catalogs, Organization for the Advancement of Structured Information Standards (OASIS) Standard v1.1, 7 October 2005. Available from https://www.oasis-open.org/committees/download.php/14809/std-entity-xml-catalogs-1.1.html.
 

@@ -61,7 +61,7 @@
 
 		<p>This specification assumes familiarity with the NIEM, its basic concepts, architecture,
 			processes, design rules, and general conformance rules. NIEM training and reference
-			materials are located at <link>https://niem.github.io</link>. In addition to those
+			materials are located on the <ref idref="NIEM-TechHub"/>. In addition to those
 			materials, readers of this specification may wish to be familiar with:</p>
 		<ul>
 			<li>
@@ -1790,12 +1790,16 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				standard for all IEPDs). However, a validation tool must have access to all three
 				XML documents.</p>
 
-			<p>The XML schema documents required to validate an <termRef>IEPD catalog
+			<!--<p>The XML schema documents required to validate an <termRef>IEPD catalog
 					document</termRef> are available in the <ref idref="NIEM-MPD-Toolkit"/>. Note
 				that validators often require references to schemas and their imports. This may be
 				done through a command line instruction or by adding a <code>schemaLocation</code>
+				attribute to <qName>xs:import</qName> statements.</p>-->
+			<p>The XML schema documents required to validate an <termRef>IEPD catalog
+				document</termRef> are available on the <ref idref="NIEM-Template-IEPD"/> repository. Note
+				that validators often require references to schemas and their imports. This may be
+				done through a command line instruction or by adding a <code>schemaLocation</code>
 				attribute to <qName>xs:import</qName> statements.</p>
-
 
 
 			<section id="IEPD-Catalog-TOC">
@@ -1939,9 +1943,13 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					reuse types, elements, and attributes that are already defined/declared within
 					the <ref idref="IEPD-Catalog-XSD"/>.</p>
 
-				<p>If an IEPD catalog schema document extension uses NIEM <termRef
+				<!--<p>If an IEPD catalog schema document extension uses NIEM <termRef
 						term="data component">data components</termRef> that are not already
 					contained in the NIEM Core subset provided with <ref idref="NIEM-MPD-Toolkit"/>,
+					then the additional components must be additive. In other words:</p>-->
+				<p>If an IEPD catalog schema document extension uses NIEM <termRef
+					term="data component">data components</termRef> that are not already
+					contained in the NIEM Core subset provided on the <ref idref="NIEM-Template-IEPD"/> repository,
 					then the additional components must be additive. In other words:</p>
 
 				<ruleSection>
@@ -4624,10 +4632,13 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<section id="IEPD-Catalog-Document-CoT" isAppendix="true">
 		<title>Example IEPD Catalog Document for Cursor on Target</title>
-		<p>Below is a simple example of an IEPD catalog document for a <em>Cursor on Target</em>
+		<!--<p>Below is a simple example of an IEPD catalog document for a <em>Cursor on Target</em>
 			<termRef term="information exchange package documentation">IEPD</termRef>. The entire
 				<termRef term="information exchange package documentation">IEPD</termRef> is
-			contained in the <ref idref="NIEM-MPD-Toolkit"/></p>
+			contained in the <ref idref="NIEM-MPD-Toolkit"/></p>-->
+		<p>Below is a simple example of an IEPD catalog document for a <em>Cursor on Target</em>
+			<termRef term="information exchange package documentation">IEPD</termRef>. The entire
+			<termRef term="information exchange package documentation">IEPD</termRef> and other example IEPDs and supporting artifacts are available on the <ref idref="NIEM-Template-IEPD"/> repository.</p>
 		<pre><include-text href="xsd/sample.5/iepd-catalog.xml"/></pre>
 
 		<p>
@@ -5384,7 +5395,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				<link>https://niem.github.io/NIEM-JSON-Spec/v4.0/niem-json-spec.html</link>.</p>
 		</reference>
 
-		<reference id="NIEM-MPD-Toolkit" label="NIEM MPD Toolkit">
+		<!--<reference id="NIEM-MPD-Toolkit" label="NIEM MPD Toolkit">
 			<p><q>NIEM Model Package Description Toolkit</q>, Version 3.0, NIEM Technical
 				Architecture Committee (NTAC), 15 August 2014. Available from
 					<link>http://reference.niem.gov/niem/specification/model-package-description/3.0/mpd-toolkit-3.0.zip</link>.</p>
@@ -5392,7 +5403,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<code>iepd-catalog.xml</code> artifact, associated NIEM core subset, and a
 				conformance assertion example. Other artifacts may be added in the future as
 				appropriate.</p>
-		</reference>
+		</reference>-->
 
 		<reference id="NIEM-NDR" label="NIEM Naming and Design Rules v4.0">
 			<p>Webb Roberts. <q>National Information Exchange Model Naming and Design Rules, Version
@@ -5405,6 +5416,15 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<link>http://tools.niem.gov/niemtools/ssgt/index.iepd</link>.</p>
 		</reference>
 
+		<reference id="NIEM-TechHub" label="NIEM TechHub">
+			<p>NIEM's TechHub provides the developer community with resources and training that will help them use NIEM. Available from <link>https://niem.github.io/</link>.</p>
+		</reference>
+		
+		<reference id="NIEM-Template-IEPD" label="NIEM Template IEPD">
+			<p>The NIEM Template IEPD can be used as a starting point or a reference for developing a new IEPD. Available from
+				<link>https://github.com/NIEM/Template-IEPD/</link>.</p>
+		</reference>
+		
 		<reference id="OASIS-XML-Catalogs" label="XML Catalogs 1.1">
 			<p><em>XML Catalogs</em>, Organization for the Advancement of Structured Information
 				Standards (OASIS) Standard v1.1, 7 October 2005. Available from
