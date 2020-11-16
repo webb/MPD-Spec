@@ -180,7 +180,7 @@ Contents
 
          An [XML schema document] that is intended to provide the authoritative definitions of broadly reusable [schema components]. It is a [conformance target] of [NIEM Naming and Design Rules v4.0]. A reference schema document MUST conform to all rules of [NIEM Naming and Design Rules v4.0] that apply to this conformance target. An [instance XML document] with a [conformance target identifier] of http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#ReferenceSchemaDocument MUST be a conformant reference schema document.
 
-   A NIEM [reference schema document] is an [XML schema document] that is intended to be the authoritative definition of business semantics for components within its target namespace. The NIEM core schema documents, NIEM domain schema documents, and NIEM domain update schema documents are all [reference schema documents]. A reference schema document meets all of the following criteria:
+   A NIEM [reference schema document] is an [XML schema document] that is intended to be the authoritative definition schema for a namespace. Examples include NIEM Core and NIEM domains. A reference schema document meets all of the following criteria:
 
       *  It is a NIEM conformant schema document.
 
@@ -451,12 +451,6 @@ Rule 3-2. IEPD is well-formed
 4.1. Reference Schema Documents
 
    Though not common, it is valid to use a [reference schema document] or document set within an [IEPD]. The [reference schema document] and [reference schema document set] were defined earlier in Section 2.7, Reference Schema Documents, above.
-
-   A NIEM [reference schema document] is intended to be the authoritative definition schema document for a NIEM target namespace. All NIEM releases, associated core supplements, and domain updates are standalone sets of namespaced reference schema documents. NIEM content governance bodies have reviewed and attempted to harmonize each set to the extent possible by refactoring as needed. This means that most (not necessarily all) types and properties are semantically unique (i.e., multiple versions of semantically identical types or properties do not exist within a set).
-
-   As authoritative definitions, NIEM reference schema document sets satisfy more rigorous documentation requirements. The [NIEM Naming and Design Rules v4.0] requires that each type definition, and element and attribute declaration in a reference schema document contain an xs:annotation element that defines its semantic meaning.
-
-   Typically reference schema documents contain [data components] with the most relaxed cardinality (zero to unbounded). However, this is not an absolute requirement. If necessary, cardinality in reference schema documents may be constrained to model reality. For example, in NIEM 3.0 a nc:Location2DGeospatialCoordinateType contains both a nc:GeographicCoordinateLatitude element and a nc:GeographicCoordinateLongitude element. Each of these elements has cardinality minOccurs="1" and maxOccurs="1". Any other cardinality for these elements has no meaning. On the other hand, one might claim that NIEM should constrain nc:PersonType to a single occurrence of the element nc:PersonBirthDate. Every person has one and only one birth date. Unfortunately, also in reality, criminal persons often present multiple identities with multiple birth dates; and so the capability to represent such is an important data requirement for NIEM.
 
 4.2. Subset Document Schemas
 
@@ -1657,7 +1651,7 @@ Rule 7-3. IEPD Archive Uncompresses to a Single Root Directory
 
    This specification defines other ways to group IEPD artifacts into [sets]. In general, independent of directory organization, sets can be established through one of two methods. An [XML catalog document] can be used to establish an [XML schema document] set. The [IEPD catalog document] can be used to identify all kinds of artifacts sets (including XML schema documents).
 
-   Section 5.5, XML Catalogs, above, describes how NIEM employs an [XML catalog document] to assemble an [XML Schema] from [XML schema documents]. For user convenience, this method is now used in NIEM releases (as well as their associated core supplements) and domain updates. Note also that this method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).
+   Section 5.5, XML Catalogs, above, describes how NIEM employs an [XML catalog document] to assemble an [XML Schema] from [XML schema documents]. This method is applicable to all the various classes of NIEM XML schema documents (reference, subset, extension, constraint, and external).
 
    Another reason for grouping artifacts into sets is a need for humans to review, identify, and navigate the artifacts of an [IEPD] (particularly, if it is complicated). An [XML catalog document] has a relatively focused purpose, to identify (by namespace) and assemble a set of XML schema documents into an [XML Schema]. It is not intended to index artifacts in general (other than XML schema documents to assigned target namespaces). So, it does not classify or describe the artifacts it identifies.
 
@@ -2875,8 +2869,6 @@ Appendix F. Acronyms and Abbreviations
       CUI |Controlled Unclassified Information
 
       EBV |Effective Boolean Value
-
-      EIEM |Enterprise Information Exchange Model
 
       GIF |Graphic Interchange Format
 

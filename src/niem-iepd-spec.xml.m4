@@ -526,11 +526,14 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				</blockquote>
 			</definition>
 
-			<p>A NIEM <termRef>reference schema document</termRef> is an <termRef>XML schema
+			<!--<p>A NIEM <termRef>reference schema document</termRef> is an <termRef>XML schema
 					document</termRef> that is intended to be the authoritative definition of
 				business semantics for components within its target namespace. The NIEM core schema
 				documents, NIEM domain schema documents, and NIEM domain update schema documents are
 				all <termRef term="reference schema document">reference schema documents</termRef>.
+				A reference schema document meets all of the following criteria:</p>-->
+			<p>A NIEM <termRef>reference schema document</termRef> is an <termRef>XML schema
+				document</termRef> that is intended to be the authoritative definition schema for a namespace. Examples include NIEM Core and NIEM domains.
 				A reference schema document meets all of the following criteria:</p>
 			<ul>
 				<li>
@@ -1186,7 +1189,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<termRef>reference schema document set</termRef> were defined earlier in <ref
 					idref="Reference-Schema-Document"/>.</p>
 
-			<p>A NIEM <termRef>reference schema document</termRef> is intended to be the
+			<!--<p>A NIEM <termRef>reference schema document</termRef> is intended to be the
 				authoritative definition schema document for a NIEM target namespace. All NIEM
 				releases, associated core supplements, and domain updates are standalone sets of
 				namespaced reference schema documents. NIEM content governance bodies have reviewed
@@ -1214,11 +1217,9 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				the element <qName>nc:PersonBirthDate</qName>. Every person has one and only one
 				birth date. Unfortunately, also in reality, criminal persons often present multiple
 				identities with multiple birth dates; and so the capability to represent such is an
-				important data requirement for NIEM.</p>
+				important data requirement for NIEM.</p>-->
 
 		</section>
-
-
 
 		<section id="Subset-Schemas">
 			<title>Subset Document Schemas</title>
@@ -1228,8 +1229,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 				<p>A NIEM <em>schema document subset</em> is a set of XML schema documents that
 					constitutes a reduced set of components derived from a NIEM reference schema
-					document or document set associated with a given numbered release or domain
-					update.</p>
+					document or document set associated with a given numbered release or domain update.</p>
 
 				<definition term="schema document subset">
 					<p>An XML schema document set based on a reference schema document set intended
@@ -4249,11 +4249,16 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					document</termRef> set. The <termRef>IEPD catalog document</termRef> can be used
 				to identify all kinds of artifacts sets (including XML schema documents).</p>
 
-			<p><ref idref="XML-Catalogs"/> describes how NIEM employs an <termRef>XML catalog
+			<!--<p><ref idref="XML-Catalogs"/> describes how NIEM employs an <termRef>XML catalog
 					document</termRef> to assemble an <termRef>XML Schema</termRef> from <termRef
 					term="XML schema document">XML schema documents</termRef>. For user convenience,
 				this method is now used in NIEM releases (as well as their associated core
 				supplements) and domain updates. Note also that this method is applicable to all the
+				various classes of NIEM XML schema documents (reference, subset, extension,
+				constraint, and external).</p>-->
+			<p><ref idref="XML-Catalogs"/> describes how NIEM employs an <termRef>XML catalog
+				document</termRef> to assemble an <termRef>XML Schema</termRef> from <termRef
+					term="XML schema document">XML schema documents</termRef>. This method is applicable to all the
 				various classes of NIEM XML schema documents (reference, subset, extension,
 				constraint, and external).</p>
 
@@ -5131,10 +5136,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			<tr>
 				<td>EBV </td>
 				<td>Effective Boolean Value</td>
-			</tr>
-			<tr>
-				<td>EIEM </td>
-				<td>Enterprise Information Exchange Model</td>
 			</tr>
 			<tr>
 				<td>GIF </td>
