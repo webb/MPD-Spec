@@ -5317,7 +5317,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		</reference>-->
 		<reference id="FEA-DRM" label="FEA Data Reference Model 1.0">
 			<p><em>The Federal Enterprise Architecture Data Reference Model</em>, Version 1.0,
-				September 2004. No longer available. A more recent DRM
+				September 2004. The version 1.0 document is longer publicly available. A more recent DRM
 				Version 2.0, 17 November 2005 is available from
 			<link>https://obamawhitehouse.archives.gov/sites/default/files/omb/assets/egov_docs/DRM_2_0_Final.pdf</link></p>
 		</reference>
@@ -5364,9 +5364,13 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				<link>https://www.iso.org/standard/74515.html</link>.</p>
 		</reference>
 
-		<reference id="LEXS" label="Logical Entity Exchange Specification">
+		<!--<reference id="LEXS" label="Logical Entity Exchange Specification">
 			<p><em>Logical Entity Exchange Specification</em>, Version 4.0, 27 July 2011. Available
 				from <link>http://130.207.211.107/content/downloads</link>.</p>
+		</reference>-->
+		<reference id="LEXS" label="Logical Entity Exchange Specifications">
+			<p><em>Logical Entity Exchange Specifications</em>, Version 5.0, 12 October 2016. Available
+				from <link>https://it.ojp.gov/NISS/iepd/457</link>.</p>
 		</reference>
 
 <!--		<reference id="NIEM-BIEC" label="NIEM Business Information Exchange Components 1.0">
@@ -5499,9 +5503,13 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				Available from <link>http://www.w3.org/TR/2004/REC-xml-infoset-20040204/</link>.</p>
 		</reference>
 
-		<reference id="W3-XML-Namespaces">
+		<!--<reference id="W3-XML-Namespaces">
 			<p><em>Namespaces in XML</em>, Second Edition, World Wide Web Consortium 16 August 2006.
 				Available from <link>http://www.w3.org/TR/2006/REC-xml-names-20060816/</link>.</p>
+		</reference>-->
+		<reference id="W3-XML-Namespaces">
+			<p><em>Namespaces in XML 1.0</em>, Third Edition, World Wide Web Consortium 8 December 2009.
+				Available from <link>https://www.w3.org/TR/2009/REC-xml-names-20091208/</link>.</p>
 		</reference>
 
 		<reference id="W3-XML-Schema-Datatypes" label="W3C XML Schema Part 2 Datatypes">
@@ -5531,9 +5539,18 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				1999. Available from <link>http://www.w3.org/TR/1999/REC-xslt-19991116</link>.</p>
 		</reference>
 
-		<reference id="W3-XSLT2" label="XSLT 2.0">
+		<!--<reference id="W3-XSLT2" label="XSLT 2.0">
 			<p><em>XSL Transformations (XSLT)</em>, Version 2.0, W3C Recommendation 23 January 2007.
 				Available from <link>http://www.w3.org/TR/2007/REC-xslt20-20070123/</link>.</p>
+		</reference>-->
+		<reference id="W3-XSLT2" label="XSLT 2.0">
+			<p><em>XSL Transformations (XSLT)</em>, Version 2.0, Second Edition, W3C Recommendation 21 April 2009.
+				Available from <link>https://www.w3.org/TR/2009/PER-xslt20-20090421/</link>.</p>
+		</reference>
+		
+		<reference id="W3-XSLT3" label="XSLT 3.0">
+			<p><em>XSL Transformations (XSLT)</em>, Version 3.0, W3C Recommendation 8 June 2017.
+				Available from <link>https://www.w3.org/TR/2017/REC-xslt-30-20170608/</link>.</p>
 		</reference>
 
 	</section>
