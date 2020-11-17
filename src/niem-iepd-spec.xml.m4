@@ -2300,7 +2300,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 					<p>Examples of valid IEPD URIs:</p>
 					<ul>
-						<li>
+						<!--<li>
 							<p>
 								<code>http://example.gov/niem-iepd/prescription-monitoring-info-exchange/3.0/</code>
 							</p>
@@ -2318,6 +2318,26 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 						<li>
 							<p>
 								<code>http://niem.gov/niem/domains/cyfs/2.1/1</code>
+							</p>
+						</li>-->
+						<li>
+							<p>
+								<code>http://gbi.georgia.gov/gcic/niem/sort-entry/1.1/</code>
+							</p>
+						</li>
+						<li>
+							<p>
+								<code>http://www.acq.osd.mil/ncbdp/nm/pseag/seiwg-niem/1.0/</code>
+							</p>
+						</li>
+						<li>
+							<p>
+								<code>http://ncsc.org/niem/icwa/1.0</code>
+							</p>
+						</li>
+						<li>
+							<p>
+								<code>http://cb.acf.hhs.gov/neice/1.0/exchange/</code>
 							</p>
 						</li>
 					</ul>
