@@ -23,8 +23,7 @@
 	<subsection>
 		<title>Status</title>
 
-		<p>This document supersedes NIEM Model Package Description (MPD) Specification 3.0.1 and
-			deprecates the MPD construct.</p>
+		<p>This document deprecates the Model Package Description (MPD) construct as of NIEM 5.0.</p>
 		<p>This specification represents the work of the NIEM Technical Architecture Committee
 			(NTAC), the NIEM Business Architecture Committee (NBAC), and their predecessors. It is a
 			product of the NIEM Management Office (NMO).</p>
