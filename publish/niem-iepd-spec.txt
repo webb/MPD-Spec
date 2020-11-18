@@ -26,21 +26,19 @@ Contents
 
    This specification defines rules and practices for constructing and packaging a National Information Exchange Model (NIEM)[information exchange package documentation] (IEPD). To the NIEM program, the [IEPD] is considered the point of interoperability.
 
-   This specification assumes familiarity with the NIEM, its basic concepts, architecture, processes, design rules, and general conformance rules. NIEM training and reference materials are located on the [NIEM TechHub]. In addition to those materials, readers of this specification may wish to be familiar with:
+   This specification assumes familiarity with the NIEM, its basic concepts, architecture, processes, design rules, and general conformance rules. NIEM training and reference materials are located on the [NIEM TechHub]. In addition to those materials, readers of this specification may wish to be familiar with the current versions of the following:
 
-      *   [NIEM Conformance Specification v4.0] 
+      *   [NIEM Conformance Specification] 
 
-      *   [NIEM Conformance Targets Attribute Specification 3.0] 
+      *   [NIEM Conformance Targets Attribute Specification] 
 
-      *   [NIEM Naming and Design Rules v4.0] 
+      *   [NIEM Naming and Design Rules] 
 
-      *   [NIEM JSON Specification 4.0] 
+      *   [NIEM Code List Specification] 
 
-      *   [NIEM Code List Specification v4.0] 
+      *   [NIEM High-Level Version Architecture] 
 
-      *   [NIEM High-Level Version Architecture 3.0] 
-
-   This specification uses and is a peer to the [NIEM Naming and Design Rules v4.0].
+   This specification uses and is a peer to the [NIEM Naming and Design Rules].
 
 1.1. Background
 
@@ -50,7 +48,7 @@ Contents
 
 1.2. Purpose
 
-   This document is a normative specification for NIEM [information exchange package documentation] (IEPD). The rules and guidance herein are designed to encourage and facilitate NIEM use and tools by balancing consistency, simplicity, and flexibility. Consistency and simplicity make IEPDs easy to design correctly, build rapidly, and find easily (for reuse or adaptation). Consistency also facilitates tool support. Flexibility enables more latitude to design and tailor IEPDs for complex data exchange requirements. As such, this document does not necessarily prescribe mandates or rules for all possible situations or organizational needs. If an organization desires to impose additional requirements or constraints on its IEPDs beyond those specified in this document (for example, mandate that an [IEPD] contain a normative set of business requirements or a domain model), then it is free to do so, as long as no conflicts exist with this specification or the [NIEM Naming and Design Rules v4.0].
+   This document is a normative specification for NIEM [information exchange package documentation] (IEPD). The rules and guidance herein are designed to encourage and facilitate NIEM use and tools by balancing consistency, simplicity, and flexibility. Consistency and simplicity make IEPDs easy to design correctly, build rapidly, and find easily (for reuse or adaptation). Consistency also facilitates tool support. Flexibility enables more latitude to design and tailor IEPDs for complex data exchange requirements. As such, this document does not necessarily prescribe mandates or rules for all possible situations or organizational needs. If an organization desires to impose additional requirements or constraints on its IEPDs beyond those specified in this document (for example, mandate that an [IEPD] contain a normative set of business requirements or a domain model), then it is free to do so, as long as no conflicts exist with this specification or the [NIEM Naming and Design Rules].
 
    This document defines terminology; identifies required and optional (but common) artifacts; defines metadata; specifies normative constraints, schemes, syntax, and processes as rules; provides non-normative guidance; and as needed, refers to other related NIEM specifications for more detail.
 
@@ -98,7 +96,7 @@ Contents
 
    This specification imposes many constraints on the syntax for identifiers, names, labels, strings, etc. In all cases, unless otherwise explicitly noted, syntax is case sensitive. In particular, XML files in appendices that define particular artifacts, transformations, and examples are case sensitive.
 
-   Also, note that as a general principle, lower case characters are used whenever such will not conflict with the [NIEM Naming and Design Rules v4.0].
+   Also, note that as a general principle, lower case characters are used whenever such will not conflict with the [NIEM Naming and Design Rules].
 
 2.3. Artifacts
 
@@ -116,7 +114,7 @@ Contents
 
 2.4. Schema Document and Namespace Correspondence in NIEM
 
-   To simplify automatic schema processing and reduce the potential for confusion and error, [NIEM Naming and Design Rules v4.0] principles state that each NIEM-conformant namespace SHOULD be defined by exactly one reference or extension schema document. To support this concept, the [NIEM Naming and Design Rules v4.0] disallows the use of xs:include, and mandates the use of the xs:schema/@targetNamespace attribute in NIEM-conformant schema documents.
+   To simplify automatic schema processing and reduce the potential for confusion and error, [NIEM Naming and Design Rules] principles state that each NIEM-conformant namespace SHOULD be defined by exactly one reference or extension schema document. To support this concept, the [NIEM Naming and Design Rules] disallows the use of xs:include, and mandates the use of the xs:schema/@targetNamespace attribute in NIEM-conformant schema documents.
 
    So, (1) each NIEM namespace is defined by a single NIEM-conformant schema document, and (2) each NIEM-conformant schema document declares a target namespace. NIEM does not permit schema documents without target namespaces, unless they are from sources outside of NIEM (e.g., an [external schema document]).
 
@@ -176,9 +174,9 @@ Contents
 
    [Definition: reference schema document]
 
-      As defined by [NIEM Naming and Design Rules v4.0]:
+      As defined by [NIEM Naming and Design Rules]:
 
-         An [XML schema document] that is intended to provide the authoritative definitions of broadly reusable [schema components]. It is a [conformance target] of [NIEM Naming and Design Rules v4.0]. A reference schema document MUST conform to all rules of [NIEM Naming and Design Rules v4.0] that apply to this conformance target. An [instance XML document] with a [conformance target identifier] of http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#ReferenceSchemaDocument MUST be a conformant reference schema document.
+         An [XML schema document] that is intended to provide the authoritative definitions of broadly reusable [schema components].
 
    A NIEM [reference schema document] is an [XML schema document] that is intended to be the authoritative definition schema for a namespace. Examples include NIEM Core and NIEM domains. A reference schema document meets all of the following criteria:
 
@@ -196,7 +194,7 @@ Contents
 
       A set of related [reference schema documents], such as a NIEM release.
 
-   The [NIEM Naming and Design Rules v4.0] conformance rules for reference schema documents are generally stricter than those for other classes of NIEM-conformant schema documents. For example, [reference schema documents] are not allowed to employ particular XML Schema model groups such as xs:choice or xs:any that other schema documents may contain.
+   The [NIEM Naming and Design Rules] conformance rules for reference schema documents are generally stricter than those for other classes of NIEM-conformant schema documents. For example, [reference schema documents] are not allowed to employ particular XML Schema model groups such as xs:choice or xs:any that other schema documents may contain.
 
    NIEM reference schemas are very uniform in their structure. As they are the primary definitions for [data components], they do not need to restrict other data definitions, and so they are not allowed to use XML Schema's complex type restriction mechanisms.
 
@@ -236,17 +234,17 @@ Contents
 
 3.1. Conformance Target Terminology
 
-   [NIEM Conformance Targets Attribute Specification 3.0] defines two terms used normatively and often within this specification.
+   [NIEM Conformance Targets Attribute Specification] defines two terms used normatively and often within this specification.
 
    [Definition: conformance target]
 
-      As defined by [NIEM Conformance Targets Attribute Specification 3.0]:
+      As defined by [NIEM Conformance Targets Attribute Specification]:
 
          A class of artifact, such as an interface, protocol, document, platform, process or service, that is the subject of conformance clauses and normative statements. There may be several conformance targets defined within a specification, and these targets may be diverse so as to reflect different aspects of a specification. For example, a protocol message and a protocol engine may be different conformance targets.
 
    [Definition: conformance target identifier]
 
-      As defined by [NIEM Conformance Targets Attribute Specification 3.0]:
+      As defined by [NIEM Conformance Targets Attribute Specification]:
 
          An internationalized resource identifier [RFC 3987 IRI] that uniquely identifies a conformance target.
 
@@ -286,7 +284,7 @@ Contents
 
    An [IEPD] contains a NIEM-conformant XML schema document set that may include portions of a NIEM core schema document (and supplements), portions of NIEM Domain schema documents (and updates), and enterprise-specific or IEPD-specific [extension schema documents]. The [XML schema documents] contained in an [IEPD] work together to define one or more classes of [instance XML documents] that consistently encapsulate data for meaningful information exchanges. Any [instance XML document] that is valid for the [XML schema document] set and that satisfies the conditions of the [IEP conformance target] is a member of that [IEP conformance target] class (or IEP Class).
 
-   [XML schema documents] in an [IEPD] conform to the [NIEM Naming and Design Rules v4.0] and may use or extend data component definitions drawn from NIEM. An [IEPD] may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See [NIEM Naming and Design Rules v4.0] for details.) An [IEPD] consists of a set of artifacts (XML schema documents, documentation, sample instance XML documents, etc.) that together define and describe one or more implementable data exchanges. An [IEPD] should contain all materials necessary to:
+   [XML schema documents] in an [IEPD] conform to the [NIEM Naming and Design Rules] and may use or extend data component definitions drawn from NIEM. An [IEPD] may also incorporate and use XML schema documents from other standards that do not conform to NIEM. (See the current [NIEM Naming and Design Rules] for details.) An [IEPD] consists of a set of artifacts (XML schema documents, documentation, sample instance XML documents, etc.) that together define and describe one or more implementable data exchanges. An [IEPD] should contain all materials necessary to:
 
       *  Understand information exchange context, content, semantics, and structure.
 
@@ -386,11 +384,11 @@ Rule 3-2. IEPD is well-formed
 
    The schemas and other files within a [information exchange package documentation] are built on other specifications, including:
 
-      *   [NIEM Naming and Design Rules v4.0] 
+      *   [NIEM Naming and Design Rules] 
 
-      *   [NIEM Conformance Targets Attribute Specification 3.0] 
+      *   [NIEM Conformance Targets Attribute Specification] 
 
-      *   [NIEM Conformance Specification v4.0] 
+      *   [NIEM Conformance Specification] 
 
 3.2.2. IEP Conformance Targets
 
@@ -444,7 +442,7 @@ Rule 3-2. IEPD is well-formed
 
 4. IEPD XML Schema Document Artifacts
 
-   [XML schema document] artifacts are the essential content of IEPDs because they normatively define and declare [data components]. The purpose of an [IEPD] is determined by the [XML schema document] or document set(s) it contains; furthermore, each [ XML schema document] may have a different purpose. The [NIEM Naming and Design Rules v4.0] addresses some schema documents as [conformance targets] including reference schema documents, extension schema documents, and schema document sets. Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules. Consult the [NIEM Naming and Design Rules v4.0] for these rules. NIEM also employs a special technique that relies on [constraint schema document sets] (See Section 4.5, Constraint Schema Document Sets, below).
+   [XML schema document] artifacts are the essential content of IEPDs because they normatively define and declare [data components]. The purpose of an [IEPD] is determined by the [XML schema document] or document set(s) it contains; furthermore, each [ XML schema document] may have a different purpose. The [NIEM Naming and Design Rules] addresses some schema documents as [conformance targets] including reference schema documents, extension schema documents, and schema document sets. Each conformance target may adhere to a different (though possibly overlapping) set of conformance rules. Consult the current [NIEM Naming and Design Rules] for these rules. NIEM also employs a special technique that relies on [constraint schema document sets] (See Section 4.5, Constraint Schema Document Sets, below).
 
    The following subsections define each type of NIEM schema document and document set.
 
@@ -542,13 +540,13 @@ Rule 4-1. Fundamental NIEM Subset Rule
 
    [Definition: extension schema document]
 
-      As defined by [NIEM Naming and Design Rules v4.0]:
+      As defined by [NIEM Naming and Design Rules]:
 
-         An [XML schema document] that is intended to provide definitions of [schema components] that are intended for reuse within a more narrow scope than those defined by a [reference schema document]. It is a [conformance target] of [NIEM Naming and Design Rules v4.0]. An extension schema document MUST conform to all rules of [NIEM Naming and Design Rules v4.0] that apply to this conformance target. An XML document with a [conformance target identifier] of http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#ExtensionSchemaDocument MUST be an extension schema document.
+         An [XML schema document] that is intended to provide definitions of [schema components] that are intended for reuse within a more narrow scope than those defined by a [reference schema document].
 
    In general, an [extension schema document] contains components that use or are derived from the components in reference schema documents. It is intended to express additional vocabulary above and beyond the vocabulary available from reference schema documents.
 
-   A developer who determines that NIEM is missing elements required for a given information exchange has several options for providing the missing elements. Using rules and techniques defined in the [NIEM Naming and Design Rules v4.0]:
+   A developer who determines that NIEM is missing elements required for a given information exchange has several options for providing the missing elements. Using rules and techniques defined in the [NIEM Naming and Design Rules]:
 
       *  Extend an existing NIEM [data component] (if possible).
 
@@ -562,13 +560,13 @@ Rule 4-1. Fundamental NIEM Subset Rule
 
    Multiple extension schema documents are allowed in a single [IEPD]. Developers will likely want to reuse many of their extension schema documents in other IEPDs. Therefore, the best practice for extension is to group all [data components] designed to be reused into one extension schema document or document set, and group IEPD-specific [data components] into another. Then the reusable extension components can be more easily redeployed in other IEPDs as needed.
 
-   Extension schema documents generally contain new [data component] declarations that may (though not necessarily) be derived from or reference existing NIEM [data components]. This being the case, reference schema documents do not exist for new [data components] found within extension schema documents. Therefore, extension schema documents must satisfy the more rigorous documentation requirements of reference schema documents. Per the [NIEM Naming and Design Rules v4.0], the definition or declaration of each new [data component] in an extension schema document must include an xs:annotation element that provides its semantics and NIEM-specific relationships.
+   Extension schema documents generally contain new [data component] declarations that may (though not necessarily) be derived from or reference existing NIEM [data components]. This being the case, reference schema documents do not exist for new [data components] found within extension schema documents. Therefore, extension schema documents must satisfy the more rigorous documentation requirements of reference schema documents. Per the [NIEM Naming and Design Rules], the definition or declaration of each new [data component] in an extension schema document must include an xs:annotation element that provides its semantics and NIEM-specific relationships.
 
 4.4. External Schema Documents
 
    [Definition: external schema document]
 
-      As defined by [NIEM Naming and Design Rules v4.0]:
+      As defined by [NIEM Naming and Design Rules]:
 
          Any [XML schema document] that is not one of:
 
@@ -582,11 +580,11 @@ Rule 4-1. Fundamental NIEM Subset Rule
 
    [Definition: external adapter type]
 
-      As defined by [NIEM Naming and Design Rules v4.0]:
+      As defined by [NIEM Naming and Design Rules]:
 
          A NIEM-conformant type that adapts external components for use within NIEM. An external adapter type creates a new class of object that embodies a single concept composed of external components. External adapter types are defined in NIEM-conformant schemas.
 
-   Refer to the [NIEM Naming and Design Rules v4.0] for details about external schema documents, external adapter types, and the rules defining their use.
+   Refer to the current [NIEM Naming and Design Rules] for details about external schema documents, external adapter types, and the rules defining their use.
 
 4.5. Constraint Schema Document Sets
 
@@ -598,7 +596,7 @@ Rule 4-1. Fundamental NIEM Subset Rule
 
    A [constraint schema document set] validates additional constraints imposed on an [instance XML document] only after it is known to be NIEM-conformant (i.e., has been validated with a [reference schema document set], or [schema document subset], and applicable [extension schema documents]).
 
-   To use a [constraint schema document set] to tighten constraints on an IEP, a two-pass validation technique is employed. In the first pass, an IEP is validated against the schema document subset and extension schema documents. This pass ensures that IEP semantics and structure conform to the NIEM model and [NIEM Naming and Design Rules v4.0]. In the second pass, an IEP is checked against a constraint schema document set, which may contain constrained versions of the [subset schema documents] and [extension schema documents]. This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate). A constraint schema document set need not validate constraints that are applied by other schema documents.
+   To use a [constraint schema document set] to tighten constraints on an IEP, a two-pass validation technique is employed. In the first pass, an IEP is validated against the schema document subset and extension schema documents. This pass ensures that IEP semantics and structure conform to the NIEM model and [NIEM Naming and Design Rules]. In the second pass, an IEP is checked against a constraint schema document set, which may contain constrained versions of the [subset schema documents] and [extension schema documents]. This pass ensures that the IEP also satisfies the additional constraints (i.e., business rules that the first pass was unable to validate). A constraint schema document set need not validate constraints that are applied by other schema documents.
 
    Constraint schema document sets are generally useful when it is necessary to impose restrictions that are more complex than cardinality. If only cardinality restrictions are needed, then it is easier and more efficient to set these directly in the subset schema documents and avoid the use of a constraint schema document set. Otherwise, a constraint schema document set may be necessary.
 
@@ -676,7 +674,7 @@ Rule 5-2. IEPD Catalog Document Valid to iepd-catalog.xsd
 
    This rule requires validation with iepd-catalog.xsd, which also imports a NIEM schema subset. So, validation of the [IEPD catalog document] must be done in the context of the catalog schema document, its associated NIEM subset, and iepd-catalog.xml. This does not require the [IEPD] to contain copies of the catalog schema document or the schema subset (since these are standard for all IEPDs). However, a validation tool must have access to all three XML documents.
 
-   The XML schema documents required to validate an [IEPD catalog document] are available on the [NIEM Template IEPD] repository. Note that validators often require references to schemas and their imports. This may be done through a command line instruction or by adding a schemaLocation attribute to xs:import statements.
+   The XML schema documents required to validate an [IEPD catalog document] are available on the [NIEM Template IEPD repository]. Note that validators often require references to schemas and their imports. This may be done through a command line instruction or by adding a schemaLocation attribute to xs:import statements.
 
 5.1.1. IEPD Catalog as a Table of Contents
 
@@ -694,7 +692,7 @@ Rule 5-2. IEPD Catalog Document Valid to iepd-catalog.xsd
 
    An IEPD catalog may be extended to accommodate new or additional metadata, artifact classifiers, or validity constraints that are not already defined in Appendix A, IEPD Catalog XML Schema Document, below.
 
-   To extend the IEPD catalog, an [IEPD] author must provide both an XML catalog extension document (XML) and one or more IEPD extension schema documents (XSD). The XML catalog extension identifies that one or more IEPD catalog extensions are present, and resolves their namespaces to local URIs. The IEPD catalog extension is a schema that defines and declares the new [data components] for metadata, classifiers, and/or constraints. Both general [NIEM Conformance Specification v4.0] and specific [NIEM Naming and Design Rules v4.0] conformance rules apply to these components. The XML catalog extension document must reside in the [IEPD root directory]. The IEPD extension schema documents may bear any file name and reside anywhere in the [IEPD]. This is because the XML catalog is expected to [resolve] all local URIs. IEPD processing tools are expected to look for and recognize the XML catalog (that identifies IEPD catalog extensions exist) by its file name.
+   To extend the IEPD catalog, an [IEPD] author must provide both an XML catalog extension document (XML) and one or more IEPD extension schema documents (XSD). The XML catalog extension identifies that one or more IEPD catalog extensions are present, and resolves their namespaces to local URIs. The IEPD catalog extension is a schema that defines and declares the new [data components] for metadata, classifiers, and/or constraints. Both general [NIEM Conformance Specification] and specific [NIEM Naming and Design Rules] conformance rules apply to these components. The XML catalog extension document must reside in the [IEPD root directory]. The IEPD extension schema documents may bear any file name and reside anywhere in the [IEPD]. This is because the XML catalog is expected to [resolve] all local URIs. IEPD processing tools are expected to look for and recognize the XML catalog (that identifies IEPD catalog extensions exist) by its file name.
 
    The following rules specify the requirements for an IEPD catalog extension XML catalog document:
 
@@ -722,17 +720,17 @@ Rule 5-6. IEPD Catalog Extension Schema Document Conforms to NDR Extension Schem
 
    [Rule 5-6] (IEPD-catalog)
 
-      An IEPD catalog extension schema document MUST conform to the [NIEM Naming and Design Rules v4.0] extension schema document conformance target rules.
+      An IEPD catalog extension schema document MUST conform to the [NIEM Naming and Design Rules] extension schema document conformance target rules.
 
 Rule 5-7. IEPD Catalog Schema and Its Extensions Conform to NDR Schema Set Rules
 
    [Rule 5-7] (IEPD-catalog)
 
-      Within an IEPD, the schema set formed by iepd-catalog.xsd and all IEPD catalog extension schema documents MUST conform to the [NIEM Naming and Design Rules v4.0] schema set conformance target rules.
+      Within an IEPD, the schema set formed by iepd-catalog.xsd and all IEPD catalog extension schema documents MUST conform to the [NIEM Naming and Design Rules] schema set conformance target rules.
 
    Whether extending an IEPD catalog with new metadata elements, artifact classifier elements, or validity constraint elements, Appendix A, IEPD Catalog XML Schema Document, below, provides an abstract element as a substitution group head in each case. The user simply derives a new type (through extension or restriction), or reuses an existing type, then declares a new element (of that type), and identifies it with the appropriate substitution group. Whenever possible, the user should reuse types, elements, and attributes that are already defined/declared within the Appendix A, IEPD Catalog XML Schema Document, below.
 
-   If an IEPD catalog schema document extension uses NIEM [data components] that are not already contained in the NIEM Core subset provided on the [NIEM Template IEPD] repository, then the additional components must be additive. In other words:
+   If an IEPD catalog schema document extension uses NIEM [data components] that are not already contained in the NIEM Core subset provided on the [NIEM Template IEPD repository], then the additional components must be additive. In other words:
 
 Rule 5-8. IEPD Schema Document Extension Support Schemas Are Supersets of Spec Subsets
 
@@ -1113,7 +1111,7 @@ Rule 5-31. Resolve IEPD URI with Fragment
 
    A NIEM element can indirectly reference its content rather than carry or encapsulate it. A NIEM element with simple content derived from type xs:anyURI may appear in an instance XML document as a reference element, in which case, rather than locally containing a URI as simple content, it will instead refer to another element that contains a URI. Under some circumstances, this might impact URI resolution described in Rule 5-31, Resolve IEPD URI with Fragment.
 
-   [NIEM Naming and Design Rules v4.0],  section 12.3, "Reference Elements" defines a NIEM [reference element] as follows:
+   [NIEM Naming and Design Rules],  section 12.3, "Reference Elements" defines a NIEM [reference element] as follows:
 
    [Definition: reference element]
 
@@ -1511,7 +1509,7 @@ Rule 5-44. Validating an IEP Sample XML Document
 
    [Definition: conformance assertion]
 
-      An artifact that provides a declaration that an IEPD conforms to relevant NIEM specifications and associated rules, including [NIEM Conformance Specification v4.0], [NIEM Naming and Design Rules v4.0], [NIEM Conformance Targets Attribute Specification 3.0] and this NIEM IEPD Specification.
+      An artifact that provides a declaration that an IEPD conforms to relevant NIEM specifications and associated rules, including [NIEM Conformance Specification], [NIEM Naming and Design Rules], [NIEM Conformance Targets Attribute Specification] and this NIEM IEPD Specification.
 
 Rule 5-45. IEPD Has Conformance Assertion
 
@@ -1617,13 +1615,13 @@ Rule 7-1. An IEPD in ZIP File Format Preserves Logical Directory Structure.
 
       An IEPD in [ZIP file] format represents a sub-tree of a file system. Such an archive MUST preserve and store the logical directory structure intended by its author for respository format.
 
-   NIEM XSD and XML [artifacts] in an IEPD must be valid for both XML Schema and NIEM. This also implies these artifacts must adhere to applicable [NIEM Naming and Design Rules v4.0] conformance target rules.
+   NIEM XSD and XML [artifacts] in an IEPD must be valid for both XML Schema and NIEM. This also implies these artifacts must adhere to applicable [NIEM Naming and Design Rules] conformance target rules.
 
 Rule 7-2. XSD and XML Documents Conform to Applicable NDR Conformance Targets
 
    [Rule 7-2] (WF-IEPD)
 
-      Within an IEPD, each XML schema document (XSD) or instance XML document (XML) artifact that uses a conformance targets attribute (as defined by [NIEM Conformance Targets Attribute Specification 3.0]) MUST satisfy the [NIEM Naming and Design Rules v4.0] rules for the conformance targets it declares.
+      Within an IEPD, each XML schema document (XSD) or instance XML document (XML) artifact that uses a conformance targets attribute (as defined by [NIEM Conformance Targets Attribute Specification]) MUST satisfy the [NIEM Naming and Design Rules] rules for the conformance targets it declares.
 
    There are many ways to organize [IEPD] directories that may depend on a number of factors including (not limited to) business purpose and complexity. For this reason, strict rules for [IEPD] directory structure are difficult to establish. Therefore, [IEPD] authors may create their own logical directory structures subject to the rules of this section.
 
@@ -1741,7 +1739,7 @@ Rule 7-5. IEPD ZIP file Name Syntax
 
 7.3. Artifact Links to Other Resources
 
-   It is important to understand that the URI scheme defined in Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI), above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an IEPD must be physically present within that IEPD. In accordance with the [NIEM Naming and Design Rules v4.0], if IEPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative [path name] references when needed. The following rule applies when absolute references to Internet resources are required.
+   It is important to understand that the URI scheme defined in Section 5.2.4.2, URI Scheme for IEPD Artifacts (c:externalURI), above, can only be used to identify relationships among and provide source links to external schemas being reused. It is not sufficient to allow references or links to such schemas stand in for a physical copy. Thus, all schema artifacts necessary to define, validate, and use an IEPD must be physically present within that IEPD. In accordance with the [NIEM Naming and Design Rules], if IEPD schemas are moved to an operational environment for implementation, validation, or other purposes, then absolute references may replace relative [path name] references when needed. The following rule applies when absolute references to Internet resources are required.
 
 Rule 7-6. IEPD Reference to Resource Uses Common URI Scheme
 
@@ -1765,7 +1763,7 @@ Rule 7-7. IEPD Completeness
 
    The rationale for "SHOULD" in Rule 7-7, IEPD Completeness relates to issues of security. Although NIEM is generally public, some IEPDs may contain XML tags that provide more semantics or structure than a domain is willing to expose. In such cases, it may be necessary to simply refer to schema documents that are required for validation and implementation, instead of circulating them within a public [IEPD]. Implementers would then be expected to know how and where to obtain the required documents.
 
-   The [NIEM Naming and Design Rules v4.0] explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant. Other standards may use xs:import without requiring schemaLocation attributes (instead, relying only on the namespace value). These standards may also use xs:include. This XML Schema construct is disallowed by NIEM. When standards external to NIEM are required within IEPDs, the following rule applies:
+   The [NIEM Naming and Design Rules] explains how NIEM employs adapter types to encapsulate and use other standards (e.g., geospatial and emergency management standards) in their native forms that are not NIEM-conformant. Other standards may use xs:import without requiring schemaLocation attributes (instead, relying only on the namespace value). These standards may also use xs:include. This XML Schema construct is disallowed by NIEM. When standards external to NIEM are required within IEPDs, the following rule applies:
 
 Rule 7-8. IEPD External Schema Documents Are Local Resources
 
@@ -2593,7 +2591,7 @@ Appendix A. IEPD Catalog XML Schema Document
 
 Appendix B. Example IEPD Catalog Document for Cursor on Target
 
-   Below is a simple example of an IEPD catalog document for a Cursor on Target [IEPD]. The entire [IEPD] and other example IEPDs and supporting artifacts are available on the [NIEM Template IEPD] repository.
+   Below is a simple example of an IEPD catalog document for a Cursor on Target [IEPD]. The entire [IEPD] and other example IEPDs and supporting artifacts are available on the [NIEM Template IEPD repository].
 
    <?xml version="1.0" encoding="US-ASCII"?>
    <c:IEPDCatalog 
@@ -2954,23 +2952,21 @@ Appendix G. References
 
    [Logical Entity Exchange Specifications]: Logical Entity Exchange Specifications, Version 5.0, 12 October 2016. Available from https://it.ojp.gov/NISS/iepd/457.
 
-   [NIEM Code List Specification v4.0]: Webb Roberts, ed. "National Information Exchange Model Code Lists Specification, Version 4.0." NIEM Technical Architecture Committee (NTAC), November 7, 2017. https://reference.niem.gov/niem/specification/code-lists/4.0/niem-code-lists-4.0.html.
+   [NIEM Code List Specification]: Webb Roberts, ed. "National Information Exchange Model Code Lists Specification" NIEM Technical Architecture Committee (NTAC). https://reference.niem.gov/niem/specification/code-lists/.
 
-   [NIEM Conformance Specification v4.0]: Webb Roberts, ed. "National Information Exchange Model Conformance Specification, Version 4.0." NIEM Technical Architecture Committee (NTAC), February 7, 2019. https://reference.niem.gov/niem/specification/conformance/3.0/conformance-4.0.html.
+   [NIEM Conformance Specification]: Webb Roberts, ed. "National Information Exchange Model Conformance Specification", NIEM Technical Architecture Committee (NTAC). https://reference.niem.gov/niem/specification/conformance/.
 
-   [NIEM Conformance Targets Attribute Specification 3.0]: NIEM Conformance Targets Attribute Specification, Version 3.0, NIEM Technical Architecture Committee (NTAC), 31 July 2014. Available from http://reference.niem.gov/niem/specification/conformance-targets-attribute/3.0/.
+   [NIEM Conformance Targets Attribute Specification]: NIEM Conformance Targets Attribute Specification NIEM Technical Architecture Committee (NTAC). Available from https://reference.niem.gov/niem/specification/conformance-targets-attribute/.
 
-   [NIEM High-Level Version Architecture 3.0]: NIEM High Level Version Architecture (HLVA), Version 3.0, NIEM Technical Architecture Committee, 27 April 2015. Available from http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/.
+   [NIEM High-Level Version Architecture]: NIEM High Level Version Architecture (HLVA), NIEM Technical Architecture Committee. Available from https://reference.niem.gov/niem/specification/high-level-version-architecture/.
 
-   [NIEM JSON Specification 4.0]: Webb Roberts, ed. "National Information Exchange Model JSON Specification, Version 4.0." NIEM Technical Architecture Committee (NTAC), 24 August 2020. Available from https://niem.github.io/NIEM-JSON-Spec/v4.0/niem-json-spec.html.
-
-   [NIEM Naming and Design Rules v4.0]: Webb Roberts. "National Information Exchange Model Naming and Design Rules, Version 4.0." NIEM Technical Architecture Committee (NTAC), November 7, 2017. https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html.
+   [NIEM Naming and Design Rules]: Webb Roberts. "National Information Exchange Model Naming and Design Rules" NIEM Technical Architecture Committee (NTAC). https://reference.niem.gov/niem/specification/naming-and-design-rules/.
 
    [NIEM SSGT]: "NIEM Schema Subset Generation Tool" (SSGT). Available from http://tools.niem.gov/niemtools/ssgt/index.iepd.
 
    [NIEM TechHub]: NIEM's TechHub provides the developer community with resources and training that will help them use NIEM. Available from https://niem.github.io/.
 
-   [NIEM Template IEPD]: The NIEM Template IEPD can be used as a starting point or a reference for developing a new IEPD. Available from https://github.com/NIEM/Template-IEPD/.
+   [NIEM Template IEPD repository]: The NIEM Template IEPD can be used as a starting point or a reference for developing a new IEPD. Available from https://github.com/NIEM/Template-IEPD/.
 
    [XML Catalogs 1.1]: XML Catalogs, Organization for the Advancement of Structured Information Standards (OASIS) Standard v1.1, 7 October 2005. Available from https://www.oasis-open.org/committees/download.php/14809/std-entity-xml-catalogs-1.1.html.
 

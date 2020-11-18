@@ -59,7 +59,7 @@
 		<p>This specification assumes familiarity with the NIEM, its basic concepts, architecture,
 			processes, design rules, and general conformance rules. NIEM training and reference
 			materials are located on the <ref idref="NIEM-TechHub"/>. In addition to those
-			materials, readers of this specification may wish to be familiar with:</p>
+			materials, readers of this specification may wish to be familiar with the current versions of the following:</p>
 		<ul>
 			<li>
 				<p>
@@ -74,11 +74,6 @@
 			<li>
 				<p>
 					<ref idref="NIEM-NDR"/>
-				</p>
-			</li>
-			<li>
-				<p>
-					<ref idref="NIEM-JSON"/>
 				</p>
 			</li>
 			<li>
@@ -510,7 +505,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			<definition term="reference schema document">
 				<p>As defined by <ref idref="NIEM-NDR"/>:</p>
 				<blockquote>
-					<p>An <termRef>XML schema document</termRef> that is intended to provide the
+					<!--<p>An <termRef>XML schema document</termRef> that is intended to provide the
 						authoritative definitions of broadly reusable <termRef
 							term="schema component">schema components</termRef>. It is a
 							<termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>. A
@@ -519,7 +514,10 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 							document</termRef> with a <termRef>conformance target
 							identifier</termRef> of
 							<code>MACRO_NDR_REF_conformance_target_identifier</code> MUST be a
-						conformant reference schema document.</p>
+						conformant reference schema document.</p>-->
+					<p>An <termRef>XML schema document</termRef> that is intended to provide the
+						authoritative definitions of broadly reusable <termRef
+							term="schema component">schema components</termRef>.</p>
 				</blockquote>
 			</definition>
 
@@ -786,7 +784,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					the <ref idref="NIEM-NDR"/> and may use or extend data component definitions
 					drawn from NIEM. An <termRef term="information exchange package documentation"
 						>IEPD</termRef> may also incorporate and use XML schema documents from other
-					standards that do not conform to NIEM. (See <ref idref="NIEM-NDR"/> for
+					standards that do not conform to NIEM. (See the current <ref idref="NIEM-NDR"/> for
 					details.) An <termRef term="information exchange package documentation"
 						>IEPD</termRef> consists of a set of artifacts (XML schema documents,
 					documentation, sample instance XML documents, etc.) that together define and
@@ -812,7 +810,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				
 				<p>(The terms <termRef>information exchange package</termRef> (IEP) and
 					<termRef>information exchange package documentation</termRef> (IEPD) first
-					appeared in [FEA Data Reference Model 1.0] and [GJXDM IEPD Guidelines 1.1],
+					appeared in <ref idref="FEA-DRM"/> and <ref idref="GJXDM-IEPD"/>,
 					respectively.)</p>
 				
 				<p>The following rule applies to all IEPDs:</p>
@@ -1170,7 +1168,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				term="conformance target">conformance targets</termRef> including reference schema
 			documents, extension schema documents, and schema document sets. Each conformance target
 			may adhere to a different (though possibly overlapping) set of conformance rules.
-			Consult the <ref idref="NIEM-NDR"/> for these rules. NIEM also employs a special
+			Consult the current <ref idref="NIEM-NDR"/> for these rules. NIEM also employs a special
 			technique that relies on <termRef term="constraint schema document set">constraint
 				schema document sets</termRef> (See <ref idref="Constraint-Schemas"/>).</p>
 
@@ -1454,7 +1452,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			<definition term="extension schema document">
 				<p>As defined by <ref idref="NIEM-NDR"/>:</p>
 				<blockquote>
-					<p>An <termRef>XML schema document</termRef> that is intended to provide
+					<!--<p>An <termRef>XML schema document</termRef> that is intended to provide
 						definitions of <termRef term="schema component">schema components</termRef>
 						that are intended for reuse within a more narrow scope than those defined by
 						a <termRef>reference schema document</termRef>. It is a <termRef>conformance
@@ -1463,7 +1461,11 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 						this conformance target. An XML document with a <termRef>conformance target
 							identifier</termRef> of
 							<code>MACRO_NDR_EXT_conformance_target_identifier</code> MUST be an
-						extension schema document.</p>
+						extension schema document.</p>-->
+					<p>An <termRef>XML schema document</termRef> that is intended to provide
+						definitions of <termRef term="schema component">schema components</termRef>
+						that are intended for reuse within a more narrow scope than those defined by
+						a <termRef>reference schema document</termRef>.</p>
 				</blockquote>
 			</definition>
 
@@ -1559,7 +1561,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				</blockquote>
 			</definition>
 
-			<p>Refer to the <ref idref="NIEM-NDR"/> for details about external schema documents,
+			<p>Refer to the current <ref idref="NIEM-NDR"/> for details about external schema documents,
 				external adapter types, and the rules defining their use.</p>
 
 		</section>
@@ -1798,7 +1800,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				done through a command line instruction or by adding a <code>schemaLocation</code>
 				attribute to <qName>xs:import</qName> statements.</p>-->
 			<p>The XML schema documents required to validate an <termRef>IEPD catalog
-				document</termRef> are available on the <ref idref="NIEM-Template-IEPD"/> repository. Note
+				document</termRef> are available on the <ref idref="NIEM-Template-IEPD-Repository"/>. Note
 				that validators often require references to schemas and their imports. This may be
 				done through a command line instruction or by adding a <code>schemaLocation</code>
 				attribute to <qName>xs:import</qName> statements.</p>
@@ -1951,7 +1953,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					then the additional components must be additive. In other words:</p>-->
 				<p>If an IEPD catalog schema document extension uses NIEM <termRef
 					term="data component">data components</termRef> that are not already
-					contained in the NIEM Core subset provided on the <ref idref="NIEM-Template-IEPD"/> repository,
+					contained in the NIEM Core subset provided on the <ref idref="NIEM-Template-IEPD-Repository"/>,
 					then the additional components must be additive. In other words:</p>
 
 				<ruleSection>
@@ -4665,7 +4667,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			contained in the <ref idref="NIEM-MPD-Toolkit"/></p>-->
 		<p>Below is a simple example of an IEPD catalog document for a <em>Cursor on Target</em>
 			<termRef term="information exchange package documentation">IEPD</termRef>. The entire
-			<termRef term="information exchange package documentation">IEPD</termRef> and other example IEPDs and supporting artifacts are available on the <ref idref="NIEM-Template-IEPD"/> repository.</p>
+			<termRef term="information exchange package documentation">IEPD</termRef> and other example IEPDs and supporting artifacts are available on the <ref idref="NIEM-Template-IEPD-Repository"/>.</p>
 		<pre><include-text href="xsd/sample.5/iepd-catalog.xml"/></pre>
 
 		<p>
@@ -5378,7 +5380,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<link>http://reference.niem.gov/niem/specification/business-information-exchange-components/1.0/</link>.</p>
 		</reference>-->
 
-		<reference id="NIEM-CodeLists" label="NIEM Code List Specification v4.0">
+		<!--<reference id="NIEM-CodeLists" label="NIEM Code List Specification v4.0">
 			<p>Webb Roberts, ed. <q>National Information Exchange Model Code Lists Specification,
 					Version 4.0.</q> NIEM Technical Architecture Committee (NTAC), November 7, 2017.
 					<link>https://reference.niem.gov/niem/specification/code-lists/4.0/niem-code-lists-4.0.html</link>.</p>
@@ -5394,6 +5396,21 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			<p><em>NIEM Conformance Targets Attribute Specification</em>, Version 3.0, NIEM
 				Technical Architecture Committee (NTAC), 31 July 2014. Available from
 					<link>http://reference.niem.gov/niem/specification/conformance-targets-attribute/3.0/</link>.</p>
+		</reference>-->
+		<reference id="NIEM-CodeLists" label="NIEM Code List Specification">
+			<p>Webb Roberts, ed. <q>National Information Exchange Model Code Lists Specification</q> NIEM Technical Architecture Committee (NTAC).
+				<link>https://reference.niem.gov/niem/specification/code-lists/</link>.</p>
+		</reference>
+		
+		<reference id="NIEM-Conformance" label="NIEM Conformance Specification">
+			<p>Webb Roberts, ed. <q>National Information Exchange Model Conformance Specification</q>, NIEM Technical Architecture Committee (NTAC).
+				<link>https://reference.niem.gov/niem/specification/conformance/</link>.</p>
+		</reference>
+		
+		<reference id="NIEM-CTAS" label="NIEM Conformance Targets Attribute Specification">
+			<p><em>NIEM Conformance Targets Attribute Specification</em> NIEM
+				Technical Architecture Committee (NTAC). Available from
+				<link>https://reference.niem.gov/niem/specification/conformance-targets-attribute/</link>.</p>
 		</reference>
 
 <!--		<reference id="NIEM-DomainUpdate" label="NIEM Domain Update Specification 1.0">
@@ -5402,10 +5419,15 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<link>http://reference.niem.gov/niem/specification/domain-update/1.0/</link>.</p>
 		</reference>-->
 
-		<reference id="NIEM-HLVA" label="NIEM High-Level Version Architecture 3.0">
+		<!--<reference id="NIEM-HLVA" label="NIEM High-Level Version Architecture 3.0">
 			<p><em>NIEM High Level Version Architecture (HLVA)</em>, Version 3.0, NIEM Technical
 				Architecture Committee, 27 April 2015. Available from
 					<link>http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/</link>.</p>
+		</reference>-->
+		<reference id="NIEM-HLVA" label="NIEM High-Level Version Architecture">
+			<p><em>NIEM High Level Version Architecture (HLVA)</em>, NIEM Technical
+				Architecture Committee. Available from
+				<link>https://reference.niem.gov/niem/specification/high-level-version-architecture/</link>.</p>
 		</reference>
 
 <!--		<reference id="NIEM-IEPD" label="Requirements for a NIEM IEPD 2.1">
@@ -5414,13 +5436,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				2006. Available from
 					<link>http://reference.niem.gov/niem/guidance/iepd-requirements/2.1/</link>.</p>
 		</reference>-->
-
-		<reference id="NIEM-JSON" label="NIEM JSON Specification 4.0">
-			<p>Webb Roberts, ed. <q>National Information Exchange Model JSON Specification, Version
-					4.0.</q> NIEM Technical Architecture Committee (NTAC), 24 August 2020. Available
-				from
-				<link>https://niem.github.io/NIEM-JSON-Spec/v4.0/niem-json-spec.html</link>.</p>
-		</reference>
 
 		<!--<reference id="NIEM-MPD-Toolkit" label="NIEM MPD Toolkit">
 			<p><q>NIEM Model Package Description Toolkit</q>, Version 3.0, NIEM Technical
@@ -5432,10 +5447,14 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				appropriate.</p>
 		</reference>-->
 
-		<reference id="NIEM-NDR" label="NIEM Naming and Design Rules v4.0">
+		<!--<reference id="NIEM-NDR" label="NIEM Naming and Design Rules v4.0">
 			<p>Webb Roberts. <q>National Information Exchange Model Naming and Design Rules, Version
 					4.0.</q> NIEM Technical Architecture Committee (NTAC), November 7, 2017.
 					<link>https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html</link>.</p>
+		</reference>-->
+		<reference id="NIEM-NDR" label="NIEM Naming and Design Rules">
+			<p>Webb Roberts. <q>National Information Exchange Model Naming and Design Rules</q> NIEM Technical Architecture Committee (NTAC).
+				<link>https://reference.niem.gov/niem/specification/naming-and-design-rules/</link>.</p>
 		</reference>
 
 		<reference id="NIEM-SSGT" label="NIEM SSGT">
@@ -5447,7 +5466,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			<p>NIEM's TechHub provides the developer community with resources and training that will help them use NIEM. Available from <link>https://niem.github.io/</link>.</p>
 		</reference>
 		
-		<reference id="NIEM-Template-IEPD" label="NIEM Template IEPD">
+		<reference id="NIEM-Template-IEPD-Repository" label="NIEM Template IEPD repository">
 			<p>The NIEM Template IEPD can be used as a starting point or a reference for developing a new IEPD. Available from
 				<link>https://github.com/NIEM/Template-IEPD/</link>.</p>
 		</reference>
