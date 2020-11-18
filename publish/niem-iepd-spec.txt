@@ -1105,21 +1105,15 @@ Rule 5-31. Resolve IEPD URI with Fragment
 
          3. Return the element, directory, or file found.
 
-   In the presence of NIEM [reference elements], URI resolution may require an additional step to account for indirect references. Be sure to review Section 5.2.4.6, URI Resolution Involving Reference Elements, below, if this case applies.
+   In the presence of NIEM reference elements, URI resolution may require an additional step to account for indirect references. Be sure to review Section 5.2.4.6, URI Resolution Involving Reference Elements, below, if this case applies.
 
 5.2.4.6. URI Resolution Involving Reference Elements
 
-   A NIEM element can indirectly reference its content rather than carry or encapsulate it. A NIEM element with simple content derived from type xs:anyURI may appear in an instance XML document as a reference element, in which case, rather than locally containing a URI as simple content, it will instead refer to another element that contains a URI. Under some circumstances, this might impact URI resolution described in Rule 5-31, Resolve IEPD URI with Fragment.
-
-   [NIEM Naming and Design Rules],  section 12.3, "Reference Elements" defines a NIEM [reference element] as follows:
-
-   [Definition: reference element]
-
-      A reference element is an element information item that has an attribute structures:ref. A reference element refers to its value by reference, instead of carrying it as content.
+   A NIEM element can indirectly reference its content rather than carry or encapsulate it. A NIEM element with simple content derived from type xs:anyURI may appear in an instance XML document as an element information item that has an attribute xs:anyURI, in which case, rather than locally containing a URI as simple content, it will instead refer to another element that contains a URI. Under some circumstances, this might impact URI resolution described in Rule 5-31, Resolve IEPD URI with Fragment.
 
    Thus, the structures:ref attribute value refers to another element that carries the content (for both elements) and owns a structures:id attribute with a value equal to that of structures:ref.
 
-   The [IEPD catalog document] reuses NIEM Core and so it conforms to NIEM. Therefore, one or more NIEM [reference elements] from various locations may refer to a single content bearing instance of the same element (with a unique structures:id). The definition of [resolve URI] and the URI-related rules in this section assume content bearing elements. If a URI resolution rule applies to an element in [reference element] form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).
+   The [IEPD catalog document] reuses NIEM Core and so it conforms to NIEM. Therefore, one or more NIEM reference elements from various locations may refer to a single content bearing instance of the same element (with a unique structures:id). The definition of [resolve URI] and the URI-related rules in this section assume content bearing elements. If a URI resolution rule applies to an element in reference element form, then URI resolution will be applied at the site of the content-bearing element form it refers to (where the URI will be).
 
 5.2.4.7. XML Catalog URI
 

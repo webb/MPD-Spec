@@ -33,10 +33,6 @@
 				href="https://github.com/NIEM/MPD-Spec/issues">GitHub issue tracker</link>.</p>
 	</subsection>
 
-	<!--	<subsection><title>URI</title>
-	  <p><strong><link>MACRO_document_base_uri</link></strong></p>
-  </subsection>-->
-
 	<subsection>
 		<title>Contents</title>
 		<tableOfContents/>
@@ -2849,8 +2845,7 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 						</rule>
 					</ruleSection>
 
-					<p>In the presence of NIEM <termRef term="reference element">reference
-							elements</termRef>, URI resolution may require an additional step to
+					<p>In the presence of NIEM reference elements, URI resolution may require an additional step to
 						account for indirect references. Be sure to review <ref
 							idref="URI-Resolution-Ref-Elements"/> if this case applies.</p>
 
@@ -2861,15 +2856,21 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				<section id="URI-Resolution-Ref-Elements">
 					<title>URI Resolution Involving Reference Elements</title>
 
-					<p>A NIEM element can indirectly reference its content rather than carry or
+					<!--<p>A NIEM element can indirectly reference its content rather than carry or
 						encapsulate it. A NIEM element with simple content derived from type
 							<qName>xs:anyURI</qName> may appear in an instance XML document as a
 						reference element, in which case, rather than locally containing a URI as
 						simple content, it will instead refer to another element that contains a
 						URI. Under some circumstances, this might impact URI resolution described in
-							<ref idref="r-resolve-uri"/>.</p>
+							<ref idref="r-resolve-uri"/>.</p>-->
+					<p>A NIEM element can indirectly reference its content rather than carry or
+						encapsulate it. A NIEM element with simple content derived from type
+						<qName>xs:anyURI</qName> may appear in an instance XML document as an element information item that has an attribute <qName>xs:anyURI</qName>, in which case, rather than locally containing a URI as
+						simple content, it will instead refer to another element that contains a
+						URI. Under some circumstances, this might impact URI resolution described in
+						<ref idref="r-resolve-uri"/>.</p>
 
-					<p><ref idref="NIEM-NDR"/>, <a
+					<!--<p><ref idref="NIEM-NDR"/>, <a
 							href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha9/NIEM-NDR-3.0alpha9-2014-04-02.html#definition_reference_element">
 							<char name="sect"/>12.3, <q>Reference Elements</q></a> defines a NIEM
 							<termRef>reference element</termRef> as follows:</p>
@@ -2878,14 +2879,14 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 						<p>A reference element is an element information item that has an attribute
 								<qName>structures:ref</qName>. A reference element refers to its
 							value by reference, instead of carrying it as content.</p>
-					</definition>
+					</definition>-->
 
 					<p>Thus, the <qName>structures:ref</qName> attribute value refers to another
 						element that carries the content (for both elements) and owns a
 							<qName>structures:id</qName> attribute with a value equal to that of
 							<qName>structures:ref</qName>.</p>
 
-					<p>The <termRef>IEPD catalog document</termRef> reuses NIEM Core and so it
+					<!--<p>The <termRef>IEPD catalog document</termRef> reuses NIEM Core and so it
 						conforms to NIEM. Therefore, one or more NIEM <termRef
 							term="reference element">reference elements</termRef> from various
 						locations may refer to a single content bearing instance of the same element
@@ -2893,6 +2894,15 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 							<termRef>resolve URI</termRef> and the URI-related rules in this section
 						assume content bearing elements. If a URI resolution rule applies to an
 						element in <termRef>reference element</termRef> form, then URI resolution
+						will be applied at the site of the content-bearing element form it refers to
+						(where the URI will be).</p>-->
+					<p>The <termRef>IEPD catalog document</termRef> reuses NIEM Core and so it
+						conforms to NIEM. Therefore, one or more NIEM reference elements from various
+						locations may refer to a single content bearing instance of the same element
+						(with a unique <qName>structures:id</qName>). The definition of
+						<termRef>resolve URI</termRef> and the URI-related rules in this section
+						assume content bearing elements. If a URI resolution rule applies to an
+						element in reference element form, then URI resolution
 						will be applied at the site of the content-bearing element form it refers to
 						(where the URI will be).</p>
 
