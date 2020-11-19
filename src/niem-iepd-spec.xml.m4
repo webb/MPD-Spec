@@ -167,15 +167,6 @@
 					>IEPD</termRef> development and assembly, from raw parts to finished
 				product.</p>
 
-<!--			<p>An IEPD developer is not required to revise an IEPD that existed before this
-				specification becomes effective. However, he/she is always encouraged to consider
-				revising an IEPD to meet this specification, especially when making other
-				significant changes.</p>-->
-
-
-<!--			<section id="scope-iepd">
-				<title>Information Exchange Package Documentation</title>-->
-
 				<p>This specification provides a standard version numbering scheme <ref
 						idref="Version-Numbering-Scheme"/>. However, it does not provide guidance
 					for managing or processing <termRef
@@ -233,7 +224,6 @@
 				revising an IEPD to meet this specification, especially when making other
 				significant changes.</p>
 
-			<!--</section>-->
 		</section>
 
 
@@ -367,49 +357,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 		</section>
 
-
-
-<!--		<section id="Harmonization">
-			<title>Harmonization</title>
-
-			<p>A key NIEM concept important to <termRef>harmonization</termRef> and used throughout
-				this specification is <termRef>data component</termRef>.</p>
-
-			<definition term="data component">
-				<p>An XML Schema type or attribute group definition; or an XML Schema element or
-					attribute declaration.</p>
-			</definition>
-
-			<p><termRef term="harmonization">Harmonization</termRef> is a process that NIEM
-				governance committees and domain stewards iteratively apply to NIEM content
-				(specifically, its semantics, structure, and relationships) during the preparation
-				of a NIEM major or minor release. On a more restricted scale a domain steward
-				harmonizes his/her own content (schema documents) in preparation for a domain update
-					<termRef term="information exchange package documentation">IEPD</termRef>.
-				Multiple domain stewards may collaborate in a coordinated domain update. In this
-				case, to the extent possible, harmonization may be applied across the content of all
-				the collaborating domains. Harmonization results in model change and evolution with
-				the intent of removing semantic duplication and overlap while improving
-				representational quality and usability.</p>
-
-			<definition term="harmonization">
-				<p>The process of reviewing a data model<char name="rsquo"/>s existing data
-					definitions and declarations; reviewing how it structures and represents data;
-					integrating new <termRef term="data component">data components</termRef>; and
-					refactoring <termRef term="data component">data components</termRef> as
-					necessary to remove (or reduce to the maximum extent feasible) semantic
-					duplication and/or overlap among all data structures and definitions resulting
-					in quality improvements to representation and usability.</p>
-			</definition>
-
-			<p>If, during <termRef term="information exchange package documentation">IEPD</termRef>
-				development, a developer defines extension content that might be more generally
-				useful, he/she could propose that content for inclusion in NIEM as part of the
-				harmonization process.</p>
-
-		</section>-->
-
-
 		<section id="XML-Validation">
 			<title>XML Validation</title>
 
@@ -501,28 +448,12 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			<definition term="reference schema document">
 				<p>As defined by <ref idref="NIEM-NDR"/>:</p>
 				<blockquote>
-					<!--<p>An <termRef>XML schema document</termRef> that is intended to provide the
-						authoritative definitions of broadly reusable <termRef
-							term="schema component">schema components</termRef>. It is a
-							<termRef>conformance target</termRef> of <ref idref="NIEM-NDR"/>. A
-						reference schema document MUST conform to all rules of <ref idref="NIEM-NDR"
-						/> that apply to this conformance target. An <termRef>instance XML
-							document</termRef> with a <termRef>conformance target
-							identifier</termRef> of
-							<code>MACRO_NDR_REF_conformance_target_identifier</code> MUST be a
-						conformant reference schema document.</p>-->
 					<p>An <termRef>XML schema document</termRef> that is intended to provide the
 						authoritative definitions of broadly reusable <termRef
 							term="schema component">schema components</termRef>.</p>
 				</blockquote>
 			</definition>
 
-			<!--<p>A NIEM <termRef>reference schema document</termRef> is an <termRef>XML schema
-					document</termRef> that is intended to be the authoritative definition of
-				business semantics for components within its target namespace. The NIEM core schema
-				documents, NIEM domain schema documents, and NIEM domain update schema documents are
-				all <termRef term="reference schema document">reference schema documents</termRef>.
-				A reference schema document meets all of the following criteria:</p>-->
 			<p>A NIEM <termRef>reference schema document</termRef> is an <termRef>XML schema
 				document</termRef> that is intended to be the authoritative definition schema for a namespace. Examples include NIEM Core and NIEM domains.
 				A reference schema document meets all of the following criteria:</p>
@@ -1180,36 +1111,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<termRef>reference schema document set</termRef> were defined earlier in <ref
 					idref="Reference-Schema-Document"/>.</p>
 
-			<!--<p>A NIEM <termRef>reference schema document</termRef> is intended to be the
-				authoritative definition schema document for a NIEM target namespace. All NIEM
-				releases, associated core supplements, and domain updates are standalone sets of
-				namespaced reference schema documents. NIEM content governance bodies have reviewed
-				and attempted to harmonize each set to the extent possible by refactoring as needed.
-				This means that most (not necessarily all) types and properties are semantically
-				unique (i.e., multiple versions of semantically identical types or properties do not
-				exist within a set).</p>
-
-			<p>As authoritative definitions, NIEM reference schema document sets satisfy more
-				rigorous documentation requirements. The <ref idref="NIEM-NDR"/> requires that each
-				type definition, and element and attribute declaration in a reference schema
-				document contain an <qName>xs:annotation</qName> element that defines its semantic
-				meaning.</p>
-
-			<p>Typically reference schema documents contain <termRef term="data component">data
-					components</termRef> with the most relaxed cardinality (zero to unbounded).
-				However, this is not an absolute requirement. If necessary, cardinality in reference
-				schema documents may be constrained to model reality. For example, in NIEM 3.0 a
-					<qName>nc:Location2DGeospatialCoordinateType</qName> contains both a
-					<qName>nc:GeographicCoordinateLatitude</qName> element and a
-					<qName>nc:GeographicCoordinateLongitude</qName> element. Each of these elements
-				has cardinality <code>minOccurs="1"</code> and <code>maxOccurs="1"</code>. Any other
-				cardinality for these elements has no meaning. On the other hand, one might claim
-				that NIEM should constrain <qName>nc:PersonType</qName> to a single occurrence of
-				the element <qName>nc:PersonBirthDate</qName>. Every person has one and only one
-				birth date. Unfortunately, also in reality, criminal persons often present multiple
-				identities with multiple birth dates; and so the capability to represent such is an
-				important data requirement for NIEM.</p>-->
-
 		</section>
 
 		<section id="Subset-Schemas">
@@ -1448,16 +1349,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			<definition term="extension schema document">
 				<p>As defined by <ref idref="NIEM-NDR"/>:</p>
 				<blockquote>
-					<!--<p>An <termRef>XML schema document</termRef> that is intended to provide
-						definitions of <termRef term="schema component">schema components</termRef>
-						that are intended for reuse within a more narrow scope than those defined by
-						a <termRef>reference schema document</termRef>. It is a <termRef>conformance
-							target</termRef> of <ref idref="NIEM-NDR"/>. An extension schema
-						document MUST conform to all rules of <ref idref="NIEM-NDR"/> that apply to
-						this conformance target. An XML document with a <termRef>conformance target
-							identifier</termRef> of
-							<code>MACRO_NDR_EXT_conformance_target_identifier</code> MUST be an
-						extension schema document.</p>-->
 					<p>An <termRef>XML schema document</termRef> that is intended to provide
 						definitions of <termRef term="schema component">schema components</termRef>
 						that are intended for reuse within a more narrow scope than those defined by
@@ -1790,11 +1681,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				standard for all IEPDs). However, a validation tool must have access to all three
 				XML documents.</p>
 
-			<!--<p>The XML schema documents required to validate an <termRef>IEPD catalog
-					document</termRef> are available in the <ref idref="NIEM-MPD-Toolkit"/>. Note
-				that validators often require references to schemas and their imports. This may be
-				done through a command line instruction or by adding a <code>schemaLocation</code>
-				attribute to <qName>xs:import</qName> statements.</p>-->
 			<p>The XML schema documents required to validate an <termRef>IEPD catalog
 				document</termRef> are available on the <ref idref="NIEM-Template-IEPD-Repository"/>. Note
 				that validators often require references to schemas and their imports. This may be
@@ -1943,10 +1829,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					reuse types, elements, and attributes that are already defined/declared within
 					the <ref idref="IEPD-Catalog-XSD"/>.</p>
 
-				<!--<p>If an IEPD catalog schema document extension uses NIEM <termRef
-						term="data component">data components</termRef> that are not already
-					contained in the NIEM Core subset provided with <ref idref="NIEM-MPD-Toolkit"/>,
-					then the additional components must be additive. In other words:</p>-->
 				<p>If an IEPD catalog schema document extension uses NIEM <termRef
 					term="data component">data components</termRef> that are not already
 					contained in the NIEM Core subset provided on the <ref idref="NIEM-Template-IEPD-Repository"/>,
@@ -2297,26 +2179,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 					<p>Examples of valid IEPD URIs:</p>
 					<ul>
-						<!--<li>
-							<p>
-								<code>http://example.gov/niem-iepd/prescription-monitoring-info-exchange/3.0/</code>
-							</p>
-						</li>
-						<li>
-							<p>
-								<code>http://example.gov/niem-iepd/pmix/3.0/</code>
-							</p>
-						</li>
-						<li>
-							<p>
-								<code>http://release.niem.gov/niem/niem-core/3.0/</code>
-							</p>
-						</li>
-						<li>
-							<p>
-								<code>http://niem.gov/niem/domains/cyfs/2.1/1</code>
-							</p>
-						</li>-->
 						<li>
 							<p>
 								<code>http://gbi.georgia.gov/gcic/niem/sort-entry/1.1/</code>
@@ -2443,15 +2305,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 								(a set artifact)</p>
 						</li>
 					</ul>
-
-					<!--<p>Since IEPD URIs require the support of fragment identifiers (by <ref idref="r-uri-frag"/>), it does not appear that the <q>urn</q> URI scheme may be used as an IEPD URI. Fragments use the <q><code>#</code></q> character, and the specification for the <q>urn</q> scheme (<ref idref="RFC2141-URN-Syntax"/>) indicates that they are not valid in URNs, when it states:</p>
-        <blockquote>
-          <p>RFC 1630 reserves the characters <q>/</q>, <q>?</q>,
-            and <q>#</q> for particular purposes. The URN-WG has not yet
-            debated the applicability and precise semantics of those purposes
-            as applied to URNs. Therefore, these characters are RESERVED for
-            future developments.</p>
-        </blockquote>-->
 
 					<p>Artifact URIs are used as values for the <qName>c:externalURI</qName>
 						attribute in the IEPD catalog XML document to declare equivalence
@@ -2856,13 +2709,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				<section id="URI-Resolution-Ref-Elements">
 					<title>URI Resolution Involving Reference Elements</title>
 
-					<!--<p>A NIEM element can indirectly reference its content rather than carry or
-						encapsulate it. A NIEM element with simple content derived from type
-							<qName>xs:anyURI</qName> may appear in an instance XML document as a
-						reference element, in which case, rather than locally containing a URI as
-						simple content, it will instead refer to another element that contains a
-						URI. Under some circumstances, this might impact URI resolution described in
-							<ref idref="r-resolve-uri"/>.</p>-->
 					<p>A NIEM element can indirectly reference its content rather than carry or
 						encapsulate it. A NIEM element with simple content derived from type
 						<qName>xs:anyURI</qName> may appear in an instance XML document as an element information item that has an attribute <qName>xs:anyURI</qName>, in which case, rather than locally containing a URI as
@@ -2870,32 +2716,11 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 						URI. Under some circumstances, this might impact URI resolution described in
 						<ref idref="r-resolve-uri"/>.</p>
 
-					<!--<p><ref idref="NIEM-NDR"/>, <a
-							href="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0alpha9/NIEM-NDR-3.0alpha9-2014-04-02.html#definition_reference_element">
-							<char name="sect"/>12.3, <q>Reference Elements</q></a> defines a NIEM
-							<termRef>reference element</termRef> as follows:</p>
-
-					<definition term="reference element">
-						<p>A reference element is an element information item that has an attribute
-								<qName>structures:ref</qName>. A reference element refers to its
-							value by reference, instead of carrying it as content.</p>
-					</definition>-->
-
 					<p>Thus, the <qName>structures:ref</qName> attribute value refers to another
 						element that carries the content (for both elements) and owns a
 							<qName>structures:id</qName> attribute with a value equal to that of
 							<qName>structures:ref</qName>.</p>
 
-					<!--<p>The <termRef>IEPD catalog document</termRef> reuses NIEM Core and so it
-						conforms to NIEM. Therefore, one or more NIEM <termRef
-							term="reference element">reference elements</termRef> from various
-						locations may refer to a single content bearing instance of the same element
-						(with a unique <qName>structures:id</qName>). The definition of
-							<termRef>resolve URI</termRef> and the URI-related rules in this section
-						assume content bearing elements. If a URI resolution rule applies to an
-						element in <termRef>reference element</termRef> form, then URI resolution
-						will be applied at the site of the content-bearing element form it refers to
-						(where the URI will be).</p>-->
 					<p>The <termRef>IEPD catalog document</termRef> reuses NIEM Core and so it
 						conforms to NIEM. Therefore, one or more NIEM reference elements from various
 						locations may refer to a single content bearing instance of the same element
@@ -3091,7 +2916,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				large variety of formats. As a result, a consistent standard <termRef>change
 					log</termRef> would be very difficult to specify.</p>
 
-			<!--</section>-->
 		</section>
 
 
@@ -4216,15 +4040,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			</rule>
 		</ruleSection>
 
-		<!--<p>NIEM releases and domain updates maintain a relatively consistent directory organization
-				<ref idref="NIEM-DomainUpdate"/>. But there are many ways to organize <termRef
-				term="information exchange package documentation">IEPD</termRef> directories that
-			may depend on a number of factors including (not limited to) business purpose and
-			complexity. For this reason, strict rules for <termRef
-				term="information exchange package documentation">IEPD</termRef> directory structure
-			are difficult to establish. Therefore, <termRef
-				term="information exchange package documentation">IEPD</termRef> authors may create
-			their own logical directory structures subject to the rules of this section.</p>-->
 			<p>There are many ways to organize <termRef
 					term="information exchange package documentation">IEPD</termRef> directories that
 					may depend on a number of factors including (not limited to) business purpose and
@@ -4278,13 +4093,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					document</termRef> set. The <termRef>IEPD catalog document</termRef> can be used
 				to identify all kinds of artifacts sets (including XML schema documents).</p>
 
-			<!--<p><ref idref="XML-Catalogs"/> describes how NIEM employs an <termRef>XML catalog
-					document</termRef> to assemble an <termRef>XML Schema</termRef> from <termRef
-					term="XML schema document">XML schema documents</termRef>. For user convenience,
-				this method is now used in NIEM releases (as well as their associated core
-				supplements) and domain updates. Note also that this method is applicable to all the
-				various classes of NIEM XML schema documents (reference, subset, extension,
-				constraint, and external).</p>-->
 			<p><ref idref="XML-Catalogs"/> describes how NIEM employs an <termRef>XML catalog
 				document</termRef> to assemble an <termRef>XML Schema</termRef> from <termRef
 					term="XML schema document">XML schema documents</termRef>. This method is applicable to all the
@@ -4671,10 +4479,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 
 	<section id="IEPD-Catalog-Document-CoT" isAppendix="true">
 		<title>Example IEPD Catalog Document for Cursor on Target</title>
-		<!--<p>Below is a simple example of an IEPD catalog document for a <em>Cursor on Target</em>
-			<termRef term="information exchange package documentation">IEPD</termRef>. The entire
-				<termRef term="information exchange package documentation">IEPD</termRef> is
-			contained in the <ref idref="NIEM-MPD-Toolkit"/></p>-->
 		<p>Below is a simple example of an IEPD catalog document for a <em>Cursor on Target</em>
 			<termRef term="information exchange package documentation">IEPD</termRef>. The entire
 			<termRef term="information exchange package documentation">IEPD</termRef> and other example IEPDs and supporting artifacts are available on the <ref idref="NIEM-Template-IEPD-Repository"/>.</p>
@@ -5319,13 +5123,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 			</sub>
 		</reference>
 
-<!--		<reference id="FEA-DRM" label="FEA Data Reference Model 1.0">
-			<p><em>The Federal Enterprise Architecture Data Reference Model</em>, Version 1.0,
-				September 2004. Available from
-					<link>http://xml.gov/documents/completed/DRMv1.pdf</link>. A more recent DRM
-				Version 2.0, 17 November 2005 is available from
-					<link>http://www.whitehouse.gov/omb/assets/egov_docs/DRM_2_0_Final.pdf</link></p>
-		</reference>-->
 		<reference id="FEA-DRM" label="FEA Data Reference Model 1.0">
 			<p><em>The Federal Enterprise Architecture Data Reference Model</em>, Version 1.0,
 				September 2004. The version 1.0 document is longer publicly available. A more recent DRM
@@ -5346,13 +5143,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c035346_ISO_IEC_11179-4_2004(E).zip</link>.</p>
 		</reference>
 
-<!--		<reference id="ISO-11179-5" label="ISO 11179-5">
-			<p><em>ISO/IEC 11179-5:2005, Information technology <char name="mdash"/> Metadata
-					registries (MDR) <char name="mdash"/> Part 5: Naming and identification
-					principles</em>. Available from
-			<link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c035347_ISO_IEC_11179-5_2005(E).zip</link>.</p>
-		</reference>-->
-
 		<reference id="ISO-RelaxNG" label="ISO RelaxNG">
 			<p><em>Document Schema Definition Language (DSDL) <char name="mdash"/> Part 2:
 					Regular-grammar-based validation <char name="mdash"/> RELAX NG</em>, ISO/IEC
@@ -5360,13 +5150,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c052348_ISO_IEC_19757-2_2008(E).zip</link>.
 				See also <link>http://relaxng.org</link>.</p>
 		</reference>
-
-<!--		<reference id="ISO-Schematron" label="ISO Schematron">
-			<p><em>Schema Definition Languages (DSDL) <char name="mdash"/> Part 3: Rule-based
-					validation <char name="mdash"/> Schematron</em>, ISO/IEC 19757-3:2006(E), First
-				Edition, 1 June 2006. Available from
-				<link>http://standards.iso.org/ittf/PubliclyAvailableStandards/c040833_ISO_IEC_19757-3_2006(E).zip</link>.</p>
-		</reference>-->
 		
 		<reference id="ISO-Schematron" label="ISO Schematron">
 			<p><em>Document Schema Definition Languages (DSDL) <char name="mdash"/> Part 3: Rule-based
@@ -5375,38 +5158,11 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				<link>https://www.iso.org/standard/74515.html</link>.</p>
 		</reference>
 
-		<!--<reference id="LEXS" label="Logical Entity Exchange Specification">
-			<p><em>Logical Entity Exchange Specification</em>, Version 4.0, 27 July 2011. Available
-				from <link>http://130.207.211.107/content/downloads</link>.</p>
-		</reference>-->
 		<reference id="LEXS" label="Logical Entity Exchange Specifications">
 			<p><em>Logical Entity Exchange Specifications</em>, Version 5.0, 12 October 2016. Available
 				from <link>https://it.ojp.gov/NISS/iepd/457</link>.</p>
 		</reference>
 
-<!--		<reference id="NIEM-BIEC" label="NIEM Business Information Exchange Components 1.0">
-			<p><em>NIEM Business Information Exchange Components</em>, Version 1.0, NIEM Technical
-				Architecture Committee (NTAC), 8 March 2011. Available from
-					<link>http://reference.niem.gov/niem/specification/business-information-exchange-components/1.0/</link>.</p>
-		</reference>-->
-
-		<!--<reference id="NIEM-CodeLists" label="NIEM Code List Specification v4.0">
-			<p>Webb Roberts, ed. <q>National Information Exchange Model Code Lists Specification,
-					Version 4.0.</q> NIEM Technical Architecture Committee (NTAC), November 7, 2017.
-					<link>https://reference.niem.gov/niem/specification/code-lists/4.0/niem-code-lists-4.0.html</link>.</p>
-		</reference>
-
-		<reference id="NIEM-Conformance" label="NIEM Conformance Specification v4.0">
-			<p>Webb Roberts, ed. <q>National Information Exchange Model Conformance Specification,
-					Version 4.0.</q> NIEM Technical Architecture Committee (NTAC), February 7, 2019.
-					<link>https://reference.niem.gov/niem/specification/conformance/3.0/conformance-4.0.html</link>.</p>
-		</reference>
-
-		<reference id="NIEM-CTAS" label="NIEM Conformance Targets Attribute Specification 3.0">
-			<p><em>NIEM Conformance Targets Attribute Specification</em>, Version 3.0, NIEM
-				Technical Architecture Committee (NTAC), 31 July 2014. Available from
-					<link>http://reference.niem.gov/niem/specification/conformance-targets-attribute/3.0/</link>.</p>
-		</reference>-->
 		<reference id="NIEM-CodeLists" label="NIEM Code List Specification">
 			<p>Webb Roberts, ed. <q>National Information Exchange Model Code Lists Specification</q> NIEM Technical Architecture Committee (NTAC).
 				<link>https://reference.niem.gov/niem/specification/code-lists/</link>.</p>
@@ -5423,45 +5179,12 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				<link>https://reference.niem.gov/niem/specification/conformance-targets-attribute/</link>.</p>
 		</reference>
 
-<!--		<reference id="NIEM-DomainUpdate" label="NIEM Domain Update Specification 1.0">
-			<p><em>NIEM Domain Update Specification</em>, Version 1.0, NIEM Technical Architecture
-				Committee (NTAC), 5 November 2010. Available from
-					<link>http://reference.niem.gov/niem/specification/domain-update/1.0/</link>.</p>
-		</reference>-->
-
-		<!--<reference id="NIEM-HLVA" label="NIEM High-Level Version Architecture 3.0">
-			<p><em>NIEM High Level Version Architecture (HLVA)</em>, Version 3.0, NIEM Technical
-				Architecture Committee, 27 April 2015. Available from
-					<link>http://reference.niem.gov/niem/specification/high-level-version-architecture/3.0/</link>.</p>
-		</reference>-->
 		<reference id="NIEM-HLVA" label="NIEM High-Level Version Architecture">
 			<p><em>NIEM High Level Version Architecture (HLVA)</em>, NIEM Technical
 				Architecture Committee. Available from
 				<link>https://reference.niem.gov/niem/specification/high-level-version-architecture/</link>.</p>
 		</reference>
 
-<!--		<reference id="NIEM-IEPD" label="Requirements for a NIEM IEPD 2.1">
-			<p><em>Requirements for a National Information Exchange Model (NIEM) Information
-					Exchange Package Documentation (IEPD) Specification</em>, Version 2.1, June
-				2006. Available from
-					<link>http://reference.niem.gov/niem/guidance/iepd-requirements/2.1/</link>.</p>
-		</reference>-->
-
-		<!--<reference id="NIEM-MPD-Toolkit" label="NIEM MPD Toolkit">
-			<p><q>NIEM Model Package Description Toolkit</q>, Version 3.0, NIEM Technical
-				Architecture Committee (NTAC), 15 August 2014. Available from
-					<link>http://reference.niem.gov/niem/specification/model-package-description/3.0/mpd-toolkit-3.0.zip</link>.</p>
-			<p>This toolkit contains: example IEPDs, XML schemas to validate an
-					<code>iepd-catalog.xml</code> artifact, associated NIEM core subset, and a
-				conformance assertion example. Other artifacts may be added in the future as
-				appropriate.</p>
-		</reference>-->
-
-		<!--<reference id="NIEM-NDR" label="NIEM Naming and Design Rules v4.0">
-			<p>Webb Roberts. <q>National Information Exchange Model Naming and Design Rules, Version
-					4.0.</q> NIEM Technical Architecture Committee (NTAC), November 7, 2017.
-					<link>https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html</link>.</p>
-		</reference>-->
 		<reference id="NIEM-NDR" label="NIEM Naming and Design Rules">
 			<p>Webb Roberts. <q>National Information Exchange Model Naming and Design Rules</q> NIEM Technical Architecture Committee (NTAC).
 				<link>https://reference.niem.gov/niem/specification/naming-and-design-rules/</link>.</p>
@@ -5498,11 +5221,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				New York, NY: Morgan Kaufmann.</p>
 		</reference>
 
-<!--		<reference id="RFC2141-URN-Syntax" label="RFC 2141 URN Syntax">
-			<p>Moats, R., <em>URN Syntax</em>, IETF Request For Comment 2141, May 1997. Available
-				from <link>http://tools.ietf.org/html/rfc2141</link>.</p>
-		</reference>-->
-
 		<reference id="RFC3986-URI" label="RFC 3986 URI">
 			<p>Berners-Lee, T., et al., <em>Uniform Resource Identifier (URI): Generic Syntax</em>,
 				Request for Comment 3986, Network Working Group, January 2005. Available from
@@ -5531,10 +5249,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				Available from <link>http://www.w3.org/TR/2004/REC-xml-infoset-20040204/</link>.</p>
 		</reference>
 
-		<!--<reference id="W3-XML-Namespaces">
-			<p><em>Namespaces in XML</em>, Second Edition, World Wide Web Consortium 16 August 2006.
-				Available from <link>http://www.w3.org/TR/2006/REC-xml-names-20060816/</link>.</p>
-		</reference>-->
 		<reference id="W3-XML-Namespaces">
 			<p><em>Namespaces in XML 1.0</em>, Third Edition, World Wide Web Consortium 8 December 2009.
 				Available from <link>https://www.w3.org/TR/2009/REC-xml-names-20091208/</link>.</p>
@@ -5552,11 +5266,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<link>http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/</link>.</p>
 		</reference>
 
-<!--		<reference id="W3-XPath" label="W3C XPath 2.0">
-			<p><em>XML Path Language (XPath) 2.0</em>, Second Edition, W3C Recommendation 14
-				December 2010. Available from
-					<link>http://www.w3.org/TR/2010/REC-xpath20-20101214/</link>.</p>
-		</reference>-->
 		<reference id="W3-XPath" label="W3C XPath 3.1">
 			<p><em>XML Path Language (XPath) 3.1</em>, W3C Recommendation 21 March 2017. Available from
 				<link>https://www.w3.org/TR/2017/REC-xpath-31-20170321/</link>.</p>
@@ -5567,10 +5276,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				1999. Available from <link>http://www.w3.org/TR/1999/REC-xslt-19991116</link>.</p>
 		</reference>
 
-		<!--<reference id="W3-XSLT2" label="XSLT 2.0">
-			<p><em>XSL Transformations (XSLT)</em>, Version 2.0, W3C Recommendation 23 January 2007.
-				Available from <link>http://www.w3.org/TR/2007/REC-xslt20-20070123/</link>.</p>
-		</reference>-->
 		<reference id="W3-XSLT2" label="XSLT 2.0">
 			<p><em>XSL Transformations (XSLT)</em>, Version 2.0, Second Edition, W3C Recommendation 21 April 2009.
 				Available from <link>https://www.w3.org/TR/2009/PER-xslt20-20090421/</link>.</p>
