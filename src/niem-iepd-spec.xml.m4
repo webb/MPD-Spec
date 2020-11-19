@@ -4861,8 +4861,6 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 		/base-xsd
 
 			/niem			(subset)
-				/csv
-				/json-ld
 				/xsd
 					/adapters
 					/auxiliary
