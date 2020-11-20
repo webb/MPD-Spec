@@ -8,6 +8,7 @@ m4_define(MACRO_document_version,[[[MACRO_target_document_version[[[]]]beta1]]])
 m4_define(MACRO_document_base_uri,[[[http://reference.niem.gov/niem/specification/iepd/[[[]]]MACRO_target_document_version/]]])m4_dnl
 m4_define(MACRO_namespace_iepd_catalog,[[[http://reference.niem.gov/niem/resource/iepd/catalog/MACRO_target_document_version/]]])m4_dnl
 m4_define(MACRO_IEPD_conformance_target_identifier,[[[MACRO_document_base_uri[[[]]]#IEPD]]])m4_dnl
+m4_define(MACRO_WF_IEPD,[[[MACRO_document_base_uri[[[]]]#WF-IEPD]]])m4_dnl
 m4_define(MACRO_IEPD_catalog_xsd_name,[[[iepd-catalog.xsd]]])m4_dnl
 m4_define(MACRO_IEPD_catalog_xsd_path,iepd-catalog-schema/MACRO_IEPD_catalog_xsd_name)m4_dnl
 m4_dnl =============================================================================
@@ -18,7 +19,7 @@ m4_define(MACRO_NDR_EXT_conformance_target_identifier,MACRO_NDR_document_base_ur
 m4_define(MACRO_NDR_REF_conformance_target_identifier,MACRO_NDR_document_base_uri#ReferenceSchemaDocument)m4_dnl
 m4_dnl end NDR stuff
 m4_dnl =============================================================================
-m4_dnl begin NIEM namespaces for NIEM 4.1
-m4_define(MACRO_namespace_nc,http://release.niem.gov/niem/niem-core/4.0/)m4_dnl
-m4_define(MACRO_namespace_appinfo,http://release.niem.gov/niem/appinfo/4.0/)m4_dnl
-m4_define(MACRO_namespace_structures,http://release.niem.gov/niem/structures/4.0/)m4_dnl
+m4_dnl begin NIEM namespaces for NIEM 5.0
+m4_define(MACRO_namespace_nc,http://release.niem.gov/niem/niem-core/5.0/)m4_dnl
+m4_define(MACRO_namespace_appinfo,http://release.niem.gov/niem/appinfo/5.0/)m4_dnl
+m4_define(MACRO_namespace_structures,http://release.niem.gov/niem/structures/5.0/)m4_dnl

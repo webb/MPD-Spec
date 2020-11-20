@@ -898,8 +898,9 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 					<p>A <termRef>well-formed IEPD</termRef> is an <termRef term="information exchange package documentation">IEPD</termRef> that:</p>
           <ul>
            
-	    <li><p>has an <termRef>IEPD conformance target identifier</termRef> of <code>MACRO_IEPD_conformance_target_identifier</code>, and</p></li>
-	    <li><p>adheres to all the rules within this specification for the <termRef>well-formed IEPD</termRef> <termRef>conformance target</termRef> (i.e., applicability code <q>WF-IEPD</q>.</p></li>
+	    <!--<li><p>has an <termRef>IEPD conformance target identifier</termRef> of <code>MACRO_IEPD_conformance_target_identifier</code>, and</p></li>-->
+        <li><p>has an <termRef>IEPD conformance target identifier</termRef> of <code>MACRO_WF_IEPD</code>, and</p></li>
+        <li><p>adheres to all the rules within this specification for the <termRef>well-formed IEPD</termRef> <termRef>conformance target</termRef> (i.e., applicability code <q>WF-IEPD</q>.</p></li>
           </ul>
 	  <p>This term may be abbreviated <q>WF-IEPD</q>. Rules specifying this conformance target use the applicability code <q>WF-IEPD</q>.</p>
 	</definition>
@@ -911,7 +912,8 @@ xs          http://www.w3.org/2001/XMLSchema</pre>
 				<ruleSection>
 		<title>IEPD is well-formed</title>
 		<rule id="r-ct-wf-iepd" applicability="WF-IEPD" class="Constraint">
-			<p>An <termRef term="information exchange package documentation">IEPD</termRef> MUST have an <termRef>IEPD conformance target identifier</termRef> of <code>MACRO_IEPD_conformance_target_identifier</code>.</p>
+			<!--<p>An <termRef term="information exchange package documentation">IEPD</termRef> MUST have an <termRef>IEPD conformance target identifier</termRef> of <code>MACRO_IEPD_conformance_target_identifier</code>.</p>-->
+			<p>An <termRef term="information exchange package documentation">IEPD</termRef> MUST have an <termRef>IEPD conformance target identifier</termRef> of <code>MACRO_WF_IEPD</code>.</p>
 		</rule>
 	</ruleSection>
 				
